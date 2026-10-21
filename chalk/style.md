@@ -57,7 +57,7 @@ Pastels are for tile backgrounds only, never for marks or text.
 
 ## Components
 
-- **KPI tile:** 12px radius, 18 × 20px padding, no border. Outline icon (20px) top left. Value and delta chip on one line, label underneath. The delta chip is white with a 6px radius; its arrow is green or red by direction × whether up is good, and its text stays ink.
+- **KPI tile:** 12px radius, 18 × 20px padding, no border. Outline icon (20px) top left. Value on its own line, the delta chip on the line below, label underneath, in every tile, so the values line up across the row at any width. The delta chip is white with a 6px radius; its arrow is green or red by direction × whether up is good, and its text stays ink.
 - **Chart card:** white, 1px border, 12px radius, 20 × 22px padding.
 - **Line chart:** 2px monotone curves, 1px solid gridlines, hollow end markers (4.5px radius) on the main series. Focus pinned at the peak with a 1px ink crosshair; a dark tooltip (`#232323`, 8px radius) lists every series with line keys.
 - **Gauge donut:** 270° arc, 20px stroke, 3° gaps between segments, round caps on the two outer ends only. The center shows a label over the total; hovering a segment or legend item switches it to that category's share.
@@ -78,7 +78,3 @@ Pastels are for tile backgrounds only, never for marks or text.
 - No more than three colored categories; fold the rest into gray "other".
 - No dual axes.
 
-
-## Credits
-
-The composition follows a SaaS analytics dashboard UI reference. Colors were re-validated, and type, data and copy were rebuilt for Vizney.
