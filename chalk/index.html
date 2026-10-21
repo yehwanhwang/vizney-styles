@@ -75,7 +75,8 @@
   .kpi--blue{background:var(--k-blue)} .kpi--green{background:var(--k-green)}
   .kpi--orange{background:var(--k-orange)} .kpi--dark{background:var(--k-dark);color:#fff}
   .kpi__icon{width:20px;height:20px}
-  .kpi__main{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px}
+  /* 수치 아래 줄에 증감: 타일 폭이 좁아도 네 카드의 수치 높이가 같게 맞는다 */
+  .kpi__main{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
   .kpi__value{font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.02em;white-space:nowrap}
   .u{font-size:13px;font-weight:700;letter-spacing:0;margin-left:2px}
   .u.pre{margin:0 2px 0 0}
@@ -160,7 +161,6 @@
     .lang{margin:0 2px}
     .kpis{gap:10px}
     .kpi{min-height:112px;padding:14px}
-    .kpi__main{flex-direction:column;align-items:flex-start}
     .kpi__value{font-size:23px}
     .card{padding:16px 14px 14px}
     .lc{min-height:250px}
