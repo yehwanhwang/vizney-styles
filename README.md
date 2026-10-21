@@ -11,7 +11,7 @@ A style is a look and feel, not a dataset. The sample data only shows the style 
 
 | Style | Feel | Sample | Spec | Blog posts |
 |---|---|---|---|---|
-| Chalk (초크) | Dark sidebar, pastel KPI tiles | [Live sample](https://styles.vizney.com/chalk/) · online store orders (fictional) | [style.md](chalk/style.md) | Not yet published |
+| Chalk (초크) | Dark sidebar, pastel KPI tiles | [Live sample](https://styles.vizney.com/chalk/) · online store orders (fictional) | [style.md](chalk/style.md) | [KO](https://kr.vizney.com/style-chalk/) · [EN](https://www.vizney.com/style-chalk/) |
 
 Recreations of other people's dashboards are not styles. They keep the original's name and live in the [vizney](https://github.com/yehwanhwang/vizney) repository (git.vizney.com).
 
@@ -34,7 +34,7 @@ Recreations of other people's dashboards are not styles. They keep the original'
    `noindex` keeps search traffic on the blog post instead of the bare screen.
 5. In embed mode `<html>` gets the class `vz-embed`. Reset any viewport-height layout there (for example `html.vz-embed .app { min-height: 0 }`) and hide page-only notes.
 6. Optional: `cover-ko.png` / `cover-en.png` (1440×810 at 2×) for the post's feature image.
-7. If the style closely follows a specific design, credit it in `style.md` and in the blog post.
+7. Publish the blog post at `style-<name>` (for example `/style-chalk/`) on both sites.
 8. Update in place; Git history keeps the old versions. Add a row to the Styles table.
 
 
