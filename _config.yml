@@ -1,2 +1,4 @@
 title: Vizney Styles
 description: Named dashboard styles from Vizney, each with a live sample and a spec.
+exclude:
+  - CLAUDE.md
