@@ -16,6 +16,8 @@ A style is a look and feel, not a dataset. The sample data only shows the style 
 
 ## Adding a style
 
+The full production checklist used with Claude is in [CLAUDE.md](https://github.com/yehwanhwang/vizney-styles/blob/main/CLAUDE.md).
+
 1. Name the style with one evocative material or texture word (Chalk, Glass, Linen …) and use the name on its own: Vizney Styles is the collection, not part of the name. The folder is the name in lowercase, at the root: `chalk/`. Never name a folder after its sample data.
 2. Give it a one-line subtitle that says what it looks like ("Dark sidebar, pastel KPI tiles"). The name is for remembering; the subtitle is for first-time readers and search.
 3. Put two files in the folder:
