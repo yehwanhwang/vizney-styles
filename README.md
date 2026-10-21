@@ -13,8 +13,6 @@ A style is a look and feel, not a dataset. The sample data only shows the style 
 |---|---|---|---|---|
 | Chalk (초크) | Dark sidebar, pastel KPI tiles | [Live sample](https://styles.vizney.com/chalk/) · online store orders (fictional) | [style.md](chalk/style.md) | [KO](https://kr.vizney.com/style-chalk/) · [EN](https://www.vizney.com/style-chalk/) |
 
-Recreations of other people's dashboards are not styles. They keep the original's name and live in the [vizney](https://github.com/yehwanhwang/vizney) repository (git.vizney.com).
-
 
 ## Adding a style
 
