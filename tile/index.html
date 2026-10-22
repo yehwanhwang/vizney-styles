@@ -1,0 +1,1101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>Tile · 호텔 운영 샘플</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@v3.3.0/css/SpoqaHanSansNeo.css">
+<script src="/lib/embed.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:#f5f6fa}
+.vz{
+  --bg:#f5f6fa;--card:#fff;
+  --ink-strong:#2f3546;--ink:#3d4257;--ink-2:#6b7387;--muted:#8a92a3;
+  --hair:#eef1f5;--hair-2:#e3e7ee;
+  --blue:#2d94f0;--blue-text:#1a6fcf;--blue-track:#dbe9fc;
+  --green:#27cf8e;--green-text:#0a7f51;--green-big:#0f9a63;--green-soft:#e5f8ef;--green-track:#d3f2e4;
+  --amber:#eaa20e;--coral:#f25f5c;--coral-text:#b3352f;--coral-soft:#feeceb;
+  --shadow:0 1px 2px rgba(35,48,77,.04),0 3px 10px rgba(35,48,77,.045);
+  --shadow-hover:0 14px 34px rgba(35,48,77,.11),0 3px 8px rgba(35,48,77,.05);
+  --r:6px;--pad:28px;--gap:16px;
+  color-scheme:light;
+  font-family:"Spoqa Han Sans Neo","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:14px;line-height:1.5;color:var(--ink);background:var(--bg);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  display:flex;min-height:100vh;word-break:keep-all;
+}
+.vz button{font:inherit}
+.vz :focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+
+/* ---------- side rail ---------- */
+.vz-side{width:88px;flex:none;align-self:stretch;background:#fff;box-shadow:1px 0 0 #edf0f5}
+.vz-side-in{position:sticky;top:0;display:flex;flex-direction:column;align-items:center;padding:30px 0}
+.vz-logo{display:grid;place-items:center;width:44px;height:44px;margin-bottom:30px}
+.vz-nav{display:flex;flex-direction:column;gap:12px}
+.vz-nav span{width:48px;height:48px;display:grid;place-items:center;border-radius:10px;color:var(--blue)}
+.vz-nav span.on{box-shadow:0 6px 18px rgba(36,72,140,.14)}
+.vz-nav svg{width:22px;height:22px}
+
+/* ---------- main ---------- */
+.vz-main{flex:1;min-width:0;padding:24px 28px 28px}
+.vz-wrap{max-width:1480px;margin:0 auto}
+.vz-top{display:flex;align-items:center;gap:18px;min-height:64px;padding:10px 18px 10px 26px;margin-bottom:var(--gap);background:#fff;border-radius:var(--r);box-shadow:var(--shadow)}
+.vz-title{margin:0;font-size:15px;font-weight:500;color:var(--ink-strong);white-space:nowrap;padding-right:20px;border-right:1px solid var(--hair-2);line-height:22px}
+.vz-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0}
+.vz-tabs::-webkit-scrollbar{display:none}
+.vz-tab{appearance:none;border:0;background:none;font-size:14px;color:var(--ink-2);padding:8px 12px;border-radius:6px;cursor:pointer;white-space:nowrap}
+.vz-tab:hover{color:var(--ink-strong)}
+.vz-tab[aria-pressed="true"]{color:var(--blue-text);font-weight:500}
+.vz-tools{margin-left:auto;display:flex;align-items:center;gap:16px}
+.vz-chip{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2);white-space:nowrap}
+.vz-chip svg{color:var(--muted)}
+.vz-lang{display:inline-flex;padding:3px;border-radius:999px;background:#f1f3f8}
+.vz-lang button{appearance:none;border:0;background:none;font-size:12px;font-weight:500;color:var(--ink-2);padding:4px 10px;border-radius:999px;cursor:pointer;letter-spacing:.02em}
+.vz-lang button[aria-pressed="true"]{background:#fff;color:var(--ink-strong);box-shadow:0 1px 3px rgba(35,48,77,.14)}
+.vz-sep{width:1px;height:30px;background:var(--hair-2)}
+.vz-bell{position:relative;display:grid;place-items:center;color:var(--blue)}
+.vz-bell::after{content:"";position:absolute;top:0;right:0;width:7px;height:7px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 2px #fff}
+.vz-user{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink);white-space:nowrap}
+.vz-avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff;background:linear-gradient(135deg,#2d94f0,#27cf8e);letter-spacing:.03em}
+
+/* ---------- grid ---------- */
+.vz-grid{display:grid;gap:var(--gap);grid-template-columns:repeat(12,minmax(0,1fr));grid-template-areas:
+  "occ occ occ occ dir dir dir dir dir nps nps nps"
+  "rev rev rev gst gst gst cal cal cal cal cal cal"
+  "chn chn chn nat nat nat cal cal cal cal cal cal"}
+.a-occ{grid-area:occ}.a-dir{grid-area:dir}.a-nps{grid-area:nps}.a-cal{grid-area:cal}
+.a-rev{grid-area:rev}.a-gst{grid-area:gst}.a-chn{grid-area:chn}.a-nat{grid-area:nat}
+
+.card{position:relative;min-width:0;container-type:inline-size;display:flex;flex-direction:column;padding:var(--pad);background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);transition:box-shadow .25s ease}
+@media (hover:hover){.card:hover{box-shadow:var(--shadow-hover)}}
+.card-h{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 14px;min-height:22px;margin-bottom:18px}
+.card-t{margin:0;font-size:15px;font-weight:500;line-height:22px;color:var(--ink-strong)}
+.aside{font-size:12px;color:var(--ink-2)}
+
+/* figures */
+.kpi{font-size:36px;line-height:1.1;font-weight:400;color:var(--ink);letter-spacing:-.02em;white-space:nowrap}
+.kpi .u{font-size:15px;font-weight:500;color:var(--ink-2);letter-spacing:0;margin-left:3px}
+.kpi .u.pre{margin:0 2px 0 0}
+.kpis{display:flex;flex-wrap:wrap;gap:12px 44px}
+.lbl{font-size:12.5px;color:var(--ink-2);margin-bottom:4px}
+.delta{margin-top:6px;font-size:12.5px;color:var(--ink-2)}
+.delta b{font-weight:700;color:var(--green-text);margin-right:5px}
+.delta b.neg{color:var(--coral-text)}
+
+/* legends */
+.lgs{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px}
+.lg{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-2);white-space:nowrap}
+.lg b{font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+.lg .u{font-size:.92em;font-weight:400;color:var(--ink-2);margin-left:1px}
+.lg .u.pre{margin:0 1px 0 0}
+.k-dot{width:9px;height:9px;flex:none;border-radius:50%;border:2px solid var(--c)}
+.k-dot.solid{background:var(--c)}
+.k-sq{width:9px;height:9px;flex:none;border-radius:2px;background:var(--c)}
+.k-line{width:16px;height:0;flex:none;border-top:2px solid var(--c);border-radius:2px}
+.k-line.dotted{border-top-style:dotted}
+.k-none{width:16px;flex:none}
+
+/* charts */
+.chart{position:relative;flex:1 1 auto;min-height:150px}
+.chart>svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;touch-action:pan-y}
+.chart-occ{margin:10px calc(var(--pad) * -1) -14px}
+.chart-dir{margin-top:14px;margin-bottom:-8px;min-height:170px}
+.ax{font-size:11px;fill:var(--muted);font-variant-numeric:tabular-nums}
+.ax.em{fill:var(--ink-2)}
+
+/* tooltip */
+.tip{position:absolute;z-index:6;left:0;top:0;pointer-events:none;background:#fff;border:1px solid var(--hair-2);border-radius:6px;padding:8px 11px 9px;box-shadow:0 8px 22px rgba(35,48,77,.13);white-space:nowrap;opacity:0;transform:translateY(3px);transition:opacity .14s ease,transform .14s ease}
+.tip.on{opacity:1;transform:none}
+.tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:0;width:9px;height:9px;background:#fff;border-right:1px solid var(--hair-2);border-bottom:1px solid var(--hair-2);transform:translate(-50%,50%) rotate(45deg)}
+.tip.below::after{bottom:auto;top:0;transform:translate(-50%,-50%) rotate(225deg)}
+.tip-h{font-size:11px;color:var(--ink-2);margin-bottom:3px}
+.tip-r{display:flex;align-items:center;gap:7px;line-height:1.55}
+.tip-r b{font-size:13.5px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.tip-r span{font-size:11.5px;color:var(--ink-2)}
+[data-v=gauge]:focus-visible,[data-v=ring]:focus-visible{outline-offset:4px;border-radius:50%}
+.stack:focus-visible{outline-offset:4px}
+.tip-n{display:flex;align-items:center;gap:6px;margin-top:3px;font-size:11.5px;color:var(--ink-2)}
+
+/* gauge (NPS) */
+.gauge-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.gauge{position:relative;width:min(208px,100%);aspect-ratio:208/160}
+.gauge>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.gauge-c{position:absolute;left:0;right:0;top:31%;display:flex;flex-direction:column;align-items:center;gap:4px}
+.gauge-c .kpi{line-height:1}
+.grade{font-size:13px;font-weight:700;line-height:1.4;color:var(--ink);margin-top:4px}
+.grade.g3,.grade.g4{color:var(--green-text)}
+.grade.g0{color:var(--coral-text)}
+.nps-foot{margin-top:4px;font-size:12px;line-height:1.5;color:var(--ink-2);text-align:center}
+.nps-foot b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.nw{white-space:nowrap}
+
+/* rings */
+.ring-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring{position:relative;width:148px;height:148px}
+.ring>svg{display:block;width:148px;height:148px}
+.ring-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:2px}
+.ring-c .kpi{font-size:28px;line-height:1.1}
+.ring-c .kpi .u{font-size:13px}
+.ring-c .cap{font-size:12px;color:var(--ink-2);margin-top:3px}
+.ring-ico{display:block;margin-bottom:6px}
+.ring-foot{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;margin-top:18px}
+@container (max-width:249px){.ring-foot{flex-direction:column;align-items:flex-start;gap:6px}}
+
+/* calendar heatmap */
+.cal{flex:1;display:flex;flex-direction:column;container-type:inline-size}
+.cal-wd,.cal-grid,.cal-bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.cal-wd span{font-size:11px;color:var(--muted);text-align:center;padding-bottom:8px}
+.cal-grid{flex:1;grid-auto-rows:minmax(54px,1fr);border-radius:8px}
+.cal-cell{position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:7px 8px;border-radius:6px;background:#f2f5f9;transition:background-color .5s ease,color .5s ease;cursor:default;user-select:none}
+.cal-cell.out{background:#f7f8fb}
+.cal-d{font-size:11px;line-height:1;opacity:.8}
+.cal-v{align-self:flex-end;font-size:13px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.cal-cell.hol::after{content:"";position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px #fff}
+.cal-cell.hi{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--ink-strong)}
+.cal-avg{margin-top:18px;padding-top:14px;border-top:1px solid var(--hair)}
+.cal-avg-h{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--ink-2);margin-bottom:6px}
+.cal-avg-h b{font-weight:500;color:var(--ink)}
+.cal-bars>div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;height:66px}
+.cal-bars span{font-size:11px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.cal-bars i{display:block;width:10px;border-radius:4px 4px 0 0;background:var(--blue);transition:height .5s ease}
+.scale{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.scale i{width:76px;height:8px;border-radius:4px;background:linear-gradient(90deg,#eef5fe,#d3e6fc 25%,#a6cdf8 50%,#68a8f1 75%,#2480e2)}
+@container (max-width:440px){
+  .cal-v{display:none}
+  .cal-grid{grid-auto-rows:minmax(40px,1fr)}
+  .cal-cell{padding:6px}
+  .cal-cell.hol::after{top:5px;right:5px;width:6px;height:6px}
+}
+
+/* lists */
+.stack{display:flex;gap:2px;height:8px;margin:16px 0 6px}
+.stack i{display:block;flex:1 1 0;min-width:3px;transition:flex-grow .6s ease,opacity .2s ease}
+.stack i:first-child{border-radius:4px 0 0 4px}
+.stack i:last-child{border-radius:0 4px 4px 0}
+.stack.dim i:not(.on){opacity:.28}
+.rows{list-style:none;margin:0;padding:0}
+.rows li{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--hair);font-size:13px;transition:opacity .2s ease}
+.rows li:first-child{border-top:0}
+.rows li.dim{opacity:.42}
+.rows .nm{flex:1;min-width:0;display:flex;align-items:center;gap:10px;color:var(--ink);white-space:nowrap}
+.rows .val{font-weight:500;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rows .val .u{font-size:.92em;font-weight:400;color:var(--ink-2);margin-left:1px}
+.rows .pct{width:38px;text-align:right;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.nat li{padding:11px 0}
+.bdg{display:inline-flex;align-items:center;justify-content:center;gap:3px;min-width:58px;padding:3px 8px;border-radius:999px;font-size:12px;font-weight:500;font-variant-numeric:tabular-nums}
+.bdg svg{width:11px;height:11px}
+.bdg.up{background:var(--green-soft);color:var(--green-text)}
+.bdg.down{background:var(--coral-soft);color:var(--coral-text)}
+.a-chn .kpi{margin-top:0}
+
+/* footer */
+.vz-foot{margin:18px 4px 0;font-size:12px;color:var(--ink-2)}
+
+/* ---------- embed (블로그 iframe, ?embed=1 · lib/embed.js) ---------- */
+html.vz-embed .vz{min-height:0}
+html.vz-embed .vz-foot{display:none}
+
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* motion */
+.draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.2s cubic-bezier(.4,.1,.2,1) .1s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.grow{transform-box:fill-box;transform-origin:50% 100%;animation:grow .7s cubic-bezier(.3,.7,.2,1) both}
+@keyframes grow{from{transform:scaleY(0)}}
+.fade{animation:fade .45s ease both}
+@keyframes fade{from{opacity:0}}
+.arc{transition:stroke-dashoffset 1.1s cubic-bezier(.3,.7,.2,1)}
+.knob{transition:transform 1.1s cubic-bezier(.3,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){.vz *,.vz *::before,.vz *::after{animation:none!important;transition:none!important}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1359px){
+  .vz{--pad:24px;--gap:14px}
+  .vz-side{width:72px}
+  .vz-main{padding:20px}
+}
+@media (max-width:1179px){
+  .vz-side{width:72px}
+  .vz-user .nm{display:none}
+  .vz-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"occ nps" "dir dir" "rev gst" "cal cal" "chn nat"}
+}
+@media (max-width:1023px){
+  .vz-top{flex-wrap:wrap;gap:8px 14px;padding:12px 16px 10px 22px}
+  .vz-title{border-right:0;padding-right:0}
+  .vz-tabs{order:3;flex-basis:100%;margin:0 -12px}
+}
+@media (max-width:899px){
+  .vz-side{display:none}
+  .vz-main{padding:16px}
+  .vz-bell,.vz-sep{display:none}
+}
+@media (max-width:639px){
+  .vz{--pad:20px;--gap:12px}
+  .vz-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"occ" "dir" "nps" "rev" "gst" "cal" "chn" "nat"}
+  .vz-top{padding:12px 14px 10px}
+  .vz-tabs{margin:0 -8px}
+  .vz-tab{padding:8px 10px}
+  .vz-tools{gap:10px}
+  .vz-chip,.vz-user .nm{display:none}
+  .kpi{font-size:32px}
+}
+</style>
+</head>
+<body>
+<div class="vz" id="vz">
+  <aside class="vz-side" aria-hidden="true"><div class="vz-side-in">
+    <div class="vz-logo">
+      <svg width="30" height="30" viewBox="0 0 30 30"><path d="M7.5 25V13.5a7.5 7.5 0 0 1 15 0V25" fill="none" stroke="#27cf8e" stroke-width="3.2" stroke-linecap="round"/><circle cx="15" cy="17" r="2.7" fill="#2d94f0"/><path d="M4 25.5h22" stroke="#2d94f0" stroke-width="3.2" stroke-linecap="round"/></svg>
+    </div>
+    <nav class="vz-nav">
+      <span class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M7 15.5l3.2-3.4 2.8 2.1 4-4.7"/></svg></span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18.5V6.5M3 14h18v4.5M21 14v-2.5A3.5 3.5 0 0 0 17.5 8H11v6"/><circle cx="7" cy="11" r="2"/></svg></span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5M15.5 5.6a3 3 0 0 1 0 5.8M17.6 14.3c1.7.6 2.7 2.2 3 4.7"/></svg></span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.8l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z"/></svg></span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span>
+    </nav>
+  </div></aside>
+
+  <div class="vz-main"><div class="vz-wrap">
+    <header class="vz-top">
+      <h1 class="vz-title" data-i18n="title"></h1>
+      <nav class="vz-tabs">
+        <button class="vz-tab" type="button" data-branch="all"></button>
+        <button class="vz-tab" type="button" data-branch="ss"></button>
+        <button class="vz-tab" type="button" data-branch="hn"></button>
+        <button class="vz-tab" type="button" data-branch="jj"></button>
+      </nav>
+      <div class="vz-tools">
+        <span class="vz-chip"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span data-i18n="period"></span></span>
+        <div class="vz-lang" role="group" aria-label="Language"><button type="button" data-lang="ko">KO</button><button type="button" data-lang="en">EN</button></div>
+        <span class="vz-sep" aria-hidden="true"></span>
+        <span class="vz-bell" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg></span>
+        <span class="vz-user"><span class="nm" data-i18n="role"></span><span class="vz-avatar" aria-hidden="true">RM</span></span>
+      </div>
+    </header>
+
+    <main class="vz-grid">
+      <!-- 객실 점유율 -->
+      <section class="card a-occ" id="c-occ">
+        <div class="card-h">
+          <h2 class="card-t" data-i18n="occ.t"></h2>
+          <div class="lgs">
+            <span class="lg"><i class="k-line" style="--c:#2d94f0"></i><span data-i18n="occ.s1"></span></span>
+            <span class="lg"><i class="k-line dotted" style="--c:#aeb6c4"></i><span data-i18n="occ.s2"></span></span>
+          </div>
+        </div>
+        <div class="lbl" data-i18n="occ.lbl"></div>
+        <div class="kpi" data-v="kpi"></div>
+        <div class="delta" data-v="delta"></div>
+        <div class="chart chart-occ" data-chart="occ"></div>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only"><table data-v="table"></table></div>
+      </section>
+
+      <!-- 직접 예약 -->
+      <section class="card a-dir" id="c-dir">
+        <div class="card-h">
+          <h2 class="card-t" data-i18n="dir.t"></h2>
+          <div class="lgs">
+            <span class="lg"><i class="k-sq" style="--c:#dfe3eb"></i><span data-i18n="dir.before"></span></span>
+            <span class="lg"><i class="k-sq" style="--c:#27cf8e"></i><span data-i18n="dir.after"></span></span>
+          </div>
+        </div>
+        <div class="kpis">
+          <div><div class="lbl" data-i18n="dir.total"></div><div class="kpi" data-v="total"></div></div>
+          <div><div class="lbl" data-i18n="dir.post"></div><div class="kpi" data-v="post"></div><div class="delta" data-v="uplift"></div></div>
+        </div>
+        <div class="chart chart-dir" data-chart="dir"></div>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only"><table data-v="table"></table></div>
+      </section>
+
+      <!-- NPS -->
+      <section class="card a-nps" id="c-nps">
+        <div class="card-h"><h2 class="card-t" data-i18n="nps.t"></h2></div>
+        <div class="gauge-wrap">
+          <div class="gauge" data-v="gauge" tabindex="0">
+            <svg viewBox="0 0 208 160" aria-hidden="true"></svg>
+            <div class="gauge-c">
+              <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#27cf8e"/><circle cx="8.3" cy="10" r="1.5" fill="#fff"/><circle cx="15.7" cy="10" r="1.5" fill="#fff"/><path d="M7.6 14.2c1.1 1.7 2.6 2.6 4.4 2.6s3.3-.9 4.4-2.6" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <div class="kpi" data-v="score"></div>
+            </div>
+          </div>
+          <div class="grade" data-v="grade"></div>
+          <div class="nps-foot" data-v="foot"></div>
+        </div>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only"><table data-v="table"></table></div>
+      </section>
+
+      <!-- 객실 매출 -->
+      <section class="card a-rev" id="c-rev">
+        <div class="card-h"><h2 class="card-t" data-i18n="rev.t"></h2></div>
+        <div class="ring-wrap">
+          <div class="ring" data-v="ring" tabindex="0">
+            <svg viewBox="0 0 148 148" aria-hidden="true"></svg>
+            <div class="ring-c">
+              <svg class="ring-ico" width="30" height="24" viewBox="0 0 30 24" fill="none" aria-hidden="true"><g stroke="#2d94f0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="14" cy="6.5" rx="7" ry="2.8"/><path d="M7 6.5v5c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-5M7 11.5v5c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-5"/></g><path d="M25 1.5c.3 1.6.7 2 2.3 2.3-1.6.3-2 .7-2.3 2.3-.3-1.6-.7-2-2.3-2.3 1.6-.3 2-.7 2.3-2.3z" fill="#27cf8e"/><circle cx="3" cy="4" r="1.2" fill="#eaa20e"/></svg>
+              <div class="kpi" data-v="val"></div>
+              <div class="cap" data-v="cap"></div>
+            </div>
+          </div>
+          <div class="ring-foot" data-v="foot"></div>
+        </div>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only"><table data-v="table"></table></div>
+      </section>
+
+      <!-- 투숙객 -->
+      <section class="card a-gst" id="c-gst">
+        <div class="card-h"><h2 class="card-t" data-i18n="gst.t"></h2></div>
+        <div class="ring-wrap">
+          <div class="ring" data-v="ring" tabindex="0">
+            <svg viewBox="0 0 148 148" aria-hidden="true"></svg>
+            <div class="ring-c">
+              <svg class="ring-ico" width="30" height="24" viewBox="0 0 30 24" fill="none" aria-hidden="true"><g stroke="#27cf8e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5.8 19.5c.7-3.4 3.1-5.3 6.2-5.3s5.5 1.9 6.2 5.3M18.6 5a3.1 3.1 0 0 1 0 6M20.8 14.2c1.8.7 2.8 2.3 3.1 5"/></g><path d="M26 .8c.3 1.6.7 2 2.3 2.3-1.6.3-2 .7-2.3 2.3-.3-1.6-.7-2-2.3-2.3 1.6-.3 2-.7 2.3-2.3z" fill="#2d94f0"/><circle cx="3.2" cy="5" r="1.2" fill="#eaa20e"/></svg>
+              <div class="kpi" data-v="val"></div>
+              <div class="cap" data-v="cap"></div>
+            </div>
+          </div>
+          <div class="ring-foot" data-v="foot"></div>
+        </div>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only"><table data-v="table"></table></div>
+      </section>
+
+      <!-- 일별 점유율 캘린더 -->
+      <section class="card a-cal" id="c-cal">
+        <div class="card-h">
+          <h2 class="card-t" data-i18n="cal.t"></h2>
+          <div class="lgs">
+            <span class="lg"><i class="k-dot solid" style="--c:#27cf8e"></i><span data-i18n="cal.chuseok"></span></span>
+            <span class="scale" aria-hidden="true"><span>60%</span><i></i><span>100%</span></span>
+          </div>
+        </div>
+        <div class="cal">
+          <div class="cal-wd" data-v="wd" aria-hidden="true"></div>
+          <div class="cal-grid" data-v="grid" tabindex="0"></div>
+          <div class="cal-avg">
+            <div class="cal-avg-h"><span data-i18n="cal.wdAvg"></span><span data-v="mavg"></span></div>
+            <div class="cal-bars" data-v="bars" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only"><table data-v="table"></table><table data-v="table-wd"></table></div>
+      </section>
+
+      <!-- 예약 채널 -->
+      <section class="card a-chn" id="c-chn">
+        <div class="card-h"><h2 class="card-t" data-i18n="chn.t"></h2></div>
+        <div class="lbl" data-i18n="chn.label"></div>
+        <div class="kpi" data-v="rn"></div>
+        <div class="stack" data-v="stack" tabindex="0" role="group"><i data-i="0"></i><i data-i="1"></i><i data-i="2"></i><i data-i="3"></i></div>
+        <ul class="rows" data-v="rows"></ul>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only"><table data-v="table"></table></div>
+      </section>
+
+      <!-- 국적별 투숙객 -->
+      <section class="card a-nat" id="c-nat">
+        <div class="card-h"><h2 class="card-t" data-i18n="nat.t"></h2><span class="aside" data-i18n="nat.aside"></span></div>
+        <ul class="rows nat" data-v="rows"></ul>
+      </section>
+    </main>
+
+    <p class="vz-foot" data-i18n="foot"></p>
+    <p class="sr-only" id="live" aria-live="polite"></p>
+  </div></div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  /* 가상의 샘플 데이터 (fictional sample data) */
+  const DATA = {"months":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09"],"launch":6,"chuseok":[24,25,26],"branches":{"ss":{"rooms":64,"occ":[84.1,81.6,86.9,71.2,74.8,80.3,85.7,87.9,84.6,88.4,90.2,83.8],"prev":[80.9,78.3,84.7,67.1,71.5,78.2,83.2,85.2,81.2,85.1,88.1,80.6],"direct":[115,116,131,108,113,126,210,246,279,331,339,359],"sold":[50,52,52,59,63,48,49,51,50,54,61,63,47,49,48,50,54,58,63,45,48,49,59,61,62,63,51,47,49,53],"revenue":315200000,"target":330000000,"guests":1703,"returning":409,"channels":[611,724,96,177],"nps":{"promoters":272,"passives":99,"detractors":41},"nat":[{"code":"kr","sep":1022,"aug":992},{"code":"jp","sep":204,"aug":179},{"code":"us","sep":119,"aug":124},{"code":"tw","sep":102,"aug":94},{"code":"cn","sep":85,"aug":80}],"adr":196000},"hn":{"rooms":48,"occ":[80.2,78.5,85.3,68.4,70.1,76.2,82.5,84.9,80.7,83.6,85.1,81.4],"prev":[77.8,77.0,83.8,66.8,67.1,74.8,79.8,82.0,77.4,83.1,82.9,79.5],"direct":[82,89,92,72,75,85,156,184,193,229,244,253],"sold":[35,38,37,43,47,33,35,37,37,39,45,47,33,35,37,36,37,43,46,33,35,35,43,46,47,47,40,33,35,38],"revenue":332800000,"target":320000000,"guests":1172,"returning":387,"channels":[481,398,82,211],"nps":{"promoters":214,"passives":52,"detractors":20},"nat":[{"code":"kr","sep":539,"aug":513},{"code":"us","sep":188,"aug":184},{"code":"jp","sep":129,"aug":116},{"code":"cn","sep":82,"aug":76},{"code":"fr","sep":59,"aug":63}],"adr":284000},"jj":{"rooms":72,"occ":[79.5,70.8,74.6,66.2,69.9,76.5,82.1,85.6,83.9,93.4,95.2,87.3],"prev":[77.1,67.1,71.0,64.3,66.2,73.4,78.3,82.1,81.0,89.4,93.5,84.6],"direct":[74,77,84,68,69,79,136,169,184,195,222,225],"sold":[56,59,62,68,70,61,58,57,59,59,66,70,59,59,58,57,61,66,67,61,57,66,71,71,72,72,70,58,56,59],"revenue":426000000,"target":440000000,"guests":1958,"returning":333,"channels":[584,849,339,113],"nps":{"promoters":413,"passives":131,"detractors":54},"nat":[{"code":"kr","sep":1547,"aug":1579},{"code":"cn","sep":157,"aug":140},{"code":"tw","sep":78,"aug":73},{"code":"jp","sep":59,"aug":62},{"code":"sg","sep":39,"aug":33}],"adr":226000}}};
+
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const C = {
+    blue: '#2d94f0', green: '#27cf8e', amber: '#eaa20e', coral: '#f25f5c',
+    ink: '#3d4257', inkStrong: '#2f3546', muted: '#8a92a3',
+    hair: '#eef1f5', hair2: '#e3e7ee', grid: '#edf0f5',
+    prev: '#aeb6c4', barMuted: '#dfe3eb', barMutedHi: '#c4cbd8', greenHi: '#19b97b',
+    blueTrack: '#dbe9fc', greenTrack: '#d3f2e4', other: '#b8bfcb'
+  };
+  const CH = [C.blue, C.green, C.amber, C.other]; // three hues + gray 'other'
+  const RAMP = [[60, [238, 245, 254]], [70, [211, 230, 252]], [80, [166, 205, 248]], [90, [104, 168, 241]], [100, [36, 128, 226]]];
+  const MON_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const FIRST_WD = (new Date(2026, 8, 1).getDay() + 6) % 7; // 2026-09-01, Monday-first index
+
+  const T = {
+    ko: {
+      locale: 'ko-KR',
+      docTitle: 'Tile · 호텔 운영 샘플',
+      title: '호텔 운영 현황',
+      tabsLabel: '지점 선택',
+      tabs: { all: '전체', ss: '성수', hn: '한남', jj: '제주' },
+      period: '2026년 9월',
+      role: '레비뉴 매니저',
+      pts: '%p',
+      occ: { t: '객실 점유율', lbl: '9월 평균', s1: '최근 12개월', s2: '전년 동기', vs: '전년 동월 대비',
+        aria: (a, m, p) => `월별 객실 점유율 추이. 9월 ${a}%, 최고 ${m} ${p}%.`, th: ['월', '최근 12개월', '전년 동기'] },
+      dir: { t: '직접 예약', before: '도입 전', after: '예약 엔진 도입 후', total: '최근 12개월 누적', post: '도입 후 6개월', vs: '도입 전 6개월 대비',
+        unit: '건', launch: '자체 예약 엔진 도입 (4월)',
+        aria: (s, p, u) => `월별 직접 예약 건수. 최근 12개월 ${s}건, 도입 후 6개월 ${p}건으로 도입 전 6개월 대비 ${u}.`, th: ['월', '직접 예약', '구분'] },
+      nps: { t: '순추천지수 (NPS)', resp: n => `응답 ${n}건`, total: '응답 수',
+        grades: ['개선 필요', '보통', '양호', '우수', '최상'], p: '추천', n: '중립', d: '비추천', th: ['구분', '비율'] },
+      cal: { t: '9월 일별 객실 점유율', chuseok: '추석 연휴', wdAvg: '요일별 평균 점유율', mavg: '월평균',
+        wd: ['월', '화', '수', '목', '금', '토', '일'], occ: '점유율', sold: '판매 객실',
+        date: (d, w) => `9월 ${d}일 (${w})`, rooms: (s, r) => `${s} / ${r}실`,
+        aria: '9월 일별 객실 점유율 캘린더. 방향키로 날짜를 이동할 수 있습니다.', th: ['날짜', '점유율', '판매 객실'], thWd: ['요일', '평균 점유율'] },
+      rev: { t: '객실 매출', of: p => `목표 대비 ${p}%`, rev: '매출', target: '목표', adr: '평균 객실 단가', ach: '목표 달성률', th: ['항목', '값'] },
+      gst: { t: '투숙객', unit: '명', cap: p => `재방문율 ${p}%`, ret: '재방문', neu: '신규', total: '전체', th: ['구분', '투숙객', '비율'] },
+      chn: { t: '예약 채널', label: '판매 객실 수', unit: '박', names: ['공식 홈페이지', 'OTA', '여행사', '기타'],
+        aria: '채널별 판매 객실 구성. 방향키로 채널을 이동할 수 있습니다.', th: ['채널', '판매 객실', '비중'] },
+      nat: { t: '국적별 투숙객', aside: '전월 대비', unit: '명', up: '증가', down: '감소',
+        names: { kr: '한국', jp: '일본', us: '미국', tw: '대만', cn: '중국', fr: '프랑스', sg: '싱가포르' } },
+      foot: 'Vizney Styles · Tile · 가상 데이터로 구성한 샘플 화면입니다.'
+    },
+    en: {
+      locale: 'en-US',
+      docTitle: 'Tile · Hotel operations sample',
+      title: 'Hotel operations',
+      tabsLabel: 'Property',
+      tabs: { all: 'All', ss: 'Seongsu', hn: 'Hannam', jj: 'Jeju' },
+      period: 'September 2026',
+      role: 'Revenue Manager',
+      pts: ' pts',
+      occ: { t: 'Occupancy', lbl: 'September average', s1: 'Last 12 mo', s2: 'Prior year', vs: 'vs Sep 2025',
+        aria: (a, m, p) => `Monthly occupancy trend. September ${a}%, peak ${m} ${p}%.`, th: ['Month', 'Last 12 months', 'Prior year'] },
+      dir: { t: 'Direct bookings', before: 'Before', after: 'After booking engine', total: '12-month total', post: '6 months after launch', vs: 'vs 6 months before',
+        unit: '', launch: 'Booking engine launched (Apr)',
+        aria: (s, p, u) => `Monthly direct bookings. ${s} in the last 12 months; ${p} in the 6 months after launch, ${u} vs the 6 months before.`, th: ['Month', 'Direct bookings', 'Period'] },
+      nps: { t: 'Net Promoter Score', resp: n => `${n} responses`, total: 'Responses',
+        grades: ['Needs work', 'Fair', 'Good', 'Excellent', 'World-class'], p: 'Promoters', n: 'Passives', d: 'Detractors', th: ['Group', 'Share'] },
+      cal: { t: 'Daily occupancy · Sep', chuseok: 'Chuseok holiday', wdAvg: 'Average by weekday', mavg: 'Month avg',
+        wd: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], occ: 'Occupancy', sold: 'Rooms sold',
+        date: (d, w) => `${w}, Sep ${d}`, rooms: (s, r) => `${s} / ${r}`,
+        aria: 'Daily occupancy calendar for September. Use the arrow keys to move between days.', th: ['Date', 'Occupancy', 'Rooms sold'], thWd: ['Weekday', 'Average occupancy'] },
+      rev: { t: 'Room revenue', of: p => `${p}% of target`, rev: 'Revenue', target: 'Target', adr: 'ADR', ach: 'Target achieved', th: ['Item', 'Value'] },
+      gst: { t: 'Guests', unit: '', cap: p => `${p}% returning`, ret: 'Returning', neu: 'New', total: 'All guests', th: ['Group', 'Guests', 'Share'] },
+      chn: { t: 'Booking channels', label: 'Room nights sold', unit: '', names: ['Direct (website)', 'OTA', 'Travel agency', 'Other'],
+        aria: 'Room nights by booking channel. Use the arrow keys to move between channels.', th: ['Channel', 'Room nights', 'Share'] },
+      nat: { t: 'Guest nationality', aside: 'vs Aug', unit: '', up: 'up', down: 'down',
+        names: { kr: 'South Korea', jp: 'Japan', us: 'United States', tw: 'Taiwan', cn: 'China', fr: 'France', sg: 'Singapore' } },
+      foot: 'Vizney Styles · Tile · Sample screen built with fictional data.'
+    }
+  };
+
+  const qs = new URLSearchParams(location.search);
+  const state = {
+    lang: qs.get('lang') === 'en' ? 'en' : 'ko',
+    branch: ['all', 'ss', 'hn', 'jj'].includes(qs.get('branch')) ? qs.get('branch') : 'all',
+    view: null
+  };
+  const L = () => T[state.lang];
+
+  /* ---------- helpers ---------- */
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const sum = a => a.reduce((s, x) => s + x, 0);
+  function setAttrs(e, a) {
+    if (!a) return;
+    for (const k in a) {
+      const v = a[k];
+      if (v == null || v === false) continue;
+      if (k === 'text') e.textContent = v;
+      else if (k === 'style') for (const p in v) { if (p.startsWith('--')) e.style.setProperty(p, v[p]); else e.style[p] = v[p]; }
+      else e.setAttribute(k, v);
+    }
+  }
+  function add(e, kids) { for (const k of kids.flat()) { if (k == null || k === false) continue; e.append(k instanceof Node ? k : document.createTextNode(String(k))); } }
+  function h(tag, attrs, ...kids) { const e = document.createElement(tag); setAttrs(e, attrs); add(e, kids); return e; }
+  function sv(tag, attrs, ...kids) { const e = document.createElementNS(SVGNS, tag); setAttrs(e, attrs); add(e, kids); return e; }
+
+  const nf = (n, d = 0) => Number(n).toLocaleString(L().locale, { minimumFractionDigits: d, maximumFractionDigits: d });
+  const signed = (n, d = 0) => (n > 0 ? '+' : n < 0 ? '−' : '') + nf(Math.abs(n), d);
+  const ym = i => { const [y, m] = DATA.months[i].split('-').map(Number); return { y, m }; };
+  const monShort = i => state.lang === 'ko' ? `${ym(i).m}월` : MON_EN[ym(i).m - 1];
+  const monLong = i => { const { y, m } = ym(i); return state.lang === 'ko' ? `${y}년 ${m}월` : `${MON_EN[m - 1]} ${y}`; };
+
+  // figure parts: { t: text, u: small unit, pre: unit before number }
+  function moneyParts(v) {
+    if (state.lang === 'ko') return [{ t: nf(v / 1e8, 2) }, { t: '억', u: 1 }];
+    return [{ t: '₩', u: 1, pre: 1 }, { t: nf(v / 1e6, 0) }, { t: 'M', u: 1 }];
+  }
+  const countParts = (n, unit) => (state.lang === 'ko' && unit) ? [{ t: nf(n) }, { t: unit, u: 1 }] : [{ t: nf(n) }];
+  const compactParts = (n, unit) => state.lang === 'ko' ? countParts(n, unit)
+    : (n >= 1000 ? [{ t: nf(n / 1000, 1) }, { t: 'K', u: 1 }] : [{ t: nf(n) }]);
+  const partsText = p => p.map(x => x.t).join('');
+  const figNodes = parts => parts.map(p => p.u ? h('span', { class: p.pre ? 'u pre' : 'u', text: p.t }) : document.createTextNode(p.t));
+  const fillFig = (el, parts) => el.replaceChildren(...figNodes(parts));
+
+  function smooth(pts) { // monotone cubic (no overshoot)
+    const n = pts.length; if (n < 2) return '';
+    const dx = [], m = [], t = new Array(n);
+    for (let i = 0; i < n - 1; i++) { dx[i] = pts[i + 1][0] - pts[i][0]; m[i] = (pts[i + 1][1] - pts[i][1]) / dx[i]; }
+    t[0] = m[0]; t[n - 1] = m[n - 2];
+    for (let i = 1; i < n - 1; i++) {
+      if (m[i - 1] * m[i] <= 0) t[i] = 0;
+      else { const w1 = 2 * dx[i] + dx[i - 1], w2 = dx[i] + 2 * dx[i - 1]; t[i] = (w1 + w2) / (w1 / m[i - 1] + w2 / m[i]); }
+    }
+    let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+    for (let i = 0; i < n - 1; i++) {
+      const [x0, y0] = pts[i], [x1, y1] = pts[i + 1], k = dx[i] / 3;
+      d += `C${(x0 + k).toFixed(1)},${(y0 + t[i] * k).toFixed(1)} ${(x1 - k).toFixed(1)},${(y1 - t[i + 1] * k).toFixed(1)} ${x1.toFixed(1)},${y1.toFixed(1)}`;
+    }
+    return d;
+  }
+  function niceMax(x) {
+    const m = Math.pow(10, Math.floor(Math.log10(x)));
+    for (const f of [1, 1.2, 1.6, 2, 2.4, 3, 4, 5, 6, 8, 10]) if (f * m >= x) return f * m;
+    return 10 * m;
+  }
+  function topRound(x, y, w, hh, r) {
+    r = Math.max(0, Math.min(r, w / 2, hh));
+    return `M${x},${y + hh}V${y + r}A${r},${r} 0 0 1 ${x + r},${y}H${x + w - r}A${r},${r} 0 0 1 ${x + w},${y + r}V${y + hh}Z`;
+  }
+  function rampColor(v) {
+    if (v <= RAMP[0][0]) return RAMP[0][1];
+    for (let i = 1; i < RAMP.length; i++) {
+      if (v <= RAMP[i][0]) {
+        const [a, ca] = RAMP[i - 1], [b, cb] = RAMP[i], k = (v - a) / (b - a);
+        return ca.map((c, j) => Math.round(c + (cb[j] - c) * k));
+      }
+    }
+    return RAMP[RAMP.length - 1][1];
+  }
+  function lum([r, g, b]) { const f = c => { c /= 255; return c <= .03928 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4); }; return .2126 * f(r) + .7152 * f(g) + .0722 * f(b); }
+  const inkOn = rgb => { const l = lum(rgb), cw = 1.05 / (l + .05), ci = (l + .05) / (lum([61, 66, 87]) + .05); return cw > ci ? '#fff' : C.ink; };
+  const rgbCss = c => `rgb(${c[0]},${c[1]},${c[2]})`;
+
+  /* ---------- tooltip ---------- */
+  function tipNodes(title, rows, note) {
+    const out = [];
+    if (title) out.push(h('div', { class: 'tip-h', text: title }));
+    rows.forEach(r => out.push(h('div', { class: 'tip-r' },
+      r.key ? h('i', { class: 'k-line' + (r.dotted ? ' dotted' : ''), style: { '--c': r.key } }) : h('i', { class: 'k-none' }),
+      h('b', { text: r.value }), r.label ? h('span', { text: r.label }) : null)));
+    if (note) out.push(h('div', { class: 'tip-n' }, h('i', { class: 'k-dot solid', style: { '--c': note.color } }), note.text));
+    return out;
+  }
+  function showTip(card, nodes, ax, ayTop, ayBottom) {
+    const tip = $('.tip', card);
+    tip.replaceChildren(...nodes);
+    tip.classList.add('on');
+    const cw = card.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight;
+    const left = Math.round(Math.max(8, Math.min(cw - tw - 8, ax - tw / 2)));
+    let top = Math.round(ayTop - th - 11), below = false;
+    if (top < 4) { top = Math.round((ayBottom == null ? ayTop : ayBottom) + 11); below = true; }
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+    tip.style.setProperty('--ax', Math.max(12, Math.min(tw - 12, ax - left)) + 'px');
+    tip.classList.toggle('below', below);
+  }
+  const hideTip = card => $('.tip', card).classList.remove('on');
+  const announce = card => { const tip = $('.tip', card), live = $('#live'); if (live && tip.classList.contains('on')) live.textContent = tip.innerText.replace(/\s*\n+\s*/g, ', '); };
+  // arrow keys step, Home/End jump, Esc clears; returns the new index or null when the key is not ours
+  function keyStep(e, cur, n, rowLen) {
+    const k = e.key;
+    let i = null;
+    if (k === 'ArrowRight') i = cur + 1;
+    else if (k === 'ArrowLeft') i = cur - 1;
+    else if (rowLen && k === 'ArrowDown') i = cur + rowLen;
+    else if (rowLen && k === 'ArrowUp') i = cur - rowLen;
+    else if (k === 'Home') i = 0;
+    else if (k === 'End') i = n - 1;
+    else if (k === 'Escape') i = -1;
+    if (i === null) return null;
+    e.preventDefault();
+    return i < 0 ? -1 : Math.max(0, Math.min(n - 1, i));
+  }
+  function overlapsText(card, sels) {
+    const a = $('.tip', card).getBoundingClientRect();
+    return sels.some(sel => {
+      const el = $(sel, card); if (!el) return false;
+      const rg = document.createRange(); rg.selectNodeContents(el);
+      const b = rg.getBoundingClientRect();
+      return a.left < b.right + 6 && a.right > b.left - 6 && a.top < b.bottom + 4 && a.bottom > b.top - 4;
+    });
+  }
+  const offsetIn = (card, el) => { const a = card.getBoundingClientRect(), b = el.getBoundingClientRect(); return { x: b.left - a.left, y: b.top - a.top, w: b.width, h: b.height }; };
+
+  function fillTable(table, caption, head, rows) {
+    table.replaceChildren(
+      h('caption', { text: caption }),
+      h('thead', null, h('tr', null, head.map(x => h('th', { scope: 'col', text: x })))),
+      h('tbody', null, rows.map(r => h('tr', null, r.map((c, j) => h(j ? 'td' : 'th', j ? { text: c } : { scope: 'row', text: c }))))));
+  }
+
+  /* ---------- data view (branch or all) ---------- */
+  function getView(key) {
+    const bs = key === 'all' ? Object.values(DATA.branches) : [DATA.branches[key]];
+    const rooms = sum(bs.map(b => b.rooms)), n = DATA.months.length;
+    const wavg = f => DATA.months.map((_, i) => sum(bs.map(b => f(b)[i] * b.rooms)) / rooms);
+    const sold = bs[0].sold.map((_, d) => sum(bs.map(b => b.sold[d])));
+    const rn = sum(sold);
+    const occ = wavg(b => b.occ);
+    occ[n - 1] = rn / (rooms * sold.length) * 100;
+    const nat = {};
+    bs.forEach(b => b.nat.forEach(r => { const m = nat[r.code] || (nat[r.code] = { code: r.code, sep: 0, aug: 0 }); m.sep += r.sep; m.aug += r.aug; }));
+    return {
+      rooms, occ, prev: wavg(b => b.prev), sold, rn,
+      daily: sold.map(s => s / rooms * 100),
+      direct: DATA.months.map((_, i) => sum(bs.map(b => b.direct[i]))),
+      nps: { p: sum(bs.map(b => b.nps.promoters)), n: sum(bs.map(b => b.nps.passives)), d: sum(bs.map(b => b.nps.detractors)) },
+      nat: Object.values(nat).sort((a, b) => b.sep - a.sep).slice(0, 5),
+      revenue: sum(bs.map(b => b.revenue)), target: sum(bs.map(b => b.target)),
+      guests: sum(bs.map(b => b.guests)), returning: sum(bs.map(b => b.returning)),
+      channels: [0, 1, 2, 3].map(i => sum(bs.map(b => b.channels[i])))
+    };
+  }
+
+  /* ---------- 객실 점유율 : smooth line ---------- */
+  function drawOcc(v, animate) {
+    const card = $('#c-occ'), box = $('[data-chart=occ]', card), t = L();
+    const W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
+    if (!W || !H) return;
+    box._w = W; box._h = H;
+    const n = v.occ.length, padL = 22, padR = 26, top = 12, axisH = 30, bottom = H - axisH;
+    const all = v.occ.concat(v.prev);
+    const y0 = Math.floor((Math.min(...all) - 3) / 5) * 5, y1 = Math.ceil((Math.max(...all) + 2) / 5) * 5;
+    const step = (W - padL - padR) / (n - 1);
+    const X = i => padL + i * step, Y = val => bottom - (val - y0) / (y1 - y0) * (bottom - top);
+    const A = v.occ.map((val, i) => [X(i), Y(val)]), B = v.prev.map((val, i) => [X(i), Y(val)]);
+    const peak = v.occ.indexOf(Math.max(...v.occ));
+
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0,
+      'aria-label': t.occ.aria(nf(v.occ[n - 1], 1), monLong(peak), nf(v.occ[peak], 1)) });
+    const cross = sv('line', { y1: top - 2, y2: bottom + 2, stroke: C.hair2, 'stroke-width': 1 });
+    svg.append(cross);
+    svg.append(sv('path', { d: smooth(B), fill: 'none', stroke: C.prev, 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-dasharray': '0.1 5', class: animate ? 'fade' : null }));
+    svg.append(sv('path', { d: smooth(A), fill: 'none', stroke: C.blue, 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: animate ? 1 : null, class: animate ? 'draw' : null }));
+    svg.append(sv('circle', { cx: A[n - 1][0], cy: A[n - 1][1], r: 4.5, fill: '#fff', stroke: C.blue, 'stroke-width': 2 }));
+    const dotB = sv('circle', { r: 3.5, fill: C.prev, stroke: '#fff', 'stroke-width': 2 });
+    const halo = sv('circle', { r: 13, fill: C.blue, 'fill-opacity': .18 });
+    const dotA = sv('circle', { r: 5, fill: '#fff', stroke: C.ink, 'stroke-width': 2.5 });
+    const hl = sv('g', { class: animate ? 'fade' : null, style: animate ? { animationDelay: '.9s' } : null }, cross, dotB, halo, dotA);
+    svg.append(hl);
+    [0, 3, 6, 9, n - 1].forEach(i => svg.append(sv('text', { x: X(i), y: H - 11, 'text-anchor': 'middle', class: 'ax', text: monShort(i) })));
+    svg.append(sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+
+    let cur = peak;
+    const set = (i, quiet) => {
+      cur = i;
+      const [x, ya] = A[i], yb = B[i][1];
+      cross.setAttribute('x1', x); cross.setAttribute('x2', x);
+      dotB.setAttribute('cx', x); dotB.setAttribute('cy', yb);
+      halo.setAttribute('cx', x); halo.setAttribute('cy', ya);
+      dotA.setAttribute('cx', x); dotA.setAttribute('cy', ya);
+      if (quiet) return;
+      const o = offsetIn(card, svg);
+      showTip(card, tipNodes(monLong(i), [
+        { key: C.blue, value: nf(v.occ[i], 1) + '%', label: t.occ.s1 },
+        { key: C.prev, dotted: true, value: nf(v.prev[i], 1) + '%', label: t.occ.s2 }
+      ]), o.x + x, o.y + Math.min(ya, yb) - 8, o.y + Math.max(ya, yb) + 8);
+      // the resting annotation must never sit on top of the headline figures
+      if (i === peak && !hovering && overlapsText(card, ['[data-v=kpi]', '[data-v=delta]'])) hideTip(card);
+    };
+    let hovering = false;
+    svg.addEventListener('pointerenter', () => { hovering = true; });
+    svg.addEventListener('pointerleave', () => { hovering = false; });
+    svg.addEventListener('focus', () => { hovering = true; });
+    svg.addEventListener('blur', () => { hovering = false; });
+    const idxAt = cx => { const r = svg.getBoundingClientRect(); return Math.max(0, Math.min(n - 1, Math.round((cx - r.left - padL) / step))); };
+    svg.addEventListener('pointermove', e => { const i = idxAt(e.clientX); if (i !== cur) set(i); });
+    svg.addEventListener('pointerdown', e => set(idxAt(e.clientX)));
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') set(peak); });
+    svg.addEventListener('keydown', e => {
+      const i = keyStep(e, cur, n);
+      if (i === null) return;
+      if (i < 0) { set(peak, true); hideTip(card); return; }
+      set(i); announce(card);
+    });
+    svg.addEventListener('blur', () => set(peak));
+    card._reset = () => { if (svg.isConnected) set(peak); };
+    if (animate) { hideTip(card); set(peak, true); setTimeout(() => { if (svg.isConnected && cur === peak) set(peak); }, 1100); }
+    else set(peak);
+  }
+
+  function renderOcc(v, animate) {
+    const card = $('#c-occ'), t = L(), n = v.occ.length;
+    fillFig($('[data-v=kpi]', card), [{ t: nf(v.occ[n - 1], 1) }, { t: '%', u: 1 }]);
+    const d = v.occ[n - 1] - v.prev[n - 1];
+    $('[data-v=delta]', card).replaceChildren(h('b', { class: d < 0 ? 'neg' : null, text: signed(d, 1) + t.pts }), t.occ.vs);
+    fillTable($('[data-v=table]', card), t.occ.t, t.occ.th, v.occ.map((x, i) => [monLong(i), nf(x, 1) + '%', nf(v.prev[i], 1) + '%']));
+    drawOcc(v, animate);
+  }
+
+  /* ---------- 직접 예약 : before / after bars ---------- */
+  function drawDir(v, animate) {
+    const card = $('#c-dir'), box = $('[data-chart=dir]', card), t = L();
+    const W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
+    if (!W || !H) return;
+    box._w = W; box._h = H;
+    const n = v.direct.length, LX = DATA.launch;
+    const axisW = 38, top = 34, axisH = 26, bottom = H - axisH, plotW = W - axisW;
+    const max = niceMax(Math.max(...v.direct) * 1.05);
+    const Y = val => bottom - val / max * (bottom - top);
+    const slot = plotW / n, bw = Math.max(6, Math.min(14, Math.round(slot * .34)));
+    const pre = sum(v.direct.slice(0, LX)), post = sum(v.direct.slice(LX));
+
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0,
+      'aria-label': t.dir.aria(nf(sum(v.direct)), nf(post), signed((post / pre - 1) * 100) + '%') });
+    [0, max / 2, max].forEach((tk, k) => {
+      const y = Math.round(Y(tk)) + .5;
+      svg.append(sv('line', { x1: 0, x2: plotW, y1: y, y2: y, stroke: k === 0 ? C.hair2 : C.grid, 'stroke-width': 1 }));
+      svg.append(sv('text', { x: W, y: y + 4, 'text-anchor': 'end', class: 'ax', text: nf(tk) }));
+    });
+    const fillOf = (i, hi) => i >= LX ? (hi ? C.greenHi : C.green) : (hi ? C.barMutedHi : C.barMuted);
+    const bars = v.direct.map((val, i) => {
+      const x = Math.round(slot * i + slot / 2 - bw / 2), y = Y(val);
+      const p = sv('path', { d: topRound(x, y, bw, bottom - y, 4), fill: fillOf(i), class: animate ? 'grow' : null,
+        style: animate ? { animationDelay: (i * 35) + 'ms' } : null });
+      svg.append(p);
+      return p;
+    });
+    const every = slot < 30 ? 2 : 1;
+    v.direct.forEach((_, i) => {
+      if ((n - 1 - i) % every) return;
+      svg.append(sv('text', { x: slot * i + slot / 2, y: H - 7, 'text-anchor': 'middle', class: 'ax' + (i >= LX ? ' em' : ''), text: monShort(i) }));
+    });
+    const px = slot * LX + slot / 2, py = Y(v.direct[LX]) - 25;
+    const pin = sv('g', { transform: `translate(${px.toFixed(1)} ${py.toFixed(1)})` },
+      sv('path', { d: 'M-6.6 7.5A10 10 0 1 1 6.6 7.5L0 14Z', fill: C.green }),
+      sv('path', { d: 'M-2.6 5V-5.2M-2.6-5.2H3.8L2-2.5L3.8.2H-2.6', fill: 'none', stroke: '#fff', 'stroke-width': 1.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+    svg.append(sv('g', { class: animate ? 'fade' : null, style: animate ? { animationDelay: '.55s' } : null }, pin));
+    svg.append(sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+
+    let cur = -1;
+    const set = i => {
+      if (cur >= 0) bars[cur].setAttribute('fill', fillOf(cur));
+      cur = i;
+      if (i < 0) { hideTip(card); return; }
+      bars[i].setAttribute('fill', fillOf(i, true));
+      const o = offsetIn(card, svg), val = v.direct[i];
+      showTip(card, tipNodes(monLong(i), [{ key: fillOf(i), value: nf(val) + t.dir.unit, label: i >= LX ? t.dir.after : t.dir.before }],
+        i === LX ? { color: C.green, text: t.dir.launch } : null),
+        o.x + slot * i + slot / 2, o.y + Y(val) - (i === LX ? 34 : 4), o.y + bottom);
+    };
+    const idxAt = cx => { const r = svg.getBoundingClientRect(); return Math.max(0, Math.min(n - 1, Math.floor((cx - r.left) / slot))); };
+    svg.addEventListener('pointermove', e => { const i = idxAt(e.clientX); if (i !== cur) set(i); });
+    svg.addEventListener('pointerdown', e => set(idxAt(e.clientX)));
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') set(-1); });
+    svg.addEventListener('keydown', e => {
+      const i = keyStep(e, cur < 0 ? n - 1 : cur, n);
+      if (i === null) return;
+      set(i); if (i >= 0) announce(card);
+    });
+    svg.addEventListener('focus', () => { if (cur < 0) set(n - 1); });
+    svg.addEventListener('blur', () => set(-1));
+    card._reset = () => set(-1);
+    hideTip(card);
+  }
+
+  function renderDir(v, animate) {
+    const card = $('#c-dir'), t = L(), LX = DATA.launch;
+    const pre = sum(v.direct.slice(0, LX)), post = sum(v.direct.slice(LX));
+    fillFig($('[data-v=total]', card), countParts(sum(v.direct), t.dir.unit));
+    fillFig($('[data-v=post]', card), countParts(post, t.dir.unit));
+    $('[data-v=uplift]', card).replaceChildren(h('b', { class: post < pre ? 'neg' : null, text: signed((post / pre - 1) * 100) + '%' }), t.dir.vs);
+    fillTable($('[data-v=table]', card), t.dir.t, t.dir.th, v.direct.map((x, i) => [monLong(i), nf(x), i >= LX ? t.dir.after : t.dir.before]));
+    drawDir(v, animate);
+  }
+
+  /* ---------- NPS gauge ---------- */
+  const G = { cx: 104, cy: 94, r: 78, a0: 150, sweep: 240 };
+  const polar = (a, r = G.r) => { const q = a * Math.PI / 180; return [G.cx + r * Math.cos(q), G.cy + r * Math.sin(q)]; };
+  function buildGauge() {
+    const svg = $('#c-nps .gauge svg');
+    const [x0, y0] = polar(G.a0), [x1, y1] = polar(G.a0 + G.sweep);
+    const d = `M${x0.toFixed(2)} ${y0.toFixed(2)}A${G.r} ${G.r} 0 1 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+    const spark = (x, y, s, c) => sv('path', { d: `M${x} ${y - s}C${x + s * .18} ${y - s * .18} ${x + s * .18} ${y - s * .18} ${x + s} ${y}C${x + s * .18} ${y + s * .18} ${x + s * .18} ${y + s * .18} ${x} ${y + s}C${x - s * .18} ${y + s * .18} ${x - s * .18} ${y + s * .18} ${x - s} ${y}C${x - s * .18} ${y - s * .18} ${x - s * .18} ${y - s * .18} ${x} ${y - s}Z`, fill: c });
+    svg.append(
+      sv('path', { d, fill: 'none', stroke: C.greenTrack, 'stroke-width': 7, 'stroke-linecap': 'round' }),
+      sv('path', { d, fill: 'none', stroke: C.green, 'stroke-width': 7, 'stroke-linecap': 'round', pathLength: 100,
+        'stroke-dasharray': '100 100', class: 'arc', 'data-v': 'arc', style: { strokeDashoffset: '100' } }),
+      sv('g', { class: 'knob', style: { transformOrigin: `${G.cx}px ${G.cy}px`, transform: `rotate(${G.a0}deg)` } },
+        sv('circle', { cx: G.cx + G.r, cy: G.cy, r: 7.5, fill: '#fff', stroke: C.green, 'stroke-width': 3 })),
+      sv('text', { x: x0, y: y0 + 22, 'text-anchor': 'middle', class: 'ax', text: '−100' }),
+      sv('text', { x: x1, y: y1 + 22, 'text-anchor': 'middle', class: 'ax', text: '100' }),
+      spark(68, 56, 5.5, '#7fe0b8'), spark(142, 48, 4.2, '#a5e9cb'), spark(148, 78, 3.2, '#7fe0b8')
+    );
+  }
+  function renderNps(v) {
+    const card = $('#c-nps'), t = L(), N = v.nps.p + v.nps.n + v.nps.d;
+    const score = Math.round((v.nps.p - v.nps.d) / N * 100), frac = (score + 100) / 200;
+    $('[data-v=arc]', card).style.strokeDashoffset = String(100 * (1 - frac));
+    $('.knob', card).style.transform = `rotate(${G.a0 + G.sweep * frac}deg)`;
+    $('[data-v=score]', card).textContent = nf(score);
+    const g = score >= 70 ? 4 : score >= 50 ? 3 : score >= 30 ? 2 : score >= 0 ? 1 : 0;
+    const grade = $('[data-v=grade]', card);
+    grade.textContent = t.nps.grades[g]; grade.className = 'grade g' + g;
+    const pct = x => nf(x / N * 100) + '%';
+    $('[data-v=foot]', card).replaceChildren(
+      h('span', { class: 'nw' }, t.nps.p + ' ', h('b', { text: pct(v.nps.p) }), ' · ' + t.nps.d + ' ', h('b', { text: pct(v.nps.d) })),
+      h('br'), h('span', { class: 'nw', text: t.nps.resp(nf(N)) }));
+    fillTable($('[data-v=table]', card), `${t.nps.t} ${score}`, t.nps.th,
+      [[t.nps.p, pct(v.nps.p)], [t.nps.n, pct(v.nps.n)], [t.nps.d, pct(v.nps.d)], [t.nps.total, nf(N)]]);
+    const gauge = $('[data-v=gauge]', card);
+    gauge.setAttribute('role', 'img');
+    gauge.setAttribute('aria-label', `${t.nps.t} ${score}, ${t.nps.grades[g]}. ${t.nps.p} ${nf(v.nps.p / N * 100)}%, ${t.nps.n} ${nf(v.nps.n / N * 100)}%, ${t.nps.d} ${nf(v.nps.d / N * 100)}%.`);
+    gauge._tip = () => tipNodes(`NPS ${score}`, [
+      { key: C.green, value: pct(v.nps.p), label: t.nps.p },
+      { value: pct(v.nps.n), label: t.nps.n },
+      { value: pct(v.nps.d), label: t.nps.d }
+    ]);
+  }
+
+  /* ---------- rings ---------- */
+  function buildRing(card, color, track) {
+    const svg = $('.ring svg', card);
+    svg.append(
+      sv('circle', { cx: 74, cy: 74, r: 68, fill: 'none', stroke: track, 'stroke-width': 7 }),
+      sv('circle', { cx: 74, cy: 74, r: 68, fill: 'none', stroke: color, 'stroke-width': 7, 'stroke-linecap': 'round', pathLength: 100,
+        'stroke-dasharray': '100 100', transform: 'rotate(-90 74 74)', class: 'arc', style: { strokeDashoffset: '100' } }));
+  }
+  const setRing = (card, frac) => { $('.ring .arc', card).style.strokeDashoffset = String(100 * (1 - Math.max(0, Math.min(1, frac)))); };
+  const legendItem = (color, label, parts, solid) => h('span', { class: 'lg' },
+    h('i', { class: 'k-dot' + (solid ? ' solid' : ''), style: { '--c': color } }), label, h('b', null, figNodes(parts)));
+
+  function renderRev(v) {
+    const card = $('#c-rev'), t = L(), ach = v.revenue / v.target, adr = v.revenue / v.rn;
+    setRing(card, ach);
+    fillFig($('[data-v=val]', card), moneyParts(v.revenue));
+    $('[data-v=cap]', card).textContent = t.rev.of(nf(ach * 100));
+    $('[data-v=foot]', card).replaceChildren(legendItem(C.blue, t.rev.rev, moneyParts(v.revenue)), legendItem('#b9d4f7', t.rev.target, moneyParts(v.target)));
+    const ring = $('[data-v=ring]', card);
+    ring.setAttribute('role', 'img');
+    ring.setAttribute('aria-label', `${t.rev.t} ${partsText(moneyParts(v.revenue))}, ${t.rev.of(nf(ach * 100))}`);
+    const adrText = state.lang === 'ko' ? `${nf(Math.round(adr / 100) * 100)}원` : `₩${nf(Math.round(adr / 100) * 100)}`;
+    ring._tip = () => tipNodes(null, [
+      { key: C.blue, value: partsText(moneyParts(v.revenue)), label: t.rev.rev },
+      { key: '#b9d4f7', value: partsText(moneyParts(v.target)), label: t.rev.target },
+      { value: adrText, label: t.rev.adr }
+    ]);
+    fillTable($('[data-v=table]', card), t.rev.t, t.rev.th, [[t.rev.rev, partsText(moneyParts(v.revenue))], [t.rev.target, partsText(moneyParts(v.target))],
+      [t.rev.ach, nf(ach * 100) + '%'], [t.rev.adr, adrText]]);
+  }
+  function renderGst(v) {
+    const card = $('#c-gst'), t = L(), ret = v.returning, neu = v.guests - v.returning, rate = ret / v.guests;
+    setRing(card, rate);
+    fillFig($('[data-v=val]', card), countParts(v.guests, t.gst.unit));
+    $('[data-v=cap]', card).textContent = t.gst.cap(nf(rate * 100));
+    $('[data-v=foot]', card).replaceChildren(legendItem(C.green, t.gst.ret, compactParts(ret, t.gst.unit)), legendItem('#a9e4c9', t.gst.neu, compactParts(neu, t.gst.unit)));
+    const ring = $('[data-v=ring]', card);
+    ring.setAttribute('role', 'img');
+    ring.setAttribute('aria-label', `${t.gst.t} ${nf(v.guests)}, ${t.gst.cap(nf(rate * 100))}`);
+    ring._tip = () => tipNodes(null, [
+      { key: C.green, value: partsText(countParts(ret, t.gst.unit)), label: `${t.gst.ret} ${nf(rate * 100)}%` },
+      { key: '#a9e4c9', value: partsText(countParts(neu, t.gst.unit)), label: `${t.gst.neu} ${nf((1 - rate) * 100)}%` }
+    ]);
+    fillTable($('[data-v=table]', card), t.gst.t, t.gst.th, [[t.gst.ret, nf(ret), nf(rate * 100) + '%'], [t.gst.neu, nf(neu), nf((1 - rate) * 100) + '%'],
+      [t.gst.total, nf(v.guests), '100%']]);
+  }
+
+  /* ---------- 일별 점유율 calendar heatmap ---------- */
+  const cal = { cells: [], cur: 0 };
+  function buildCal() {
+    const card = $('#c-cal'), grid = $('[data-v=grid]', card);
+    for (let k = 0; k < 35; k++) {
+      const d = k - FIRST_WD + 1;
+      if (d < 1 || d > 30) { grid.append(h('div', { class: 'cal-cell out', 'aria-hidden': 'true' })); continue; }
+      const cell = h('div', { class: 'cal-cell' + (DATA.chuseok.includes(d) ? ' hol' : ''), 'data-d': d },
+        h('span', { class: 'cal-d', text: d }), h('span', { class: 'cal-v' }));
+      grid.append(cell);
+      cal.cells[d] = cell;
+    }
+    const bars = $('[data-v=bars]', card);
+    for (let w = 0; w < 7; w++) bars.append(h('div', null, h('span'), h('i')));
+
+    const show = d => {
+      cal.cells.forEach((c, i) => c && c.classList.toggle('hi', i === d));
+      cal.cur = d;
+      if (!d) { hideTip(card); return; }
+      const v = state.view, t = L(), cell = cal.cells[d], o = offsetIn(card, cell);
+      const w = t.cal.wd[(FIRST_WD + d - 1) % 7];
+      showTip(card, tipNodes(t.cal.date(d, w), [
+        { key: rgbCss(rampColor(v.daily[d - 1])), value: nf(v.daily[d - 1], 1) + '%', label: t.cal.occ },
+        { value: t.cal.rooms(nf(v.sold[d - 1]), nf(v.rooms)), label: t.cal.sold }
+      ], DATA.chuseok.includes(d) ? { color: C.green, text: t.cal.chuseok } : null), o.x + o.w / 2, o.y - 2, o.y + o.h + 2);
+    };
+    grid.addEventListener('pointerover', e => { const c = e.target.closest('.cal-cell[data-d]'); if (c) show(+c.dataset.d); });
+    grid.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') show(0); });
+    card._reset = () => show(0);
+    grid.addEventListener('focus', () => { if (!cal.cur) show(1); });
+    grid.addEventListener('blur', () => show(0));
+    grid.addEventListener('keydown', e => {
+      const i = keyStep(e, cal.cur ? cal.cur - 1 : 0, 30, 7);
+      if (i === null) return;
+      show(i < 0 ? 0 : i + 1); if (i >= 0) announce(card);
+    });
+  }
+  function renderCal(v) {
+    const card = $('#c-cal'), t = L();
+    v.daily.forEach((o, i) => {
+      const c = cal.cells[i + 1], rgb = rampColor(o);
+      c.style.backgroundColor = rgbCss(rgb);
+      c.style.color = inkOn(rgb);
+      c.lastChild.textContent = Math.round(o) + '%';
+      c.setAttribute('aria-label', `${t.cal.date(i + 1, t.cal.wd[(FIRST_WD + i) % 7])} ${nf(o, 1)}%`);
+    });
+    const s = Array(7).fill(0), k = Array(7).fill(0);
+    v.daily.forEach((o, i) => { const w = (FIRST_WD + i) % 7; s[w] += o; k[w]++; });
+    $$('[data-v=bars] > div', card).forEach((col, w) => {
+      const avg = s[w] / k[w];
+      col.firstChild.textContent = Math.round(avg) + '%';
+      col.lastChild.style.height = Math.round(avg / 100 * 42) + 'px';
+    });
+    fillTable($('[data-v=table-wd]', card), t.cal.wdAvg, t.cal.thWd, t.cal.wd.map((w, i) => [w, nf(s[i] / k[i], 1) + '%']));
+    $('[data-v=mavg]', card).replaceChildren(t.cal.mavg + ' ', h('b', { text: nf(v.occ[v.occ.length - 1], 1) + '%' }));
+    $('[data-v=grid]', card).setAttribute('aria-label', t.cal.aria);
+    fillTable($('[data-v=table]', card), t.cal.t, t.cal.th, v.daily.map((o, i) => [t.cal.date(i + 1, t.cal.wd[(FIRST_WD + i) % 7]), nf(o, 1) + '%', t.cal.rooms(nf(v.sold[i]), nf(v.rooms))]));
+    if (cal.cur) { cal.cells[cal.cur].classList.remove('hi'); cal.cur = 0; hideTip(card); }
+  }
+
+  /* ---------- 예약 채널 ---------- */
+  function renderChn(v, animate) {
+    const card = $('#c-chn'), t = L();
+    fillFig($('[data-v=rn]', card), countParts(v.rn, t.chn.unit));
+    $$('[data-v=stack] i', card).forEach((seg, i) => { seg.style.flexGrow = String(v.channels[i]); seg.style.background = CH[i]; });
+    $('[data-v=rows]', card).replaceChildren(...v.channels.map((val, i) => h('li', { 'data-i': i, class: animate ? 'fade' : null },
+      h('span', { class: 'nm' }, h('i', { class: 'k-dot', style: { '--c': CH[i] } }), t.chn.names[i]),
+      h('span', { class: 'val' }, figNodes(countParts(val, t.chn.unit))),
+      h('span', { class: 'pct', text: nf(val / v.rn * 100) + '%' }))));
+    $('[data-v=stack]', card).setAttribute('aria-label', t.chn.aria);
+    fillTable($('[data-v=table]', card), t.chn.t, t.chn.th, v.channels.map((val, i) => [t.chn.names[i], partsText(countParts(val, t.chn.unit)), nf(val / v.rn * 100, 1) + '%']));
+  }
+  function bindChn() {
+    const card = $('#c-chn'), stack = $('[data-v=stack]', card);
+    const focus = i => {
+      stack.classList.toggle('dim', i >= 0);
+      $$('i', stack).forEach((s, k) => s.classList.toggle('on', k === i));
+      $$('[data-v=rows] li', card).forEach((li, k) => li.classList.toggle('dim', i >= 0 && k !== i));
+    };
+    let cur = -1;
+    const segTip = i => {
+      const v = state.view, t = L(), el = $$('i', stack)[i], o = offsetIn(card, el);
+      showTip(card, tipNodes(t.chn.names[i], [{ key: CH[i], value: partsText(countParts(v.channels[i], t.chn.unit)), label: nf(v.channels[i] / v.rn * 100, 1) + '%' }]), o.x + o.w / 2, o.y - 4, o.y + o.h + 4);
+    };
+    card.addEventListener('pointerover', e => {
+      const el = e.target.closest('[data-i]');
+      if (!el) return;
+      const i = +el.dataset.i;
+      focus(i);
+      if (el.parentNode === stack) segTip(i); else hideTip(card);
+    });
+    stack.addEventListener('keydown', e => {
+      const i = keyStep(e, cur < 0 ? 0 : cur, 4);
+      if (i === null) return;
+      cur = cur < 0 && i >= 0 && e.key !== 'Home' && e.key !== 'End' ? 0 : i;
+      focus(cur);
+      if (cur < 0) { hideTip(card); return; }
+      segTip(cur); announce(card);
+    });
+    stack.addEventListener('focus', () => { cur = 0; focus(0); segTip(0); });
+    stack.addEventListener('blur', () => { cur = -1; focus(-1); hideTip(card); });
+    card.addEventListener('pointerout', e => {
+      if (e.pointerType !== 'mouse') return;
+      if (!e.relatedTarget || !card.contains(e.relatedTarget) || !e.relatedTarget.closest('[data-i]')) { focus(-1); hideTip(card); }
+    });
+    card._reset = () => { focus(-1); hideTip(card); };
+  }
+
+  /* ---------- 국적별 투숙객 ---------- */
+  const ARROW_UP = 'M3 9L9 3M4.4 3H9V7.6', ARROW_DOWN = 'M3 3L9 9M9 4.4V9H4.4';
+  function renderNat(v, animate) {
+    const card = $('#c-nat'), t = L();
+    $('[data-v=rows]', card).replaceChildren(...v.nat.map(r => {
+      const chg = r.sep / r.aug - 1, up = chg >= 0;
+      return h('li', { class: animate ? 'fade' : null },
+        h('span', { class: 'nm', text: t.nat.names[r.code] }),
+        h('span', { class: 'val' }, figNodes(countParts(r.sep, t.nat.unit))),
+        h('span', { class: 'bdg ' + (up ? 'up' : 'down'), 'aria-label': `${t.nat.aside} ${nf(Math.abs(chg * 100), 1)}% ${up ? t.nat.up : t.nat.down}` },
+          sv('svg', { viewBox: '0 0 12 12', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.8, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' },
+            sv('path', { d: up ? ARROW_UP : ARROW_DOWN })),
+          nf(Math.abs(chg * 100), 1) + '%'));
+    }));
+  }
+
+  /* ---------- tooltips for figure cards ---------- */
+  function bindFigureTips() {
+    [['#c-nps', '[data-v=gauge]'], ['#c-rev', '[data-v=ring]'], ['#c-gst', '[data-v=ring]']].forEach(([cs, ts]) => {
+      const card = $(cs), target = $(ts, card);
+      const open = () => {
+        if (!target._tip) return;
+        const o = offsetIn(card, target);
+        showTip(card, target._tip(), o.x + o.w / 2, o.y + 6, o.y + o.h);
+      };
+      target.addEventListener('pointerenter', open);
+      target.addEventListener('pointerdown', open);
+      target.addEventListener('focus', () => { open(); announce(card); });
+      target.addEventListener('blur', () => hideTip(card));
+      target.addEventListener('keydown', e => { if (e.key === 'Escape') hideTip(card); });
+      target.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') hideTip(card); });
+      card._reset = () => hideTip(card);
+    });
+  }
+
+  /* ---------- i18n + render ---------- */
+  function applyLang() {
+    const t = L();
+    document.documentElement.lang = state.lang;
+    document.title = t.docTitle;
+    $$('[data-i18n]').forEach(e => { const val = e.dataset.i18n.split('.').reduce((o, k) => o && o[k], t); if (typeof val === 'string') e.textContent = val; });
+    $('.vz-tabs').setAttribute('aria-label', t.tabsLabel);
+    $$('.vz-tab').forEach(b => { b.textContent = t.tabs[b.dataset.branch]; b.setAttribute('aria-pressed', String(b.dataset.branch === state.branch)); });
+    $$('.vz-lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === state.lang)));
+    $('#c-cal [data-v=wd]').replaceChildren(...t.cal.wd.map(w => h('span', { text: w })));
+  }
+  function renderAll(animate) {
+    const v = state.view = getView(state.branch);
+    renderOcc(v, animate); renderDir(v, animate); renderNps(v); renderRev(v); renderGst(v);
+    renderCal(v); renderChn(v, animate); renderNat(v, animate);
+  }
+
+  function init() {
+    buildGauge();
+    buildRing($('#c-rev'), C.blue, C.blueTrack);
+    buildRing($('#c-gst'), C.green, C.greenTrack);
+    buildCal(); bindChn(); bindFigureTips();
+    applyLang();
+    void document.body.offsetWidth; // commit empty arcs so the first sweep animates
+    renderAll(true);
+
+    $$('.vz-tab').forEach(b => b.addEventListener('click', () => {
+      if (state.branch === b.dataset.branch) return;
+      state.branch = b.dataset.branch; applyLang(); renderAll(true);
+    }));
+    $$('.vz-lang button').forEach(b => b.addEventListener('click', () => {
+      if (state.lang === b.dataset.lang) return;
+      state.lang = b.dataset.lang; applyLang(); renderAll(false);
+    }));
+    document.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse') return;
+      $$('.card').forEach(card => { if (card._reset && !card.contains(e.target)) card._reset(); });
+    });
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(entries => {
+        if (!state.view) return;
+        entries.forEach(en => {
+          const box = en.target, w = Math.round(box.clientWidth), hh = Math.round(box.clientHeight);
+          if (w === box._w && hh === box._h) return;
+          if (box.dataset.chart === 'occ') drawOcc(state.view, false);
+          else drawDir(state.view, false);
+        });
+      });
+      $$('[data-chart]').forEach(el => ro.observe(el));
+    }
+  }
+  init();
+})();
+</script>
+</body>
+</html>
