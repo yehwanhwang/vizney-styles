@@ -1,11 +1,11 @@
-# Porcelain
+# Tile
 
 **Airy white cards, blue–mint rings** · 여백 넓은 흰 카드와 파랑·민트 링
 
-A dashboard style from Vizney Styles. Plain white cards sit on a pale blue-gray canvas beside a white icon rail, with wide margins and very soft shadows. Light and orderly: thin lines, rings and a gauge carry the data in one clear blue and a fresh mint, and the cards stay white.
+A dashboard style from Vizney Styles. Plain white cards are laid out like clean tiles on a pale blue-gray canvas beside a white icon rail, with even gaps, wide margins and very soft shadows. Light and orderly: thin lines, rings and a gauge carry the data in one clear blue and a fresh mint, and the cards stay white.
 
-- Live sample: https://styles.vizney.com/porcelain/ (add `?lang=en` for English)
-- To reuse it, ask for "the Porcelain style" and share this page: https://styles.vizney.com/porcelain/style.html
+- Live sample: https://styles.vizney.com/tile/ (add `?lang=en` for English)
+- To reuse it, ask for "the Tile style" and share this page: https://styles.vizney.com/tile/style.html
 
 
 ## Layout
