@@ -18,8 +18,14 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@v3.3.0/css/SpoqaHanSansNeo.css">
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=27f3e2bdce" as="font" type="font/woff" crossorigin>
 <style>
+/* VZ Sans, as on Vizney Blocks: Spoqa Han Sans Neo cut down to these pages' characters. tools/font.py builds it;
+   rebuild after changing any text here or on the other site page (index.html / 404.html). */
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=27f3e2bdce) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=27f3e2bdce) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=27f3e2bdce) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=27f3e2bdce) format('woff')}
 :root{
   /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
      Sticky top bar with the Styles mark; a hero with a fact pill, two buttons and an AI hint; four swatches
@@ -41,8 +47,8 @@
   --top-bg:rgba(255,255,255,.92);
   --yellow:#ffcc00;
   --pink:#ff2d55;
-  --font:'Spoqa Han Sans Neo',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
-  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace;
+  --font:'VZ Sans','Spoqa Han Sans Neo','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono','VZ Sans',monospace;
   --shadow:0 12px 32px -12px rgba(17,24,39,.28);
   --shadow-sm:0 1px 2px rgba(17,24,39,.12);
   --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
@@ -258,8 +264,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 .foot{margin-top:120px;border-top:1px solid var(--line-2)}
 .foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
 .foot-in nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px}
-.foot-in a{color:var(--ink-2);text-decoration-color:var(--rule);text-decoration-thickness:1px}
-.foot-in a:hover{text-decoration-color:currentColor}
+.foot-in a{color:var(--ink-2);text-decoration-color:currentColor;text-decoration-thickness:auto;text-underline-offset:auto}
 
 /* ---------- widths ---------- */
 @media (max-width:1100px){
@@ -285,7 +290,6 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
   html{scroll-padding-top:16px}
   .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
   .top{position:relative;top:auto}
-  .top-in{gap:10px 16px}
   .top-nav{display:none}
   .hero{padding-top:44px}
   .lede{font-size:16px}
@@ -306,7 +310,6 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
   .also{margin-top:56px}
   .also__grid,.gets{grid-template-columns:minmax(0, 1fr)}
   .closing{padding:32px 20px;border-radius:22px}
-  .foot{margin-top:80px}
   .foot-in nav{margin-left:0}
 }
 @media (max-width:560px){
@@ -524,7 +527,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 <footer class="foot">
   <div class="wrap foot-in">
     <span>Vizney Styles · © 2026 Vizney</span>
-    <span><span data-i18n="footFont">글꼴</span> <a href="https://github.com/spoqa/spoqa-han-sans" target="_blank" rel="noopener">Spoqa Han Sans Neo</a> · SIL Open Font License</span>
+    <span><span data-i18n="footFont">글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
     <nav aria-label="바닥글" data-i18n-aria="footAria">
       <a href="https://kr.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">블로그</a>
       <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
@@ -630,7 +633,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "nfTitle": "페이지를 찾을 수 없습니다",
       "nfLead": "주소가 바뀌었거나 없는 페이지입니다. 첫 화면에서 스타일을 골라 보세요.",
       "nfHome": "첫 화면으로",
-      "footFont": "글꼴",
+      "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)",
       "footAria": "바닥글",
       "footBlog": "블로그"
     },
@@ -726,7 +729,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "nfTitle": "Page not found",
       "nfLead": "This page has moved or doesn't exist. Pick a style from the home page.",
       "nfHome": "Go to the home page",
-      "footFont": "Font",
+      "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)",
       "footAria": "Footer",
       "footBlog": "Blog"
     }

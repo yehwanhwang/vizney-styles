@@ -84,7 +84,8 @@
 - 루트의 `index.html`이 styles.vizney.com의 첫 화면이다. 스타일 카드와 회사 스타일 제작 소개를 담고, 한국어·영어를 `?lang=ko|en`과 KO/EN 토글로 바꾼다. 없는 주소에는 `404.html`이 보인다. 둘 다 HTML 파일 하나로 완결하고 머리글·바닥글·CSS가 같으므로, 한쪽을 고치면 다른 쪽도 맞춘다.
 - 새 스타일 카드: 기존 `article.swatch` 하나를 복사해 '우리 회사' 카드 앞에 두고 폴더 이름과 이름을 바꾼다. 페이지 스크립트의 `STR` 한국어·영어에 `sub_<name>`(부제)과 `meta_<name>`(샘플 설명)을 더한다. 첫 화면 라벨의 스타일 개수는 카드 수로 계산되니, 본문에 적힌 기본 문구의 숫자만 고친다.
 - 화면 문구는 `STR`이 기준이다. 본문의 한국어 문구는 스크립트 없이 읽힐 때의 기본값이므로, 문구를 고칠 때는 둘 다 고친다.
-- 머리글·버튼·바닥글과 색 값은 Vizney Blocks(blocks.vizney.com)에 맞춘다.
+- 머리글·버튼·바닥글, 색 값과 글꼴은 Vizney Blocks(blocks.vizney.com)에 맞춘다. 본문 링크 밑줄(노랑 2px)만 Styles의 것으로 둔다.
+- 홈과 404의 글꼴은 Blocks와 같은 VZ Sans다. Spoqa Han Sans Neo 원본(`Original/SpoqaHanSansNeo`)에서 두 페이지에 쓰인 글자만 담고 이름을 바꾼 부분 글꼴이다(SIL OFL, `OFL.txt`). 두 페이지의 문구를 고치거나 스타일 카드를 더하면 `python3 tools/font.py <spoqa-han-sans 저장소>/Original/SpoqaHanSansNeo`로 `assets/fonts/`를 다시 만든다. 글꼴 주소의 `?v=`도 함께 바뀐다. Spoqa CDN이 주는 `Subset` 폴더 글꼴은 커닝과 일부 기호(© – −)가 없고 Windows에서 글자를 1~3px 아래에 그리므로 홈과 404에는 쓰지 않는다. 샘플 화면은 '화면 규칙'대로 CDN을 쓴다.
 - 사이트 마크는 Vizney Blocks의 2×2 블록에서 위 두 칸을 가로로 합친 모양이다(잉크 `#1b1b1b`, 노랑 `#ffcc00`, 분홍 `#ff2d55`). 사이트 머리글, `favicon.svg`(브라우저가 어두운 테마면 잉크 칸을 `#f4f5f7`로 바꾼다), 공유 이미지 `og.png`(1200×630)에만 쓰고 샘플 화면에는 넣지 않는다.
 - `sitemap.xml`에는 홈만 넣는다. 샘플 화면은 `noindex`로 검색 유입을 블로그 포스트에 남긴다.
 
