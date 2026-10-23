@@ -3,3 +3,4 @@ description: Named dashboard styles from Vizney, each with a live sample and a s
 exclude:
   - CLAUDE.md
   - README.md
+  - tools

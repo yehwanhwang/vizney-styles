@@ -37,7 +37,19 @@ The full production checklist used with Claude is in [CLAUDE.md](https://github.
 5. In embed mode `<html>` gets the class `vz-embed`. Reset any viewport-height layout there (for example `html.vz-embed .app { min-height: 0 }`) and hide page-only notes.
 6. Optional: `cover-ko.png` / `cover-en.png` (1440×810 at 2×) for the post's feature image.
 7. Publish the blog post at `style-<name>` (for example `/style-chalk/`) on both sites.
-8. Update in place; Git history keeps the old versions. Add a row to the Styles table and a card to the home page (`index.html`).
+8. Update in place; Git history keeps the old versions. Add a row to the Styles table and a card to the home page (`index.html`), then rebuild the site font (below).
+
+
+## Site font
+
+The home page and the 404 page use VZ Sans, the same font as [Vizney Blocks](https://blocks.vizney.com): Spoqa Han Sans Neo cut down to the characters those two pages use and renamed, as the SIL Open Font License asks of a modified font ([OFL.txt](OFL.txt)). It is built from the `Original/SpoqaHanSansNeo` folder of [spoqa-han-sans](https://github.com/spoqa/spoqa-han-sans), not from `Subset` (the files the Spoqa CDN serves), which lacks kerning and a few signs and draws text 1–3px lower on Windows. After changing the text of either page, rebuild it:
+
+```bash
+pip install fonttools
+python3 tools/font.py /path/to/spoqa-han-sans/Original/SpoqaHanSansNeo
+```
+
+The script writes `assets/fonts/` and updates the `?v=` of the font URLs in both pages. Sample screens keep loading Spoqa Han Sans Neo from the CDN.
 
 
 ## Embedding in a Ghost post
