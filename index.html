@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Vizney Styles · 이름으로 다시 만드는 대시보드 스타일</title>
+<meta name="description" content="이름 하나로 다시 만드는 대시보드 스타일 모음. Chalk, Glass, Tile 같은 스타일의 샘플 화면과 명세를 보고, 회사 전용 대시보드 스타일 제작을 문의할 수 있습니다.">
+<link rel="canonical" href="https://styles.vizney.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vizney Styles">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="Vizney Styles · 이름으로 다시 만드는 대시보드 스타일">
+<meta property="og:description" content="이름 하나로 다시 만드는 대시보드 스타일 모음. Chalk, Glass, Tile 같은 스타일의 샘플 화면과 명세를 보고, 회사 전용 대시보드 스타일 제작을 문의할 수 있습니다.">
+<meta property="og:url" content="https://styles.vizney.com/">
+<meta property="og:image" content="https://styles.vizney.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@v3.3.0/css/SpoqaHanSansNeo.css">
+<style>
+:root{
+  /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
+     Sticky top bar with the Styles mark; a hero with a fact pill, two buttons and an AI hint; four swatches
+     (three named styles and a dashed slot for a company's own); a soft rounded panel comparing two screens
+     built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
+     Single light theme on purpose, like Blocks and the style screens. */
+  color-scheme: light;
+  --page:#ffffff;
+  --soft:#f4f5f7;
+  --tile:#f6f7f9;
+  --ink:#1b1b1b;
+  --ink-2:#4a4a4a;
+  --muted:#616771;
+  --line:#e6e8ec;
+  --line-2:#eceef2;
+  --rule:#cfd2d8;
+  --btn-line:#e3e5ea;
+  --ink-hover:#3a3a3a;
+  --top-bg:rgba(255,255,255,.92);
+  --yellow:#ffcc00;
+  --pink:#ff2d55;
+  --font:'Spoqa Han Sans Neo',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono',monospace;
+  --shadow:0 12px 32px -12px rgba(17,24,39,.28);
+  --shadow-sm:0 1px 2px rgba(17,24,39,.12);
+  --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
+
+  /* demo: the fictional brand guide */
+  --b-red:#D7262E; --b-orange:#F07A3A; --b-navy:#1E2B4A;
+  --b-t1:#E3676D; --b-t2:#ED9DA1; --b-t3:#F5C9CB;
+  /* demo: the designed style (passes color-vision and contrast checks) */
+  --s-1:#2F5D9E; --s-2:#2A9D8F; --s-3:#C47F1E; --s-other:#A7ACB4; --s-prev:#8E949D;
+  --good:#1A7A43; --bad:#C2362A;
+  --bar-hover:#eef0f3;
+  --tip:#1b1b1b; --tip-ink:#ffffff; --tip-muted:#b9bec6;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:88px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.7 var(--font);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--page)}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{text-decoration-color:var(--ink)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;white-space:nowrap}
+svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--page);font-size:14px;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}
+
+/* ---------- top bar (as on Vizney Blocks) ---------- */
+.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;background:var(--top-bg);-webkit-backdrop-filter:saturate(1.4) blur(10px);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line-2)}
+.top-in{min-height:64px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding-block:10px}
+.logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-size:17px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+/* The Styles mark: the Blocks 2x2 mark with its top two blocks joined into one bar. */
+.mark{display:grid;grid-template-columns:repeat(2, 9px);grid-auto-rows:9px;gap:2px}
+.mark i{border-radius:2px;background:var(--ink)}
+.mark i:first-child{grid-column:1 / -1}
+.mark i:nth-child(2){background:var(--yellow)}
+.mark i:nth-child(3){background:var(--pink)}
+.top-nav{display:flex;flex-wrap:wrap;gap:4px 22px;font-size:15px}
+.top-nav a{color:var(--ink-2);text-decoration:none}
+.top-nav a:hover{color:var(--ink)}
+.top-end{margin-left:auto;display:flex;align-items:center;gap:10px}
+.lang{display:flex;height:40px;padding:4px;border-radius:10px;background:var(--soft)}
+.lang button{min-width:40px;padding:0 10px;border:0;border-radius:7px;background:transparent;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--page);color:var(--ink);box-shadow:var(--shadow-sm)}
+
+/* ---------- buttons (as on Vizney Blocks) ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 14px;border:1px solid var(--btn-line);border-radius:10px;background:var(--page);color:var(--ink);font:500 14px/1 var(--font);text-decoration:none;white-space:nowrap;cursor:pointer}
+.btn:hover{color:var(--ink);border-color:var(--rule)}
+.btn.is-primary{background:var(--ink);border-color:var(--ink);color:var(--page)}
+.btn.is-primary:hover{background:var(--ink-hover);border-color:var(--ink-hover);color:var(--page)}
+.btn.is-lg{height:48px;padding:0 22px;border-radius:12px;font-size:15px}
+
+/* ---------- hero ---------- */
+.hero{padding-top:72px}
+.pill{display:inline-flex;padding:6px 12px;border-radius:999px;background:var(--soft);font-size:13px;line-height:1.4;color:var(--ink-2)}
+.hero h1{margin-top:20px;max-width:13em;font-size:clamp(36px, 5.2vw, 58px);line-height:1.16;font-weight:700;letter-spacing:-.035em;text-wrap:balance}
+.lede{margin-top:20px;max-width:640px;font-size:18px;line-height:1.7;color:var(--ink-2)}
+.actions{margin-top:32px;display:flex;flex-wrap:wrap;gap:10px}
+.hint{margin-top:16px;max-width:640px;font-size:14px;line-height:1.7;color:var(--muted)}
+.lost{min-height:46vh}
+.lost h1{font-size:clamp(30px, 4vw, 44px)}
+
+/* ---------- gallery ---------- */
+.gallery{padding-top:72px}
+.gallery__title{font-size:17px;font-weight:700;letter-spacing:-.01em}
+.swatches{margin-top:20px;display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:36px 24px}
+.swatch{min-width:0;display:flex;flex-direction:column}
+.swatch__media{display:block;aspect-ratio:16/9;max-width:100%;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--soft)}
+.swatch__media img{width:100%;height:100%;object-fit:cover;object-position:left top}
+.swatch__media--blank{border:1.5px dashed var(--rule);background:var(--page)}
+.swatch__media--blank svg{display:block;width:100%;height:100%}
+.swatch__name{margin-top:16px;font-size:22px;line-height:1.3;font-weight:700;letter-spacing:-.015em}
+.swatch--yours .swatch__name span{border-bottom:2px dashed var(--rule)}
+.swatch__sub{margin-top:6px;font-size:15px;line-height:1.6;color:var(--ink)}
+.swatch__meta{margin-top:2px;font-size:13.5px;color:var(--muted)}
+.swatch__links{margin-top:auto;padding-top:12px;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;font-weight:500}
+
+/* ---------- sections (as on Vizney Blocks) ---------- */
+.sec{padding-top:120px}
+.sec h2{font-size:32px;line-height:1.25;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
+.sec-hd p{margin-top:10px;max-width:640px;font-size:16px;color:var(--muted)}
+.show{margin-top:40px;padding:32px;border-radius:28px;background:var(--soft)}
+
+/* ---------- company styles: one guide, two screens ---------- */
+.compare{display:grid;grid-template-columns:176px minmax(0, 1fr) minmax(0, 1fr);column-gap:28px}
+.compare > *{min-width:0}
+.guide{grid-column:1;display:flex;flex-direction:column;gap:16px;padding-top:36px}
+.screen{display:flex;flex-direction:column;gap:12px}
+.screen--before{grid-column:2}
+.screen--after{grid-column:3}
+.screen figcaption{font-size:14.5px;font-weight:700;line-height:1.5}
+
+.guide__label{font-size:13px;font-weight:700;color:var(--muted)}
+.guide__brand{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700}
+.guide__brand svg{width:22px;height:22px;flex:none}
+.guide__colors{display:grid;gap:10px}
+.guide__color{display:grid;grid-template-columns:30px auto;column-gap:10px;align-items:center}
+.guide__color i{grid-row:span 2;width:30px;height:30px;border-radius:8px}
+.guide__color span{font-size:13px;font-weight:500;line-height:1.3}
+.guide__color code{font-size:12px;color:var(--muted)}
+.guide__font{font-size:13px;line-height:1.5}
+.guide__font b{display:block;font-weight:500}
+.guide__font span{color:var(--muted)}
+.guide__note{font-size:13px;line-height:1.6;color:var(--muted)}
+
+.diff-label{grid-column:1;display:flex;align-items:flex-start;gap:10px;font-size:15.5px;font-weight:700;line-height:1.45}
+.diff-before{grid-column:2}
+.diff-after{grid-column:3}
+.diff-label,.diff-cell{border-top:1px solid var(--rule);padding-block:18px 20px;transition:background-color .15s}
+.diff-cell{font-size:15px;line-height:1.7;color:var(--ink-2)}
+.diff-label.is-first,.diff-cell.is-first{margin-top:40px}
+.diff-label.is-on,.diff-cell.is-on{color:var(--ink)}
+.diff-tag{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+
+/* numbered markers that tie a row to places on both screens */
+.mk{position:absolute;z-index:2;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--page);font-size:11px;font-weight:700;line-height:1;box-shadow:0 0 0 3px var(--page);transition:transform .15s, background-color .15s, color .15s}
+.mk.is-on{background:var(--page);color:var(--ink);box-shadow:0 0 0 2px var(--ink);transform:scale(1.15)}
+.diff-label .mk{position:static;flex:none;width:22px;height:22px;margin-top:-1px;font-size:11.5px;box-shadow:none}
+.diff-label .mk.is-on{box-shadow:0 0 0 2px var(--ink)}
+.is-hl{outline:2px solid var(--ink);outline-offset:4px;border-radius:6px}
+.delta.is-hl,.kpi__value.is-hl{outline-offset:2px}
+
+/* ---------- mini dashboard (both screens) ---------- */
+.mini{position:relative;display:grid;gap:14px;padding:16px 16px 14px;background:var(--page);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-card);font-size:12px;line-height:1.45;color:var(--ink)}
+.mini__head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mini__brand{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700}
+.mini__brand svg{width:18px;height:18px;flex:none}
+.mini__title{padding-left:10px;border-left:1px solid var(--line);font-size:12.5px;font-weight:700;color:var(--ink-2)}
+.mini__period{margin-left:auto;font-size:11px;color:var(--muted)}
+
+.kpis{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:8px;align-items:start}
+.kpi{position:relative;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:10px 11px 11px;background:var(--tile);border-radius:9px}
+.kpi__label{font-size:11px;font-weight:500;color:var(--muted)}
+.kpi__value{max-width:100%;font-size:22px;line-height:1.15;font-weight:700;letter-spacing:-.015em;overflow-wrap:anywhere;word-break:break-all}
+.kpi__value .u{font-size:12px;margin-left:1px}
+.kpi__value .u--pre{margin:0 1px 0 0}
+.mini--before .kpi__value .u{font-size:inherit;margin:0}
+.kpi .mk{top:-8px;right:8px}
+.delta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700;line-height:1.3;border-radius:4px}
+.delta svg{width:8px;height:8px;flex:none}
+.delta--good{color:var(--good)}
+.delta--bad{color:var(--bad)}
+
+.sec-mini{display:grid;gap:10px;padding-top:12px;border-top:1px solid var(--line)}
+.sec-mini__head{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;min-height:20px}
+.sec-mini__title{font-size:12.5px;font-weight:700}
+.sec-mini__head .mk{position:static;margin-left:auto;box-shadow:none}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i,.stack-legend i,.tip i{display:inline-block;width:9px;height:9px;border-radius:2px;flex:none}
+
+.bars{display:grid;grid-template-columns:var(--yg, 30px) minmax(0, 1fr);grid-template-rows:132px auto;column-gap:8px;row-gap:6px;border-radius:6px}
+.bars:focus-visible{outline-offset:6px}
+.bars__y{position:relative}
+.bars__y span{position:absolute;right:0;transform:translateY(50%);font-size:10.5px;line-height:1;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bars__plot{position:relative;border-bottom:1px solid var(--rule)}
+.bars__grid{position:absolute;left:0;right:0;height:1px;background:var(--line-2)}
+.bars__groups{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6, minmax(0, 1fr))}
+.bars__g{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:center;gap:2px;cursor:default}
+.bars__g::before{content:"";position:absolute;inset:-6px 2px 0;border-radius:6px 6px 0 0;background:transparent;transition:background-color .12s}
+.bars__g.is-on::before{background:var(--bar-hover)}
+.bar{position:relative;width:min(16px, 34%);border-radius:4px 4px 0 0}
+.bars__lbl{position:absolute;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:700;line-height:1.2;white-space:nowrap;color:var(--ink)}
+.bars__x{grid-column:2;display:grid;grid-template-columns:repeat(6, minmax(0, 1fr));text-align:center;font-size:10.5px;color:var(--muted)}
+
+.stack{display:flex;gap:2px;height:14px}
+.stack span{display:block;height:100%;min-width:2px}
+.stack span:first-child{border-radius:4px 0 0 4px}
+.stack span:last-child{border-radius:0 4px 4px 0}
+.stack-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11px;color:var(--ink-2)}
+.stack-legend li{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.stack-legend b{font-weight:700;color:var(--ink)}
+
+.tip{position:absolute;z-index:4;top:0;left:0;min-width:136px;padding:8px 10px;border-radius:8px;background:var(--tip);color:var(--tip-ink);font-size:11.5px;line-height:1.5;box-shadow:var(--shadow);pointer-events:none;opacity:0;visibility:hidden;transition:opacity .12s, visibility .12s}
+.tip.is-on{opacity:1;visibility:visible}
+.tip__t{margin-bottom:3px;font-weight:700}
+.tip__r{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tip__r span{display:inline-flex;align-items:center;gap:6px;color:var(--tip-muted)}
+.tip__r b{font-variant-numeric:tabular-nums}
+.tip__d{margin-top:3px;color:var(--tip-muted)}
+
+/* ---------- also decided ---------- */
+.also{margin-top:72px}
+.also__title{font-size:22px;line-height:1.35;font-weight:700;letter-spacing:-.02em}
+.also__grid{margin-top:24px;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:28px}
+.also__grid li{padding-top:14px;border-top:1px solid var(--line)}
+.also__grid h4{font-size:15.5px;font-weight:700}
+.also__grid p{margin-top:6px;font-size:14.5px;line-height:1.7;color:var(--ink-2)}
+
+/* ---------- what you get / how it works ---------- */
+.offer__grid{display:grid;grid-template-columns:minmax(0, 7fr) minmax(0, 5fr);gap:64px}
+.offer__grid > *{min-width:0}
+.gets{margin-top:28px;display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:32px 28px}
+.gets li{padding-top:14px;border-top:1px solid var(--line)}
+.gets h3,.steps h3{font-size:16.5px;font-weight:700;line-height:1.45}
+.gets p,.steps p{margin-top:6px;font-size:15px;line-height:1.7;color:var(--ink-2)}
+.steps{margin-top:28px;display:grid;gap:24px;counter-reset:step}
+.steps li{display:grid;grid-template-columns:44px minmax(0, 1fr);padding-top:14px;border-top:1px solid var(--line)}
+.steps li::before{counter-increment:step;content:counter(step);grid-row:span 2;font-size:28px;line-height:1;font-weight:300;color:var(--muted)}
+
+/* ---------- closing ---------- */
+.closing{padding:56px 48px;border-radius:28px;background:var(--soft)}
+.closing p{margin-top:12px;max-width:36em;font-size:16px;line-height:1.7;color:var(--ink-2)}
+.closing .btn{margin-top:28px}
+
+/* ---------- footer (as on Vizney Blocks) ---------- */
+.foot{margin-top:120px;border-top:1px solid var(--line-2)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
+.foot-in nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot-in a{color:var(--ink-2);text-decoration-color:var(--rule);text-decoration-thickness:1px}
+.foot-in a:hover{text-decoration-color:currentColor}
+
+/* ---------- widths ---------- */
+@media (max-width:1100px){
+  .compare{grid-template-columns:minmax(0, 1fr) minmax(0, 1fr)}
+  .guide{grid-column:1 / -1;flex-direction:row;flex-wrap:wrap;align-items:center;gap:14px 32px;padding:0 0 28px}
+  .guide__colors{grid-auto-flow:column;gap:20px}
+  .guide__note{flex-basis:100%}
+  .screen--before{grid-column:1}
+  .screen--after{grid-column:2}
+  .diff-label{grid-column:1 / -1;padding-bottom:4px}
+  .diff-before{grid-column:1;border-top:0;padding-top:0}
+  .diff-after{grid-column:2;border-top:0;padding-top:0}
+  .diff-cell.is-first{margin-top:0}
+}
+@media (max-width:1080px){
+  .swatches{grid-template-columns:repeat(2, minmax(0, 1fr))}
+}
+@media (max-width:960px){
+  .offer__grid{grid-template-columns:minmax(0, 1fr);gap:72px}
+  .also__grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+}
+@media (max-width:720px){
+  html{scroll-padding-top:16px}
+  .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  .top{position:relative;top:auto}
+  .top-in{gap:10px 16px}
+  .top-nav{display:none}
+  .hero{padding-top:44px}
+  .lede{font-size:16px}
+  .gallery{padding-top:56px}
+  .sec{padding-top:80px}
+  .sec h2{font-size:26px}
+  .show{padding:14px;border-radius:22px}
+  .compare{grid-template-columns:minmax(0, 1fr)}
+  .guide{gap:14px 24px;padding:6px 4px 24px}
+  .guide__colors{grid-auto-flow:row;grid-template-columns:repeat(3, minmax(0, auto));gap:12px 18px}
+  .screen--before,.screen--after,.diff-before,.diff-after{grid-column:1}
+  .screen figcaption{padding-inline:4px}
+  .screen--after{margin-top:28px}
+  .diff-label,.diff-cell{padding-inline:4px}
+  .diff-cell{padding-bottom:14px}
+  .diff-after{padding-bottom:22px}
+  .diff-tag{position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:normal;display:block;margin-bottom:2px;font-size:13px;font-weight:700;color:var(--ink)}
+  .also{margin-top:56px}
+  .also__grid,.gets{grid-template-columns:minmax(0, 1fr)}
+  .closing{padding:32px 20px;border-radius:22px}
+  .foot{margin-top:80px}
+  .foot-in nav{margin-left:0}
+}
+@media (max-width:560px){
+  .swatches{grid-template-columns:minmax(0, 1fr)}
+  .btn-git{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body data-page="home">
+<a class="skip" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
+
+<header class="top" id="top">
+  <div class="wrap top-in">
+    <a class="logo" href="#top" data-href="home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>Vizney Styles</a>
+    <nav class="top-nav" aria-label="주 메뉴" data-i18n-aria="navAria">
+      <a href="#styles" data-href="home:styles" data-i18n="navStyles">스타일</a>
+      <a href="#custom" data-href="home:custom" data-i18n="navCustom">회사 스타일</a>
+      <a href="https://kr.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener"><span data-i18n="navContact">문의</span><span aria-hidden="true"> ↗</span></a>
+    </nav>
+    <div class="top-end">
+      <div class="lang" role="group" aria-label="언어" data-i18n-aria="langAria">
+        <button type="button" data-lang="ko" aria-pressed="true">KO</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<svg class="ic" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4 2.5h5.5V8M9.5 2.5L3 9"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap hero" aria-labelledby="heroTitle">
+    <p class="pill" data-i18n="pill">스타일 3종 · 한·영 샘플 · 명세 공개</p>
+    <h1 id="heroTitle" data-i18n="heroTitle">이름 하나로 다시 만드는 대시보드 스타일</h1>
+    <p class="lede" data-i18n="heroLead">스타일마다 샘플 화면과 명세를 함께 만들어, 이름만으로 같은 느낌의 화면을 다시 만들 수 있게 합니다. 회사 전용 스타일도 같은 방식으로 만듭니다.</p>
+    <div class="actions">
+      <a class="btn is-primary is-lg" href="#styles" data-href="home:styles" data-i18n="ctaBrowse">스타일 둘러보기</a>
+      <a class="btn is-lg" href="#custom" data-href="home:custom" data-i18n="ctaCompany">회사 스타일 보기</a>
+    </div>
+    <p class="hint" data-i18n="hint">AI에게 맡길 때는 ‘Chalk 스타일로 만들어 줘’처럼 이름을 말하고, 스타일 카드의 명세 링크를 함께 주세요.</p>
+  </section>
+
+  <section class="wrap gallery" aria-labelledby="styles">
+    <h2 class="gallery__title" id="styles" data-i18n="galleryTitle">지금까지 만든 스타일</h2>
+    <div class="swatches">
+      <article class="swatch">
+        <a class="swatch__media" href="https://styles.vizney.com/chalk/?lang=ko" data-href="sample:chalk" tabindex="-1" aria-hidden="true">
+          <img data-cover="chalk" src="chalk/cover-ko.png" alt="Chalk 스타일 샘플 화면" width="2880" height="1620" decoding="async">
+        </a>
+        <h3 class="swatch__name">Chalk</h3>
+        <p class="swatch__sub" data-i18n="sub_chalk">다크 사이드바와 파스텔 KPI 카드</p>
+        <p class="swatch__meta" data-i18n="meta_chalk">온라인몰 주문 분석 샘플</p>
+        <p class="swatch__links">
+          <a href="https://styles.vizney.com/chalk/?lang=ko" data-href="sample:chalk" data-i18n="linkSample">샘플 화면</a>
+          <a href="https://styles.vizney.com/chalk/style.html" data-href="spec:chalk" data-i18n="linkSpec">명세</a>
+          <a href="https://kr.vizney.com/style-chalk/" data-href="post:chalk" target="_blank" rel="noopener" data-i18n="linkPost">소개 글</a>
+        </p>
+      </article>
+      <article class="swatch">
+        <a class="swatch__media" href="https://styles.vizney.com/glass/?lang=ko" data-href="sample:glass" tabindex="-1" aria-hidden="true">
+          <img data-cover="glass" src="glass/cover-ko.png" alt="Glass 스타일 샘플 화면" width="2880" height="1620" decoding="async">
+        </a>
+        <h3 class="swatch__name">Glass</h3>
+        <p class="swatch__sub" data-i18n="sub_glass">파스텔 그라데이션과 반투명 글래스 카드</p>
+        <p class="swatch__meta" data-i18n="meta_glass">온라인 스토어 매출 샘플</p>
+        <p class="swatch__links">
+          <a href="https://styles.vizney.com/glass/?lang=ko" data-href="sample:glass" data-i18n="linkSample">샘플 화면</a>
+          <a href="https://styles.vizney.com/glass/style.html" data-href="spec:glass" data-i18n="linkSpec">명세</a>
+          <a href="https://kr.vizney.com/style-glass/" data-href="post:glass" target="_blank" rel="noopener" data-i18n="linkPost">소개 글</a>
+        </p>
+      </article>
+      <article class="swatch">
+        <a class="swatch__media" href="https://styles.vizney.com/tile/?lang=ko" data-href="sample:tile" tabindex="-1" aria-hidden="true">
+          <img data-cover="tile" src="tile/cover-ko.png" alt="Tile 스타일 샘플 화면" width="2880" height="1620" decoding="async">
+        </a>
+        <h3 class="swatch__name">Tile</h3>
+        <p class="swatch__sub" data-i18n="sub_tile">여백 넓은 흰 카드와 파랑·민트 링</p>
+        <p class="swatch__meta" data-i18n="meta_tile">호텔 운영 현황 샘플</p>
+        <p class="swatch__links">
+          <a href="https://styles.vizney.com/tile/?lang=ko" data-href="sample:tile" data-i18n="linkSample">샘플 화면</a>
+          <a href="https://styles.vizney.com/tile/style.html" data-href="spec:tile" data-i18n="linkSpec">명세</a>
+          <a href="https://kr.vizney.com/style-tile/" data-href="post:tile" target="_blank" rel="noopener" data-i18n="linkPost">소개 글</a>
+        </p>
+      </article>
+      <article class="swatch swatch--yours">
+        <a class="swatch__media swatch__media--blank" href="#custom" tabindex="-1" aria-hidden="true">
+          <svg viewBox="0 0 320 180" focusable="false">
+            <rect x="16" y="16" width="40" height="148" rx="7" fill="var(--soft)"/>
+            <rect x="70" y="20" width="96" height="9" rx="4.5" fill="var(--line)"/>
+            <g fill="none" stroke="var(--rule)" stroke-width="1.5">
+              <rect x="70" y="42" width="72" height="44" rx="7"/>
+              <rect x="152" y="42" width="72" height="44" rx="7"/>
+              <rect x="234" y="42" width="72" height="44" rx="7"/>
+              <rect x="70" y="98" width="236" height="66" rx="7"/>
+            </g>
+            <g fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="3 3">
+              <circle cx="88" cy="60" r="8"/>
+              <circle cx="170" cy="60" r="8"/>
+              <circle cx="252" cy="60" r="8"/>
+            </g>
+            <g fill="var(--rule)">
+              <rect x="88" y="136" width="12" height="18" rx="2"/>
+              <rect x="114" y="128" width="12" height="26" rx="2"/>
+              <rect x="140" y="132" width="12" height="22" rx="2"/>
+              <rect x="166" y="120" width="12" height="34" rx="2"/>
+              <rect x="192" y="124" width="12" height="30" rx="2"/>
+              <rect x="218" y="114" width="12" height="40" rx="2"/>
+              <rect x="244" y="126" width="12" height="28" rx="2"/>
+              <rect x="270" y="118" width="12" height="36" rx="2"/>
+            </g>
+          </svg>
+        </a>
+        <h3 class="swatch__name"><span data-i18n="yoursName">우리 회사</span></h3>
+        <p class="swatch__sub" data-i18n="yoursSub">브랜드와 업무에 맞춘 전용 스타일</p>
+        <p class="swatch__meta" data-i18n="yoursMeta">이름도 함께 짓습니다</p>
+        <p class="swatch__links"><a href="#custom" data-i18n="yoursLink">만드는 방식 보기</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap sec" aria-labelledby="customTitle">
+    <div class="sec-hd" id="custom">
+      <h2 id="customTitle" data-i18n="customTitle">회사 스타일은 색과 서체에서 끝나지 않습니다</h2>
+      <p data-i18n="customLead">브랜드 가이드는 로고와 대표색, 서체를 정합니다. 대시보드는 그 위에서 숫자를 비교하고 변화를 읽는 화면이라 정할 것이 훨씬 많습니다. 같은 가이드로 만든 두 화면을 비교해 보세요.</p>
+    </div>
+
+    <div class="show">
+      <div class="compare" id="compare">
+        <aside class="guide" aria-labelledby="guideLabel">
+          <p class="guide__label" id="guideLabel" data-i18n="guideLabel">가상 브랜드 가이드</p>
+          <p class="guide__brand">
+            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="10" fill="var(--b-red)"/><path d="M4.4 13.6 8.6 7.6l2.2 3 1.5-1.9 3.3 4.9z" fill="var(--page)"/></svg>
+            <span data-i18n="guideBrand">오름푸드</span>
+          </p>
+          <ul class="guide__colors">
+            <li class="guide__color"><i style="background:var(--b-red)"></i><span data-i18n="guidePrimary">대표색</span><code>#D7262E</code></li>
+            <li class="guide__color"><i style="background:var(--b-orange)"></i><span data-i18n="guideSecondary">보조색</span><code>#F07A3A</code></li>
+            <li class="guide__color"><i style="background:var(--b-navy)"></i><span data-i18n="guideNavy">남색</span><code>#1E2B4A</code></li>
+          </ul>
+          <p class="guide__font"><span data-i18n="guideFont">서체</span><b>Spoqa Han Sans Neo</b></p>
+          <p class="guide__note" data-i18n="guideNote">두 화면 모두 이 가이드로 만들었습니다.</p>
+        </aside>
+
+        <figure class="screen screen--before">
+          <figcaption data-i18n="capBefore">브랜드 색과 서체만 입힌 화면</figcaption>
+          <div class="mini mini--before" data-mode="before"></div>
+        </figure>
+        <figure class="screen screen--after">
+          <figcaption data-i18n="capAfter">대시보드 스타일로 설계한 화면</figcaption>
+          <div class="mini mini--after" data-mode="after"></div>
+        </figure>
+
+        <h3 class="diff-label is-first" data-n="1"><span class="mk" data-n="1" aria-hidden="true">1</span><span data-i18n="d1t">데이터 색</span></h3>
+        <p class="diff-cell diff-before is-first" data-n="1"><span class="diff-tag" data-i18n="tagBefore">색과 서체만 입히면</span><span data-i18n="d1b">대표색 빨강과 주황으로 막대를 채워, 매출이 늘어도 화면이 경고처럼 읽힙니다. 주황 막대는 흰 바탕과의 대비도 부족합니다.</span></p>
+        <p class="diff-cell diff-after is-first" data-n="1"><span class="diff-tag" data-i18n="tagAfter">스타일로 설계하면</span><span data-i18n="d1a">빨강은 로고와 나쁜 변화 표시에만 남깁니다. 올해 막대는 파랑, 비교할 전년 막대는 회색으로 한발 물러나게 합니다.</span></p>
+        <h3 class="diff-label" data-n="2"><span class="mk" data-n="2" aria-hidden="true">2</span><span data-i18n="d2t">증감 색</span></h3>
+        <p class="diff-cell diff-before" data-n="2"><span class="diff-tag" data-i18n="tagBefore">색과 서체만 입히면</span><span data-i18n="d2b">오르면 초록, 내리면 빨강으로 칠해서 원가율이 낮아진 좋은 소식은 빨강으로, 반품률이 오른 나쁜 소식은 초록으로 보입니다.</span></p>
+        <p class="diff-cell diff-after" data-n="2"><span class="diff-tag" data-i18n="tagAfter">스타일로 설계하면</span><span data-i18n="d2a">색은 값이 움직인 방향이 아니라 그 지표에 좋은 변화인지로 정합니다. 원가율 하락은 초록, 반품률 상승은 빨강입니다.</span></p>
+        <h3 class="diff-label" data-n="3"><span class="mk" data-n="3" aria-hidden="true">3</span><span data-i18n="d3t">숫자 표기</span></h3>
+        <p class="diff-cell diff-before" data-n="3"><span class="diff-tag" data-i18n="tagBefore">색과 서체만 입히면</span><span data-i18n="d3b">1,243,512,800원처럼 원 단위를 그대로 쓰면 카드 폭을 넘고, 단위가 숫자만큼 커서 카드마다 수치 높이가 달라집니다.</span></p>
+        <p class="diff-cell diff-after" data-n="3"><span class="diff-tag" data-i18n="tagAfter">스타일로 설계하면</span><span data-i18n="d3a">12.4억처럼 읽기 쉬운 단위로 줄이고, 억과 %는 숫자보다 작게 씁니다. 카드 안 글자 크기는 대표 수치와 나머지, 두 단계만 씁니다.</span></p>
+        <h3 class="diff-label" data-n="4"><span class="mk" data-n="4" aria-hidden="true">4</span><span data-i18n="d4t">범주 색</span></h3>
+        <p class="diff-cell diff-before" data-n="4"><span class="diff-tag" data-i18n="tagBefore">색과 서체만 입히면</span><span data-i18n="d4b">대표색의 명도만 바꾼 다섯 색은 색 구분 검사를 통과하지 못해, 범례를 몇 번씩 다시 보게 됩니다.</span></p>
+        <p class="diff-cell diff-after" data-n="4"><span class="diff-tag" data-i18n="tagAfter">스타일로 설계하면</span><span data-i18n="d4a">범주 색은 세 가지와 회색 기타까지만 씁니다. 색각 이상 구분과 대비 검사를 통과한 조합만 남깁니다.</span></p>
+      </div>
+    </div>
+
+    <div class="also">
+      <h3 class="also__title" data-i18n="alsoTitle">화면에 다 보이지 않는 것도 명세에 적습니다</h3>
+      <ul class="also__grid">
+        <li><h4 data-i18n="a1t">화면 폭</h4><p data-i18n="a1p">넓은 모니터에서 휴대폰까지, 폭마다 카드가 어떤 순서로 접히는지 정합니다.</p></li>
+        <li><h4 data-i18n="a2t">한국어와 영어</h4><p data-i18n="a2p">억·만과 ₩·M·K 표기, 더 길어지는 영어 라벨까지 한 화면에서 맞춥니다.</p></li>
+        <li><h4 data-i18n="a3t">필터와 카드</h4><p data-i18n="a3p">필터는 화면 위 한 줄에 두고 모든 카드에 함께 적용하며, 카드 안에 카드를 넣지 않습니다.</p></li>
+        <li><h4 data-i18n="a4t">차트 고르기</h4><p data-i18n="a4p">이중 축 대신 나란히 놓은 두 차트처럼, 데이터에 맞는 차트를 고르는 기준을 둡니다.</p></li>
+        <li><h4 data-i18n="a5t">툴팁과 주석</h4><p data-i18n="a5p">툴팁에 보여 줄 값과 순서, 명절이나 행사 구간을 표시하는 방법을 정합니다.</p></li>
+        <li><h4 data-i18n="a6t">접근성</h4><p data-i18n="a6p">키보드 조작과 스크린 리더용 표, 움직임 줄이기 설정까지 챙깁니다.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="offer__grid">
+      <div>
+        <h2 data-i18n="getsTitle">받는 것</h2>
+        <ul class="gets">
+          <li><h3 data-i18n="g1t">스타일 이름과 명세</h3><p data-i18n-html="g1p_html">사내에서 부를 이름과 명세서(<code>style.md</code>)입니다. 레이아웃, 색 토큰, 서체, 컴포넌트, 동작, 하지 말 것까지 적어 누가 만들어도 같은 화면이 나옵니다.</p></li>
+          <li><h3 data-i18n="g2t">데이터 색 팔레트</h3><p data-i18n="g2p">범주·순차·발산 색과 좋음·나쁨 색입니다. 색각 이상 구분과 대비 검사를 통과한 조합만 담습니다.</p></li>
+          <li><h3 data-i18n="g3t">샘플 화면</h3><p data-i18n="g3p">회사 업무 주제로 만든 샘플 화면입니다. 한국어·영어 전환과 화면 폭별 배치를 바로 확인할 수 있습니다.</p></li>
+          <li><h3 data-i18n="g4t">도구 적용 파일</h3><p data-i18n-html="g4p_html">Tableau 색상 팔레트(<code>Preferences.tps</code>)와 서식 가이드, 웹 화면에 쓰는 CSS 변수입니다.</p></li>
+        </ul>
+      </div>
+      <div>
+        <h2 data-i18n="stepsTitle">진행 순서</h2>
+        <ol class="steps">
+          <li><h3 data-i18n="s1t">자료 받기</h3><p data-i18n="s1p">브랜드 가이드와 지금 쓰는 대시보드 화면, 자주 보는 지표를 받습니다.</p></li>
+          <li><h3 data-i18n="s2t">진단</h3><p data-i18n="s2p">브랜드 색이 데이터 색으로 쓸 만한지, 어떤 숫자와 차트에서 오해가 생기는지 짚습니다.</p></li>
+          <li><h3 data-i18n="s3t">시안</h3><p data-i18n="s3p">샘플 화면 하나로 스타일을 정하고, 사내에서 부를 이름을 함께 짓습니다.</p></li>
+          <li><h3 data-i18n="s4t">전달</h3><p data-i18n="s4p">명세와 팔레트, 도구 적용 파일을 드립니다. 그다음부터는 이름으로 요청하면 됩니다.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap sec" aria-labelledby="ctaTitle">
+    <div class="closing">
+      <h2 id="ctaTitle" data-i18n="ctaTitle">회사 대시보드에도 이름을 붙여 보세요</h2>
+      <p data-i18n="ctaText">브랜드 가이드와 지금 쓰는 대시보드 화면 몇 장이면 시작할 수 있습니다.</p>
+      <a class="btn is-primary is-lg" href="https://kr.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="ctaBtn">제작 문의하기</a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Vizney Styles · © 2026 Vizney</span>
+    <span><span data-i18n="footFont">글꼴</span> <a href="https://github.com/spoqa/spoqa-han-sans" target="_blank" rel="noopener">Spoqa Han Sans Neo</a> · SIL Open Font License</span>
+    <nav aria-label="바닥글" data-i18n-aria="footAria">
+      <a href="https://kr.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">블로그</a>
+      <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
+      <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var STR = {
+    "ko": {
+      "skip": "본문으로 건너뛰기",
+      "navAria": "주 메뉴",
+      "navStyles": "스타일",
+      "navCustom": "회사 스타일",
+      "navContact": "문의",
+      "langAria": "언어",
+      "docTitle_home": "Vizney Styles · 이름으로 다시 만드는 대시보드 스타일",
+      "docTitle_404": "페이지를 찾을 수 없습니다 · Vizney Styles",
+      "pill": "스타일 {n}종 · 한·영 샘플 · 명세 공개",
+      "heroTitle": "이름 하나로 다시 만드는 대시보드 스타일",
+      "heroLead": "스타일마다 샘플 화면과 명세를 함께 만들어, 이름만으로 같은 느낌의 화면을 다시 만들 수 있게 합니다. 회사 전용 스타일도 같은 방식으로 만듭니다.",
+      "ctaBrowse": "스타일 둘러보기",
+      "ctaCompany": "회사 스타일 보기",
+      "hint": "AI에게 맡길 때는 ‘Chalk 스타일로 만들어 줘’처럼 이름을 말하고, 스타일 카드의 명세 링크를 함께 주세요.",
+      "galleryTitle": "지금까지 만든 스타일",
+      "sub_chalk": "다크 사이드바와 파스텔 KPI 카드",
+      "sub_glass": "파스텔 그라데이션과 반투명 글래스 카드",
+      "sub_tile": "여백 넓은 흰 카드와 파랑·민트 링",
+      "meta_chalk": "온라인몰 주문 분석 샘플",
+      "meta_glass": "온라인 스토어 매출 샘플",
+      "meta_tile": "호텔 운영 현황 샘플",
+      "linkSample": "샘플 화면",
+      "linkSpec": "명세",
+      "linkPost": "소개 글",
+      "coverAlt": "{name} 스타일 샘플 화면",
+      "yoursName": "우리 회사",
+      "yoursSub": "브랜드와 업무에 맞춘 전용 스타일",
+      "yoursMeta": "이름도 함께 짓습니다",
+      "yoursLink": "만드는 방식 보기",
+      "customTitle": "회사 스타일은 색과 서체에서 끝나지 않습니다",
+      "customLead": "브랜드 가이드는 로고와 대표색, 서체를 정합니다. 대시보드는 그 위에서 숫자를 비교하고 변화를 읽는 화면이라 정할 것이 훨씬 많습니다. 같은 가이드로 만든 두 화면을 비교해 보세요.",
+      "guideLabel": "가상 브랜드 가이드",
+      "guideBrand": "오름푸드",
+      "guidePrimary": "대표색",
+      "guideSecondary": "보조색",
+      "guideNavy": "남색",
+      "guideFont": "서체",
+      "guideNote": "두 화면 모두 이 가이드로 만들었습니다.",
+      "capBefore": "브랜드 색과 서체만 입힌 화면",
+      "capAfter": "대시보드 스타일로 설계한 화면",
+      "tagBefore": "색과 서체만 입히면",
+      "tagAfter": "스타일로 설계하면",
+      "d1t": "데이터 색",
+      "d1b": "대표색 빨강과 주황으로 막대를 채워, 매출이 늘어도 화면이 경고처럼 읽힙니다. 주황 막대는 흰 바탕과의 대비도 부족합니다.",
+      "d1a": "빨강은 로고와 나쁜 변화 표시에만 남깁니다. 올해 막대는 파랑, 비교할 전년 막대는 회색으로 한발 물러나게 합니다.",
+      "d2t": "증감 색",
+      "d2b": "오르면 초록, 내리면 빨강으로 칠해서 원가율이 낮아진 좋은 소식은 빨강으로, 반품률이 오른 나쁜 소식은 초록으로 보입니다.",
+      "d2a": "색은 값이 움직인 방향이 아니라 그 지표에 좋은 변화인지로 정합니다. 원가율 하락은 초록, 반품률 상승은 빨강입니다.",
+      "d3t": "숫자 표기",
+      "d3b": "1,243,512,800원처럼 원 단위를 그대로 쓰면 카드 폭을 넘고, 단위가 숫자만큼 커서 카드마다 수치 높이가 달라집니다.",
+      "d3a": "12.4억처럼 읽기 쉬운 단위로 줄이고, 억과 %는 숫자보다 작게 씁니다. 카드 안 글자 크기는 대표 수치와 나머지, 두 단계만 씁니다.",
+      "d4t": "범주 색",
+      "d4b": "대표색의 명도만 바꾼 다섯 색은 색 구분 검사를 통과하지 못해, 범례를 몇 번씩 다시 보게 됩니다.",
+      "d4a": "범주 색은 세 가지와 회색 기타까지만 씁니다. 색각 이상 구분과 대비 검사를 통과한 조합만 남깁니다.",
+      "alsoTitle": "화면에 다 보이지 않는 것도 명세에 적습니다",
+      "a1t": "화면 폭",
+      "a1p": "넓은 모니터에서 휴대폰까지, 폭마다 카드가 어떤 순서로 접히는지 정합니다.",
+      "a2t": "한국어와 영어",
+      "a2p": "억·만과 ₩·M·K 표기, 더 길어지는 영어 라벨까지 한 화면에서 맞춥니다.",
+      "a3t": "필터와 카드",
+      "a3p": "필터는 화면 위 한 줄에 두고 모든 카드에 함께 적용하며, 카드 안에 카드를 넣지 않습니다.",
+      "a4t": "차트 고르기",
+      "a4p": "이중 축 대신 나란히 놓은 두 차트처럼, 데이터에 맞는 차트를 고르는 기준을 둡니다.",
+      "a5t": "툴팁과 주석",
+      "a5p": "툴팁에 보여 줄 값과 순서, 명절이나 행사 구간을 표시하는 방법을 정합니다.",
+      "a6t": "접근성",
+      "a6p": "키보드 조작과 스크린 리더용 표, 움직임 줄이기 설정까지 챙깁니다.",
+      "getsTitle": "받는 것",
+      "g1t": "스타일 이름과 명세",
+      "g1p_html": "사내에서 부를 이름과 명세서(<code>style.md</code>)입니다. 레이아웃, 색 토큰, 서체, 컴포넌트, 동작, 하지 말 것까지 적어 누가 만들어도 같은 화면이 나옵니다.",
+      "g2t": "데이터 색 팔레트",
+      "g2p": "범주·순차·발산 색과 좋음·나쁨 색입니다. 색각 이상 구분과 대비 검사를 통과한 조합만 담습니다.",
+      "g3t": "샘플 화면",
+      "g3p": "회사 업무 주제로 만든 샘플 화면입니다. 한국어·영어 전환과 화면 폭별 배치를 바로 확인할 수 있습니다.",
+      "g4t": "도구 적용 파일",
+      "g4p_html": "Tableau 색상 팔레트(<code>Preferences.tps</code>)와 서식 가이드, 웹 화면에 쓰는 CSS 변수입니다.",
+      "stepsTitle": "진행 순서",
+      "s1t": "자료 받기",
+      "s1p": "브랜드 가이드와 지금 쓰는 대시보드 화면, 자주 보는 지표를 받습니다.",
+      "s2t": "진단",
+      "s2p": "브랜드 색이 데이터 색으로 쓸 만한지, 어떤 숫자와 차트에서 오해가 생기는지 짚습니다.",
+      "s3t": "시안",
+      "s3p": "샘플 화면 하나로 스타일을 정하고, 사내에서 부를 이름을 함께 짓습니다.",
+      "s4t": "전달",
+      "s4p": "명세와 팔레트, 도구 적용 파일을 드립니다. 그다음부터는 이름으로 요청하면 됩니다.",
+      "ctaTitle": "회사 대시보드에도 이름을 붙여 보세요",
+      "ctaText": "브랜드 가이드와 지금 쓰는 대시보드 화면 몇 장이면 시작할 수 있습니다.",
+      "ctaBtn": "제작 문의하기",
+      "nfTitle": "페이지를 찾을 수 없습니다",
+      "nfLead": "주소가 바뀌었거나 없는 페이지입니다. 첫 화면에서 스타일을 골라 보세요.",
+      "nfHome": "첫 화면으로",
+      "footFont": "글꼴",
+      "footAria": "바닥글",
+      "footBlog": "블로그"
+    },
+    "en": {
+      "skip": "Skip to content",
+      "navAria": "Main menu",
+      "navStyles": "Styles",
+      "navCustom": "Company styles",
+      "navContact": "Contact",
+      "langAria": "Language",
+      "docTitle_home": "Vizney Styles · Dashboard styles you can ask for by name",
+      "docTitle_404": "Page not found · Vizney Styles",
+      "pill": "{n} styles · Korean and English samples · Public specs",
+      "heroTitle": "Dashboard styles you can ask for by name",
+      "heroLead": "Each style comes with a live sample screen and a written spec, so the same look can be rebuilt from its name alone. Company styles are made the same way.",
+      "ctaBrowse": "Browse styles",
+      "ctaCompany": "See company styles",
+      "hint": "When you hand the work to an AI, name the style, as in “make it in the Chalk style”, and include the spec link from its card.",
+      "galleryTitle": "Styles so far",
+      "sub_chalk": "Dark sidebar, pastel KPI tiles",
+      "sub_glass": "Pastel gradient, frosted glass cards",
+      "sub_tile": "Airy white cards, blue–mint rings",
+      "meta_chalk": "Sample: online store orders",
+      "meta_glass": "Sample: online store sales",
+      "meta_tile": "Sample: hotel operations",
+      "linkSample": "Live sample",
+      "linkSpec": "Spec",
+      "linkPost": "Blog post",
+      "coverAlt": "{name} style sample screen",
+      "yoursName": "Your company",
+      "yoursSub": "Built for your brand and your data",
+      "yoursMeta": "Named together with you",
+      "yoursLink": "See how it works",
+      "customTitle": "A company style is more than colors and fonts",
+      "customLead": "A brand guide sets the logo, the brand colors and the typeface. A dashboard is where people compare numbers and read change, so it takes many more decisions. Compare two screens built from the same guide.",
+      "guideLabel": "Fictional brand guide",
+      "guideBrand": "Orum Foods",
+      "guidePrimary": "Primary",
+      "guideSecondary": "Secondary",
+      "guideNavy": "Navy",
+      "guideFont": "Typeface",
+      "guideNote": "Both screens use this guide.",
+      "capBefore": "Brand colors and fonts applied",
+      "capAfter": "Designed as a dashboard style",
+      "tagBefore": "Colors and fonts only",
+      "tagAfter": "Designed as a style",
+      "d1t": "Data color",
+      "d1b": "Brand red and orange fill the bars, so even rising sales read like a warning. The orange bars also lack contrast on white.",
+      "d1a": "Red stays in the logo and in bad changes. This year's bars are blue, and last year's step back in gray.",
+      "d2t": "Change color",
+      "d2b": "Up is green and down is red, so a falling cost ratio, which is good news, shows red, and a rising return rate shows green.",
+      "d2a": "Color says whether the change is good for that metric. A falling cost ratio is green and a rising return rate is red.",
+      "d3t": "Number format",
+      "d3b": "Raw figures like ₩1,243,512,800 overflow the card, and units as large as the digits leave each value at a different height.",
+      "d3a": "Figures are compacted to ₩1,244M with smaller units, and each card uses just two type sizes, one for the value and one for the rest.",
+      "d4t": "Category color",
+      "d4b": "Five tints of the brand colors fail the color-separation check, so readers keep going back to the legend.",
+      "d4a": "Three colors plus gray for Other, and only combinations that pass color-vision and contrast checks.",
+      "alsoTitle": "The spec also covers what one screen can't show",
+      "a1t": "Screen widths",
+      "a1p": "How cards fold, from wide monitors down to phones.",
+      "a2t": "Korean and English",
+      "a2p": "Number formats in both languages, and English labels that run longer, in one layout.",
+      "a3t": "Filters and cards",
+      "a3p": "One filter row at the top that scopes every card, and no cards inside cards.",
+      "a4t": "Chart choice",
+      "a4p": "Rules for picking a chart, such as two aligned charts instead of a dual axis.",
+      "a5t": "Tooltips and notes",
+      "a5p": "What a tooltip shows and in what order, and how holidays and events are marked.",
+      "a6t": "Accessibility",
+      "a6p": "Keyboard control, screen-reader tables and reduced motion.",
+      "getsTitle": "What you get",
+      "g1t": "A style name and a spec",
+      "g1p_html": "A name your team can ask for, and a written spec (<code>style.md</code>) covering layout, color tokens, type, components, motion and don'ts, so anyone who builds a screen gets the same look.",
+      "g2t": "A data color palette",
+      "g2p": "Categorical, sequential and diverging colors plus good and bad, all checked for color-vision deficiency and contrast.",
+      "g3t": "A sample screen",
+      "g3p": "A sample screen on a topic from your business, switching between Korean and English and laid out for every width.",
+      "g4t": "Tool files",
+      "g4p_html": "A Tableau color palette (<code>Preferences.tps</code>) with a formatting guide, and CSS variables for web screens.",
+      "stepsTitle": "How it works",
+      "s1t": "Share your materials",
+      "s1p": "Your brand guide, the dashboards you use now and the metrics you watch.",
+      "s2t": "Review",
+      "s2p": "We check whether your brand colors work as data colors, and where numbers and charts mislead.",
+      "s3t": "Draft",
+      "s3p": "We settle the style on one sample screen and name it together.",
+      "s4t": "Hand over",
+      "s4p": "You get the spec, the palette and the tool files. From then on, ask for it by name.",
+      "ctaTitle": "Give your company's dashboards a name",
+      "ctaText": "A brand guide and a few screenshots of your current dashboards are enough to start.",
+      "ctaBtn": "Contact us",
+      "nfTitle": "Page not found",
+      "nfLead": "This page has moved or doesn't exist. Pick a style from the home page.",
+      "nfHome": "Go to the home page",
+      "footFont": "Font",
+      "footAria": "Footer",
+      "footBlog": "Blog"
+    }
+  };
+
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const MINUS = '−';
+
+  let params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
+  const state = { lang: params.get('lang') === 'en' ? 'en' : 'ko' };
+  const S = () => STR[state.lang];
+  const PAGE = document.body.dataset.page || 'home';
+
+  /* ---------- links ---------- */
+  const SITE = 'https://styles.vizney.com/';
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  // The fact pill counts the style cards, so adding a card updates it.
+  const COUNT = String($$('.swatch:not(.swatch--yours)').length);
+
+  function href(key) {
+    const L = state.lang;
+    const [kind, name] = key.split(':');
+    // On the home page these are in-page anchors; elsewhere (404) they lead home, keeping the language.
+    if (kind === 'home') {
+      if (PAGE === 'home') return '#' + (name || 'top');
+      return '/' + (L === 'en' ? '?lang=en' : '') + (name ? '#' + name : '');
+    }
+    if (kind === 'contact') return BLOG[L] + 'contact-us/';
+    if (kind === 'blog') return BLOG[L];
+    if (kind === 'sample') return SITE + name + '/?lang=' + L;
+    if (kind === 'spec') return SITE + name + '/style.html';
+    if (kind === 'post') return BLOG[L] + 'style-' + name + '/';
+    return '#';
+  }
+
+  /* ---------- demo data: fictional brand, September 2026 against September 2025 ---------- */
+  const D = {
+    months: [4, 5, 6, 7, 8, 9],
+    prev: [1013770000, 1066420000, 1091880000, 1184650000, 1221330000, 1153480500],
+    now: [1081240000, 1158930000, 1121460000, 1287350000, 1362080000, 1243512800],
+    cost: [0.613, 0.625],
+    ret: [0.028, 0.024],
+    channels: [['own', 38], ['mart', 27], ['cvs', 19], ['mkt', 9], ['etc', 7]]
+  };
+  const YMAX = 1.5e9;
+  const TICKS = [0, 5e8, 1e9, 1.5e9];
+
+  // Bars run in time order: 2025 on the left, 2026 on the right.
+  const PAL = {
+    before: { prev: 'var(--b-orange)', now: 'var(--b-red)', stack: ['var(--b-red)', 'var(--b-orange)', 'var(--b-t1)', 'var(--b-t2)', 'var(--b-t3)'] },
+    after: { prev: 'var(--s-prev)', now: 'var(--s-1)', stack: ['var(--s-1)', 'var(--s-2)', 'var(--s-3)', 'var(--s-other)'] }
+  };
+
+  const nf = v => Math.round(v).toLocaleString('en-US');
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  const MINI = {
+    ko: {
+      brand: '오름푸드', title: '매출 현황', period: '2026년 9월 · 전년 동월 대비',
+      kpi: { rev: '매출', cost: '원가율', ret: '반품률' },
+      bars: '월별 매출', stack: '채널별 매출 비중', y25: '2025년', y26: '2026년',
+      month: m => m + '월', monthLong: m => m + '월', yoy: '전년 대비',
+      ch: { own: '자사몰', mart: '대형마트', cvs: '편의점', mkt: '오픈마켓', etc: '기타' },
+      good: '좋은 변화', bad: '나쁜 변화', pp: '%p',
+      barsAria: '월별 매출 막대 차트. 왼쪽·오른쪽 화살표로 달을 옮기며 값을 봅니다.',
+      colMonth: '월',
+      tick: v => (v === 0 ? '0' : v / 1e8 + '억')
+    },
+    en: {
+      brand: 'Orum Foods', title: 'Sales overview', period: 'Sep 2026 · vs Sep 2025',
+      kpi: { rev: 'Revenue', cost: 'Cost ratio', ret: 'Return rate' },
+      bars: 'Monthly revenue', stack: 'Revenue by channel', y25: '2025', y26: '2026',
+      month: m => ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'][m - 4],
+      monthLong: m => ['April', 'May', 'June', 'July', 'August', 'September'][m - 4],
+      yoy: 'vs last year',
+      ch: { own: 'Own store', mart: 'Hypermarkets', cvs: 'Convenience', mkt: 'Marketplaces', etc: 'Other' },
+      good: 'good change', bad: 'bad change', pp: ' pp',
+      barsAria: 'Monthly revenue bar chart. Use the left and right arrow keys to move between months.',
+      colMonth: 'Month',
+      tick: v => (v === 0 ? '0' : '₩' + nf(v / 1e6) + 'M')
+    }
+  };
+  const M = () => MINI[state.lang];
+
+  /* ---------- number formats ---------- */
+  // A value is a list of parts; parts with u:1 are units, drawn smaller in the designed screen.
+  function money(v, raw) {
+    if (state.lang === 'ko') return raw ? [{ t: nf(v) }, { t: '원', u: 1 }] : [{ t: (v / 1e8).toFixed(1) }, { t: '억', u: 1 }];
+    return raw ? [{ t: '₩', u: 1, pre: 1 }, { t: nf(v) }] : [{ t: '₩', u: 1, pre: 1 }, { t: nf(v / 1e6) }, { t: 'M', u: 1 }];
+  }
+  const rate = v => [{ t: (v * 100).toFixed(1) }, { t: '%', u: 1 }];
+  const plain = parts => parts.map(p => p.t).join('');
+  const marked = parts => parts.map(p => (p.u ? '<span class="u' + (p.pre ? ' u--pre' : '') + '">' + esc(p.t) + '</span>' : esc(p.t))).join('');
+  const signed = v => (v > 0 ? '+' : v < 0 ? MINUS : '') + Math.abs(v).toFixed(1);
+
+  const ARROW = {
+    up: '<svg viewBox="0 0 8 8" aria-hidden="true" focusable="false"><path d="M4 .8 7.6 7H.4z" fill="currentColor"/></svg>',
+    down: '<svg viewBox="0 0 8 8" aria-hidden="true" focusable="false"><path d="M4 7.2.4 1h7.2z" fill="currentColor"/></svg>'
+  };
+  const LOGO = '<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="10" fill="var(--b-red)"/><path d="M4.4 13.6 8.6 7.6l2.2 3 1.5-1.9 3.3 4.9z" fill="var(--page)"/></svg>';
+  const marker = n => '<span class="mk" data-n="' + n + '" aria-hidden="true">' + n + '</span>';
+
+  const KPIS = [
+    { id: 'rev', value: raw => money(D.now[5], raw), d: (D.now[5] / D.prev[5] - 1) * 100, unit: '%', better: 'up', mk: 3 },
+    { id: 'cost', value: () => rate(D.cost[0]), d: (D.cost[0] - D.cost[1]) * 100, unit: 'pp', better: 'down', mk: 2 },
+    { id: 'ret', value: () => rate(D.ret[0]), d: (D.ret[0] - D.ret[1]) * 100, unit: 'pp', better: 'down' }
+  ];
+
+  // The brand-only screen colors a change by its direction; the designed one by whether it is good for that metric.
+  function tone(mode, k) {
+    const up = k.d > 0;
+    if (mode === 'before') return up ? 'good' : 'bad';
+    return up === (k.better === 'up') ? 'good' : 'bad';
+  }
+
+  function channelsFor(mode) {
+    const ch = D.channels.slice();
+    if (mode === 'before') return ch;
+    const rest = ch.slice(3).reduce((a, x) => a + x[1], 0);
+    return ch.slice(0, 3).concat([['etc', rest]]);
+  }
+
+  /* ---------- mini dashboard ---------- */
+  function renderMini(el) {
+    const mode = el.dataset.mode;
+    const raw = mode === 'before';
+    const m = M();
+    const p = PAL[mode];
+    const ch = channelsFor(mode);
+
+    const kpis = KPIS.map(k => {
+      const t = tone(mode, k);
+      const delta = signed(k.d) + (k.unit === '%' ? '%' : m.pp);
+      const sr = raw ? '' : '<span class="sr-only"> (' + (t === 'good' ? m.good : m.bad) + ')</span>';
+      return '<div class="kpi">' + (k.mk ? marker(k.mk) : '') +
+        '<span class="kpi__label">' + esc(m.kpi[k.id]) + '</span>' +
+        '<span class="kpi__value"' + (k.id === 'rev' ? ' data-region="3"' : '') + '>' + marked(k.value(raw)) + '</span>' +
+        '<span class="delta delta--' + t + '" data-region="2">' + (k.d > 0 ? ARROW.up : ARROW.down) + esc(delta) + sr + '</span>' +
+        '</div>';
+    }).join('');
+
+    const pct = v => (v / YMAX * 100).toFixed(3) + '%';
+    const ticks = TICKS.map(v => '<span style="bottom:' + pct(v) + '">' + esc(m.tick(v)) + '</span>').join('');
+    const grid = TICKS.slice(1).map(v => '<i class="bars__grid" style="bottom:' + pct(v) + '"></i>').join('');
+    const last = D.months.length - 1;
+    const groups = D.months.map((mo, i) => {
+      const label = !raw && i === last
+        ? '<span class="bars__lbl" style="bottom:calc(' + pct(Math.max(D.prev[i], D.now[i])) + ' + 4px)">' + esc(plain(money(D.now[i], false))) + '</span>'
+        : '';
+      return '<div class="bars__g" data-i="' + i + '">' +
+        '<span class="bar" style="height:' + pct(D.prev[i]) + ';background:' + p.prev + '"></span>' +
+        '<span class="bar" style="height:' + pct(D.now[i]) + ';background:' + p.now + '"></span>' + label + '</div>';
+    }).join('');
+    const xs = D.months.map(mo => '<span>' + esc(m.month(mo)) + '</span>').join('');
+    const table = '<table class="sr-only"><caption>' + esc(m.bars) + '</caption><thead><tr>' +
+      '<th scope="col">' + esc(m.colMonth) + '</th><th scope="col">' + esc(m.y25) + '</th><th scope="col">' + esc(m.y26) + '</th><th scope="col">' + esc(m.yoy) + '</th>' +
+      '</tr></thead><tbody>' +
+      D.months.map((mo, i) => '<tr><th scope="row">' + esc(m.monthLong(mo)) + '</th><td>' + esc(plain(money(D.prev[i], raw))) + '</td><td>' + esc(plain(money(D.now[i], raw))) + '</td><td>' + signed((D.now[i] / D.prev[i] - 1) * 100) + '%</td></tr>').join('') +
+      '</tbody></table>';
+
+    const segs = ch.map((x, i) => '<span data-i="' + i + '" style="flex:' + x[1] + ' 1 0;background:' + p.stack[i] + '"></span>').join('');
+    const legend = ch.map((x, i) => '<li><i style="background:' + p.stack[i] + '"></i><span>' + esc(m.ch[x[0]]) + '</span><b>' + x[1] + '%</b></li>').join('');
+
+    el.innerHTML =
+      '<div class="mini__head">' +
+        '<span class="mini__brand">' + LOGO + '<span>' + esc(m.brand) + '</span></span>' +
+        '<span class="mini__title">' + esc(m.title) + '</span>' +
+        '<span class="mini__period">' + esc(m.period) + '</span>' +
+      '</div>' +
+      '<div class="kpis">' + kpis + '</div>' +
+      '<div class="sec-mini" data-region="1">' +
+        '<div class="sec-mini__head"><span class="sec-mini__title">' + esc(m.bars) + '</span>' +
+          '<span class="legend"><span><i style="background:' + p.prev + '"></i>' + esc(m.y25) + '</span><span><i style="background:' + p.now + '"></i>' + esc(m.y26) + '</span></span>' +
+          marker(1) + '</div>' +
+        '<div class="bars" tabindex="0" role="group" aria-label="' + esc(m.barsAria) + '" style="--yg:' + (state.lang === 'en' ? 46 : 28) + 'px">' +
+          '<div class="bars__y" aria-hidden="true">' + ticks + '</div>' +
+          '<div class="bars__plot" aria-hidden="true">' + grid + '<div class="bars__groups">' + groups + '</div></div>' +
+          '<div class="bars__x" aria-hidden="true">' + xs + '</div>' +
+        '</div>' + table +
+      '</div>' +
+      '<div class="sec-mini" data-region="4">' +
+        '<div class="sec-mini__head"><span class="sec-mini__title">' + esc(m.stack) + '</span>' + marker(4) + '</div>' +
+        '<div class="stack" aria-hidden="true">' + segs + '</div>' +
+        '<ul class="stack-legend">' + legend + '</ul>' +
+      '</div>' +
+      '<div class="tip" aria-hidden="true"></div>' +
+      '<p class="sr-only" aria-live="polite" data-live></p>';
+
+    bindMini(el, mode, ch);
+  }
+
+  function bindMini(el, mode, ch) {
+    const tip = $('.tip', el);
+    const bars = $('.bars', el);
+    const groups = $$('.bars__g', el);
+    const live = $('[data-live]', el);
+    const raw = mode === 'before';
+    let idx = -1;
+
+    function place(rect, topY) {
+      const box = el.getBoundingClientRect();
+      const w = tip.offsetWidth, h = tip.offsetHeight;
+      let left = rect.left - box.left + rect.width / 2 - w / 2;
+      left = Math.max(8, Math.min(left, box.width - w - 8));
+      const top = Math.max(8, topY - box.top - h - 10);
+      tip.style.transform = 'translate(' + Math.round(left) + 'px,' + Math.round(top) + 'px)';
+    }
+
+    function showMonth(i, announce) {
+      idx = i;
+      const m = M(), p = PAL[mode];
+      groups.forEach((g, k) => g.classList.toggle('is-on', k === i));
+      const v26 = plain(money(D.now[i], raw)), v25 = plain(money(D.prev[i], raw));
+      const yoy = signed((D.now[i] / D.prev[i] - 1) * 100) + '%';
+      tip.innerHTML = '<div class="tip__t">' + esc(m.monthLong(D.months[i])) + '</div>' +
+        '<div class="tip__r"><span><i style="background:' + p.now + '"></i>' + esc(m.y26) + '</span><b>' + esc(v26) + '</b></div>' +
+        '<div class="tip__r"><span><i style="background:' + p.prev + '"></i>' + esc(m.y25) + '</span><b>' + esc(v25) + '</b></div>' +
+        '<div class="tip__d">' + esc(m.yoy) + ' ' + yoy + '</div>';
+      tip.classList.add('is-on');
+      const top = Math.min.apply(null, $$('.bar', groups[i]).map(b => b.getBoundingClientRect().top));
+      place(groups[i].getBoundingClientRect(), top);
+      if (announce) live.textContent = m.monthLong(D.months[i]) + ': ' + m.y26 + ' ' + v26 + ', ' + m.y25 + ' ' + v25 + ', ' + m.yoy + ' ' + yoy;
+    }
+
+    function hide() {
+      idx = -1;
+      groups.forEach(g => g.classList.remove('is-on'));
+      tip.classList.remove('is-on');
+    }
+
+    groups.forEach((g, i) => g.addEventListener('mouseenter', () => showMonth(i, false)));
+    bars.addEventListener('mouseleave', () => { if (document.activeElement !== bars) hide(); });
+    bars.addEventListener('focus', () => showMonth(idx >= 0 ? idx : groups.length - 1, true));
+    bars.addEventListener('blur', hide);
+    bars.addEventListener('keydown', e => {
+      const lastI = groups.length - 1;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const from = idx < 0 ? lastI : idx;
+        showMonth(Math.max(0, Math.min(lastI, from + (e.key === 'ArrowRight' ? 1 : -1))), true);
+      } else if (e.key === 'Home' || e.key === 'End') {
+        e.preventDefault();
+        showMonth(e.key === 'Home' ? 0 : lastI, true);
+      } else if (e.key === 'Escape') {
+        hide();
+      }
+    });
+
+    $$('.stack span', el).forEach(seg => {
+      seg.addEventListener('mouseenter', () => {
+        const i = +seg.dataset.i, m = M();
+        tip.innerHTML = '<div class="tip__r"><span><i style="background:' + PAL[mode].stack[i] + '"></i>' + esc(m.ch[ch[i][0]]) + '</span><b>' + ch[i][1] + '%</b></div>';
+        tip.classList.add('is-on');
+        const r = seg.getBoundingClientRect();
+        place(r, r.top);
+      });
+      seg.addEventListener('mouseleave', hide);
+    });
+  }
+
+  /* ---------- rows below the screens point at both screens ---------- */
+  function bindCompare() {
+    const root = $('#compare');
+    if (!root) return;
+    let cur = '';
+    function set(n) {
+      if (n === cur) return;
+      cur = n;
+      $$('.mk', root).forEach(x => x.classList.toggle('is-on', x.dataset.n === n));
+      $$('[data-region]', root).forEach(x => x.classList.toggle('is-hl', x.dataset.region === n));
+      $$('.diff-label, .diff-cell', root).forEach(x => x.classList.toggle('is-on', x.dataset.n === n));
+    }
+    root.addEventListener('mouseover', e => {
+      const t = e.target.closest('.diff-label, .diff-cell, .mk');
+      set(t ? t.dataset.n : '');
+    });
+    root.addEventListener('mouseleave', () => set(''));
+    root.addEventListener('vz:render', () => { cur = ''; });
+  }
+
+  /* ---------- language ---------- */
+  function applyLang() {
+    const L = state.lang, s = S();
+    document.documentElement.lang = L;
+    if (s['docTitle_' + PAGE]) document.title = s['docTitle_' + PAGE];
+    $$('[data-i18n]').forEach(el => { const v = s[el.dataset.i18n]; if (v != null) el.textContent = v.replace('{n}', COUNT); });
+    $$('[data-i18n-html]').forEach(el => { const v = s[el.dataset.i18nHtml]; if (v != null) el.innerHTML = v; });
+    $$('[data-i18n-aria]').forEach(el => { const v = s[el.dataset.i18nAria]; if (v != null) el.setAttribute('aria-label', v); });
+    $$('[data-href]').forEach(a => { a.href = href(a.dataset.href); });
+    $$('img[data-cover]').forEach(img => {
+      const k = img.dataset.cover, src = k + '/cover-' + L + '.png';
+      if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+      img.alt = s.coverAlt.replace('{name}', img.closest('.swatch').querySelector('.swatch__name').textContent.trim());
+    });
+    $$('.lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.lang === L ? 'true' : 'false'));
+    $$('.mini').forEach(renderMini);
+    const root = $('#compare');
+    if (root) root.dispatchEvent(new Event('vz:render'));
+  }
+
+  function setLang(L) {
+    if (L === state.lang) return;
+    state.lang = L;
+    applyLang();
+    try {
+      const u = new URL(location.href);
+      if (L === 'en') u.searchParams.set('lang', 'en'); else u.searchParams.delete('lang');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* some frames do not allow it; the page still switches */ }
+  }
+
+  $$('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+  bindCompare();
+  applyLang();
+})();
+</script>
+</body>
+</html>
