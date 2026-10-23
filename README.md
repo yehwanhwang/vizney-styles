@@ -2,7 +2,7 @@
 
 Named dashboard styles from [Vizney](https://www.vizney.com). Each style has a live sample screen and a short spec (`style.md`), so it can be rebuilt by name: share the spec and ask for "the Chalk style".
 
-Served at **https://styles.vizney.com** (GitHub Pages, `main` branch). Everything pushed to `main` is published immediately, so keep work in progress off `main`.
+Served at **https://styles.vizney.com** (GitHub Pages, `main` branch). Everything pushed to `main` is published immediately, so keep work in progress off `main`. The home page is `index.html`: the style gallery and an introduction to company styles.
 
 
 ## Styles
@@ -37,7 +37,7 @@ The full production checklist used with Claude is in [CLAUDE.md](https://github.
 5. In embed mode `<html>` gets the class `vz-embed`. Reset any viewport-height layout there (for example `html.vz-embed .app { min-height: 0 }`) and hide page-only notes.
 6. Optional: `cover-ko.png` / `cover-en.png` (1440×810 at 2×) for the post's feature image.
 7. Publish the blog post at `style-<name>` (for example `/style-chalk/`) on both sites.
-8. Update in place; Git history keeps the old versions. Add a row to the Styles table.
+8. Update in place; Git history keeps the old versions. Add a row to the Styles table and a card to the home page (`index.html`).
 
 
 ## Embedding in a Ghost post
