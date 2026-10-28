@@ -9,18 +9,21 @@ Served at **https://styles.vizney.com** (GitHub Pages, `main` branch). Everythin
 
 A style is a look and feel, not a dataset. The sample data only shows the style at work.
 
+Styles come in two series. **Texture styles** (Chalk, Glass, Tile) are named after a material and show a look of our own. **Brand styles** (Anthropic) are named after the company whose public website the look was read from, the way [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) catalogs DESIGN.md files: they are independent readings of publicly visible design, not official designs, and they are not affiliated with or endorsed by the companies. A brand style never carries the company's logo, wordmark, typefaces, images or data; the sample screen uses a fictional business and fictional numbers, and the sample, the spec and the blog post all say so. If a company asks for its style to be taken down, it comes down. Trademarks belong to their owners.
+
 | Style | Feel | Sample | Spec | Blog posts |
 |---|---|---|---|---|
 | Chalk (초크) | Dark sidebar, pastel KPI tiles | [Live sample](https://styles.vizney.com/chalk/) · online store orders (fictional) | [style.md](chalk/style.md) | [KO](https://kr.vizney.com/style-chalk/) · [EN](https://www.vizney.com/style-chalk/) |
 | Glass (글래스) | Pastel gradient, frosted glass cards | [Live sample](https://styles.vizney.com/glass/) · online store sales (fictional) | [style.md](glass/style.md) | [KO](https://kr.vizney.com/style-glass/) · [EN](https://www.vizney.com/style-glass/) |
 | Tile (타일) | Airy white cards, blue–mint rings | [Live sample](https://styles.vizney.com/tile/) · hotel operations (fictional) | [style.md](tile/style.md) | [KO](https://kr.vizney.com/style-tile/) · [EN](https://www.vizney.com/style-tile/) |
+| Anthropic (앤트로픽) | Warm ivory, editorial serif, hairline rows | [Live sample](https://styles.vizney.com/anthropic/) · publisher sales (fictional) | [style.md](anthropic/style.md) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
 
 
 ## Adding a style
 
 The full production checklist used with Claude is in [CLAUDE.md](https://github.com/yehwanhwang/vizney-styles/blob/main/CLAUDE.md).
 
-1. Name the style with one evocative material or texture word (Chalk, Glass, Linen …) and use the name on its own: Vizney Styles is the collection, not part of the name. The folder is the name in lowercase, at the root: `chalk/`. Never name a folder after its sample data.
+1. Name a texture style with one evocative material or texture word (Chalk, Glass, Linen …) and a brand style with the company's name (Anthropic), and use the name on its own: Vizney Styles is the collection, not part of the name. The folder is the name in lowercase, at the root: `chalk/`. Never name a folder after its sample data.
 2. Give it a one-line subtitle that says what it looks like ("Dark sidebar, pastel KPI tiles"). The name is for remembering; the subtitle is for first-time readers and search.
 3. Put two files in the folder:
    - `index.html`: the sample screen, self-contained (data included), Korean and English in one file via `?lang=ko` / `?lang=en`.

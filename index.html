@@ -18,14 +18,14 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=27f3e2bdce" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=7720f8c40d" as="font" type="font/woff" crossorigin>
 <style>
 /* VZ Sans, as on Vizney Blocks: Spoqa Han Sans Neo cut down to these pages' characters. tools/font.py builds it;
    rebuild after changing any text here or on the other site page (index.html / 404.html). */
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=27f3e2bdce) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=27f3e2bdce) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=27f3e2bdce) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=27f3e2bdce) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=7720f8c40d) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=7720f8c40d) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=7720f8c40d) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=7720f8c40d) format('woff')}
 :root{
   /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
      Sticky top bar with the Styles mark; a hero with a fact pill, two buttons and an AI hint; four swatches
@@ -344,7 +344,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 
 <main id="main">
   <section class="wrap hero" aria-labelledby="heroTitle">
-    <p class="pill" data-i18n="pill">스타일 3종 · 한·영 샘플 · 명세 공개</p>
+    <p class="pill" data-i18n="pill">스타일 4종 · 한·영 샘플 · 명세 공개</p>
     <h1 id="heroTitle" data-i18n="heroTitle">이름 하나로 다시 만드는 대시보드 스타일</h1>
     <p class="lede" data-i18n="heroLead">스타일마다 샘플 화면과 명세를 함께 만들어, 이름만으로 같은 느낌의 화면을 다시 만들 수 있게 합니다. 회사 전용 스타일도 같은 방식으로 만듭니다.</p>
     <div class="actions">
@@ -394,6 +394,19 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
           <a href="https://styles.vizney.com/tile/?lang=ko" data-href="sample:tile" data-i18n="linkSample">샘플 화면</a>
           <a href="https://styles.vizney.com/tile/style.html" data-href="spec:tile" data-i18n="linkSpec">명세</a>
           <a href="https://kr.vizney.com/style-tile/" data-href="post:tile" target="_blank" rel="noopener" data-i18n="linkPost">소개 글</a>
+        </p>
+      </article>
+      <article class="swatch">
+        <a class="swatch__media" href="https://styles.vizney.com/anthropic/?lang=ko" data-href="sample:anthropic" tabindex="-1" aria-hidden="true">
+          <img data-cover="anthropic" src="anthropic/cover-ko.png" alt="Anthropic 스타일 샘플 화면" width="2880" height="1620" decoding="async">
+        </a>
+        <h3 class="swatch__name">Anthropic</h3>
+        <p class="swatch__sub" data-i18n="sub_anthropic">따뜻한 아이보리와 에디토리얼 세리프, 헤어라인 행</p>
+        <p class="swatch__meta" data-i18n="meta_anthropic">출판사 판매 현황 샘플</p>
+        <p class="swatch__links">
+          <a href="https://styles.vizney.com/anthropic/?lang=ko" data-href="sample:anthropic" data-i18n="linkSample">샘플 화면</a>
+          <a href="https://styles.vizney.com/anthropic/style.html" data-href="spec:anthropic" data-i18n="linkSpec">명세</a>
+          <a href="https://kr.vizney.com/style-anthropic/" data-href="post:anthropic" target="_blank" rel="noopener" data-i18n="linkPost">소개 글</a>
         </p>
       </article>
       <article class="swatch swatch--yours">
@@ -560,9 +573,11 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "sub_chalk": "다크 사이드바와 파스텔 KPI 카드",
       "sub_glass": "파스텔 그라데이션과 반투명 글래스 카드",
       "sub_tile": "여백 넓은 흰 카드와 파랑·민트 링",
+      "sub_anthropic": "따뜻한 아이보리와 에디토리얼 세리프, 헤어라인 행",
       "meta_chalk": "온라인몰 주문 분석 샘플",
       "meta_glass": "온라인 스토어 매출 샘플",
       "meta_tile": "호텔 운영 현황 샘플",
+      "meta_anthropic": "출판사 판매 현황 샘플",
       "linkSample": "샘플 화면",
       "linkSpec": "명세",
       "linkPost": "소개 글",
@@ -656,9 +671,11 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "sub_chalk": "Dark sidebar, pastel KPI tiles",
       "sub_glass": "Pastel gradient, frosted glass cards",
       "sub_tile": "Airy white cards, blue–mint rings",
+      "sub_anthropic": "Warm ivory, editorial serif, hairline rows",
       "meta_chalk": "Sample: online store orders",
       "meta_glass": "Sample: online store sales",
       "meta_tile": "Sample: hotel operations",
+      "meta_anthropic": "Sample: publisher sales",
       "linkSample": "Live sample",
       "linkSpec": "Spec",
       "linkPost": "Blog post",

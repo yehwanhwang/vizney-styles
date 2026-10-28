@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>Anthropic · 출판사 판매 현황 샘플</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@v3.3.0/css/SpoqaHanSansNeo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Serif+KR:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap">
+<script src="/lib/embed.js" defer></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:#faf9f5}
+.vz{
+  --canvas:#faf9f5;--card:#f0eee6;--card-strong:#e8e6dc;--pill:#f5f4ed;
+  --ink:#141413;--ink-2:#30302e;--body:#3d3d3a;--text-2:#5e5d59;--text-3:#73726c;--muted:#87867f;
+  --hair:#e8e6dc;--hair-2:#dedcd1;--hair-dark:#30302e;
+  --dark:#141413;--dark-2:#1f1e1d;--on-dark:#faf9f5;--on-dark-2:#9c9a92;
+  --clay:#d97757;--clay-deep:#c46849;--plum:#6953a0;--teal:#0d9298;--other:#b0aea5;--prev:#b0aea5;
+  --good:#2c6e4f;--bad:#a33d34;--focus:#2c84db;
+  --serif:"Source Serif 4","Noto Serif KR","Apple SD Gothic Neo","Noto Serif CJK KR",Georgia,serif;
+  --sans:"Spoqa Han Sans Neo","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,"Spoqa Han Sans Neo",monospace;
+  --ease:cubic-bezier(.165,.84,.44,1);
+  --r:16px;--pad:24px;--gap:16px;--page:32px;
+  color-scheme:light;
+  font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--body);background:var(--canvas);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  min-height:100vh;word-break:keep-all;
+}
+.vz button{font:inherit;color:inherit}
+.vz :focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:6px}
+.vz-wrap{max-width:1400px;margin:0 auto;padding:0 var(--page) 28px}
+
+/* ---------- header ---------- */
+.vz-top{display:flex;align-items:center;gap:14px;min-height:84px;padding:14px 0}
+.vz-brand{font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;line-height:1.2}
+.vz-brand small{display:block;font-family:var(--sans);font-size:11.5px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.vz-tools{margin-left:auto;display:flex;align-items:center;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 13px;border-radius:999px;border:1px solid var(--hair);background:var(--pill);font-size:13px;letter-spacing:.01em;color:var(--body);white-space:nowrap;text-decoration:none;cursor:default}
+.pill svg{color:var(--muted);flex:none}
+.pill-ink{background:var(--ink);border-color:var(--ink);color:var(--on-dark);cursor:pointer;transition:background-color .2s var(--ease)}
+.pill-ink svg{color:var(--on-dark-2)}
+.pill-ink:hover{background:var(--ink-2)}
+.vz-lang{display:inline-flex;height:32px;padding:3px;border-radius:999px;border:1px solid var(--hair);background:var(--pill)}
+.vz-lang button{appearance:none;border:0;background:none;font-size:12px;font-weight:500;color:var(--text-2);padding:0 10px;border-radius:999px;cursor:pointer;letter-spacing:.03em}
+.vz-lang button[aria-pressed="true"]{background:var(--ink);color:var(--on-dark)}
+
+/* ---------- filter row ---------- */
+.vz-filter{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;padding:14px 0 0;border-top:1px solid var(--hair)}
+.vz-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0}
+.vz-tabs::-webkit-scrollbar{display:none}
+.vz-tab{appearance:none;height:32px;padding:0 13px;border-radius:999px;border:1px solid var(--hair);background:var(--canvas);font-size:13px;color:var(--text-2);cursor:pointer;white-space:nowrap;transition:background-color .2s var(--ease),color .2s var(--ease)}
+.vz-tab:hover{background:var(--pill);color:var(--ink)}
+.vz-tab[aria-pressed="true"]{background:var(--card-strong);border-color:var(--hair-2);color:var(--ink);font-weight:500}
+.vz-filter .aside{margin-left:auto}
+
+/* ---------- statement ---------- */
+.vz-hero{padding:40px 0 34px;max-width:1040px}
+.vz-stmt{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.9vw,40px);line-height:1.28;letter-spacing:-.012em;color:var(--text-2);text-wrap:balance}
+.vz-stmt b{font-weight:500;color:var(--ink);white-space:nowrap}
+.vz-lead{margin:14px 0 0;font-size:15.5px;line-height:1.6;color:var(--text-2);max-width:72ch}
+.vz-lead i{font-style:normal;font-family:var(--serif);color:var(--ink)}
+html[lang=en] .vz-lead i{font-style:italic}
+
+/* ---------- grid ---------- */
+.vz-grid{display:grid;gap:var(--gap);grid-template-columns:repeat(12,minmax(0,1fr));grid-template-areas:
+  "k1 k1 k1 k2 k2 k2 k3 k3 k3 k4 k4 k4"
+  "tr tr tr tr tr tr tr bs bs bs bs bs"
+  "ch ch ch ch ch ch fm fm fm fm fm fm"}
+.a-k1{grid-area:k1}.a-k2{grid-area:k2}.a-k3{grid-area:k3}.a-k4{grid-area:k4}
+.a-tr{grid-area:tr}.a-bs{grid-area:bs}.a-ch{grid-area:ch}.a-fm{grid-area:fm}
+
+.card{position:relative;min-width:0;container-type:inline-size;display:flex;flex-direction:column;padding:var(--pad);background:var(--card);border-radius:var(--r)}
+.card-h{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px 14px;min-height:22px;margin-bottom:16px}
+.card-t{margin:0;font-size:15px;font-weight:500;line-height:22px;color:var(--ink)}
+.aside{font-size:12.5px;color:var(--text-2)}
+
+/* figures */
+.kpi{font-size:34px;line-height:1.1;font-weight:400;color:var(--ink);letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.kpi .u{font-size:15px;font-weight:400;color:var(--text-2);letter-spacing:0;margin-left:3px}
+.kpi .u.pre{margin:0 2px 0 0}
+.lbl{font-size:13px;color:var(--text-2);margin-bottom:10px}
+.delta{margin-top:8px;font-size:12.5px;color:var(--text-2)}
+.delta b{font-weight:700;color:var(--good);margin-right:5px}
+.delta b.neg{color:var(--bad)}
+.delta b.flat{color:var(--text-2)}
+.kcard .lbl{margin-bottom:12px}
+
+/* legends */
+.lgs{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px}
+.lg{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2);white-space:nowrap}
+.k-dot{width:8px;height:8px;flex:none;border-radius:50%;background:var(--c)}
+.k-line{width:16px;height:0;flex:none;border-top:2px solid var(--c);border-radius:2px}
+.k-line.dotted{border-top-style:dotted}
+.k-none{width:16px;flex:none}
+
+/* charts */
+.chart{position:relative;flex:1 1 auto;min-height:150px}
+.chart>svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;touch-action:pan-y}
+.chart-tr{margin:4px calc(var(--pad) * -1) -12px;min-height:214px}
+.ax{font-size:11px;fill:var(--text-3);font-variant-numeric:tabular-nums}
+.ax.em{fill:var(--ink)}
+
+/* tooltip */
+.tip{position:absolute;z-index:6;left:0;top:0;pointer-events:none;background:var(--canvas);border:1px solid var(--hair);border-radius:8px;padding:8px 11px 9px;box-shadow:0 8px 22px rgba(20,20,19,.10);white-space:nowrap;opacity:0;transform:translateY(3px);transition:opacity .14s ease,transform .14s ease}
+.tip.on{opacity:1;transform:none}
+.tip::after{content:"";position:absolute;left:var(--ax,50%);bottom:0;width:9px;height:9px;background:var(--canvas);border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);transform:translate(-50%,50%) rotate(45deg)}
+.tip.below::after{bottom:auto;top:0;transform:translate(-50%,-50%) rotate(225deg)}
+.tip-h{font-size:11px;color:var(--text-2);margin-bottom:3px}
+.tip-r{display:flex;align-items:center;gap:7px;line-height:1.55}
+.tip-r b{font-size:13.5px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+.tip-r span{font-size:11.5px;color:var(--text-2)}
+
+/* hairline rows (bestsellers, channels, formats) */
+.rows{list-style:none;margin:0;padding:0}
+.rows li{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--hair);font-size:13.5px;transition:opacity .2s ease}
+.rows li:first-child{border-top:0;padding-top:0}
+.rows li.dim{opacity:.4}
+.rows .rk{width:18px;flex:none;font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rows .nm{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px;color:var(--ink);white-space:nowrap;overflow:hidden}
+.rows .ttl{font-family:var(--serif);font-size:15px;line-height:1.3;color:var(--ink);overflow:hidden;text-overflow:ellipsis}
+html[lang=en] .rows .ttl{font-style:italic}
+.rows .au{font-size:12.5px;color:var(--text-2);flex:none}
+.rows .val{font-weight:500;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rows .val .u{font-size:.9em;font-weight:400;color:var(--text-2);margin-left:1px}
+.rows .pct{width:42px;text-align:right;color:var(--text-2);font-variant-numeric:tabular-nums}
+.chg{display:inline-flex;align-items:center;justify-content:flex-end;gap:3px;min-width:58px;font-size:12.5px;font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chg svg{width:11px;height:11px}
+.chg.up{color:var(--good)}
+.chg.down{color:var(--bad)}
+.chg.flat{color:var(--text-2)}
+.rows .bar{flex:1 1 0;min-width:40px;height:6px;border-radius:3px;background:var(--card-strong);overflow:hidden}
+.rows .bar i{display:block;height:100%;border-radius:3px;background:var(--clay);transition:width .7s var(--ease)}
+.rows .bar i.on{background:var(--clay-deep)}
+.a-ch .rows .nm{flex:0 0 132px}
+.a-ch .rows .val{width:72px}
+.more{appearance:none;margin-top:auto;padding-top:16px;border:0;background:none;cursor:pointer}
+.more span{display:flex;align-items:center;justify-content:center;gap:6px;height:38px;border-radius:10px;border:1px solid var(--hair-2);background:var(--card-strong);font-size:13px;font-weight:500;color:var(--ink-2);transition:background-color .2s var(--ease)}
+.more:hover span{background:#dedcd1}
+
+/* format stack */
+.stack{display:flex;gap:2px;height:10px;margin:2px 0 18px}
+.stack i{display:block;flex:1 1 0;min-width:3px;transition:flex-grow .6s var(--ease),opacity .2s ease}
+.stack i:first-child{border-radius:5px 0 0 5px}
+.stack i:last-child{border-radius:0 5px 5px 0}
+.stack.dim i:not(.on){opacity:.3}
+.stack:focus-visible{outline-offset:4px}
+.a-fm .rows .nm{gap:9px;align-items:center}
+.a-fm .kpi,.a-ch .kpi{margin-bottom:14px}
+
+/* ---------- dark band: new releases ---------- */
+.band{margin-top:var(--gap);padding:28px 32px 30px;border-radius:var(--r);background:var(--dark);color:var(--on-dark)}
+.band-h{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px 16px;margin-bottom:12px}
+.band-t{margin:0;font-family:var(--serif);font-size:22px;font-weight:400;letter-spacing:-.01em;line-height:1.3;color:var(--on-dark)}
+.band .aside{color:var(--on-dark-2)}
+.tbl-wrap{overflow-x:auto;scrollbar-width:thin;margin:0 -8px;padding:0 8px}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:620px}
+.tbl th,.tbl td{padding:12px 10px;text-align:left;font-weight:400;border-top:1px solid var(--hair-dark);white-space:nowrap;vertical-align:middle}
+.tbl thead th{font-family:var(--sans);font-weight:400;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--on-dark-2);border-top:0;padding-top:4px}
+.tbl th:first-child,.tbl td:first-child{padding-left:0}
+.tbl th:last-child,.tbl td:last-child{padding-right:0}
+.tbl .num{text-align:right;font-family:var(--mono);font-size:13px;color:var(--on-dark);font-variant-numeric:tabular-nums}
+.tbl .num .u{font-family:var(--sans);font-size:12px;color:var(--on-dark-2);margin-left:1px}
+.tbl .mono{font-family:var(--mono);font-size:12.5px;color:var(--on-dark-2)}
+.tbl .ttl{font-family:var(--serif);font-size:15.5px;color:var(--on-dark);white-space:normal;min-width:170px}
+html[lang=en] .tbl .ttl{font-style:italic}
+.tbl .au{color:var(--on-dark-2)}
+.tbl .imp{color:var(--on-dark-2);font-size:12.5px}
+.tbl tbody tr{transition:background-color .15s ease}
+.tbl tbody tr:hover{background:var(--dark-2)}
+.tbl tbody tr:hover td:first-child{border-radius:6px 0 0 6px}
+.tbl tbody tr:hover td:last-child{border-radius:0 6px 6px 0}
+.sell{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.sell i{display:block;width:88px;height:6px;border-radius:3px;background:var(--hair-dark);overflow:hidden;flex:none}
+.sell i b{display:block;height:100%;border-radius:3px;background:var(--clay);transition:width .8s var(--ease)}
+.sell span{font-family:var(--mono);font-size:13px;min-width:44px;text-align:right}
+.rep{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:999px;border:1px solid var(--clay);font-size:11.5px;letter-spacing:.04em;color:var(--on-dark);white-space:nowrap}
+.rep.no{border-color:var(--hair-dark);color:var(--on-dark-2)}
+
+/* ---------- footer ---------- */
+.vz-foot{margin:22px 0 0;font-size:12.5px;line-height:1.65;color:var(--text-2);max-width:88ch}
+.vz-foot p{margin:0}
+.vz-foot p+p{margin-top:6px}
+.vz-foot b{font-weight:500;color:var(--body)}
+
+/* ---------- embed (블로그 iframe, ?embed=1 · lib/embed.js) ---------- */
+html.vz-embed .vz{min-height:0}
+html.vz-embed .vz-foot{display:none}
+html.vz-embed .vz-wrap{padding-bottom:20px}
+
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* motion */
+.draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.2s var(--ease) .1s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.fade{animation:fade .5s ease both}
+@keyframes fade{from{opacity:0}}
+.rise{animation:rise .5s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){.vz *,.vz *::before,.vz *::after{animation:none!important;transition:none!important}}
+
+/* ---------- responsive ---------- */
+@media (max-width:1359px){
+  .vz{--page:24px;--gap:14px}
+  .vz-hero{padding:32px 0 28px}
+}
+@media (max-width:1179px){
+  .vz-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-areas:"k1 k2 k3 k4" "tr tr tr tr" "bs bs bs bs" "ch ch fm fm"}
+}
+@media (max-width:899px){
+  .vz-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"k1 k2" "k3 k4" "tr tr" "bs bs" "ch ch" "fm fm"}
+  .vz-top{min-height:64px;padding:10px 0}
+  .vz-brand{font-size:18px}
+  .vz-brand small{display:none}
+  .pill-period{display:none}
+  .vz-filter .aside{display:none}
+}
+@media (max-width:639px){
+  .vz{--page:16px;--gap:12px;--pad:20px}
+  .vz-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"k1" "k2" "k3" "k4" "tr" "bs" "fm" "ch"}
+  .vz-hero{padding:26px 0 22px}
+  .vz-stmt{font-size:25px}
+  .kpi{font-size:30px}
+  .band{padding:22px 20px 24px}
+  .band-t{font-size:20px}
+  .rows .au{display:none}
+  .a-ch .rows .nm{flex-basis:96px}
+  .tbl{min-width:520px}
+  .tbl .au,.tbl .imp{display:none}
+  .vz-tools{gap:8px}
+  .pill-ink{display:none}
+}
+</style>
+</head>
+<body>
+<div class="vz" id="vz"><div class="vz-wrap">
+  <header class="vz-top">
+    <div class="vz-brand"><span data-i18n="brand"></span><small data-i18n="brandSub"></small></div>
+    <div class="vz-tools">
+      <span class="pill pill-period"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span data-i18n="period"></span></span>
+      <div class="vz-lang" role="group" aria-label="Language"><button type="button" data-lang="ko">KO</button><button type="button" data-lang="en">EN</button></div>
+      <a class="pill pill-ink" href="#releases" data-i18n="toReleases"></a>
+    </div>
+  </header>
+
+  <div class="vz-filter">
+    <nav class="vz-tabs">
+      <button class="vz-tab" type="button" data-imprint="all"></button>
+      <button class="vz-tab" type="button" data-imprint="fic"></button>
+      <button class="vz-tab" type="button" data-imprint="non"></button>
+      <button class="vz-tab" type="button" data-imprint="kid"></button>
+    </nav>
+    <span class="aside" data-i18n="basis"></span>
+  </div>
+
+  <section class="vz-hero" aria-labelledby="stmt">
+    <h1 class="vz-stmt" id="stmt" data-v="stmt"></h1>
+    <p class="vz-lead" data-v="lead"></p>
+  </section>
+
+  <main class="vz-grid">
+    <section class="card kcard a-k1" id="c-rev">
+      <div class="lbl" data-i18n="kpi.rev"></div>
+      <div class="kpi" data-v="kpi"></div>
+      <div class="delta" data-v="delta"></div>
+    </section>
+    <section class="card kcard a-k2" id="c-cop">
+      <div class="lbl" data-i18n="kpi.copies"></div>
+      <div class="kpi" data-v="kpi"></div>
+      <div class="delta" data-v="delta"></div>
+    </section>
+    <section class="card kcard a-k3" id="c-ret">
+      <div class="lbl" data-i18n="kpi.returns"></div>
+      <div class="kpi" data-v="kpi"></div>
+      <div class="delta" data-v="delta"></div>
+    </section>
+    <section class="card kcard a-k4" id="c-dig">
+      <div class="lbl" data-i18n="kpi.digital"></div>
+      <div class="kpi" data-v="kpi"></div>
+      <div class="delta" data-v="delta"></div>
+    </section>
+
+    <!-- 월 매출 추이 -->
+    <section class="card a-tr" id="c-tr">
+      <div class="card-h">
+        <h2 class="card-t" data-i18n="tr.t"></h2>
+        <div class="lgs">
+          <span class="lg"><i class="k-line" style="--c:#d97757"></i><span data-i18n="tr.s1"></span></span>
+          <span class="lg"><i class="k-line dotted" style="--c:#b0aea5"></i><span data-i18n="tr.s2"></span></span>
+        </div>
+      </div>
+      <div class="lbl" data-i18n="tr.lbl"></div>
+      <div class="kpi" data-v="kpi"></div>
+      <div class="delta" data-v="delta"></div>
+      <div class="chart chart-tr" data-chart="tr"></div>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only"><table data-v="table"></table></div>
+    </section>
+
+    <!-- 베스트셀러 -->
+    <section class="card a-bs" id="c-bs">
+      <div class="card-h"><h2 class="card-t" data-i18n="bs.t"></h2><span class="aside" data-i18n="bs.aside"></span></div>
+      <ol class="rows" data-v="rows"></ol>
+      <button class="more" type="button" data-v="more" aria-expanded="false"><span><span data-v="moreText"></span><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6h8M6.5 2.5L10 6l-3.5 3.5"/></svg></span></button>
+    </section>
+
+    <!-- 판매 채널 -->
+    <section class="card a-ch" id="c-ch">
+      <div class="card-h"><h2 class="card-t" data-i18n="ch.t"></h2><span class="aside" data-i18n="ch.aside"></span></div>
+      <div class="lbl" data-i18n="ch.lbl"></div>
+      <div class="kpi" data-v="kpi"></div>
+      <ul class="rows" data-v="rows" tabindex="0" role="group"></ul>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only"><table data-v="table"></table></div>
+    </section>
+
+    <!-- 판형별 매출 -->
+    <section class="card a-fm" id="c-fm">
+      <div class="card-h"><h2 class="card-t" data-i18n="fm.t"></h2><span class="aside" data-i18n="fm.aside"></span></div>
+      <div class="lbl" data-i18n="fm.lbl"></div>
+      <div class="kpi" data-v="kpi"></div>
+      <div class="stack" data-v="stack" tabindex="0" role="group"><i data-i="0"></i><i data-i="1"></i><i data-i="2"></i></div>
+      <ul class="rows" data-v="rows"></ul>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only"><table data-v="table"></table></div>
+    </section>
+  </main>
+
+  <!-- 신간 성과 (dark band) -->
+  <section class="band" id="releases" aria-labelledby="rel-t">
+    <div class="band-h"><h2 class="band-t" id="rel-t" data-i18n="rel.t"></h2><span class="aside" data-i18n="rel.aside"></span></div>
+    <div class="tbl-wrap"><table class="tbl" data-v="table"><caption class="sr-only" data-i18n="rel.t"></caption><thead></thead><tbody></tbody></table></div>
+  </section>
+
+  <footer class="vz-foot">
+    <p data-i18n="foot"></p>
+    <p data-i18n="notice"></p>
+  </footer>
+  <p class="sr-only" id="live" aria-live="polite"></p>
+</div></div>
+
+<script>
+(() => {
+  'use strict';
+
+  /* 가상의 샘플 데이터 (fictional sample data) · KRW */
+  const DATA = {"months":["2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"imprints":{"fic":{"rev":[151000000,168000000,139000000,131000000,147000000,152000000,158000000,149000000,163000000,176000000,181000000,195000000],"prev":[138000000,152000000,127000000,121000000,136000000,140000000,146000000,139000000,151000000,160000000,166000000,172000000],"copies":12980,"copiesPrev":12060,"shipped":14850,"returned":1590,"shippedPrev":14020,"returnedPrev":1640,"channels":[108000000,56000000,21000000,10000000],"formats":[152000000,35000000,8000000],"best":[{"ko":"유리 정원의 밤","en":"Night in the Glass Garden","a_ko":"김서연","a_en":"Kim Seo-yeon","c":4120,"p":3610},{"ko":"북쪽 창","en":"The North Window","a_ko":"박하진","a_en":"Park Ha-jin","c":2460,"p":2150},{"ko":"마지막 편지 배달부","en":"The Last Letter Carrier","a_ko":"이도윤","a_en":"Lee Do-yoon","c":1830,"p":1990},{"ko":"여름의 속도","en":"The Speed of Summer","a_ko":"정윤호","a_en":"Jung Yoon-ho","c":1240,"p":1310},{"ko":"우리가 두고 온 것들","en":"What We Left Behind","a_ko":"최은재","a_en":"Choi Eun-jae","c":1070,"p":850}],"new":[{"ko":"북쪽 창","en":"The North Window","a_ko":"박하진","a_en":"Park Ha-jin","date":"2026-08-19","first":5000,"sold":4310,"reprint":true},{"ko":"우리가 두고 온 것들","en":"What We Left Behind","a_ko":"최은재","a_en":"Choi Eun-jae","date":"2026-09-23","first":3000,"sold":1920,"reprint":false}]},"non":{"rev":[122000000,131000000,118000000,112000000,129000000,133000000,138000000,131000000,136000000,141000000,146000000,152000000],"prev":[115000000,124000000,110000000,106000000,121000000,126000000,129000000,124000000,128000000,133000000,137000000,141000000],"copies":8460,"copiesPrev":8120,"shipped":9630,"returned":1050,"shippedPrev":9310,"returnedPrev":1090,"channels":[86000000,38000000,19000000,9000000],"formats":[112000000,31000000,9000000],"best":[{"ko":"느리게 읽는 법","en":"How to Read Slowly","a_ko":"한수민","a_en":"Han Su-min","c":2310,"p":2180},{"ko":"잠의 역사","en":"A History of Sleep","a_ko":"오재영","a_en":"Oh Jae-young","c":1960,"p":1190},{"ko":"숫자의 감각","en":"A Sense of Numbers","a_ko":"임나래","a_en":"Lim Na-rae","c":1320,"p":1360},{"ko":"도시의 식물학","en":"Botany of the City","a_ko":"장우석","a_en":"Jang Woo-seok","c":940,"p":1010},{"ko":"일하는 마음","en":"The Working Mind","a_ko":"서지안","a_en":"Seo Ji-an","c":720,"p":690}],"new":[{"ko":"잠의 역사","en":"A History of Sleep","a_ko":"오재영","a_en":"Oh Jae-young","date":"2026-09-09","first":4000,"sold":3150,"reprint":false},{"ko":"숫자의 감각","en":"A Sense of Numbers","a_ko":"임나래","a_en":"Lim Na-rae","date":"2026-08-05","first":3000,"sold":2680,"reprint":true}]},"kid":{"rev":[63000000,71000000,74000000,66000000,69000000,72000000,81000000,68000000,73000000,79000000,84000000,76000000],"prev":[58000000,66000000,69000000,61000000,64000000,67000000,75000000,63000000,68000000,72000000,77000000,70000000],"copies":5860,"copiesPrev":6470,"shipped":6890,"returned":980,"shippedPrev":7530,"returnedPrev":1010,"channels":[39000000,23000000,10000000,4000000],"formats":[65000000,7000000,4000000],"best":[{"ko":"달빛 고래","en":"The Moonlight Whale","a_ko":"문태영","a_en":"Moon Tae-young","c":1610,"p":1740},{"ko":"바다에 간 토끼","en":"The Rabbit Who Went to Sea","a_ko":"유하람","a_en":"Yu Ha-ram","c":1380,"p":1520},{"ko":"구름 공장","en":"The Cloud Factory","a_ko":"노은결","a_en":"Noh Eun-gyeol","c":910,"p":1060},{"ko":"씨앗 탐정","en":"Seed Detective","a_ko":"강바다","a_en":"Kang Ba-da","c":860,"p":320},{"ko":"작은 집 큰 비밀","en":"Small House, Big Secret","a_ko":"배솔","a_en":"Bae Sol","c":540,"p":610}],"new":[{"ko":"씨앗 탐정","en":"Seed Detective","a_ko":"강바다","a_en":"Kang Ba-da","date":"2026-09-30","first":5000,"sold":2140,"reprint":false},{"ko":"바다에 간 토끼","en":"The Rabbit Who Went to Sea","a_ko":"유하람","a_en":"Yu Ha-ram","date":"2026-08-26","first":4000,"sold":3560,"reprint":true}]}}};
+
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const C = {
+    clay: '#d97757', clayDeep: '#c46849', plum: '#6953a0', teal: '#0d9298', other: '#b0aea5',
+    ink: '#141413', text2: '#5e5d59', hair: '#e8e6dc', hair2: '#dedcd1', prev: '#b0aea5', canvas: '#faf9f5'
+  };
+  const CF = [C.clay, C.plum, C.teal]; // 판형 세 가지 (identity)
+  const MON_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const IMPRINTS = ['fic', 'non', 'kid'];
+
+  const T = {
+    ko: {
+      locale: 'ko-KR',
+      docTitle: 'Anthropic · 출판사 판매 현황 샘플',
+      brand: '느린달 출판사', brandSub: 'Sales Report',
+      period: '2026년 10월', toReleases: '신간 성과', basis: '2026년 10월 기준 · 전월·전년 동월 비교',
+      tabsLabel: '임프린트 선택',
+      tabs: { all: '전체', fic: '문학', non: '인문·교양', kid: '어린이' },
+      imprint: { fic: '문학', non: '인문·교양', kid: '어린이' },
+      stmt: (rev, pct, up) => ['10월 매출은 ', { b: rev }, '으로 지난해 10월보다 ', { b: pct }, up ? ' 늘었습니다.' : ' 줄었습니다.'],
+      lead: (title, author, copies) => ['가장 많이 팔린 책은 ', { i: `『${title}』` }, `(${author}), ${copies}부입니다.`],
+      kpi: { rev: '10월 매출', copies: '판매 부수', returns: '반품률', digital: '디지털 비중',
+        vsY: '전년 동월 대비', vsM: '전월 대비', pts: '%p', unitCopies: '부', digitalSub: (e, a) => `전자책 ${e}% · 오디오북 ${a}%` },
+      tr: { t: '월 매출 추이', lbl: '최근 12개월 매출', s1: '최근 12개월', s2: '전년 동기', vs: '전년 동기 대비',
+        aria: (s, p, m, v) => `월별 매출 추이. 최근 12개월 ${s}, 전년 동기 대비 ${p}. 최고 ${m} ${v}.`, th: ['월', '최근 12개월', '전년 동기'] },
+      bs: { t: '이달의 베스트셀러', aside: '판매 부수 · 전월 대비', more: '10위까지 보기', less: '5위까지 접기', unit: '부', up: '증가', down: '감소', flat: '변동 없음', vs: '전월 대비' },
+      ch: { t: '판매 채널', aside: '10월 매출', lbl: '채널 합계', names: ['온라인 서점', '오프라인 서점', '직판', '기타'],
+        aria: '채널별 10월 매출. 방향키로 채널을 이동할 수 있습니다.', th: ['채널', '매출', '비중'] },
+      fm: { t: '판형별 매출', aside: '10월', lbl: '판형 합계', names: ['종이책', '전자책', '오디오북'],
+        aria: '판형별 10월 매출 구성. 방향키로 판형을 이동할 수 있습니다.', th: ['판형', '매출', '비중'] },
+      rel: { t: '신간 성과', aside: '출간 90일 이내 · 초판 대비 판매', th: ['제목', '저자', '임프린트', '출간일', '초판', '판매', '소진율', '재쇄'],
+        yes: '재쇄', no: '초판', unit: '부' },
+      foot: 'Vizney Styles · Anthropic · 가상의 출판사와 가상 데이터로 구성한 샘플 화면입니다.',
+      notice: 'Anthropic의 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 공개된 웹사이트(anthropic.com, claude.com)에서 보이는 디자인을 읽어 낸 참고용 스타일이며 로고·서체·데이터는 포함하지 않습니다. 상표는 각 소유자의 것입니다.'
+    },
+    en: {
+      locale: 'en-US',
+      docTitle: 'Anthropic · Publisher sales sample',
+      brand: 'Slow Moon Press', brandSub: 'Sales Report',
+      period: 'October 2026', toReleases: 'New releases', basis: 'As of October 2026 · vs prior month and prior year',
+      tabsLabel: 'Imprint',
+      tabs: { all: 'All', fic: 'Fiction', non: 'Nonfiction', kid: "Children's" },
+      imprint: { fic: 'Fiction', non: 'Nonfiction', kid: "Children's" },
+      stmt: (rev, pct, up) => ['October revenue was ', { b: rev }, up ? ', up ' : ', down ', { b: pct }, ' on October last year.'],
+      lead: (title, author, copies) => ['The best seller of the month was ', { i: title }, ` by ${author}, at ${copies} copies.`],
+      kpi: { rev: 'October revenue', copies: 'Copies sold', returns: 'Return rate', digital: 'Digital share',
+        vsY: 'vs Oct 2025', vsM: 'vs Sep', pts: ' pts', unitCopies: '', digitalSub: (e, a) => `E-book ${e}% · Audiobook ${a}%` },
+      tr: { t: 'Monthly revenue', lbl: 'Last 12 months', s1: 'Last 12 mo', s2: 'Prior year', vs: 'vs prior year',
+        aria: (s, p, m, v) => `Monthly revenue trend. ${s} over the last 12 months, ${p} vs the prior year. Peak ${m} at ${v}.`, th: ['Month', 'Last 12 months', 'Prior year'] },
+      bs: { t: 'Best sellers this month', aside: 'Copies · vs Sep', more: 'Show top 10', less: 'Show top 5', unit: '', up: 'up', down: 'down', flat: 'unchanged', vs: 'vs Sep' },
+      ch: { t: 'Sales channels', aside: 'October revenue', lbl: 'All channels', names: ['Online bookstores', 'Bookshops', 'Direct', 'Other'],
+        aria: 'October revenue by sales channel. Use the arrow keys to move between channels.', th: ['Channel', 'Revenue', 'Share'] },
+      fm: { t: 'Revenue by format', aside: 'October', lbl: 'All formats', names: ['Print', 'E-book', 'Audiobook'],
+        aria: 'October revenue by format. Use the arrow keys to move between formats.', th: ['Format', 'Revenue', 'Share'] },
+      rel: { t: 'New releases', aside: 'Published in the last 90 days · sales against the first printing', th: ['Title', 'Author', 'Imprint', 'Published', 'First printing', 'Sold', 'Sell-through', 'Reprint'],
+        yes: 'Reprinted', no: 'First printing', unit: '' },
+      foot: 'Vizney Styles · Anthropic · Sample screen built around a fictional publisher and fictional data.',
+      notice: 'Not an official Anthropic design, and not affiliated with or endorsed by Anthropic. A reference style read from the publicly visible design of anthropic.com and claude.com; it carries no logo, typeface or data of theirs. Trademarks belong to their owners.'
+    }
+  };
+
+  const qs = new URLSearchParams(location.search);
+  const state = {
+    lang: qs.get('lang') === 'en' ? 'en' : 'ko',
+    imprint: ['all'].concat(IMPRINTS).includes(qs.get('imprint')) ? qs.get('imprint') : 'all',
+    view: null, more: false
+  };
+  const L = () => T[state.lang];
+
+  /* ---------- helpers ---------- */
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const sum = a => a.reduce((s, x) => s + x, 0);
+  function setAttrs(e, a) {
+    if (!a) return;
+    for (const k in a) {
+      const v = a[k];
+      if (v == null || v === false) continue;
+      if (k === 'text') e.textContent = v;
+      else if (k === 'style') for (const p in v) { if (p.startsWith('--')) e.style.setProperty(p, v[p]); else e.style[p] = v[p]; }
+      else e.setAttribute(k, v);
+    }
+  }
+  function add(e, kids) { for (const k of kids.flat()) { if (k == null || k === false) continue; e.append(k instanceof Node ? k : document.createTextNode(String(k))); } }
+  function h(tag, attrs, ...kids) { const e = document.createElement(tag); setAttrs(e, attrs); add(e, kids); return e; }
+  function sv(tag, attrs, ...kids) { const e = document.createElementNS(SVGNS, tag); setAttrs(e, attrs); add(e, kids); return e; }
+
+  const nf = (n, d = 0) => Number(n).toLocaleString(L().locale, { minimumFractionDigits: d, maximumFractionDigits: d });
+  const signed = (n, d = 0) => (n > 0 ? '+' : n < 0 ? '−' : '') + nf(Math.abs(n), d);
+  const ym = i => { const [y, m] = DATA.months[i].split('-').map(Number); return { y, m }; };
+  const monShort = i => state.lang === 'ko' ? `${ym(i).m}월` : MON_EN[ym(i).m - 1];
+  const monLong = i => { const { y, m } = ym(i); return state.lang === 'ko' ? `${y}년 ${m}월` : `${MON_EN[m - 1]} ${y}`; };
+
+  // figure parts: { t: text, u: small unit, pre: unit before number }
+  function moneyParts(v) {
+    if (state.lang === 'ko') return v >= 1e8 ? [{ t: nf(v / 1e8, 2) }, { t: '억', u: 1 }] : [{ t: nf(Math.round(v / 1e4)) }, { t: '만', u: 1 }];
+    return [{ t: '₩', u: 1, pre: 1 }, { t: nf(v / 1e6, 0) }, { t: 'M', u: 1 }];
+  }
+  // sentence money: 4억 2,300만 원 / ₩423M
+  function moneyLong(v) {
+    if (state.lang !== 'ko') return `₩${nf(v / 1e6)}M`;
+    const eok = Math.floor(v / 1e8), man = Math.round((v - eok * 1e8) / 1e4);
+    return (eok ? `${nf(eok)}억 ` : '') + (man ? `${nf(man)}만 ` : '') + '원';
+  }
+  const countParts = (n, unit) => (state.lang === 'ko' && unit) ? [{ t: nf(n) }, { t: unit, u: 1 }] : [{ t: nf(n) }];
+  const partsText = p => p.map(x => x.t).join('');
+  const figNodes = parts => parts.map(p => p.u ? h('span', { class: p.pre ? 'u pre' : 'u', text: p.t }) : document.createTextNode(p.t));
+  const fillFig = (el, parts) => el.replaceChildren(...figNodes(parts));
+  const richNodes = parts => parts.map(p => typeof p === 'string' ? document.createTextNode(p) : p.b != null ? h('b', { text: p.b }) : h('i', { text: p.i }));
+
+  function smooth(pts) { // monotone cubic (no overshoot)
+    const n = pts.length; if (n < 2) return '';
+    const dx = [], m = [], t = new Array(n);
+    for (let i = 0; i < n - 1; i++) { dx[i] = pts[i + 1][0] - pts[i][0]; m[i] = (pts[i + 1][1] - pts[i][1]) / dx[i]; }
+    t[0] = m[0]; t[n - 1] = m[n - 2];
+    for (let i = 1; i < n - 1; i++) {
+      if (m[i - 1] * m[i] <= 0) t[i] = 0;
+      else { const w1 = 2 * dx[i] + dx[i - 1], w2 = dx[i] + 2 * dx[i - 1]; t[i] = (w1 + w2) / (w1 / m[i - 1] + w2 / m[i]); }
+    }
+    let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+    for (let i = 0; i < n - 1; i++) {
+      const [x0, y0] = pts[i], [x1, y1] = pts[i + 1], k = dx[i] / 3;
+      d += `C${(x0 + k).toFixed(1)},${(y0 + t[i] * k).toFixed(1)} ${(x1 - k).toFixed(1)},${(y1 - t[i + 1] * k).toFixed(1)} ${x1.toFixed(1)},${y1.toFixed(1)}`;
+    }
+    return d;
+  }
+
+  /* ---------- tooltip ---------- */
+  function tipNodes(title, rows) {
+    const out = [];
+    if (title) out.push(h('div', { class: 'tip-h', text: title }));
+    rows.forEach(r => out.push(h('div', { class: 'tip-r' },
+      r.key ? h('i', { class: (r.dot ? 'k-dot' : 'k-line') + (r.dotted ? ' dotted' : ''), style: { '--c': r.key } }) : h('i', { class: 'k-none' }),
+      h('b', { text: r.value }), r.label ? h('span', { text: r.label }) : null)));
+    return out;
+  }
+  function showTip(card, nodes, ax, ayTop, ayBottom) {
+    const tip = $('.tip', card);
+    tip.replaceChildren(...nodes);
+    tip.classList.add('on');
+    const cw = card.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight;
+    const left = Math.round(Math.max(8, Math.min(cw - tw - 8, ax - tw / 2)));
+    let top = Math.round(ayTop - th - 11), below = false;
+    if (top < 4) { top = Math.round((ayBottom == null ? ayTop : ayBottom) + 11); below = true; }
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+    tip.style.setProperty('--ax', Math.max(12, Math.min(tw - 12, ax - left)) + 'px');
+    tip.classList.toggle('below', below);
+  }
+  const hideTip = card => $('.tip', card).classList.remove('on');
+  const announce = card => { const tip = $('.tip', card), live = $('#live'); if (live && tip.classList.contains('on')) live.textContent = tip.innerText.replace(/\s*\n+\s*/g, ', '); };
+  // arrow keys step, Home/End jump, Esc clears; returns the new index or null when the key is not ours
+  function keyStep(e, cur, n) {
+    const k = e.key;
+    let i = null;
+    if (k === 'ArrowRight' || k === 'ArrowDown') i = cur + 1;
+    else if (k === 'ArrowLeft' || k === 'ArrowUp') i = cur - 1;
+    else if (k === 'Home') i = 0;
+    else if (k === 'End') i = n - 1;
+    else if (k === 'Escape') i = -1;
+    if (i === null) return null;
+    e.preventDefault();
+    return i < 0 ? -1 : Math.max(0, Math.min(n - 1, i));
+  }
+  function overlapsText(card, sels) {
+    const a = $('.tip', card).getBoundingClientRect();
+    return sels.some(sel => {
+      const el = $(sel, card); if (!el) return false;
+      const rg = document.createRange(); rg.selectNodeContents(el);
+      const b = rg.getBoundingClientRect();
+      return a.left < b.right + 6 && a.right > b.left - 6 && a.top < b.bottom + 4 && a.bottom > b.top - 4;
+    });
+  }
+  const offsetIn = (card, el) => { const a = card.getBoundingClientRect(), b = el.getBoundingClientRect(); return { x: b.left - a.left, y: b.top - a.top, w: b.width, h: b.height }; };
+
+  function fillTable(table, caption, head, rows) {
+    table.replaceChildren(
+      h('caption', { text: caption }),
+      h('thead', null, h('tr', null, head.map(x => h('th', { scope: 'col', text: x })))),
+      h('tbody', null, rows.map(r => h('tr', null, r.map((c, j) => h(j ? 'td' : 'th', j ? { text: c } : { scope: 'row', text: c }))))));
+  }
+  const deltaNode = (el, d, digits, suffix, vs, goodWhenUp = true) => {
+    const cls = d === 0 ? 'flat' : (d > 0) === goodWhenUp ? null : 'neg';
+    el.replaceChildren(h('b', { class: cls, text: signed(d, digits) + suffix }), vs);
+  };
+
+  /* ---------- data view (imprint or all) ---------- */
+  function getView(key) {
+    const ks = key === 'all' ? IMPRINTS : [key];
+    const bs = ks.map(k => DATA.imprints[k]);
+    const n = DATA.months.length;
+    const best = [];
+    ks.forEach(k => DATA.imprints[k].best.forEach(b => best.push({ ...b, k })));
+    best.sort((a, b) => b.c - a.c);
+    const rel = [];
+    ks.forEach(k => DATA.imprints[k].new.forEach(r => rel.push({ ...r, k })));
+    rel.sort((a, b) => b.date < a.date ? -1 : 1);
+    return {
+      rev: DATA.months.map((_, i) => sum(bs.map(b => b.rev[i]))),
+      prev: DATA.months.map((_, i) => sum(bs.map(b => b.prev[i]))),
+      copies: sum(bs.map(b => b.copies)), copiesPrev: sum(bs.map(b => b.copiesPrev)),
+      shipped: sum(bs.map(b => b.shipped)), returned: sum(bs.map(b => b.returned)),
+      shippedPrev: sum(bs.map(b => b.shippedPrev)), returnedPrev: sum(bs.map(b => b.returnedPrev)),
+      channels: [0, 1, 2, 3].map(i => sum(bs.map(b => b.channels[i]))),
+      formats: [0, 1, 2].map(i => sum(bs.map(b => b.formats[i]))),
+      best, rel, n
+    };
+  }
+
+  /* ---------- statement + KPI cards ---------- */
+  function renderStatement(v) {
+    const t = L(), n = v.n, cur = v.rev[n - 1], py = v.prev[n - 1];
+    const pct = (cur / py - 1) * 100;
+    $('[data-v=stmt]').replaceChildren(...richNodes(t.stmt(moneyLong(cur), nf(Math.abs(pct), 1) + '%', pct >= 0)));
+    const top = v.best[0];
+    $('[data-v=lead]').replaceChildren(...richNodes(t.lead(top[state.lang], top['a_' + state.lang], nf(top.c))));
+  }
+  function renderKpis(v) {
+    const t = L(), n = v.n;
+    const rev = $('#c-rev'), cop = $('#c-cop'), ret = $('#c-ret'), dig = $('#c-dig');
+    fillFig($('[data-v=kpi]', rev), moneyParts(v.rev[n - 1]));
+    deltaNode($('[data-v=delta]', rev), (v.rev[n - 1] / v.prev[n - 1] - 1) * 100, 1, '%', t.kpi.vsY);
+    fillFig($('[data-v=kpi]', cop), countParts(v.copies, t.kpi.unitCopies));
+    deltaNode($('[data-v=delta]', cop), (v.copies / v.copiesPrev - 1) * 100, 1, '%', t.kpi.vsM);
+    const rr = v.returned / v.shipped * 100, rp = v.returnedPrev / v.shippedPrev * 100;
+    fillFig($('[data-v=kpi]', ret), [{ t: nf(rr, 1) }, { t: '%', u: 1 }]);
+    deltaNode($('[data-v=delta]', ret), rr - rp, 1, t.kpi.pts, t.kpi.vsM, false);
+    const total = sum(v.formats), e = v.formats[1] / total * 100, a = v.formats[2] / total * 100;
+    fillFig($('[data-v=kpi]', dig), [{ t: nf(e + a, 1) }, { t: '%', u: 1 }]);
+    $('[data-v=delta]', dig).replaceChildren(t.kpi.digitalSub(nf(e, 1), nf(a, 1)));
+  }
+
+  /* ---------- 월 매출 추이 : smooth line ---------- */
+  function drawTr(v, animate) {
+    const card = $('#c-tr'), box = $('[data-chart=tr]', card), t = L();
+    const W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
+    if (!W || !H) return;
+    box._w = W; box._h = H;
+    const n = v.n, padL = 24, padR = 28, top = 14, axisH = 30, bottom = H - axisH;
+    const all = v.rev.concat(v.prev);
+    const lo = Math.min(...all), hi = Math.max(...all), span = hi - lo;
+    const y0 = lo - span * .25, y1 = hi + span * .12;
+    const step = (W - padL - padR) / (n - 1);
+    const X = i => padL + i * step, Y = val => bottom - (val - y0) / (y1 - y0) * (bottom - top);
+    const A = v.rev.map((val, i) => [X(i), Y(val)]), B = v.prev.map((val, i) => [X(i), Y(val)]);
+    const last = n - 1, peak = v.rev.indexOf(Math.max(...v.rev));
+
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0,
+      'aria-label': t.tr.aria(partsText(moneyParts(sum(v.rev))), signed((sum(v.rev) / sum(v.prev) - 1) * 100, 1) + '%', monLong(peak), partsText(moneyParts(v.rev[peak]))) });
+    const base = Math.round(bottom) + .5;
+    svg.append(sv('line', { x1: padL - 6, x2: W - padR + 6, y1: base, y2: base, stroke: C.hair2, 'stroke-width': 1 }));
+    const cross = sv('line', { y1: top - 2, y2: bottom + 2, stroke: C.hair2, 'stroke-width': 1 });
+    svg.append(sv('path', { d: smooth(B), fill: 'none', stroke: C.prev, 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-dasharray': '0.1 5', class: animate ? 'fade' : null }));
+    svg.append(sv('path', { d: smooth(A), fill: 'none', stroke: C.clay, 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: animate ? 1 : null, class: animate ? 'draw' : null }));
+    svg.append(sv('circle', { cx: A[last][0], cy: A[last][1], r: 4.5, fill: C.canvas, stroke: C.clay, 'stroke-width': 2 }));
+    const dotB = sv('circle', { r: 3.5, fill: C.prev, stroke: C.canvas, 'stroke-width': 2 });
+    const halo = sv('circle', { r: 13, fill: C.clay, 'fill-opacity': .18 });
+    const dotA = sv('circle', { r: 5, fill: C.canvas, stroke: C.ink, 'stroke-width': 2.5 });
+    const hl = sv('g', { class: animate ? 'fade' : null, style: animate ? { animationDelay: '.9s' } : null }, cross, dotB, halo, dotA);
+    svg.append(hl);
+    [0, 3, 6, 9, last].forEach(i => svg.append(sv('text', { x: X(i), y: H - 11, 'text-anchor': i === last ? 'end' : i === 0 ? 'start' : 'middle', class: 'ax' + (i === last ? ' em' : ''), text: monShort(i) })));
+    svg.append(sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+
+    let cur = last;
+    const set = (i, quiet) => {
+      cur = i;
+      const [x, ya] = A[i], yb = B[i][1];
+      cross.setAttribute('x1', x); cross.setAttribute('x2', x);
+      dotB.setAttribute('cx', x); dotB.setAttribute('cy', yb);
+      halo.setAttribute('cx', x); halo.setAttribute('cy', ya);
+      dotA.setAttribute('cx', x); dotA.setAttribute('cy', ya);
+      if (quiet) return;
+      const o = offsetIn(card, svg);
+      showTip(card, tipNodes(monLong(i), [
+        { key: C.clay, value: partsText(moneyParts(v.rev[i])), label: t.tr.s1 },
+        { key: C.prev, dotted: true, value: partsText(moneyParts(v.prev[i])), label: t.tr.s2 }
+      ]), o.x + x, o.y + Math.min(ya, yb) - 8, o.y + Math.max(ya, yb) + 8);
+      // the resting annotation must never sit on top of the headline figures
+      if (i === last && !hovering && overlapsText(card, ['[data-v=kpi]', '[data-v=delta]', '.card-h'])) hideTip(card);
+    };
+    let hovering = false;
+    svg.addEventListener('pointerenter', () => { hovering = true; });
+    svg.addEventListener('pointerleave', () => { hovering = false; });
+    svg.addEventListener('focus', () => { hovering = true; });
+    svg.addEventListener('blur', () => { hovering = false; });
+    const idxAt = cx => { const r = svg.getBoundingClientRect(); return Math.max(0, Math.min(n - 1, Math.round((cx - r.left - padL) / step))); };
+    svg.addEventListener('pointermove', e => { const i = idxAt(e.clientX); if (i !== cur) set(i); });
+    svg.addEventListener('pointerdown', e => set(idxAt(e.clientX)));
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') set(last); });
+    svg.addEventListener('keydown', e => {
+      const i = keyStep(e, cur, n);
+      if (i === null) return;
+      if (i < 0) { set(last, true); hideTip(card); return; }
+      set(i); announce(card);
+    });
+    svg.addEventListener('blur', () => set(last));
+    card._reset = () => { if (svg.isConnected) set(last); };
+    if (animate) { hideTip(card); set(last, true); setTimeout(() => { if (svg.isConnected && cur === last) set(last); }, 1150); }
+    else set(last);
+  }
+  function renderTr(v, animate) {
+    const card = $('#c-tr'), t = L();
+    const s = sum(v.rev), p = sum(v.prev);
+    fillFig($('[data-v=kpi]', card), moneyParts(s));
+    deltaNode($('[data-v=delta]', card), (s / p - 1) * 100, 1, '%', t.tr.vs);
+    fillTable($('[data-v=table]', card), t.tr.t, t.tr.th, v.rev.map((x, i) => [monLong(i), partsText(moneyParts(x)), partsText(moneyParts(v.prev[i]))]));
+    drawTr(v, animate);
+  }
+
+  /* ---------- 베스트셀러 ---------- */
+  const ARROW_UP = 'M3 9L9 3M4.4 3H9V7.6', ARROW_DOWN = 'M3 3L9 9M9 4.4V9H4.4', ARROW_FLAT = 'M2.5 6h7';
+  function chgNode(cur, prev, t) {
+    const chg = cur / prev - 1, dir = Math.abs(chg) < .0005 ? 'flat' : chg > 0 ? 'up' : 'down';
+    return h('span', { class: 'chg ' + dir, 'aria-label': `${t.vs} ${nf(Math.abs(chg * 100), 1)}% ${t[dir]}` },
+      sv('svg', { viewBox: '0 0 12 12', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.8, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' },
+        sv('path', { d: dir === 'up' ? ARROW_UP : dir === 'down' ? ARROW_DOWN : ARROW_FLAT })),
+      nf(Math.abs(chg * 100), 1) + '%');
+  }
+  function renderBs(v, animate) {
+    const card = $('#c-bs'), t = L();
+    const list = v.best.slice(0, state.more ? 10 : 5);
+    $('[data-v=rows]', card).replaceChildren(...list.map((b, i) => h('li', { class: animate ? 'rise' : null, style: animate ? { animationDelay: (i * 40) + 'ms' } : null },
+      h('span', { class: 'rk', text: String(i + 1).padStart(2, '0') }),
+      h('span', { class: 'nm' }, h('span', { class: 'ttl', text: b[state.lang] }), h('span', { class: 'au', text: b['a_' + state.lang] })),
+      h('span', { class: 'val' }, figNodes(countParts(b.c, t.bs.unit))),
+      chgNode(b.c, b.p, t.bs))));
+    const more = $('[data-v=more]', card);
+    more.style.display = v.best.length > 5 ? '' : 'none';
+    more.setAttribute('aria-expanded', String(state.more));
+    $('[data-v=moreText]', card).textContent = state.more ? t.bs.less : t.bs.more;
+  }
+
+  /* ---------- 판매 채널 : single-hue bars ---------- */
+  function renderCh(v, animate) {
+    const card = $('#c-ch'), t = L(), total = sum(v.channels), max = Math.max(...v.channels);
+    fillFig($('[data-v=kpi]', card), moneyParts(total));
+    const rows = $('[data-v=rows]', card);
+    rows.replaceChildren(...v.channels.map((val, i) => h('li', { 'data-i': i, class: animate ? 'fade' : null },
+      h('span', { class: 'nm', text: t.ch.names[i] }),
+      h('span', { class: 'bar' }, h('i', { style: { width: (val / max * 100).toFixed(1) + '%' } })),
+      h('span', { class: 'val' }, figNodes(moneyParts(val))),
+      h('span', { class: 'pct', text: nf(val / total * 100) + '%' }))));
+    rows.setAttribute('aria-label', t.ch.aria);
+    fillTable($('[data-v=table]', card), t.ch.t, t.ch.th, v.channels.map((val, i) => [t.ch.names[i], partsText(moneyParts(val)), nf(val / total * 100, 1) + '%']));
+  }
+  function bindCh() {
+    const card = $('#c-ch'), rows = $('[data-v=rows]', card);
+    let cur = -1;
+    const focus = i => {
+      $$('li', rows).forEach((li, k) => { li.classList.toggle('dim', i >= 0 && k !== i); $('.bar i', li).classList.toggle('on', k === i); });
+    };
+    const tip = i => {
+      const v = state.view, t = L(), li = $$('li', rows)[i], el = $('.bar', li), o = offsetIn(card, el), total = sum(v.channels);
+      showTip(card, tipNodes(t.ch.names[i], [{ key: C.clay, dot: true, value: partsText(moneyParts(v.channels[i])), label: nf(v.channels[i] / total * 100, 1) + '%' }]), o.x + o.w * Math.min(1, v.channels[i] / Math.max(...v.channels)) / 2, o.y - 6, o.y + o.h + 6);
+    };
+    rows.addEventListener('pointerover', e => { const li = e.target.closest('li[data-i]'); if (!li) return; focus(+li.dataset.i); tip(+li.dataset.i); });
+    rows.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { focus(-1); hideTip(card); } });
+    rows.addEventListener('keydown', e => {
+      const i = keyStep(e, cur < 0 ? 0 : cur, 4);
+      if (i === null) return;
+      cur = cur < 0 && i >= 0 && e.key !== 'Home' && e.key !== 'End' ? 0 : i;
+      focus(cur);
+      if (cur < 0) { hideTip(card); return; }
+      tip(cur); announce(card);
+    });
+    rows.addEventListener('focus', () => { cur = 0; focus(0); tip(0); });
+    rows.addEventListener('blur', () => { cur = -1; focus(-1); hideTip(card); });
+    card._reset = () => { focus(-1); hideTip(card); };
+  }
+
+  /* ---------- 판형별 매출 : stacked bar ---------- */
+  function renderFm(v, animate) {
+    const card = $('#c-fm'), t = L(), total = sum(v.formats);
+    fillFig($('[data-v=kpi]', card), moneyParts(total));
+    $$('[data-v=stack] i', card).forEach((seg, i) => { seg.style.flexGrow = String(v.formats[i]); seg.style.background = CF[i]; });
+    $('[data-v=rows]', card).replaceChildren(...v.formats.map((val, i) => h('li', { 'data-i': i, class: animate ? 'fade' : null },
+      h('span', { class: 'nm' }, h('i', { class: 'k-dot', style: { '--c': CF[i] } }), t.fm.names[i]),
+      h('span', { class: 'val' }, figNodes(moneyParts(val))),
+      h('span', { class: 'pct', text: nf(val / total * 100) + '%' }))));
+    $('[data-v=stack]', card).setAttribute('aria-label', t.fm.aria);
+    fillTable($('[data-v=table]', card), t.fm.t, t.fm.th, v.formats.map((val, i) => [t.fm.names[i], partsText(moneyParts(val)), nf(val / total * 100, 1) + '%']));
+  }
+  function bindFm() {
+    const card = $('#c-fm'), stack = $('[data-v=stack]', card);
+    const focus = i => {
+      stack.classList.toggle('dim', i >= 0);
+      $$('i', stack).forEach((s, k) => s.classList.toggle('on', k === i));
+      $$('[data-v=rows] li', card).forEach((li, k) => li.classList.toggle('dim', i >= 0 && k !== i));
+    };
+    let cur = -1;
+    const segTip = i => {
+      const v = state.view, t = L(), el = $$('i', stack)[i], o = offsetIn(card, el), total = sum(v.formats);
+      showTip(card, tipNodes(t.fm.names[i], [{ key: CF[i], dot: true, value: partsText(moneyParts(v.formats[i])), label: nf(v.formats[i] / total * 100, 1) + '%' }]), o.x + o.w / 2, o.y - 4, o.y + o.h + 4);
+    };
+    card.addEventListener('pointerover', e => {
+      const el = e.target.closest('[data-i]');
+      if (!el) return;
+      const i = +el.dataset.i;
+      focus(i);
+      if (el.parentNode === stack) segTip(i); else hideTip(card);
+    });
+    stack.addEventListener('keydown', e => {
+      const i = keyStep(e, cur < 0 ? 0 : cur, 3);
+      if (i === null) return;
+      cur = cur < 0 && i >= 0 && e.key !== 'Home' && e.key !== 'End' ? 0 : i;
+      focus(cur);
+      if (cur < 0) { hideTip(card); return; }
+      segTip(cur); announce(card);
+    });
+    stack.addEventListener('focus', () => { cur = 0; focus(0); segTip(0); });
+    stack.addEventListener('blur', () => { cur = -1; focus(-1); hideTip(card); });
+    card.addEventListener('pointerout', e => {
+      if (e.pointerType !== 'mouse') return;
+      if (!e.relatedTarget || !card.contains(e.relatedTarget) || !e.relatedTarget.closest('[data-i]')) { focus(-1); hideTip(card); }
+    });
+    card._reset = () => { focus(-1); hideTip(card); };
+  }
+
+  /* ---------- 신간 성과 : dark table ---------- */
+  function renderRel(v, animate) {
+    const t = L(), table = $('#releases [data-v=table]');
+    $('thead', table).replaceChildren(h('tr', null, t.rel.th.map((x, j) => h('th', { scope: 'col', class: j >= 4 && j <= 6 ? 'num' : null, text: x }))));
+    $('tbody', table).replaceChildren(...v.rel.map((r, i) => {
+      const rate = r.sold / r.first * 100;
+      return h('tr', { class: animate ? 'fade' : null, style: animate ? { animationDelay: (i * 50) + 'ms' } : null },
+        h('th', { scope: 'row', class: 'ttl', text: r[state.lang] }),
+        h('td', { class: 'au', text: r['a_' + state.lang] }),
+        h('td', { class: 'imp', text: t.imprint[r.k] }),
+        h('td', { class: 'mono', text: r.date }),
+        h('td', { class: 'num' }, figNodes(countParts(r.first, t.rel.unit))),
+        h('td', { class: 'num' }, figNodes(countParts(r.sold, t.rel.unit))),
+        h('td', { class: 'num' }, h('span', { class: 'sell' }, h('i', null, h('b', { style: { width: Math.min(100, rate).toFixed(1) + '%' } })), h('span', { text: nf(rate) + '%' }))),
+        h('td', null, h('span', { class: 'rep' + (r.reprint ? '' : ' no'), text: r.reprint ? t.rel.yes : t.rel.no })));
+    }));
+  }
+
+  /* ---------- i18n + render ---------- */
+  function applyLang() {
+    const t = L();
+    document.documentElement.lang = state.lang;
+    document.title = t.docTitle;
+    $$('[data-i18n]').forEach(e => { const val = e.dataset.i18n.split('.').reduce((o, k) => o && o[k], t); if (typeof val === 'string') e.textContent = val; });
+    $('.vz-tabs').setAttribute('aria-label', t.tabsLabel);
+    $$('.vz-tab').forEach(b => { b.textContent = t.tabs[b.dataset.imprint]; b.setAttribute('aria-pressed', String(b.dataset.imprint === state.imprint)); });
+    $$('.vz-lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === state.lang)));
+  }
+  function renderAll(animate) {
+    const v = state.view = getView(state.imprint);
+    renderStatement(v); renderKpis(v); renderTr(v, animate); renderBs(v, animate);
+    renderCh(v, animate); renderFm(v, animate); renderRel(v, animate);
+  }
+
+  function init() {
+    bindCh(); bindFm();
+    applyLang();
+    void document.body.offsetWidth; // commit the empty bars so the first growth animates
+    renderAll(true);
+
+    $$('.vz-tab').forEach(b => b.addEventListener('click', () => {
+      if (state.imprint === b.dataset.imprint) return;
+      state.imprint = b.dataset.imprint; state.more = false; applyLang(); renderAll(true);
+    }));
+    $$('.vz-lang button').forEach(b => b.addEventListener('click', () => {
+      if (state.lang === b.dataset.lang) return;
+      state.lang = b.dataset.lang; applyLang(); renderAll(false);
+    }));
+    $('#c-bs [data-v=more]').addEventListener('click', () => { state.more = !state.more; renderBs(state.view, true); });
+    $('.pill-ink').addEventListener('click', e => { e.preventDefault(); $('#releases').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); });
+    document.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse') return;
+      $$('.card').forEach(card => { if (card._reset && !card.contains(e.target)) card._reset(); });
+    });
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(entries => {
+        if (!state.view) return;
+        entries.forEach(en => {
+          const box = en.target, w = Math.round(box.clientWidth), hh = Math.round(box.clientHeight);
+          if (w === box._w && hh === box._h) return;
+          drawTr(state.view, false);
+        });
+      });
+      $$('[data-chart]').forEach(el => ro.observe(el));
+    }
+  }
+  init();
+})();
+</script>
+</body>
+</html>
