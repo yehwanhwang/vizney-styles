@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<title>페이지를 찾을 수 없습니다 · Vizney Styles</title>
+<title>Page not found · Vizney Styles</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=7720f8c40d" as="font" type="font/woff" crossorigin>
@@ -311,20 +311,20 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 </style>
 </head>
 <body data-page="404">
-<a class="skip" href="#main" data-i18n="skip">본문으로 건너뛰기</a>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 
 <header class="top" id="top">
   <div class="wrap top-in">
     <a class="logo" href="/" data-href="home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>Vizney Styles</a>
-    <nav class="top-nav" aria-label="주 메뉴" data-i18n-aria="navAria">
-      <a href="/#styles" data-href="home:styles" data-i18n="navStyles">스타일</a>
-      <a href="/#custom" data-href="home:custom" data-i18n="navCustom">회사 스타일</a>
-      <a href="https://kr.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener"><span data-i18n="navContact">문의</span><span aria-hidden="true"> ↗</span></a>
+    <nav class="top-nav" aria-label="Main menu" data-i18n-aria="navAria">
+      <a href="/#styles" data-href="home:styles" data-i18n="navStyles">Styles</a>
+      <a href="/#custom" data-href="home:custom" data-i18n="navCustom">Company styles</a>
+      <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener"><span data-i18n="navContact">Contact</span><span aria-hidden="true"> ↗</span></a>
     </nav>
     <div class="top-end">
-      <div class="lang" role="group" aria-label="언어" data-i18n-aria="langAria">
-        <button type="button" data-lang="ko" aria-pressed="true">KO</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="langAria">
+        <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
       </div>
       <a class="btn btn-git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<svg class="ic" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4 2.5h5.5V8M9.5 2.5L3 9"/></svg></a>
     </div>
@@ -333,20 +333,20 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 
 <main id="main" class="wrap hero lost">
   <p class="pill">404</p>
-  <h1 data-i18n="nfTitle">페이지를 찾을 수 없습니다</h1>
-  <p class="lede" data-i18n="nfLead">주소가 바뀌었거나 없는 페이지입니다. 첫 화면에서 스타일을 골라 보세요.</p>
+  <h1 data-i18n="nfTitle">Page not found</h1>
+  <p class="lede" data-i18n="nfLead">This page has moved or doesn't exist. Pick a style from the home page.</p>
   <div class="actions">
-    <a class="btn is-primary is-lg" href="/" data-href="home" data-i18n="nfHome">첫 화면으로</a>
-    <a class="btn is-lg" href="/#styles" data-href="home:styles" data-i18n="ctaBrowse">스타일 둘러보기</a>
+    <a class="btn is-primary is-lg" href="/" data-href="home" data-i18n="nfHome">Go to the home page</a>
+    <a class="btn is-lg" href="/#styles" data-href="home:styles" data-i18n="ctaBrowse">Browse styles</a>
   </div>
 </main>
 
 <footer class="foot">
   <div class="wrap foot-in">
     <span>Vizney Styles · © 2026 Vizney</span>
-    <span><span data-i18n="footFont">글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
-    <nav aria-label="바닥글" data-i18n-aria="footAria">
-      <a href="https://kr.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">블로그</a>
+    <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
+    <nav aria-label="Footer" data-i18n-aria="footAria">
+      <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>
       <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
       <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
     </nav>
@@ -558,7 +558,8 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 
   let params;
   try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
-  const state = { lang: params.get('lang') === 'en' ? 'en' : 'ko' };
+  // English is the default; Korean is ?lang=ko.
+  const state = { lang: params.get('lang') === 'ko' ? 'ko' : 'en' };
   const S = () => STR[state.lang];
   const PAGE = document.body.dataset.page || 'home';
 
@@ -574,7 +575,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     // On the home page these are in-page anchors; elsewhere (404) they lead home, keeping the language.
     if (kind === 'home') {
       if (PAGE === 'home') return '#' + (name || 'top');
-      return '/' + (L === 'en' ? '?lang=en' : '') + (name ? '#' + name : '');
+      return '/' + (L === 'ko' ? '?lang=ko' : '') + (name ? '#' + name : '');
     }
     if (kind === 'contact') return BLOG[L] + 'contact-us/';
     if (kind === 'blog') return BLOG[L];
@@ -855,7 +856,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     applyLang();
     try {
       const u = new URL(location.href);
-      if (L === 'en') u.searchParams.set('lang', 'en'); else u.searchParams.delete('lang');
+      if (L === 'ko') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
       history.replaceState(history.state, '', u.pathname + u.search + u.hash);
     } catch (e) { /* some frames do not allow it; the page still switches */ }
   }

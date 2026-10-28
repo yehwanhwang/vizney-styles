@@ -4,7 +4,7 @@
 
 A dashboard style from Vizney Styles. Plain white cards are laid out like clean tiles on a pale blue-gray canvas beside a white icon rail, with even gaps, wide margins and very soft shadows. Light and orderly: thin lines, rings and a gauge carry the data in one clear blue and a fresh mint, and the cards stay white.
 
-- Live sample: https://styles.vizney.com/tile/ (add `?lang=en` for English)
+- Live sample: https://styles.vizney.com/tile/ (add `?lang=ko` for Korean)
 - To reuse it, ask for "the Tile style" and share this page: https://styles.vizney.com/tile/style.html
 
 

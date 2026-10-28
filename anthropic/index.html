@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="robots" content="noindex">
-<title>Anthropic · 출판사 판매 현황 샘플</title>
+<title>Anthropic · Publisher sales sample</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@v3.3.0/css/SpoqaHanSansNeo.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -412,7 +412,7 @@ html.vz-embed .vz-wrap{padding-bottom:20px}
 
   const qs = new URLSearchParams(location.search);
   const state = {
-    lang: qs.get('lang') === 'en' ? 'en' : 'ko',
+    lang: qs.get('lang') === 'ko' ? 'ko' : 'en',
     imprint: ['all'].concat(IMPRINTS).includes(qs.get('imprint')) ? qs.get('imprint') : 'all',
     view: null, more: false
   };

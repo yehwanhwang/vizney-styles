@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="robots" content="noindex">
-<title>Chalk · 주문 분석 샘플</title>
+<title>Chalk · Order analytics sample</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@v3.3.0/css/SpoqaHanSansNeo.css">
 <script src="/lib/embed.js" defer></script>
 <style>
@@ -203,8 +203,8 @@
           <button type="button" class="icon-btn search" data-i18n-aria="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></button>
           <button type="button" class="icon-btn bell" data-i18n-aria="notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg></button>
           <div class="lang" role="group" aria-label="Language">
-            <button type="button" data-lang="ko" aria-pressed="true">KO</button>
-            <button type="button" data-lang="en" aria-pressed="false">EN</button>
+            <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+            <button type="button" data-lang="en" aria-pressed="true">EN</button>
           </div>
           <span class="avatar" role="img" data-i18n-aria="profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="9.5" r="3.6"/><path d="M5.5 19.5c1.2-3.2 3.6-4.8 6.5-4.8s5.3 1.6 6.5 4.8"/></svg></span>
         </div>
@@ -363,7 +363,7 @@
     }
   };
 
-  const state = { lang: new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ko', ch: 'all' };
+  const state = { lang: new URLSearchParams(location.search).get('lang') === 'ko' ? 'ko' : 'en', ch: 'all' };
   const S = () => STR[state.lang];
   const pick = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
 
