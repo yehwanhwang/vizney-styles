@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="robots" content="noindex">
-<title>Glass · 매출 현황 샘플</title>
+<title>Glass · Sales overview sample</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@v3.3.0/css/SpoqaHanSansNeo.css">
 <script src="/lib/embed.js" defer></script>
 <style>
@@ -254,7 +254,7 @@
         <div class="actions">
           <span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span class="num">2026.09</span></span>
           <div class="lang" role="group" aria-label="Language">
-            <button type="button" data-lang="ko" aria-pressed="true">KO</button><button type="button" data-lang="en" aria-pressed="false">EN</button>
+            <button type="button" data-lang="ko" aria-pressed="false">KO</button><button type="button" data-lang="en" aria-pressed="true">EN</button>
           </div>
         </div>
       </header>
@@ -448,7 +448,7 @@
     }
   };
 
-  const state = { lang: new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ko', seg: 'all' };
+  const state = { lang: new URLSearchParams(location.search).get('lang') === 'ko' ? 'ko' : 'en', seg: 'all' };
   const S = () => STR[state.lang];
 
   /* ================= 숫자 표기 ================= */

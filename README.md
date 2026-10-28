@@ -2,7 +2,7 @@
 
 Named dashboard styles from [Vizney](https://www.vizney.com). Each style has a live sample screen and a short spec (`style.md`), so it can be rebuilt by name: share the spec and ask for "the Chalk style".
 
-Served at **https://styles.vizney.com** (GitHub Pages, `main` branch). Everything pushed to `main` is published immediately, so keep work in progress off `main`. The home page is `index.html`: the style gallery and an introduction to company styles.
+Served at **https://styles.vizney.com** (GitHub Pages, `main` branch). Everything pushed to `main` is published immediately, so keep work in progress off `main`. The home page is `index.html`: the style gallery and an introduction to company styles. Every page opens in English; add `?lang=ko` for Korean.
 
 
 ## Styles
@@ -26,7 +26,7 @@ The full production checklist used with Claude is in [CLAUDE.md](https://github.
 1. Name a texture style with one evocative material or texture word (Chalk, Glass, Linen …) and a brand style with the company's name (Anthropic), and use the name on its own: Vizney Styles is the collection, not part of the name. The folder is the name in lowercase, at the root: `chalk/`. Never name a folder after its sample data.
 2. Give it a one-line subtitle that says what it looks like ("Dark sidebar, pastel KPI tiles"). The name is for remembering; the subtitle is for first-time readers and search.
 3. Put two files in the folder:
-   - `index.html`: the sample screen, self-contained (data included), Korean and English in one file via `?lang=ko` / `?lang=en`.
+   - `index.html`: the sample screen, self-contained (data included), English and Korean in one file: English by default, Korean with `?lang=ko`.
    - `style.md`: layout, colors, type, components, motion and don'ts, detailed enough to rebuild the style from its name. It is published at `<name>/style.html`.
 4. Add these lines to the page's `<head>`:
 
@@ -57,7 +57,7 @@ The script writes `assets/fonts/` and updates the `?v=` of the font URLs in both
 
 ## Embedding in a Ghost post
 
-Paste into an HTML card and change the style, language and title:
+Paste into an HTML card and change the style, language and title. Always set `lang` in the URL rather than relying on the default:
 
 ```html
 <figure class="kg-card kg-embed-card kg-width-wide">

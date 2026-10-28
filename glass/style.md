@@ -4,7 +4,7 @@
 
 A dashboard style from Vizney Styles. Frosted, translucent cards sit in a soft glass frame over a peach-to-periwinkle gradient, with two pearl-like orbs at the corners. Airy and polished: the background carries the color, while the data stays in one clear blue and two accents.
 
-- Live sample: https://styles.vizney.com/glass/ (add `?lang=en` for English)
+- Live sample: https://styles.vizney.com/glass/ (add `?lang=ko` for Korean)
 - To reuse it, ask for "the Glass style" and share this page: https://styles.vizney.com/glass/style.html
 
 

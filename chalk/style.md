@@ -4,7 +4,7 @@
 
 A dashboard style from Vizney Styles. A charcoal chalkboard frame with soft chalk-pastel cards on a clean white canvas. Calm, friendly and quick to scan: the pastels color the tiles, while the data marks stay thin and dark.
 
-- Live sample: https://styles.vizney.com/chalk/ (add `?lang=en` for English)
+- Live sample: https://styles.vizney.com/chalk/ (add `?lang=ko` for Korean)
 - To reuse it, ask for "the Chalk style" and share this page: https://styles.vizney.com/chalk/style.html
 
 

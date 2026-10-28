@@ -4,7 +4,7 @@
 
 A dashboard style from Vizney Styles, read from the public design of anthropic.com and claude.com. The screen sits on a warm ivory canvas, opens with the month's headline written as a serif sentence, and keeps everything else quiet: ivory cards with no border or shadow, lists divided by hairlines, one clay accent for the data, and a single ink-black band for the detailed table. Figures stay regular weight; size and color do the ranking.
 
-- Live sample: https://styles.vizney.com/anthropic/ (add `?lang=en` for English)
+- Live sample: https://styles.vizney.com/anthropic/ (add `?lang=ko` for Korean)
 - To reuse it, ask for "the Anthropic style" and share this page: https://styles.vizney.com/anthropic/style.html
 
 Not an official Anthropic design, and not affiliated with or endorsed by Anthropic. The tokens below are read from the publicly visible design of anthropic.com and claude.com; the style carries no logo, typeface or data of theirs, and the sample's publisher and numbers are fictional. Trademarks belong to their owners.
