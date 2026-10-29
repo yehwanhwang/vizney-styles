@@ -98,8 +98,11 @@ Paste into an HTML card and change the style, language and title. Always set `la
 
 `lib/embed-host.js` resizes the iframe to the height the page reports through `lib/embed.js`, so the whole screen shows without an inner scrollbar. Without it, the iframe keeps its fixed height and scrolls.
 
-To show the whole screen at a glance instead, add `data-vizney-fit` to the iframe. The page is then laid out at the poster width (1080px, or `data-vizney-fit="<width>"`) and scaled down to fit the post width and 90% of the window height; taps, hovers and the keyboard still work. Where the post is narrower than 600px (phones), the page shows at full size as before. Posts without the attribute are unchanged.
+To show the poster layout scaled to the post width instead, add `data-vizney-fit` to the iframe and use a normal-width card (`kg-card kg-embed-card`, without `kg-width-wide`). The page is then laid out at the poster width (1080px, or `data-vizney-fit="<width>"`) and scaled down to the post width; taps, hovers and the keyboard still work. Where the post is narrower than 600px (phones), the page shows at full size as before. Posts without the attribute are unchanged.
 
 ```html
-<iframe data-vizney-embed data-vizney-fit src="https://styles.vizney.com/chalk/?lang=ko&amp;embed=1" ...></iframe>
+<figure class="kg-card kg-embed-card">
+  <iframe data-vizney-embed data-vizney-fit src="https://styles.vizney.com/chalk/?lang=ko&amp;embed=1" ...></iframe>
+  ...
+</figure>
 ```
