@@ -27,7 +27,7 @@ Looks read from a company's public website and named after the company, the way 
 
 | No. | Style | Feel | Sample | Spec | Blog posts |
 |---|---|---|---|---|---|
-| 01 | Anthropic (앤트로픽) | Warm ivory, editorial serif, hairline rows | [Live sample](https://styles.vizney.com/anthropic/) · publisher sales (fictional) | [style.md](anthropic/style.md) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
+| 01 | Anthropic (앤트로픽) | Ivory, Editorial, Quiet | [Live sample](https://styles.vizney.com/anthropic/) · publisher sales (fictional) | [style.md](anthropic/style.md) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
 
 
 ## Adding a style
@@ -50,12 +50,12 @@ The full production checklist used with Claude is in [CLAUDE.md](https://github.
    ```
 
    `noindex` keeps search traffic on the blog post instead of the bare screen.
-5. In embed mode `<html>` gets the class `vz-embed`. Reset any viewport-height layout there and hide page-only notes. With `?shot=1` the page gets `vz-shot`: it hides the language toggle and the footer note and stretches the last row to the bottom of the screen, for captures.
+5. In embed mode `<html>` gets the class `vz-embed`. Reset any viewport-height layout there and hide page-only notes. With `?shot=1` the page gets `vz-shot`: it hides the language toggle and the footer note and stretches the last row to the bottom of the screen, for captures. A Brands page keeps its disclaimer in captures, because posters travel on their own.
 6. Make the images with `python3 tools/shots.py <name>` (below): `poster-ko.png` / `poster-en.png` (1080×1350) for Instagram and LinkedIn, and `cover-ko.png` / `cover-en.png` (1440×810) for the post's feature image, the home card and link previews.
 7. Publish the blog post at `style-<name>` (for example `/style-chalk/`) on both sites.
 8. Update in place; Git history keeps the old versions. Add a row to its series' table and a card to its series on the home page (`index.html`), then rebuild the site font (below).
 
-Glass, Tile and Anthropic still use the earlier format (a 16:9 app screen and a subtitle that describes the look). They move to the one-screen format in turn, each in place at the same address, so the published posts keep working.
+Glass and Tile still use the earlier format (a 16:9 app screen and a subtitle that describes the look). They move to the one-screen format in turn, each in place at the same address, so the published posts keep working.
 
 
 ## Posters and covers
@@ -69,7 +69,7 @@ python3 tools/shots.py chalk --review /tmp/review     # also full pages at 1440,
 python3 tools/shots.py chalk --offline-fonts /tmp/fonts   # no CDN access: fonts from partial git clones
 ```
 
-With `--offline-fonts`, font requests are answered from partial clones made on first use: jsDelivr GitHub fonts (Pretendard, Spoqa) from their repositories, Google Fonts from [fontsource/font-files](https://github.com/fontsource/font-files).
+With `--offline-fonts`, font requests are answered from partial clones made on first use: jsDelivr GitHub fonts (Pretendard, Spoqa) from their repositories, Google Fonts from [fontsource/font-files](https://github.com/fontsource/font-files). When a Google Fonts link asks for an axis range such as optical size (`opsz,wght@0,8..60,400`), the capture uses fontsource's variable file, so the serif renders as it does live.
 
 
 ## Site font

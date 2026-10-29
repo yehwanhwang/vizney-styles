@@ -15,7 +15,8 @@ It exits with an error if a poster page is taller than 1350px or a page throws.
 --offline-fonts DIR  for sandboxes that cannot reach the font CDNs. Font requests are answered from
                      partial clones in DIR, made with git on first use:
                        cdn.jsdelivr.net/gh/<owner>/<repo>@<ref>/…  from DIR/<repo> (e.g. Pretendard, Spoqa)
-                       fonts.googleapis.com/css2?family=…          from DIR/font-files (fontsource)
+                       fonts.googleapis.com/css2?family=…          from DIR/font-files (fontsource; its variable
+                                                                   font when an axis such as opsz is a range)
 
 Needs Playwright with Chromium: pip install playwright && python3 -m playwright install chromium.
 """
@@ -85,14 +86,15 @@ class OfflineFonts:
             m = JSDELIVR.match(link)
             if m:
                 self._prepare_jsdelivr(*m.groups())
-        self.families = []
+        families = []
         for link in links:
             if link.startswith('https://fonts.googleapis.com/css2?'):
-                self.families += self._parse_google(link)
-        if self.families:
+                families += self._parse_google(link)
+        if families:
             dest = self.base / 'font-files'
             sparse_clone('https://github.com/fontsource/font-files', dest)
-            sparse_add(dest, *sorted({f'fonts/google/{slug}' for slug, _, _ in self.families}))
+            sparse_add(dest, *sorted({f'fonts/{"variable" if ranged else "google"}/{slug}'
+                                      for _, slug, ranged, _ in families}))
 
     def _prepare_jsdelivr(self, owner, repo, ref, path):
         dest = self.base / repo
@@ -107,25 +109,31 @@ class OfflineFonts:
 
     @staticmethod
     def _parse_google(url):
-        """'Source Serif 4:ital,opsz,wght@0,8..60,400;1,8..60,400' → [(slug, weight, italic), …]"""
+        """'Source Serif 4:ital,opsz,wght@0,8..60,400;1,8..60,400'
+        → [('Source Serif 4', 'source-serif-4', True, [('400', False), ('400', True)])]: the family, its
+        fontsource folder, whether an axis other than weight is a range (then Google serves the variable
+        font, e.g. with optical sizes), and the weights and styles asked for."""
         out = []
         for spec in urllib.parse.parse_qs(urllib.parse.urlsplit(url).query).get('family', []):
             name, _, axes = spec.partition(':')
             slug = re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-')
+            styles, ranged = [], False
             if not axes:
-                out.append((slug, '400', False))
-                continue
-            keys, _, tuples = axes.partition('@')
-            keys = keys.split(',')
-            for t in tuples.split(';'):
-                values = dict(zip(keys, t.split(',')))
-                weight = values.get('wght', '400')
-                italic = values.get('ital', '0') == '1'
-                if '..' in weight:   # a variable range: every static weight inside it
-                    lo, hi = (int(x) for x in weight.split('..'))
-                    out += [(slug, str(w), italic) for w in range(100, 1000, 100) if lo <= w <= hi]
-                else:
-                    out.append((slug, weight, italic))
+                styles.append(('400', False))
+            else:
+                keys, _, tuples = axes.partition('@')
+                keys = keys.split(',')
+                for t in tuples.split(';'):
+                    values = dict(zip(keys, t.split(',')))
+                    ranged = ranged or any('..' in v for k, v in values.items() if k != 'wght')
+                    weight = values.get('wght', '400')
+                    italic = values.get('ital', '0') == '1'
+                    if '..' in weight:   # a variable range: every static weight inside it
+                        lo, hi = (int(x) for x in weight.split('..'))
+                        styles += [(str(w), italic) for w in range(100, 1000, 100) if lo <= w <= hi]
+                    else:
+                        styles.append((weight, italic))
+            out.append((name, slug, ranged, styles))
         return out
 
     def attach(self, context):
@@ -153,19 +161,27 @@ class OfflineFonts:
 
     def _google_css(self, route, request):
         css = []
-        for slug, weight, italic in self._parse_google(request.url):
-            path = self.base / 'font-files' / 'fonts' / 'google' / slug / f'{weight}{"-italic" if italic else ""}.css'
-            if path.is_file():
-                css.append(path.read_text(encoding='utf-8').replace('url(./files/', f'url({GSTATIC}{slug}/files/'))
+        fonts = self.base / 'font-files' / 'fonts'
+        for name, slug, ranged, styles in self._parse_google(request.url):
+            if ranged:   # the variable font with all its axes; fontsource names the family '<name> Variable'
+                files = [(fonts / 'variable' / slug / f'standard{"-italic" if italic else ""}.css', f'variable/{slug}')
+                         for italic in sorted({italic for _, italic in styles})]
             else:
-                print(f'offline font missing: {path}', file=sys.stderr)
+                files = [(fonts / 'google' / slug / f'{weight}{"-italic" if italic else ""}.css', f'google/{slug}')
+                         for weight, italic in styles]
+            for path, folder in files:
+                if not path.is_file():
+                    print(f'offline font missing: {path}', file=sys.stderr)
+                    continue
+                text = path.read_text(encoding='utf-8').replace('url(./files/', f'url({GSTATIC}{folder}/files/')
+                css.append(text.replace(f"font-family: '{name} Variable'", f"font-family: '{name}'"))
         return route.fulfill(status=200, content_type='text/css', body='\n'.join(css))
 
     def _google_file(self, route, request):
         if not request.url.startswith(GSTATIC):
             return route.abort()
         rel = request.url[len(GSTATIC):].split('?')[0]
-        return self._send(route, self.base / 'font-files' / 'fonts' / 'google' / rel)
+        return self._send(route, self.base / 'font-files' / 'fonts' / rel)
 
 
 def main():
