@@ -49,7 +49,7 @@
   .kpi__label{font-size:13px;font-weight:500;color:var(--ink-2)}
   .kpi--dark .kpi__label{color:#C8C8C8}
   .kpi__icon{width:20px;height:20px;flex:none}
-  .kpi__main{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+  .kpi__main{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
   .kpi__value{font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.02em;white-space:nowrap}
   .u{font-size:13px;font-weight:700;letter-spacing:0;margin-left:2px}
   .u.pre{margin:0 2px 0 0}
@@ -88,8 +88,8 @@
   .ring{position:relative;width:180px}
   .ring svg{width:100%;height:auto;overflow:visible}
   .ring__center{position:absolute;left:0;right:0;top:57.14%;transform:translateY(-50%);text-align:center}
-  .ring__label{font-size:13px;font-weight:500;color:var(--muted)}
-  .ring__value{font-size:30px;font-weight:700;line-height:1.2;letter-spacing:-.02em}
+  .ring__label{font-size:12px;font-weight:500;color:var(--muted)}
+  .ring__value{font-size:22px;font-weight:700;line-height:1.2;letter-spacing:-.02em}
   .cat-legend{width:100%;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 14px}
   .cat-legend li{display:grid;grid-template-columns:11px minmax(0,1fr);column-gap:9px;row-gap:1px;align-items:center}
   .cat-legend .dot{width:11px;height:11px;border-radius:50%}
@@ -122,15 +122,17 @@
   .swatch b{display:block;margin-top:7px;font-size:13px;font-weight:700}
   .swatch span{display:block;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 
-  /* 서체 */
-  .type{flex:1;display:flex;flex-direction:column}
-  .type__aa{display:flex;align-items:baseline;gap:12px;font-size:60px;line-height:1;font-weight:700;letter-spacing:-.03em;margin:2px 0 0 -2px}
-  .type__aa .ko{font-size:44px;letter-spacing:0}
-  .type__aa .disp{font-family:var(--display);font-size:60px;letter-spacing:0;color:var(--muted)}
-  .type__list{margin:auto 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
-  .type__list li{display:flex;justify-content:space-between;gap:10px;font-size:13px}
-  .type__list b{font-weight:700}
-  .type__list span{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* 서체: 세 서체를 각자의 글꼴로 보여 준다 */
+  .type{flex:1;display:flex;flex-direction:column;justify-content:space-between;margin-top:2px}
+  .type__row{display:flex;flex-direction:column;gap:3px;padding-bottom:10px;border-bottom:1px solid var(--grid)}
+  .type__row:last-child{border-bottom:0;padding-bottom:0}
+  .type__meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+  .type__meta b{color:var(--ink-2);font-weight:700}
+  .type__sample{font-size:26px;line-height:1.1;font-weight:700;white-space:nowrap;overflow:hidden}
+  .type__sample.disp{font-family:var(--display);font-size:32px;letter-spacing:.02em}
+  .type__sample.num{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .type__sample.ko{font-family:'Pretendard Variable',Pretendard,sans-serif;font-size:22px;font-weight:600}
+  .type__sample .u{font-size:13px}
 
   /* 사진이 있는 상품 카드 */
   .product{flex:1;display:flex;flex-direction:column;min-height:0}
@@ -218,12 +220,9 @@
     <article class="card">
       <div class="card__head"><h3 class="card__title"><span data-i18n="typeTitle"></span></h3></div>
       <div class="type">
-        <div class="type__aa">Aa <span class="ko">가</span><span class="disp">Aa</span></div>
-        <ul class="type__list">
-          <li><b>Inter</b><span data-i18n="typeBody"></span></li>
-          <li><b>Space Grotesk</b><span data-i18n="typeDisplay"></span></li>
-          <li><b>Pretendard</b><span data-i18n="typeKo"></span></li>
-        </ul>
+        <div class="type__row"><div class="type__meta"><b>Space Grotesk</b><span data-i18n="typeDisplay"></span></div><div class="type__sample disp">CHALK Aa</div></div>
+        <div class="type__row"><div class="type__meta"><b>Inter</b><span data-i18n="typeBody"></span></div><div class="type__sample num"><span class="u pre">₩</span>842<span class="u">M</span> · 12,480</div></div>
+        <div class="type__row"><div class="type__meta"><b>Pretendard</b><span data-i18n="typeKo"></span></div><div class="type__sample ko">주문 현황 가나다</div></div>
       </div>
     </article>
 
@@ -267,7 +266,7 @@
       chanTitle: 'Revenue by channel', chanSub: 'share of revenue',
       channels: ['Web store', 'App', 'Marketplaces', 'Live commerce', 'Social'],
       palTitle: 'Palette', palSub: 'KPI tiles',
-      typeTitle: 'Typography', typeBody: 'body · figures', typeDisplay: 'display', typeKo: 'Korean',
+      typeTitle: 'Typography', typeBody: 'body · figures · 400–700', typeDisplay: 'titles · 700', typeKo: 'Korean · 400–700',
       bestTitle: 'Bestseller', bestSub: 'this month',
       bestName: 'Pastel chalk set, 12 colors', bestMeta: 'Stationery · 1,180 orders', bestPrice: '<span class="u pre">₩</span>4,900', bestTag: 'No. 1'
     },
@@ -291,7 +290,7 @@
       chanTitle: '채널별 매출', chanSub: '매출 비중',
       channels: ['웹 스토어', '앱', '오픈마켓', '라이브커머스', '소셜'],
       palTitle: '팔레트', palSub: 'KPI 카드',
-      typeTitle: '서체', typeBody: '본문 · 숫자', typeDisplay: '제목', typeKo: '한글',
+      typeTitle: '서체', typeBody: '본문 · 숫자 · 400–700', typeDisplay: '제목 · 700', typeKo: '한글 · 400–700',
       bestTitle: '베스트셀러', bestSub: '이번 달',
       bestName: '파스텔 분필 세트 12색', bestMeta: '문구 · 1,180건 주문', bestPrice: '4,900<span class="u">원</span>', bestTag: '1위'
     }
