@@ -5,15 +5,14 @@
 <meta name="viewport" content="width=1080">
 <meta name="robots" content="noindex">
 <title>CHALK · Style sheet</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@v3.3.0/css/SpoqaHanSansNeo.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
   /* Chalk 스타일 시트 — 세로형(1080×1350, 4:5) 대시보드 한 장.
-     스타일의 색·서체·부품을 카드의 데이터로 보여 준다. 토큰은 index.html, style.md와 같다. */
+     머리에 이름·키 컬러·서체만 두고, 아래는 가상 데이터로 된 보통의 대시보드다. 토큰은 index.html, style.md와 같다. */
   :root{
-    --font:'Spoqa Han Sans Neo',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+    --font:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
     --ink:#161616; --ink-2:#474747; --muted:#8B8B8B; --faint:#A3A3A3;
     --surface:#FFFFFF; --border:#EAEAEA; --grid:#EFEFEF;
-    --side:#1D1D1D; --side-ink:#B5B5B5; --side-hover:#272727; --side-active:#333333;
     --pill:#F1F1F1; --pill-active:#D2E7F3;
     --k-blue:#D2E7F3; --k-green:#D9EEC8; --k-orange:#FEC48E; --k-dark:#2A2A2A;
     --good:#1E8449; --bad:#D0392B; --flat:#8B8B8B;
@@ -21,63 +20,55 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{width:1080px;height:1350px;overflow:hidden;font-family:var(--font);font-size:13px;line-height:1.45;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
+  body{width:1080px;height:1350px;overflow:hidden;padding:46px 48px 48px;font-family:var(--font);font-size:13px;line-height:1.45;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
   svg{display:block}
-  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
-  /* ---------- shell ---------- */
-  .app{display:grid;grid-template-columns:200px minmax(0,1fr);width:1080px;height:1350px}
-  .sidebar{background:var(--side);color:#fff;display:flex;flex-direction:column;padding:26px 14px 24px}
-  .brand{display:flex;align-items:center;padding:0 12px 22px;font-size:15px;font-weight:700;color:#fff}
-  .nav{display:flex;flex-direction:column;gap:4px}
-  .nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;color:var(--side-ink);text-decoration:none;font-weight:500;white-space:nowrap}
-  .nav a svg{width:18px;height:18px;flex:none}
-  .nav a[aria-current="page"]{background:var(--side-active);color:#fff}
-  .side-foot{margin-top:auto;padding:0 12px;font-size:12px;color:#7A7A7A;line-height:1.5}
-  .side-foot b{display:block;color:var(--side-ink);font-weight:700}
+  /* ---------- 머리: 이름, 키 컬러, 서체, 사진 ---------- */
+  .head{display:grid;grid-template-columns:minmax(0,1fr) 404px;gap:40px;align-items:stretch}
+  .head h1{margin:0;font-size:66px;line-height:1;font-weight:700;letter-spacing:.03em}
+  .head .sub{margin:10px 0 0;font-size:18px;font-weight:500;color:var(--muted)}
+  .keys{margin-top:auto;display:flex;flex-direction:column;gap:14px}
+  .keys__row{display:flex;align-items:center;gap:22px}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--ink-2);font-variant-numeric:tabular-nums}
+  .chip i{width:26px;height:26px;border-radius:8px;flex:none}
+  .face{display:inline-flex;align-items:baseline;gap:12px}
+  .face b{font-size:30px;font-weight:700;line-height:1;letter-spacing:-.02em}
+  .face span{font-size:13px;font-weight:500;color:var(--ink-2)}
+  .face small{font-size:13px;color:var(--muted)}
+  .photo{position:relative;margin:0;height:232px;border-radius:var(--radius);overflow:hidden;background:#2A2A2A}
+  .photo img,.photo svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .photo img{display:none}
+  .photo.has-img img{display:block}
+  .photo.has-img svg{display:none}
 
-  .main{padding:34px 36px 30px;display:flex;flex-direction:column;min-width:0}
-  .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-  .topbar h1{margin:0;font-size:46px;line-height:1;font-weight:700;letter-spacing:.04em}
-  .topbar .sub{margin:8px 0 0;font-size:14px;font-weight:500;color:var(--muted)}
-  .actions{display:flex;align-items:center;gap:8px;padding-top:4px}
-  .icon-btn{width:34px;height:34px;border:0;border-radius:8px;background:var(--pill);color:var(--ink);display:grid;place-items:center;position:relative}
-  .icon-btn svg{width:18px;height:18px}
-  .bell::after{content:'';position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:#F39D52;box-shadow:0 0 0 2px var(--surface)}
-  .lang{display:inline-flex;padding:3px;border-radius:8px;background:var(--pill)}
-  .lang span{padding:4px 9px;border-radius:6px;font-size:12px;font-weight:700;color:var(--muted)}
-  .lang span[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
-  .avatar{width:34px;height:34px;border-radius:50%;background:var(--k-orange);display:grid;place-items:center}
-  .avatar svg{width:18px;height:18px}
-
-  /* ---------- filters ---------- */
-  .tabs{display:flex;gap:8px;margin-top:22px}
+  /* ---------- 필터와 섹션 ---------- */
+  .tabs{display:flex;gap:8px;margin-top:26px}
   .tab{height:34px;padding:0 16px;border-radius:8px;background:var(--pill);color:var(--ink-2);font-size:13px;font-weight:500;display:inline-flex;align-items:center;white-space:nowrap}
   .tab[aria-selected="true"]{background:var(--pill-active);color:var(--ink);font-weight:700}
   .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin:22px 0 12px}
   .sec-head h2{margin:0;font-size:15px;font-weight:700}
   .period{color:var(--muted)}
 
-  /* ---------- KPI tiles: 팔레트 ---------- */
-  .kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-  .kpi{min-height:144px;padding:18px 20px;border-radius:var(--radius);display:flex;flex-direction:column;justify-content:space-between;gap:16px}
+  /* ---------- KPI ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+  .kpi{min-height:128px;padding:18px 20px;border-radius:var(--radius);display:flex;flex-direction:column;justify-content:space-between;gap:16px}
   .kpi--blue{background:var(--k-blue)} .kpi--green{background:var(--k-green)}
   .kpi--orange{background:var(--k-orange)} .kpi--dark{background:var(--k-dark);color:#fff}
   .kpi__icon{width:20px;height:20px}
   .kpi__main{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
-  .kpi__value{font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .kpi__value{font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.02em;white-space:nowrap}
   .u{font-size:13px;font-weight:700;letter-spacing:0;margin-left:2px}
   .u.pre{margin:0 2px 0 0}
-  .delta{display:inline-flex;align-items:center;gap:4px;padding:3px 7px 3px 6px;border-radius:6px;background:#fff;color:var(--ink);font-size:13px;font-weight:700;line-height:1.25;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .delta{display:inline-flex;align-items:center;gap:4px;padding:3px 7px 3px 6px;border-radius:6px;background:#fff;color:var(--ink);font-size:13px;font-weight:700;line-height:1.25;white-space:nowrap}
   .delta svg{width:14px;height:14px}
-  .delta.is-good svg{color:var(--good)}
+  .delta.is-good svg{color:var(--good)} .delta.is-bad svg{color:var(--bad)}
   .kpi__label{margin-top:4px;font-size:13px;font-weight:500;color:var(--ink-2)}
   .kpi--dark .kpi__label{color:#C8C8C8}
 
-  /* ---------- cards ---------- */
+  /* ---------- 카드 ---------- */
   .charts{display:grid;gap:16px;margin-top:16px}
-  .row-a{grid-template-columns:minmax(0,2fr) minmax(0,1fr);height:344px}
-  .row-b{grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:330px}
+  .row-a{grid-template-columns:minmax(0,2fr) minmax(0,1fr);height:396px}
+  .row-b{grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:340px}
   .card{min-width:0;padding:20px 22px 18px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);display:flex;flex-direction:column}
   .card__head{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;margin-bottom:10px}
   .card__title{margin:0;font-size:15px;font-weight:700;white-space:nowrap}
@@ -85,7 +76,6 @@
   .legend{display:flex;gap:16px}
   .legend span{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:var(--ink-2);white-space:nowrap}
 
-  /* 선 차트 */
   .lc{position:relative;flex:1;min-height:0}
   .lc > svg{position:absolute;inset:0;width:100%;height:100%}
   .lc text{font-family:var(--font)}
@@ -99,132 +89,155 @@
   .lc-tip__label{color:#BDBDBD}
   .lc-tip__val{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
 
-  /* 토큰 표 */
-  .tokens{width:100%;border-collapse:collapse;font-size:13px}
-  .tokens th{padding:0 0 8px;text-align:left;font-size:12px;font-weight:500;color:var(--muted);border-bottom:1px solid var(--border)}
-  .tokens td{padding:5px 0;border-bottom:1px solid var(--grid);white-space:nowrap;vertical-align:middle}
-  .tokens tr:last-child td{border-bottom:0}
-  .tokens .name{font-weight:700;display:flex;align-items:center;gap:8px}
-  .tokens .name i{width:12px;height:12px;border-radius:50%;flex:none}
-  .tokens .name i.is-light{box-shadow:inset 0 0 0 1px var(--border)}
-  .tokens .hex{color:var(--muted);font-variant-numeric:tabular-nums}
-  .tokens .use{color:var(--ink-2);text-align:right}
-
-  /* 서체 크기 */
-  .scale{display:flex;flex-direction:column;justify-content:space-between;flex:1;padding:4px 0 2px}
-  .scale__row{display:grid;grid-template-columns:150px minmax(0,1fr) 44px;align-items:center;gap:14px}
-  .scale__row--figures > span:nth-child(2){grid-column:2 / span 2}
-  .scale__label{white-space:nowrap;line-height:1.1}
-  .scale__bar{height:8px;border-radius:4px;background:#1A1A1A}
-  .scale__px{font-size:12px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
-
-  /* 도넛 */
-  .gauge-body{flex:1;display:grid;grid-template-columns:184px minmax(0,1fr);align-items:center;column-gap:22px}
-  .ring{position:relative;width:184px}
+  .gauge-body{flex:1;display:grid;align-content:center;justify-items:center;gap:16px}
+  .ring{position:relative;width:200px}
   .ring svg{width:100%;height:auto;overflow:visible}
   .ring__center{position:absolute;left:0;right:0;top:57.14%;transform:translateY(-50%);text-align:center}
   .ring__label{font-size:13px;font-weight:500;color:var(--muted)}
   .ring__value{font-size:30px;font-weight:700;line-height:1.2;letter-spacing:-.02em}
-  .cat-legend{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
-  .cat-legend li{display:grid;grid-template-columns:11px minmax(0,1fr) auto;column-gap:9px;row-gap:1px;align-items:center}
-  .cat-legend .dot{width:11px;height:11px;border-radius:50%;grid-row:span 2}
+  .cat-legend{width:100%;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px}
+  .cat-legend li{display:grid;grid-template-columns:11px minmax(0,1fr);column-gap:9px;row-gap:1px;align-items:center}
+  .cat-legend .dot{width:11px;height:11px;border-radius:50%}
   .cat-legend .name{font-size:13px;font-weight:700}
-  .cat-legend .share{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;grid-row:span 2}
   .cat-legend .val{grid-column:2;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 
-  .foot{margin:auto 0 0;padding-top:16px;font-size:12px;color:var(--faint)}
+  .tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .tbl th{padding:0 0 8px;text-align:left;font-size:12px;font-weight:500;color:var(--muted);border-bottom:1px solid var(--border)}
+  .tbl td{padding:9px 0;border-bottom:1px solid var(--grid);white-space:nowrap;vertical-align:middle}
+  .tbl tr:last-child td{border-bottom:0}
+  .tbl .rank{width:28px;color:var(--faint);font-variant-numeric:tabular-nums}
+  .tbl .name{font-weight:700}
+  .tbl .num{text-align:right;font-variant-numeric:tabular-nums}
+  .tbl .num.is-good{color:var(--good)} .tbl .num.is-bad{color:var(--bad)}
+  .tbl th.num{text-align:right}
+
+  .bars{flex:1;display:flex;flex-direction:column;justify-content:space-around;padding:2px 0}
+  .bar{display:grid;grid-template-columns:118px minmax(0,1fr) 62px;align-items:center;gap:14px;font-size:13px}
+  .bar__name{font-weight:700;white-space:nowrap}
+  .bar__track{height:10px;border-radius:5px;background:var(--grid)}
+  .bar__fill{height:100%;border-radius:5px;background:#1A1A1A}
+  .bar__val{text-align:right;font-variant-numeric:tabular-nums}
+  .bar__val small{color:var(--muted);margin-left:5px}
 </style>
 </head>
 <body>
-<div class="app">
-  <aside class="sidebar">
-    <div class="brand"><span>Vizney Styles</span></div>
-    <nav class="nav" aria-label="Styles">
-      <a href="#" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 20v-6M12 20V5M19 20v-10"/></svg><span>Chalk</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M8 9.5a5 5 0 0 1 3-2.6"/></svg><span>Glass</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg><span>Tile</span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h11M4 17h14"/></svg><span>Anthropic</span></a>
-    </nav>
-    <div class="side-foot"><b>styles.vizney.com</b><span data-i18n="sideFoot"></span></div>
-  </aside>
-
-  <main class="main">
-    <header class="topbar">
-      <div>
-        <h1>CHALK</h1>
-        <p class="sub" data-i18n="sub"></p>
+  <header class="head">
+    <div class="head__text">
+      <h1>CHALK</h1>
+      <p class="sub" data-i18n="sub"></p>
+      <div class="keys">
+        <div class="keys__row">
+          <span class="chip"><i style="background:#D2E7F3"></i>#D2E7F3</span>
+          <span class="chip"><i style="background:#D9EEC8"></i>#D9EEC8</span>
+          <span class="chip"><i style="background:#FEC48E"></i>#FEC48E</span>
+          <span class="chip"><i style="background:#2A2A2A"></i>#2A2A2A</span>
+        </div>
+        <div class="keys__row">
+          <span class="face"><b>Aa</b><span>Pretendard</span><small>700 · 500 · 400</small></span>
+        </div>
       </div>
-      <div class="actions">
-        <span class="icon-btn" role="img" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></span>
-        <span class="icon-btn bell" role="img" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg></span>
-        <span class="lang" role="group" aria-label="Language"><span id="langKo">KO</span><span id="langEn">EN</span></span>
-        <span class="avatar" role="img" aria-label="Profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="9.5" r="3.6"/><path d="M5.5 19.5c1.2-3.2 3.6-4.8 6.5-4.8s5.3 1.6 6.5 4.8"/></svg></span>
+    </div>
+    <figure class="photo" id="photo">
+      <img src="chalk.jpg" alt="">
+      <svg viewBox="0 0 404 232" aria-hidden="true">
+        <defs>
+          <radialGradient id="slate" cx="38%" cy="42%" r="78%">
+            <stop offset="0" stop-color="#3B3B3B"/><stop offset="1" stop-color="#1F1F1F"/>
+          </radialGradient>
+          <filter id="grain" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency=".95" numOctaves="2" seed="5" stitchTiles="stitch"/>
+            <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .09 0"/>
+          </filter>
+          <filter id="soft" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="14"/></filter>
+          <filter id="shadow" x="-10%" y="-40%" width="120%" height="200%"><feDropShadow dx="0" dy="7" stdDeviation="6" flood-color="#000" flood-opacity=".45"/></filter>
+          <filter id="chalktex" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency=".8 .35" numOctaves="2" seed="11" stitchTiles="stitch"/>
+            <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .22 0"/>
+            <feComposite in2="SourceGraphic" operator="in"/>
+            <feBlend in="SourceGraphic" mode="multiply"/>
+          </filter>
+          <linearGradient id="gw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#ECECEC"/><stop offset="1" stop-color="#BDBDBD"/></linearGradient>
+          <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E6F2FA"/><stop offset=".55" stop-color="#D2E7F3"/><stop offset="1" stop-color="#9DBDD1"/></linearGradient>
+          <linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAF6DF"/><stop offset=".55" stop-color="#D9EEC8"/><stop offset="1" stop-color="#A8C494"/></linearGradient>
+          <linearGradient id="go" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD9B4"/><stop offset=".55" stop-color="#FEC48E"/><stop offset="1" stop-color="#D1955A"/></linearGradient>
+        </defs>
+        <rect width="404" height="232" fill="url(#slate)"/>
+        <rect width="404" height="232" filter="url(#grain)"/>
+        <!-- 분필 가루 -->
+        <ellipse cx="150" cy="178" rx="120" ry="22" fill="#fff" opacity=".10" filter="url(#soft)"/>
+        <ellipse cx="300" cy="98" rx="70" ry="16" fill="#fff" opacity=".06" filter="url(#soft)"/>
+        <!-- 분필 네 자루 -->
+        <g transform="rotate(-14 202 116)" filter="url(#shadow)">
+          <g filter="url(#chalktex)">
+            <rect x="52"  y="54"  width="214" height="28" rx="7" fill="url(#gw)"/>
+            <rect x="118" y="88"  width="214" height="28" rx="7" fill="url(#gb)"/>
+            <rect x="80"  y="122" width="214" height="28" rx="7" fill="url(#gg)"/>
+            <rect x="140" y="156" width="214" height="28" rx="7" fill="url(#go)"/>
+          </g>
+          <!-- 끝면 -->
+          <ellipse cx="266" cy="68"  rx="5" ry="14" fill="#D8D8D8"/><ellipse cx="52"  cy="68"  rx="5" ry="14" fill="#F6F6F6"/>
+          <ellipse cx="332" cy="102" rx="5" ry="14" fill="#B6CFDF"/><ellipse cx="118" cy="102" rx="5" ry="14" fill="#E3F0F8"/>
+          <ellipse cx="294" cy="136" rx="5" ry="14" fill="#BED5AC"/><ellipse cx="80"  cy="136" rx="5" ry="14" fill="#E6F4DB"/>
+          <ellipse cx="354" cy="170" rx="5" ry="14" fill="#E0A66C"/><ellipse cx="140" cy="170" rx="5" ry="14" fill="#FFD9B4"/>
+        </g>
+      </svg>
+    </figure>
+  </header>
+
+  <div class="tabs" role="tablist" id="tabs"></div>
+
+  <div class="sec-head">
+    <h2 data-i18n="section"></h2>
+    <span class="period" data-i18n="period"></span>
+  </div>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="charts row-a">
+    <article class="card">
+      <div class="card__head">
+        <h3 class="card__title"><span data-i18n="lineTitle"></span><small data-i18n="lineSub"></small></h3>
+        <div class="legend">
+          <span><svg width="20" height="8" aria-hidden="true"><line x1="1" y1="4" x2="19" y2="4" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/></svg><span data-i18n="wd"></span></span>
+          <span><svg width="20" height="8" aria-hidden="true"><line x1="1" y1="4" x2="19" y2="4" stroke="#478F35" stroke-width="2" stroke-dasharray="5 4"/></svg><span data-i18n="we"></span></span>
+        </div>
       </div>
-    </header>
-
-    <div class="tabs" role="tablist">
-      <span class="tab" role="tab" aria-selected="true" data-i18n="tab0"></span>
-      <span class="tab" role="tab" aria-selected="false" data-i18n="tab1"></span>
-      <span class="tab" role="tab" aria-selected="false" data-i18n="tab2"></span>
-      <span class="tab" role="tab" aria-selected="false" data-i18n="tab3"></span>
-    </div>
-
-    <div class="sec-head">
-      <h2 data-i18n="section"></h2>
-      <span class="period" data-i18n="period"></span>
-    </div>
-
-    <section class="kpis" id="kpis"></section>
-
-    <section class="charts row-a">
-      <article class="card">
-        <div class="card__head">
-          <h3 class="card__title"><span data-i18n="lineTitle"></span><small data-i18n="lineSub"></small></h3>
-          <div class="legend">
-            <span><svg width="20" height="8" aria-hidden="true"><line x1="1" y1="4" x2="19" y2="4" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/></svg><span data-i18n="wd"></span></span>
-            <span><svg width="20" height="8" aria-hidden="true"><line x1="1" y1="4" x2="19" y2="4" stroke="#478F35" stroke-width="2" stroke-dasharray="5 4"/></svg><span data-i18n="we"></span></span>
-          </div>
+      <div class="lc" id="lc">
+        <svg aria-hidden="true"></svg>
+        <div class="lc-tip" id="lcTip">
+          <div class="lc-tip__title" data-i18n="tipTitle"></div>
+          <div class="lc-tip__row"><svg width="18" height="8"><line x1="1" y1="4" x2="17" y2="4" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/></svg><span class="lc-tip__label" data-i18n="wd"></span><span class="lc-tip__val">32.6</span></div>
+          <div class="lc-tip__row"><svg width="18" height="8"><line x1="1" y1="4" x2="17" y2="4" stroke="#93CC74" stroke-width="2" stroke-dasharray="4 3"/></svg><span class="lc-tip__label" data-i18n="we"></span><span class="lc-tip__val">36.7</span></div>
         </div>
-        <div class="lc" id="lc">
-          <svg aria-hidden="true"></svg>
-          <div class="lc-tip" id="lcTip">
-            <div class="lc-tip__title" data-i18n="tipTitle"></div>
-            <div class="lc-tip__row"><svg width="18" height="8"><line x1="1" y1="4" x2="17" y2="4" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/></svg><span class="lc-tip__label" data-i18n="wd"></span><span class="lc-tip__val" id="tipWd"></span></div>
-            <div class="lc-tip__row"><svg width="18" height="8"><line x1="1" y1="4" x2="17" y2="4" stroke="#93CC74" stroke-width="2" stroke-dasharray="4 3"/></svg><span class="lc-tip__label" data-i18n="we"></span><span class="lc-tip__val" id="tipWe"></span></div>
-          </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card__head"><h3 class="card__title"><span data-i18n="ringTitle"></span></h3></div>
+      <div class="gauge-body">
+        <div class="ring">
+          <svg viewBox="0 0 240 196" id="ring" role="img"></svg>
+          <div class="ring__center"><div class="ring__label" data-i18n="ringLabel"></div><div class="ring__value" data-i18n-html="ringValue"></div></div>
         </div>
-      </article>
+        <ul class="cat-legend" id="catLegend"></ul>
+      </div>
+    </article>
+  </section>
 
-      <article class="card">
-        <div class="card__head"><h3 class="card__title"><span data-i18n="tokTitle"></span><small data-i18n="tokSub"></small></h3></div>
-        <table class="tokens">
-          <thead><tr><th data-i18n="thToken"></th><th>Hex</th><th style="text-align:right" data-i18n="thUse"></th></tr></thead>
-          <tbody id="tokens"></tbody>
-        </table>
-      </article>
-    </section>
+  <section class="charts row-b">
+    <article class="card">
+      <div class="card__head"><h3 class="card__title"><span data-i18n="prodTitle"></span><small data-i18n="prodSub"></small></h3></div>
+      <table class="tbl">
+        <thead><tr><th></th><th data-i18n="thProduct"></th><th class="num" data-i18n="thOrders"></th><th class="num" data-i18n="thChange"></th></tr></thead>
+        <tbody id="products"></tbody>
+      </table>
+    </article>
 
-    <section class="charts row-b">
-      <article class="card">
-        <div class="card__head"><h3 class="card__title"><span data-i18n="typeTitle"></span><small>Spoqa Han Sans Neo</small></h3></div>
-        <div class="scale" id="scale"></div>
-      </article>
-
-      <article class="card">
-        <div class="card__head"><h3 class="card__title"><span data-i18n="ringTitle"></span><small data-i18n="ringSub"></small></h3></div>
-        <div class="gauge-body">
-          <div class="ring">
-            <svg viewBox="0 0 240 196" id="ring" role="img"></svg>
-            <div class="ring__center"><div class="ring__label" data-i18n="ringLabel"></div><div class="ring__value">4</div></div>
-          </div>
-          <ul class="cat-legend" id="catLegend"></ul>
-        </div>
-      </article>
-    </section>
-
-    <p class="foot" data-i18n="footer"></p>
-  </main>
-</div>
+    <article class="card">
+      <div class="card__head"><h3 class="card__title"><span data-i18n="chanTitle"></span><small data-i18n="chanSub"></small></h3></div>
+      <div class="bars" id="bars"></div>
+    </article>
+  </section>
 
 <script>
 (() => {
@@ -232,82 +245,85 @@
   const $ = (s, r = document) => r.querySelector(s);
   const q = new URLSearchParams(location.search);
   const lang = q.get('lang') === 'ko' ? 'ko' : 'en';
+  const MINUS = '−';
 
   const STR = {
     en: {
       docTitle: 'CHALK · Style sheet',
       sub: 'Dark sidebar, pastel KPI tiles',
-      tab0: 'All', tab1: 'Color', tab2: 'Type', tab3: 'Components',
-      section: 'Palette', period: 'Spoqa Han Sans Neo · radius 12px · gap 16px',
-      tileLabel: 'contrast with text',
-      lineTitle: 'Line chart', lineSub: '2px curves, hollow end markers', wd: 'Weekdays', we: 'Weekends',
+      tabs: ['All channels', 'Web store', 'App', 'Marketplaces', 'Live commerce'],
+      section: 'Order stats', period: 'Last 30 days · vs. previous 30 days',
+      kpis: [
+        ['<span class="u pre">₩</span>842<span class="u">M</span>', '+6.4%', 'good', 'up', 'Revenue'],
+        ['12,480', '+6.2%', 'good', 'up', 'Orders'],
+        ['3.4<span class="u">%</span>', MINUS + '0.2 pp', 'good', 'down', 'Cancel & return rate'],
+        ['<span class="u pre">₩</span>67,490', '+0.2%', 'good', 'up', 'Avg. order value']
+      ],
+      lineTitle: 'Orders by hour', lineSub: 'daily average', wd: 'Weekdays', we: 'Weekends',
       tipTitle: '8 PM – 9 PM', hourTick: h => (h % 12 === 0 ? 12 : h % 12) + (h < 12 ? ' AM' : ' PM'),
-      tokTitle: 'Tokens', tokSub: 'text · lines', thToken: 'Token', thUse: 'Use',
-      uses: ['sidebar', 'text', 'subtitles', 'ticks', 'outlines', 'filters', 'good change', 'bad change'],
-      typeTitle: 'Type scale',
-      scale: [['Value', 28, 700], ['Title', 15, 700], ['Body', 13, 400], ['Tick', 12, 400]], figures: 'Figures',
-      ringTitle: 'Category colors', ringSub: 'three hues + gray', ringLabel: 'categories',
-      cats: ['Blue', 'Green', 'Orange', 'Other'],
-      sideFoot: 'Dashboard styles by name',
-      footer: 'Vizney Styles · Chalk · A style sheet laid out as a dashboard. Fictional data.'
+      ringTitle: 'Orders by category', ringLabel: 'Total orders', ringValue: '12,480',
+      cats: ['Fashion', 'Beauty', 'Food', 'Other'], catVal: (n, s) => `${n.toLocaleString('en-US')} (${s}%)`,
+      prodTitle: 'Top products', prodSub: 'by orders', thProduct: 'Product', thOrders: 'Orders', thChange: 'vs. prev.',
+      products: ['Linen shirt', 'Vitamin C serum', 'Cold brew set', 'Running socks (3-pack)', 'Ceramic mug'],
+      chanTitle: 'Revenue by channel', chanSub: 'share of revenue',
+      channels: ['Web store', 'App', 'Marketplaces', 'Live commerce'], chanVal: m => `<span class="u pre">₩</span>${m}<span class="u">M</span>`
     },
     ko: {
       docTitle: 'CHALK · 스타일 시트',
       sub: '다크 사이드바와 파스텔 KPI 카드',
-      tab0: '전체', tab1: '색', tab2: '서체', tab3: '부품',
-      section: '팔레트', period: 'Spoqa Han Sans Neo · 모서리 12px · 간격 16px',
-      tileLabel: '글자 대비',
-      lineTitle: '선 차트', lineSub: '2px 곡선, 끝점은 빈 원', wd: '평일', we: '주말',
+      tabs: ['전체 채널', '웹 스토어', '앱', '오픈마켓', '라이브커머스'],
+      section: '주문 현황', period: '최근 30일 · 직전 30일 대비',
+      kpis: [
+        ['8.42<span class="u">억</span>', '+6.4%', 'good', 'up', '매출'],
+        ['12,480<span class="u">건</span>', '+6.2%', 'good', 'up', '주문 수'],
+        ['3.4<span class="u">%</span>', MINUS + '0.2%p', 'good', 'down', '취소·반품률'],
+        ['67,490<span class="u">원</span>', '+0.2%', 'good', 'up', '객단가']
+      ],
+      lineTitle: '시간대별 주문', lineSub: '일평균', wd: '평일', we: '주말',
       tipTitle: '20시 – 21시', hourTick: h => h + '시',
-      tokTitle: '토큰', tokSub: '글자 · 선', thToken: '토큰', thUse: '용도',
-      uses: ['사이드바', '본문', '부제', '눈금', '외곽선', '필터', '개선', '악화'],
-      typeTitle: '서체 크기',
-      scale: [['수치', 28, 700], ['제목', 15, 700], ['본문', 13, 400], ['눈금', 12, 400]], figures: '숫자',
-      ringTitle: '범주 색', ringSub: '세 가지 색 + 회색', ringLabel: '범주',
-      cats: ['파랑', '초록', '주황', '기타'],
-      sideFoot: '이름으로 부르는 스타일',
-      footer: 'Vizney Styles · Chalk · 대시보드로 꾸민 스타일 시트입니다. 가상 데이터.'
+      ringTitle: '카테고리별 주문', ringLabel: '전체 주문', ringValue: '12,480<span class="u">건</span>',
+      cats: ['패션', '뷰티', '식품', '기타'], catVal: (n, s) => `${n.toLocaleString('en-US')}건 (${s}%)`,
+      prodTitle: '인기 상품', prodSub: '주문 수 기준', thProduct: '상품', thOrders: '주문', thChange: '직전 대비',
+      products: ['리넨 셔츠', '비타민C 세럼', '콜드브루 세트', '러닝 양말 3족', '세라믹 머그'],
+      chanTitle: '채널별 매출', chanSub: '매출 비중',
+      channels: ['웹 스토어', '앱', '오픈마켓', '라이브커머스'], chanVal: m => `${(m / 100).toFixed(2)}<span class="u">억</span>`
     }
   };
   const S = STR[lang];
   document.documentElement.lang = lang;
   document.title = S.docTitle;
   document.querySelectorAll('[data-i18n]').forEach(el => { const v = S[el.dataset.i18n]; if (typeof v === 'string') el.textContent = v; });
-  $('#langKo').setAttribute('aria-pressed', lang === 'ko');
-  $('#langEn').setAttribute('aria-pressed', lang === 'en');
+  document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = S[el.dataset.i18nHtml] ?? ''; });
 
-  /* ---------- KPI 타일: 파스텔 4색과 글자 대비 ---------- */
-  const TILES = [
-    { tone: 'blue',   name: 'tile-blue',   hex: 'D2E7F3', cr: '14.2' },
-    { tone: 'green',  name: 'tile-green',  hex: 'D9EEC8', cr: '14.7' },
-    { tone: 'orange', name: 'tile-orange', hex: 'FEC48E', cr: '11.6' },
-    { tone: 'dark',   name: 'tile-dark',   hex: '2A2A2A', cr: '14.4' }
-  ];
-  const ICON = '<rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="12" cy="12" r="3"/>';
-  const UP = '<path d="M3.5 16.5l6-6 4 4 7-7"/><path d="M15 7.5h5.5V13"/>';
-  $('#kpis').innerHTML = TILES.map(t => `
-    <div class="kpi kpi--${t.tone}">
-      <svg class="kpi__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON}</svg>
+  // 사진이 있으면(chalk.jpg) 그림 대신 보여 준다
+  const img = $('#photo img');
+  img.addEventListener('load', () => $('#photo').classList.add('has-img'));
+  if (img.complete && img.naturalWidth) $('#photo').classList.add('has-img');
+
+  $('#tabs').innerHTML = S.tabs.map((t, i) => `<span class="tab" role="tab" aria-selected="${i === 0}">${t}</span>`).join('');
+
+  /* ---------- KPI ---------- */
+  const ICON = {
+    wallet: '<path d="M4 7.5h14.5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2v-11a2 2 0 0 1 2-2H16"/><circle cx="16.4" cy="13.5" r="1.3" fill="currentColor" stroke="none"/>',
+    bag: '<path d="M5.2 8.2h13.6l-1 11.3a1.5 1.5 0 0 1-1.5 1.4H7.7a1.5 1.5 0 0 1-1.5-1.4z"/><path d="M9 8.2V7a3 3 0 0 1 6 0v1.2"/>',
+    ret: '<path d="M8.5 13.5 4 9l4.5-4.5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+    tag: '<path d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l7.9 7.9a1 1 0 0 1 0 1.4l-7.7 7.7a1 1 0 0 1-1.4 0z"/><circle cx="8.3" cy="8.3" r="1.4"/>'
+  };
+  const ARROW = { up: '<path d="M3.5 16.5l6-6 4 4 7-7"/><path d="M15 7.5h5.5V13"/>', down: '<path d="M3.5 7.5l6 6 4-4 7 7"/><path d="M15 16.5h5.5V11"/>' };
+  const TONES = ['blue', 'green', 'orange', 'dark'], ICONS = ['wallet', 'bag', 'ret', 'tag'];
+  $('#kpis').innerHTML = S.kpis.map(([v, d, tone, dir, label], i) => `
+    <div class="kpi kpi--${TONES[i]}">
+      <svg class="kpi__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[ICONS[i]]}</svg>
       <div>
         <div class="kpi__main">
-          <span class="kpi__value"><span class="u pre">#</span>${t.hex}</span>
-          <span class="delta is-good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${UP}</svg>${t.cr} : 1</span>
+          <span class="kpi__value">${v}</span>
+          <span class="delta is-${tone}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ARROW[dir]}</svg>${d}</span>
         </div>
-        <div class="kpi__label">${t.name} · ${S.tileLabel}</div>
+        <div class="kpi__label">${label}</div>
       </div>
     </div>`).join('');
 
-  /* ---------- 토큰 표 ---------- */
-  const TOKENS = [['sidebar', '#1D1D1D'], ['ink', '#161616'], ['muted', '#8B8B8B'], ['faint', '#A3A3A3'], ['border', '#EAEAEA', 1], ['pill', '#F1F1F1', 1], ['good', '#1E8449'], ['bad', '#D0392B']];
-  $('#tokens').innerHTML = TOKENS.map(([n, h, light], i) =>
-    `<tr><td><span class="name"><i class="${light ? 'is-light' : ''}" style="background:${h}"></i>${n}</span></td><td class="hex">${h}</td><td class="use">${S.uses[i]}</td></tr>`).join('');
-
-  /* ---------- 서체 크기: 막대 길이가 곧 크기 ---------- */
-  $('#scale').innerHTML = S.scale.map(([label, px, w]) =>
-    `<div class="scale__row"><span class="scale__label" style="font-size:${px}px;font-weight:${w}">${label} <span style="font-size:12px;font-weight:500;color:var(--muted)">${px}</span></span><div><div class="scale__bar" style="width:${(px / 28 * 100).toFixed(1)}%"></div></div><span class="scale__px">${px}px</span></div>`).join('') +
-    `<div class="scale__row scale__row--figures"><span class="scale__label" style="font-size:13px;font-weight:700;color:var(--ink-2)">${S.figures}</span><span style="font-size:20px;font-weight:700;letter-spacing:.02em;font-variant-numeric:tabular-nums;white-space:nowrap">0123456789 <span class="u">억</span> <span class="u">건</span> <span class="u">%</span> <span class="u">₩</span> <span class="u">M</span></span></div>`;
-
-  /* ---------- 선 차트: 샘플과 같은 시간대 프로필 ---------- */
+  /* ---------- 시간대별 주문 ---------- */
   function profile(spec) {
     const w = [];
     for (let h = 0; h < 24; h++) {
@@ -322,7 +338,6 @@
   const weRaw = profile({ base: .15, b: [[11.5, 2.2, .5], [15, 2.5, .6], [20.5, 1.8, 1.1]] });
   const wd = wdRaw.map(v => v * 32.6 / wdRaw[PEAK]);
   const we = weRaw.map(v => v * 36.7 / weRaw[PEAK]);
-  $('#tipWd').textContent = '32.6'; $('#tipWe').textContent = '36.7';
 
   function monotone(pts) {
     const n = pts.length, d = [], m = [];
@@ -361,8 +376,8 @@
     tip.style.top = Math.max(0, y(Math.max(wd[PEAK], we[PEAK])) - tip.offsetHeight - 10) + 'px';
   }
 
-  /* ---------- 도넛: 범주 색 ---------- */
-  const CATS = [['#5EA6DA', 34], ['#478F35', 27], ['#F39D52', 22], ['#8C8C8C', 17]];
+  /* ---------- 카테고리별 주문 (합계 12,480) ---------- */
+  const CATS = [['#5EA6DA', 4240], ['#478F35', 3370], ['#F39D52', 2750], ['#8C8C8C', 2120]];
   function drawRing() {
     const cx = 120, cy = 112, r = 88, start = 135, span = 270, gap = 3;
     const total = CATS.reduce((p, c) => p + c[1], 0);
@@ -378,12 +393,23 @@
       a = a2 + gap;
     });
     $('#ring').innerHTML = s;
-    $('#catLegend').innerHTML = CATS.map(([c, v], i) => `<li><i class="dot" style="background:${c}"></i><span class="name">${S.cats[i]}</span><span class="share">${v}%</span><span class="val">${c}</span></li>`).join('');
+    $('#catLegend').innerHTML = CATS.map(([c, v], i) => `<li><i class="dot" style="background:${c}"></i><span class="name">${S.cats[i]}</span><span class="val">${S.catVal(v, (v / total * 100).toFixed(1))}</span></li>`).join('');
   }
 
+  /* ---------- 인기 상품 ---------- */
+  const PRODUCTS = [[1180, 12.5], [960, 8.1], [840, -2.4], [720, 4.0], [610, 1.8]];
+  $('#products').innerHTML = PRODUCTS.map(([n, d], i) =>
+    `<tr><td class="rank">${String(i + 1).padStart(2, '0')}</td><td class="name">${S.products[i]}</td><td class="num">${n.toLocaleString('en-US')}</td><td class="num ${d >= 0 ? 'is-good' : 'is-bad'}">${d >= 0 ? '+' : MINUS}${Math.abs(d).toFixed(1)}%</td></tr>`).join('');
+
+  /* ---------- 채널별 매출 (합계 842.3M) ---------- */
+  const CHANNELS = [241.6, 318.4, 196.3, 86.0];
+  const tot = CHANNELS.reduce((p, c) => p + c, 0), mx = Math.max(...CHANNELS);
+  $('#bars').innerHTML = CHANNELS.map((m, i) =>
+    `<div class="bar"><span class="bar__name">${S.channels[i]}</span><div class="bar__track"><div class="bar__fill" style="width:${(m / mx * 100).toFixed(1)}%"></div></div><span class="bar__val">${(m / tot * 100).toFixed(1)}%</span></div>`).join('');
+
   drawRing();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawLine); else drawLine();
   drawLine();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawLine);
 })();
 </script>
 </body>
