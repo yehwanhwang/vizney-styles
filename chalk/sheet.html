@@ -11,9 +11,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
   /* Chalk 스타일 시트 — 세로형(1080×1350, 4:5) 대시보드 한 장.
-     가상 데이터로 된 보통의 대시보드이고, 팔레트·서체·사진은 아래 줄의 카드 세 장으로 들어간다. 토큰은 index.html, style.md와 같다. */
+     가상 데이터로 된 보통의 대시보드다. 스타일 정보는 따로 설명하지 않고 데이터 카드 안에 둔다:
+     키 컬러는 '색상별 판매', 서체는 '캠페인 배너', 사진은 '베스트셀러'. 토큰은 index.html, style.md와 같다.
+     서체는 언어마다 하나: 영어 Inter, 한국어 Pretendard. 제목(라틴)은 둘 다 Space Grotesk. */
   :root{
-    --font:'Inter','Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+    --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     --display:'Space Grotesk',var(--font);
     --ink:#161616; --ink-2:#474747; --muted:#8B8B8B; --faint:#A3A3A3;
     --surface:#FFFFFF; --border:#EAEAEA; --grid:#EFEFEF;
@@ -22,6 +24,7 @@
     --good:#1E8449; --bad:#D0392B; --flat:#8B8B8B;
     --radius:12px;
   }
+  html[lang="ko"]{--font:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{width:1080px;height:1350px;overflow:hidden;padding:46px 48px 48px;font-family:var(--font);font-size:13px;line-height:1.45;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
@@ -40,16 +43,16 @@
   .sec-head h2{margin:0;font-size:15px;font-weight:700}
   .period{color:var(--muted)}
 
-  /* ---------- KPI: 항목 이름이 위, 수치가 아래 ---------- */
+  /* ---------- KPI: 지표명 → 수치(가깝게) → 증감(한 칸 띄워서) ---------- */
   .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-  .kpi{min-height:126px;padding:16px 20px 18px;border-radius:var(--radius);display:flex;flex-direction:column;justify-content:space-between;gap:14px}
+  .kpi{padding:16px 20px 18px;border-radius:var(--radius);display:flex;flex-direction:column}
   .kpi--blue{background:var(--k-blue)} .kpi--green{background:var(--k-green)}
   .kpi--orange{background:var(--k-orange)} .kpi--dark{background:var(--k-dark);color:#fff}
   .kpi__top{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .kpi__label{font-size:13px;font-weight:500;color:var(--ink-2)}
   .kpi--dark .kpi__label{color:#C8C8C8}
   .kpi__icon{width:20px;height:20px;flex:none}
-  .kpi__main{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
+  .kpi__main{display:flex;flex-direction:column;align-items:flex-start;gap:14px;margin-top:6px}
   .kpi__value{font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.02em;white-space:nowrap}
   .u{font-size:13px;font-weight:700;letter-spacing:0;margin-left:2px}
   .u.pre{margin:0 2px 0 0}
@@ -61,7 +64,7 @@
   .charts{display:grid;gap:16px;margin-top:16px}
   .row-a{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
   .row-b{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .row-c{grid-template-columns:repeat(3,minmax(0,1fr));height:288px}
+  .row-c{grid-template-columns:repeat(3,minmax(0,1fr));flex:1;min-height:0}
   .card{min-width:0;min-height:0;padding:20px 22px 18px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);display:flex;flex-direction:column}
   .card__head{display:flex;align-items:center;justify-content:space-between;gap:8px 16px;margin-bottom:10px}
   .card__title{margin:0;font-size:15px;font-weight:700;white-space:nowrap}
@@ -115,34 +118,36 @@
   .bar__fill{height:100%;border-radius:5px;background:#1A1A1A}
   .bar__val{text-align:right;font-variant-numeric:tabular-nums}
 
-  /* 팔레트 */
-  .swatches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px}
-  .swatch i{display:block;height:52px;border-radius:8px}
-  .swatch i.is-light{box-shadow:inset 0 0 0 1px var(--border)}
-  .swatch b{display:block;margin-top:7px;font-size:13px;font-weight:700}
-  .swatch span{display:block;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+  /* 색상별 판매: 키 컬러 네 가지가 상품 색상으로 들어간다. 파스텔은 색상 칩(타일)에만 쓴다 */
+  .colors{flex:1;margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+  .colors li{flex:1;display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;column-gap:12px;border-bottom:1px solid var(--grid)}
+  .colors li:last-child{border-bottom:0}
+  .colors i{width:34px;height:34px;border-radius:8px}
+  .colors .name{display:block;font-size:13px;font-weight:700}
+  .colors .hex{display:block;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  .colors .num{text-align:right;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+  .colors .num small{display:block;font-size:12px;font-weight:500;color:var(--muted)}
 
-  /* 서체: 세 서체를 각자의 글꼴로 보여 준다 */
-  .type{flex:1;display:flex;flex-direction:column;justify-content:space-between;margin-top:2px}
-  .type__row{display:flex;flex-direction:column;gap:3px;padding-bottom:10px;border-bottom:1px solid var(--grid)}
-  .type__row:last-child{border-bottom:0;padding-bottom:0}
-  .type__meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
-  .type__meta b{color:var(--ink-2);font-weight:700}
-  .type__sample{font-size:26px;line-height:1.1;font-weight:700;white-space:nowrap;overflow:hidden}
-  .type__sample.disp{font-family:var(--display);font-size:32px;letter-spacing:.02em}
-  .type__sample.num{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-  .type__sample.ko{font-family:'Pretendard Variable',Pretendard,sans-serif;font-size:22px;font-weight:600}
-  .type__sample .u{font-size:13px}
+  /* 캠페인 배너와 베스트셀러: 위에 그림, 아래에 이름·설명·수치 한 줄 */
+  .feature{flex:1;display:flex;flex-direction:column;min-height:0}
+  .feature__media{position:relative;flex:1;min-height:0;border-radius:8px;overflow:hidden;background:var(--pill)}
+  .feature__media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 58%}
+  .feature__name{margin:10px 0 0;font-size:13px;font-weight:700}
+  .feature__meta{margin:2px 0 0;font-size:12px;color:var(--muted)}
+  .feature__row{margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .feature__val{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+  .feature__tag{padding:3px 8px;border-radius:6px;font-size:12px;font-weight:700}
+  .tag--orange{background:var(--k-orange)} .tag--green{background:var(--k-green)}
 
-  /* 사진이 있는 상품 카드 */
-  .product{flex:1;display:flex;flex-direction:column;min-height:0}
-  .product__img{position:relative;flex:1;min-height:0;border-radius:8px;overflow:hidden;background:var(--pill)}
-  .product__img img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 58%}
-  .product__name{margin:10px 0 0;font-size:13px;font-weight:700}
-  .product__meta{margin:2px 0 0;font-size:12px;color:var(--muted)}
-  .product__row{margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-  .product__price{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
-  .product__tag{padding:3px 8px;border-radius:6px;background:var(--k-orange);font-size:12px;font-weight:700}
+  /* 배너: 칠판색 바탕에 제목 서체 */
+  .banner{background:var(--k-dark);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:16px 18px 15px}
+  .banner__dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .banner__kicker{position:absolute;top:14px;left:18px;margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;color:#C8C8C8}
+  .banner__head{position:relative;margin:0;font-family:var(--display);font-size:34px;line-height:1;font-weight:700;letter-spacing:.01em}
+  .banner__copy{position:relative;margin:7px 0 0;font-size:13px;font-weight:500;color:#C8C8C8}
+  html[lang="ko"] .banner__kicker{letter-spacing:.02em}
+  .font-display{font-family:var(--display);font-weight:700;color:var(--ink-2)}
+  .font-body{font-weight:700;color:var(--ink-2)}
 </style>
 </head>
 <body>
@@ -208,31 +213,38 @@
 
   <section class="charts row-c">
     <article class="card">
-      <div class="card__head"><h3 class="card__title"><span data-i18n="palTitle"></span><small data-i18n="palSub"></small></h3></div>
-      <div class="swatches">
-        <div class="swatch"><i style="background:#D2E7F3"></i><b>tile-blue</b><span>#D2E7F3</span></div>
-        <div class="swatch"><i style="background:#D9EEC8"></i><b>tile-green</b><span>#D9EEC8</span></div>
-        <div class="swatch"><i style="background:#FEC48E"></i><b>tile-orange</b><span>#FEC48E</span></div>
-        <div class="swatch"><i style="background:#2A2A2A"></i><b>tile-dark</b><span>#2A2A2A</span></div>
-      </div>
+      <div class="card__head"><h3 class="card__title"><span data-i18n="colorTitle"></span><small data-i18n="colorSub"></small></h3></div>
+      <ul class="colors" id="colors"></ul>
     </article>
 
     <article class="card">
-      <div class="card__head"><h3 class="card__title"><span data-i18n="typeTitle"></span></h3></div>
-      <div class="type">
-        <div class="type__row"><div class="type__meta"><b>Space Grotesk</b><span data-i18n="typeDisplay"></span></div><div class="type__sample disp">CHALK Aa</div></div>
-        <div class="type__row"><div class="type__meta"><b>Inter</b><span data-i18n="typeBody"></span></div><div class="type__sample num"><span class="u pre">₩</span>842<span class="u">M</span> · 12,480</div></div>
-        <div class="type__row"><div class="type__meta"><b>Pretendard</b><span data-i18n="typeKo"></span></div><div class="type__sample ko">주문 현황 가나다</div></div>
+      <div class="card__head"><h3 class="card__title"><span data-i18n="promoTitle"></span><small data-i18n="promoSub"></small></h3></div>
+      <div class="feature">
+        <div class="feature__media banner">
+          <svg class="banner__dust" aria-hidden="true">
+            <filter id="dust" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+              <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .06 0"/>
+            </filter>
+            <rect width="100%" height="100%" filter="url(#dust)"/>
+          </svg>
+          <p class="banner__kicker" data-i18n="promoKicker"></p>
+          <p class="banner__head">CHALK WEEK</p>
+          <p class="banner__copy" data-i18n="promoCopy"></p>
+        </div>
+        <p class="feature__name" data-i18n="promoName"></p>
+        <p class="feature__meta" data-i18n-html="promoFonts"></p>
+        <div class="feature__row"><span class="feature__val" data-i18n-html="promoVal"></span><span class="feature__tag tag--green" data-i18n="promoTag"></span></div>
       </div>
     </article>
 
     <article class="card">
       <div class="card__head"><h3 class="card__title"><span data-i18n="bestTitle"></span><small data-i18n="bestSub"></small></h3></div>
-      <div class="product">
-        <div class="product__img"><img src="chalk.jpg" alt=""></div>
-        <p class="product__name" data-i18n="bestName"></p>
-        <p class="product__meta" data-i18n="bestMeta"></p>
-        <div class="product__row"><span class="product__price" data-i18n-html="bestPrice"></span><span class="product__tag" data-i18n="bestTag"></span></div>
+      <div class="feature">
+        <div class="feature__media"><img src="chalk.jpg" alt=""></div>
+        <p class="feature__name" data-i18n="bestName"></p>
+        <p class="feature__meta" data-i18n="bestMeta"></p>
+        <div class="feature__row"><span class="feature__val" data-i18n-html="bestPrice"></span><span class="feature__tag tag--orange" data-i18n="bestTag"></span></div>
       </div>
     </article>
   </section>
@@ -265,8 +277,13 @@
       products: ['Pastel chalk set', 'Linen shirt', 'Vitamin C serum', 'Cold brew set', 'Running socks (3-pack)'],
       chanTitle: 'Revenue by channel', chanSub: 'share of revenue',
       channels: ['Web store', 'App', 'Marketplaces', 'Live commerce', 'Social'],
-      palTitle: 'Palette', palSub: 'KPI tiles',
-      typeTitle: 'Typography', typeBody: 'body · figures · 400–700', typeDisplay: 'titles · 700', typeKo: 'Korean · 400–700',
+      colorTitle: 'Sales by color', colorSub: 'single sticks',
+      colors: ['Sky', 'Mint', 'Apricot', 'Charcoal'], colorNum: n => n.toLocaleString('en-US'),
+      promoTitle: 'Campaign', promoSub: 'this week',
+      promoKicker: 'UP TO 20% OFF', promoCopy: 'Pastel sets, this week only',
+      promoName: 'Main banner · day 4 of 7',
+      promoFonts: 'Headline <span class="font-display">Space Grotesk</span> · Body <span class="font-body">Inter</span>',
+      promoVal: '412 orders', promoTag: 'Active',
       bestTitle: 'Bestseller', bestSub: 'this month',
       bestName: 'Pastel chalk set, 12 colors', bestMeta: 'Stationery · 1,180 orders', bestPrice: '<span class="u pre">₩</span>4,900', bestTag: 'No. 1'
     },
@@ -289,8 +306,13 @@
       products: ['파스텔 분필 세트', '리넨 셔츠', '비타민C 세럼', '콜드브루 세트', '러닝 양말 3족'],
       chanTitle: '채널별 매출', chanSub: '매출 비중',
       channels: ['웹 스토어', '앱', '오픈마켓', '라이브커머스', '소셜'],
-      palTitle: '팔레트', palSub: 'KPI 카드',
-      typeTitle: '서체', typeBody: '본문 · 숫자 · 400–700', typeDisplay: '제목 · 700', typeKo: '한글 · 400–700',
+      colorTitle: '색상별 판매', colorSub: '분필 낱개',
+      colors: ['하늘', '민트', '살구', '차콜'], colorNum: n => `${n.toLocaleString('en-US')}<span class="u">개</span>`,
+      promoTitle: '캠페인', promoSub: '이번 주',
+      promoKicker: '최대 20% 할인', promoCopy: '이번 주만, 파스텔 세트',
+      promoName: '메인 배너 · 7일 중 4일째',
+      promoFonts: '제목 <span class="font-display">Space Grotesk</span> · 본문 <span class="font-body">Pretendard</span>',
+      promoVal: '주문 412<span class="u">건</span>', promoTag: '진행 중',
       bestTitle: '베스트셀러', bestSub: '이번 달',
       bestName: '파스텔 분필 세트 12색', bestMeta: '문구 · 1,180건 주문', bestPrice: '4,900<span class="u">원</span>', bestTag: '1위'
     }
@@ -408,6 +430,12 @@
   const tot = CHANNELS.reduce((p, c) => p + c, 0), mx = Math.max(...CHANNELS);
   $('#bars').innerHTML = CHANNELS.map((m, i) =>
     `<div class="bar"><span class="bar__name">${S.channels[i]}</span><div class="bar__track"><div class="bar__fill" style="width:${(m / mx * 100).toFixed(1)}%"></div></div><span class="bar__val">${(m / tot * 100).toFixed(1)}%</span></div>`).join('');
+
+  /* ---------- 색상별 판매 (분필 낱개, 합계 3,820개) ---------- */
+  const COLORS = [['#D2E7F3', 1240], ['#D9EEC8', 1060], ['#FEC48E', 880], ['#2A2A2A', 640]];
+  const ctot = COLORS.reduce((p, c) => p + c[1], 0);
+  $('#colors').innerHTML = COLORS.map(([hex, n], i) =>
+    `<li><i style="background:${hex}"></i><span><span class="name">${S.colors[i]}</span><span class="hex">${hex}</span></span><span class="num">${S.colorNum(n)}<small>${(n / ctot * 100).toFixed(1)}%</small></span></li>`).join('');
 
   drawRing();
   drawLine();
