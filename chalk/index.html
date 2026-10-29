@@ -195,6 +195,11 @@
   html.vz-shot .row-c{flex:1}
   html.vz-shot .feature__media,html.vz-shot .colors li{min-height:0}
 
+  /* ---------- 축약 보기(?embed=1&view=compact): 포스트 본문용. 머리를 빼고 필터 · KPI · 스타일 줄만 남긴다 ---------- */
+  html.vz-compact .page{padding-top:20px;padding-bottom:22px}
+  html.vz-compact .head,html.vz-compact .row-a,html.vz-compact .row-b,html.vz-compact .foot{display:none}
+  html.vz-compact .tabs{margin-top:0}
+
   /* ---------- 반응형 ---------- */
   @media (max-width:960px){
     .page{padding:32px 24px 36px}
