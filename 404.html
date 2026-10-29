@@ -7,18 +7,18 @@
 <title>Page not found · Vizney Styles</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=d63750f2a4" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=64d162c264" as="font" type="font/woff" crossorigin>
 <style>
 /* VZ Sans, as on Vizney Blocks: Spoqa Han Sans Neo cut down to these pages' characters. tools/font.py builds it;
    rebuild after changing any text here or on the other site page (index.html / 404.html). */
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=d63750f2a4) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=d63750f2a4) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=d63750f2a4) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=d63750f2a4) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=64d162c264) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=64d162c264) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=64d162c264) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=64d162c264) format('woff')}
 :root{
   /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
-     Sticky top bar with the Styles mark; a hero with a fact pill, two buttons and an AI hint; four swatches
-     (three named styles and a dashed slot for a company's own); a soft rounded panel comparing two screens
+     Sticky top bar with the Styles mark; a hero with a fact pill, two buttons and an AI hint; the style cards
+     in two series, Materials and Brands, with a dashed slot for a company's own at the end of Brands; a soft rounded panel comparing two screens
      built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
      Single light theme on purpose, like Blocks and the style screens. */
   color-scheme: light;
@@ -109,6 +109,11 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 /* ---------- gallery ---------- */
 .gallery{padding-top:72px}
 .gallery__title{font-size:17px;font-weight:700;letter-spacing:-.01em}
+/* Two series, each numbered on its own: Materials (our own looks) and Brands (readings of public company sites). */
+.series{margin-top:28px}
+.series + .series{margin-top:64px}
+.series__title{font-size:13px;line-height:1.4;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.series__note{margin-top:4px;max-width:720px;font-size:14px;line-height:1.6;color:var(--muted)}
 .swatches{margin-top:20px;display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:36px 24px}
 .swatch{min-width:0;display:flex;flex-direction:column}
 .swatch__media{display:block;aspect-ratio:16/9;max-width:100%;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--soft)}
@@ -374,7 +379,9 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "ctaCompany": "회사 스타일 보기",
       "hint": "AI에게 맡길 때는 ‘Chalk 스타일로 만들어 줘’처럼 이름을 말하고, 스타일 카드의 명세 링크를 함께 주세요.",
       "galleryTitle": "지금까지 만든 스타일",
-      "sub_chalk": "파스텔톤, 차분함, 깔끔함.",
+      "seriesMaterials": "재료 이름을 붙인 우리 고유의 룩입니다.",
+      "seriesBrands": "기업의 공개 웹사이트에서 읽어 낸 참고용 룩입니다. 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 우리 회사 스타일도 같은 방식으로 만듭니다.",
+      "sub_chalk": "파스텔톤, 차분함, 깔끔함",
       "sub_glass": "파스텔 그라데이션과 반투명 글래스 카드",
       "sub_tile": "여백 넓은 흰 카드와 파랑·민트 링",
       "meta_chalk": "온라인몰 주문 분석 샘플",
@@ -470,7 +477,9 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "ctaCompany": "See company styles",
       "hint": "When you hand the work to an AI, name the style, as in “make it in the Chalk style”, and include the spec link from its card.",
       "galleryTitle": "Styles so far",
-      "sub_chalk": "Pastel, calm, clean.",
+      "seriesMaterials": "Looks of our own, each named after a material.",
+      "seriesBrands": "Looks read from public company websites, for reference only: not official designs, and not affiliated with or endorsed by the companies. Your company's style is made the same way.",
+      "sub_chalk": "Pastel, Calm, Clean",
       "sub_glass": "Pastel gradient, frosted glass cards",
       "sub_tile": "Airy white cards, blue–mint rings",
       "meta_chalk": "Sample: online store orders",

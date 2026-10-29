@@ -1,8 +1,8 @@
 # Chalk
 
-**Pastel, calm, clean.** · 파스텔톤, 차분함, 깔끔함.
+**Pastel, Calm, Clean** · 파스텔톤, 차분함, 깔끔함
 
-A dashboard style from Vizney Styles: pastel KPI tiles and thin, dark charts on a white page, under a large grotesque name. Calm, friendly and quick to scan. The pastels color the tiles, while the data marks stay thin and dark.
+A dashboard style from Vizney Styles (Materials 01): pastel KPI tiles and thin, dark charts on a white page, under a large grotesque name. Calm, friendly and quick to scan. The pastels color the tiles, while the data marks stay thin and dark.
 
 - Live sample: https://styles.vizney.com/chalk/ (add `?lang=ko` for Korean)
 - To reuse it, ask for "the Chalk style" and share this page: https://styles.vizney.com/chalk/style.html
@@ -12,7 +12,7 @@ A dashboard style from Vizney Styles: pastel KPI tiles and thin, dark charts on 
 
 - One page with no app shell and no sidebar. The page starts with the name.
 - Content is at most 1240px wide, with 48px side padding (24px under 960px, 16px under 600px).
-- Header: the series line (`VIZNEY STYLES · 01`), the name in capitals, then the three words. The KO/EN toggle sits top right.
+- Header: the series line (`VIZNEY STYLES · MATERIALS 01`), the name in capitals, then the three words. The KO/EN toggle sits top right.
 - One row of filter pills under the header. They scope every card below; cards never carry their own filters.
 - Section label row: section name on the left, period note ("Last 30 days · vs. previous 30 days") on the right.
 - Row 1: four KPI tiles of equal width, 16px gap.

@@ -9,26 +9,35 @@ Served at **https://styles.vizney.com** (GitHub Pages, `main` branch). Everythin
 
 A style is a look and feel, not a dataset. The sample data only shows the style at work.
 
-Styles come in two series. **Texture styles** (Chalk, Glass, Tile) are named after a material and show a look of our own. **Brand styles** (Anthropic) are named after the company whose public website the look was read from, the way [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) catalogs DESIGN.md files: they are independent readings of publicly visible design, not official designs, and they are not affiliated with or endorsed by the companies. A brand style never carries the company's logo, wordmark, typefaces, images or data; the sample screen uses a fictional business and fictional numbers, and the sample, the spec and the blog post all say so. If a company asks for its style to be taken down, it comes down. Trademarks belong to their owners.
+Styles come in two series, each numbered on its own. The number appears at the top of each screen as `VIZNEY STYLES · MATERIALS 01` or `VIZNEY STYLES · BRANDS 01`, and a new style takes the next number in its series.
 
-The number is the release order and appears on each screen as `VIZNEY STYLES · 01`. A new style takes the next one.
+### Materials
+
+Looks of our own, each named after a material.
 
 | No. | Style | Feel | Sample | Spec | Blog posts |
 |---|---|---|---|---|---|
-| 01 | Chalk (초크) | Pastel, calm, clean. | [Live sample](https://styles.vizney.com/chalk/) · online store orders (fictional) | [style.md](chalk/style.md) | [KO](https://kr.vizney.com/style-chalk/) · [EN](https://www.vizney.com/style-chalk/) |
+| 01 | Chalk (초크) | Pastel, Calm, Clean | [Live sample](https://styles.vizney.com/chalk/) · online store orders (fictional) | [style.md](chalk/style.md) | [KO](https://kr.vizney.com/style-chalk/) · [EN](https://www.vizney.com/style-chalk/) |
 | 02 | Glass (글래스) | Pastel gradient, frosted glass cards | [Live sample](https://styles.vizney.com/glass/) · online store sales (fictional) | [style.md](glass/style.md) | [KO](https://kr.vizney.com/style-glass/) · [EN](https://www.vizney.com/style-glass/) |
 | 03 | Tile (타일) | Airy white cards, blue–mint rings | [Live sample](https://styles.vizney.com/tile/) · hotel operations (fictional) | [style.md](tile/style.md) | [KO](https://kr.vizney.com/style-tile/) · [EN](https://www.vizney.com/style-tile/) |
-| 04 | Anthropic (앤트로픽) | Warm ivory, editorial serif, hairline rows | [Live sample](https://styles.vizney.com/anthropic/) · publisher sales (fictional) | [style.md](anthropic/style.md) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
+
+### Brands
+
+Looks read from a company's public website and named after the company, the way [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) catalogs DESIGN.md files. They are independent readings of publicly visible design, not official designs, and they are not affiliated with or endorsed by the companies. A brand style never carries the company's logo, wordmark, typefaces, images or data; the sample screen uses a fictional business and fictional numbers, and the sample, the spec and the blog post all say so. If a company asks for its style to be taken down, it comes down. Trademarks belong to their owners.
+
+| No. | Style | Feel | Sample | Spec | Blog posts |
+|---|---|---|---|---|---|
+| 01 | Anthropic (앤트로픽) | Warm ivory, editorial serif, hairline rows | [Live sample](https://styles.vizney.com/anthropic/) · publisher sales (fictional) | [style.md](anthropic/style.md) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
 
 
 ## Adding a style
 
 The full production checklist used with Claude is in [CLAUDE.md](https://github.com/yehwanhwang/vizney-styles/blob/main/CLAUDE.md).
 
-1. Name a texture style with one evocative material or texture word (Chalk, Glass, Linen …) and a brand style with the company's name (Anthropic), and use the name on its own: Vizney Styles is the collection, not part of the name. The folder is the name in lowercase, at the root: `chalk/`. Never name a folder after its sample data.
-2. Give it three words ("Pastel, calm, clean." · "파스텔톤, 차분함, 깔끔함."). The name is for remembering; the three words carry the feel at a glance. Make one or two of them words people actually search for (pastel, clean, minimal, dark …) and at least one that no other style uses. The one-sentence intro in the spec and the post excerpt describe what the style looks like.
+1. Name a Materials style with one evocative material or texture word (Chalk, Glass, Linen …) and a Brands style with the company's name (Anthropic), and use the name on its own: Vizney Styles is the collection, not part of the name. The folder is the name in lowercase, at the root: `chalk/`. Never name a folder after its sample data.
+2. Give it three words ("Pastel, Calm, Clean" · "파스텔톤, 차분함, 깔끔함"): each word capitalised, joined by commas, no final period, and never as hashtags on the screen or the blog (hashtags go in the social post text). The name is for remembering; the three words carry the feel at a glance. Make one or two of them words people actually search for (pastel, clean, minimal, dark …) and at least one that no other style uses. The one-sentence intro in the spec and the post excerpt describe what the style looks like.
 3. Put these files in the folder:
-   - `index.html`: the one screen, self-contained (data included), English and Korean in one file: English by default, Korean with `?lang=ko`. It opens with the series line (`VIZNEY STYLES · 01`, the style's number in the table above), the name in capitals and the three words, and it fits in one 1080×1350 screen. Colors, fonts and photos go inside data cards, not in separate swatch panels. A brand style writes its name descriptively ("Anthropic style"), never as a large capitalised brand name that reads like a wordmark.
+   - `index.html`: the one screen, self-contained (data included), English and Korean in one file: English by default, Korean with `?lang=ko`. It opens with the series line (`VIZNEY STYLES · MATERIALS 01`, the series and the style's number in the tables above), the name and the three words, and it fits in one 1080×1350 screen. Colors, fonts and photos go inside data cards, not in separate swatch panels. A Materials style sets its name in capitals; a Brands style writes its name descriptively ("Anthropic style"), never as a large capitalised brand name that reads like a wordmark.
    - `style.md`: layout, colors, type, components, motion and don'ts, detailed enough to rebuild the style from its name. It is published at `<name>/style.html`.
    - A photo, if the style uses one (`chalk/chalk.jpg`): your own, or one you are clearly allowed to publish.
 4. Add these lines to the page's `<head>`, with the style's own font links (the ones below are Chalk's: Inter for English, Pretendard for Korean, Space Grotesk for the name):
@@ -44,7 +53,7 @@ The full production checklist used with Claude is in [CLAUDE.md](https://github.
 5. In embed mode `<html>` gets the class `vz-embed`. Reset any viewport-height layout there and hide page-only notes. With `?shot=1` the page gets `vz-shot`: it hides the language toggle and the footer note and stretches the last row to the bottom of the screen, for captures.
 6. Make the images with `python3 tools/shots.py <name>` (below): `poster-ko.png` / `poster-en.png` (1080×1350) for Instagram and LinkedIn, and `cover-ko.png` / `cover-en.png` (1440×810) for the post's feature image, the home card and link previews.
 7. Publish the blog post at `style-<name>` (for example `/style-chalk/`) on both sites.
-8. Update in place; Git history keeps the old versions. Add a row to the Styles table and a card to the home page (`index.html`), then rebuild the site font (below).
+8. Update in place; Git history keeps the old versions. Add a row to its series' table and a card to its series on the home page (`index.html`), then rebuild the site font (below).
 
 Glass, Tile and Anthropic still use the earlier format (a 16:9 app screen and a subtitle that describes the look). They move to the one-screen format in turn, each in place at the same address, so the published posts keep working.
 
