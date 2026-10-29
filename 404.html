@@ -7,18 +7,18 @@
 <title>Page not found · Vizney Styles</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=eb7be7e697" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=0cd53a79e5" as="font" type="font/woff" crossorigin>
 <style>
 /* VZ Sans, as on Vizney Blocks: Spoqa Han Sans Neo cut down to these pages' characters. tools/font.py builds it;
    rebuild after changing any text here or on the other site page (index.html / 404.html). */
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=eb7be7e697) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=eb7be7e697) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=eb7be7e697) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=eb7be7e697) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=0cd53a79e5) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=0cd53a79e5) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=0cd53a79e5) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=0cd53a79e5) format('woff')}
 :root{
   /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
-     Sticky top bar with the Styles mark; a hero with a fact pill, two buttons and an AI hint; the style cards
-     in two series, Materials and Brands, with a dashed slot for a company's own at the end of Brands; a soft rounded panel comparing two screens
+     Sticky top bar with the Styles mark; a hero with a fact pill, two buttons and an AI hint; the catalog cards
+     with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
      built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
      Single light theme on purpose, like Blocks and the style screens. */
   color-scheme: light;
@@ -109,11 +109,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 /* ---------- gallery ---------- */
 .gallery{padding-top:72px}
 .gallery__title{font-size:17px;font-weight:700;letter-spacing:-.01em}
-/* Two series, each numbered on its own: Materials (our own looks) and Brands (readings of public company sites). */
-.series{margin-top:28px}
-.series + .series{margin-top:64px}
-.series__title{font-size:13px;line-height:1.4;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
-.series__note{margin-top:4px;max-width:720px;font-size:14px;line-height:1.6;color:var(--muted)}
+.gallery__note{margin-top:8px;max-width:720px;font-size:15px;line-height:1.7;color:var(--muted)}
 .swatches{margin-top:20px;display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:36px 24px}
 .swatch{min-width:0;display:flex;flex-direction:column}
 .swatch__media{display:block;aspect-ratio:16/9;max-width:100%;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--soft)}
@@ -322,8 +318,9 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
   <div class="wrap top-in">
     <a class="logo" href="/" data-href="home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>Vizney Styles</a>
     <nav class="top-nav" aria-label="Main menu" data-i18n-aria="navAria">
-      <a href="/#styles" data-href="home:styles" data-i18n="navStyles">Styles</a>
-      <a href="/#custom" data-href="home:custom" data-i18n="navCustom">Company styles</a>
+      <a href="/#styles" data-href="home:styles" data-i18n="navStyles">Catalog</a>
+      <a href="/#custom" data-href="home:custom" data-i18n="navCustom">Your company</a>
+      <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true"> ↗</span></a>
       <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener"><span data-i18n="navContact">Contact</span><span aria-hidden="true"> ↗</span></a>
     </nav>
     <div class="top-end">
@@ -339,10 +336,10 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 <main id="main" class="wrap hero lost">
   <p class="pill">404</p>
   <h1 data-i18n="nfTitle">Page not found</h1>
-  <p class="lede" data-i18n="nfLead">This page has moved or doesn't exist. Pick a style from the home page.</p>
+  <p class="lede" data-i18n="nfLead">This page has moved or doesn't exist. Pick a style from the catalog on the home page.</p>
   <div class="actions">
     <a class="btn is-primary is-lg" href="/" data-href="home" data-i18n="nfHome">Go to the home page</a>
-    <a class="btn is-lg" href="/#styles" data-href="home:styles" data-i18n="ctaBrowse">Browse styles</a>
+    <a class="btn is-lg" href="/#styles" data-href="home:styles" data-i18n="ctaBrowse">Browse the catalog</a>
   </div>
 </main>
 
@@ -366,39 +363,33 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     "ko": {
       "skip": "본문으로 건너뛰기",
       "navAria": "주 메뉴",
-      "navStyles": "스타일",
-      "navCustom": "회사 스타일",
+      "navStyles": "카탈로그",
+      "navCustom": "우리 회사",
+      "navRequest": "브랜드 요청",
       "navContact": "문의",
       "langAria": "언어",
-      "docTitle_home": "Vizney Styles · 이름으로 다시 만드는 대시보드 스타일",
+      "docTitle_home": "Vizney Styles · 우리 회사 대시보드를 위한 DASHBOARD.md",
       "docTitle_404": "페이지를 찾을 수 없습니다 · Vizney Styles",
-      "pill": "스타일 {n}종 · 한·영 샘플 · 명세 공개",
-      "heroTitle": "이름 하나로 다시 만드는 대시보드 스타일",
-      "heroLead": "스타일마다 샘플 화면과 명세를 함께 만들어, 이름만으로 같은 느낌의 화면을 다시 만들 수 있게 합니다. 회사 전용 스타일도 같은 방식으로 만듭니다.",
-      "ctaBrowse": "스타일 둘러보기",
-      "ctaCompany": "회사 스타일 보기",
-      "hint": "AI에게 맡길 때는 ‘Chalk 스타일로 만들어 줘’처럼 이름을 말하고, 스타일 카드의 명세 링크를 함께 주세요.",
-      "galleryTitle": "지금까지 만든 스타일",
-      "seriesMaterials": "재료 이름을 붙인 우리 고유의 룩입니다.",
-      "seriesBrands": "기업의 공개 웹사이트에서 읽어 낸 참고용 룩입니다. 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 우리 회사 스타일도 같은 방식으로 만듭니다.",
-      "sub_chalk": "파스텔톤, 차분함, 깔끔함",
-      "sub_glass": "파스텔 그라데이션과 반투명 글래스 카드",
-      "sub_tile": "여백 넓은 흰 카드와 파랑·민트 링",
+      "pill": "DASHBOARD.md · 라이브 샘플 · Tableau · Power BI · 한·영",
+      "heroTitle": "AI가 만들어도 우리 회사 대시보드처럼",
+      "heroLead": "DESIGN.md가 코딩 에이전트에게 웹사이트의 생김새를 알려 준다면, DASHBOARD.md는 대시보드에 필요한 것을 더합니다. 검증된 데이터 색, KPI 카드, 차트 규칙, 숫자 표기, 밀도, 그리고 Tableau와 Power BI 설정값까지. 카탈로그의 브랜드는 그 방식을 보여 주는 예시이고, 우리 회사 파일도 같은 방식으로 만듭니다.",
+      "ctaBrowse": "카탈로그 보기",
+      "ctaCompany": "우리 회사 것 만들기",
+      "hint": "DASHBOARD.md를 저장소 루트에 두고 에이전트에게 ‘DASHBOARD.md의 Anthropic 스타일로 월간 매출 대시보드를 만들어 줘’라고 하면 됩니다.",
+      "galleryTitle": "카탈로그",
+      "galleryNote": "기업의 공개 웹사이트에서 읽어 낸 대시보드 스타일입니다. 가상 데이터로 만든 라이브 샘플, DASHBOARD.md, Tableau·Power BI·CSS 파일이 함께 있습니다. 참고용 해석일 뿐 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 다음 브랜드에 투표하거나 우리 회사 것을 요청하세요.",
       "sub_anthropic": "아이보리, 에디토리얼, 고요함",
-      "meta_chalk": "온라인몰 주문 분석 샘플",
-      "meta_glass": "온라인 스토어 매출 샘플",
-      "meta_tile": "호텔 운영 현황 샘플",
-      "meta_anthropic": "출판사 판매 현황 샘플",
+      "meta_anthropic": "출판사 판매 보고 샘플",
       "linkSample": "샘플 화면",
-      "linkSpec": "명세",
+      "linkFiles": "파일",
       "linkPost": "소개 글",
       "coverAlt": "{name} 스타일 샘플 화면",
       "yoursName": "우리 회사",
-      "yoursSub": "브랜드와 업무에 맞춘 전용 스타일",
-      "yoursMeta": "이름도 함께 짓습니다",
+      "yoursSub": "브랜드 가이드와 우리 데이터로 만드는 같은 패키지",
+      "yoursMeta": "비공개, 약 1주일",
       "yoursLink": "만드는 방식 보기",
-      "customTitle": "회사 스타일은 색과 서체에서 끝나지 않습니다",
-      "customLead": "브랜드 가이드는 로고와 대표색, 서체를 정합니다. 대시보드는 그 위에서 숫자를 비교하고 변화를 읽는 화면이라 정할 것이 훨씬 많습니다. 같은 가이드로 만든 두 화면을 비교해 보세요.",
+      "customTitle": "AI가 만든 대시보드가 어색한 이유, 그리고 파일이 고치는 것",
+      "customLead": "브랜드 가이드는 로고와 대표색, 서체를 정합니다. 대시보드는 그 위에서 숫자를 비교하고 변화를 읽는 화면이라 정할 것이 훨씬 많고, 브랜드 가이드만 받은 에이전트는 그것을 틀립니다. 같은 가이드로 만든 두 화면을 비교해 보세요.",
       "guideLabel": "가상 브랜드 가이드",
       "guideBrand": "오름푸드",
       "guidePrimary": "대표색",
@@ -422,7 +413,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "d4t": "범주 색",
       "d4b": "대표색의 명도만 바꾼 다섯 색은 색 구분 검사를 통과하지 못해, 범례를 몇 번씩 다시 보게 됩니다.",
       "d4a": "범주 색은 세 가지와 회색 기타까지만 씁니다. 색각 이상 구분과 대비 검사를 통과한 조합만 남깁니다.",
-      "alsoTitle": "화면에 다 보이지 않는 것도 명세에 적습니다",
+      "alsoTitle": "화면에 다 보이지 않는 것도 DASHBOARD.md가 정합니다",
       "a1t": "화면 폭",
       "a1p": "넓은 모니터에서 휴대폰까지, 폭마다 카드가 어떤 순서로 접히는지 정합니다.",
       "a2t": "한국어와 영어",
@@ -436,28 +427,29 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "a6t": "접근성",
       "a6p": "키보드 조작과 스크린 리더용 표, 움직임 줄이기 설정까지 챙깁니다.",
       "getsTitle": "받는 것",
-      "g1t": "스타일 이름과 명세",
-      "g1p_html": "사내에서 부를 이름과 명세서(<code>style.md</code>)입니다. 레이아웃, 색 토큰, 서체, 컴포넌트, 동작, 하지 말 것까지 적어 누가 만들어도 같은 화면이 나옵니다.",
-      "g2t": "데이터 색 팔레트",
-      "g2p": "범주·순차·발산 색과 좋음·나쁨 색입니다. 색각 이상 구분과 대비 검사를 통과한 조합만 담습니다.",
-      "g3t": "샘플 화면",
-      "g3p": "회사 업무 주제로 만든 샘플 화면입니다. 한국어·영어 전환과 화면 폭별 배치를 바로 확인할 수 있습니다.",
-      "g4t": "도구 적용 파일",
-      "g4p_html": "Tableau 색상 팔레트(<code>Preferences.tps</code>)와 서식 가이드, 웹 화면에 쓰는 CSS 변수입니다.",
+      "g1t": "DASHBOARD.md",
+      "g1p_html": "코딩 에이전트가 저장소 루트에서 읽는 명세입니다. 머리에 토큰, 본문에 색·서체·숫자·레이아웃·부품·차트·접근성·도구 적용을 적고, DESIGN.md 형식과 호환됩니다.",
+      "g2t": "검증된 데이터 색",
+      "g2p": "범주·순차·발산 팔레트와 좋음·나쁨 색입니다. 모든 조합을 색각 이상 구분, 일반 시각 구분, 대비로 검사합니다.",
+      "g3t": "살아 있는 참고 화면",
+      "g3p": "회사 업무 주제로 가상 데이터를 넣어 만든 실제 대시보드 한 장입니다. 한국어·영어를 한 파일에 담고, 모든 폭에서 배치되며, 툴팁·키보드·스크린 리더까지 갖춥니다.",
+      "g4t": "도구 파일과 프롬프트",
+      "g4p_html": "Tableau 팔레트(<code>.tps</code>)와 서식 메모, Power BI 테마(<code>.json</code>), CSS 토큰, 그리고 새로 만들기·고치기·검토용 프롬프트 모음입니다.",
       "stepsTitle": "진행 순서",
       "s1t": "자료 받기",
-      "s1p": "브랜드 가이드와 지금 쓰는 대시보드 화면, 자주 보는 지표를 받습니다.",
+      "s1p": "웹사이트나 브랜드 가이드, 지금 쓰는 대시보드 몇 장, 자주 보는 지표를 받습니다. 공개 웹사이트만으로도 시작할 수 있습니다.",
       "s2t": "진단",
-      "s2p": "브랜드 색이 데이터 색으로 쓸 만한지, 어떤 숫자와 차트에서 오해가 생기는지 짚습니다.",
-      "s3t": "시안",
-      "s3p": "샘플 화면 하나로 스타일을 정하고, 사내에서 부를 이름을 함께 짓습니다.",
+      "s2p": "토큰을 읽고, 브랜드 색이 데이터 색으로 쓸 만한지 검사하고, 지금 숫자와 차트가 어디서 오해를 만드는지 짚습니다.",
+      "s3t": "참고 화면",
+      "s3p": "회사 업무로 만든 살아 있는 화면 한 장에서 스타일을 정하고, 함께 다듬습니다.",
       "s4t": "전달",
-      "s4p": "명세와 팔레트, 도구 적용 파일을 드립니다. 그다음부터는 이름으로 요청하면 됩니다.",
-      "ctaTitle": "회사 대시보드에도 이름을 붙여 보세요",
-      "ctaText": "브랜드 가이드와 지금 쓰는 대시보드 화면 몇 장이면 시작할 수 있습니다.",
+      "s4p": "DASHBOARD.md, 팔레트, Tableau·Power BI 파일, 프롬프트를 약 1주일 안에 드립니다. 기본은 비공개이고, 원하실 때만 카탈로그에 올립니다.",
+      "ctaTitle": "우리 회사의 DASHBOARD.md를 받으세요",
+      "ctaText": "웹사이트나 브랜드 가이드, 지금 쓰는 대시보드 화면 몇 장을 보내 주세요. 카탈로그에 올릴 공개 브랜드는 GitHub에서 요청할 수 있습니다.",
       "ctaBtn": "제작 문의하기",
+      "ctaRequest": "브랜드 요청 ↗",
       "nfTitle": "페이지를 찾을 수 없습니다",
-      "nfLead": "주소가 바뀌었거나 없는 페이지입니다. 첫 화면에서 스타일을 골라 보세요.",
+      "nfLead": "주소가 바뀌었거나 없는 페이지입니다. 첫 화면의 카탈로그에서 골라 보세요.",
       "nfHome": "첫 화면으로",
       "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)",
       "footAria": "바닥글",
@@ -466,39 +458,33 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     "en": {
       "skip": "Skip to content",
       "navAria": "Main menu",
-      "navStyles": "Styles",
-      "navCustom": "Company styles",
+      "navStyles": "Catalog",
+      "navCustom": "Your company",
+      "navRequest": "Request a brand",
       "navContact": "Contact",
       "langAria": "Language",
-      "docTitle_home": "Vizney Styles · Dashboard styles you can ask for by name",
+      "docTitle_home": "Vizney Styles · DASHBOARD.md for your company's dashboards",
       "docTitle_404": "Page not found · Vizney Styles",
-      "pill": "{n} styles · Korean and English samples · Public specs",
-      "heroTitle": "Dashboard styles you can ask for by name",
-      "heroLead": "Each style comes with a live sample screen and a written spec, so the same look can be rebuilt from its name alone. Company styles are made the same way.",
-      "ctaBrowse": "Browse styles",
-      "ctaCompany": "See company styles",
-      "hint": "When you hand the work to an AI, name the style, as in “make it in the Chalk style”, and include the spec link from its card.",
-      "galleryTitle": "Styles so far",
-      "seriesMaterials": "Looks of our own, each named after a material.",
-      "seriesBrands": "Looks read from public company websites, for reference only: not official designs, and not affiliated with or endorsed by the companies. Your company's style is made the same way.",
-      "sub_chalk": "Pastel, Calm, Clean",
-      "sub_glass": "Pastel gradient, frosted glass cards",
-      "sub_tile": "Airy white cards, blue–mint rings",
+      "pill": "DASHBOARD.md · live sample · Tableau · Power BI · Korean and English",
+      "heroTitle": "Dashboards that look like your company, even when an AI builds them",
+      "heroLead": "DESIGN.md tells a coding agent how your website looks. DASHBOARD.md adds what dashboards need: validated data colors, KPI cards, chart rules, number formats, density, and the settings for Tableau and Power BI. Each brand in the catalog is a worked example; your company's file is made the same way.",
+      "ctaBrowse": "Browse the catalog",
+      "ctaCompany": "Get yours",
+      "hint": "Put DASHBOARD.md in your repository root, then ask your agent for “a monthly sales dashboard in the Anthropic style defined in DASHBOARD.md”.",
+      "galleryTitle": "The catalog",
+      "galleryNote": "Each entry is a dashboard style read from a company's public website: a live sample with fictional data, DASHBOARD.md, and the Tableau, Power BI and CSS files. Reference readings only, not official designs, and not affiliated with or endorsed by the companies. Vote for the next one or request your own.",
       "sub_anthropic": "Ivory, Editorial, Quiet",
-      "meta_chalk": "Sample: online store orders",
-      "meta_glass": "Sample: online store sales",
-      "meta_tile": "Sample: hotel operations",
-      "meta_anthropic": "Sample: publisher sales",
+      "meta_anthropic": "Sample: publisher sales report",
       "linkSample": "Live sample",
-      "linkSpec": "Spec",
+      "linkFiles": "Files",
       "linkPost": "Blog post",
       "coverAlt": "{name} style sample screen",
       "yoursName": "Your company",
-      "yoursSub": "Built for your brand and your data",
-      "yoursMeta": "Named together with you",
+      "yoursSub": "The same package, from your brand guide and your data",
+      "yoursMeta": "Private, in about a week",
       "yoursLink": "See how it works",
-      "customTitle": "A company style is more than colors and fonts",
-      "customLead": "A brand guide sets the logo, the brand colors and the typeface. A dashboard is where people compare numbers and read change, so it takes many more decisions. Compare two screens built from the same guide.",
+      "customTitle": "Why an AI-built dashboard looks wrong, and what the file fixes",
+      "customLead": "A brand guide sets the logo, the brand colors and the typeface. A dashboard is where people compare numbers and read change, so it takes many more decisions, and an agent given only the brand guide gets them wrong. Compare two screens built from the same guide.",
       "guideLabel": "Fictional brand guide",
       "guideBrand": "Orum Foods",
       "guidePrimary": "Primary",
@@ -522,7 +508,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "d4t": "Category color",
       "d4b": "Five tints of the brand colors fail the color-separation check, so readers keep going back to the legend.",
       "d4a": "Three colors plus gray for Other, and only combinations that pass color-vision and contrast checks.",
-      "alsoTitle": "The spec also covers what one screen can't show",
+      "alsoTitle": "DASHBOARD.md also settles what one screen can't show",
       "a1t": "Screen widths",
       "a1p": "How cards fold, from wide monitors down to phones.",
       "a2t": "Korean and English",
@@ -536,28 +522,29 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "a6t": "Accessibility",
       "a6p": "Keyboard control, screen-reader tables and reduced motion.",
       "getsTitle": "What you get",
-      "g1t": "A style name and a spec",
-      "g1p_html": "A name your team can ask for, and a written spec (<code>style.md</code>) covering layout, color tokens, type, components, motion and don'ts, so anyone who builds a screen gets the same look.",
-      "g2t": "A data color palette",
-      "g2p": "Categorical, sequential and diverging colors plus good and bad, all checked for color-vision deficiency and contrast.",
-      "g3t": "A sample screen",
-      "g3p": "A sample screen on a topic from your business, switching between Korean and English and laid out for every width.",
-      "g4t": "Tool files",
-      "g4p_html": "A Tableau color palette (<code>Preferences.tps</code>) with a formatting guide, and CSS variables for web screens.",
+      "g1t": "DASHBOARD.md",
+      "g1p_html": "A spec your coding agent reads from the repository root: tokens in the front matter, then colors, type, numbers, layout, components, charts, accessibility and tool mapping, compatible with the DESIGN.md convention.",
+      "g2t": "Validated data colors",
+      "g2p": "Categorical, sequential and diverging palettes plus good and bad, every pair checked for color-vision deficiency, normal-vision separation and contrast.",
+      "g3t": "A live reference screen",
+      "g3p": "One real dashboard on a topic from your business, with fictional data, Korean and English in one file, laid out for every width, with tooltips, keyboard control and screen-reader tables.",
+      "g4t": "Tool files and prompts",
+      "g4p_html": "A Tableau palette (<code>.tps</code>) with formatting notes, a Power BI theme (<code>.json</code>), CSS tokens, and a prompt pack for new builds, restyles and reviews.",
       "stepsTitle": "How it works",
       "s1t": "Share your materials",
-      "s1p": "Your brand guide, the dashboards you use now and the metrics you watch.",
+      "s1p": "Your website or brand guide, a few of the dashboards you use now, and the metrics you watch. A public website alone is enough to start.",
       "s2t": "Review",
-      "s2p": "We check whether your brand colors work as data colors, and where numbers and charts mislead.",
-      "s3t": "Draft",
-      "s3p": "We settle the style on one sample screen and name it together.",
+      "s2p": "We read the tokens, test whether the brand colors work as data colors, and note where your current numbers and charts mislead.",
+      "s3t": "Reference screen",
+      "s3p": "We settle the style on one live screen built from your business, and iterate with you on it.",
       "s4t": "Hand over",
-      "s4p": "You get the spec, the palette and the tool files. From then on, ask for it by name.",
-      "ctaTitle": "Give your company's dashboards a name",
-      "ctaText": "A brand guide and a few screenshots of your current dashboards are enough to start.",
+      "s4p": "DASHBOARD.md, the palettes, the Tableau and Power BI files and the prompts, in about a week. Private by default; published in the catalog only if you want it there.",
+      "ctaTitle": "Get DASHBOARD.md for your company",
+      "ctaText": "Send your website or brand guide and a few screenshots of the dashboards you use now. Or request a public brand for the catalog on GitHub.",
       "ctaBtn": "Contact us",
+      "ctaRequest": "Request a brand ↗",
       "nfTitle": "Page not found",
-      "nfLead": "This page has moved or doesn't exist. Pick a style from the home page.",
+      "nfLead": "This page has moved or doesn't exist. Pick a style from the catalog on the home page.",
       "nfHome": "Go to the home page",
       "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)",
       "footAria": "Footer",
@@ -593,7 +580,8 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     if (kind === 'contact') return BLOG[L] + 'contact-us/';
     if (kind === 'blog') return BLOG[L];
     if (kind === 'sample') return SITE + name + '/?lang=' + L;
-    if (kind === 'spec') return SITE + name + '/style.html';
+    if (kind === 'spec') return SITE + name + '/DASHBOARD.html';
+    if (kind === 'files') return 'https://github.com/yehwanhwang/vizney-styles/tree/main/' + name;
     if (kind === 'post') return BLOG[L] + 'style-' + name + '/';
     return '#';
   }

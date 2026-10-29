@@ -1,0 +1,58 @@
+/* Anthropic style — Ivory, Editorial, Quiet · Vizney Styles 01
+   Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
+:root{
+  --canvas:#faf9f5; /* page background, tooltips, hollow markers */
+  --card:#f0eee6; /* cards; no border, no shadow */
+  --card-strong:#e8e6dc; /* active tab, secondary button, bar tracks */
+  --pill:#f5f4ed; /* pills and the language toggle */
+  --band:#141413; /* the one dark surface for a detail table */
+  --band-hover:#1f1e1d; /* row hover on the band */
+  --ink:#141413; /* figures, titles, primary control */
+  --ink-2:#30302e; /* primary control hover, secondary button text */
+  --body:#3d3d3a; /* running text */
+  --text-2:#5e5d59; /* labels, captions, legends, statement words */
+  --text-3:#73726c; /* axis ticks, the comparison series */
+  --muted:#87867f; /* rank numbers, small captions */
+  --on-dark:#faf9f5; /* text on the band */
+  --on-dark-2:#9c9a92; /* captions and secondary cells on the band */
+  --hair:#e8e6dc; /* row dividers, pill borders */
+  --hair-2:#dedcd1; /* chart baseline, crosshair, tooltip border */
+  --hair-dark:#30302e; /* dividers and bar tracks on the band */
+  --accent:#d97757; /* the one accent: main series, outlined pills, primary emphasis */
+  --accent-deep:#c46849; /* accent hover; bars on the band */
+  --good:#2c6e4f; /* favourable change, text only */
+  --bad:#a33d34; /* unfavourable change, text only */
+  --focus:#2c84db; /* focus ring */
+  --cat-1:#d97757; /* clay */
+  --cat-2:#6953a0; /* plum */
+  --cat-3:#0d9298; /* teal */
+  --cat-other:#8f8d86;
+  --comparison:#73726c;
+  --seq-1:#e79176;
+  --seq-2:#d47150;
+  --seq-3:#ba5432;
+  --seq-4:#9b3d1d;
+  --seq-5:#782d12;
+  --div-1:#00636a;
+  --div-2:#00797f;
+  --div-3:#469094;
+  --div-4:#9f9b93;
+  --div-5:#b26e58;
+  --div-6:#a14e33;
+  --div-7:#8f2c01;
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-card:16px;
+  --radius-pill:999px;
+  --radius-button:10px;
+  --radius-tooltip:8px;
+  --radius-cover:2px 4px 4px 2px;
+  --space-page:32px;
+  --space-gap:16px;
+  --space-card:24px;
+  --space-row:8px 0;
+  --space-bandPadding:26px 32px 22px;
+  --ease:cubic-bezier(.165,.84,.44,1);
+}
+html[lang="ko"]{--font-sans:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--font-serif:'Noto Serif KR','AppleMyungjo','Batang',serif}

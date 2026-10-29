@@ -1,14 +1,13 @@
-"""Capture a style's poster and cover from its one screen.
+"""Capture a style's covers from its sample screen.
 
 Usage: python3 tools/shots.py <name> [--review DIR] [--offline-fonts DIR]
 
-Serves the repository root on a local port, opens <name>/?lang=en|ko&shot=1 in headless Chromium
-(Playwright) and writes into <name>/:
+Serves the repository root on a local port, opens <name>/?lang=en|ko in headless Chromium (Playwright,
+with reduced motion so animations never land in a capture) and writes into <name>/:
 
-    poster-en.png, poster-ko.png   1080 × 1350 at 2×   Instagram, LinkedIn
-    cover-en.png,  cover-ko.png    1440 × 810 at 2×    post feature image, home card, link previews
+    cover-en.png, cover-ko.png    1440 × 810 at 2×    home card, post feature image, link previews
 
-It exits with an error if a poster page is taller than 1350px or a page throws.
+It exits with an error if a page throws.
 
 --review DIR         also writes full-page captures at 1440, 1200, 1024 and 390px, in both languages,
                      to DIR (outside the repository) for the visual check, and flags horizontal overflow.
@@ -32,7 +31,6 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-POSTER = (1080, 1350)
 COVER = (1440, 810)
 REVIEW_WIDTHS = (1440, 1200, 1024, 390)
 LANGS = ('en', 'ko')
@@ -186,15 +184,13 @@ class OfflineFonts:
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n\n')[0])
-    ap.add_argument('name', help='style folder, e.g. chalk')
+    ap.add_argument('name', help='style folder, e.g. anthropic')
     ap.add_argument('--review', metavar='DIR', help='also write full-page captures at four widths to DIR')
     ap.add_argument('--offline-fonts', metavar='DIR', help='answer font requests from partial clones in DIR')
     args = ap.parse_args()
 
     folder = ROOT / args.name
     page_html = (folder / 'index.html').read_text(encoding='utf-8')
-    if 'vz-shot' not in page_html:
-        sys.exit(f'{args.name}/index.html has no capture mode (?shot=1); see "화면 규칙" in CLAUDE.md')
     fonts = OfflineFonts(args.offline_fonts, page_html) if args.offline_fonts else None
     review = Path(args.review).resolve() if args.review else None
     if review:
@@ -209,28 +205,22 @@ def main():
         browser = p.chromium.launch()
 
         def open_page(width, height, scale, url):
-            context = browser.new_context(viewport={'width': width, 'height': height}, device_scale_factor=scale)
+            context = browser.new_context(viewport={'width': width, 'height': height}, device_scale_factor=scale,
+                                          reduced_motion='reduce')
             if fonts:
                 fonts.attach(context)
             page = context.new_page()
             page.on('pageerror', lambda e: problems.append(f'{url}: {e}'))
             page.goto(url, wait_until='networkidle')
             page.evaluate('document.fonts.ready')
-            page.wait_for_timeout(700)   # let charts redraw once the fonts are in
+            page.wait_for_timeout(500)   # let charts redraw once the fonts are in
             return context, page
 
         for lang in LANGS:
-            context, page = open_page(*POSTER, 2, f'{base}?lang={lang}&shot=1')
-            height = page.evaluate('document.documentElement.scrollHeight')
-            if height > POSTER[1]:
-                problems.append(f'poster-{lang}: the page is {height}px tall, more than {POSTER[1]}px')
-            page.screenshot(path=str(folder / f'poster-{lang}.png'))
-            context.close()
-
-            context, page = open_page(*COVER, 2, f'{base}?lang={lang}&shot=1')
+            context, page = open_page(*COVER, 2, f'{base}?lang={lang}')
             page.screenshot(path=str(folder / f'cover-{lang}.png'))
             context.close()
-            print(f'{args.name}/poster-{lang}.png, {args.name}/cover-{lang}.png')
+            print(f'{args.name}/cover-{lang}.png')
 
             if review:
                 for width in REVIEW_WIDTHS:

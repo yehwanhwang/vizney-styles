@@ -1,0 +1,45 @@
+name: Request a brand
+description: Ask for a company's dashboard style (DASHBOARD.md, live sample and tool files) to be added to the catalog.
+title: "Request: <company>"
+labels: [request]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks. Public requests are picked by 👍 votes on the issue, one or two a month. The style is read from the company's public website only, is not an official design, and comes down if the company asks. BI vendors (Tableau, Microsoft, Google, Qlik …) are out of scope.
+        For a private request for your own company, use https://www.vizney.com/contact-us/ instead.
+  - type: input
+    id: company
+    attributes:
+      label: Company
+      placeholder: Notion
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Public website to read the design from
+      placeholder: https://www.notion.com
+    validations:
+      required: true
+  - type: dropdown
+    id: use
+    attributes:
+      label: Where would you use it?
+      multiple: true
+      options:
+        - AI coding agent (Claude Code, Cursor, Codex …)
+        - Tableau
+        - Power BI
+        - Web dashboard (React, HTML …)
+        - Other
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this brand?
+      description: What about its look would make a good dashboard style, or what you would build with it.
+  - type: input
+    id: sample
+    attributes:
+      label: A sample topic you would like to see (optional)
+      placeholder: Monthly revenue by region · Support tickets · Inventory ageing

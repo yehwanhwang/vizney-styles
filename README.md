@@ -1,108 +1,111 @@
 # Vizney Styles
 
-Named dashboard styles from [Vizney](https://www.vizney.com). Each style is one screen and a short spec (`style.md`), so it can be rebuilt by name: share the spec and ask for "the Chalk style". The same screen is the live sample, the 4:5 poster for social posts and the 16:9 cover.
+Dashboard design specs that AI coding agents, Tableau and Power BI can follow. Each entry in the catalog is a company's look, read from its public website and worked out for dashboards: `DASHBOARD.md`, a live sample screen with fictional data, validated data colors, and the tool files. The same package is made privately for your own company.
 
-Served at **https://styles.vizney.com** (GitHub Pages, `main` branch). Everything pushed to `main` is published immediately, so keep work in progress off `main`. The home page is `index.html`: the style gallery and an introduction to company styles. Every page opens in English; add `?lang=ko` for Korean.
+Served at **https://styles.vizney.com** (GitHub Pages, `main` branch). Everything pushed to `main` is published immediately, so keep work in progress off `main`. Every page opens in English; add `?lang=ko` for Korean.
+
+Made by [Vizney](https://www.vizney.com), a BI consulting studio in Seoul.
 
 
-## Styles
+## Catalog
 
-A style is a look and feel, not a dataset. The sample data only shows the style at work.
+| No. | Style | Feel | Sample | Spec | Files | Post |
+|---|---|---|---|---|---|---|
+| 01 | Anthropic | Ivory, Editorial, Quiet | [Live sample](https://styles.vizney.com/anthropic/) · publisher sales report (fictional) | [DASHBOARD.md](anthropic/DASHBOARD.md) | [anthropic/](anthropic/) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
 
-Styles come in two series, each numbered on its own. The number appears at the top of each screen as `VIZNEY STYLES · MATERIALS 01` or `VIZNEY STYLES · BRANDS 01`, and a new style takes the next number in its series.
+Styles are independent readings of publicly visible design, the way [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) catalogs `DESIGN.md` files. They are not official designs, and they are not affiliated with or endorsed by the companies. A style never carries the company's logo, wordmark, typefaces, images or data; the sample screen uses a fictional business and fictional numbers, and the sample, the spec and the post all say so. If a company asks for its style to be taken down, it comes down. BI vendors (Tableau, Microsoft, Google, Qlik …) are out of scope. Trademarks belong to their owners.
 
-### Materials
+**Request a brand:** open an issue with the [request template](https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml). Public requests are picked by 👍 votes, one or two a month. For your own company, [contact us](https://www.vizney.com/contact-us/): the package is private by default.
 
-Looks of our own, each named after a material.
 
-| No. | Style | Feel | Sample | Spec | Blog posts |
-|---|---|---|---|---|---|
-| 01 | Chalk (초크) | Pastel, Calm, Clean | [Live sample](https://styles.vizney.com/chalk/) · online store orders (fictional) | [style.md](chalk/style.md) | [KO](https://kr.vizney.com/style-chalk/) · [EN](https://www.vizney.com/style-chalk/) |
-| 02 | Glass (글래스) | Pastel gradient, frosted glass cards | [Live sample](https://styles.vizney.com/glass/) · online store sales (fictional) | [style.md](glass/style.md) | [KO](https://kr.vizney.com/style-glass/) · [EN](https://www.vizney.com/style-glass/) |
-| 03 | Tile (타일) | Airy white cards, blue–mint rings | [Live sample](https://styles.vizney.com/tile/) · hotel operations (fictional) | [style.md](tile/style.md) | [KO](https://kr.vizney.com/style-tile/) · [EN](https://www.vizney.com/style-tile/) |
+## What is in a style folder
 
-### Brands
+```
+anthropic/
+  DASHBOARD.md        the spec: YAML front matter with the tokens, then the rules
+  index.html          the live sample, one self-contained file, English and Korean
+  tokens.json         the single source of every token; tools/package.py builds the files below from it
+  tokens.css          CSS custom properties for web dashboards
+  anthropic.tps       Tableau color palettes (categorical, sequential, diverging)
+  powerbi-theme.json  Power BI report theme
+  prompt.md           prompts for new builds, restyles and reviews, plus Tableau and Power BI notes
+  cover-en.png        1440×810 at 2×: home card, post feature image, link previews
+  cover-ko.png
+```
 
-Looks read from a company's public website and named after the company, the way [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) catalogs DESIGN.md files. They are independent readings of publicly visible design, not official designs, and they are not affiliated with or endorsed by the companies. A brand style never carries the company's logo, wordmark, typefaces, images or data; the sample screen uses a fictional business and fictional numbers, and the sample, the spec and the blog post all say so. If a company asks for its style to be taken down, it comes down. Trademarks belong to their owners.
+### DASHBOARD.md
 
-| No. | Style | Feel | Sample | Spec | Blog posts |
-|---|---|---|---|---|---|
-| 01 | Anthropic (앤트로픽) | Ivory, Editorial, Quiet | [Live sample](https://styles.vizney.com/anthropic/) · publisher sales (fictional) | [style.md](anthropic/style.md) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
+The file follows the `DESIGN.md` convention (front matter tokens, then prose sections an agent can read) and adds the sections a dashboard needs. Consumers that know `DESIGN.md` can ignore the extra sections; agents use all of them.
+
+1. Visual Theme & Atmosphere
+2. Color Palette & Roles
+3. Data Colors — categorical, comparison, sequential, diverging and status colors, each validated for color-vision deficiency, normal-vision separation and contrast
+4. Typography Rules — one serif, one sans and one mono, with Korean counterparts
+5. Numbers, Dates & Units — English and Korean formats, change notation, rounding
+6. Layout Principles — grid, reading order, density
+7. Component Stylings — KPI card, pills and tabs, trend card, ranked list, bar list, composition, band, tooltip, legends, status pills
+8. Charts — chart choice, one axis, marks, labels, forbidden forms
+9. Depth & Elevation
+10. Interaction & Motion
+11. Accessibility
+12. Responsive Behavior
+13. Tool Mapping — web, Tableau, Power BI, chart tools
+14. Do's and Don'ts
+15. Agent Prompt Guide
+
+### Using it
+
+- **AI coding agents:** copy `DASHBOARD.md` (and `tokens.css`) into the repository root and ask for the style by name; `prompt.md` has tested prompts.
+- **Tableau:** paste the `<color-palette>` elements of the `.tps` file into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. The Tool Mapping section lists the formatting settings.
+- **Power BI:** View → Themes → Browse for themes → `powerbi-theme.json`.
 
 
 ## Adding a style
 
-The full production checklist used with Claude is in [CLAUDE.md](https://github.com/yehwanhwang/vizney-styles/blob/main/CLAUDE.md).
+The full production checklist used with Claude is in [CLAUDE.md](CLAUDE.md). In short:
 
-1. Name a Materials style with one evocative material or texture word (Chalk, Glass, Linen …) and a Brands style with the company's name (Anthropic), and use the name on its own: Vizney Styles is the collection, not part of the name. The folder is the name in lowercase, at the root: `chalk/`. Never name a folder after its sample data.
-2. Give it three words ("Pastel, Calm, Clean" · "파스텔톤, 차분함, 깔끔함"): each word capitalised, joined by commas, no final period, and never as hashtags on the screen or the blog (hashtags go in the social post text). The name is for remembering; the three words carry the feel at a glance. Make one or two of them words people actually search for (pastel, clean, minimal, dark …) and at least one that no other style uses. The one-sentence intro in the spec and the post excerpt describe what the style looks like.
-3. Put these files in the folder:
-   - `index.html`: the one screen, self-contained (data included), English and Korean in one file: English by default, Korean with `?lang=ko`. It opens with the series line (`VIZNEY STYLES · MATERIALS 01`, the series and the style's number in the tables above), the name and the three words, and it fits in one 1080×1350 screen. Colors, fonts and photos go inside data cards, not in separate swatch panels. A Materials style sets its name in capitals; a Brands style writes its name descriptively ("Anthropic style"), never as a large capitalised brand name that reads like a wordmark.
-   - `style.md`: layout, colors, type, components, motion and don'ts, detailed enough to rebuild the style from its name. It is published at `<name>/style.html`.
-   - A photo, if the style uses one (`chalk/chalk.jpg`): your own, or one you are clearly allowed to publish.
-4. Add these lines to the page's `<head>`, with the style's own font links (the ones below are Chalk's: Inter for English, Pretendard for Korean, Space Grotesk for the name):
-
-   ```html
-   <meta name="robots" content="noindex">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@700&display=swap">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-   <script src="/lib/embed.js" defer></script>
-   ```
-
-   `noindex` keeps search traffic on the blog post instead of the bare screen.
-5. In embed mode `<html>` gets the class `vz-embed`. Reset any viewport-height layout there and hide page-only notes. With `?shot=1` the page gets `vz-shot`: it hides the language toggle and the footer note and stretches the last row to the bottom of the screen, for captures. A Brands page keeps its disclaimer in captures, because posters travel on their own.
-6. Make the images with `python3 tools/shots.py <name>` (below): `poster-ko.png` / `poster-en.png` (1080×1350) for Instagram and LinkedIn, and `cover-ko.png` / `cover-en.png` (1440×810) for the post's feature image, the home card and link previews.
-7. Publish the blog post at `style-<name>` (for example `/style-chalk/`) on both sites.
-8. Update in place; Git history keeps the old versions. Add a row to its series' table and a card to its series on the home page (`index.html`), then rebuild the site font (below).
-
-Glass and Tile still use the earlier format (a 16:9 app screen and a subtitle that describes the look). They move to the one-screen format in turn, each in place at the same address, so the published posts keep working.
+1. Read the real CSS tokens of the company's public website (colors, type, spacing, radius). Real values beat estimates.
+2. Design the data colors from the brand's accent and gray ladder and validate them with the dataviz skill's `validate_palette.js`; write them into `tokens.json`.
+3. Build one landscape sample screen (`index.html`): a real business report on a fictional company, English and Korean in one file, filters that apply to every card, tooltips, keyboard control and screen-reader tables.
+4. Write `DASHBOARD.md` and `prompt.md`; run `python3 tools/package.py <name>` to build the tool files and the front matter.
+5. Capture the covers with `python3 tools/shots.py <name>`, add the card to `index.html` and the row above, rebuild the site font (below), open a PR.
+6. Publish the blog post at `style-<name>` on both sites.
 
 
-## Posters and covers
-
-`tools/shots.py` serves the repository locally, opens `<name>/?lang=en|ko&shot=1` in headless Chromium and writes the four images into the style's folder at 2×. It stops if a poster page is taller than 1350px or a page throws an error.
+## Tools
 
 ```bash
 pip install playwright && python3 -m playwright install chromium
-python3 tools/shots.py chalk                          # poster-en/ko.png and cover-en/ko.png
-python3 tools/shots.py chalk --review /tmp/review     # also full pages at 1440, 1200, 1024 and 390px
-python3 tools/shots.py chalk --offline-fonts /tmp/fonts   # no CDN access: fonts from partial git clones
+python3 tools/package.py anthropic                     # tokens.css, anthropic.tps, powerbi-theme.json, DASHBOARD.md front matter
+python3 tools/shots.py anthropic                       # cover-en.png, cover-ko.png
+python3 tools/shots.py anthropic --review /tmp/review  # also full pages at 1440, 1200, 1024 and 390px
+python3 tools/shots.py anthropic --offline-fonts /tmp/fonts   # no CDN access: fonts from partial git clones
 ```
 
-With `--offline-fonts`, font requests are answered from partial clones made on first use: jsDelivr GitHub fonts (Pretendard, Spoqa) from their repositories, Google Fonts from [fontsource/font-files](https://github.com/fontsource/font-files). When a Google Fonts link asks for an axis range such as optical size (`opsz,wght@0,8..60,400`), the capture uses fontsource's variable file, so the serif renders as it does live.
+With `--offline-fonts`, font requests are answered from partial clones made on first use: jsDelivr GitHub fonts (Pretendard) from their repositories, Google Fonts from [fontsource/font-files](https://github.com/fontsource/font-files), using the variable font when a link asks for an axis range such as optical size.
 
+### Site font
 
-## Site font
-
-The home page and the 404 page use VZ Sans, the same font as [Vizney Blocks](https://blocks.vizney.com): Spoqa Han Sans Neo cut down to the characters those two pages use and renamed, as the SIL Open Font License asks of a modified font ([OFL.txt](OFL.txt)). It is built from the `Original/SpoqaHanSansNeo` folder of [spoqa-han-sans](https://github.com/spoqa/spoqa-han-sans), not from `Subset` (the files the Spoqa CDN serves), which lacks kerning and a few signs and draws text 1–3px lower on Windows. After changing the text of either page, rebuild it:
+The home page and the 404 page use VZ Sans, the same font as [Vizney Blocks](https://blocks.vizney.com): Spoqa Han Sans Neo cut down to the characters those two pages use and renamed, as the SIL Open Font License asks of a modified font ([OFL.txt](OFL.txt)). After changing the text of either page, rebuild it from the `Original/SpoqaHanSansNeo` folder of [spoqa-han-sans](https://github.com/spoqa/spoqa-han-sans):
 
 ```bash
 pip install fonttools
 python3 tools/font.py /path/to/spoqa-han-sans/Original/SpoqaHanSansNeo
 ```
 
-The script writes `assets/fonts/` and updates the `?v=` of the font URLs in both pages. Sample screens load their own fonts from a CDN, as their specs say.
+Sample screens load their own fonts from Google Fonts and jsDelivr, as their specs say.
 
 
-## Embedding in a Ghost post
+## Embedding a sample in a Ghost post
 
 Paste into an HTML card and change the style, language and title. Always set `lang` in the URL rather than relying on the default:
 
 ```html
 <figure class="kg-card kg-embed-card kg-width-wide">
-  <iframe data-vizney-embed src="https://styles.vizney.com/chalk/?lang=ko&amp;embed=1" title="Chalk 스타일 대시보드" loading="lazy" style="display:block;width:100%;height:820px;border:1px solid #e6e6e6;border-radius:12px"></iframe>
-  <figcaption><a href="https://styles.vizney.com/chalk/?lang=ko" target="_blank" rel="noopener">전체 화면으로 보기 ↗</a></figcaption>
+  <iframe data-vizney-embed src="https://styles.vizney.com/anthropic/?lang=ko&amp;embed=1" title="Anthropic 스타일 대시보드" loading="lazy" style="display:block;width:100%;height:820px;border:1px solid #e6e6e6;border-radius:12px"></iframe>
+  <figcaption><a href="https://styles.vizney.com/anthropic/?lang=ko" target="_blank" rel="noopener">전체 화면으로 보기 ↗</a></figcaption>
 </figure>
 <script src="https://styles.vizney.com/lib/embed-host.js" defer></script>
 ```
 
 `lib/embed-host.js` resizes the iframe to the height the page reports through `lib/embed.js`, so the whole screen shows without an inner scrollbar. Without it, the iframe keeps its fixed height and scrolls.
-
-To show the poster layout scaled to the post width instead, add `data-vizney-fit` to the iframe and use a normal-width card (`kg-card kg-embed-card`, without `kg-width-wide`). The page is then laid out at the poster width (1080px, or `data-vizney-fit="<width>"`) and scaled down to the post width; taps, hovers and the keyboard still work. Where the post is narrower than 600px (phones), the page shows at full size as before. Posts without the attribute are unchanged.
-
-```html
-<figure class="kg-card kg-embed-card">
-  <iframe data-vizney-embed data-vizney-fit src="https://styles.vizney.com/chalk/?lang=ko&amp;embed=1" ...></iframe>
-  ...
-</figure>
-```
