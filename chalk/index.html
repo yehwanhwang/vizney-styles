@@ -6,19 +6,31 @@
 <meta name="color-scheme" content="light">
 <meta name="robots" content="noindex">
 <title>Chalk · Order analytics sample</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@v3.3.0/css/SpoqaHanSansNeo.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script src="/lib/embed.js" defer></script>
+<script>
+  // 캡처 모드(?shot=1): 포스터와 커버를 찍을 때 페이지 전용 요소(언어 토글, 하단 안내)를 숨기고 마지막 줄을 화면 끝까지 늘린다
+  if (/[?&]shot=1(&|$)/.test(location.search)) document.documentElement.classList.add('vz-shot');
+</script>
 <style>
+  /* Chalk — Pastel, calm, clean. · 파스텔톤, 차분함, 깔끔함.
+     흰 바탕에 파스텔 KPI 카드, 가늘고 짙은 차트. 이 화면 하나가 라이브 샘플이자
+     포스터(1080×1350)와 커버(1440×810)의 원본이다. 키 컬러·서체·사진은 데이터 카드 안에 들어간다. */
   :root{
-    --font:'Spoqa Han Sans Neo',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+    --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --display:'Space Grotesk','Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     --ink:#161616; --ink-2:#474747; --muted:#8B8B8B; --faint:#A3A3A3;
     --surface:#FFFFFF; --border:#EAEAEA; --grid:#EFEFEF;
-    --side:#1D1D1D; --side-ink:#B5B5B5; --side-hover:#272727; --side-active:#333333;
     --pill:#F1F1F1; --pill-hover:#E7E7E7; --pill-active:#D2E7F3;
     --k-blue:#D2E7F3; --k-green:#D9EEC8; --k-orange:#FEC48E; --k-dark:#2A2A2A;
     --good:#1E8449; --bad:#D0392B; --flat:#8B8B8B;
     --radius:12px;
   }
+  /* 본문 서체는 언어마다 하나: 영어 Inter, 한국어 Pretendard */
+  html[lang="ko"]{--font:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
   *{box-sizing:border-box}
   html,body{margin:0}
   body{font-family:var(--font);font-size:13px;line-height:1.45;color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased}
@@ -27,71 +39,55 @@
   .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   :focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
-  /* ---------- shell ---------- */
-  .app{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
-  .sidebar{background:var(--side);color:#fff;z-index:20}
-  .sidebar__inner{position:sticky;top:0;max-height:100vh;overflow-y:auto;padding:26px 16px;display:flex;flex-direction:column;gap:30px}
-  .side-top{display:flex;align-items:center;justify-content:space-between}
-  .brand{display:flex;align-items:center;gap:10px;padding:0 10px;font-size:17px;font-weight:700;letter-spacing:-.01em}
-  .brand svg{width:22px;height:22px}
-  .nav{display:flex;flex-direction:column;gap:4px}
-  .nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;color:var(--side-ink);text-decoration:none;font-weight:500;transition:background .15s,color .15s}
-  .nav a svg{width:17px;height:17px}
-  .nav a:hover{background:var(--side-hover);color:#fff}
-  .nav a[aria-current="page"]{background:var(--side-active);color:#fff}
-  .nav a:focus-visible{outline-color:#fff}
-  .menu-btn{display:none!important;color:#fff}
-  .menu-btn:hover{background:var(--side-hover)!important}
+  .page{max-width:1240px;margin:0 auto;padding:40px 48px 44px}
 
-  .main{min-width:0;padding:28px 36px 36px}
-  .wrap{max-width:1320px;margin:0 auto}
-  .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .topbar h1{margin:0;font-size:22px;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
-  .actions{display:flex;align-items:center;gap:4px}
-  .icon-btn{width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:50%;background:transparent;cursor:pointer}
-  .icon-btn:hover{background:#F2F2F2}
-  .icon-btn svg{width:19px;height:19px}
-  .bell{position:relative}
-  .bell::after{content:'';position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:#F39D52;box-shadow:0 0 0 2px var(--surface)}
-  .lang{display:flex;align-items:center;margin:0 6px;padding:3px;border-radius:8px;background:#F2F2F2}
+  /* ---------- 머리: 시리즈 · 이름 · 세 단어 ---------- */
+  .head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .eyebrow{margin:0;font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--ink-2)}
+  .head h1{margin:10px 0 0 -4px;font-family:var(--display);font-size:84px;line-height:.86;font-weight:700;letter-spacing:-.01em}
+  .words{margin:12px 0 0;font-size:24px;line-height:1.3;font-weight:500;color:var(--ink-2)}
+  .lang{display:flex;align-items:center;padding:3px;border-radius:8px;background:var(--pill)}
   .lang button{border:0;background:transparent;padding:4px 9px;border-radius:6px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer}
   .lang button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
-  .avatar{width:36px;height:36px;margin-left:4px;border-radius:50%;background:#F6B58B;color:#5B2F12;display:grid;place-items:center}
-  .avatar svg{width:20px;height:20px}
 
-  /* ---------- filters ---------- */
-  .tabs{display:flex;gap:10px;margin-top:22px;overflow-x:auto;scrollbar-width:none;padding:2px}
+  /* ---------- 필터: 아래 모든 카드에 함께 적용 ---------- */
+  .tabs{display:flex;gap:8px;margin-top:24px;overflow-x:auto;scrollbar-width:none;padding:2px}
   .tabs::-webkit-scrollbar{display:none}
   .tab{flex:none;height:34px;padding:0 16px;border:0;border-radius:8px;background:var(--pill);color:var(--ink-2);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s,color .15s}
   .tab:hover{background:var(--pill-hover)}
   .tab[aria-selected="true"]{background:var(--pill-active);color:var(--ink);font-weight:700}
-  .sec-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;margin:26px 0 14px}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;margin:18px 0 10px}
   .sec-head h2{margin:0;font-size:15px;font-weight:700}
   .period{color:var(--muted)}
 
-  /* ---------- KPI cards ---------- */
+  /* ---------- KPI: 지표명 → 수치(가깝게) → 증감(한 칸 띄워서) ---------- */
   .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-  .kpi{min-height:128px;padding:18px 20px;border-radius:var(--radius);display:flex;flex-direction:column;justify-content:space-between;gap:16px}
+  .kpi{padding:16px 20px 18px;border-radius:var(--radius);display:flex;flex-direction:column}
   .kpi--blue{background:var(--k-blue)} .kpi--green{background:var(--k-green)}
   .kpi--orange{background:var(--k-orange)} .kpi--dark{background:var(--k-dark);color:#fff}
+  .kpi__top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .kpi__label{font-size:13px;font-weight:500;color:var(--ink-2)}
+  .kpi--dark .kpi__label{color:#C8C8C8}
   .kpi__icon{width:20px;height:20px}
-  /* 수치 아래 줄에 증감: 타일 폭이 좁아도 네 카드의 수치 높이가 같게 맞는다 */
-  .kpi__main{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+  /* 지표명이 두 줄로 넘어가도 같은 줄 카드의 수치 높이가 맞도록 수치·증감은 카드 아래쪽에 붙인다 */
+  .kpi__top{padding-bottom:6px}
+  .kpi__main{display:flex;flex-direction:column;align-items:flex-start;gap:14px;margin-top:auto}
   .kpi__value{font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.02em;white-space:nowrap}
   .u{font-size:13px;font-weight:700;letter-spacing:0;margin-left:2px}
   .u.pre{margin:0 2px 0 0}
   .delta{display:inline-flex;align-items:center;gap:4px;padding:3px 7px 3px 6px;border-radius:6px;background:#fff;color:var(--ink);font-size:13px;font-weight:700;line-height:1.25;white-space:nowrap}
-  .delta svg{width:14px;height:14px}
-  .delta.is-good svg{color:var(--good)} .delta.is-bad svg{color:var(--bad)} .delta.is-flat svg{color:var(--flat)}
-  .kpi__label{margin-top:4px;font-size:13px;font-weight:500;color:var(--ink-2)}
-  .kpi--dark .kpi__label{color:#C8C8C8}
+  .delta svg,.chg svg{width:14px;height:14px}
+  .is-good svg{color:var(--good)} .is-bad svg{color:var(--bad)} .is-flat svg{color:var(--flat)}
   .kpi__value,.delta{transition:opacity .14s ease,transform .14s ease}
   .kpi.is-swap .kpi__value,.kpi.is-swap .delta{opacity:0;transform:translateY(3px)}
 
-  /* ---------- chart cards ---------- */
-  .charts{display:grid;grid-template-columns:minmax(0,2fr) minmax(320px,1fr);gap:16px;margin-top:16px}
-  .card{min-width:0;padding:20px 22px 18px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);display:flex;flex-direction:column}
-  .card__head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;margin-bottom:10px}
+  /* ---------- 카드 ---------- */
+  .row{display:grid;gap:16px;margin-top:16px}
+  .row-a{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+  .row-b{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .row-c{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .card{position:relative;min-width:0;min-height:0;padding:20px 22px 18px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);display:flex;flex-direction:column}
+  .card__head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;margin-bottom:8px}
   .card__title{margin:0;font-size:15px;font-weight:700}
   .card__title small{margin-left:8px;font-size:13px;font-weight:500;color:var(--muted)}
   .legend{display:flex;gap:16px}
@@ -99,8 +95,15 @@
   .legend__val{display:none;min-width:3.6em;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
   .card.is-narrow .legend__val{display:inline}
   .card.is-narrow .lc-tip{display:none}
+  .tip{position:absolute;top:0;left:0;min-width:146px;white-space:nowrap;padding:9px 12px 10px;border-radius:8px;background:#232323;color:#fff;font-size:12px;line-height:1.35;box-shadow:0 8px 20px rgba(0,0,0,.16);pointer-events:none}
+  .tip__title{margin-bottom:6px;font-weight:700}
+  .tip__row{display:grid;grid-template-columns:18px 1fr auto;align-items:center;gap:8px}
+  .tip__row + .tip__row{margin-top:3px}
+  .tip__label{color:#BDBDBD}
+  .tip__val{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
 
-  .lc{position:relative;flex:1;min-height:300px;touch-action:pan-y;border-radius:8px}
+  /* 시간대별 주문: 높이는 옆 카드(카테고리)에 맞춘다 */
+  .lc{position:relative;flex:1;min-height:220px;touch-action:pan-y;border-radius:8px}
   .lc > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
   .lc text{font-family:var(--font)}
   .tick{font-size:12px;fill:var(--faint);font-variant-numeric:tabular-nums}
@@ -109,155 +112,231 @@
   .ser,.endpt,.focus circle{transition:opacity .15s}
   .lc.emph-wd .ser-we,.lc.emph-wd .fd-we{opacity:.18}
   .lc.emph-we .ser-wd,.lc.emph-we .fd-wd,.lc.emph-we .endpt{opacity:.18}
-  .lc-tip{position:absolute;top:0;left:0;min-width:146px;white-space:nowrap;padding:9px 12px 10px;border-radius:8px;background:#232323;color:#fff;font-size:12px;line-height:1.35;box-shadow:0 8px 20px rgba(0,0,0,.16);pointer-events:none;transition:transform .08s linear}
-  .lc-tip__title{margin-bottom:6px;font-weight:700}
-  .lc-tip__row{display:grid;grid-template-columns:18px 1fr auto;align-items:center;gap:8px}
-  .lc-tip__row + .lc-tip__row{margin-top:3px}
-  .lc-tip__label{color:#BDBDBD}
-  .lc-tip__val{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+  .lc-tip{transition:transform .08s linear}
 
-  .gauge-card{container-type:inline-size}
-  .gauge-body{flex:1;display:grid;align-content:center;justify-items:center;gap:18px}
-  .ring{position:relative;width:100%;max-width:250px}
+  /* 카테고리별 주문 */
+  .gauge-body{flex:1;display:grid;align-content:center;justify-items:center;gap:12px}
+  .ring{position:relative;width:100%;max-width:164px}
   .ring svg{display:block;width:100%;height:auto;overflow:visible}
   .ring .seg{transition:opacity .15s}
   .ring.has-focus .seg:not(.is-on){opacity:.22}
   .ring__center{position:absolute;left:0;right:0;top:57.14%;transform:translateY(-50%);text-align:center;pointer-events:none}
-  .ring__label{font-size:13px;font-weight:500;color:var(--muted)}
-  .ring__value{font-size:30px;font-weight:700;line-height:1.2;letter-spacing:-.02em}
-  .cat-legend{width:100%;max-width:340px;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px}
+  .ring__label{font-size:12px;font-weight:500;color:var(--muted)}
+  .ring__value{font-size:22px;font-weight:700;line-height:1.2;letter-spacing:-.02em}
+  .cat-legend{width:100%;max-width:300px;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 12px}
   .cat-legend li{transition:opacity .15s}
   .cat-legend.has-focus li:not(.is-on){opacity:.4}
-  .cat-legend button{width:100%;display:grid;grid-template-columns:11px minmax(0,1fr);column-gap:9px;row-gap:1px;padding:5px 6px;border:0;border-radius:8px;background:transparent;text-align:left;cursor:default}
+  .cat-legend button{width:100%;display:grid;grid-template-columns:11px minmax(0,1fr);column-gap:9px;row-gap:1px;padding:2px 6px;border:0;border-radius:8px;background:transparent;text-align:left;cursor:default}
   .cat-legend .dot{width:11px;height:11px;border-radius:50%;align-self:center}
   .cat-legend .name{font-size:13px;font-weight:700}
   .cat-legend .val{grid-column:2;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-  @container (min-width:540px){
-    .gauge-body{grid-template-columns:250px minmax(0,1fr);justify-items:start;align-items:center;column-gap:32px}
-    .cat-legend{grid-template-columns:1fr;max-width:280px}
-  }
+
+  /* 인기 상품 */
+  .tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .tbl th,.tbl td{text-align:left;font-weight:400}
+  .tbl thead th{padding:0 0 8px;font-size:12px;font-weight:500;color:var(--muted);border-bottom:1px solid var(--border)}
+  .tbl tbody th,.tbl tbody td{padding:6px 0;border-bottom:1px solid var(--grid);vertical-align:middle}
+  .tbl tbody tr:last-child th,.tbl tbody tr:last-child td{border-bottom:0;padding-bottom:2px}
+  .tbl .rank{width:30px;color:var(--faint);font-variant-numeric:tabular-nums}
+  .tbl .name{font-weight:700;padding-right:12px}
+  .tbl .num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .tbl td.num + td.num{width:84px}
+  .chg{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;font-weight:700;vertical-align:top}
+
+  /* 채널별 매출: 필터한 채널만 짙게 */
+  .bars{position:relative;flex:1;margin:0;padding:6px 0 4px;list-style:none;display:flex;flex-direction:column;justify-content:space-between;gap:8px}
+  .bar{display:grid;grid-template-columns:112px minmax(0,1fr) 54px;align-items:center;gap:14px;padding:3px 0;border-radius:6px;cursor:default}
+  .bar__name{font-weight:700;white-space:nowrap;transition:color .2s}
+  .bar__track{height:10px;border-radius:5px;background:var(--grid)}
+  .bar__fill{height:100%;border-radius:5px;background:#1A1A1A;transition:width .48s cubic-bezier(.2,.7,.2,1),background .2s}
+  .bar__val{text-align:right;font-variant-numeric:tabular-nums;transition:color .2s}
+  .bar.is-dim .bar__name,.bar.is-dim .bar__val{color:var(--muted)}
+  .bar.is-dim .bar__fill{background:#CFCFCF}
+  .bar-tip{opacity:0;transition:opacity .12s}
+  .bar-tip.is-on{opacity:1}
+
+  /* 색상별 판매: 키 컬러 네 가지가 상품 색상으로 들어간다. 파스텔은 색상 칩(타일)에만 */
+  .colors{flex:1;margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+  .colors li{flex:1;min-height:46px;display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;column-gap:12px;border-bottom:1px solid var(--grid)}
+  .colors li:last-child{border-bottom:0}
+  .colors i{width:34px;height:34px;border-radius:8px}
+  .colors .name{display:block;font-size:13px;font-weight:700}
+  .colors .hex{display:block;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  .colors .num{text-align:right;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+  .colors .num small{display:block;font-size:12px;font-weight:500;color:var(--muted)}
+
+  /* 캠페인 배너와 베스트셀러: 위에 그림, 아래에 이름 · 설명 · 수치 한 줄 */
+  .feature{flex:1;display:flex;flex-direction:column;min-height:0}
+  .feature__media{position:relative;flex:1;min-height:150px;border-radius:8px;overflow:hidden;background:var(--pill)}
+  .feature__media img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 58%}
+  .feature__name{margin:10px 0 0;font-size:13px;font-weight:700}
+  .feature__meta{margin:2px 0 0;font-size:12px;color:var(--muted)}
+  .feature__meta b{font-weight:700;color:var(--ink-2)}
+  .feature__meta .f-display{font-family:var(--display)}
+  .feature__row{margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .feature__val{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+  .feature__tag{padding:3px 8px;border-radius:6px;font-size:12px;font-weight:700}
+  .tag--orange{background:var(--k-orange)} .tag--green{background:var(--k-green)}
+  /* 배너: 칠판색 바탕에 제목 서체 */
+  .banner{background:var(--k-dark);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:16px 18px 15px}
+  .banner__dust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .banner__kicker{position:absolute;top:14px;left:18px;margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;color:#C8C8C8}
+  html[lang="ko"] .banner__kicker{letter-spacing:.02em}
+  .banner__head{position:relative;margin:0;font-family:var(--display);font-size:34px;line-height:1;font-weight:700;letter-spacing:.01em}
+  .banner__copy{position:relative;margin:7px 0 0;font-size:13px;font-weight:500;color:#C8C8C8}
+
   .foot{margin:18px 0 0;font-size:12px;color:var(--faint)}
 
-  /* ---------- embed (블로그 iframe, ?embed=1 · lib/embed.js) ---------- */
-  html.vz-embed .app{min-height:0}
+  /* ---------- 임베드(?embed=1 · lib/embed.js)와 캡처(?shot=1) ---------- */
   html.vz-embed .foot{display:none}
+  html.vz-shot .lang,html.vz-shot .foot{display:none}
+  html.vz-shot .page{min-height:100vh;display:flex;flex-direction:column}
+  html.vz-shot #panel{flex:1;display:flex;flex-direction:column}
+  html.vz-shot .row-c{flex:1}
+  html.vz-shot .feature__media,html.vz-shot .colors li{min-height:0}
 
-  /* ---------- responsive ---------- */
-  @media (max-width:1180px){
+  /* ---------- 반응형 ---------- */
+  @media (max-width:960px){
+    .page{padding:32px 24px 36px}
+    .head h1{font-size:76px}
     .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .charts{grid-template-columns:minmax(0,1fr)}
+    .row-a,.row-b{grid-template-columns:minmax(0,1fr)}
+    .row-c{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .row-c > .card:first-child{grid-column:1 / -1}
   }
-  @media (max-width:860px){
-    .app{display:block}
-    .sidebar{position:sticky;top:0}
-    .sidebar__inner{position:static;max-height:none;overflow:visible;padding:10px 12px 10px 16px;gap:0}
-    .menu-btn{display:grid!important}
-    .nav{display:none;padding:10px 0 6px}
-    .sidebar.is-open .nav{display:flex}
-    .main{padding:20px 16px 28px}
-  }
-  @media (max-width:520px){
-    .topbar h1{font-size:20px}
-    .lang{margin:0 2px}
+  @media (max-width:600px){
+    .page{padding:22px 16px 28px}
+    .eyebrow{font-size:12px;letter-spacing:.16em}
+    .head h1{margin-top:10px;font-size:58px;margin-left:-3px}
+    .words{margin-top:12px;font-size:19px}
+    .tabs{margin-top:22px}
     .kpis{gap:10px}
-    .kpi{min-height:112px;padding:14px}
+    .kpi{padding:14px}
+    .kpi__main{gap:12px}
     .kpi__value{font-size:23px}
+    .row-c{grid-template-columns:minmax(0,1fr)}
     .card{padding:16px 14px 14px}
-    .lc{min-height:250px}
+    .bar{grid-template-columns:96px minmax(0,1fr) 48px;gap:10px}
+    .feature__media{min-height:170px}
   }
-  @media (max-width:420px){ .actions .search{display:none} }
   @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style>
 </head>
 <body>
-<div class="app">
-  <aside class="sidebar" id="sidebar">
-   <div class="sidebar__inner">
-    <div class="side-top">
-      <div class="brand">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 3.4a8.6 8.6 0 0 1 8.6 8.6H12z" fill="currentColor"/></svg>
-        <span>Mallow.</span>
-      </div>
-      <button type="button" class="icon-btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" data-i18n-aria="menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
+<div class="page">
+  <header class="head">
+    <div>
+      <p class="eyebrow">VIZNEY STYLES · 01</p>
+      <h1>CHALK</h1>
+      <p class="words" data-i18n="words"></p>
     </div>
-    <nav class="nav" id="nav">
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg><span data-i18n="nav.0"></span></a>
-      <a href="#" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 20v-6M12 20V5M19 20v-10"/></svg><span data-i18n="nav.1"></span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/></svg><span data-i18n="nav.2"></span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.3-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.9.7 3.1 2.4 3.5 5.2"/></svg><span data-i18n="nav.3"></span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M3.5 10v4h3l7 4.5v-13L6.5 10z"/><path d="M17 9a4 4 0 0 1 0 6"/></svg><span data-i18n="nav.4"></span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.5 8.5 4.5-8.5 4.5L3.5 8z"/><path d="m3.5 12.5 8.5 4.5 8.5-4.5M3.5 16.5 12 21l8.5-4.5"/></svg><span data-i18n="nav.5"></span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 10h19M6.5 15h4"/></svg><span data-i18n="nav.6"></span></a>
-      <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span data-i18n="nav.7"></span></a>
-    </nav>
-   </div>
-  </aside>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    </div>
+  </header>
 
-  <main class="main">
-    <div class="wrap">
-      <header class="topbar">
-        <h1 data-i18n="pageTitle"></h1>
-        <div class="actions">
-          <button type="button" class="icon-btn search" data-i18n-aria="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></button>
-          <button type="button" class="icon-btn bell" data-i18n-aria="notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg></button>
-          <div class="lang" role="group" aria-label="Language">
-            <button type="button" data-lang="ko" aria-pressed="false">KO</button>
-            <button type="button" data-lang="en" aria-pressed="true">EN</button>
+  <div class="tabs" id="tabs" role="tablist"></div>
+
+  <div id="panel" role="tabpanel">
+    <div class="sec-head">
+      <h2 data-i18n="section"></h2>
+      <span class="period" data-i18n="period"></span>
+    </div>
+
+    <section class="kpis" id="kpis"></section>
+
+    <section class="row row-a">
+      <article class="card">
+        <div class="card__head">
+          <h3 class="card__title"><span data-i18n="lineTitle"></span><small data-i18n="lineSub"></small></h3>
+          <div class="legend">
+            <button type="button" data-s="wd"><svg width="20" height="8" aria-hidden="true"><line x1="1" y1="4" x2="19" y2="4" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/></svg><span data-i18n="wd"></span><span class="legend__val" data-lv="wd"></span></button>
+            <button type="button" data-s="we"><svg width="20" height="8" aria-hidden="true"><line x1="1" y1="4" x2="19" y2="4" stroke="#478F35" stroke-width="2" stroke-dasharray="5 4"/></svg><span data-i18n="we"></span><span class="legend__val" data-lv="we"></span></button>
           </div>
-          <span class="avatar" role="img" data-i18n-aria="profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="9.5" r="3.6"/><path d="M5.5 19.5c1.2-3.2 3.6-4.8 6.5-4.8s5.3 1.6 6.5 4.8"/></svg></span>
         </div>
-      </header>
-
-      <div class="tabs" id="tabs" role="tablist"></div>
-
-      <div id="panel" role="tabpanel">
-        <div class="sec-head">
-          <h2 data-i18n="section"></h2>
-          <span class="period" data-i18n="period"></span>
+        <div class="lc" id="lc" tabindex="0" role="group">
+          <svg aria-hidden="true"></svg>
+          <div class="tip lc-tip" id="lcTip" aria-hidden="true">
+            <div class="tip__title"></div>
+            <div class="tip__row"><svg width="18" height="8"><line x1="1" y1="4" x2="17" y2="4" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/></svg><span class="tip__label" data-i18n="wd"></span><span class="tip__val" data-v="wd"></span></div>
+            <div class="tip__row"><svg width="18" height="8"><line x1="1" y1="4" x2="17" y2="4" stroke="#93CC74" stroke-width="2" stroke-dasharray="4 3"/></svg><span class="tip__label" data-i18n="we"></span><span class="tip__val" data-v="we"></span></div>
+          </div>
         </div>
+        <p class="sr-only" id="lcLive" aria-live="polite"></p>
+        <div class="sr-only" id="lcTable"></div>
+      </article>
 
-        <section class="kpis" id="kpis"></section>
+      <article class="card">
+        <div class="card__head"><h3 class="card__title"><span data-i18n="ringTitle"></span></h3></div>
+        <div class="gauge-body">
+          <div class="ring" id="ring">
+            <svg viewBox="0 0 240 196" role="img"></svg>
+            <div class="ring__center"><div class="ring__label" id="ringLabel"></div><div class="ring__value" id="ringValue"></div></div>
+          </div>
+          <ul class="cat-legend" id="catLegend"></ul>
+        </div>
+        <div class="sr-only" id="ringTable"></div>
+      </article>
+    </section>
 
-        <section class="charts">
-          <article class="card">
-            <div class="card__head">
-              <h3 class="card__title"><span data-i18n="lineTitle"></span><small data-i18n="lineSub"></small></h3>
-              <div class="legend">
-                <button type="button" data-s="wd"><svg width="20" height="8" aria-hidden="true"><line x1="1" y1="4" x2="19" y2="4" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/></svg><span data-i18n="wd"></span><span class="legend__val" data-lv="wd"></span></button>
-                <button type="button" data-s="we"><svg width="20" height="8" aria-hidden="true"><line x1="1" y1="4" x2="19" y2="4" stroke="#478F35" stroke-width="2" stroke-dasharray="5 4"/></svg><span data-i18n="we"></span><span class="legend__val" data-lv="we"></span></button>
-              </div>
-            </div>
-            <div class="lc" id="lc" tabindex="0" role="group">
-              <svg aria-hidden="true"></svg>
-              <div class="lc-tip" id="lcTip" aria-hidden="true">
-                <div class="lc-tip__title"></div>
-                <div class="lc-tip__row"><svg width="18" height="8"><line x1="1" y1="4" x2="17" y2="4" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/></svg><span class="lc-tip__label" data-i18n="wd"></span><span class="lc-tip__val" data-v="wd"></span></div>
-                <div class="lc-tip__row"><svg width="18" height="8"><line x1="1" y1="4" x2="17" y2="4" stroke="#93CC74" stroke-width="2" stroke-dasharray="4 3"/></svg><span class="lc-tip__label" data-i18n="we"></span><span class="lc-tip__val" data-v="we"></span></div>
-              </div>
-            </div>
-            <p class="sr-only" id="lcLive" aria-live="polite"></p>
-            <div class="sr-only" id="lcTable"></div>
-          </article>
+    <section class="row row-b">
+      <article class="card">
+        <div class="card__head"><h3 class="card__title" id="prodTitle"><span data-i18n="prodTitle"></span><small data-i18n="prodSub"></small></h3></div>
+        <table class="tbl" aria-labelledby="prodTitle">
+          <thead><tr><th scope="col"><span class="sr-only" data-i18n="rankHead"></span></th><th scope="col" data-i18n="thProduct"></th><th scope="col" class="num" data-i18n="thOrders"></th><th scope="col" class="num" data-i18n="thChange"></th></tr></thead>
+          <tbody id="products"></tbody>
+        </table>
+      </article>
 
-          <article class="card gauge-card">
-            <div class="card__head"><h3 class="card__title"><span data-i18n="ringTitle"></span></h3></div>
-            <div class="gauge-body">
-              <div class="ring" id="ring">
-                <svg viewBox="0 0 240 196" role="img"></svg>
-                <div class="ring__center"><div class="ring__label" id="ringLabel"></div><div class="ring__value" id="ringValue"></div></div>
-              </div>
-              <ul class="cat-legend" id="catLegend"></ul>
-            </div>
-            <div class="sr-only" id="ringTable"></div>
-          </article>
-        </section>
-      </div>
+      <article class="card">
+        <div class="card__head"><h3 class="card__title"><span data-i18n="chanTitle"></span><small data-i18n="chanSub"></small></h3></div>
+        <ul class="bars" id="bars"></ul>
+        <div class="tip bar-tip" id="barTip" aria-hidden="true"><div class="tip__title"></div><div class="tip__body"></div></div>
+        <div class="sr-only" id="barTable"></div>
+      </article>
+    </section>
 
-      <p class="foot" data-i18n="footer"></p>
-    </div>
-  </main>
+    <section class="row row-c">
+      <article class="card">
+        <div class="card__head"><h3 class="card__title"><span data-i18n="colorTitle"></span><small data-i18n="colorSub"></small></h3></div>
+        <ul class="colors" id="colors"></ul>
+      </article>
+
+      <article class="card">
+        <div class="card__head"><h3 class="card__title"><span data-i18n="promoTitle"></span><small data-i18n="promoSub"></small></h3></div>
+        <div class="feature">
+          <div class="feature__media banner">
+            <svg class="banner__dust" aria-hidden="true">
+              <filter id="dust" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" stitchTiles="stitch"/>
+                <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .06 0"/>
+              </filter>
+              <rect width="100%" height="100%" filter="url(#dust)"/>
+            </svg>
+            <p class="banner__kicker" data-i18n="promoKicker"></p>
+            <p class="banner__head">CHALK WEEK</p>
+            <p class="banner__copy" data-i18n="promoCopy"></p>
+          </div>
+          <p class="feature__name" data-i18n="promoName"></p>
+          <p class="feature__meta" id="promoFonts"></p>
+          <div class="feature__row"><span class="feature__val" id="promoVal"></span><span class="feature__tag tag--green" data-i18n="promoTag"></span></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__head"><h3 class="card__title"><span data-i18n="bestTitle"></span><small data-i18n="bestSub"></small></h3></div>
+        <div class="feature">
+          <div class="feature__media"><img src="chalk.jpg" alt="" id="bestImg" width="870" height="1160"></div>
+          <p class="feature__name" data-i18n="bestName"></p>
+          <p class="feature__meta" id="bestMeta"></p>
+          <div class="feature__row"><span class="feature__val" id="bestPrice"></span><span class="feature__tag tag--orange" data-i18n="bestTag"></span></div>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <p class="foot" data-i18n="footer"></p>
 </div>
 
 <script>
@@ -271,24 +350,47 @@
 
   /* ================= 가상 데이터 (최근 30일 / 직전 30일) ================= */
   const DAYS = { wd: 21, we: 9 };            // 최근 30일 중 평일·주말 일수
+  const CHANNELS = ['all', 'web', 'app', 'market', 'live', 'social'];
+  // rev: 매출(원), ord: 주문 수, cxl: 취소·반품 건수 — [최근 30일, 직전 30일]
+  // cat: 카테고리별 주문 [패션, 뷰티, 식품, 기타], r: 주말/평일 일평균 주문 배수
+  // wd·we: 시간대별 주문 분포(기저값 + 피크[중심 시각, 폭, 높이])
   const RAW = {
-    // rev: 매출(원), ord: 주문 수, cxl: 취소·반품 건수 — [최근 30일, 직전 30일]
-    // cat: 카테고리별 주문 [패션, 뷰티, 식품, 기타], r: 주말/평일 일평균 주문 배수
-    // wd·we: 시간대별 주문 분포(기저값 + 피크[중심 시각, 폭, 높이])
-    web:    { rev: [241600000, 226800000], ord: [3180, 3020], cxl: [104, 118], cat: [1310, 820, 560, 490], r: 0.78,
-              wd: { base: .15, b: [[10.5, 1.6, .9], [13, 1.2, 1.1], [15.5, 1.8, .8], [21.5, 1.6, .9]] },
-              we: { base: .15, b: [[11.5, 2.2, .7], [15, 2.5, .8], [21, 1.8, .9]] } },
-    app:    { rev: [318400000, 287900000], ord: [5120, 4640], cxl: [148, 162], cat: [1890, 1420, 1010, 800], r: 1.22,
-              wd: { base: .22, b: [[8.3, 1, .45], [12.5, 1.3, .6], [18.7, 1.1, .45], [22.4, 1.6, 1.2]] },
-              we: { base: .16, b: [[11, 2, .6], [16, 2.2, .55], [22, 1.6, 1.2]] } },
-    market: { rev: [196300000, 205700000], ord: [3060, 3190], cxl: [121, 109], cat: [760, 590, 960, 750], r: 1.02,
-              wd: { base: .18, b: [[10.5, 2, .7], [14.5, 2.4, .75], [21, 2, .85]] },
-              we: { base: .18, b: [[11.5, 2.2, .75], [16, 2.5, .8], [21, 2, .8]] } },
-    live:   { rev: [86000000, 71400000], ord: [1120, 905], cxl: [52, 38], cat: [280, 540, 220, 80], r: 1.35,
-              wd: { base: .05, b: [[12.3, .7, .45], [20.4, .8, 1.6], [21.5, 1, .6]] },
-              we: { base: .05, b: [[14.3, .8, 1], [20.4, .8, 1.4], [21.5, 1, .5]] } }
+    web: { rev: [241600000, 226800000], ord: [3180, 3020], cxl: [104, 118], cat: [1310, 820, 560, 490], r: 0.78,
+      wd: { base: 0.15, b: [[10.5, 1.6, 0.9], [13, 1.2, 1.1], [15.5, 1.8, 0.8], [21.5, 1.6, 0.9]] },
+      we: { base: 0.15, b: [[11.5, 2.2, 0.7], [15, 2.5, 0.8], [21, 1.8, 0.9]] } },
+    app: { rev: [318400000, 287900000], ord: [5120, 4640], cxl: [148, 162], cat: [1890, 1420, 1010, 800], r: 1.22,
+      wd: { base: 0.22, b: [[8.3, 1, 0.45], [12.5, 1.3, 0.6], [18.7, 1.1, 0.45], [22.4, 1.6, 1.2]] },
+      we: { base: 0.16, b: [[11, 2, 0.6], [16, 2.2, 0.55], [22, 1.6, 1.2]] } },
+    market: { rev: [152100000, 168400000], ord: [2460, 2640], cxl: [96, 90], cat: [550, 440, 840, 630], r: 1.02,
+      wd: { base: 0.18, b: [[10.5, 2, 0.7], [14.5, 2.4, 0.75], [21, 2, 0.85]] },
+      we: { base: 0.18, b: [[11.5, 2.2, 0.75], [16, 2.5, 0.8], [21, 2, 0.8]] } },
+    live: { rev: [86000000, 71400000], ord: [1120, 905], cxl: [52, 38], cat: [280, 540, 220, 80], r: 1.35,
+      wd: { base: 0.05, b: [[12.3, 0.7, 0.45], [20.4, 0.8, 1.6], [21.5, 1, 0.6]] },
+      we: { base: 0.05, b: [[14.3, 0.8, 1], [20.4, 0.8, 1.4], [21.5, 1, 0.5]] } },
+    social: { rev: [44200000, 37300000], ord: [600, 550], cxl: [25, 19], cat: [210, 150, 120, 120], r: 1.3,
+      wd: { base: 0.12, b: [[12.5, 1.2, 0.5], [21.5, 1.5, 1.3]] },
+      we: { base: 0.12, b: [[14, 2, 0.6], [21, 1.6, 1.2]] } }
   };
-  const CHANNELS = ['all', 'web', 'app', 'market', 'live'];
+  // 상품: 카테고리(0 패션, 1 뷰티, 2 식품, 3 기타), 채널별 주문 [자사몰, 앱, 오픈마켓, 라이브, 소셜] — 최근 30일 / 직전 30일
+  // 분필 세트는 모든 채널에서 1위이고, 상품 주문 합은 각 채널의 카테고리 주문을 넘지 않는다
+  const PRODUCTS = [
+    { id: 'chalk', cat: 3, cur: [300, 520, 200, 70, 90], prev: [278, 448, 190, 54, 72] },
+    { id: 'linen', cat: 0, cur: [280, 400, 150, 60, 70], prev: [264, 360, 147, 54, 61] },
+    { id: 'serum', cat: 1, cur: [230, 345, 140, 65, 60], prev: [240, 348, 149, 63, 59] },
+    { id: 'brew', cat: 2, cur: [175, 300, 170, 30, 45], prev: [170, 283, 168, 29, 43] },
+    { id: 'socks', cat: 0, cur: [160, 250, 120, 40, 40], prev: [158, 243, 121, 38, 39] },
+    { id: 'mug', cat: 3, cur: [170, 200, 115, 5, 30], prev: [179, 204, 120, 5, 31] },
+    { id: 'masks', cat: 1, cur: [125, 230, 70, 55, 20], prev: [119, 215, 67, 52, 19] }
+  ];
+  // 분필 낱개 색상별 판매 — 키 컬러 네 가지
+  const COLORS = [
+    { id: 'sky', hex: '#D2E7F3', n: [330, 520, 200, 60, 130] },
+    { id: 'mint', hex: '#D9EEC8', n: [280, 450, 170, 50, 110] },
+    { id: 'apricot', hex: '#FEC48E', n: [240, 370, 140, 40, 90] },
+    { id: 'charcoal', hex: '#2A2A2A', n: [170, 270, 100, 30, 70] }
+  ];
+  const PROMO = [110, 180, 50, 30, 42];   // 이번 주 캠페인 주문
+  const PRICE = 4900;
 
   function profile(spec) {
     const w = [];
@@ -307,16 +409,25 @@
 
   const DATA = {};
   (function build() {
-    const all = { rev: [0, 0], ord: [0, 0], cxl: [0, 0], cat: [0, 0, 0, 0], wd: Array(24).fill(0), we: Array(24).fill(0) };
-    for (const k of CHANNELS.slice(1)) {
+    const all = { rev: [0, 0], ord: [0, 0], cxl: [0, 0], cat: [0, 0, 0, 0], wd: Array(24).fill(0), we: Array(24).fill(0), prod: {}, colors: [0, 0, 0, 0], promo: 0 };
+    for (const p of PRODUCTS) all.prod[p.id] = [0, 0];
+    CHANNELS.slice(1).forEach((k, ci) => {
       const c = RAW[k];
       const dWd = c.ord[0] / (DAYS.wd + DAYS.we * c.r), dWe = dWd * c.r;
       const wd = profile(c.wd).map(s => s * dWd), we = profile(c.we).map(s => s * dWe);
-      DATA[k] = { rev: c.rev, ord: c.ord, cxl: c.cxl, cat: c.cat, wd, we };
+      const prod = {};
+      for (const p of PRODUCTS) {
+        prod[p.id] = [p.cur[ci], p.prev[ci]];
+        all.prod[p.id][0] += p.cur[ci]; all.prod[p.id][1] += p.prev[ci];
+      }
+      const colors = COLORS.map(x => x.n[ci]);
+      DATA[k] = { rev: c.rev, ord: c.ord, cxl: c.cxl, cat: c.cat, wd, we, prod, colors, promo: PROMO[ci] };
       for (const f of ['rev', 'ord', 'cxl']) { all[f][0] += c[f][0]; all[f][1] += c[f][1]; }
       c.cat.forEach((v, i) => { all.cat[i] += v; });
+      colors.forEach((v, i) => { all.colors[i] += v; });
+      all.promo += PROMO[ci];
       for (let h = 0; h < 24; h++) { all.wd[h] += wd[h]; all.we[h] += we[h]; }
-    }
+    });
     DATA.all = all;
   })();
 
@@ -325,15 +436,27 @@
   const STR = {
     ko: {
       docTitle: 'Chalk · 주문 분석 샘플',
-      nav: ['홈', '주문 분석', '상품', '고객', '프로모션', '재고', '정산', '활동 로그'],
-      menu: '메뉴', search: '검색', notifications: '알림', profile: '내 계정',
-      pageTitle: '주문 분석', tablist: '판매 채널',
-      tabs: { all: '전체', web: '자사몰', app: '앱', market: '오픈마켓', live: '라이브커머스' },
+      words: '파스텔톤, 차분함, 깔끔함.',
+      tablist: '판매 채널',
+      tabs: { all: '전체', web: '자사몰', app: '앱', market: '오픈마켓', live: '라이브커머스', social: '소셜' },
       section: '주문 현황', period: '최근 30일 · 직전 30일 대비',
       kpi: { rev: '매출', ord: '주문 수', cxl: '취소·반품률', aov: '객단가' },
       lineTitle: '시간대별 주문', lineSub: '일평균', wd: '평일', we: '주말',
       ringTitle: '카테고리별 주문', total: '전체 주문', cats: ['패션', '뷰티', '식품', '기타'],
-      unitCount: '건', hourHead: '시간대', catHead: '카테고리', ordHead: '주문 수', shareHead: '비중',
+      prodTitle: '인기 상품', prodSub: '주문 수 기준', rankHead: '순위', thProduct: '상품', thOrders: '주문', thChange: '직전 대비',
+      products: { chalk: '파스텔 분필 세트', linen: '리넨 셔츠', serum: '비타민C 세럼', brew: '콜드브루 세트', socks: '러닝 양말 3족', mug: '세라믹 머그', masks: '시트 마스크 10매' },
+      chanTitle: '채널별 매출', chanSub: '매출 비중',
+      barTip: (rev, d) => `${rev} · 직전 대비 ${d}`,
+      colorTitle: '색상별 판매', colorSub: '분필 낱개',
+      colors: { sky: '하늘', mint: '민트', apricot: '살구', charcoal: '차콜' }, colorUnit: '개',
+      promoTitle: '캠페인', promoSub: '이번 주',
+      promoKicker: '최대 20% 할인', promoCopy: '이번 주만, 파스텔 세트',
+      promoName: '메인 배너 · 7일 중 4일째',
+      promoFonts: '제목 <b class="f-display">Space Grotesk</b> · 본문 <b>Pretendard</b>',
+      promoVal: n => `주문 ${nf(n)}<span class="u">건</span>`, promoTag: '진행 중',
+      bestTitle: '베스트셀러', bestSub: '이번 달',
+      bestName: '파스텔 분필 세트 12색', bestMeta: n => `문구 · ${nf(n)}건 주문`, bestTag: '1위', bestAlt: '파스텔 분필',
+      unitCount: '건', hourHead: '시간대', catHead: '카테고리', ordHead: '주문 수', shareHead: '비중', chanHead: '채널', revHead: '매출', chgHead: '직전 대비',
       hourTick: h => h + '시',
       hourRange: h => `${h}시 – ${h + 1}시`,
       lineAria: '시간대별 일평균 주문 차트. 좌우 방향키로 시간대를 옮길 수 있습니다.',
@@ -344,15 +467,27 @@
     },
     en: {
       docTitle: 'Chalk · Order analytics sample',
-      nav: ['Home', 'Order Analytics', 'Products', 'Customers', 'Promotions', 'Inventory', 'Settlements', 'Activity Log'],
-      menu: 'Menu', search: 'Search', notifications: 'Notifications', profile: 'Account',
-      pageTitle: 'Order Analytics', tablist: 'Sales channel',
-      tabs: { all: 'All channels', web: 'Web store', app: 'App', market: 'Marketplaces', live: 'Live commerce' },
+      words: 'Pastel, calm, clean.',
+      tablist: 'Sales channel',
+      tabs: { all: 'All channels', web: 'Web store', app: 'App', market: 'Marketplaces', live: 'Live commerce', social: 'Social' },
       section: 'Order stats', period: 'Last 30 days · vs. previous 30 days',
       kpi: { rev: 'Revenue', ord: 'Orders', cxl: 'Cancel & return rate', aov: 'Avg. order value' },
       lineTitle: 'Orders by hour', lineSub: 'daily average', wd: 'Weekdays', we: 'Weekends',
       ringTitle: 'Orders by category', total: 'Total orders', cats: ['Fashion', 'Beauty', 'Food', 'Other'],
-      unitCount: '', hourHead: 'Hour', catHead: 'Category', ordHead: 'Orders', shareHead: 'Share',
+      prodTitle: 'Top products', prodSub: 'by orders', rankHead: 'Rank', thProduct: 'Product', thOrders: 'Orders', thChange: 'vs. prev.',
+      products: { chalk: 'Pastel chalk set', linen: 'Linen shirt', serum: 'Vitamin C serum', brew: 'Cold brew set', socks: 'Running socks (3-pack)', mug: 'Ceramic mug', masks: 'Sheet masks (10-pack)' },
+      chanTitle: 'Revenue by channel', chanSub: 'share of revenue',
+      barTip: (rev, d) => `${rev} · ${d} vs. prev.`,
+      colorTitle: 'Sales by color', colorSub: 'single sticks',
+      colors: { sky: 'Sky', mint: 'Mint', apricot: 'Apricot', charcoal: 'Charcoal' }, colorUnit: '',
+      promoTitle: 'Campaign', promoSub: 'this week',
+      promoKicker: 'UP TO 20% OFF', promoCopy: 'Pastel sets, this week only',
+      promoName: 'Main banner · day 4 of 7',
+      promoFonts: 'Headline <b class="f-display">Space Grotesk</b> · Body <b>Inter</b>',
+      promoVal: n => `${nf(n)}<span class="u"> orders</span>`, promoTag: 'Active',
+      bestTitle: 'Bestseller', bestSub: 'this month',
+      bestName: 'Pastel chalk set, 12 colors', bestMeta: n => `Stationery · ${nf(n)} orders`, bestTag: 'No. 1', bestAlt: 'Pastel chalk sticks',
+      unitCount: '', hourHead: 'Hour', catHead: 'Category', ordHead: 'Orders', shareHead: 'Share', chanHead: 'Channel', revHead: 'Revenue', chgHead: 'vs. previous 30 days',
       hourTick: h => fmt12(h),
       hourRange: h => `${fmt12(h)} – ${fmt12((h + 1) % 24)}`,
       lineAria: 'Average orders per day by hour. Use the left and right arrow keys to move between hours.',
@@ -382,6 +517,8 @@
       return lang === 'ko' ? [{ t: nf(r) }, { t: '원', u: 1 }] : [{ t: '₩', u: 1, pre: 1 }, { t: nf(r) }];
     }
   };
+  const plain = parts => parts.map(p => p.t).join('');
+  const revText = (v, lang) => lang === 'ko' ? (v / 1e8).toFixed(2) + '억' : '₩' + (v / 1e6).toFixed(1) + 'M';
   function setParts(el, parts) {
     el.textContent = '';
     for (const p of parts) {
@@ -393,6 +530,21 @@
       } else el.appendChild(document.createTextNode(p.t));
     }
   }
+  const ARROW = {
+    up: '<path d="M3.5 16.5l6-6 4 4 7-7"/><path d="M15 7.5h5.5V13"/>',
+    down: '<path d="M3.5 7.5l6 6 4-4 7 7"/><path d="M15 16.5h5.5V11"/>',
+    flat: '<path d="M4 12h16"/>'
+  };
+  const arrowSvg = dir => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ARROW[dir]}</svg>`;
+  // 증감 한 개: 값이 오를 때 좋은 지표(better 'up')인지에 따라 화살표 색(좋음·나쁨)을 정한다
+  function change(cur, prev, kind = 'pct', better = 'up') {
+    const raw = kind === 'pct' ? (cur / prev - 1) * 100 : (cur - prev) * 100;
+    const v = Math.round(raw * 10) / 10;
+    const dir = v > 0 ? 'up' : v < 0 ? 'down' : 'flat';
+    const unit = kind === 'pct' ? '%' : (state.lang === 'ko' ? '%p' : ' pp');
+    const txt = (v > 0 ? '+' : v < 0 ? MINUS : '') + Math.abs(v).toFixed(1) + unit;
+    return { txt, dir, tone: dir === 'flat' ? 'flat' : dir === better ? 'good' : 'bad' };
+  }
 
   /* ================= KPI 카드 ================= */
   const ICON = {
@@ -401,12 +553,6 @@
     ret: '<path d="M8.5 13.5 4 9l4.5-4.5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
     tag: '<path d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l7.9 7.9a1 1 0 0 1 0 1.4l-7.7 7.7a1 1 0 0 1-1.4 0z"/><circle cx="8.3" cy="8.3" r="1.4"/>'
   };
-  const ARROW = {
-    up: '<path d="M3.5 16.5l6-6 4 4 7-7"/><path d="M15 7.5h5.5V13"/>',
-    down: '<path d="M3.5 7.5l6 6 4-4 7 7"/><path d="M15 16.5h5.5V11"/>',
-    flat: '<path d="M4 12h16"/>'
-  };
-  // better: 값이 오를 때 좋은지(up) 내릴 때 좋은지(down) — 증감 화살표 색을 정한다
   const KPIS = [
     { id: 'rev', tone: 'blue',   icon: 'wallet', better: 'up',   kind: 'pct', cur: d => d.rev[0],             prev: d => d.rev[1],             f: fmt.revenue },
     { id: 'ord', tone: 'green',  icon: 'bag',    better: 'up',   kind: 'pct', cur: d => d.ord[0],             prev: d => d.ord[1],             f: fmt.count },
@@ -418,21 +564,12 @@
     const root = document.createElement('div');
     root.className = `kpi kpi--${k.tone}`;
     root.innerHTML =
-      `<svg class="kpi__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k.icon]}</svg>` +
-      '<div><div class="kpi__main"><span class="kpi__value"></span>' +
-      '<span class="delta" role="img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span class="delta__txt" aria-hidden="true"></span></span>' +
-      '</div><div class="kpi__label"></div></div>';
+      '<div class="kpi__top"><span class="kpi__label"></span>' +
+      `<svg class="kpi__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k.icon]}</svg></div>` +
+      '<div class="kpi__main"><span class="kpi__value"></span>' +
+      '<span class="delta" role="img"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span class="delta__txt" aria-hidden="true"></span></span></div>';
     $('#kpis').appendChild(root);
     kpiEls[k.id] = { root, value: $('.kpi__value', root), delta: $('.delta', root), dIcon: $('.delta svg', root), dTxt: $('.delta__txt', root), label: $('.kpi__label', root) };
-  }
-  function computeDelta(k, d) {
-    const cur = k.cur(d), prev = k.prev(d);
-    const raw = k.kind === 'pct' ? (cur / prev - 1) * 100 : (cur - prev) * 100;
-    const v = Math.round(raw * 10) / 10;
-    const dir = v > 0 ? 'up' : v < 0 ? 'down' : 'flat';
-    const unit = k.kind === 'pct' ? '%' : (state.lang === 'ko' ? '%p' : ' pp');
-    const txt = (v > 0 ? '+' : v < 0 ? MINUS : '') + Math.abs(v).toFixed(1) + unit;
-    return { txt, dir, tone: dir === 'flat' ? 'flat' : dir === k.better ? 'good' : 'bad' };
   }
   function renderKpis(animate) {
     const d = DATA[state.ch];
@@ -440,7 +577,7 @@
       const el = kpiEls[k.id];
       const apply = () => {
         setParts(el.value, k.f(k.cur(d), state.lang));
-        const dl = computeDelta(k, d);
+        const dl = change(k.cur(d), k.prev(d), k.kind, k.better);
         el.delta.className = 'delta is-' + dl.tone;
         el.dIcon.innerHTML = ARROW[dl.dir];
         el.dTxt.textContent = dl.txt;
@@ -533,7 +670,7 @@
     else { hov.textContent = S().hourTick(i); hov.setAttribute('x', x); hov.setAttribute('visibility', 'visible'); }
 
     const unit = S().unitCount;
-    $('.lc-tip__title', LC.tip).textContent = S().hourRange(i);
+    $('.tip__title', LC.tip).textContent = S().hourRange(i);
     $('[data-v="wd"]', LC.tip).textContent = LC.data.wd[i].toFixed(1) + unit;
     $('[data-v="we"]', LC.tip).textContent = LC.data.we[i].toFixed(1) + unit;
     $('[data-lv="wd"]').textContent = LC.data.wd[i].toFixed(1) + unit;
@@ -633,7 +770,6 @@
     if (RG.focus === i) return;
     RG.focus = i; applyRingFocus(); renderRingText();
   }
-  // 범례
   const legendItems = COLOR.cats.map((c, i) => {
     const li = document.createElement('li');
     li.innerHTML = '<button type="button"><span class="dot"></span><span class="name"></span><span class="val"></span></button>';
@@ -670,6 +806,73 @@
     RG.raf = requestAnimationFrame(frame);
   }
 
+  /* ================= 인기 상품 ================= */
+  function topProducts(d) {
+    return PRODUCTS.map(p => ({ id: p.id, cur: d.prod[p.id][0], prev: d.prod[p.id][1] }))
+      .sort((a, b) => b.cur - a.cur).slice(0, 5);
+  }
+  function renderProducts() {
+    const s = S();
+    $('#products').innerHTML = topProducts(DATA[state.ch]).map((r, i) => {
+      const c = change(r.cur, r.prev);
+      return `<tr><td class="rank">${String(i + 1).padStart(2, '0')}</td><th scope="row" class="name">${s.products[r.id]}</th>` +
+        `<td class="num">${nf(r.cur)}</td><td class="num"><span class="chg is-${c.tone}" aria-label="${s.deltaAria(c.txt, s.tone[c.tone])}">${arrowSvg(c.dir)}${c.txt}</span></td></tr>`;
+    }).join('');
+  }
+
+  /* ================= 채널별 매출 ================= */
+  const BAR_CH = CHANNELS.slice(1);
+  const barEls = BAR_CH.map(ch => {
+    const li = document.createElement('li');
+    li.className = 'bar'; li.tabIndex = 0; li.dataset.ch = ch;
+    li.innerHTML = '<span class="bar__name"></span><span class="bar__track" aria-hidden="true"><span class="bar__fill" style="display:block;width:0"></span></span><span class="bar__val"></span>';
+    $('#bars').appendChild(li);
+    const show = () => showBarTip(li), hide = () => $('#barTip').classList.remove('is-on');
+    li.addEventListener('pointerenter', show); li.addEventListener('pointerleave', hide);
+    li.addEventListener('focus', show); li.addEventListener('blur', hide);
+    return { li, name: $('.bar__name', li), fill: $('.bar__fill', li), val: $('.bar__val', li) };
+  });
+  function renderBars() {
+    const s = S(), revs = BAR_CH.map(k => DATA[k].rev[0]);
+    const tot = revs.reduce((p, c) => p + c, 0), mx = Math.max(...revs);
+    barEls.forEach((b, i) => {
+      const ch = BAR_CH[i], share = (revs[i] / tot * 100).toFixed(1) + '%';
+      b.name.textContent = s.tabs[ch];
+      b.val.textContent = share;
+      b.fill.style.width = (revs[i] / mx * 100).toFixed(1) + '%';
+      b.li.classList.toggle('is-dim', state.ch !== 'all' && state.ch !== ch);
+      b.li.setAttribute('aria-label', `${s.tabs[ch]}: ${revText(revs[i], state.lang)}, ${share}`);
+    });
+  }
+  function showBarTip(li) {
+    const s = S(), ch = li.dataset.ch, d = DATA[ch], tip = $('#barTip');
+    const c = change(d.rev[0], d.rev[1]);
+    $('.tip__title', tip).textContent = s.tabs[ch];
+    $('.tip__body', tip).textContent = s.barTip(revText(d.rev[0], state.lang), c.txt);
+    const card = li.closest('.card'), cr = card.getBoundingClientRect(), fr = $('.bar__fill', li).getBoundingClientRect();
+    tip.classList.add('is-on');
+    let left = fr.right - cr.left - tip.offsetWidth / 2;
+    left = Math.max(12, Math.min(cr.width - tip.offsetWidth - 12, left));
+    const top = fr.top - cr.top - tip.offsetHeight - 10;
+    tip.style.transform = `translate(${Math.round(left)}px, ${Math.round(top)}px)`;
+  }
+
+  /* ================= 색상별 판매 · 캠페인 · 베스트셀러 ================= */
+  function renderColors() {
+    const s = S(), n = DATA[state.ch].colors, tot = n.reduce((p, c) => p + c, 0);
+    $('#colors').innerHTML = COLORS.map((c, i) =>
+      `<li><i style="background:${c.hex}" aria-hidden="true"></i><span><span class="name">${s.colors[c.id]}</span><span class="hex">${c.hex}</span></span>` +
+      `<span class="num">${nf(n[i])}${s.colorUnit ? `<span class="u">${s.colorUnit}</span>` : ''}<small>${(n[i] / tot * 100).toFixed(1)}%</small></span></li>`).join('');
+  }
+  function renderFeatures() {
+    const s = S(), d = DATA[state.ch];
+    $('#promoFonts').innerHTML = s.promoFonts;
+    $('#promoVal').innerHTML = s.promoVal(d.promo);
+    $('#bestMeta').textContent = s.bestMeta(d.prod.chalk[0]);
+    setParts($('#bestPrice'), fmt.won(PRICE, state.lang));
+    $('#bestImg').alt = s.bestAlt;
+  }
+
   /* ================= 스크린 리더용 표 ================= */
   function table(caption, head, rows) {
     const t = document.createElement('table'), cap = document.createElement('caption');
@@ -692,6 +895,9 @@
       d.wd.map((v, i) => [s.hourRange(i), v.toFixed(1), d.we[i].toFixed(1)])));
     $('#ringTable').replaceChildren(table(`${s.ringTitle} · ${s.tabs[state.ch]}`, [s.catHead, s.ordHead, s.shareHead],
       d.cat.map((v, i) => [s.cats[i], nf(v), (v / total * 100).toFixed(1) + '%'])));
+    const revs = BAR_CH.map(k => DATA[k].rev[0]), tot = revs.reduce((p, c) => p + c, 0);
+    $('#barTable').replaceChildren(table(s.chanTitle, [s.chanHead, s.revHead, s.shareHead, s.chgHead],
+      BAR_CH.map((k, i) => [s.tabs[k], revText(revs[i], state.lang), (revs[i] / tot * 100).toFixed(1) + '%', change(DATA[k].rev[0], DATA[k].rev[1]).txt])));
   }
 
   /* ================= 채널 탭 ================= */
@@ -720,6 +926,9 @@
     selectChannel(ch);
     $('#tab-' + ch).focus();
   });
+  function renderCards() {
+    renderProducts(); renderBars(); renderColors(); renderFeatures(); renderTables();
+  }
   function selectChannel(ch) {
     if (ch === state.ch) return;
     state.ch = ch;
@@ -730,7 +939,7 @@
     tweenRing(ch);
     renderRingText();
     renderLegend();
-    renderTables();
+    renderCards();
   }
 
   /* ================= 언어 ================= */
@@ -739,7 +948,6 @@
     document.documentElement.lang = state.lang;
     document.title = s.docTitle;
     for (const el of $$('[data-i18n]')) el.textContent = pick(s, el.dataset.i18n);
-    for (const el of $$('[data-i18n-aria]')) el.setAttribute('aria-label', pick(s, el.dataset.i18nAria));
     for (const b of $$('.tab', tabsEl)) b.textContent = s.tabs[b.dataset.ch];
     tabsEl.setAttribute('aria-label', s.tablist);
     LC.el.setAttribute('aria-label', s.lineAria);
@@ -753,20 +961,14 @@
     drawLine();
     renderRingText();
     renderLegend();
-    renderTables();
+    renderCards();
   }
   for (const b of $$('.lang button')) b.addEventListener('click', () => { if (b.dataset.lang !== state.lang) setLang(b.dataset.lang); });
-
-  /* ================= 기타 ================= */
-  for (const a of $$('.nav a')) a.addEventListener('click', e => e.preventDefault());
-  $('#menuBtn').addEventListener('click', () => {
-    const open = $('#sidebar').classList.toggle('is-open');
-    $('#menuBtn').setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
 
   syncTabs();
   drawRing();
   setLang(state.lang);
+  // 글꼴이 늦게 오면 글자 폭이 바뀌므로 차트를 한 번 더 그린다
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => drawLine());
 })();
 </script>

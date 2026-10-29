@@ -12,7 +12,7 @@ typo metrics (970/282) that macOS and the installed font use, and every line of 
 The flag is set again below whatever the source, so VZ Sans keeps the original's line metrics everywhere.
 
 Writes assets/fonts/vz-sans-{300,400,500,700}.woff and puts the fonts' hash in the ?v= of the font URLs
-in both pages. Run it again whenever the text of those pages changes. The sample screens keep the Spoqa CDN.
+in both pages. Run it again whenever the text of those pages changes. Sample screens load their own fonts.
 """
 import hashlib
 import html
