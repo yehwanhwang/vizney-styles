@@ -1,30 +1,25 @@
 /* Anthropic style — Ivory, Editorial, Quiet · Vizney Styles 01
    Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
 :root{
-  --canvas:#faf9f5; /* page background; also the paper inside a bordered launch figure (site gray-050) */
-  --card:#f5f4ed; /* pills, tertiary buttons, chips (site gray-100) */
-  --card-2:#f0eee6; /* the 'For reference' column of a comparison table (site gray-150) */
-  --card-3:#ebe9e0; /* related-report cards, 16px radius */
-  --mat:#e7e7db; /* research figure mat (8px radius) behind a figure panel */
-  --panel:#fbf9f5; /* figure panel inside a mat, 16px radius */
-  --plot:#ffffff; /* code workbench window and the plot inside it */
-  --cloud:#c5d3e0; /* mat behind the code workbench (the product-page backdrop) */
-  --ink:#141413; /* titles, figure frames and axes, table rules, primary button, footer, tooltips */
+  --canvas:#faf9f5; /* page background (site gray-050) */
+  --card:#f5f4ed; /* every figure and table card, 16px radius; pills, chips and tertiary buttons (site gray-100) */
+  --plot:#ffffff; /* the workbench window only: the one pure white on the page */
+  --ink:#141413; /* titles, axes, outlines on filled marks, table header rules, selected pills and tabs, primary button, tooltip, footer */
   --ink-2:#30302e; /* code, secondary button text */
   --body:#3d3d3a; /* running text, primary button hover */
-  --text-2:#5e5d59; /* subtitles, captions, axis ticks and titles, notes (6.3:1 on canvas) */
-  --muted:#73726c; /* the smallest text: section numbers, unselected tabs, mono labels (4.6:1 on canvas) */
+  --text-2:#5e5d59; /* subtitles, notes, axis ticks and titles, mono figure labels (6.0:1 on card) */
+  --muted:#73726c; /* large or decorative text on canvas only (4.4:1 on card, so not for small text there) */
   --mark:#87867f; /* gray marks that are not text: the 'by hand' bar, Other */
-  --grid:#d1cfc5; /* gridlines in bordered figures, cells a rival wins */
-  --hair:#e8e6dc; /* dividers, pill borders, the selected filter pill, light gridlines */
-  --hair-2:#dedcd1; /* card top rules, secondary button and pager borders */
+  --rule:#d1cfc5; /* key-figure and step top rules, chart crosshair */
+  --hair:#e8e6dc; /* dividers, pill borders, the workbench grid */
+  --hair-2:#dedcd1; /* gridlines on cards, table row rules, segmented-control borders */
+  --subject-tint:#f4e5d9; /* the subject's column in a comparison table, with a 3px subject-orange bar on its header and the header text in #aa4518 (4.8:1 on the tint; #b94a1c is only 4.2:1 there) */
+  --rival-best:#e9e6dc; /* a table cell where a rival has the best value */
   --on-dark:#faf9f5; /* text on ink */
   --on-dark-2:#b0aea5; /* secondary text on ink, tooltip labels */
-  --accent:#d97757; /* clay, the brand accent: the 3px outline of the subject column in a comparison table. Never a data series */
-  --accent-deep:#c6613f; /* clay for text or a clay control if one is ever needed */
-  --peach:#ebc9b7; /* cells where the subject wins in a comparison table */
-  --good:#4a7b00; /* favourable change, text only (4.8:1 on canvas) */
-  --bad:#b0453b; /* unfavourable change, text only (5.3:1 on canvas) */
+  --accent:#d97757; /* clay, the brand accent of logos and marketing. Not used on a dashboard: never a data mark, never UI */
+  --good:#4a7b00; /* favourable change, text only (4.6:1 on card) */
+  --bad:#b0453b; /* unfavourable change, text only (5.1:1 on card) */
   --focus:#2c84db; /* focus ring (the site's --color-focus) */
   --cat-1:#eb6834; /* orange · the subject */
   --cat-1-text:#b94a1c; /* orange · the subject for labels and text */
@@ -41,8 +36,9 @@
   --pair-track:#dad9d1;
   --mark-tried:#a2a09c;
   --mark-rejected:#8e8c88;
-  --mark-grid-panel:#e3e2d8;
-  --mark-grid-frame:#e5e3dc;
+  --mark-grid:#dedcd1;
+  --mark-bullet-track:#e6e3d9;
+  --mark-outline:#141413;
   --seq-1:#7db2f0;
   --seq-2:#4f90dc;
   --seq-3:#2f74c2;
@@ -58,11 +54,9 @@
   --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
   --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --radius-figure:0;
-  --radius-mat:8px;
-  --radius-panel:16px;
   --radius-card:16px;
-  --radius-window:12px;
+  --radius-card-phone:12px;
+  --radius-window:16px;
   --radius-button:10px;
   --radius-button-sm:8px;
   --radius-pill:999px;
@@ -70,11 +64,11 @@
   --radius-chip:6px;
   --space-page:32px;
   --space-gap:16px;
-  --space-row:44px;
-  --space-figure:16px 18px;
-  --space-mat:26px 28px 28px;
-  --space-panel:22px 24px 18px;
-  --space-cell:10px 12px;
+  --space-section:64px;
+  --space-card:22px 24px 18px;
+  --space-card-head:0 0 16px;
+  --space-card-foot:14px 0 0;
+  --space-cell:9px 10px;
   --space-footer:28px 32px 32px;
   --ease:cubic-bezier(.165,.84,.44,1);
   --code-comment:#6b6a64;
