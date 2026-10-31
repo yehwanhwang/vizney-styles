@@ -31,6 +31,12 @@ def css_tokens(t):
             lines.append(f"  --cat-{i}-text:{c['text']}; /* {c['name']} for labels and text */")
     lines.append(f"  --cat-other:{d['other']};")
     lines.append(f"  --comparison:{d['comparison']};")
+    for i, c in enumerate(d.get('reference', []), 1):
+        lines.append(f"  --ref-{i}:{c}; /* reference series (rivals, benchmarks): neutral on purpose */")
+    for k, c in d.get('pair', {}).items():
+        lines.append(f"  --pair-{k}:{c};")
+    for k, c in d.get('marks', {}).items():
+        lines.append(f"  --mark-{k}:{c};")
     for i, c in enumerate(d['sequential'], 1):
         lines.append(f"  --seq-{i}:{c};")
     for i, c in enumerate(d['diverging'], 1):
@@ -44,6 +50,9 @@ def css_tokens(t):
     for k, v in t['spacing'].items():
         lines.append(f"  --space-{k}:{v};")
     lines.append(f"  --ease:{t['motion']['ease']};")
+    for k, c in t.get('code', {}).items():
+        if isinstance(c, str) and c.startswith('#'):
+            lines.append(f"  --code-{k}:{c};")
     lines.append("}")
     lines.append(f"html[lang=\"ko\"]{{--font-sans:'{ty['sans']['ko']}',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;"
                  f"--font-serif:'{ty['serif']['ko']}','AppleMyungjo','Batang',serif}}")
@@ -58,7 +67,7 @@ def tableau_tps(t):
         inner = "\n".join(f"      <color>{c}</color>" for c in colors)
         return f'    <color-palette name="{name} — {title}" type="{kind}">\n{inner}\n    </color-palette>'
 
-    cats = [c['hex'] for c in d['categorical']] + [d['other'], d['comparison']]
+    cats = [c['hex'] for c in d['categorical']] + d.get('reference', []) + [d['other'], d['comparison']]
     body = "\n".join([
         palette("Categorical", "regular", cats),
         palette("Sequential", "ordered-sequential", d['sequential']),
@@ -74,7 +83,13 @@ def powerbi_theme(t):
     c = {k: v['hex'] for k, v in t['colors'].items()}
     d = t['data']
     font = t['tools']['powerbi']['fontFamily']
-    data_colors = [x['hex'] for x in d['categorical']] + [d['other'], d['sequential'][3], d['diverging'][1], d['diverging'][5], d['comparison']]
+    refs = d.get('reference', [])
+    data_colors = [x['hex'] for x in d['categorical']] + refs + [d['other'], d['sequential'][3], d['diverging'][1], d['diverging'][5], d['comparison']]
+    visual = t['tools']['powerbi'].get('visual', {})
+    vis_bg = c[visual.get('background', 'card')]
+    plot_bg = c[visual.get('plot', 'plot')]
+    vis_border = [{"show": True, "color": {"solid": {"color": c[visual['border']]}}, "radius": 0}] if visual.get('border') else [{"show": False}]
+    n_cat = len(d['categorical'])
     text = lambda size, color, family=font: {"fontFace": family, "fontSize": size, "color": color}
     return {
         "name": f"{t['name']} (Vizney Styles {t['number']:02d})",
@@ -98,11 +113,11 @@ def powerbi_theme(t):
         "visualStyles": {
             "*": {"*": {
                 "*": [{"fontFamily": font, "fontSize": 10, "color": {"solid": {"color": c['body']}}}],
-                "background": [{"color": {"solid": {"color": c['card']}}, "transparency": 0}],
-                "border": [{"show": False}],
-                "visualHeader": [{"background": {"solid": {"color": c['card']}}, "foreground": {"solid": {"color": c['text-2']}}}],
+                "background": [{"color": {"solid": {"color": vis_bg}}, "transparency": 0}],
+                "border": vis_border,
+                "visualHeader": [{"background": {"solid": {"color": vis_bg}}, "foreground": {"solid": {"color": c['text-2']}}}],
                 "title": [{"show": True, "fontFamily": font, "fontSize": 12, "bold": True, "fontColor": {"solid": {"color": c['ink']}}, "alignment": "left"}],
-                "plotArea": [{"color": {"solid": {"color": c['plot']}}, "transparency": 0}],
+                "plotArea": [{"color": {"solid": {"color": plot_bg}}, "transparency": 0}],
                 "categoryAxis": [{"gridlineShow": False, "labelColor": {"solid": {"color": c['muted']}}, "fontSize": 9}],
                 "valueAxis": [{"gridlineShow": True, "gridlineColor": {"solid": {"color": c['hair']}}, "labelColor": {"solid": {"color": c['muted']}}, "fontSize": 9}],
                 "legend": [{"position": "Top", "fontSize": 9, "labelColor": {"solid": {"color": c['text-2']}}}]
@@ -114,7 +129,10 @@ def powerbi_theme(t):
         },
         "_notes": [
             f"Fonts: install {font} on authoring and viewing machines, or substitute {t['tools']['powerbi']['fallback']}.",
-            "Use only the first four dataColors for categories (three hues plus gray Other); the rest exist because Power BI needs a longer list. Clay is not a data color.",
+            f"Series: the first {n_cat} dataColors are the category hues in order (the first is the subject)"
+            + (f", the next {len(refs)} are neutral references such as rivals or benchmarks" if refs else "")
+            + ", then gray Other. Keep categories to three hues plus gray; the remaining colors only exist because Power BI needs a longer list."
+            + (" The brand accent is not a data color." if 'accent' in c else ""),
             "Title a visual with the finding (a sentence), put the method in a subtitle, and label line ends instead of showing a legend.",
             "Generated by tools/package.py from tokens.json."
         ]
@@ -142,6 +160,10 @@ def front_matter(t):
     out.append(f"  other: \"{d['other']}\"")
     out.append(f"  comparison: \"{d['comparison']}\"")
     out.append("  categorical_text: [" + ", ".join(f"\"{c.get('text', c['hex'])}\"" for c in d['categorical']) + "]")
+    if d.get('reference'):
+        out.append("  reference: [" + ", ".join(f"\"{c}\"" for c in d['reference']) + "]")
+    if d.get('pair'):
+        out.append("  pair: {" + ", ".join(f"{k}: \"{v}\"" for k, v in d['pair'].items()) + "}")
     out.append("  sequential: [" + ", ".join(f"\"{c}\"" for c in d['sequential']) + "]")
     out.append("  diverging: [" + ", ".join(f"\"{c}\"" for c in d['diverging']) + "]")
     out.append(f"  good: \"{d['status']['good']}\"")
@@ -153,7 +175,8 @@ def front_matter(t):
     out.append("radius: {" + ", ".join(f"{k}: \"{v}\"" for k, v in t['radius'].items()) + "}")
     out.append("spacing: {" + ", ".join(f"{k}: \"{v}\"" for k, v in t['spacing'].items()) + "}")
     out.append("layout: {maxWidth: \"" + t['layout']['maxWidth'] + f"\", columns: {t['layout']['columns']}}}")
-    out.append("files: {tokens: tokens.json, css: tokens.css, tableau: " + t['tools']['tableau']['palettes'] + ", powerbi: " + t['tools']['powerbi']['theme'] + ", prompts: prompt.md}")
+    out.append("files: {tokens: tokens.json, css: tokens.css, tableau: " + t['tools']['tableau']['palettes'] + ", powerbi: " + t['tools']['powerbi']['theme'] + ", prompts: prompt.md"
+               + (", sample_data: " + t['sample']['data'] if t['sample'].get('data') else "") + "}")
     out.append("---")
     return "\n".join(out) + "\n"
 

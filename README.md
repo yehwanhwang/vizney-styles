@@ -11,7 +11,7 @@ Made by [Vizney](https://www.vizney.com), a BI consulting studio in Seoul.
 
 | No. | Style | Feel | Sample | Spec | Files | Post |
 |---|---|---|---|---|---|---|
-| 01 | Anthropic | Ivory, Editorial, Quiet | [Live sample](https://styles.vizney.com/anthropic/) · a publisher's monthly sales report, laid out like a research post (fictional) | [DASHBOARD.md](anthropic/DASHBOARD.md) | [anthropic/](anthropic/) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
+| 01 | Anthropic | Ivory, Editorial, Quiet | [Live sample](https://styles.vizney.com/anthropic/) · a delivery company's monthly operations report, built from the figures Anthropic publishes in launches and research posts, with a code workbench (fictional) | [DASHBOARD.md](anthropic/DASHBOARD.md) | [anthropic/](anthropic/) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
 
 Styles are independent readings of publicly visible design, the way [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) catalogs `DESIGN.md` files. They are not official designs, and they are not affiliated with or endorsed by the companies. A style never carries the company's logo, wordmark, typefaces, images or data; the sample screen uses a fictional business and fictional numbers, and the sample, the spec and the post all say so. If a company asks for its style to be taken down, it comes down. BI vendors (Tableau, Microsoft, Google, Qlik …) are out of scope. Trademarks belong to their owners.
 
@@ -28,7 +28,8 @@ anthropic/
   tokens.css          CSS custom properties for web dashboards
   anthropic.tps       Tableau color palettes (categorical, sequential, diverging)
   powerbi-theme.json  Power BI report theme
-  prompt.md           prompts for new builds, restyles and reviews, plus Tableau and Power BI notes
+  prompt.md           prompts for new builds, restyles, reviews and one reproducible figure, plus Tableau and Power BI notes
+  orders.csv          sample data for the figure the sample's workbench draws (optional per style)
   cover-en.png        1440×810 at 2×: home card, post feature image, link previews
   cover-ko.png
 ```

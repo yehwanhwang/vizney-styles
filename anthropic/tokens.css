@@ -1,61 +1,89 @@
 /* Anthropic style — Ivory, Editorial, Quiet · Vizney Styles 01
    Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
 :root{
-  --canvas:#faf9f5; /* page background (site gray-050) */
-  --card:#f5f4ed; /* cards, pills, tertiary buttons (site gray-100); no border, no shadow */
-  --card-2:#f0eee6; /* secondary panels, segmented-control track (site gray-150) */
-  --plot:#ffffff; /* the white plot panel inside a figure card */
-  --tint:#e4edf8; /* subject column of a table (light periwinkle) */
-  --ink:#141413; /* titles, figures, table rules, primary button, footer, tooltips */
-  --ink-2:#30302e; /* card descriptions, secondary button text */
+  --canvas:#faf9f5; /* page background; also the paper inside a bordered launch figure (site gray-050) */
+  --card:#f5f4ed; /* pills, tertiary buttons, chips (site gray-100) */
+  --card-2:#f0eee6; /* the 'For reference' column of a comparison table (site gray-150) */
+  --card-3:#ebe9e0; /* related-report cards, 16px radius */
+  --mat:#e7e7db; /* research figure mat (8px radius) behind a figure panel */
+  --panel:#fbf9f5; /* figure panel inside a mat, 16px radius */
+  --plot:#ffffff; /* code workbench window and the plot inside it */
+  --cloud:#c5d3e0; /* mat behind the code workbench (the product-page backdrop) */
+  --ink:#141413; /* titles, figure frames and axes, table rules, primary button, footer, tooltips */
+  --ink-2:#30302e; /* code, secondary button text */
   --body:#3d3d3a; /* running text, primary button hover */
-  --text-2:#5e5d59; /* labels, captions, notes, meta values, end-label values */
-  --text-3:#73726c; /* spare gray step */
-  --muted:#87867f; /* figure labels, axis ticks, report id */
-  --cloud:#b0aea5; /* reference and comparison lines (dashed) */
-  --hair:#e8e6dc; /* dividers, pill borders, secondary button fill, gridlines */
-  --hair-2:#dedcd1; /* key–value row rules, baseline, crosshair */
+  --text-2:#5e5d59; /* subtitles, captions, axis ticks and titles, notes (6.3:1 on canvas) */
+  --muted:#73726c; /* the smallest text: section numbers, unselected tabs, mono labels (4.6:1 on canvas) */
+  --mark:#87867f; /* gray marks that are not text: the 'by hand' bar, Other */
+  --grid:#d1cfc5; /* gridlines in bordered figures, cells a rival wins */
+  --hair:#e8e6dc; /* dividers, pill borders, the selected filter pill, light gridlines */
+  --hair-2:#dedcd1; /* card top rules, secondary button and pager borders */
   --on-dark:#faf9f5; /* text on ink */
-  --on-dark-2:#9c9a92; /* secondary text on ink */
-  --accent:#d97757; /* clay — the one brand accent: badges and markers, never a data series */
-  --accent-deep:#c6613f; /* clay interactive: badge text, a clay button if one is needed */
-  --good:#4e7a30; /* favourable change, text only */
-  --bad:#b0453b; /* unfavourable change, text only (site error #bf4d43 darkened one step for 13px text) */
-  --focus:#2c84db; /* focus ring (site --color-focus) */
-  --cat-1:#4f86c4; /* sky */
-  --cat-1-text:#2e6cae; /* sky for labels and text */
-  --cat-2:#b8456e; /* fig */
-  --cat-2-text:#a63c62; /* fig for labels and text */
-  --cat-3:#a8862a; /* amber */
-  --cat-3-text:#80661a; /* amber for labels and text */
-  --cat-other:#8f8d86;
+  --on-dark-2:#b0aea5; /* secondary text on ink, tooltip labels */
+  --accent:#d97757; /* clay, the brand accent: the 3px outline of the subject column in a comparison table. Never a data series */
+  --accent-deep:#c6613f; /* clay for text or a clay control if one is ever needed */
+  --peach:#ebc9b7; /* cells where the subject wins in a comparison table */
+  --good:#4a7b00; /* favourable change, text only (4.8:1 on canvas) */
+  --bad:#b0453b; /* unfavourable change, text only (5.3:1 on canvas) */
+  --focus:#2c84db; /* focus ring (the site's --color-focus) */
+  --cat-1:#eb6834; /* orange · the subject */
+  --cat-1-text:#b94a1c; /* orange · the subject for labels and text */
+  --cat-2:#1baf7a; /* aqua · our own past */
+  --cat-2-text:#008056; /* aqua · our own past for labels and text */
+  --cat-3:#6150d3; /* violet */
+  --cat-3-text:#6150d3; /* violet for labels and text */
+  --cat-other:#87867f;
   --comparison:#b0aea5;
-  --seq-1:#8ab5e6;
-  --seq-2:#5b97db;
-  --seq-3:#367ac2;
-  --seq-4:#215e9d;
-  --seq-5:#1d446e;
-  --div-1:#225994;
-  --div-2:#5078a7;
-  --div-3:#7b97b9;
-  --div-4:#b8b5aa;
-  --div-5:#bf8091;
-  --div-6:#ac5571;
-  --div-7:#972552;
+  --ref-1:#73726c; /* reference series (rivals, benchmarks): neutral on purpose */
+  --ref-2:#c2c0b6; /* reference series (rivals, benchmarks): neutral on purpose */
+  --pair-before:#6150d3;
+  --pair-after:#4a7b00;
+  --pair-track:#dad9d1;
+  --mark-tried:#a2a09c;
+  --mark-rejected:#8e8c88;
+  --mark-grid-panel:#e3e2d8;
+  --mark-grid-frame:#e5e3dc;
+  --seq-1:#7db2f0;
+  --seq-2:#4f90dc;
+  --seq-3:#2f74c2;
+  --seq-4:#1a5ba0;
+  --seq-5:#16416f;
+  --div-1:#aa4518;
+  --div-2:#dc6c40;
+  --div-3:#eb9574;
+  --div-4:#d1cfc5;
+  --div-5:#7db2f0;
+  --div-6:#4f90dc;
+  --div-7:#1a64b0;
   --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
   --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-figure:0;
+  --radius-mat:8px;
+  --radius-panel:16px;
   --radius-card:16px;
-  --radius-plot:12px;
+  --radius-window:12px;
   --radius-button:10px;
+  --radius-button-sm:8px;
   --radius-pill:999px;
-  --radius-tooltip:8px;
-  --radius-badge:4px;
+  --radius-tooltip:6px;
+  --radius-chip:6px;
   --space-page:32px;
   --space-gap:16px;
-  --space-card:28px;
-  --space-row:10px 0;
-  --space-footer:26px 32px 28px;
+  --space-row:44px;
+  --space-figure:16px 18px;
+  --space-mat:26px 28px 28px;
+  --space-panel:22px 24px 18px;
+  --space-cell:10px 12px;
+  --space-footer:28px 32px 32px;
   --ease:cubic-bezier(.165,.84,.44,1);
+  --code-comment:#6b6a64;
+  --code-string:#3f7d1a;
+  --code-number:#1a64b0;
+  --code-keyword:#ad502d;
+  --code-function:#6150d3;
+  --code-property:#30302e;
+  --code-line-number:#b8b6ae;
+  --code-highlight:#fdf5f0;
 }
 html[lang="ko"]{--font-sans:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--font-serif:'Noto Serif KR','AppleMyungjo','Batang',serif}
