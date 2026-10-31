@@ -62,7 +62,7 @@
           {
             "color": {
               "solid": {
-                "color": "#faf9f5"
+                "color": "#f5f4ed"
               }
             },
             "transparency": 0
@@ -70,20 +70,14 @@
         ],
         "border": [
           {
-            "show": true,
-            "color": {
-              "solid": {
-                "color": "#141413"
-              }
-            },
-            "radius": 0
+            "show": false
           }
         ],
         "visualHeader": [
           {
             "background": {
               "solid": {
-                "color": "#faf9f5"
+                "color": "#f5f4ed"
               }
             },
             "foreground": {
@@ -111,7 +105,7 @@
           {
             "color": {
               "solid": {
-                "color": "#faf9f5"
+                "color": "#f5f4ed"
               }
             },
             "transparency": 0
