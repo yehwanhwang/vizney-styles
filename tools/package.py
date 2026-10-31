@@ -12,7 +12,9 @@ Reads <name>/tokens.json, the single source of the style's tokens, and writes ne
     <name>-dashboard-style.zip
                         what a project needs, laid out to unzip in its root: DASHBOARD.md and
                         .claude/skills/dashboard-style/ (SKILL.md, tokens.css, tokens.json, <name>.tps,
-                        powerbi-theme.json, prompt.md). install.sh at the repository root places the same files.
+                        powerbi-theme.json, prompt.md). install.sh at the repository root and the npm CLI
+                        (npm/, `npx vizney-styles add <name>`) place the same files.
+    ../catalog.json     the style's entry in the catalog the CLI lists
 
 Run it after every change to tokens.json, DASHBOARD.md or prompt.md, so the files never drift apart.
 """
@@ -213,6 +215,15 @@ def write_zip(folder, t):
             z.writestr(info, src.read_bytes())
 
 
+def update_catalog(t):
+    """catalog.json at the repository root lists every style for `npx vizney-styles list`."""
+    path = ROOT / 'catalog.json'
+    cat = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {"styles": []}
+    entry = {"number": t['number'], "slug": t['slug'], "name": t['name'], "words": t['words']['en'], "words_ko": t['words']['ko'], "sample": t['sample']['url']}
+    cat['styles'] = sorted([s for s in cat['styles'] if s['slug'] != t['slug']] + [entry], key=lambda s: s['number'])
+    path.write_text(json.dumps(cat, indent=2, ensure_ascii=False) + "\n", encoding='utf-8')
+
+
 def main():
     if len(sys.argv) != 2:
         sys.exit(__doc__)
@@ -234,6 +245,7 @@ def main():
     (folder / 'skill').mkdir(exist_ok=True)
     (folder / 'skill' / 'SKILL.md').write_text(skill_md(t), encoding='utf-8')
     write_zip(folder, t)
+    update_catalog(t)
     print(f"{t['slug']}: tokens.css, {t['slug']}.tps, powerbi-theme.json, DASHBOARD.md front matter, skill/SKILL.md, {t['slug']}-dashboard-style.zip")
 
 

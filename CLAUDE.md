@@ -127,3 +127,4 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - `lib/embed.js`, `lib/embed-host.js`는 발행된 포스트가 쓰므로 이전 동작과 호환되게 고친다.
 - 생성 파일(`tokens.css`, `.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, `skill/SKILL.md`, zip)은 손으로 고치지 않고 `tokens.json`(스킬은 `tools/skill.md`)을 고친 뒤 `package.py`를 돌린다.
 - `install.sh`는 발행된 포스트와 명세가 안내하는 명령이므로 주소와 인자(`sh -s -- <name>`), 설치 위치를 바꾸지 않는다.
+- npm CLI(`npm/`, `npx vizney-styles add <name>`)도 같은 파일을 같은 자리에 둔다. 저장소의 `main`에서 파일을 읽으므로 스타일을 더하거나 고칠 때는 npm을 다시 배포하지 않는다(`package.py`가 `catalog.json`을 고친다). CLI 자체를 고칠 때만 `npm/package.json`의 버전을 올리고 'Publish npm package' 워크플로를 돌린다(저장소 시크릿 `NPM_TOKEN` 필요).
