@@ -2,7 +2,7 @@
 
 이 저장소는 styles.vizney.com(GitHub Pages, `main` 브랜치)으로 배포된다. 기업의 공개 웹사이트에서 읽어 낸 룩을 대시보드용 명세 **DASHBOARD.md**로 만들어 카탈로그에 쌓고, 같은 패키지를 기업에 비공개로 만들어 주는 것이 사업이다. 대상은 기업(해외 중심, 국내 포함)이고, 블로그(kr.vizney.com, www.vizney.com)의 Gallery 포스트로 소개한다. 목적은 실제 데이터 분석이 아니라, AI 코딩 에이전트·Tableau·Power BI가 그대로 따를 수 있는 '우리 회사 대시보드 룩'을 전달하는 것이다.
 
-**한 브랜드에 패키지 하나.** `<name>/` 폴더에 DASHBOARD.md, 참고 화면(`index.html`), 토큰 원본(`tokens.json`)과 거기서 생성한 `tokens.css`·`<name>.tps`·`powerbi-theme.json`, 프롬프트(`prompt.md`), 만드는 법 섹션이 그리는 그림의 데이터(예: `orders.csv`), 커버(`cover-en.png`, `cover-ko.png`)가 들어간다. 명세로 적은 것, 화면에서 보이는 것, 도구 파일의 값이 모두 같아야 한다.
+**한 브랜드에 패키지 하나.** `<name>/` 폴더에 DASHBOARD.md, 참고 화면(`index.html`), 토큰 원본(`tokens.json`)과 거기서 생성한 `tokens.css`·`<name>.tps`·`powerbi-theme.json`, 프롬프트(`prompt.md`), 에이전트 스킬(`skill/SKILL.md`, `tools/skill.md`에서 생성)과 설치용 zip(`<name>-dashboard-style.zip`), 만드는 법 섹션이 그리는 그림의 데이터(예: `orders.csv`), 커버(`cover-en.png`, `cover-ko.png`)가 들어간다. 사람들은 `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- <name>`(루트의 `install.sh`)이나 zip으로 자기 프로젝트에 넣는다: 루트에 DASHBOARD.md, `.claude/skills/dashboard-style/`에 스킬과 도구 파일. 명세로 적은 것, 화면에서 보이는 것, 도구 파일의 값이 모두 같아야 한다.
 
 
 ## 핵심 약속: AI 대시보드가 어색한 이유 8가지
@@ -28,7 +28,7 @@
 5. **세 단어:** 부제는 세 단어다. 단어마다 첫 글자를 대문자로 쓰고 쉼표로 이으며 마침표는 붙이지 않는다("Ivory, Editorial, Quiet" · "아이보리, 에디토리얼, 고요함"). 한두 단어는 사람들이 검색하는 말, 하나는 분위기 단어로 고르고, 다른 스타일과 겹치지 않는 단어를 하나 이상 넣는다. 영어와 한국어는 직역하지 않는다. 해시태그는 SNS 캡션에만 쓴다.
 6. **구현:** 아래 '화면 규칙'대로 `<name>/index.html`을 만든다.
 7. **검증:** 아래 '검증'을 모두 통과시킨다.
-8. **명세와 패키지:** `tokens.json`을 쓰고 `python3 tools/package.py <name>`으로 `tokens.css`, `<name>.tps`, `powerbi-theme.json`, DASHBOARD.md 머리를 만든다. DASHBOARD.md 본문과 `prompt.md`를 쓴다(아래 '명세 형식').
+8. **명세와 패키지:** `tokens.json`을 쓰고 DASHBOARD.md 본문과 `prompt.md`를 쓴 뒤(아래 '명세 형식') `python3 tools/package.py <name>`으로 `tokens.css`, `<name>.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, `skill/SKILL.md`, 설치용 zip을 만든다. 명세나 프롬프트를 고칠 때마다 다시 돌린다(zip이 그 파일들을 담는다).
 9. **커버:** `python3 tools/shots.py <name>`으로 `cover-en.png`, `cover-ko.png`(1440×810, 2배)를 만든다. 홈 카드, 포스트 대표 이미지, 링크 미리보기에 쓴다.
 10. **README와 홈:** README의 Catalog 표에 행을 추가하고, 홈(`index.html`)에 카드를 넣는다(아래 '홈 페이지').
 11. **배포:** 작업 브랜치 → 커밋 → PR → 머지. GitHub Actions의 'pages build and deployment'가 성공했는지로 배포를 확인한다. `main`에 올라간 것은 바로 공개된다.
@@ -125,4 +125,5 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 
 - 공개된 스타일의 폴더 이름은 바꾸지 않는다(포스트 임베드가 깨진다). 고칠 때는 같은 주소에서 고치고 이력은 Git이 보관한다.
 - `lib/embed.js`, `lib/embed-host.js`는 발행된 포스트가 쓰므로 이전 동작과 호환되게 고친다.
-- 생성 파일(`tokens.css`, `.tps`, `powerbi-theme.json`, DASHBOARD.md 머리)은 손으로 고치지 않고 `tokens.json`을 고친 뒤 `package.py`를 돌린다.
+- 생성 파일(`tokens.css`, `.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, `skill/SKILL.md`, zip)은 손으로 고치지 않고 `tokens.json`(스킬은 `tools/skill.md`)을 고친 뒤 `package.py`를 돌린다.
+- `install.sh`는 발행된 포스트와 명세가 안내하는 명령이므로 주소와 인자(`sh -s -- <name>`), 설치 위치를 바꾸지 않는다.
