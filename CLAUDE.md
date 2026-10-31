@@ -21,17 +21,18 @@
 
 ## 새 브랜드를 만드는 순서
 
-1. **읽기:** 공개된 사이트의 실제 CSS 토큰(색, 서체 크기, 간격, 모서리)을 브라우저로 읽는다. 추정값보다 실제 값을 우선한다. 브랜드의 포인트 색 하나와 회색 사다리를 그대로 쓴다. 로고, 워드마크, 심벌, 자체 서체(오픈 서체로 대체), 사진·일러스트, 실제 문구와 데이터는 가져오지 않는다.
-2. **데이터 색 설계:** 포인트 색에서 범주(최대 3 + 회색 기타), 비교(회색 점선), 순차(5단계), 발산(7단계), 상태(좋음·나쁨) 색을 만들고, dataviz 스킬의 `validate_palette.js`로 카드 면 기준 검사를 통과시킨다(범주는 기본, 순차·발산 팔은 `--ordinal`). 결과와 수치를 `tokens.json`의 `data.validation`에 적는다.
-3. **샘플 설계:** 가상 회사와 가상 데이터로, 그 회사 제품 화면처럼 읽히지 않는 업무 보고 하나를 정한다(예: 출판사 판매 보고). 합계·비율·증감이 서로 맞는지 Python으로 검산하고, 필터의 모든 선택지마다 모든 카드의 숫자가 맞아야 한다. 키 컬러·서체·사진 자리는 따로 설명하는 판 없이 데이터 카드 안에 녹인다(예: 천 색상별 부수, 인쇄 예정 도서의 조판, 색 블록 표지). 사진은 쓰지 않고 색 블록을 쓴다.
-4. **세 단어:** 부제는 세 단어다. 단어마다 첫 글자를 대문자로 쓰고 쉼표로 이으며 마침표는 붙이지 않는다("Ivory, Editorial, Quiet" · "아이보리, 에디토리얼, 고요함"). 한두 단어는 사람들이 검색하는 말, 하나는 분위기 단어로 고르고, 다른 스타일과 겹치지 않는 단어를 하나 이상 넣는다. 영어와 한국어는 직역하지 않는다. 해시태그는 SNS 캡션에만 쓴다.
-5. **구현:** 아래 '화면 규칙'대로 `<name>/index.html`을 만든다.
-6. **검증:** 아래 '검증'을 모두 통과시킨다.
-7. **명세와 패키지:** `tokens.json`을 쓰고 `python3 tools/package.py <name>`으로 `tokens.css`, `<name>.tps`, `powerbi-theme.json`, DASHBOARD.md 머리를 만든다. DASHBOARD.md 본문과 `prompt.md`를 쓴다(아래 '명세 형식').
-8. **커버:** `python3 tools/shots.py <name>`으로 `cover-en.png`, `cover-ko.png`(1440×810, 2배)를 만든다. 홈 카드, 포스트 대표 이미지, 링크 미리보기에 쓴다.
-9. **README와 홈:** README의 Catalog 표에 행을 추가하고, 홈(`index.html`)에 카드를 넣는다(아래 '홈 페이지').
-10. **배포:** 작업 브랜치 → 커밋 → PR → 머지. GitHub Actions의 'pages build and deployment'가 성공했는지로 배포를 확인한다. `main`에 올라간 것은 바로 공개된다.
-11. **포스트 초안:** 아래 '포스트 형식'으로 한국어·영어 전문과 SNS 캡션을 대화창에 바로 준다(Claude Docs는 쓰지 않는다).
+1. **읽기:** 공개된 사이트의 실제 CSS 토큰(색, 서체 크기, 간격, 모서리)을 브라우저로 읽는다(연결된 컴퓨터의 내장 브라우저에서 `getComputedStyle`로 계산값을 뽑는다). 추정값보다 실제 값을 우선한다. 브랜드의 포인트 색 하나와 회색 사다리를 그대로 쓴다. 로고, 워드마크, 심벌, 자체 서체(오픈 서체로 대체), 사진·일러스트, 실제 문구와 데이터는 가져오지 않는다.
+2. **패턴 인벤토리:** 토큰만으로는 색과 서체만 입힌 템플릿이 된다. 기업이 **즐겨 쓰는 구성과 부품**을 페이지에서 읽어 목록으로 적는다: 머리 구조, 버튼 종류(모양·높이·채움·호버), 카드 해부(눈썹 → 제목 → 문장 → 행 → 버튼), 표(괘선, 주인공 열, 그룹 행, 결측 표기), 숫자·날짜 표기, 리스트 페이지의 카운터와 정렬 UI, 툴팁·배지·세그먼트. 그 기업이 **차트를 발행하면**(리서치·IR·블로그·발표 자료) 그 차트 문법(제목 쓰는 법, 캡션, 색, 선 끝 라벨, 기준선, 격자)이 일반 규칙보다 우선한다. 한국어 페이지가 있으면 거기서 쓰는 한국어 서체를 쓴다. 화면 구성은 '화면 규칙'의 기본 틀이 아니라 이 인벤토리의 부품으로 짠다. 기본 틀은 인벤토리가 빈약할 때의 폴백이다.
+3. **데이터 색 설계:** 브랜드가 차트에 쓰는 색상군이 있으면 그 색상군에서, 없으면 포인트 색과 보조 스와치에서 범주(최대 3 + 회색 기타), 비교(회색 점선), 순차(5단계), 발산(7단계), 상태(좋음·나쁨) 색을 만들고, dataviz 스킬의 `validate_palette.js`로 플롯 면과 카드 면 기준 검사를 통과시킨다(범주는 기본, 순차·발산 팔은 `--ordinal`). 대표색은 데이터 색으로 쓰지 않는다(약속 1). 선 끝 라벨처럼 글자에 쓰는 색은 같은 색상군의 더 짙은 단계로 4.5:1을 맞춘다. 결과와 수치를 `tokens.json`의 `data.validation`에 적는다.
+4. **샘플 설계:** 가상 회사와 가상 데이터로, 그 회사 제품 화면처럼 읽히지 않는 업무 보고 하나를 정한다(예: 출판사 판매 보고). 합계·비율·증감이 서로 맞는지 Python으로 검산하고, 필터의 모든 선택지마다 모든 카드의 숫자가 맞아야 한다. 토큰을 보여 주려고 끼워 넣는 카드(색상표, 서체 견본)는 만들지 않는다. 모든 카드는 보고서에 필요한 내용이어야 하고, 스타일은 부품과 문법으로 드러난다. 사진은 쓰지 않고 색 블록을 쓴다.
+5. **세 단어:** 부제는 세 단어다. 단어마다 첫 글자를 대문자로 쓰고 쉼표로 이으며 마침표는 붙이지 않는다("Ivory, Editorial, Quiet" · "아이보리, 에디토리얼, 고요함"). 한두 단어는 사람들이 검색하는 말, 하나는 분위기 단어로 고르고, 다른 스타일과 겹치지 않는 단어를 하나 이상 넣는다. 영어와 한국어는 직역하지 않는다. 해시태그는 SNS 캡션에만 쓴다.
+6. **구현:** 아래 '화면 규칙'대로 `<name>/index.html`을 만든다.
+7. **검증:** 아래 '검증'을 모두 통과시킨다.
+8. **명세와 패키지:** `tokens.json`을 쓰고 `python3 tools/package.py <name>`으로 `tokens.css`, `<name>.tps`, `powerbi-theme.json`, DASHBOARD.md 머리를 만든다. DASHBOARD.md 본문과 `prompt.md`를 쓴다(아래 '명세 형식').
+9. **커버:** `python3 tools/shots.py <name>`으로 `cover-en.png`, `cover-ko.png`(1440×810, 2배)를 만든다. 홈 카드, 포스트 대표 이미지, 링크 미리보기에 쓴다.
+10. **README와 홈:** README의 Catalog 표에 행을 추가하고, 홈(`index.html`)에 카드를 넣는다(아래 '홈 페이지').
+11. **배포:** 작업 브랜치 → 커밋 → PR → 머지. GitHub Actions의 'pages build and deployment'가 성공했는지로 배포를 확인한다. `main`에 올라간 것은 바로 공개된다.
+12. **포스트 초안:** 아래 '포스트 형식'으로 한국어·영어 전문과 SNS 캡션을 대화창에 바로 준다(Claude Docs는 쓰지 않는다).
 
 번호는 공개 순서대로 하나로 매긴다(01 Anthropic). 요청은 GitHub 이슈 템플릿(`.github/ISSUE_TEMPLATE/request.yml`)으로 받고 👍 투표 순으로 고른다. BI 벤더(Tableau, Microsoft, Google, Qlik 등)와 그 계열사의 스타일은 만들지 않는다. 해당 기업이 요청하면 폴더와 포스트를 내린다.
 
@@ -43,15 +44,15 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 
 ## 화면 규칙
 
-- **가로형 실제 업무 대시보드**다. 최대 폭 1400px(여백 32px, 1359px 이하 24px, 639px 이하 16px). 앱 머리(가상 회사 이름과 보고서 이름, 기간 알약, KO/EN 토글, 잉크 알약 하나) → 필터 한 줄 → 결과를 말하는 머리 문장 → 12열 그리드(KPI 4장, 추세 7 + 목록 5, 스타일을 담는 카드 3장) → 상세 표 띠 → 바닥(카탈로그 줄 `Vizney Styles · 01 · Anthropic style Ivory, Editorial, Quiet`, 샘플 안내, 고지). 이 구성은 기본값이고, 브랜드의 룩이 요구하면 바꾸되 '핵심 약속'을 지킨다.
+- **가로형 실제 업무 대시보드**다. 최대 폭 1400px(여백 32px, 1359px 이하 24px, 639px 이하 16px). 구성은 패턴 인벤토리에서 고른 부품으로 짜되 늘 들어가는 것이 있다: 머리(가상 회사 이름과 보고서 이름, 기간, KO/EN 토글), 필터 한 줄(아래 모든 카드에 적용), 결과를 말하는 머리 문장, 그 근거인 카드들, 상세 표, 바닥(카탈로그 줄 `Vizney Styles · 01 · Anthropic style Ivory, Editorial, Quiet`, 샘플 안내, 고지). 인벤토리가 빈약한 브랜드의 폴백 틀은 12열 그리드(KPI 4장, 추세 7 + 목록 5, 카드 3장) → 상세 표다. 예: Anthropic은 리서치 글의 문법(메타 행 → 런인 문장 → 절 내비 → Key findings → 결과를 말하는 제목의 figure와 Note 캡션 → 잉크 괘선 표 → 주석 → 잉크 바닥)으로 짰다.
 - HTML 파일 하나로 완결한다(데이터 포함). 외부에서 불러오는 것은 글꼴뿐이다(Google Fonts와 jsDelivr만).
-- 서체: 본문 서체는 언어마다 하나(영어 라틴 서체, 한국어 Pretendard). 디스플레이 서체를 쓰면 언어마다 하나씩(예: Source Serif 4 · Noto Serif KR). 숫자용 고정폭은 스타일의 특징일 때만. 화면에 서체 이름을 보여 줄 때도 그 언어의 서체만 쓴다.
+- 서체: 본문 서체는 언어마다 하나. 영어는 브랜드 서체를 대신할 오픈 라틴 서체, 한국어는 브랜드의 한국어 페이지가 쓰는 서체(없으면 Pretendard). 디스플레이 서체를 쓰면 언어마다 하나씩(예: Source Serif 4 · Noto Serif KR). 숫자용 고정폭은 스타일의 특징일 때만. 화면에 서체 이름을 보여 줄 때도 그 언어의 서체만 쓴다.
 - `<head>`에 robots, 글꼴 링크, embed.js를 넣는다:
 
   ```html
   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap">
+  <!-- 한국어 서체가 Pretendard일 때: https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css -->
   <script src="/lib/embed.js" defer></script>
   ```
 
