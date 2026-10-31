@@ -8,11 +8,17 @@ Reads <name>/tokens.json, the single source of the style's tokens, and writes ne
     <name>.tps          Tableau color palettes (categorical, sequential, diverging); import via Preferences.tps
     powerbi-theme.json  Power BI report theme (data colors, surfaces, text classes)
     DASHBOARD.md        only the YAML front matter between the first two '---' lines is rewritten; the body stays
+    skill/SKILL.md      the dashboard-style agent skill (Build · Restyle · Review), from tools/skill.md
+    <name>-dashboard-style.zip
+                        what a project needs, laid out to unzip in its root: DASHBOARD.md and
+                        .claude/skills/dashboard-style/ (SKILL.md, tokens.css, tokens.json, <name>.tps,
+                        powerbi-theme.json, prompt.md). install.sh at the repository root places the same files.
 
-Run it after every change to tokens.json, so the four files never drift apart.
+Run it after every change to tokens.json, DASHBOARD.md or prompt.md, so the files never drift apart.
 """
 import json
 import sys
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -181,6 +187,32 @@ def front_matter(t):
     return "\n".join(out) + "\n"
 
 
+SKILL_FILES = ('tokens.css', 'tokens.json', '{slug}.tps', 'powerbi-theme.json', 'prompt.md')
+
+
+def skill_md(t):
+    brand = t['name'].removesuffix(' style')
+    sites = ", ".join(u.split('//')[-1].strip('/') for u in t['source'])
+    disclaimer = (f"Not an official {brand} design and not affiliated with or endorsed by {brand}; a reference style read from "
+                  f"the public websites {sites}, with no logo, typeface or data of theirs. Trademarks belong to their owners.")
+    text = (ROOT / 'tools' / 'skill.md').read_text(encoding='utf-8')
+    for k, v in {'__STYLE__': t['name'], '__WORDS__': t['words']['en'], '__SLUG__': t['slug'], '__DISCLAIMER__': disclaimer}.items():
+        text = text.replace(k, v)
+    return text
+
+
+def write_zip(folder, t):
+    """Deterministic zip (fixed dates and modes), so it only changes when a file in it changes."""
+    entries = [('DASHBOARD.md', folder / 'DASHBOARD.md'), ('.claude/skills/dashboard-style/SKILL.md', folder / 'skill' / 'SKILL.md')]
+    entries += [(f".claude/skills/dashboard-style/{f.format(slug=t['slug'])}", folder / f.format(slug=t['slug'])) for f in SKILL_FILES]
+    with zipfile.ZipFile(folder / f"{t['slug']}-dashboard-style.zip", 'w', zipfile.ZIP_DEFLATED) as z:
+        for arc, src in entries:
+            info = zipfile.ZipInfo(arc, date_time=(2026, 1, 1, 0, 0, 0))
+            info.external_attr = 0o644 << 16
+            info.compress_type = zipfile.ZIP_DEFLATED
+            z.writestr(info, src.read_bytes())
+
+
 def main():
     if len(sys.argv) != 2:
         sys.exit(__doc__)
@@ -199,7 +231,10 @@ def main():
         else:
             body = text
     md.write_text(front_matter(t) + "\n" + body, encoding='utf-8')
-    print(f"{t['slug']}: tokens.css, {t['slug']}.tps, powerbi-theme.json, DASHBOARD.md front matter")
+    (folder / 'skill').mkdir(exist_ok=True)
+    (folder / 'skill' / 'SKILL.md').write_text(skill_md(t), encoding='utf-8')
+    write_zip(folder, t)
+    print(f"{t['slug']}: tokens.css, {t['slug']}.tps, powerbi-theme.json, DASHBOARD.md front matter, skill/SKILL.md, {t['slug']}-dashboard-style.zip")
 
 
 if __name__ == '__main__':

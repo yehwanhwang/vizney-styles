@@ -1,6 +1,12 @@
 # Prompt pack — Anthropic style
 
-Put `DASHBOARD.md` (and `tokens.css`) in your project folder and add one line to your agent's instructions file (for example `CLAUDE.md`): `Build every dashboard to DASHBOARD.md and run its checks before you finish.` Then use one of these. They are written for coding agents such as Claude Code, Cursor and Codex, and for BI agents that read the same folder; the Tableau and Power BI notes are for people. Prompt 5 reproduces Figure 2 of the live sample from `orders.csv`, which makes a quick test of an agent or a tool.
+Install the style in your project first:
+
+```
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic
+```
+
+or unzip `anthropic-dashboard-style.zip` in the project root. Agents that read skills then load `dashboard-style` by themselves; prompts 1–4 are the same three modes (build, restyle, review) written out, so they also work for agents without skills. Then use one of these. They are written for coding agents such as Claude Code, Cursor and Codex, and for BI agents that read the same folder; the Tableau and Power BI notes are for people. Prompt 5 reproduces Figure 2 of the live sample from `orders.csv`, which makes a quick test of an agent or a tool.
 
 ## 1. A new dashboard (English)
 

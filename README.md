@@ -29,6 +29,9 @@ anthropic/
   anthropic.tps       Tableau color palettes (categorical, sequential, diverging)
   powerbi-theme.json  Power BI report theme
   prompt.md           prompts for new builds, restyles, reviews and one reproducible figure, plus Tableau and Power BI notes
+  skill/SKILL.md      the dashboard-style agent skill (build, restyle, review), generated from tools/skill.md
+  anthropic-dashboard-style.zip
+                      DASHBOARD.md and .claude/skills/dashboard-style/ with the tool files, to unzip in a project root
   orders.csv          sample data for the figure the sample's workbench draws (optional per style)
   cover-en.png        1440×810 at 2×: home card, post feature image, link previews
   cover-ko.png
@@ -56,7 +59,14 @@ The file follows the `DESIGN.md` convention (front matter tokens, then prose sec
 
 ### Using it
 
-- **AI coding agents:** copy `DASHBOARD.md` (and `tokens.css`) into the repository root and ask for the style by name; `prompt.md` has tested prompts.
+- **Install in a project** (run in the project folder):
+
+  ```bash
+  curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic
+  ```
+
+  It writes `DASHBOARD.md` to the project root and the `dashboard-style` skill with `tokens.css`, `tokens.json`, the `.tps`, `powerbi-theme.json` and `prompt.md` to `.claude/skills/dashboard-style/`, and touches nothing else (`FORCE=1` replaces an earlier install). Without a terminal, unzip `<style>-dashboard-style.zip` from the style's page in the project root.
+- **AI coding agents:** agents that read skills load `dashboard-style` whenever a task makes, changes or reviews a dashboard or chart. Others: start the prompt with `Read DASHBOARD.md and follow it exactly.`; `prompt.md` has tested prompts.
 - **Tableau:** paste the `<color-palette>` elements of the `.tps` file into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. The Tool Mapping section lists the formatting settings.
 - **Power BI:** View → Themes → Browse for themes → `powerbi-theme.json`.
 
@@ -78,7 +88,7 @@ The full production checklist used with Claude is in [CLAUDE.md](CLAUDE.md). In 
 
 ```bash
 pip install playwright && python3 -m playwright install chromium
-python3 tools/package.py anthropic                     # tokens.css, anthropic.tps, powerbi-theme.json, DASHBOARD.md front matter
+python3 tools/package.py anthropic                     # tokens.css, anthropic.tps, powerbi-theme.json, DASHBOARD.md front matter, skill/SKILL.md, the zip
 python3 tools/shots.py anthropic                       # cover-en.png, cover-ko.png
 python3 tools/shots.py anthropic --review /tmp/review  # also full pages at 1440, 1200, 1024 and 390px
 python3 tools/shots.py anthropic --offline-fonts /tmp/fonts   # no CDN access: fonts from partial git clones

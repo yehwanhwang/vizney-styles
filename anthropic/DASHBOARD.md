@@ -55,10 +55,17 @@ files: {tokens: tokens.json, css: tokens.css, tableau: anthropic.tps, powerbi: p
 
 **Ivory, Editorial, Quiet** · 아이보리, 에디토리얼, 고요함
 
-A dashboard design spec read from the public design of anthropic.com and claude.com. It takes the sites' measured tokens and the way Anthropic publishes data (the cost-and-score figures and benchmark tables of its model launches, the step charts, error bars, dumbbells and dot-unit surveys of its research posts) and turns them into one card and one chart grammar that a whole dashboard can follow. It then adds what a website spec leaves out and a dashboard needs: validated data colors, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Put it in your project folder as `DASHBOARD.md` (with `tokens.css`) and point your agent to it, or hand it to whoever builds your dashboards. The live sample was built from it.
+A dashboard design spec read from the public design of anthropic.com and claude.com. It takes the sites' measured tokens and the way Anthropic publishes data (the cost-and-score figures and benchmark tables of its model launches, the step charts, error bars, dumbbells and dot-unit surveys of its research posts) and turns them into one card and one chart grammar that a whole dashboard can follow. It then adds what a website spec leaves out and a dashboard needs: validated data colors, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Add it to a project with one command (or the zip on the sample page), or hand it to whoever builds your dashboards. The live sample was built from it.
+
+```
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic
+```
+
+That puts `DASHBOARD.md` in the project root and the `dashboard-style` agent skill (build, restyle, review) in `.claude/skills/dashboard-style/`, together with `tokens.css`, `tokens.json`, `anthropic.tps`, `powerbi-theme.json` and `prompt.md`. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow `DASHBOARD.md`.
 
 - Live sample: https://styles.vizney.com/anthropic/?lang=en (Korean `?lang=ko`; one region `&region=texas`)
 - Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/anthropic/DASHBOARD.md
+- Package: [anthropic-dashboard-style.zip](anthropic-dashboard-style.zip) (unzip in your project root) · the skill: [skill/SKILL.md](skill/SKILL.md)
 - Files in this folder: [tokens.json](tokens.json) (the source of every value here), [tokens.css](tokens.css), [anthropic.tps](anthropic.tps) (Tableau), [powerbi-theme.json](powerbi-theme.json), [prompt.md](prompt.md), [orders.csv](orders.csv) (the data behind the sample's Figure 2)
 - Catalog: https://styles.vizney.com · Vizney Styles 01
 
@@ -286,7 +293,7 @@ Flat. Cards are set apart by color, not by lines or shadows, and never lift on h
 
 ## Tool Mapping
 
-**Web and coding agents.** Load `tokens.css` (or copy the `colors` block from the front matter) and these fonts:
+**Web and coding agents.** Load `tokens.css` (installed in `.claude/skills/dashboard-style/`; or copy the `colors` block from the front matter) and these fonts:
 `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap`
 
 **Tableau.** Paste the `<color-palette>` elements of `anthropic.tps` into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. The categorical palette runs orange, aqua, violet, the two rival grays, Other and the comparison gray; assign the subject first.
@@ -323,7 +330,7 @@ Flat. Cards are set apart by color, not by lines or shadows, and never lift on h
 
 ## Agent Prompt Guide
 
-Put this file in the project folder as `DASHBOARD.md`, with `tokens.css` beside it, and add one line to your agent's instructions file (for example `CLAUDE.md`): `Build every dashboard to DASHBOARD.md and run its checks before you finish.` Then prompt, for example:
+Install the style (`curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic`, or unzip the package in the project root). Agents that read skills load `dashboard-style` on their own and work in one of three modes: **Build** (plan the views, then draw them to this file), **Restyle** (move an existing screen onto this file without changing its data) and **Review** (a table of rule, finding, severity and fix). For an agent without skills, start the prompt with `Read DASHBOARD.md and follow it exactly.` For example:
 
 ```
 Read DASHBOARD.md and follow it exactly. Build our monthly operations dashboard as one self-contained HTML file
