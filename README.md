@@ -11,7 +11,7 @@ Made by [Vizney](https://www.vizney.com), a BI consulting studio in Seoul.
 
 | No. | Style | Feel | Sample | Spec | Files | Post |
 |---|---|---|---|---|---|---|
-| 01 | Anthropic | Ivory, Editorial, Quiet | [Live sample](https://styles.vizney.com/anthropic/) · publisher sales report (fictional) | [DASHBOARD.md](anthropic/DASHBOARD.md) | [anthropic/](anthropic/) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
+| 01 | Anthropic | Ivory, Editorial, Quiet | [Live sample](https://styles.vizney.com/anthropic/) · a publisher's monthly sales report, laid out like a research post (fictional) | [DASHBOARD.md](anthropic/DASHBOARD.md) | [anthropic/](anthropic/) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
 
 Styles are independent readings of publicly visible design, the way [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) catalogs `DESIGN.md` files. They are not official designs, and they are not affiliated with or endorsed by the companies. A style never carries the company's logo, wordmark, typefaces, images or data; the sample screen uses a fictional business and fictional numbers, and the sample, the spec and the post all say so. If a company asks for its style to be taken down, it comes down. BI vendors (Tableau, Microsoft, Google, Qlik …) are out of scope. Trademarks belong to their owners.
 
@@ -64,12 +64,13 @@ The file follows the `DESIGN.md` convention (front matter tokens, then prose sec
 
 The full production checklist used with Claude is in [CLAUDE.md](CLAUDE.md). In short:
 
-1. Read the real CSS tokens of the company's public website (colors, type, spacing, radius). Real values beat estimates.
-2. Design the data colors from the brand's accent and gray ladder and validate them with the dataviz skill's `validate_palette.js`; write them into `tokens.json`.
-3. Build one landscape sample screen (`index.html`): a real business report on a fictional company, English and Korean in one file, filters that apply to every card, tooltips, keyboard control and screen-reader tables.
-4. Write `DASHBOARD.md` and `prompt.md`; run `python3 tools/package.py <name>` to build the tool files and the front matter.
-5. Capture the covers with `python3 tools/shots.py <name>`, add the card to `index.html` and the row above, rebuild the site font (below), open a PR.
-6. Publish the blog post at `style-<name>` on both sites.
+1. Read the real CSS tokens of the company's public website (colors, type, spacing, radius) with a browser. Real values beat estimates.
+2. Write a pattern inventory: the compositions and components the company actually uses — header, button variants, card anatomy, tables, number and date notation, list-page controls — and, if the company publishes charts (research, IR, blog), its chart grammar. The sample is composed from this inventory, not from a template.
+3. Design the data colors from the family the brand uses in its own charts (or its accent and secondary swatches) and validate them with the dataviz skill's `validate_palette.js`; the brand accent itself is never a data color. Write them into `tokens.json`.
+4. Build one landscape sample screen (`index.html`): a real business report on a fictional company, English and Korean in one file, filters that apply to every card, tooltips, keyboard control and screen-reader tables.
+5. Write `DASHBOARD.md` and `prompt.md`; run `python3 tools/package.py <name>` to build the tool files and the front matter.
+6. Capture the covers with `python3 tools/shots.py <name>`, add the card to `index.html` and the row above, rebuild the site font (below), open a PR.
+7. Publish the blog post at `style-<name>` on both sites.
 
 
 ## Tools
@@ -82,7 +83,7 @@ python3 tools/shots.py anthropic --review /tmp/review  # also full pages at 1440
 python3 tools/shots.py anthropic --offline-fonts /tmp/fonts   # no CDN access: fonts from partial git clones
 ```
 
-With `--offline-fonts`, font requests are answered from partial clones made on first use: jsDelivr GitHub fonts (Pretendard) from their repositories, Google Fonts from [fontsource/font-files](https://github.com/fontsource/font-files), using the variable font when a link asks for an axis range such as optical size.
+With `--offline-fonts`, font requests are answered from partial clones made on first use: jsDelivr GitHub fonts (Pretendard, when a style uses it) from their repositories, Google Fonts from [fontsource/font-files](https://github.com/fontsource/font-files), using the variable font when a link asks for an axis range such as optical size.
 
 ### Site font
 

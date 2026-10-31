@@ -4,27 +4,27 @@
 <workbook>
   <preferences>
     <color-palette name="Anthropic style — Categorical" type="regular">
-      <color>#d97757</color>
-      <color>#6953a0</color>
-      <color>#0d9298</color>
+      <color>#4f86c4</color>
+      <color>#b8456e</color>
+      <color>#a8862a</color>
       <color>#8f8d86</color>
-      <color>#73726c</color>
+      <color>#b0aea5</color>
     </color-palette>
     <color-palette name="Anthropic style — Sequential" type="ordered-sequential">
-      <color>#e79176</color>
-      <color>#d47150</color>
-      <color>#ba5432</color>
-      <color>#9b3d1d</color>
-      <color>#782d12</color>
+      <color>#8ab5e6</color>
+      <color>#5b97db</color>
+      <color>#367ac2</color>
+      <color>#215e9d</color>
+      <color>#1d446e</color>
     </color-palette>
     <color-palette name="Anthropic style — Diverging" type="ordered-diverging">
-      <color>#00636a</color>
-      <color>#00797f</color>
-      <color>#469094</color>
-      <color>#9f9b93</color>
-      <color>#b26e58</color>
-      <color>#a14e33</color>
-      <color>#8f2c01</color>
+      <color>#225994</color>
+      <color>#5078a7</color>
+      <color>#7b97b9</color>
+      <color>#b8b5aa</color>
+      <color>#bf8091</color>
+      <color>#ac5571</color>
+      <color>#972552</color>
     </color-palette>
   </preferences>
 </workbook>

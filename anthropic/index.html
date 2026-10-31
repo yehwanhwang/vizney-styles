@@ -5,222 +5,210 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="robots" content="noindex">
-<title>Anthropic style · Publisher sales sample</title>
+<title>Anthropic style · Publisher sales report sample</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+KR:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap">
 <script src="/lib/embed.js" defer></script>
 <style>
   /* Anthropic style (Vizney Styles 01) — Ivory, Editorial, Quiet · 아이보리, 에디토리얼, 고요함
      anthropic.com · claude.com의 공개 디자인에서 읽어 낸 참고용 스타일. 공식 디자인이 아니며 로고·서체·데이터는 쓰지 않는다.
-     가상 출판사(Slow Moon Press)의 월간 판매 보고 화면. DASHBOARD.md의 참고 화면이자 커버(1440×810)의 원본이다.
-     키 컬러는 양장본의 천 색상, 서체는 인쇄 예정 도서의 조판, 사진 자리는 이달의 책 표지(색 블록)에 들어간다. */
+     가상 출판사(Slow Moon Press)의 월간 판매 보고. 앤트로픽이 데이터를 보여 주는 방식(리서치 글: 런인 문장 → Key findings →
+     결과를 말하는 제목의 figure와 Note 캡션 → 잉크 괘선 표 → 주석)을 대시보드로 옮겼다. DASHBOARD.md의 참고 화면이자 커버의 원본. */
   :root{
-    --canvas:#faf9f5; --card:#f0eee6; --card-strong:#e8e6dc; --pill:#f5f4ed;
-    --ink:#141413; --ink-2:#30302e; --body:#3d3d3a; --text-2:#5e5d59; --text-3:#73726c; --muted:#87867f;
-    --hair:#e8e6dc; --hair-2:#dedcd1; --hair-dark:#30302e; --dark-2:#1f1e1d; --on-dark:#faf9f5; --on-dark-2:#9c9a92;
-    --clay:#d97757; --clay-deep:#c46849; --prev:#73726c; --good:#2c6e4f; --bad:#a33d34; --focus:#2c84db;
+    --canvas:#faf9f5; --card:#f5f4ed; --card-2:#f0eee6; --plot:#fff; --tint:#e4edf8;
+    --ink:#141413; --ink-2:#30302e; --body:#3d3d3a; --text-2:#5e5d59; --muted:#87867f; --cloud:#b0aea5;
+    --hair:#e8e6dc; --hair-2:#dedcd1; --grid:#e8e6dc; --on-dark:#faf9f5; --on-dark-2:#9c9a92; --dark-2:#1f1e1d; --hair-dark:#30302e;
+    --sky:#4f86c4; --sky-text:#2e6cae; --fig:#b8456e; --fig-text:#a63c62; --amber:#a8862a; --amber-text:#80661a;
+    --comp:#87867f; --clay:#d97757; --clay-deep:#c6613f; --good:#4e7a30; --bad:#b0453b; --focus:#2c84db;
     --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
     --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
     --ease:cubic-bezier(.165,.84,.44,1);
-    --r:16px; --gap:16px; --pad:24px; --page:32px;
+    --r:16px; --r-sm:10px; --gap:16px; --pad:28px; --page:32px;
   }
-  /* 언어마다 본문 서체 하나, 제목 서체 하나: 영어 Inter · Source Serif 4, 한국어 Pretendard · Noto Serif KR */
+  /* 언어마다 서체 하나씩: 영어 Inter · Source Serif 4, 한국어 Noto Sans KR · Noto Serif KR(브랜드의 한국어 페이지가 쓰는 서체) */
   html[lang="ko"]{
-    --font:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    --font:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
     --serif:'Noto Serif KR','AppleMyungjo','Batang',serif;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
   body{background:var(--canvas);color:var(--body);font-family:var(--font);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
   html[lang="ko"] body{word-break:keep-all}
-  p{margin:0}
+  p,h1,h2,h3,ul,ol,dl{margin:0}
   button{font:inherit;color:inherit}
+  a{color:inherit}
   :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
   .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-  .page{max-width:1400px;margin:0 auto;padding:0 var(--page) 28px}
+  .page{max-width:1400px;margin:0 auto;padding:0 var(--page) 0}
 
-  /* ---------- 앱 머리: 회사 이름(세리프)과 보고서 이름, 기간 알약, 언어, 잉크 알약 하나 ---------- */
-  .head{display:flex;align-items:center;gap:14px;min-height:84px;padding:14px 0}
-  .brand{font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:-.01em;line-height:1.2;color:var(--ink);white-space:nowrap}
-  .brand small{display:block;margin-top:2px;font-family:var(--font);font-size:11.5px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-  html[lang="ko"] .brand small{letter-spacing:.02em}
-  .tools{margin-left:auto;display:flex;align-items:center;gap:10px}
-  .pill{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 13px;border-radius:999px;border:1px solid var(--hair);background:var(--pill);font-size:13px;letter-spacing:.01em;color:var(--body);white-space:nowrap;text-decoration:none}
+  /* ---------- 머리 84px: 회사 이름, 기간 알약, 언어, 버튼 2개(tertiary · primary, 모서리 10px) ---------- */
+  .head{display:flex;align-items:center;gap:12px;min-height:84px;padding:14px 0}
+  .brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+  .brand-n{font-size:16px;font-weight:600;letter-spacing:-.005em;color:var(--ink);white-space:nowrap}
+  .brand-s{font-size:13px;color:var(--text-2);white-space:nowrap}
+  .tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .pill{display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 14px;border-radius:999px;border:1px solid var(--hair);background:var(--card);font-size:13px;letter-spacing:.01em;color:var(--body);white-space:nowrap;text-decoration:none}
   .pill svg{color:var(--muted);flex:none}
-  .pill-ink{background:var(--ink);border-color:var(--ink);color:var(--on-dark);cursor:pointer;transition:background-color .2s var(--ease)}
-  .pill-ink:hover{background:var(--ink-2)}
-  .lang{display:inline-flex;height:32px;padding:3px;border-radius:999px;border:1px solid var(--hair);background:var(--pill)}
-  .lang button{border:0;background:none;padding:0 10px;border-radius:999px;font-size:12px;font-weight:500;letter-spacing:.03em;color:var(--text-2);cursor:pointer}
+  .lang{display:inline-flex;height:28px;padding:3px;border-radius:999px;border:1px solid var(--hair);background:var(--card)}
+  .lang button{border:0;background:none;padding:0 9px;border-radius:999px;font-size:12px;font-weight:500;letter-spacing:.03em;color:var(--text-2);cursor:pointer}
   .lang button[aria-pressed="true"]{background:var(--ink);color:var(--on-dark)}
+  .btn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 18px;border-radius:var(--r-sm);border:1px solid transparent;font-size:14px;font-weight:500;line-height:1;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .22s var(--ease),border-color .22s var(--ease)}
+  .btn svg{width:15px;height:15px;flex:none}
+  .btn-primary{background:var(--ink);border-color:var(--ink);color:var(--on-dark)}
+  .btn-primary:hover{background:var(--body);border-color:var(--body)}
+  .btn-secondary{background:var(--hair);border-color:var(--hair-2);color:var(--ink-2)}
+  .btn-secondary:hover{background:var(--hair-2)}
+  .btn-tertiary{background:var(--card);border-color:var(--hair);color:var(--body)}
+  .btn-tertiary:hover{background:var(--hair)}
 
-  /* ---------- 필터: 아래 모든 카드에 함께 적용 ---------- */
-  .filter{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 16px;padding-top:14px;border-top:1px solid var(--hair)}
+  /* ---------- 필터 한 줄: 알약(사이트 내비와 같은 모양), 모든 그림·표·카드에 적용 ---------- */
+  .filter{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 16px;padding:12px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
   .tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px;margin:-2px}
   .tabs::-webkit-scrollbar{display:none}
-  .tab{flex:none;height:32px;padding:0 14px;border-radius:999px;border:1px solid var(--hair);background:var(--canvas);font-size:13px;color:var(--text-2);cursor:pointer;white-space:nowrap;transition:background-color .2s var(--ease),color .2s var(--ease)}
-  .tab:hover{background:var(--pill);color:var(--ink)}
-  .tab[aria-selected="true"]{background:var(--card-strong);border-color:var(--hair-2);color:var(--ink);font-weight:500}
-  .aside{font-size:12.5px;color:var(--text-2)}
+  .tab{flex:none;height:28px;padding:0 14px;border-radius:999px;border:1px solid var(--hair);background:var(--card);font-size:13px;color:var(--body);cursor:pointer;white-space:nowrap;transition:background-color .22s var(--ease),color .22s var(--ease)}
+  .tab:hover{background:var(--hair)}
+  .tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--on-dark)}
+  .aside{font-size:13px;color:var(--text-2)}
 
-  /* ---------- 문장으로 시작하는 대시보드 ---------- */
-  .lede{padding:36px 0 30px;max-width:1040px}
-  .stmt{margin:0;font-family:var(--serif);font-size:clamp(26px,2.9vw,40px);font-weight:400;line-height:1.28;letter-spacing:-.012em;color:var(--text-2);text-wrap:balance}
-  .stmt b{font-weight:500;color:var(--ink);white-space:nowrap}
-  .lead{margin-top:12px;max-width:72ch;font-size:15.5px;line-height:1.6;color:var(--text-2)}
-  .lead i{font-style:normal;font-family:var(--serif);color:var(--ink)}
-  html[lang="en"] .lead i{font-style:italic}
+  /* ---------- 제목 블록: 메타 행 → 런인 문장(산세리프 굵게 + 세리프) → 절 내비 "(1) Revenue" ---------- */
+  .title{padding:30px 0 22px}
+  .meta{display:flex;flex-wrap:wrap;gap:4px 26px;font-size:13px;letter-spacing:.01em}
+  .meta div{display:flex;gap:6px}
+  .meta dt{color:var(--ink)} .meta dd{margin:0;color:var(--text-2)}
+  .stmt{margin-top:18px;max-width:1120px;font-family:var(--serif);font-size:clamp(23px,2.6vw,36px);font-weight:400;line-height:1.28;letter-spacing:-.01em;color:var(--ink);text-wrap:pretty}
+  .stmt b{font-family:var(--font);font-weight:600;letter-spacing:-.012em}
+  .stmt i{font-style:normal;white-space:nowrap}
+  html[lang="en"] .stmt i{font-style:italic}
+  .secnav{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;margin-top:22px}
+  .secnav ol{display:flex;flex-wrap:wrap;gap:4px 22px;list-style:none;padding:0}
+  .secnav a{font-size:14px;color:var(--ink);text-decoration:none}
+  .secnav a:hover{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--hair-2)}
+  .secnav .n{font-family:var(--mono);font-size:12px;color:var(--muted);margin-right:5px}
+  .rid{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .rid code{margin-left:8px;font-family:var(--mono);font-size:12px;letter-spacing:0;text-transform:none;color:var(--text-2)}
+  html[lang="ko"] .rid{letter-spacing:.04em}
 
-  /* ---------- 카드 ---------- */
-  .grid{display:grid;gap:var(--gap);grid-template-columns:repeat(12,minmax(0,1fr));grid-template-areas:
-    "kp kp kp kp kp kp kp kp kp kp kp kp"
-    "tr tr tr tr tr tr tr bs bs bs bs bs"
-    "cl cl cl cl pr pr pr pr bk bk bk bk"}
-  .kpis{grid-area:kp;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
-  #c-tr{grid-area:tr} #c-bs{grid-area:bs} #c-cloth{grid-area:cl} #c-press{grid-area:pr} #c-book{grid-area:bk}
-  .card{position:relative;min-width:0;min-height:0;display:flex;flex-direction:column;padding:20px var(--pad);border-radius:var(--r);background:var(--card)}
-  .card-h{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 14px;margin-bottom:12px}
-  .card-t{margin:0;font-size:15px;font-weight:500;line-height:22px;color:var(--ink)}
-  .card-t small{margin-left:8px;font-size:12.5px;font-weight:400;color:var(--text-2)}
+  /* ---------- 카드(사이트의 카드: #f5f4ed, 16px, 패딩 32, 테두리·그림자 없음) ---------- */
+  .card{position:relative;min-width:0;display:flex;flex-direction:column;padding:var(--pad);border-radius:var(--r);background:var(--card)}
+  .lbl{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  html[lang="ko"] .lbl{letter-spacing:.06em}
+  .card-t{margin-top:8px;font-size:17px;font-weight:600;line-height:1.3;letter-spacing:-.005em;color:var(--ink);text-wrap:pretty}
+  .note{margin-top:12px;font-size:12.5px;line-height:1.5;color:var(--text-2)}
+  .note b{font-weight:600;color:var(--text-2)}
 
-  /* KPI: 지표명 → 수치(가깝게) → 증감(한 칸 띄워서). 세 줄을 subgrid로 맞춰 지표명이나 증감이 줄바꿈돼도
-     같은 줄 카드의 수치 높이가 같다 */
-  .kpi{grid-row:span 3;display:grid;grid-template-rows:subgrid;row-gap:0;padding-top:18px;padding-bottom:18px}
-  .kpi .lbl{font-size:13px;line-height:1.4;color:var(--text-2);padding-bottom:8px}
-  .kpi .sub{padding-top:12px}
-  .fig{font-size:34px;line-height:1.1;font-weight:400;letter-spacing:-.02em;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
-  .u{font-size:13px;letter-spacing:0;color:var(--text-2);margin-left:3px}
-  .u.pre{margin:0 2px 0 0}
-  .sub{font-size:13px;line-height:1.35;color:var(--text-2)}
-  .sub b{font-weight:600;color:var(--good);margin-right:5px}
-  .sub b.bad{color:var(--bad)}
-  .sub b.flat{color:var(--text-2)}
+  /* Key findings: 왼쪽 세리프 불릿, 오른쪽 헤어라인 키–값 행(사이트 카드의 "Model Details — Haiku →" 행) */
+  .findings{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:24px 48px}
+  .findings h3{font-size:19px;font-weight:700;line-height:1.3;color:var(--ink)}
+  .kf ul{margin-top:10px;padding-left:20px;font-family:var(--serif);font-size:16px;line-height:1.5;color:var(--ink)}
+  .kf li+li{margin-top:6px}
+  .kf li::marker{color:var(--muted)}
+  .kv{list-style:none;padding:0;align-self:center}
+  .kv li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:baseline;column-gap:14px;padding:10px 0;border-top:1px solid var(--hair-2)}
+  .kv li:first-child{border-top:0;padding-top:0}
+  .kv li:last-child{padding-bottom:0}
+  .kv .k{font-size:14px;color:var(--ink)}
+  .kv .v{font-size:17px;font-weight:600;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .kv .v .u{font-size:12.5px;font-weight:400;color:var(--text-2);margin-left:2px}
+  .kv .v .u.pre{margin:0 1px 0 0}
+  .kv .d{min-width:132px;text-align:right;font-size:12.5px;color:var(--text-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .kv .d b{font-weight:600;color:var(--good);margin-right:4px}
+  .kv .d b.bad{color:var(--bad)} .kv .d b.flat{color:var(--text-2)}
 
-  /* 월 매출: 카드 끝에서 끝까지 그리는 클레이 곡선과 점선 전년 */
-  .lgs{display:flex;flex-wrap:wrap;gap:4px 14px}
-  .lg{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-2);white-space:nowrap}
-  .k-line{width:16px;height:0;flex:none;border-top:2px solid var(--c);border-radius:2px}
-  .k-line.dotted{border-top-style:dotted}
-  .chart{position:relative;flex:1 1 auto;min-height:214px;margin:4px calc(var(--pad) * -1) -10px}
-  .chart > svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;touch-action:pan-y}
-  .ax{font-size:11px;fill:var(--text-3);font-variant-numeric:tabular-nums}
+  /* ---------- 그림: FIGURE 라벨 → 결과를 말하는 제목 → 흰 플롯 패널 → Note 캡션 ---------- */
+  .grid{display:grid;gap:var(--gap);grid-template-columns:repeat(12,minmax(0,1fr));margin-top:var(--gap)}
+  .span7{grid-column:span 7} .span5{grid-column:span 5}
+  .plot{position:relative;flex:1 1 auto;min-height:250px;margin-top:14px;border-radius:12px;background:var(--plot)}
+  .plot > svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;touch-action:pan-y}
+  .ax{font-size:11px;fill:var(--muted);font-variant-numeric:tabular-nums}
   .ax.em{fill:var(--ink)}
-  .end{font-size:12px;font-weight:500;fill:var(--ink);font-variant-numeric:tabular-nums}
-  .end.prev{font-weight:400;fill:var(--text-2)}
-  .tip{position:absolute;z-index:6;left:0;top:0;pointer-events:none;background:var(--canvas);border:1px solid var(--hair-2);border-radius:8px;padding:8px 11px 9px;box-shadow:0 8px 22px rgba(20,20,19,.10);white-space:nowrap;opacity:0;transition:opacity .14s ease}
+  .axt{font-size:11px;fill:var(--text-2)}
+  .end{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+  .end .v{font-weight:400;fill:var(--text-2)}
+  .ref{font-size:11px;fill:var(--text-2)}
+  /* 툴팁: 앱처럼 잉크 바탕에 아이보리 글자 */
+  .tip{position:absolute;z-index:6;left:0;top:0;pointer-events:none;background:var(--ink);color:var(--on-dark);border-radius:8px;padding:8px 11px 9px;box-shadow:0 4px 16px rgba(20,20,19,.12);white-space:nowrap;opacity:0;transition:opacity .14s ease}
   .tip.on{opacity:1}
-  .tip::after{content:"";position:absolute;width:9px;height:9px;background:var(--canvas);border-right:1px solid var(--hair-2);border-bottom:1px solid var(--hair-2)}
+  .tip::after{content:"";position:absolute;width:9px;height:9px;background:var(--ink)}
   .tip[data-side="above"]::after{left:var(--ax);bottom:0;transform:translate(-50%,50%) rotate(45deg)}
   .tip[data-side="below"]::after{left:var(--ax);top:0;transform:translate(-50%,-50%) rotate(225deg)}
   .tip[data-side="left"]::after{top:var(--ay);right:0;transform:translate(50%,-50%) rotate(-45deg)}
   .tip[data-side="right"]::after{top:var(--ay);left:0;transform:translate(-50%,-50%) rotate(135deg)}
-  .tip-h{font-size:11px;color:var(--text-2);margin-bottom:3px}
+  .tip-h{font-size:11px;color:var(--on-dark-2);margin-bottom:3px}
   .tip-r{display:flex;align-items:center;gap:7px;line-height:1.55}
-  .tip-r b{font-size:13.5px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
-  .tip-r span{font-size:11.5px;color:var(--text-2)}
+  .tip-r i{width:14px;height:0;flex:none;border-top:2px solid var(--c);border-radius:2px}
+  .tip-r i.dashed{border-top-style:dashed}
+  .tip-r b{font-size:13px;font-weight:600;color:var(--on-dark);font-variant-numeric:tabular-nums}
+  .tip-r span{font-size:11.5px;color:var(--on-dark-2)}
 
-  /* 베스트셀러: 헤어라인 행, 세리프 제목 */
-  .rows{list-style:none;margin:0;padding:0}
-  .rows li{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-top:1px solid var(--hair)}
-  .rows li:first-child{border-top:0;padding-top:2px}
-  .rk{width:18px;flex:none;font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-  .nm{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px;white-space:nowrap;overflow:hidden}
-  .ttl{font-family:var(--serif);font-size:15px;line-height:1.35;color:var(--ink);overflow:hidden;text-overflow:ellipsis}
-  html[lang="en"] .ttl{font-style:italic}
-  .au{flex:none;font-size:12.5px;color:var(--text-2)}
-  .val{font-size:13.5px;font-weight:500;color:var(--ink);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-  .val .u{font-size:12px;font-weight:400;margin-left:1px}
-  .chg{display:inline-flex;align-items:center;justify-content:flex-end;gap:3px;min-width:60px;font-size:12.5px;font-weight:500;white-space:nowrap;font-variant-numeric:tabular-nums}
-  .chg svg{width:11px;height:11px}
-  .chg.up{color:var(--good)} .chg.down{color:var(--bad)} .chg.flat{color:var(--text-2)}
-  /* 카드가 좁으면 저자를 빼고 제목을 지킨다. container-type은 이 카드에만 둔다(KPI의 subgrid를 막지 않게) */
-  #c-bs{container-type:inline-size}
-  @container (max-width:420px){ .rows .au{display:none} }
-
-  /* 천 색상: 키 컬러 네 가지가 양장본의 천으로 들어간다 */
-  .cloth{list-style:none;margin:0;padding:0;flex:1;display:flex;flex-direction:column}
-  .cloth li{flex:1;display:grid;grid-template-columns:26px minmax(0,1fr) auto;align-items:center;align-content:center;column-gap:12px;padding:5px 0;border-top:1px solid var(--hair)}
-  .cloth li:first-child{border-top:0;padding-top:0}
-  .swatch{width:26px;height:34px;border-radius:3px;border:1px solid rgba(20,20,19,.16);
-    background-image:repeating-linear-gradient(45deg,rgba(20,20,19,.06) 0 1px,transparent 1px 3px),repeating-linear-gradient(-45deg,rgba(20,20,19,.06) 0 1px,transparent 1px 3px)}
-  .swatch.dark{border-color:transparent;background-image:repeating-linear-gradient(45deg,rgba(250,249,245,.08) 0 1px,transparent 1px 3px),repeating-linear-gradient(-45deg,rgba(250,249,245,.08) 0 1px,transparent 1px 3px)}
-  .cloth .name{display:block;font-size:13.5px;color:var(--ink)}
-  .cloth .hex{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--text-2)}
-  .cloth .num{text-align:right;font-size:13.5px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
-  .cloth .num small{display:block;font-size:12px;font-weight:400;color:var(--text-2)}
-
-  /* 인쇄 예정: 다음 책의 조판으로 서체를 보여 준다 */
-  .press-title{font-family:var(--serif);font-size:19px;line-height:1.3;color:var(--ink)}
-  html[lang="en"] .press-title{font-style:italic}
-  .press-meta{margin-top:3px;font-size:12.5px;color:var(--text-2)}
-  .spec{list-style:none;margin:10px 0 0;padding:0;flex:1;display:flex;flex-direction:column}
-  .spec li{flex:1;display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:baseline;align-content:center;column-gap:12px;padding:6px 0;border-top:1px solid var(--hair)}
-  .spec .role{font-size:12.5px;color:var(--text-2)}
-  .spec .face{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .spec .f-serif{font-family:var(--serif);font-size:18px}
-  .spec .f-sans{font-family:var(--font);font-size:15px}
-  .spec .f-mono{font-family:var(--mono);font-size:13.5px}
-  .spec .size{font-family:var(--mono);font-size:12px;color:var(--text-2);white-space:nowrap}
-
-  /* 이달의 책: 사진 대신 색 블록으로 그린 표지와 책 정보 */
-  .bk{flex:1;display:grid;grid-template-columns:minmax(0,46%) minmax(0,1fr);column-gap:16px}
-  .cover{position:relative;align-self:start;width:100%;max-width:150px;aspect-ratio:2/3;border-radius:2px 4px 4px 2px;container-type:inline-size;overflow:hidden}
-  .cover.light{box-shadow:inset 0 0 0 1px rgba(20,20,19,.14)}
-  .cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7%;background:rgba(20,20,19,.1)}
-  .b-in{position:absolute;inset:0;display:flex;flex-direction:column;padding:15cqw 11cqw 11cqw 17cqw}
-  .b-title{font-family:var(--serif);font-size:14.5cqw;line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
-  .b-rule{width:16cqw;border-top:1px solid currentColor;opacity:.55;margin:9cqw 0 7cqw}
-  .b-author{font-size:7.5cqw;letter-spacing:.02em;opacity:.85}
-  .b-pub{margin-top:auto;font-size:6cqw;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
-  html[lang="ko"] .b-pub{letter-spacing:.06em}
-  .bk-info{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-  .bk-author{margin-top:12px;font-size:14px;color:var(--ink)}
-  .bk-meta{margin-top:2px;font-size:12.5px;color:var(--text-2)}
-  .bk-val{margin-top:auto;font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
-  .bk-val .u{font-size:13px}
-  .tag{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:999px;border:1px solid var(--clay);font-size:11.5px;letter-spacing:.02em;color:var(--ink);white-space:nowrap}
-
-  /* ---------- 잉크 띠: 신간 성과 표 ---------- */
-  .band{margin-top:var(--gap);padding:26px 32px 22px;border-radius:var(--r);background:var(--ink);color:var(--on-dark)}
-  .band-h{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 16px;margin-bottom:10px}
-  .band-t{margin:0;font-family:var(--serif);font-size:22px;font-weight:400;line-height:1.3;letter-spacing:-.01em;color:var(--on-dark)}
-  .band .aside{color:var(--on-dark-2)}
-  .tbl-wrap{overflow-x:auto;scrollbar-width:thin}
-  .tbl{width:100%;min-width:640px;border-collapse:collapse;font-size:13.5px}
-  .tbl th,.tbl td{padding:11px 10px;text-align:left;font-weight:400;border-top:1px solid var(--hair-dark);white-space:nowrap;vertical-align:middle}
-  .tbl thead th{padding-top:4px;padding-bottom:6px;border-top:0;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--on-dark-2)}
-  html[lang="ko"] .tbl thead th{letter-spacing:.02em}
+  /* ---------- 표: 1px 잉크 괘선, 그룹 라벨 행, 주인공 열(10월)은 연한 바탕과 색 윗선 ---------- */
+  .tbl-wrap{margin-top:14px;overflow-x:auto;scrollbar-width:thin}
+  .tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px}
+  .tbl th,.tbl td{padding:8px 8px;text-align:left;font-weight:400;border-bottom:1px solid var(--ink);white-space:nowrap;vertical-align:baseline}
+  .tbl thead th{font-weight:600;color:var(--ink);padding-top:0;padding-bottom:8px}
   .tbl th:first-child,.tbl td:first-child{padding-left:0}
   .tbl th:last-child,.tbl td:last-child{padding-right:0}
-  .tbl .num{text-align:right}
-  .tbl td.num{font-family:var(--mono);font-size:13px;color:var(--on-dark);font-variant-numeric:tabular-nums}
-  .tbl td.num .u{font-family:var(--font);font-size:12px;color:var(--on-dark-2);margin-left:1px}
-  .tbl .date{font-family:var(--mono);font-size:12.5px;color:var(--on-dark-2)}
-  .tbl .t-title{font-family:var(--serif);font-size:15.5px;color:var(--on-dark)}
-  html[lang="en"] .tbl .t-title{font-style:italic}
-  .tbl .imp{font-size:12.5px;color:var(--on-dark-2)}
-  .tbl tbody tr{transition:background-color .15s ease}
-  .tbl tbody tr:hover{background:var(--dark-2)}
-  .sell{display:inline-flex;align-items:center;gap:10px}
-  .sell i{display:block;width:88px;height:6px;border-radius:3px;background:var(--hair-dark);overflow:hidden;flex:none}
-  .sell i b{display:block;height:100%;border-radius:3px;background:var(--clay-deep)}
-  .sell span{min-width:34px;text-align:right}
-  .rep{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:999px;border:1px solid var(--clay);font-size:11.5px;letter-spacing:.02em;color:var(--on-dark);white-space:nowrap}
-  .rep.no{border-color:var(--hair-dark);color:var(--on-dark-2)}
+  .tbl .num{text-align:right;font-variant-numeric:tabular-nums}
+  .tbl td.num{color:var(--ink)}
+  .tbl td.num .u{font-size:12px;color:var(--text-2);margin-left:1px}
+  .tbl .subj{background:var(--tint);padding-left:10px!important}
+  .tbl thead .subj{border-top:2px solid var(--sky)}
+  .tbl .grp th{padding:12px 0 5px;font-size:12px;font-weight:500;color:var(--text-2);border-bottom:1px solid var(--hair-2)}
+  .tbl .t-title{color:var(--ink)}
+  .tbl .t-title .au{display:block;font-size:12px;line-height:1.3;color:var(--text-2)}
+  .tbl tbody tr:last-child td,.tbl tbody tr:last-child th{border-bottom-color:var(--ink)}
+  .tbl .chg{font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .chg.up{color:var(--good)} .chg.down{color:var(--bad)} .chg.flat{color:var(--text-2)} .chg.none{color:var(--muted)}
+  .sell{display:inline-flex;align-items:center;justify-content:flex-end;gap:10px}
+  .sell i{display:block;width:56px;height:5px;border-radius:3px;background:var(--hair);overflow:hidden;flex:none}
+  .sell i b{display:block;height:100%;border-radius:3px;background:var(--ink)}
+  .sell span{min-width:38px;text-align:right}
+  .badge{display:inline-flex;align-items:center;height:18px;margin-left:8px;padding:0 6px;border-radius:4px;border:1px solid var(--clay);font-size:11px;font-weight:500;letter-spacing:.02em;color:var(--clay-deep);vertical-align:1px}
 
-  /* ---------- 바닥: 카탈로그 줄, 샘플 안내, 고지 ---------- */
-  .foot{margin-top:22px;max-width:100ch;font-size:12.5px;line-height:1.65;color:var(--text-2)}
+  /* ---------- 임프린트 카드 3장: 사이트 카드 해부 그대로(눈썹 → 제목 → 문장 → 키–값 행 → 전폭 보조 버튼) ---------- */
+  .imprints{display:grid;gap:var(--gap);grid-template-columns:repeat(3,minmax(0,1fr));margin-top:var(--gap)}
+  .imp{border-top:3px solid transparent}
+  .imp.on{border-top-color:var(--c)}
+  .imp .eyebrow{display:flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.01em;color:var(--text-2)}
+  .imp .eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+  .imp h3{margin-top:10px;font-size:21px;font-weight:700;line-height:1.25;color:var(--ink)}
+  .imp .desc{margin-top:8px;min-height:42px;font-size:14px;line-height:1.5;color:var(--ink-2);text-wrap:pretty}
+  .imp .kv{margin-top:18px;align-self:stretch}
+  .imp .kv li{padding:9px 0;grid-template-columns:minmax(0,1fr) auto}
+  .imp .kv li:first-child{border-top:1px solid var(--hair-2);padding-top:9px}
+  .imp .kv .k{font-size:13.5px}
+  .imp .kv .v{font-size:14px;font-weight:500}
+  .imp .kv .d{min-width:0;margin-left:8px;display:inline}
+  .imp .kv .d b{margin-right:0}
+  .imp .vd{text-align:right;white-space:nowrap}
+  .imp .kv{margin-bottom:18px}
+  .imp .btn{margin-top:auto;justify-content:center;width:100%}
+
+  /* ---------- 주석 카드 ---------- */
+  .notes h3{font-size:19px;font-weight:700;line-height:1.3;color:var(--ink)}
+  .notes ol{margin-top:10px;padding-left:18px;font-size:13px;line-height:1.55;color:var(--text-2)}
+  .notes li+li{margin-top:6px}
+  .notes li::marker{color:var(--muted);font-variant-numeric:tabular-nums}
+  .notes .src{margin-top:auto;padding-top:16px;font-size:13px;line-height:1.55;color:var(--text-2)}
+  .notes .src b{font-weight:600;color:var(--ink)}
+  .notes .upd{margin-top:6px;font-size:12.5px;color:var(--muted)}
+
+  /* ---------- 바닥: 사이트의 잉크 푸터 자리. 카탈로그 줄, 샘플 안내, 고지 ---------- */
+  .foot{margin:var(--gap) calc(var(--page) * -1) 0;padding:26px var(--page) 28px;background:var(--ink);color:var(--on-dark-2);font-size:12.5px;line-height:1.65}
+  .foot-in{max-width:1336px;margin:0 auto}
+  .foot p{max-width:100ch}
   .foot p + p{margin-top:6px}
-  .foot .cat{font-weight:500;color:var(--body)}
-  .foot .cat a{color:inherit;text-decoration-color:var(--hair-2);text-underline-offset:3px}
-  .foot .cat a:hover{text-decoration-color:var(--ink)}
-  .foot .cat .w{color:var(--text-2);font-weight:400}
+  .foot .cat{font-weight:500;color:var(--on-dark)}
+  .foot .cat a{color:inherit;text-decoration-color:var(--hair-dark);text-underline-offset:3px}
+  .foot .cat a:hover{text-decoration-color:var(--on-dark)}
+  .foot .cat .w{color:var(--on-dark-2);font-weight:400}
+  .toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,8px);padding:9px 14px;border-radius:8px;background:var(--ink);color:var(--on-dark);font-size:13px;box-shadow:0 4px 16px rgba(20,20,19,.16);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease)}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
 
   /* ---------- 움직임 ---------- */
-  .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.2s var(--ease) .1s forwards}
+  .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.1s var(--ease) .1s forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   .fade{animation:fade .45s ease both}
   @keyframes fade{from{opacity:0}}
@@ -229,69 +217,59 @@
   /* ---------- 임베드(?embed=1 · lib/embed.js): 포스트가 고지를 싣는다 ---------- */
   html.vz-embed .foot{display:none}
   html.vz-embed .page{padding-bottom:20px}
+  @media print{.tools .btn,.lang{display:none}.foot{background:none;color:var(--text-2)}.foot .cat{color:var(--ink)}}
 
   /* ---------- 반응형 ---------- */
   @media (max-width:1359px){
-    :root{--page:24px;--gap:14px}
-    .lede{padding:30px 0 26px}
+    :root{--page:24px;--gap:14px;--pad:24px}
+    .title{padding:26px 0 20px}
+    .findings{gap:20px 36px}
+  }
+  @media (max-width:1199px){
+    .span7,.span5{grid-column:span 6}
   }
   @media (max-width:1023px){
-    .grid{grid-template-areas:
-      "kp kp kp kp kp kp kp kp kp kp kp kp"
-      "tr tr tr tr tr tr tr tr tr tr tr tr"
-      "bs bs bs bs bs bs bs bs bs bs bs bs"
-      "cl cl cl cl cl cl pr pr pr pr pr pr"
-      "bk bk bk bk bk bk bk bk bk bk bk bk"}
-    .c-book .bk{grid-template-columns:150px minmax(0,1fr)}
+    .span7,.span5{grid-column:span 12}
+    .plot{min-height:260px}
   }
   @media (max-width:899px){
-    .grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"kp" "tr" "bs" "cl" "pr" "bk"}
-    .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
     .head{min-height:64px;padding:10px 0}
-    .brand{font-size:18px}
-    .brand small{display:none}
-    .pill-period{display:none}
+    .brand-s,#btnPdf{display:none}
     .filter .aside{display:none}
-    .tbl{min-width:0}
-    .tbl .c-date{display:none}
-    .tbl .t-title{white-space:normal}
+    .findings{grid-template-columns:minmax(0,1fr)}
+    .kv{align-self:stretch}
+    .imprints{grid-template-columns:minmax(0,1fr)}
+    .imp .btn{width:auto;align-self:flex-start}
   }
   @media (max-width:639px){
     :root{--page:16px;--gap:12px;--pad:20px}
-    .kpis{gap:10px}
-    .kpi{padding:16px 16px}
-    .tools{gap:8px}
-    .pill-ink{display:none}
-    .lede{padding:24px 0 22px}
-    .stmt{font-size:25px}
-    .lead{font-size:14.5px}
-    .card{padding:18px var(--pad)}
-    .fig{font-size:28px}
-    .c-book .bk{grid-template-columns:minmax(0,46%) minmax(0,1fr)}
-    .nm{white-space:normal}
-    .ttl{overflow:visible}
-    .band{padding:22px 20px 18px}
-    .band-t{font-size:20px}
-    /* 휴대폰에서는 제목 · 소진율 · 재쇄만 남겨 표가 띠 안에 들어가게 한다 */
-    .tbl{min-width:0}
-    .tbl .c-imp,.tbl .c-date,.tbl .c-oct,.tbl .c-sold{display:none}
-    .tbl .t-title{white-space:normal;font-size:15px;line-height:1.3}
-    .sell{gap:8px}
-    .sell i{width:52px}
+    .tools{gap:6px}
+    .pill-period,#btnMd{display:none}
+    .title{padding:22px 0 18px}
+    .stmt{margin-top:14px;font-size:22px}
+    .secnav{margin-top:16px}
+    .rid{display:none}
+    .kv li{grid-template-columns:minmax(0,1fr) auto}
+    .kv .d{min-width:0;grid-column:1/-1;margin-top:-4px;text-align:right}
+    .tbl .c-chg{display:none}
+    .tbl .t-title{white-space:normal}
+    .sell i{width:48px}
+    .plot{min-height:230px}
   }
 </style>
 </head>
 <body>
 <div class="page">
   <header class="head">
-    <h1 class="brand"><span data-i18n="brand"></span><small data-i18n="brandSub"></small></h1>
+    <div class="brand"><span class="brand-n" data-i18n="brand"></span><span class="brand-s" data-i18n="brandSub"></span></div>
     <div class="tools">
-      <span class="pill pill-period"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span data-i18n="period"></span></span>
+      <span class="pill pill-period"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span data-i18n="period"></span></span>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" data-lang="ko" aria-pressed="false">KO</button>
         <button type="button" data-lang="en" aria-pressed="true">EN</button>
       </div>
-      <a class="pill pill-ink" href="#releases" data-i18n="toReleases"></a>
+      <button type="button" class="btn btn-tertiary" id="btnPdf"><span data-i18n="pdf"></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg></button>
+      <button type="button" class="btn btn-primary" id="btnMd"><span data-i18n="copy"></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/></svg></button>
     </div>
   </header>
 
@@ -301,75 +279,75 @@
   </div>
 
   <div id="panel" role="tabpanel">
-    <section class="lede" aria-labelledby="stmt">
+    <section class="title" aria-labelledby="stmt">
+      <dl class="meta">
+        <div><dt data-i18n="meta.pub"></dt><dd data-i18n="meta.pubV"></dd></div>
+        <div><dt data-i18n="meta.team"></dt><dd data-i18n="meta.teamV"></dd></div>
+        <div><dt data-i18n="meta.period"></dt><dd data-i18n="period"></dd></div>
+      </dl>
       <h2 class="stmt" id="stmt"></h2>
-      <p class="lead" id="lead"></p>
+      <nav class="secnav" aria-label="Sections">
+        <ol>
+          <li><a href="#s-revenue"><span class="n">(1)</span><span data-i18n="sec.rev"></span></a></li>
+          <li><a href="#c-titles"><span class="n">(2)</span><span data-i18n="sec.titles"></span></a></li>
+          <li><a href="#s-imprints"><span class="n">(3)</span><span data-i18n="sec.imp"></span></a></li>
+          <li><a href="#s-returns"><span class="n">(4)</span><span data-i18n="sec.ret"></span></a></li>
+        </ol>
+        <span class="rid"><span data-i18n="rid"></span><code>sales-2026-10</code></span>
+      </nav>
     </section>
 
-    <section class="grid">
-      <div class="kpis">
-      <article class="card kpi" id="k-rev"><div class="lbl" data-i18n="kpi.rev"></div><div class="fig"></div><div class="sub"></div></article>
-      <article class="card kpi" id="k-cop"><div class="lbl" data-i18n="kpi.copies"></div><div class="fig"></div><div class="sub"></div></article>
-      <article class="card kpi" id="k-ret"><div class="lbl" data-i18n="kpi.returns"></div><div class="fig"></div><div class="sub"></div></article>
-      <article class="card kpi" id="k-dig"><div class="lbl" data-i18n="kpi.digital"></div><div class="fig"></div><div class="sub"></div></article>
-      </div>
+    <section class="card findings" id="s-findings" aria-labelledby="kfTitle">
+      <div class="kf"><h3 id="kfTitle" data-i18n="kf.t"></h3><ul id="kfList"></ul></div>
+      <ul class="kv" id="kvList" aria-label="Key figures"></ul>
+    </section>
 
-      <article class="card" id="c-tr">
-        <div class="card-h">
-          <h3 class="card-t"><span data-i18n="tr.t"></span><small data-i18n="tr.sub"></small></h3>
-          <div class="lgs">
-            <span class="lg"><i class="k-line" style="--c:#d97757"></i><span data-i18n="tr.s1"></span></span>
-            <span class="lg"><i class="k-line dotted" style="--c:#73726c"></i><span data-i18n="tr.s2"></span></span>
-          </div>
-        </div>
-        <div class="chart" id="trChart"></div>
+    <section class="grid" id="s-revenue">
+      <article class="card span7" id="c-rev">
+        <div class="lbl"><span data-i18n="fig1.lbl"></span><span data-i18n="fig1.unit"></span></div>
+        <h3 class="card-t" id="revTitle"></h3>
+        <div class="plot" id="revPlot"></div>
         <div class="tip" aria-hidden="true"></div>
-        <div class="sr-only" id="trTable"></div>
+        <div class="sr-only" id="revTable"></div>
+        <p class="note" id="revNote"></p>
       </article>
 
-      <article class="card" id="c-bs">
-        <div class="card-h"><h3 class="card-t" id="bsTitle"><span data-i18n="bs.t"></span><small data-i18n="bs.sub"></small></h3></div>
-        <ol class="rows" id="bsRows" aria-labelledby="bsTitle"></ol>
-      </article>
-
-      <article class="card" id="c-cloth">
-        <div class="card-h"><h3 class="card-t" id="clothTitle"><span data-i18n="cloth.t"></span><small data-i18n="cloth.sub"></small></h3></div>
-        <ul class="cloth" id="clothRows" aria-labelledby="clothTitle"></ul>
-      </article>
-
-      <article class="card" id="c-press">
-        <div class="card-h"><h3 class="card-t" id="pressTitle"><span data-i18n="press.t"></span><small id="pressDate"></small></h3></div>
-        <p class="press-title" id="pressBook"></p>
-        <p class="press-meta" id="pressMeta"></p>
-        <ul class="spec" id="pressSpec" aria-labelledby="pressTitle"></ul>
-      </article>
-
-      <article class="card c-book" id="c-book">
-        <div class="card-h"><h3 class="card-t"><span data-i18n="book.t"></span><small data-i18n="book.sub"></small></h3></div>
-        <div class="bk">
-          <div class="cover" id="bookCover" role="img"></div>
-          <div class="bk-info">
-            <span class="tag" data-i18n="book.tag"></span>
-            <p class="bk-author" id="bookAuthor"></p>
-            <p class="bk-meta" id="bookMeta"></p>
-            <p class="bk-val" id="bookVal"></p>
-          </div>
-        </div>
+      <article class="card span5" id="c-titles">
+        <div class="lbl"><span data-i18n="tbl1.lbl"></span><span id="titlesCount"></span></div>
+        <h3 class="card-t" id="titlesTitle" data-i18n="tbl1.t"></h3>
+        <div class="tbl-wrap"><table class="tbl" id="titlesTable" aria-labelledby="titlesTitle"><thead></thead><tbody></tbody></table></div>
+        <p class="note" id="titlesNote"></p>
       </article>
     </section>
 
-    <section class="band" id="releases" aria-labelledby="relTitle">
-      <div class="band-h"><h3 class="band-t" id="relTitle" data-i18n="rel.t"></h3><span class="aside" data-i18n="rel.aside"></span></div>
-      <div class="tbl-wrap"><table class="tbl" id="relTable"><caption class="sr-only" data-i18n="rel.t"></caption><thead></thead><tbody></tbody></table></div>
+    <section class="imprints" id="s-imprints" aria-label="Imprints"></section>
+
+    <section class="grid" id="s-returns">
+      <article class="card span7" id="c-ret">
+        <div class="lbl"><span data-i18n="fig2.lbl"></span><span data-i18n="fig2.unit"></span></div>
+        <h3 class="card-t" id="retTitle"></h3>
+        <div class="plot" id="retPlot"></div>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="retTable"></div>
+        <p class="note" id="retNote"></p>
+      </article>
+
+      <article class="card span5 notes" id="c-notes">
+        <h3 data-i18n="notes.t"></h3>
+        <ol id="notesList"></ol>
+        <p class="src" id="notesSrc"></p>
+        <p class="upd" data-i18n="notes.upd"></p>
+      </article>
     </section>
   </div>
 
-  <footer class="foot">
+  <footer class="foot"><div class="foot-in">
     <p class="cat"><a href="https://styles.vizney.com/">Vizney Styles</a> · 01 · <a href="https://styles.vizney.com/anthropic/DASHBOARD.html" data-i18n="catName"></a> <span class="w" data-i18n="words"></span></p>
-    <p class="note" data-i18n="note"></p>
+    <p data-i18n="note"></p>
     <p data-i18n="notice"></p>
-  </footer>
+  </div></footer>
   <p class="sr-only" id="live" aria-live="polite"></p>
+  <div class="toast" id="toast" role="status"></div>
 </div>
 
 <script>
@@ -379,15 +357,22 @@
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const SVGNS = 'http://www.w3.org/2000/svg';
   const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // 차트 색은 validate_palette.js로 검사했다: 클레이와 전년(점선, 중립 회색) 카드 위 CVD ΔE 8.8 · 일반 17.5, 잉크 띠 위 막대는 클레이 딥
-  const C = { clay: '#d97757', prev: '#73726c', ink: '#141413', hair2: '#dedcd1', canvas: '#faf9f5' };
+  /* 데이터 색: 앤트로픽 리서치 차트의 색상군(sky · fig · amber)에서 validate_palette.js를 통과한 값.
+     선은 line, 글자(선 끝 라벨)는 더 짙은 text 단계. 비교선은 중립 회색 점선 */
+  const SERIES = {
+    fic: { line: '#4f86c4', text: '#2e6cae' },
+    non: { line: '#b8456e', text: '#a63c62' },
+    kid: { line: '#a8862a', text: '#80661a' }
+  };
+  const C = { comp: '#b0aea5', ink: '#141413', grid: '#e8e6dc', hair2: '#dedcd1', cloud: '#b0aea5', plot: '#ffffff', muted: '#87867f' };
 
   /* ================= 가상 데이터: 느린달 출판사 (Slow Moon Press), 2026년 10월 =================
-     rev·prev: 최근 12개월 월 매출과 전년 같은 달(원) · copies: 10월 판매 부수(Prev는 9월)
-     shipped·returned: 출고와 반품 부수 · formats: 10월 매출 [종이책, 전자책, 오디오북] · cloth: 양장 특별판 천 색상별 부수
-     best: 베스트셀러(c 10월, p 9월 부수) · rel: 최근 90일 신간(oct 10월 부수, sold 누적) · press: 인쇄 예정 도서와 조판 */
-  const DATA = {"months":["2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"imprints":{"fic":{"rev":[151000000,168000000,139000000,131000000,147000000,152000000,158000000,149000000,163000000,176000000,181000000,195000000],"prev":[138000000,152000000,127000000,121000000,136000000,140000000,146000000,139000000,151000000,160000000,166000000,172000000],"copies":12980,"copiesPrev":12060,"shipped":14850,"returned":1590,"shippedPrev":14020,"returnedPrev":1640,"formats":[152000000,35000000,8000000],"cloth":[380,310,540,270],"best":[{"id":"glass","c":4120,"p":3610,"cover":"clay","price":16800},{"id":"north","c":2460,"p":2150},{"id":"letter","c":1830,"p":1990},{"id":"summer","c":1240,"p":1310},{"id":"behind","c":1070,"p":850}],"rel":[{"id":"north","date":"2026-08-19","first":6000,"oct":2460,"sold":5510,"reprint":true},{"id":"behind","date":"2026-09-23","first":3000,"oct":1070,"sold":1920,"reprint":false},{"id":"salt","date":"2026-10-14","first":4000,"oct":780,"sold":780,"reprint":false}],"press":{"id":"gardener","date":"2026-11-12","pages":288,"first":6000,"title":30,"text":[10,15],"fig":[9,13]}},"non":{"rev":[122000000,131000000,118000000,112000000,129000000,133000000,138000000,131000000,136000000,141000000,146000000,152000000],"prev":[115000000,124000000,110000000,106000000,121000000,126000000,129000000,124000000,128000000,133000000,137000000,141000000],"copies":8460,"copiesPrev":8120,"shipped":9630,"returned":1050,"shippedPrev":9310,"returnedPrev":1090,"formats":[112000000,31000000,9000000],"cloth":[240,200,230,330],"best":[{"id":"slowly","c":2310,"p":2180,"cover":"ivory","price":18500},{"id":"sleep","c":1960,"p":1190},{"id":"numbers","c":1320,"p":1360},{"id":"botany","c":940,"p":1010},{"id":"working","c":720,"p":690}],"rel":[{"id":"numbers","date":"2026-08-05","first":4000,"oct":1320,"sold":3660,"reprint":true},{"id":"sleep","date":"2026-09-09","first":4000,"oct":1960,"sold":3150,"reprint":false},{"id":"weather","date":"2026-10-07","first":3000,"oct":640,"sold":640,"reprint":false}],"press":{"id":"light","date":"2026-11-19","pages":352,"first":4000,"title":28,"text":[9.5,14.5],"fig":[8.5,12]}},"kid":{"rev":[63000000,71000000,74000000,66000000,69000000,72000000,81000000,68000000,73000000,79000000,84000000,76000000],"prev":[58000000,66000000,69000000,61000000,64000000,67000000,75000000,63000000,68000000,72000000,77000000,70000000],"copies":5860,"copiesPrev":6470,"shipped":6890,"returned":980,"shippedPrev":7530,"returnedPrev":1010,"formats":[65000000,7000000,4000000],"cloth":[190,170,260,140],"best":[{"id":"whale","c":1610,"p":1740,"cover":"ink","price":15000},{"id":"rabbit","c":1380,"p":1520},{"id":"cloud","c":910,"p":1060},{"id":"seed","c":860,"p":320},{"id":"house","c":540,"p":610}],"rel":[{"id":"rabbit","date":"2026-08-26","first":4000,"oct":1380,"sold":3560,"reprint":false},{"id":"seed","date":"2026-09-22","first":5000,"oct":860,"sold":1180,"reprint":false},{"id":"pebble","date":"2026-10-21","first":3000,"oct":410,"sold":410,"reprint":false}],"press":{"id":"lighthouse","date":"2026-11-26","pages":40,"first":5000,"title":36,"text":[16,22],"fig":[12,16]}}}};
+     rev·prev: 최근 12개월 월 매출과 전년 같은 달(원) · shipped·returned: 월별 출고·반품 부수
+     copies: 10월 판매 부수(Prev는 9월) · formats: 10월 매출 [종이책, 전자책, 오디오북]
+     titles: 임프린트별 주요 도서(출간일, 정가, 누적 인쇄·판매, 10월·9월 부수, 재쇄). 합계·비율은 Python으로 검산했다 */
+  const DATA = {"months":["2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"imprints":{"fic":{"rev":[151000000,168000000,139000000,131000000,147000000,152000000,158000000,149000000,163000000,176000000,181000000,195000000],"prev":[138000000,152000000,127000000,121000000,136000000,140000000,146000000,139000000,151000000,160000000,166000000,172000000],"shipped":[12900,14100,11800,11200,12600,13000,13500,12700,13900,14600,14020,14850],"returned":[1510,1640,1420,1330,1480,1500,1540,1470,1560,1640,1640,1590],"copies":12980,"copiesPrev":12060,"formats":[152000000,35000000,8000000],"titles":[{"id":"glass","pub":"2026-05-20","price":16800,"printed":12000,"sold":10900,"oct":4120,"sep":3610},{"id":"north","pub":"2026-08-19","price":15800,"printed":9000,"sold":5510,"oct":2460,"sep":2150,"reprint":true},{"id":"letter","pub":"2026-03-11","price":14800,"printed":6000,"sold":4950,"oct":1830,"sep":1990},{"id":"summer","pub":"2026-06-24","price":15000,"printed":5000,"sold":3620,"oct":1240,"sep":1310},{"id":"behind","pub":"2026-09-23","price":16000,"printed":3000,"sold":1920,"oct":1070,"sep":850},{"id":"salt","pub":"2026-10-14","price":17500,"printed":4000,"sold":780,"oct":780,"sep":null}]},"non":{"rev":[122000000,131000000,118000000,112000000,129000000,133000000,138000000,131000000,136000000,141000000,146000000,152000000],"prev":[115000000,124000000,110000000,106000000,121000000,126000000,129000000,124000000,128000000,133000000,137000000,141000000],"shipped":[8400,8900,8100,7800,8800,9000,9300,8900,9100,9400,9310,9630],"returned":[1060,1110,1030,1010,1100,1130,1140,1100,1120,1150,1090,1050],"copies":8460,"copiesPrev":8120,"formats":[112000000,31000000,9000000],"titles":[{"id":"slowly","pub":"2026-02-18","price":18500,"printed":7000,"sold":6100,"oct":2310,"sep":2180},{"id":"sleep","pub":"2026-09-09","price":19800,"printed":4000,"sold":3150,"oct":1960,"sep":1190},{"id":"numbers","pub":"2026-08-05","price":17000,"printed":6000,"sold":3660,"oct":1320,"sep":1360,"reprint":true},{"id":"botany","pub":"2026-04-08","price":16500,"printed":4000,"sold":3020,"oct":940,"sep":1010},{"id":"working","pub":"2026-01-21","price":15500,"printed":5000,"sold":3380,"oct":720,"sep":690},{"id":"weather","pub":"2026-10-07","price":16000,"printed":3000,"sold":640,"oct":640,"sep":null}]},"kid":{"rev":[63000000,71000000,74000000,66000000,69000000,72000000,81000000,68000000,73000000,79000000,84000000,76000000],"prev":[58000000,66000000,69000000,61000000,64000000,67000000,75000000,63000000,68000000,72000000,77000000,70000000],"shipped":[6600,7300,7500,6900,7100,7300,8000,7000,7400,7800,7530,6890],"returned":[930,1010,1050,990,1000,1020,1090,980,1020,1060,1010,980],"copies":5860,"copiesPrev":6470,"formats":[65000000,7000000,4000000],"titles":[{"id":"whale","pub":"2026-03-25","price":15000,"printed":8000,"sold":6700,"oct":1610,"sep":1740},{"id":"rabbit","pub":"2026-08-26","price":13500,"printed":4000,"sold":3560,"oct":1380,"sep":1520},{"id":"cloud","pub":"2026-05-13","price":14000,"printed":4000,"sold":2900,"oct":910,"sep":1060},{"id":"seed","pub":"2026-09-22","price":13000,"printed":5000,"sold":1180,"oct":860,"sep":320},{"id":"house","pub":"2026-06-10","price":12500,"printed":3000,"sold":2260,"oct":540,"sep":610},{"id":"pebble","pub":"2026-10-21","price":14500,"printed":3000,"sold":410,"oct":410,"sep":null}]}}};
   const IMPRINTS = ['fic', 'non', 'kid'];
+  const TARGET = 12; // 반품률 연간 목표(%)
   const BOOKS = {
     glass: ['유리 정원의 밤', 'Night in the Glass Garden', '김서연', 'Kim Seo-yeon'],
     north: ['북쪽 창', 'The North Window', '박하진', 'Park Ha-jin'],
@@ -406,68 +391,85 @@
     cloud: ['구름 공장', 'The Cloud Factory', '노은결', 'Noh Eun-gyeol'],
     seed: ['씨앗 탐정', 'Seed Detective', '강바다', 'Kang Ba-da'],
     house: ['작은 집 큰 비밀', 'Small House, Big Secret', '배솔', 'Bae Sol'],
-    pebble: ['조약돌과 이끼', 'Pebble and Moss', '진하늘', 'Jin Ha-neul'],
-    gardener: ['겨울 정원사', 'The Winter Gardener', '윤지우', 'Yoon Ji-woo'],
-    light: ['빛의 지도', 'A Map of Light', '서해원', 'Seo Hae-won'],
-    lighthouse: ['작은 등대', 'The Little Lighthouse', '송가을', 'Song Ga-eul']
+    pebble: ['조약돌과 이끼', 'Pebble and Moss', '진하늘', 'Jin Ha-neul']
   };
-  // 키 컬러 네 가지: 바탕 아이보리, 카드 오트, 포인트 클레이, 잉크
-  const CLOTH = [
-    { id: 'ivory', hex: '#FAF9F5' }, { id: 'oat', hex: '#F0EEE6' },
-    { id: 'clay', hex: '#D97757' }, { id: 'ink', hex: '#141413', dark: true }
-  ];
-  const COVER = { clay: ['#D97757', '#141413'], ivory: ['#FAF9F5', '#141413', true], ink: ['#141413', '#FAF9F5'] };
   const MON_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   /* ================= 문구 ================= */
   const T = {
     ko: {
       locale: 'ko-KR',
-      docTitle: 'Anthropic 스타일 · 출판사 판매 현황 샘플',
-      brand: '느린달 출판사', brandSub: '판매 보고', period: '2026년 10월', toReleases: '신간 성과',
+      docTitle: 'Anthropic 스타일 · 출판사 판매 보고 샘플',
+      brand: '느린달 출판사', brandSub: '월간 판매 보고', period: '2026년 10월', pdf: 'PDF로 읽기', copy: '마크다운으로 복사', copied: '보고서를 마크다운으로 복사했습니다',
       catName: 'Anthropic 스타일', words: '아이보리, 에디토리얼, 고요함',
       tabsLabel: '임프린트', tabs: { all: '전체', fic: '문학', non: '인문·교양', kid: '어린이' },
+      allImp: '전체 임프린트',
       aside: '2026년 10월 기준 · 전월·전년 동월 비교',
-      stmt: (rev, pct, up) => ['10월 매출은 ', { b: rev }, '으로 지난해 10월보다 ', { b: pct }, up ? ' 늘었습니다.' : ' 줄었습니다.'],
-      lead: (title, author, copies) => ['가장 많이 팔린 책은 ', { i: `『${title}』` }, `(${author}), ${copies}부입니다.`],
-      kpi: { rev: '10월 매출', copies: '판매 부수', returns: '반품률', digital: '디지털 비중',
-        vsY: '전년 동월 대비', vsM: '전월 대비', pts: '%p', unit: '부', digitalSub: (e, a) => `전자책 ${e}% · 오디오북 ${a}%` },
-      tr: { t: '월 매출', sub: '최근 12개월', s1: '최근 12개월', s2: '전년 동기', th: ['월', '최근 12개월', '전년 동기'],
-        aria: (s, p, m, v) => `월 매출 추이. 최근 12개월 합계 ${s}, 전년 동기 대비 ${p}. 최고는 ${m} ${v}. 좌우 방향키로 달을 옮길 수 있습니다.` },
-      bs: { t: '베스트셀러', sub: '판매 부수 · 전월 대비', unit: '부', vs: '전월 대비', up: '증가', down: '감소', flat: '변동 없음' },
-      cloth: { t: '천 색상', sub: '양장 특별판', names: { ivory: '아이보리', oat: '오트밀', clay: '클레이', ink: '잉크' }, unit: '부' },
-      press: { t: '인쇄 예정', meta: (a, p, f) => `${a} · ${p}쪽 · 초판 ${f}부`, roles: ['제목', '본문', '숫자'],
-        faces: ['Noto Serif KR', 'Pretendard', 'JetBrains Mono'], pt: 'pt', date: (m, d) => `${m}월 ${d}일` },
-      book: { t: '이달의 책', sub: '10월', tag: '1위', unit: '부', pub: '느린달',
-        meta: (imp, price) => `${imp} · ${price}`, cover: (title, a) => `『${title}』(${a}) 표지` },
-      rel: { t: '신간 성과', aside: '최근 90일 출간 · 10월 판매순',
-        th: ['제목', '임프린트', '출간일', '10월', '누적 판매', '소진율', '재쇄'], yes: '재쇄', no: '초판', unit: '부',
-        through: (p, f) => `초판 ${f}부 중 ${p}` },
+      meta: { pub: '발행', pubV: '2026년 10월 31일', team: '팀', teamV: '영업 운영', period: '기간' },
+      sec: { rev: '매출', titles: '도서', imp: '임프린트', ret: '반품' }, rid: '보고서 ID',
+      stmt: {
+        all: (v, g) => [{ b: `10월 매출은 ${v.rev}으로 지난해 10월보다 ${v.pct} ${v.up ? '늘었습니다' : '줄었습니다'}.` }, ` ${g.leader}이 증가를 이끌었고 `, g.fell ? `${g.fell} 부수는 9월보다 줄었습니다.` : '모든 임프린트가 9월보다 많이 팔렸습니다.', ` 반품률은 ${v.rr}로 ${v.rrDown ? '낮아졌습니다' : '높아졌습니다'}.`],
+        one: (v, name, top) => [{ b: `${name} 10월 매출은 ${v.rev}으로 지난해보다 ${v.pct} ${v.up ? '늘었습니다' : '줄었습니다'}.` }, ` 부수는 9월보다 ${v.cp} ${v.cpUp ? '늘었고' : '줄었고'} 반품률은 ${v.rr}로 ${v.rrDown ? '낮아졌습니다' : '높아졌습니다'}. 가장 많이 팔린 책은 `, { i: `『${top}』` }, '입니다.']
+      },
+      kf: { t: '핵심 결과',
+        rev: (n, max, v) => n === 12 ? `매출은 열두 달 모두 지난해를 웃돌았고, 10월 ${v}은 ${max ? '올해 최고치입니다' : '최고치는 아닙니다'}.` : `매출은 12개월 중 ${n}개월 지난해를 웃돌았습니다. 10월은 ${v}입니다.`,
+        best: (t, a, c, d) => [{ i: `『${t}』` }, `(${a})이 ${c}부로 1위이며, 9월보다 ${d}.`],
+        ret: (rr, d, above) => `반품률은 ${rr}로 ${d}. ` + (above === null ? `목표 ${TARGET}%${rr >= TARGET ? '를 넘습니다' : ' 아래입니다'}.` : above.length ? `${above.join('·')}만 목표 ${TARGET}%를 넘습니다.` : `모든 임프린트가 목표 ${TARGET}% 아래입니다.`),
+        dig: (s, name) => `전자책·오디오북이 매출의 ${s}입니다.` + (name ? ` 디지털 비중이 가장 높은 임프린트는 ${name.n}(${name.v})입니다.` : '') },
+      kv: { rev: '10월 매출', copies: '판매 부수', ret: '반품률', dig: '디지털 비중', vsY: '전년 동월 대비', vsM: '전월 대비', pts: '%p', unit: '부', ebook: (e, a) => `전자책 ${e} · 오디오북 ${a}` },
+      fig1: { lbl: '그림 1', unit: '월 매출 · 원', t: (n, name) => n === 12 ? `${name} 매출은 열두 달 내내 지난해를 웃돌았습니다.` : `${name} 매출은 12개월 중 ${n}개월 지난해를 웃돌았습니다.`,
+        note: '주: 반품을 뺀 순매출이며 전자책·오디오북을 포함합니다. 점선은 전년 같은 달입니다.', s1: '최근 12개월', s2: '전년 동기', th: ['월', '최근 12개월', '전년 동기'],
+        aria: (s, p) => `월 매출 추이. 최근 12개월 합계 ${s}, 전년 동기 대비 ${p}. 좌우 방향키로 달을 옮길 수 있습니다.` },
+      tbl1: { lbl: '표 1', t: '10월 판매 부수 상위 도서', count: n => `${n}종`, th: ['도서', '10월', '전월 대비', '소진율'], grp: (name, k, n) => `${name} · ${n}종 중 상위 ${k}`,
+        note: '소진율 = 누적 판매 ÷ 누적 인쇄(재쇄 포함). — 는 10월 출간으로 9월 판매가 없는 도서입니다.', unit: '부', fresh: '신간', up: '증가', down: '감소', flat: '변동 없음', none: '9월 판매 없음' },
+      imp: { eyebrow: '임프린트 · 2026년 10월', desc: (rev, pct, up, c) => `10월 매출 ${rev}, 지난해보다 ${pct} ${up ? '증가' : '감소'}. ${c}부 판매.`,
+        rows: ['매출', '판매 부수', '반품률', '디지털 비중'], open: '임프린트 보고서 열기', close: '전체 임프린트로' },
+      fig2: { lbl: '그림 2', unit: '월 반품률 · %',
+        tAll: (rose, eased) => rose.length && eased.length ? `${rose.join('·')} 반품은 늘고 ${eased.join('·')}은 줄었습니다.` : rose.length ? `모든 임프린트에서 반품이 늘었습니다.` : `모든 임프린트에서 반품이 줄었습니다.`,
+        tOne: (name, rr, down) => `${name} 반품률은 ${rr}로 ${down ? '낮아져' : '높아져'} 목표 ${TARGET}%${parseFloat(rr) > TARGET ? '를 넘습니다' : ' 아래입니다'}.`,
+        note: `주: 그달 반품 부수 ÷ 출고 부수(입고일 기준). 목표 ${TARGET}%는 연간 계획입니다.`, all: '전체', target: `목표 ${TARGET}%`, th: ['월'],
+        aria: (names) => `월 반품률 추이: ${names}. 좌우 방향키로 달을 옮길 수 있습니다.` },
+      notes: { t: '주석', items: ['매출은 입고일 기준으로 반품을 뺀 순매출이며 전자책·오디오북을 포함합니다.', '반품률은 그달 반품 부수를 출고 부수로 나눈 값입니다.', '소진율은 누적 판매 부수를 누적 인쇄 부수(재쇄 포함)로 나눈 값입니다.', '디지털 비중은 전자책과 오디오북 매출의 합을 전체 매출로 나눈 값입니다.'],
+        src: '출처: ERP 판매 원장, 온라인 서점 주문, 물류사 반품 피드.', upd: '2026년 10월 31일 09:00 갱신' },
+      md: { title: '느린달 출판사 · 월간 판매 보고 · 2026년 10월', figures: '핵심 수치', titles: '상위 도서', imprints: '임프린트', notes: '주석' },
       note: '가상의 출판사와 가상 데이터로 구성한 샘플 화면입니다.',
       notice: 'Anthropic의 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 공개된 웹사이트(anthropic.com, claude.com)에서 보이는 디자인을 읽어 낸 참고용 스타일이며 로고·서체·데이터는 포함하지 않습니다. 상표는 각 소유자의 것입니다.'
     },
     en: {
       locale: 'en-US',
-      docTitle: 'Anthropic style · Publisher sales sample',
-      brand: 'Slow Moon Press', brandSub: 'Sales report', period: 'October 2026', toReleases: 'New releases',
+      docTitle: 'Anthropic style · Publisher sales report sample',
+      brand: 'Slow Moon Press', brandSub: 'Monthly sales report', period: 'October 2026', pdf: 'Read in PDF', copy: 'Copy as markdown', copied: 'Report copied as markdown',
       catName: 'Anthropic style', words: 'Ivory, Editorial, Quiet',
-      tabsLabel: 'Imprint', tabs: { all: 'All', fic: 'Fiction', non: 'Nonfiction', kid: "Children's" },
+      tabsLabel: 'Imprint', tabs: { all: 'All imprints', fic: 'Fiction', non: 'Nonfiction', kid: "Children's" },
+      allImp: 'All imprints',
       aside: 'As of October 2026 · vs prior month and prior year',
-      stmt: (rev, pct, up) => ['October revenue was ', { b: rev }, up ? ', up ' : ', down ', { b: pct }, ' on October last year.'],
-      lead: (title, author, copies) => ['The best seller of the month was ', { i: title }, ` by ${author}, at ${copies} copies.`],
-      kpi: { rev: 'October revenue', copies: 'Copies sold', returns: 'Return rate', digital: 'Digital share',
-        vsY: 'vs Oct 2025', vsM: 'vs Sep', pts: ' pts', unit: '', digitalSub: (e, a) => `E-book ${e}% · Audio ${a}%` },
-      tr: { t: 'Monthly revenue', sub: 'last 12 months', s1: 'Last 12 mo', s2: 'Prior year', th: ['Month', 'Last 12 months', 'Prior year'],
-        aria: (s, p, m, v) => `Monthly revenue. ${s} over the last 12 months, ${p} vs the prior year. Peak ${m} at ${v}. Use the left and right arrow keys to move between months.` },
-      bs: { t: 'Best sellers', sub: 'copies · vs Sep', unit: '', vs: 'vs Sep', up: 'up', down: 'down', flat: 'unchanged' },
-      cloth: { t: 'Cloth colors', sub: 'clothbound editions', names: { ivory: 'Ivory', oat: 'Oat', clay: 'Clay', ink: 'Ink' }, unit: '' },
-      press: { t: 'Next to press', meta: (a, p, f) => `${a} · ${p} pages · ${f} copies`, roles: ['Title', 'Text', 'Figures'],
-        faces: ['Source Serif 4', 'Inter', 'JetBrains Mono'], pt: ' pt', date: (m, d) => `${MON_EN[m - 1]} ${d}` },
-      book: { t: 'Book of the month', sub: 'October', tag: 'No. 1', unit: ' copies', pub: 'Slow Moon',
-        meta: (imp, price) => `${imp} · ${price}`, cover: (title, a) => `Cover of ${title} by ${a}` },
-      rel: { t: 'New releases', aside: 'Last 90 days · by October copies',
-        th: ['Title', 'Imprint', 'Published', 'October', 'Sold', 'Sell-through', 'Reprint'], yes: 'Reprinted', no: 'First printing', unit: '',
-        through: (p, f) => `${p} of a first printing of ${f}` },
+      meta: { pub: 'Published', pubV: 'Oct 31, 2026', team: 'Team', teamV: 'Sales operations', period: 'Period' },
+      sec: { rev: 'Revenue', titles: 'Titles', imp: 'Imprints', ret: 'Returns' }, rid: 'Report ID',
+      stmt: {
+        all: (v, g) => [{ b: `October revenue was ${v.rev}, ${v.up ? 'up' : 'down'} ${v.pct} on October last year.` }, ` ${g.leader} led the gain`, g.fell ? ` while ${g.fell} copies fell from September;` : ' and every imprint sold more copies than in September;', ` the return rate ${v.rrDown ? 'eased' : 'rose'} to ${v.rr}.`],
+        one: (v, name, top) => [{ b: `${name} revenue was ${v.rev} in October, ${v.up ? 'up' : 'down'} ${v.pct} on last year.` }, ` Copies ${v.cpUp ? 'rose' : 'fell'} ${v.cp} on September and the return rate ${v.rrDown ? 'eased' : 'rose'} to ${v.rr}, led by `, { i: top }, '.']
+      },
+      kf: { t: 'Key findings',
+        rev: (n, max, v) => n === 12 ? `Revenue has stayed above the prior year in all 12 months; October's ${v} is ${max ? 'the highest of the year' : 'not the year’s high'}.` : `Revenue was above the prior year in ${n} of 12 months; October was ${v}.`,
+        best: (t, a, c, d) => [{ i: t }, ` by ${a} leads with ${c} copies, ${d}.`],
+        ret: (rr, d, above) => `Returns ${d}, to ${rr}. ` + (above === null ? `That is ${parseFloat(rr) > TARGET ? 'above' : 'below'} the ${TARGET}% target.` : above.length ? `${above.join(' and ')} ${above.length > 1 ? 'are' : 'is'} the only imprint${above.length > 1 ? 's' : ''} above the ${TARGET}% target.` : `Every imprint is below the ${TARGET}% target.`),
+        dig: (s, name) => `E-book and audio made up ${s} of revenue` + (name ? `; ${name.n} is the most digital imprint at ${name.v}.` : '.') },
+      kv: { rev: 'October revenue', copies: 'Copies sold', ret: 'Return rate', dig: 'Digital share', vsY: 'vs Oct 2025', vsM: 'vs Sep', pts: ' pts', unit: '', ebook: (e, a) => `E-book ${e} · Audio ${a}` },
+      fig1: { lbl: 'Figure 1', unit: 'Monthly revenue · ₩', t: (n, name) => n === 12 ? `${name} revenue ran above last year in every month.` : `${name} revenue ran above last year in ${n} of 12 months.`,
+        note: 'Note: Net of returns; e-book and audio included. The dashed line is the same month a year earlier.', s1: 'Last 12 months', s2: 'Prior year', th: ['Month', 'Last 12 months', 'Prior year'],
+        aria: (s, p) => `Monthly revenue. ${s} over the last 12 months, ${p} vs the prior year. Use the left and right arrow keys to move between months.` },
+      tbl1: { lbl: 'Table 1', t: 'Top titles by October copies', count: n => `${n} titles`, th: ['Title', 'October', 'vs Sep', 'Sell-through'], grp: (name, k, n) => `${name} · top ${k} of ${n}`,
+        note: 'Sell-through = copies sold to date ÷ copies printed, reprints included. — marks an October release with no September sales.', unit: '', fresh: 'New', up: 'up', down: 'down', flat: 'unchanged', none: 'no September sales' },
+      imp: { eyebrow: 'Imprint · October 2026', desc: (rev, pct, up, c) => `${rev} in October, ${up ? 'up' : 'down'} ${pct} on last year, from ${c} copies.`,
+        rows: ['Revenue', 'Copies', 'Return rate', 'Digital share'], open: 'Open imprint report', close: 'Back to all imprints' },
+      fig2: { lbl: 'Figure 2', unit: 'Monthly return rate · %',
+        tAll: (rose, eased) => rose.length && eased.length ? `${rose.join(' and ')} returns rose while ${eased.join(' and ')} eased.` : rose.length ? 'Returns rose in every imprint.' : 'Returns eased in every imprint.',
+        tOne: (name, rr, down) => `${name} returns ${down ? 'eased' : 'rose'} to ${rr}, ${parseFloat(rr) > TARGET ? 'above' : 'below'} the ${TARGET}% target.`,
+        note: `Note: Returned copies ÷ shipped copies in the month, by receipt date. The ${TARGET}% target is the annual plan.`, all: 'All imprints', target: `Target ${TARGET}%`, th: ['Month'],
+        aria: (names) => `Monthly return rate: ${names}. Use the left and right arrow keys to move between months.` },
+      notes: { t: 'Notes', items: ['Revenue is net of returns at receipt date and includes e-book and audio.', 'Return rate is copies returned in the month divided by copies shipped.', 'Sell-through is cumulative copies sold divided by cumulative copies printed, reprints included.', 'Digital share is e-book plus audio revenue divided by total revenue.'],
+        src: 'Sources: ERP sales ledger, storefront orders, distributor returns feed.', upd: 'Updated Oct 31, 2026, 09:00' },
+      md: { title: 'Slow Moon Press · Monthly sales report · October 2026', figures: 'Key figures', titles: 'Top titles', imprints: 'Imprints', notes: 'Notes' },
       note: 'A sample screen built around a fictional publisher and fictional data.',
       notice: 'Not an official Anthropic design, and not affiliated with or endorsed by Anthropic. A reference style read from the publicly visible design of anthropic.com and claude.com; it carries no logo, typeface or data of theirs. Trademarks belong to their owners.'
     }
@@ -499,10 +501,12 @@
   function h(tag, attrs, ...kids) { const e = document.createElement(tag); setAttrs(e, attrs); add(e, kids); return e; }
   function sv(tag, attrs, ...kids) { const e = document.createElementNS(SVGNS, tag); setAttrs(e, attrs); add(e, kids); return e; }
   const fade = animate => (animate && !REDUCE ? 'fade' : null);
+  const refade = (el, animate) => { el.classList.remove('fade'); if (fade(animate)) { void el.offsetWidth; el.classList.add('fade'); } };
 
-  /* 숫자: 한국어 억·만·부·원, 영어 ₩·M. 단위는 숫자보다 작게 */
+  /* 숫자: 한국어 억·만·부·%p, 영어 ₩·M·pts. 단위는 숫자보다 작게, 부호는 진짜 마이너스 */
   const nf = (n, d = 0) => Number(n).toLocaleString(L().locale, { minimumFractionDigits: d, maximumFractionDigits: d });
   const signed = (n, d = 0) => (n > 0 ? '+' : n < 0 ? '−' : '') + nf(Math.abs(n), d);
+  const pct = (n, d = 1) => nf(n, d) + '%';
   const ym = i => { const [y, m] = DATA.months[i].split('-').map(Number); return { y, m }; };
   const monShort = i => state.lang === 'ko' ? `${ym(i).m}월` : MON_EN[ym(i).m - 1];
   const monLong = i => { const { y, m } = ym(i); return state.lang === 'ko' ? `${y}년 ${m}월` : `${MON_EN[m - 1]} ${y}`; };
@@ -515,70 +519,104 @@
     const eok = Math.floor(v / 1e8), man = Math.round((v - eok * 1e8) / 1e4);
     return (eok ? `${nf(eok)}억 ` : '') + (man ? `${nf(man)}만 ` : '') + '원';
   }
-  const won = v => state.lang === 'ko' ? `${nf(v)}원` : `₩${nf(v)}`;
+  const moneyTick = v => state.lang === 'ko' ? (v % 1e8 ? nf(v / 1e8, 1) : nf(v / 1e8)) + '억' : `${nf(v / 1e6)}M`;
   const countParts = (n, unit) => unit ? [{ t: nf(n) }, { t: unit, u: 1 }] : [{ t: nf(n) }];
   const partsText = p => p.map(x => x.t).join('');
   const figNodes = parts => parts.map(p => p.u ? h('span', { class: p.pre ? 'u pre' : 'u', text: p.t }) : document.createTextNode(p.t));
-  const fillFig = (el, parts) => el.replaceChildren(...figNodes(parts));
   const richNodes = parts => parts.map(p => typeof p === 'string' ? document.createTextNode(p) : p.b != null ? h('b', { text: p.b }) : h('i', { text: p.i }));
-  const ptSize = (a, b) => (b == null ? nf(a, a % 1 ? 1 : 0) : `${nf(a, a % 1 ? 1 : 0)}/${nf(b, b % 1 ? 1 : 0)}`) + L().press.pt;
+  const richText = parts => parts.map(p => typeof p === 'string' ? p : p.b != null ? p.b : p.i).join('');
+  const changeWord = (d, t) => d > 0 ? t.up : d < 0 ? t.down : t.flat;
 
   /* ================= 필터에 맞춘 데이터 ================= */
+  const rate = (d, i) => d.returned[i] / d.shipped[i] * 100;
   function getView(key) {
     const ks = key === 'all' ? IMPRINTS : [key];
     const ds = ks.map(k => DATA.imprints[k]);
     const all = (f, n) => Array.from({ length: n }, (_, i) => sum(ds.map(d => d[f][i])));
-    const best = ks.flatMap(k => DATA.imprints[k].best.map(b => ({ ...b, k }))).sort((a, b) => b.c - a.c).slice(0, 5);
-    const rel = ks.flatMap(k => DATA.imprints[k].rel.map(r => ({ ...r, k }))).sort((a, b) => b.oct - a.oct).slice(0, 3);
-    const press = ks.map(k => ({ ...DATA.imprints[k].press, k })).sort((a, b) => (a.date < b.date ? -1 : 1))[0];
+    const titles = ks.flatMap(k => DATA.imprints[k].titles.map(b => ({ ...b, k }))).sort((a, b) => b.oct - a.oct);
+    const shipped = all('shipped', 12), returned = all('returned', 12);
     return {
-      rev: all('rev', 12), prev: all('prev', 12),
+      keys: ks, rev: all('rev', 12), prev: all('prev', 12),
       copies: sum(ds.map(d => d.copies)), copiesPrev: sum(ds.map(d => d.copiesPrev)),
-      shipped: sum(ds.map(d => d.shipped)), returned: sum(ds.map(d => d.returned)),
-      shippedPrev: sum(ds.map(d => d.shippedPrev)), returnedPrev: sum(ds.map(d => d.returnedPrev)),
-      formats: all('formats', 3), cloth: all('cloth', 4), best, rel, press
+      shipped, returned, rr: returned.map((r, i) => r / shipped[i] * 100),
+      formats: all('formats', 3), titles
     };
   }
+  const impStats = k => { // 임프린트 카드와 문장에 쓰는 요약
+    const d = DATA.imprints[k], tot = sum(d.formats);
+    return { k, rev: d.rev[11], yoy: (d.rev[11] / d.prev[11] - 1) * 100, copies: d.copies, cp: (d.copies / d.copiesPrev - 1) * 100,
+      rr: rate(d, 11), rrd: rate(d, 11) - rate(d, 10), dig: (d.formats[1] + d.formats[2]) / tot * 100, top: d.titles.slice().sort((a, b) => b.oct - a.oct)[0] };
+  };
 
-  /* ================= 문장과 KPI ================= */
-  function renderStatement(v, animate) {
-    const t = L(), cur = v.rev[11], py = v.prev[11], pct = (cur / py - 1) * 100;
-    const stmt = $('#stmt'), lead = $('#lead'), top = v.best[0];
-    stmt.replaceChildren(...richNodes(t.stmt(moneyLong(cur), nf(Math.abs(pct), 1) + '%', pct >= 0)));
-    lead.replaceChildren(...richNodes(t.lead(book(top.id, 'title'), book(top.id, 'author'), nf(top.c))));
-    for (const el of [stmt, lead]) { el.classList.remove('fade'); if (fade(animate)) { void el.offsetWidth; el.classList.add('fade'); } }
+  /* ================= 문장, Key findings, 키–값 행 ================= */
+  function renderTitle(v, animate) {
+    const t = L(), cur = v.rev[11], py = v.prev[11], yoy = (cur / py - 1) * 100;
+    const rr = v.rr[11], rrPrev = v.rr[10], cp = (v.copies / v.copiesPrev - 1) * 100;
+    const vals = { rev: moneyLong(cur), pct: pct(Math.abs(yoy)), up: yoy >= 0, rr: pct(rr), rrDown: rr < rrPrev, cp: pct(Math.abs(cp)), cpUp: cp >= 0 };
+    let parts;
+    if (state.imprint === 'all') {
+      const st = IMPRINTS.map(impStats);
+      const leader = st.slice().sort((a, b) => b.yoy - a.yoy)[0];
+      const fell = st.filter(s => s.cp < 0).map(s => t.tabs[s.k]);
+      parts = t.stmt.all(vals, { leader: t.tabs[leader.k], fell: fell.length ? fell.join(state.lang === 'ko' ? '·' : ' and ') : null });
+    } else {
+      parts = t.stmt.one(vals, t.tabs[state.imprint], book(v.titles[0].id, 'title'));
+    }
+    const stmt = $('#stmt');
+    stmt.replaceChildren(...richNodes(parts));
+    refade(stmt, animate);
+    return parts;
   }
   function deltaNodes(d, digits, suffix, vs, goodWhenUp = true) {
     const shown = Number(d.toFixed(digits)), cls = shown === 0 ? 'flat' : (shown > 0) === goodWhenUp ? null : 'bad';
     return [h('b', { class: cls, text: signed(shown, digits) + suffix }), vs];
   }
-  function renderKpis(v, animate) {
-    const t = L();
-    const set = (id, parts, sub) => {
-      const card = $(id), fig = $('.fig', card), s = $('.sub', card);
-      fillFig(fig, parts);
-      s.replaceChildren(...sub);
-      for (const el of [fig, s]) { el.classList.remove('fade'); if (fade(animate)) { void el.offsetWidth; el.classList.add('fade'); } }
-    };
-    set('#k-rev', moneyParts(v.rev[11]), deltaNodes((v.rev[11] / v.prev[11] - 1) * 100, 1, '%', t.kpi.vsY));
-    set('#k-cop', countParts(v.copies, t.kpi.unit), deltaNodes((v.copies / v.copiesPrev - 1) * 100, 1, '%', t.kpi.vsM));
-    const rr = v.returned / v.shipped * 100, rp = v.returnedPrev / v.shippedPrev * 100;
-    set('#k-ret', [{ t: nf(rr, 1) }, { t: '%', u: 1 }], deltaNodes(rr - rp, 1, t.kpi.pts, t.kpi.vsM, false));
-    const tot = sum(v.formats), e = v.formats[1] / tot * 100, a = v.formats[2] / tot * 100;
-    set('#k-dig', [{ t: nf(e + a, 1) }, { t: '%', u: 1 }], [t.kpi.digitalSub(nf(e, 1), nf(a, 1))]);
+  function kfItems(v) {
+    const t = L(), name = state.imprint === 'all' ? null : t.tabs[state.imprint];
+    const above = v.rev.filter((x, i) => x > v.prev[i]).length, isMax = v.rev[11] === Math.max(...v.rev);
+    const top = v.titles[0], d = top.sep ? (top.oct / top.sep - 1) * 100 : null;
+    const rr = v.rr[11], rd = rr - v.rr[10];
+    const st = IMPRINTS.map(impStats), aboveT = st.filter(s => s.rr > TARGET).map(s => t.tabs[s.k]);
+    const tot = sum(v.formats), dig = (v.formats[1] + v.formats[2]) / tot * 100;
+    const mostDig = st.slice().sort((a, b) => b.dig - a.dig)[0];
+    const bestD = state.lang === 'ko'
+      ? (d == null ? '10월에 출간됐습니다' : `${pct(Math.abs(d))} ${d >= 0 ? '늘었습니다' : '줄었습니다'}`)
+      : (d == null ? 'published this October' : `${pct(Math.abs(d))} ${d >= 0 ? 'more' : 'fewer'} than in September`);
+    const retD = state.lang === 'ko' ? `${pct(Math.abs(rd))}p ${rd <= 0 ? '낮아졌습니다' : '높아졌습니다'}` : `${rd <= 0 ? 'eased' : 'rose'} ${pct(Math.abs(rd)).replace('%', '')} pts`;
+    return [
+      [t.kf.rev(above, isMax, moneyLong(v.rev[11]))],
+      t.kf.best(book(top.id, 'title'), book(top.id, 'author'), nf(top.oct), bestD),
+      [t.kf.ret(pct(rr), retD, name ? null : aboveT)],
+      [t.kf.dig(pct(dig), name ? null : { n: t.tabs[mostDig.k], v: pct(mostDig.dig) })]
+    ];
+  }
+  function kvRows(v) {
+    const t = L(), rr = v.rr[11], rp = v.rr[10], tot = sum(v.formats), e = v.formats[1] / tot * 100, a = v.formats[2] / tot * 100;
+    return [
+      [t.kv.rev, moneyParts(v.rev[11]), deltaNodes((v.rev[11] / v.prev[11] - 1) * 100, 1, '%', t.kv.vsY)],
+      [t.kv.copies, countParts(v.copies, t.kv.unit), deltaNodes((v.copies / v.copiesPrev - 1) * 100, 1, '%', t.kv.vsM)],
+      [t.kv.ret, [{ t: nf(rr, 1) }, { t: '%', u: 1 }], deltaNodes(rr - rp, 1, t.kv.pts, t.kv.vsM, false)],
+      [t.kv.dig, [{ t: nf(e + a, 1) }, { t: '%', u: 1 }], [t.kv.ebook(pct(e), pct(a))]]
+    ];
+  }
+  function renderFindings(v, animate) {
+    const items = kfItems(v);
+    $('#kfList').replaceChildren(...items.map((p, i) => h('li', { class: fade(animate), style: animate && !REDUCE ? { animationDelay: (i * 40) + 'ms' } : null }, richNodes(p))));
+    $('#kvList').replaceChildren(...kvRows(v).map(([k, parts, d]) => h('li', { class: fade(animate) },
+      h('span', { class: 'k', text: k }), h('span', { class: 'v' }, figNodes(parts)), h('span', { class: 'd' }, d))));
+    return items;
   }
 
   /* ================= 툴팁 ================= */
   function tipNodes(title, rows) {
     return [h('div', { class: 'tip-h', text: title })].concat(rows.map(r => h('div', { class: 'tip-r' },
-      h('i', { class: 'k-line' + (r.dotted ? ' dotted' : ''), style: { '--c': r.key } }),
-      h('b', { text: r.value }), h('span', { text: r.label }))));
+      h('i', { class: r.dashed ? 'dashed' : null, style: { '--c': r.key } }), h('b', { text: r.value }), h('span', { text: r.label }))));
   }
   // 위 → 왼쪽 → 오른쪽 → 아래 순으로 카드 안에 들어가는 자리를 찾고, 화살표가 점을 가리키게 한다
   function placeTip(card, ax, ayTop, ayBottom) {
-    const tip = $('.tip', card), head = $('.card-h', card);
+    const tip = $('.tip', card), plot = $('.plot', card);
     const cw = card.clientWidth, ch = card.clientHeight, tw = tip.offsetWidth, th = tip.offsetHeight;
-    const minTop = head.offsetTop + head.offsetHeight + 2, maxBottom = ch - 8, gap = 12, mid = (ayTop + ayBottom) / 2;
+    const minTop = plot.offsetTop - 6, maxBottom = ch - 8, gap = 12, mid = (ayTop + ayBottom) / 2;
     const cx = l => Math.max(8, Math.min(cw - tw - 8, l)), cy = y => Math.max(minTop, Math.min(maxBottom - th, y));
     const options = [
       ['above', cx(ax - tw / 2), ayTop - gap - th, ayTop - gap - th >= minTop],
@@ -614,177 +652,243 @@
       h('tbody', null, rows.map(r => h('tr', null, r.map((c, j) => h(j ? 'td' : 'th', j ? { text: c } : { scope: 'row', text: c }))))));
   }
 
-  /* ================= 월 매출: 단조 곡선(넘침 없음) ================= */
-  function smooth(pts) {
-    const n = pts.length, dx = [], m = [], t = new Array(n);
-    for (let i = 0; i < n - 1; i++) { dx[i] = pts[i + 1][0] - pts[i][0]; m[i] = (pts[i + 1][1] - pts[i][1]) / dx[i]; }
-    t[0] = m[0]; t[n - 1] = m[n - 2];
-    for (let i = 1; i < n - 1; i++) {
-      if (m[i - 1] * m[i] <= 0) t[i] = 0;
-      else { const w1 = 2 * dx[i] + dx[i - 1], w2 = dx[i] + 2 * dx[i - 1]; t[i] = (w1 + w2) / (w1 / m[i - 1] + w2 / m[i]); }
-    }
-    let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
-    for (let i = 0; i < n - 1; i++) {
-      const [x0, y0] = pts[i], [x1, y1] = pts[i + 1], k = dx[i] / 3;
-      d += `C${(x0 + k).toFixed(1)},${(y0 + t[i] * k).toFixed(1)} ${(x1 - k).toFixed(1)},${(y1 - t[i + 1] * k).toFixed(1)} ${x1.toFixed(1)},${y1.toFixed(1)}`;
-    }
-    return d;
+  /* ================= 선 차트(앤트로픽 figure 문법): 흰 패널, 연한 격자, 선 끝 라벨(이름은 시리즈 색, 값은 회색),
+     점선 비교·기준선, 호버·키보드로 고른 달에 세로선·점·잉크 툴팁 ================= */
+  function niceTicks(lo, hi, count) {
+    const span = hi - lo, raw = span / count, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    const step = [1, 2, 2.5, 5, 10].map(x => x * mag).find(x => x >= raw);
+    const start = Math.floor(lo / step) * step, out = [];
+    for (let v = start; v <= hi + step * .5; v += step) out.push(Number(v.toFixed(10)));
+    return out;
   }
-  const TR = { cur: 11 };
   let measure = null;
-  function drawTr(animate) {
-    const v = state.view, card = $('#c-tr'), box = $('#trChart'), t = L();
+  const textW = (txt, font) => { measure = measure || document.createElement('canvas').getContext('2d'); measure.font = font; return measure.measureText(txt).width; };
+  function drawLines(card, box, opt, animate) {
     const W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
     if (!W || !H) return;
     box._w = W; box._h = H;
-    // 두 선의 마지막 값은 오른쪽 끝에 바로 적는다(툴팁 없이도 읽히게). 글자 폭만큼 오른쪽을 비운다
-    const n = 12, last = n - 1, endA = partsText(moneyParts(v.rev[last])), endB = partsText(moneyParts(v.prev[last]));
-    measure = measure || document.createElement('canvas').getContext('2d');
-    measure.font = `500 12px ${getComputedStyle(box).fontFamily}`;
-    const lw = Math.ceil(Math.max(measure.measureText(endA).width, measure.measureText(endB).width));
-    const padL = 22, padR = lw + 36, top = 16, bottom = H - 28;
-    const vals = v.rev.concat(v.prev), lo = Math.min(...vals), hi = Math.max(...vals), span = hi - lo || hi;
-    const y0 = lo - span * .18, y1 = hi + span * .12, step = (W - padL - padR) / (n - 1);
+    const n = 12, last = n - 1, fam = getComputedStyle(box).fontFamily;
+    const ticks = niceTicks(opt.lo, opt.hi, 4);
+    const y0 = ticks[0], y1 = ticks[ticks.length - 1];
+    const tickW = Math.ceil(Math.max(...ticks.map(v => textW(opt.tick(v), `400 11px ${fam}`))));
+    const narrow = W < 430; // 좁은 폭: 선 끝에 값만, 달 라벨은 셋만
+    const endW = Math.ceil(Math.max(...opt.series.map(s => textW((narrow ? '' : s.name + ' ') + s.endText, `600 12px ${fam}`))));
+    const padL = 16 + tickW + 10, padR = endW + 24, top = 20, bottom = H - 30;
+    const step = (W - padL - padR) / (n - 1);
     const X = i => padL + i * step, Y = val => bottom - (val - y0) / (y1 - y0) * (bottom - top);
-    const A = v.rev.map((val, i) => [X(i), Y(val)]), B = v.prev.map((val, i) => [X(i), Y(val)]);
-    const peak = v.rev.indexOf(Math.max(...v.rev)), s = sum(v.rev), p = sum(v.prev);
-    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0,
-      'aria-label': t.tr.aria(partsText(moneyParts(s)), signed((s / p - 1) * 100, 1) + '%', monLong(peak), partsText(moneyParts(v.rev[peak]))) });
-    const base = Math.round(bottom) + .5;
-    svg.append(sv('line', { x1: padL - 6, x2: X(last) + 6, y1: base, y2: base, stroke: C.hair2, 'stroke-width': 1 }));
-    svg.append(sv('path', { d: smooth(B), fill: 'none', stroke: C.prev, 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-dasharray': '0.1 5', class: fade(animate) }));
-    svg.append(sv('path', { d: smooth(A), fill: 'none', stroke: C.clay, 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: animate && !REDUCE ? 1 : null, class: animate && !REDUCE ? 'draw' : null }));
-    svg.append(sv('circle', { cx: A[last][0], cy: A[last][1], r: 4.5, fill: C.canvas, stroke: C.clay, 'stroke-width': 2 }));
-    // 끝 값: 위에 있는 선의 값은 위로, 아래 선의 값은 아래로 벌린다
-    let ya = A[last][1], yb = B[last][1];
-    const aboveA = ya <= yb, gapY = 17;
-    if (Math.abs(ya - yb) < gapY) { const m = (ya + yb) / 2; ya = m + (aboveA ? -gapY / 2 : gapY / 2); yb = m + (aboveA ? gapY / 2 : -gapY / 2); }
-    svg.append(sv('g', { class: fade(animate) },
-      sv('text', { x: X(last) + 12, y: ya, dy: '.35em', class: 'end', text: endA }),
-      sv('text', { x: X(last) + 12, y: yb, dy: '.35em', class: 'end prev', text: endB })));
-    [0, 3, 6, 9, last].forEach(i => svg.append(sv('text', { x: X(i), y: H - 9, 'text-anchor': i === 0 ? 'start' : 'middle', class: 'ax' + (i === last ? ' em' : ''), text: monShort(i) })));
-    // 호버·키보드로 고른 달: 가는 세로선, 클레이 후광, 잉크 테두리 점, 툴팁
-    const cross = sv('line', { y1: top - 6, y2: bottom, stroke: C.hair2, 'stroke-width': 1 });
-    const dotB = sv('circle', { r: 3.5, fill: C.prev, stroke: C.canvas, 'stroke-width': 2 });
-    const halo = sv('circle', { r: 13, fill: C.clay, 'fill-opacity': .18 });
-    const dotA = sv('circle', { r: 5, fill: C.canvas, stroke: C.ink, 'stroke-width': 2.5 });
-    const hl = sv('g', { style: { opacity: 0 } }, cross, dotB, halo, dotA);
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': opt.aria });
+    // 격자와 눈금
+    for (const v of ticks) {
+      const y = Math.round(Y(v)) + .5;
+      svg.append(sv('line', { x1: padL - 6, x2: X(last), y1: y, y2: y, stroke: v === y0 ? C.hair2 : C.grid, 'stroke-width': 1 }));
+      svg.append(sv('text', { x: padL - 10, y, dy: '.35em', 'text-anchor': 'end', class: 'ax', text: opt.tick(v) }));
+    }
+    (narrow ? [0, 6, last] : [0, 3, 6, 9, last]).forEach(i => svg.append(sv('text', { x: X(i), y: H - 10, 'text-anchor': i === 0 ? 'start' : 'middle', class: 'ax' + (i === last ? ' em' : ''), text: monShort(i) })));
+    // 기준선(점선)과 라벨
+    if (opt.ref && opt.ref.val >= y0 && opt.ref.val <= y1) {
+      const y = Math.round(Y(opt.ref.val)) + .5;
+      svg.append(sv('line', { x1: padL - 6, x2: X(last), y1: y, y2: y, stroke: C.cloud, 'stroke-width': 1, 'stroke-dasharray': '4 4' }));
+      svg.append(sv('text', { x: padL, y: y - 6, class: 'ref', text: opt.ref.label }));
+    }
+    // 선
+    const pts = opt.series.map(s => s.vals.map((val, i) => [X(i), Y(val)]));
+    opt.series.forEach((s, si) => {
+      const d = pts[si].map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('');
+      svg.append(sv('path', { d, fill: 'none', stroke: s.color, 'stroke-width': s.dashed ? 2 : 2.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round',
+        'stroke-dasharray': s.dashed ? '7 5' : null, pathLength: animate && !REDUCE && !s.dashed ? 1 : null, class: s.dashed ? fade(animate) : (animate && !REDUCE ? 'draw' : null) }));
+      if (!s.dashed) svg.append(sv('circle', { cx: pts[si][last][0], cy: pts[si][last][1], r: 4, fill: C.plot, stroke: s.color, 'stroke-width': 2.5, class: fade(animate) }));
+    });
+    // 선 끝 라벨: 겹치면 위아래로 벌린다
+    const lab = opt.series.map((s, si) => ({ s, y: pts[si][last][1] })).sort((a, b) => a.y - b.y);
+    for (let i = 1; i < lab.length; i++) if (lab[i].y - lab[i - 1].y < 16) lab[i].y = lab[i - 1].y + 16;
+    const over = lab.length ? lab[lab.length - 1].y - (bottom + 4) : 0;
+    if (over > 0) lab.forEach(l => { l.y -= over; });
+    const g = sv('g', { class: fade(animate) });
+    for (const l of lab) g.append(sv('text', { x: X(last) + 12, y: l.y, dy: '.35em', class: 'end', fill: l.s.textColor || C.ink },
+      narrow ? null : sv('tspan', { text: l.s.name + ' ' }), sv('tspan', { class: narrow ? null : 'v', text: l.s.endText })));
+    svg.append(g);
+    // 호버·키보드로 고른 달
+    const cross = sv('line', { y1: top - 4, y2: bottom, stroke: C.hair2, 'stroke-width': 1 });
+    const dots = opt.series.map(s => sv('circle', { r: 4.5, fill: C.plot, stroke: s.color, 'stroke-width': 2.5 }));
+    const hl = sv('g', { style: { opacity: 0 } }, cross, dots);
     svg.append(hl);
     svg.append(sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
     box.replaceChildren(svg);
 
     const show = on => { hl.style.opacity = on ? 1 : 0; if (!on) hideTip(card); };
     const set = i => {
-      TR.cur = i;
-      const [x, a] = A[i], b = B[i][1];
+      box._cur = i;
+      const x = X(i);
       cross.setAttribute('x1', x); cross.setAttribute('x2', x);
-      dotB.setAttribute('cx', x); dotB.setAttribute('cy', b);
-      halo.setAttribute('cx', x); halo.setAttribute('cy', a);
-      dotA.setAttribute('cx', x); dotA.setAttribute('cy', a);
+      dots.forEach((d, si) => { d.setAttribute('cx', x); d.setAttribute('cy', pts[si][i][1]); });
       show(true);
-      const tip = $('.tip', card), o = offsetIn(card, svg);
-      tip.replaceChildren(...tipNodes(monLong(i), [
-        { key: C.clay, value: partsText(moneyParts(v.rev[i])), label: t.tr.s1 },
-        { key: C.prev, dotted: true, value: partsText(moneyParts(v.prev[i])), label: t.tr.s2 }
-      ]));
-      placeTip(card, o.x + x, o.y + Math.min(a, b) - 6, o.y + Math.max(a, b) + 6);
+      const tip = $('.tip', card), o = offsetIn(card, svg), ys = pts.map(p => p[i][1]);
+      tip.replaceChildren(...tipNodes(monLong(i), opt.series.map(s => ({ key: s.color, dashed: s.dashed, value: s.fmt(s.vals[i]), label: s.name }))));
+      placeTip(card, o.x + x, o.y + Math.min(...ys) - 7, o.y + Math.max(...ys) + 7);
     };
     const idxAt = cx => { const r = svg.getBoundingClientRect(); return Math.max(0, Math.min(last, Math.round((cx - r.left - padL) / step))); };
-    svg.addEventListener('pointermove', e => { const i = idxAt(e.clientX); if (i !== TR.cur || hl.style.opacity !== '1') set(i); });
+    svg.addEventListener('pointermove', e => { const i = idxAt(e.clientX); if (i !== box._cur || hl.style.opacity !== '1') set(i); });
     svg.addEventListener('pointerdown', e => set(idxAt(e.clientX)));
     svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(false); });
-    svg.addEventListener('focus', () => set(TR.cur));
+    svg.addEventListener('focus', () => set(box._cur == null ? last : box._cur));
     svg.addEventListener('blur', () => show(false));
     svg.addEventListener('keydown', e => {
-      const i = keyStep(e, TR.cur, n);
+      const i = keyStep(e, box._cur == null ? last : box._cur, n);
       if (i === null) return;
       if (i < 0) { show(false); return; }
       set(i);
-      $('#live').textContent = `${monLong(i)}: ${t.tr.s1} ${partsText(moneyParts(v.rev[i]))}, ${t.tr.s2} ${partsText(moneyParts(v.prev[i]))}`;
+      $('#live').textContent = `${monLong(i)}: ` + opt.series.map(s => `${s.name} ${s.fmt(s.vals[i])}`).join(', ');
     });
     card._reset = () => show(false);
-    TR.cur = last;
+    box._cur = last;
     hideTip(card);
   }
-  function renderTr(v, animate) {
-    const t = L();
-    $('#trTable').replaceChildren(srTable(`${t.tr.t} · ${t.tabs[state.imprint]}`, t.tr.th,
+
+  /* ---------- 그림 1: 월 매출 ---------- */
+  const revOpt = v => {
+    const t = L(), s = sum(v.rev), p = sum(v.prev), vals = v.rev.concat(v.prev);
+    const key = state.imprint === 'all' ? 'fic' : state.imprint;
+    return {
+      lo: Math.min(...vals) * .9, hi: Math.max(...vals) * 1.04, tick: moneyTick,
+      aria: t.fig1.aria(partsText(moneyParts(s)), signed((s / p - 1) * 100, 1) + '%'),
+      series: [
+        { name: t.fig1.s1, vals: v.rev, color: SERIES[key].line, textColor: SERIES[key].text, endText: partsText(moneyParts(v.rev[11])), fmt: x => partsText(moneyParts(x)) },
+        { name: t.fig1.s2, vals: v.prev, color: C.comp, textColor: C.ink, dashed: true, endText: partsText(moneyParts(v.prev[11])), fmt: x => partsText(moneyParts(x)) }
+      ]
+    };
+  };
+  function renderRev(v, animate) {
+    const t = L(), above = v.rev.filter((x, i) => x > v.prev[i]).length;
+    const name = state.imprint === 'all' ? (state.lang === 'ko' ? '전체' : 'Total') : t.tabs[state.imprint];
+    $('#revTitle').textContent = t.fig1.t(above, name);
+    $('#revNote').textContent = t.fig1.note;
+    refade($('#revTitle'), animate);
+    $('#revTable').replaceChildren(srTable(`${t.fig1.lbl} · ${t.tabs[state.imprint]}`, t.fig1.th,
       v.rev.map((x, i) => [monLong(i), partsText(moneyParts(x)), partsText(moneyParts(v.prev[i]))])));
-    drawTr(animate);
+    drawLines($('#c-rev'), $('#revPlot'), revOpt(v), animate);
   }
 
-  /* ================= 베스트셀러 ================= */
-  const ARROW = { up: 'M3 9L9 3M4.4 3H9V7.6', down: 'M3 3L9 9M9 4.4V9H4.4', flat: 'M2.5 6h7' };
+  /* ---------- 그림 2: 임프린트별 월 반품률 ---------- */
+  const retOpt = v => {
+    const t = L(), fmt = x => pct(x), ks = state.imprint === 'all' ? IMPRINTS : [state.imprint];
+    const series = ks.map(k => { const d = DATA.imprints[k], vals = d.returned.map((r, i) => r / d.shipped[i] * 100);
+      return { name: t.tabs[k], vals, color: SERIES[k].line, textColor: SERIES[k].text, endText: pct(vals[11]), fmt }; });
+    if (state.imprint !== 'all') { const a = getView('all'); series.push({ name: t.fig2.all, vals: a.rr, color: C.comp, textColor: C.ink, dashed: true, endText: pct(a.rr[11]), fmt }); }
+    const vals = series.flatMap(s => s.vals).concat(TARGET);
+    return { lo: Math.min(...vals) - 1, hi: Math.max(...vals) + 1, tick: x => nf(x) + '%', ref: { val: TARGET, label: t.fig2.target },
+      aria: t.fig2.aria(series.map(s => `${s.name} ${s.endText}`).join(', ')), series };
+  };
+  function renderRet(v, animate) {
+    const t = L(), opt = retOpt(v);
+    let title;
+    if (state.imprint === 'all') {
+      const st = IMPRINTS.map(impStats), rose = st.filter(s => s.rrd > 0).map(s => t.tabs[s.k]), eased = st.filter(s => s.rrd <= 0).map(s => t.tabs[s.k]);
+      title = t.fig2.tAll(rose, eased);
+    } else title = t.fig2.tOne(t.tabs[state.imprint], pct(v.rr[11]), v.rr[11] < v.rr[10]);
+    $('#retTitle').textContent = title;
+    $('#retNote').textContent = t.fig2.note;
+    refade($('#retTitle'), animate);
+    $('#retTable').replaceChildren(srTable(`${t.fig2.lbl} · ${t.tabs[state.imprint]}`, t.fig2.th.concat(opt.series.map(s => s.name)),
+      DATA.months.map((m, i) => [monLong(i)].concat(opt.series.map(s => pct(s.vals[i]))))));
+    drawLines($('#c-ret'), $('#retPlot'), opt, animate);
+    return title;
+  }
+
+  /* ---------- 표 1: 상위 도서(잉크 괘선, 그룹 라벨 행, 10월 열이 주인공) ---------- */
   function chgNode(cur, prev, t) {
-    const pct = (cur / prev - 1) * 100, shown = Number(pct.toFixed(1)), dir = shown === 0 ? 'flat' : shown > 0 ? 'up' : 'down';
-    return h('span', { class: 'chg ' + dir, 'aria-label': `${t.vs} ${nf(Math.abs(shown), 1)}% ${t[dir]}` },
-      sv('svg', { viewBox: '0 0 12 12', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.8, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }, sv('path', { d: ARROW[dir] })),
-      nf(Math.abs(shown), 1) + '%');
+    if (prev == null) return h('span', { class: 'chg none', 'aria-label': t.none, text: '—' });
+    const d = (cur / prev - 1) * 100, shown = Number(d.toFixed(1)), dir = shown === 0 ? 'flat' : shown > 0 ? 'up' : 'down';
+    return h('span', { class: 'chg ' + dir, 'aria-label': `${nf(Math.abs(shown), 1)}% ${t[dir]}` }, signed(shown, 1) + '%');
   }
-  function renderBs(v, animate) {
-    const t = L();
-    $('#bsRows').replaceChildren(...v.best.map((b, i) => h('li', { class: fade(animate), style: animate && !REDUCE ? { animationDelay: (i * 40) + 'ms' } : null },
-      h('span', { class: 'rk', text: String(i + 1).padStart(2, '0') }),
-      h('span', { class: 'nm' }, h('span', { class: 'ttl', text: book(b.id, 'title') }), h('span', { class: 'au', text: book(b.id, 'author') })),
-      h('span', { class: 'val' }, figNodes(countParts(b.c, t.bs.unit))),
-      chgNode(b.c, b.p, t.bs))));
+  function titleRow(b, t, animate, i) {
+    const thru = b.sold / b.printed * 100, fresh = b.pub >= '2026-10-01';
+    return h('tr', { class: fade(animate), style: animate && !REDUCE ? { animationDelay: (i * 40) + 'ms' } : null },
+      h('th', { scope: 'row', class: 't-title' }, book(b.id, 'title'), h('span', { class: 'au', text: book(b.id, 'author') }), fresh ? h('span', { class: 'badge', text: t.fresh }) : null),
+      h('td', { class: 'num subj' }, figNodes(countParts(b.oct, t.unit))),
+      h('td', { class: 'num c-chg' }, chgNode(b.oct, b.sep, t)),
+      h('td', { class: 'num', 'aria-label': `${nf(thru)}%` },
+        h('span', { class: 'sell', 'aria-hidden': 'true' }, h('i', null, h('b', { style: { width: Math.min(100, thru).toFixed(1) + '%' } })), h('span', { text: nf(thru) + '%' }))));
   }
-
-  /* ================= 천 색상 · 인쇄 예정 · 이달의 책 ================= */
-  function renderCloth(v, animate) {
-    const t = L(), tot = sum(v.cloth);
-    $('#clothRows').replaceChildren(...CLOTH.map((c, i) => h('li', { class: fade(animate) },
-      h('i', { class: 'swatch' + (c.dark ? ' dark' : ''), style: { background: c.hex }, 'aria-hidden': 'true' }),
-      h('span', null, h('span', { class: 'name', text: t.cloth.names[c.id] }), h('span', { class: 'hex', text: c.hex })),
-      h('span', { class: 'num' }, figNodes(countParts(v.cloth[i], t.cloth.unit)), h('small', { text: nf(v.cloth[i] / tot * 100, 1) + '%' })))));
-  }
-  function renderPress(v, animate) {
-    const t = L(), p = v.press, [, m, d] = p.date.split('-').map(Number);
-    $('#pressDate').textContent = t.press.date(m, d);
-    $('#pressBook').textContent = book(p.id, 'title');
-    $('#pressMeta').textContent = t.press.meta(book(p.id, 'author'), nf(p.pages), nf(p.first));
-    const faces = ['f-serif', 'f-sans', 'f-mono'], sizes = [ptSize(p.title), ptSize(...p.text), ptSize(...p.fig)];
-    $('#pressSpec').replaceChildren(...t.press.roles.map((role, i) => h('li', { class: fade(animate) },
-      h('span', { class: 'role', text: role }), h('span', { class: 'face ' + faces[i], text: t.press.faces[i] }), h('span', { class: 'size', text: sizes[i] }))));
-    for (const el of [$('#pressBook'), $('#pressMeta')]) { el.classList.remove('fade'); if (fade(animate)) { void el.offsetWidth; el.classList.add('fade'); } }
-  }
-  function renderBook(v, animate) {
-    const t = L(), b = v.best[0], [bg, fg, light] = COVER[b.cover], cover = $('#bookCover');
-    cover.className = 'cover' + (light ? ' light' : '');
-    cover.style.background = bg;
-    cover.style.color = fg;
-    cover.setAttribute('aria-label', t.book.cover(book(b.id, 'title'), book(b.id, 'author')));
-    cover.replaceChildren(h('div', { class: 'b-in', 'aria-hidden': 'true' },
-      h('span', { class: 'b-title', text: book(b.id, 'title') }),
-      h('span', { class: 'b-rule' }),
-      h('span', { class: 'b-author', text: book(b.id, 'author') }),
-      h('span', { class: 'b-pub', text: t.book.pub })));
-    $('#bookAuthor').textContent = book(b.id, 'author');
-    $('#bookMeta').textContent = t.book.meta(t.tabs[b.k], won(b.price));
-    fillFig($('#bookVal'), countParts(b.c, t.book.unit));
-    for (const el of [cover, $('#bookAuthor'), $('#bookMeta'), $('#bookVal')]) { el.classList.remove('fade'); if (fade(animate)) { void el.offsetWidth; el.classList.add('fade'); } }
+  function renderTitles(v, animate) {
+    const t = L().tbl1, table = $('#titlesTable');
+    const COLS = ['', 'num subj', 'num c-chg', 'num'];
+    $('thead', table).replaceChildren(h('tr', null, t.th.map((x, j) => h('th', { scope: 'col', class: COLS[j] || null, text: x }))));
+    const rows = [];
+    if (state.imprint === 'all') {
+      for (const k of IMPRINTS) {
+        const ts = DATA.imprints[k].titles.slice().sort((a, b) => b.oct - a.oct);
+        rows.push(h('tr', { class: 'grp' }, h('th', { scope: 'colgroup', colspan: 4, text: t.grp(L().tabs[k], 2, ts.length) })));
+        ts.slice(0, 2).forEach((b, i) => rows.push(titleRow({ ...b, k }, t, animate, rows.length)));
+      }
+    } else v.titles.forEach((b, i) => rows.push(titleRow(b, t, animate, i)));
+    $('tbody', table).replaceChildren(...rows);
+    $('#titlesCount').textContent = t.count(v.titles.length);
+    $('#titlesNote').textContent = t.note;
   }
 
-  /* ================= 신간 성과: 잉크 띠의 표 ================= */
-  function renderRel(v, animate) {
-    const t = L(), table = $('#relTable');
-    const COLS = ['c-title', 'c-imp', 'c-date', 'c-oct num', 'c-sold num', 'c-thru num', 'c-rep'];
-    $('thead', table).replaceChildren(h('tr', null, t.rel.th.map((x, j) => h('th', { scope: 'col', class: COLS[j], text: x }))));
-    $('tbody', table).replaceChildren(...v.rel.map((r, i) => {
-      const rate = r.sold / r.first * 100;
-      return h('tr', { class: fade(animate), style: animate && !REDUCE ? { animationDelay: (i * 50) + 'ms' } : null },
-        h('th', { scope: 'row', class: 'c-title t-title', text: book(r.id, 'title') }),
-        h('td', { class: 'c-imp imp', text: t.tabs[r.k] }),
-        h('td', { class: 'c-date date', text: r.date }),
-        h('td', { class: COLS[3] }, figNodes(countParts(r.oct, t.rel.unit))),
-        h('td', { class: COLS[4] }, figNodes(countParts(r.sold, t.rel.unit))),
-        h('td', { class: COLS[5], 'aria-label': t.rel.through(nf(rate) + '%', nf(r.first)) },
-          h('span', { class: 'sell', 'aria-hidden': 'true' }, h('i', null, h('b', { style: { width: Math.min(100, rate).toFixed(1) + '%' } })), h('span', { text: nf(rate) + '%' }))),
-        h('td', { class: COLS[6] }, h('span', { class: 'rep' + (r.reprint ? '' : ' no'), text: r.reprint ? t.rel.yes : t.rel.no })));
+  /* ---------- 임프린트 카드 3장 ---------- */
+  function renderImprints(animate) {
+    const t = L(), box = $('#s-imprints');
+    box.replaceChildren(...IMPRINTS.map((k, i) => {
+      const s = impStats(k), on = state.imprint === k;
+      const rows = [
+        [t.imp.rows[0], moneyParts(s.rev), deltaNodes(s.yoy, 1, '%', '')],
+        [t.imp.rows[1], countParts(s.copies, t.kv.unit), deltaNodes(s.cp, 1, '%', '')],
+        [t.imp.rows[2], [{ t: nf(s.rr, 1) }, { t: '%', u: 1 }], deltaNodes(s.rrd, 1, t.kv.pts, '', false)],
+        [t.imp.rows[3], [{ t: nf(s.dig, 1) }, { t: '%', u: 1 }], []]
+      ];
+      const btn = h('button', { type: 'button', class: 'btn ' + (on ? 'btn-primary' : 'btn-secondary'), 'data-k': k }, on ? t.imp.close : t.imp.open,
+        sv('svg', { viewBox: '0 0 16 16', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }, sv('path', { d: on ? 'M13 8H3M7 4 3 8l4 4' : 'M3 8h10M9 4l4 4-4 4' })));
+      btn.addEventListener('click', () => { select(on ? 'all' : k); $('#tab-' + (on ? 'all' : k)).focus({ preventScroll: true }); });
+      return h('article', { class: 'card imp' + (on ? ' on' : '') + (fade(animate) ? ' fade' : ''), style: { '--c': SERIES[k].line, animationDelay: animate && !REDUCE ? (i * 50) + 'ms' : null }, 'aria-current': on ? 'true' : null },
+        h('p', { class: 'eyebrow' }, h('i', { 'aria-hidden': 'true' }), t.imp.eyebrow),
+        h('h3', { text: t.tabs[k] }),
+        h('p', { class: 'desc', text: t.imp.desc(moneyLong(s.rev), pct(Math.abs(s.yoy)), s.yoy >= 0, nf(s.copies)) }),
+        h('ul', { class: 'kv' }, rows.map(([kk, parts, d]) => h('li', null, h('span', { class: 'k', text: kk }), h('span', { class: 'vd' }, h('span', { class: 'v' }, figNodes(parts)), d.length ? h('span', { class: 'd' }, d) : null)))),
+        btn);
     }));
   }
 
-  /* ================= 필터(임프린트 탭) ================= */
+  /* ---------- 주석 ---------- */
+  function renderNotes() {
+    const t = L().notes;
+    $('#notesList').replaceChildren(...t.items.map(x => h('li', { text: x })));
+    $('#notesSrc').textContent = t.src;
+  }
+
+  /* ---------- 마크다운으로 복사 · PDF ---------- */
+  function toMarkdown(v, stmtParts, kf, retTitle) {
+    const t = L(), lines = [];
+    lines.push(`# ${t.md.title}`, '', richText(stmtParts), '', `## ${t.kf.t}`, '');
+    kf.forEach(p => lines.push(`- ${richText(p)}`));
+    lines.push('', `## ${t.md.figures} · ${t.tabs[state.imprint]}`, '', '| | | |', '|---|---:|---|');
+    kvRows(v).forEach(([k, parts, d]) => lines.push(`| ${k} | ${partsText(parts)} | ${d.map(x => x.textContent || x).join(' ')} |`));
+    lines.push('', `## ${t.md.titles}`, '', `| ${t.tbl1.th.join(' | ')} |`, '|---|---:|---:|---:|');
+    v.titles.forEach(b => lines.push(`| ${book(b.id, 'title')} (${book(b.id, 'author')}) | ${nf(b.oct)} | ${b.sep == null ? '—' : signed((b.oct / b.sep - 1) * 100, 1) + '%'} | ${nf(b.sold / b.printed * 100)}% |`));
+    lines.push('', `## ${t.md.imprints}`, '', `| | ${t.imp.rows.join(' | ')} |`, '|---|---:|---:|---:|---:|');
+    IMPRINTS.map(impStats).forEach(s => lines.push(`| ${t.tabs[s.k]} | ${moneyLong(s.rev)} (${signed(s.yoy, 1)}%) | ${nf(s.copies)} (${signed(s.cp, 1)}%) | ${pct(s.rr)} (${signed(s.rrd, 1)}${t.kv.pts}) | ${pct(s.dig)} |`));
+    lines.push('', `## ${t.fig2.lbl}`, '', retTitle, '', `## ${t.md.notes}`, '');
+    t.notes.items.forEach((x, i) => lines.push(`${i + 1}. ${x}`));
+    lines.push('', t.notes.src, '', t.note, t.notice, '');
+    return lines.join('\n');
+  }
+  let toastTimer = null;
+  function toast(msg) {
+    const el = $('#toast');
+    el.textContent = msg; el.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('on'), 2200);
+  }
+  $('#btnMd').addEventListener('click', async () => {
+    const md = state.md;
+    try { await navigator.clipboard.writeText(md); } catch (e) {
+      const ta = h('textarea', { class: 'sr-only', text: md }); document.body.append(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    }
+    toast(L().copied);
+  });
+  $('#btnPdf').addEventListener('click', () => window.print());
+
+  /* ================= 필터(임프린트 알약) ================= */
   const KEYS = ['all'].concat(IMPRINTS);
   const tabsEl = $('#tabs');
   for (const k of KEYS) {
@@ -822,8 +926,10 @@
   }
   function renderAll(animate) {
     const v = state.view = getView(state.imprint);
-    renderStatement(v, animate); renderKpis(v, animate); renderTr(v, animate); renderBs(v, animate);
-    renderCloth(v, animate); renderPress(v, animate); renderBook(v, animate); renderRel(v, animate);
+    const stmt = renderTitle(v, animate), kf = renderFindings(v, animate);
+    renderRev(v, animate); renderTitles(v, animate); renderImprints(animate);
+    const retTitle = renderRet(v, animate); renderNotes();
+    state.md = toMarkdown(v, stmt, kf, retTitle);
   }
   function select(k) {
     if (k === state.imprint) return;
@@ -831,34 +937,30 @@
     syncTabs();
     renderAll(true);
   }
-  $('.pill-ink').addEventListener('click', e => {
-    e.preventDefault();
-    $('#releases').scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth', block: 'start' });
-  });
   for (const b of $$('.lang button')) b.addEventListener('click', () => {
     if (b.dataset.lang === state.lang) return;
     state.lang = b.dataset.lang;
     applyLang();
     renderAll(false);
   });
-  // 터치: 다른 곳을 누르면 차트의 고정된 점을 풀어 마지막 달로 돌아간다
+  // 터치: 다른 곳을 누르면 차트의 고정된 점을 푼다
   document.addEventListener('pointerdown', e => {
     if (e.pointerType === 'mouse') return;
-    const card = $('#c-tr');
-    if (card._reset && !card.contains(e.target)) card._reset();
+    for (const card of [$('#c-rev'), $('#c-ret')]) if (card._reset && !card.contains(e.target)) card._reset();
   });
 
   syncTabs();
   applyLang();
   renderAll(true);
+  const redraw = () => { if (!state.view) return; drawLines($('#c-rev'), $('#revPlot'), revOpt(state.view), false); drawLines($('#c-ret'), $('#retPlot'), retOpt(state.view), false); };
   if ('ResizeObserver' in window) {
     new ResizeObserver(() => {
-      const box = $('#trChart');
-      if (state.view && (Math.round(box.clientWidth) !== box._w || Math.round(box.clientHeight) !== box._h)) drawTr(false);
-    }).observe($('#trChart'));
+      const a = $('#revPlot'), b = $('#retPlot');
+      if (state.view && (Math.round(a.clientWidth) !== a._w || Math.round(a.clientHeight) !== a._h || Math.round(b.clientWidth) !== b._w || Math.round(b.clientHeight) !== b._h)) redraw();
+    }).observe($('#panel'));
   }
-  // 글꼴이 늦게 오면 글자 폭과 카드 높이가 바뀌므로 차트를 한 번 더 그린다
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (state.view) drawTr(false); });
+  // 글꼴이 늦게 오면 글자 폭이 바뀌므로 차트를 한 번 더 그린다
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(redraw);
 })();
 </script>
 </body>

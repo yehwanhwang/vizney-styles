@@ -1,58 +1,61 @@
 /* Anthropic style — Ivory, Editorial, Quiet · Vizney Styles 01
    Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
 :root{
-  --canvas:#faf9f5; /* page background, tooltips, hollow markers */
-  --card:#f0eee6; /* cards; no border, no shadow */
-  --card-strong:#e8e6dc; /* active tab, secondary button, bar tracks */
-  --pill:#f5f4ed; /* pills and the language toggle */
-  --band:#141413; /* the one dark surface for a detail table */
-  --band-hover:#1f1e1d; /* row hover on the band */
-  --ink:#141413; /* figures, titles, primary control */
-  --ink-2:#30302e; /* primary control hover, secondary button text */
-  --body:#3d3d3a; /* running text */
-  --text-2:#5e5d59; /* labels, captions, legends, statement words */
-  --text-3:#73726c; /* axis ticks, the comparison series */
-  --muted:#87867f; /* rank numbers, small captions */
-  --on-dark:#faf9f5; /* text on the band */
-  --on-dark-2:#9c9a92; /* captions and secondary cells on the band */
-  --hair:#e8e6dc; /* row dividers, pill borders */
-  --hair-2:#dedcd1; /* chart baseline, crosshair, tooltip border */
-  --hair-dark:#30302e; /* dividers and bar tracks on the band */
-  --accent:#d97757; /* the one accent: main series, outlined pills, primary emphasis */
-  --accent-deep:#c46849; /* accent hover; bars on the band */
-  --good:#2c6e4f; /* favourable change, text only */
-  --bad:#a33d34; /* unfavourable change, text only */
-  --focus:#2c84db; /* focus ring */
-  --cat-1:#d97757; /* clay */
-  --cat-2:#6953a0; /* plum */
-  --cat-3:#0d9298; /* teal */
+  --canvas:#faf9f5; /* page background (site gray-050) */
+  --card:#f5f4ed; /* cards, pills, tertiary buttons (site gray-100); no border, no shadow */
+  --card-2:#f0eee6; /* secondary panels, segmented-control track (site gray-150) */
+  --plot:#ffffff; /* the white plot panel inside a figure card */
+  --tint:#e4edf8; /* subject column of a table (light periwinkle) */
+  --ink:#141413; /* titles, figures, table rules, primary button, footer, tooltips */
+  --ink-2:#30302e; /* card descriptions, secondary button text */
+  --body:#3d3d3a; /* running text, primary button hover */
+  --text-2:#5e5d59; /* labels, captions, notes, meta values, end-label values */
+  --text-3:#73726c; /* spare gray step */
+  --muted:#87867f; /* figure labels, axis ticks, report id */
+  --cloud:#b0aea5; /* reference and comparison lines (dashed) */
+  --hair:#e8e6dc; /* dividers, pill borders, secondary button fill, gridlines */
+  --hair-2:#dedcd1; /* key–value row rules, baseline, crosshair */
+  --on-dark:#faf9f5; /* text on ink */
+  --on-dark-2:#9c9a92; /* secondary text on ink */
+  --accent:#d97757; /* clay — the one brand accent: badges and markers, never a data series */
+  --accent-deep:#c6613f; /* clay interactive: badge text, a clay button if one is needed */
+  --good:#4e7a30; /* favourable change, text only */
+  --bad:#b0453b; /* unfavourable change, text only (site error #bf4d43 darkened one step for 13px text) */
+  --focus:#2c84db; /* focus ring (site --color-focus) */
+  --cat-1:#4f86c4; /* sky */
+  --cat-1-text:#2e6cae; /* sky for labels and text */
+  --cat-2:#b8456e; /* fig */
+  --cat-2-text:#a63c62; /* fig for labels and text */
+  --cat-3:#a8862a; /* amber */
+  --cat-3-text:#80661a; /* amber for labels and text */
   --cat-other:#8f8d86;
-  --comparison:#73726c;
-  --seq-1:#e79176;
-  --seq-2:#d47150;
-  --seq-3:#ba5432;
-  --seq-4:#9b3d1d;
-  --seq-5:#782d12;
-  --div-1:#00636a;
-  --div-2:#00797f;
-  --div-3:#469094;
-  --div-4:#9f9b93;
-  --div-5:#b26e58;
-  --div-6:#a14e33;
-  --div-7:#8f2c01;
+  --comparison:#b0aea5;
+  --seq-1:#8ab5e6;
+  --seq-2:#5b97db;
+  --seq-3:#367ac2;
+  --seq-4:#215e9d;
+  --seq-5:#1d446e;
+  --div-1:#225994;
+  --div-2:#5078a7;
+  --div-3:#7b97b9;
+  --div-4:#b8b5aa;
+  --div-5:#bf8091;
+  --div-6:#ac5571;
+  --div-7:#972552;
   --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   --font-serif:'Source Serif 4',Georgia,'Times New Roman',serif;
   --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --radius-card:16px;
-  --radius-pill:999px;
+  --radius-plot:12px;
   --radius-button:10px;
+  --radius-pill:999px;
   --radius-tooltip:8px;
-  --radius-cover:2px 4px 4px 2px;
+  --radius-badge:4px;
   --space-page:32px;
   --space-gap:16px;
-  --space-card:24px;
-  --space-row:8px 0;
-  --space-bandPadding:26px 32px 22px;
+  --space-card:28px;
+  --space-row:10px 0;
+  --space-footer:26px 32px 28px;
   --ease:cubic-bezier(.165,.84,.44,1);
 }
-html[lang="ko"]{--font-sans:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--font-serif:'Noto Serif KR','AppleMyungjo','Batang',serif}
+html[lang="ko"]{--font-sans:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--font-serif:'Noto Serif KR','AppleMyungjo','Batang',serif}
