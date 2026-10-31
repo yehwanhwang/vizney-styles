@@ -1,0 +1,41 @@
+# Publishes the vizney-styles CLI (npm/) to npmjs.com.
+# Run it from Actions → "Publish npm package" → Run workflow, or push a tag npm-v<version>.
+# Needs the repository secret NPM_TOKEN (an npm granular access token with publish rights).
+name: Publish npm package
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['npm-v*']
+
+permissions:
+  contents: read
+  id-token: write   # npm provenance
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: npm
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - name: Check the CLI against the live catalog
+        run: |
+          node bin/cli.js --version
+          node bin/cli.js list
+          tmp="$(mktemp -d)" && node bin/cli.js add anthropic --dir "$tmp" && test -f "$tmp/DASHBOARD.md" && test -f "$tmp/.claude/skills/dashboard-style/SKILL.md"
+      - name: Skip if this version is already published
+        id: seen
+        run: |
+          v="$(node -p "require('./package.json').version")"
+          if npm view "vizney-styles@$v" version >/dev/null 2>&1; then echo "published=1" >> "$GITHUB_OUTPUT"; echo "vizney-styles@$v is already on npm"; fi
+      - name: Publish
+        if: steps.seen.outputs.published != '1'
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

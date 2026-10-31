@@ -71,6 +71,18 @@ The file follows the `DESIGN.md` convention (front matter tokens, then prose sec
 - **Power BI:** View → Themes → Browse for themes → `powerbi-theme.json`.
 
 
+### npm CLI
+
+`npm/` holds the `vizney-styles` command, which places the same files as `install.sh`:
+
+```bash
+npx vizney-styles@latest add anthropic     # --force to replace, --dir <path> for another folder
+npx vizney-styles@latest list              # the styles in catalog.json
+```
+
+It reads the files from this repository's `main` branch, so a new or changed style needs no new npm release; `tools/package.py` keeps `catalog.json` up to date. Release the CLI itself by raising `version` in `npm/package.json` and running the **Publish npm package** workflow (Actions → Run workflow, or push a tag `npm-v<version>`). The workflow needs the repository secret `NPM_TOKEN`, an npm granular access token that can publish `vizney-styles`; it tests the CLI against the live catalog, skips a version that is already published and publishes with provenance.
+
+
 ## Adding a style
 
 The full production checklist used with Claude is in [CLAUDE.md](CLAUDE.md). In short:

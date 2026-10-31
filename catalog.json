@@ -1,0 +1,12 @@
+{
+  "styles": [
+    {
+      "number": 1,
+      "slug": "anthropic",
+      "name": "Anthropic style",
+      "words": "Ivory, Editorial, Quiet",
+      "words_ko": "아이보리, 에디토리얼, 고요함",
+      "sample": "https://styles.vizney.com/anthropic/"
+    }
+  ]
+}
