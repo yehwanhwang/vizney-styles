@@ -1,9 +1,10 @@
 {
-  "name": "vizney-styles",
+  "name": "@vizney/styles",
   "version": "0.1.0",
   "description": "Add a dashboard style (DASHBOARD.md and the dashboard-style agent skill, with Tableau and Power BI files) to your project.",
   "keywords": ["dashboard", "design-system", "DASHBOARD.md", "DESIGN.md", "data-visualization", "agent-skill", "claude-code", "tableau", "power-bi"],
   "homepage": "https://styles.vizney.com",
+  "publishConfig": { "access": "public", "provenance": true },
   "repository": { "type": "git", "url": "git+https://github.com/yehwanhwang/vizney-styles.git", "directory": "npm" },
   "bugs": "https://github.com/yehwanhwang/vizney-styles/issues",
   "author": "Vizney (https://www.vizney.com)",

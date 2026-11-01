@@ -15,7 +15,7 @@
 <meta property="og:title" content="Vizney Styles · DASHBOARD.md for your company's dashboards">
 <meta property="og:description" content="Dashboard design specs that AI coding agents, Tableau and Power BI can follow. Each brand style ships as DASHBOARD.md, a live sample, validated data colors and tool files.">
 <meta property="og:url" content="https://styles.vizney.com/">
-<meta property="og:image" content="https://styles.vizney.com/og.png?v=2">
+<meta property="og:image" content="https://styles.vizney.com/og.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -29,7 +29,7 @@
 @font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=a3e246b4f3) format('woff')}
 :root{
   /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
-     Sticky top bar with the Styles mark; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
+     Sticky top bar with the Vizney mark; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
      styles with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
      built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
      Single light theme on purpose, like Blocks and the style screens. */
@@ -87,12 +87,12 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 .top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;background:var(--top-bg);-webkit-backdrop-filter:saturate(1.4) blur(10px);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line-2)}
 .top-in{min-height:64px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding-block:10px}
 .logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-size:17px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
-/* The Styles mark: the Blocks 2x2 mark with its top two blocks joined into one bar. */
+/* The Vizney mark: the same 2x2 blocks as Vizney Blocks. Styles is a line of Vizney and has no mark of its own. */
 .mark{display:grid;grid-template-columns:repeat(2, 9px);grid-auto-rows:9px;gap:2px}
 .mark i{border-radius:2px;background:var(--ink)}
-.mark i:first-child{grid-column:1 / -1}
-.mark i:nth-child(2){background:var(--yellow)}
-.mark i:nth-child(3){background:var(--pink)}
+.mark i:nth-child(2){background:#ff9500}
+.mark i:nth-child(3){background:var(--yellow)}
+.mark i:nth-child(4){background:var(--pink)}
 .top-nav{display:flex;flex-wrap:wrap;gap:4px 22px;font-size:15px}
 .top-nav a{color:var(--ink-2);text-decoration:none}
 .top-nav a:hover{color:var(--ink)}
@@ -328,12 +328,13 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 
 <header class="top" id="top">
   <div class="wrap top-in">
-    <a class="logo" href="#top" data-href="home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>Vizney Styles</a>
+    <a class="logo" href="#top" data-href="home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Vizney Styles</a>
     <nav class="top-nav" aria-label="Main menu" data-i18n-aria="navAria">
       <a href="#styles" data-href="home:styles" data-i18n="navStyles">Catalog</a>
       <a href="#custom" data-href="home:custom" data-i18n="navCustom">Your company</a>
       <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true"> ↗</span></a>
       <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener"><span data-i18n="navContact">Contact</span><span aria-hidden="true"> ↗</span></a>
+      <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener">Vizney<span aria-hidden="true"> ↗</span></a>
     </nav>
     <div class="top-end">
       <div class="lang" role="group" aria-label="Language" data-i18n-aria="langAria">
@@ -506,7 +507,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 
 <footer class="foot">
   <div class="wrap foot-in">
-    <span>Vizney Styles · © 2026 <a href="https://www.vizney.com/" target="_blank" rel="noopener">Vizney</a></span>
+    <span>Vizney Styles · © 2026 <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener">Vizney</a></span>
     <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
     <nav aria-label="Footer" data-i18n-aria="footAria">
       <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>

@@ -1,6 +1,7 @@
-# Publishes the vizney-styles CLI (npm/) to npmjs.com.
+# Publishes the @vizney/styles CLI (npm/) to npmjs.com.
 # Run it from Actions → "Publish npm package" → Run workflow, or push a tag npm-v<version>.
-# Needs the repository secret NPM_TOKEN (an npm granular access token with publish rights).
+# First release: the repository secret NPM_TOKEN (granular token, publish to @vizney).
+# Later releases: npm Trusted Publishing (OIDC) for this workflow; then delete NPM_TOKEN.
 name: Publish npm package
 
 on:
@@ -10,7 +11,7 @@ on:
 
 permissions:
   contents: read
-  id-token: write   # npm provenance
+  id-token: write   # npm provenance and Trusted Publishing
 
 jobs:
   publish:
@@ -24,6 +25,8 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
+      - name: npm 11.5+ for Trusted Publishing
+        run: npm install -g npm@latest
       - name: Check the CLI against the live catalog
         run: |
           node bin/cli.js --version
@@ -33,7 +36,7 @@ jobs:
         id: seen
         run: |
           v="$(node -p "require('./package.json').version")"
-          if npm view "vizney-styles@$v" version >/dev/null 2>&1; then echo "published=1" >> "$GITHUB_OUTPUT"; echo "vizney-styles@$v is already on npm"; fi
+          if npm view "@vizney/styles@$v" version >/dev/null 2>&1; then echo "published=1" >> "$GITHUB_OUTPUT"; echo "@vizney/styles@$v is already on npm"; fi
       - name: Publish
         if: steps.seen.outputs.published != '1'
         run: npm publish --provenance --access public

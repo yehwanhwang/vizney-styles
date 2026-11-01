@@ -61,4 +61,4 @@ Run the checklist at the end of `DASHBOARD.md` ("Agent Prompt Guide"). At the le
 
 When the work is in Tableau or Power BI, give the user the settings rather than code: the palette or theme file from this folder, then the per-sheet or per-visual settings from Tool Mapping in `DASHBOARD.md` and the notes in `prompt.md`. Say which steps the user does by hand (installing palettes or themes, fonts on viewing machines).
 
-Style source: https://styles.vizney.com/__SLUG__/ · Vizney Styles. __DISCLAIMER__
+Style source: https://styles.vizney.com/__SLUG__/ · Vizney Styles, a line of Vizney (https://www.vizney.com). __DISCLAIMER__

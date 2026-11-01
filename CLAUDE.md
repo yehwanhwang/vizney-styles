@@ -1,6 +1,6 @@
 # Vizney Styles 제작 지침
 
-이 저장소는 styles.vizney.com(GitHub Pages, `main` 브랜치)으로 배포된다. 기업의 공개 웹사이트에서 읽어 낸 룩을 대시보드용 명세 **DASHBOARD.md**로 만들어 카탈로그에 쌓고, 같은 패키지를 기업에 비공개로 만들어 주는 것이 사업이다. 대상은 기업(해외 중심, 국내 포함)이고, 블로그(kr.vizney.com, www.vizney.com)의 Gallery 포스트로 소개한다. 목적은 실제 데이터 분석이 아니라, AI 코딩 에이전트·Tableau·Power BI가 그대로 따를 수 있는 '우리 회사 대시보드 룩'을 전달하는 것이다.
+이 저장소는 styles.vizney.com(GitHub Pages, `main` 브랜치)으로 배포된다. Vizney Styles는 Vizney의 한 라인이다. 브랜드는 Vizney 하나이고 'Styles'는 라인 이름이며 별도 브랜드가 아니다(아래 '브랜드 표기'). 기업의 공개 웹사이트에서 읽어 낸 룩을 대시보드용 명세 **DASHBOARD.md**로 만들어 카탈로그에 쌓고, 같은 패키지를 기업에 비공개로 만들어 주는 것이 사업이다. 대상은 기업(해외 중심, 국내 포함)이고, 블로그(kr.vizney.com, www.vizney.com)의 Gallery 포스트로 소개한다. 목적은 실제 데이터 분석이 아니라, AI 코딩 에이전트·Tableau·Power BI가 그대로 따를 수 있는 '우리 회사 대시보드 룩'을 전달하는 것이다.
 
 **한 브랜드에 패키지 하나.** `<name>/` 폴더에 DASHBOARD.md, 참고 화면(`index.html`), 토큰 원본(`tokens.json`)과 거기서 생성한 `tokens.css`·`<name>.tps`·`powerbi-theme.json`, 프롬프트(`prompt.md`), 에이전트 스킬(`skill/SKILL.md`, `tools/skill.md`에서 생성)과 설치용 zip(`<name>-dashboard-style.zip`), 만드는 법 섹션이 그리는 그림의 데이터(예: `orders.csv`), 커버(`cover-en.png`, `cover-ko.png`)가 들어간다. 사람들은 `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- <name>`(루트의 `install.sh`)이나 zip으로 자기 프로젝트에 넣는다: 루트에 DASHBOARD.md, `.claude/skills/dashboard-style/`에 스킬과 도구 파일. 명세로 적은 것, 화면에서 보이는 것, 도구 파일의 값이 모두 같아야 한다.
 
@@ -37,6 +37,16 @@
 번호는 공개 순서대로 하나로 매긴다(01 Anthropic). 요청은 GitHub 이슈 템플릿(`.github/ISSUE_TEMPLATE/request.yml`)으로 받고 👍 투표 순으로 고른다. BI 벤더(Tableau, Microsoft, Google, Qlik 등)와 그 계열사의 스타일은 만들지 않는다. 해당 기업이 요청하면 폴더와 포스트를 내린다.
 
 
+## 브랜드 표기
+
+- **이름:** 브랜드는 Vizney, 라인은 Vizney Styles다. 글·화면·외부 등록에서 늘 'Vizney Styles'로 쓰고, 'Styles'만 따로 떼어 브랜드처럼 쓰지 않는다. 다른 라인도 같은 방식이다(Vizney Blocks, 차트 가이드, Fullcut by Vizney).
+- **시리즈 줄:** `VIZNEY STYLES · 01`(대문자, 가운뎃점, 두 자리 번호). 샘플 화면 바닥의 카탈로그 줄, 포스트 첫 줄, 생성 파일(`tokens.css`·`.tps`·Power BI 테마 이름) 머리에 이 형식으로 쓴다.
+- **마크:** Vizney 공통 마크(2×2 블록: 잉크 `#1b1b1b` · 주황 `#ff9500` · 노랑 `#ffcc00` · 분홍 `#ff2d55`, Vizney Blocks와 같은 마크)만 쓴다. Styles만의 변형 마크나 Styles 소개 페이지는 만들지 않는다. 마크는 홈·404의 머리글, `favicon.svg`, `og.png`에만 두고 샘플 화면에는 어떤 마크도 넣지 않는다.
+- **사이트:** Vizney의 한 라인으로 보이게 한다. 머리글과 바닥글에 vizney.com 링크를 두고(한국어는 kr.vizney.com), 회사 소개·브랜드 이야기는 블로그(About)에 맡긴다.
+- **외부 등록:** OpenDesign, 링크드인 등에 올릴 때 발행자 이름은 Vizney, 항목 이름은 `Vizney Styles · <브랜드>`(예: `Vizney Styles · Anthropic`)다. npm 패키지는 `@vizney/styles`다.
+- **바꾸지 않는 것:** 저장소 이름(`vizney-styles`), 주소(styles.vizney.com), 공개 폴더 이름, embed 경로, 설치 명령의 형태.
+
+
 ## 고지
 
 Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 세 곳에 고지를 둔다: 샘플 화면 하단(임베드에서는 숨김), DASHBOARD.md 머리, 포스트 끝. 문구: "Anthropic의 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 공개된 웹사이트(anthropic.com, claude.com)에서 보이는 디자인을 읽어 낸 참고용 스타일이며 로고·서체·데이터는 포함하지 않습니다. 상표는 각 소유자의 것입니다." 이름은 "Anthropic 스타일" · "Anthropic style"처럼 설명형으로만 쓰고, 화면에 브랜드 이름을 워드마크처럼 크게 세우지 않는다. 화면의 회사는 Vizney의 가상 사업부이고 숫자는 가상이다. 대상 기업의 실제 데이터처럼 보이게 하지 않는다.
@@ -44,7 +54,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 
 ## 화면 규칙
 
-- **가로형 실제 업무 대시보드**다. 최대 폭 1400px(여백 32px, 1359px 이하 24px, 639px 이하 16px). 구성은 패턴 인벤토리에서 고른 부품으로 짜되 늘 들어가는 것이 있다: 머리(샘플 회사 이름과 보고서 이름, 기간, EN/KO 토글), 필터 한 줄(아래 모든 카드에 적용), 결과를 말하는 머리 문장, 그 근거인 카드들, 상세 표, 만드는 법(패키지 파일 목록, 화면의 그림 하나와 DASHBOARD.md 점검 목록, 그 그림을 그리는 JS·Python·Tableau·Power BI·프롬프트 코드 창. 처음 보일 때 코드가 한 줄씩 쳐지며 그림이 층별로 그려진다. 받는 것과 의뢰하는 법을 보여 주는 자리다), 바닥(카탈로그 줄 `Vizney Styles · 01 · Anthropic style Ivory, Editorial, Quiet`, 샘플 안내, 고지). 인벤토리가 빈약한 브랜드의 폴백 틀은 12열 그리드(KPI 4장, 추세 7 + 목록 5, 카드 3장) → 상세 표다. 예: Anthropic은 그 회사가 실제로 발행하는 그림의 종류(모델 발표의 비용·성능 그림과 비교표, 리서치 글의 계단선·오차 막대·덤벨·점 단위 설문)를 골라, 하나의 카드와 하나의 차트 문법으로 다시 그렸다(01 개요 · 02 운영 · 03 만드는 법).
+- **가로형 실제 업무 대시보드**다. 최대 폭 1400px(여백 32px, 1359px 이하 24px, 639px 이하 16px). 구성은 패턴 인벤토리에서 고른 부품으로 짜되 늘 들어가는 것이 있다: 머리(샘플 회사 이름과 보고서 이름, 기간, EN/KO 토글), 필터 한 줄(아래 모든 카드에 적용), 결과를 말하는 머리 문장, 그 근거인 카드들, 상세 표, 만드는 법(패키지 파일 목록, 화면의 그림 하나와 DASHBOARD.md 점검 목록, 그 그림을 그리는 JS·Python·Tableau·Power BI·프롬프트 코드 창. 처음 보일 때 코드가 한 줄씩 쳐지며 그림이 층별로 그려진다. 받는 것과 의뢰하는 법을 보여 주는 자리다), 바닥(시리즈 줄로 시작하는 카탈로그 줄 `VIZNEY STYLES · 01  Anthropic style  Ivory, Editorial, Quiet`, 샘플 안내, 고지). 인벤토리가 빈약한 브랜드의 폴백 틀은 12열 그리드(KPI 4장, 추세 7 + 목록 5, 카드 3장) → 상세 표다. 예: Anthropic은 그 회사가 실제로 발행하는 그림의 종류(모델 발표의 비용·성능 그림과 비교표, 리서치 글의 계단선·오차 막대·덤벨·점 단위 설문)를 골라, 하나의 카드와 하나의 차트 문법으로 다시 그렸다(01 개요 · 02 운영 · 03 만드는 법).
 - **한 문법, 한 화면에 그림 7개 이하.** 참고한 그림(발표 자료, 리서치 글 등)은 형식만 가져오고 붙여 넣지 않는다. 모든 그림과 표는 같은 카드에 같은 해부(그림 번호 → 결과를 말하는 제목 → 부제 → 범례 → 그림·표 → 주석)로 넣고, 색·선·축·툴팁도 한 가지로 맞춘다. 화면 묶음(절)마다 그림은 7개 이하이고, 에이전트나 BI 도구가 템플릿으로 다시 만들 수 있는 표준 그림만 쓴다.
 - HTML 파일 하나로 완결한다(데이터 포함). 외부에서 불러오는 것은 글꼴뿐이다(Google Fonts와 jsDelivr만).
 - 서체: 본문 서체는 언어마다 하나. 영어는 브랜드 서체를 대신할 오픈 라틴 서체, 한국어는 브랜드의 한국어 페이지가 쓰는 서체(없으면 Pretendard). 디스플레이 서체를 쓰면 언어마다 하나씩(예: Source Serif 4 · Noto Serif KR). 숫자용 고정폭은 스타일의 특징일 때만. 화면에 서체 이름을 보여 줄 때도 그 언어의 서체만 쓴다.
@@ -90,10 +100,10 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 
 - SEO 제목: `<Name> 대시보드 스타일 — <세 단어>` / `<Name> Dashboard Style — <Three, Words>`. 메타 설명은 145자 안팎으로 따로 쓴다.
 - 발췌문: 생김새를 말하는 한 문장과 샘플 한 문장. 메타 설명과 대표 이미지 대체 텍스트에도 세 단어를 넣는다.
-- 첫 문장은 바로 스타일 설명으로 시작한다. 이어서 DASHBOARD.md가 무엇인지(에이전트·Tableau·Power BI에 넣는 파일) 한두 문장, 샘플과 조작 방법 한두 문장.
+- 본문 첫 줄은 시리즈 줄 `VIZNEY STYLES · 01` 한 줄이다. 이어지는 첫 문장은 바로 스타일 설명으로 시작한다. 이어서 DASHBOARD.md가 무엇인지(에이전트·Tableau·Power BI에 넣는 파일) 한두 문장, 샘플과 조작 방법 한두 문장.
 - 순서: HTML 카드(아래 임베드 코드) → `### Design`(불릿 3~4개) → `### DASHBOARD.md`(파일 링크, 받는 것, 프롬프트 예시 코드 블록) → 우리 회사 것 제작 문의 링크(https://kr.vizney.com/contact-us/, https://www.vizney.com/contact-us/)와 브랜드 요청 링크 → 고지 한 단락.
 - 태그 Gallery, Brand Styles. 슬러그 `style-<name>`. 대표 이미지 cover-ko.png / cover-en.png.
-- SNS 캡션(링크드인 중심): 스타일 한 문장, 라이브 샘플 링크, 고지 한 줄, 세 단어 해시태그와 #VizneyStyles #DashboardDesign · #대시보드디자인.
+- SNS 캡션(링크드인 중심, 발행자 Vizney): 첫 줄 `Vizney Styles · <브랜드>`, 스타일 한 문장, 라이브 샘플 링크, 고지 한 줄, 세 단어 해시태그와 #Vizney #VizneyStyles #DashboardDesign · #대시보드디자인.
 - Tableau를 대체하는 이야기로 읽힐 표현은 쓰지 않는다. Tableau 적용 파일은 Tableau를 더 잘 쓰게 하는 것이다.
 
 
@@ -118,7 +128,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - 새 카드: 기존 `article.swatch`를 복사해 '우리 회사' 카드 앞에 두고, 번호와 이름(`01 Anthropic`), 폴더, 링크(샘플, DASHBOARD.md, 파일, 소개 글)를 바꾼다. `STR` 한국어·영어에 `sub_<name>`(세 단어)과 `meta_<name>`(샘플 설명)을 더한다.
 - 화면 문구는 `STR`이 기준이고, 본문의 영어 문구와 링크는 스크립트 없이 읽힐 때의 기본값이므로 둘 다 고친다. `<head>`의 제목·설명·`og:` 메타도 영어로 쓴다.
 - 머리글·버튼·바닥글, 색 값과 글꼴은 Vizney Blocks(blocks.vizney.com)에 맞춘다. 글꼴은 VZ Sans(Spoqa Han Sans Neo 부분 글꼴, SIL OFL). 두 페이지의 문구를 고치거나 카드를 더하면 `python3 tools/font.py <spoqa-han-sans 저장소>/Original/SpoqaHanSansNeo`로 `assets/fonts/`를 다시 만든다. 글꼴 주소의 `?v=`도 함께 바뀐다.
-- 사이트 마크(Blocks의 2×2 블록에서 위 두 칸을 합친 모양)는 머리글, `favicon.svg`, `og.png`에만 쓰고 샘플 화면에는 넣지 않는다. `sitemap.xml`에는 홈만 넣고 샘플 화면은 `noindex`다.
+- 마크는 Vizney 공통 마크(위 '브랜드 표기')를 머리글, `favicon.svg`, `og.png`에만 쓰고 샘플 화면에는 넣지 않는다. 머리글 메뉴와 바닥글에 vizney.com 링크를 둔다. `og.png`는 카탈로그가 바뀌면(새 스타일, 첫 화면 문구) 다시 만든다. `sitemap.xml`에는 홈만 넣고 샘플 화면은 `noindex`다.
 
 
 ## 저장소 규칙
@@ -127,4 +137,4 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - `lib/embed.js`, `lib/embed-host.js`는 발행된 포스트가 쓰므로 이전 동작과 호환되게 고친다.
 - 생성 파일(`tokens.css`, `.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, `skill/SKILL.md`, zip)은 손으로 고치지 않고 `tokens.json`(스킬은 `tools/skill.md`)을 고친 뒤 `package.py`를 돌린다.
 - `install.sh`는 발행된 포스트와 명세가 안내하는 명령이므로 주소와 인자(`sh -s -- <name>`), 설치 위치를 바꾸지 않는다.
-- npm CLI(`npm/`, `npx vizney-styles add <name>`)도 같은 파일을 같은 자리에 둔다. 저장소의 `main`에서 파일을 읽으므로 스타일을 더하거나 고칠 때는 npm을 다시 배포하지 않는다(`package.py`가 `catalog.json`을 고친다). CLI 자체를 고칠 때만 `npm/package.json`의 버전을 올리고 'Publish npm package' 워크플로를 돌린다(저장소 시크릿 `NPM_TOKEN` 필요).
+- npm CLI(`npm/`, 패키지 `@vizney/styles`, `npx @vizney/styles add <name>`)도 같은 파일을 같은 자리에 둔다. 저장소의 `main`에서 파일을 읽으므로 스타일을 더하거나 고칠 때는 npm을 다시 배포하지 않는다(`package.py`가 `catalog.json`을 고친다). CLI 자체를 고칠 때만 `npm/package.json`의 버전을 올리고 'Publish npm package' 워크플로를 돌린다(저장소 시크릿 `NPM_TOKEN` 필요).
