@@ -17,7 +17,7 @@
 @font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=17a832d776) format('woff')}
 :root{
   /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
-     Sticky top bar with the Vizney mark; a hero with a fact pill, two buttons and an AI hint; the catalog cards
+     Sticky black top bar with the blog's Vizney wordmark; a hero with a fact pill, two buttons and an AI hint; the catalog cards
      with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
      built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
      Single light theme on purpose, like Blocks and the style screens. */
@@ -33,7 +33,16 @@
   --rule:#cfd2d8;
   --btn-line:#e3e5ea;
   --ink-hover:#3a3a3a;
-  --top-bg:rgba(255,255,255,.92);
+  /* Top bar: the blog's (kr.vizney.com · www.vizney.com) black header, so moving between the two reads as one site. */
+  --top-bg:#1b1b1b;
+  --top-ink:#ffffff;
+  --top-ink-2:rgba(255,255,255,.78);
+  --top-line:rgba(255,255,255,.22);
+  --top-soft:rgba(255,255,255,.10);
+  /* The one UI accent: the yellow of the blog's post images (#ffcc00). Buttons, active states, focus. Never a data color. */
+  --accent:#ffcc00;
+  --accent-hover:#f2c200;
+  --accent-ink:#1b1b1b;
   --yellow:#ffcc00;
   --pink:#ff2d55;
   --font:'VZ Sans','Spoqa Han Sans Neo','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
@@ -56,14 +65,16 @@
 html{-webkit-text-size-adjust:100%;scroll-padding-top:88px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.7 var(--font);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--page)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--top-bg)}
 h1,h2,h3,h4,p,ul,ol,figure{margin:0}
 ul,ol{padding:0;list-style:none}
 img{max-width:100%;display:block}
 button{font:inherit;color:inherit}
 a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
 a:hover{text-decoration-color:var(--ink)}
-:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+/* Focus: the accent yellow as a halo around an ink ring, so it shows on white (yellow alone is 1.6:1 there) and on the black bar. */
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--accent);border-radius:4px}
+.top :focus-visible{outline-color:var(--accent);box-shadow:none}
 code{font-family:var(--mono);font-size:.88em;white-space:nowrap}
 svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -71,29 +82,30 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 .skip:focus{top:12px}
 .wrap{max-width:1280px;margin-inline:auto;padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}
 
-/* ---------- top bar (as on Vizney Blocks) ---------- */
-.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;background:var(--top-bg);-webkit-backdrop-filter:saturate(1.4) blur(10px);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line-2)}
+/* ---------- top bar (as on the blog: black, white wordmark) ---------- */
+.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;background:var(--top-bg);color:var(--top-ink)}
 .top-in{min-height:64px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding-block:10px}
-.logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-size:17px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
-/* The Vizney mark: the same 2x2 blocks as Vizney Blocks. Styles is a line of Vizney and has no mark of its own. */
-.mark{display:grid;grid-template-columns:repeat(2, 9px);grid-auto-rows:9px;gap:2px}
-.mark i{border-radius:2px;background:var(--ink)}
-.mark i:nth-child(2){background:#ff9500}
-.mark i:nth-child(3){background:var(--yellow)}
-.mark i:nth-child(4){background:var(--pink)}
+.logo{display:inline-flex;align-items:center;gap:8px;color:var(--top-ink);text-decoration:none}
+/* The blog's 'Vizney' wordmark (white, same 40px box as the blog header) and the line name beside it in VZ Sans.
+   The 2x2 block mark is a line icon only: favicon and other places a wordmark cannot fit. */
+.logo__mark{display:block;width:106px;height:40px}
+.logo__line{padding-left:10px;border-left:1px solid var(--top-line);font-size:15px;font-weight:500;line-height:20px;letter-spacing:-.005em;color:var(--top-ink)}
 .top-nav{display:flex;flex-wrap:wrap;gap:4px 22px;font-size:15px}
-.top-nav a{color:var(--ink-2);text-decoration:none}
-.top-nav a:hover{color:var(--ink)}
+.top-nav a{color:var(--top-ink-2);font-weight:500;text-decoration:none}
+.top-nav a:hover,.top-nav a[aria-current]{color:var(--top-ink);text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:6px}
 .top-end{margin-left:auto;display:flex;align-items:center;gap:10px}
-.lang{display:flex;height:40px;padding:4px;border-radius:10px;background:var(--soft)}
-.lang button{min-width:40px;padding:0 10px;border:0;border-radius:7px;background:transparent;font-size:13px;font-weight:700;color:var(--muted);cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--page);color:var(--ink);box-shadow:var(--shadow-sm)}
+.lang{display:flex;height:40px;padding:4px;border-radius:10px;background:var(--top-soft)}
+.lang button{min-width:40px;padding:0 10px;border:0;border-radius:7px;background:transparent;font-size:13px;font-weight:700;color:var(--top-ink-2);cursor:pointer}
+.lang button:hover{color:var(--top-ink)}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
 
-/* ---------- buttons (as on Vizney Blocks) ---------- */
+/* ---------- buttons (Vizney Blocks shapes; the primary fill is the UI accent yellow) ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 14px;border:1px solid var(--btn-line);border-radius:10px;background:var(--page);color:var(--ink);font:500 14px/1 var(--font);text-decoration:none;white-space:nowrap;cursor:pointer}
 .btn:hover{color:var(--ink);border-color:var(--rule)}
-.btn.is-primary{background:var(--ink);border-color:var(--ink);color:var(--page)}
-.btn.is-primary:hover{background:var(--ink-hover);border-color:var(--ink-hover);color:var(--page)}
+.btn.is-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.is-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:var(--accent-ink)}
+.top .btn{background:transparent;border-color:var(--top-line);color:var(--top-ink)}
+.top .btn:hover{border-color:var(--top-ink);color:var(--top-ink)}
 .btn.is-lg{height:48px;padding:0 22px;border-radius:12px;font-size:15px}
 
 /* ---------- hero ---------- */
@@ -325,7 +337,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 
 <header class="top" id="top">
   <div class="wrap top-in">
-    <a class="logo" href="/" data-href="home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Vizney Styles</a>
+    <a class="logo" href="/" data-href="home"><img class="logo__mark" src="/assets/brand/vizney-wordmark-white.png" width="106" height="40" alt="Vizney"><span class="logo__line">Styles</span></a>
     <nav class="top-nav" aria-label="Main menu" data-i18n-aria="navAria">
       <a href="/#styles" data-href="home:styles" data-i18n="navStyles">Catalog</a>
       <a href="/#custom" data-href="home:custom" data-i18n="navCustom">Your company</a>
@@ -359,6 +371,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
     <nav aria-label="Footer" data-i18n-aria="footAria">
       <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>
+      <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="navContact">Contact</a>
       <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
       <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
     </nav>

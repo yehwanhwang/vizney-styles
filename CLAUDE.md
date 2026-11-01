@@ -29,7 +29,7 @@
 6. **구현:** 아래 '화면 규칙'대로 `<name>/index.html`을 만든다.
 7. **검증:** 아래 '검증'을 모두 통과시킨다.
 8. **명세와 패키지:** `tokens.json`을 쓰고 DASHBOARD.md 본문과 `prompt.md`를 쓴 뒤(아래 '명세 형식') `python3 tools/package.py <name>`으로 `tokens.css`, `<name>.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, `skill/SKILL.md`, 설치용 zip을 만든다. 명세나 프롬프트를 고칠 때마다 다시 돌린다(zip이 그 파일들을 담는다).
-9. **커버:** `python3 tools/shots.py <name>`으로 `cover-en.png`, `cover-ko.png`(1440×810, 2배)를 만든다. 홈 카드, 포스트 대표 이미지, 링크 미리보기에 쓴다.
+9. **커버:** `python3 tools/shots.py <name>`으로 `cover-en.png`, `cover-ko.png`(1440×810, 2배)를 만든다. 홈 카드, 포스트 대표 이미지, 링크 미리보기에 쓴다. 커버의 바탕은 그 브랜드의 룩(샘플 화면) 그대로이고, 하단 가운데에 'Vizney' 워드마크만 넣는다: 페이지 바탕색의 띠(84px, 위로 40px 페이드)에 워드마크를 그 화면 `<h1>`의 색으로 칠한다. 캡처에서만 더하는 띠이며 샘플 화면에는 마크를 넣지 않는다.
 10. **README와 홈:** README의 Catalog 표에 행을 추가하고, 홈(`index.html`)에 카드를 넣고 첫 화면 오른쪽 샘플을 새 스타일로 바꾼다(아래 '홈 페이지').
 11. **배포:** 작업 브랜치 → 커밋 → PR → 머지. GitHub Actions의 'pages build and deployment'가 성공했는지로 배포를 확인한다. `main`에 올라간 것은 바로 공개된다.
 12. **포스트 초안:** 아래 '포스트 형식'으로 한국어·영어 전문과 SNS 캡션을 대화창에 바로 준다(Claude Docs는 쓰지 않는다).
@@ -40,9 +40,12 @@
 ## 브랜드 표기
 
 - **이름:** 브랜드는 Vizney, 라인은 Vizney Styles다. 글·화면·외부 등록에서 늘 'Vizney Styles'로 쓰고, 'Styles'만 따로 떼어 브랜드처럼 쓰지 않는다. 다른 라인도 같은 방식이다(Vizney Blocks, 차트 가이드, Fullcut by Vizney).
-- **시리즈 줄:** `VIZNEY STYLES · 01`(대문자, 가운뎃점, 두 자리 번호). 샘플 화면 바닥의 카탈로그 줄, 생성 파일(`tokens.css`·`.tps`·Power BI 테마 이름) 머리에 이 형식으로 쓴다. 블로그 포스트 본문에는 쓰지 않는다.
-- **마크:** Vizney 공통 마크(2×2 블록: 잉크 `#1b1b1b` · 주황 `#ff9500` · 노랑 `#ffcc00` · 분홍 `#ff2d55`, Vizney Blocks와 같은 마크)만 쓴다. Styles만의 변형 마크나 Styles 소개 페이지는 만들지 않는다. 마크는 홈·404의 머리글, `favicon.svg`, `og.png`에만 두고 샘플 화면에는 어떤 마크도 넣지 않는다.
-- **사이트:** Vizney의 한 라인으로 보이게 한다. 머리글과 바닥글에 vizney.com 링크를 두고(한국어는 kr.vizney.com), 회사 소개·브랜드 이야기는 블로그(About)에 맡긴다.
+- **시리즈 줄:** `VIZNEY STYLES · 01`(대문자, 가운뎃점, 두 자리 번호). 샘플 화면 바닥의 카탈로그 줄, 생성 파일(`tokens.css`·`.tps`·Power BI 테마 이름) 머리, 블로그 포스트 본문 첫 줄에 이 형식으로 쓴다. 화면과 포스트에서는 늘 카탈로그(`https://styles.vizney.com/?lang=ko|en`) 링크다.
+- **로고:** 블로그(kr.vizney.com · www.vizney.com)가 기준이다. 블로그 테마는 Ghost 요금제상 고칠 수 없으므로 Styles가 블로그에 맞춘다. 사이트 머리글의 로고는 블로그 헤더와 같은 흰색 'Vizney' 워드마크(`assets/brand/vizney-wordmark-white.png`, 106×40 상자, kr.vizney.com 헤더 로고에서 받은 이미지) 옆에 가는 세로선과 작은 'Styles'(VZ Sans 15px 500)다. 워드마크를 다시 그리거나 바꾸지 않는다. 밝은 바탕에서는 같은 이미지를 마스크로 써서 잉크색으로 칠한다.
+- **블록 마크:** Vizney 공통 마크(2×2 블록: 잉크 `#1b1b1b` · 주황 `#ff9500` · 노랑 `#ffcc00` · 분홍 `#ff2d55`, Vizney Blocks와 같은 마크)는 브랜드 로고가 아니라 라인 아이콘이다. 워드마크가 들어갈 수 없는 자리(`favicon.svg`)에만 쓴다. Styles만의 변형 마크나 Styles 소개 페이지는 만들지 않는다. 샘플 화면에는 어떤 마크도 넣지 않는다.
+- **사이트 UI 강조색:** 블로그 포스트 이미지의 노랑 `#ffcc00` 하나다(블로그 공지 띠와 같은 값, 호버 `#f2c200`). 주 버튼, 눌린 EN/KO, 메뉴 호버 밑줄, 링크 밑줄, 포커스에 쓴다. 노랑 바탕의 글자는 잉크 `#1b1b1b`(12.9:1)다. 포커스는 흰 바탕에서 노랑만으로는 1.6:1이라 잉크 링 바깥에 노랑 테를 두르고, 검정 머리글 안에서는 노랑 링만 쓴다. 이 노랑은 사이트(홈·404·OG)에만 쓰고, 브랜드별 참고 화면과 커버의 색은 그 브랜드의 룩이므로 바꾸지 않는다. 데이터 색으로도 쓰지 않는다.
+- **사이트:** Vizney의 한 라인으로 보이게 한다. 머리글은 블로그 헤더처럼 `#1b1b1b` 바탕에 흰 글자, 본문은 흰 바탕이다. 머리글 메뉴(Catalog, Your company, Request a brand, Contact, Vizney)와 바닥글(Blog · 문의 · Vizney Blocks · GitHub)에 블로그 링크를 두고, 회사 소개·브랜드 이야기는 블로그(About)에 맡긴다.
+- **언어별 링크:** 블로그로 가는 링크(Vizney ↗, Blog, 문의, 소개 글, 샘플의 '우리 회사 것 의뢰하기', 돌아가는 링크)는 화면 언어를 따른다. 한국어는 `https://kr.vizney.com/`(문의 `https://kr.vizney.com/contact-us/`), 영어는 `https://www.vizney.com/`(문의 `https://www.vizney.com/contact-us/`). 홈·404는 `data-href`와 `href()`로, 샘플은 `applyLang()`에서 바꾼다. HTML에 적힌 주소는 스크립트 없이 읽힐 때의 영어 기본값이다.
 - **외부 등록:** OpenDesign, 링크드인 등에 올릴 때 발행자 이름은 Vizney, 항목 이름은 `Vizney Styles · <브랜드>`(예: `Vizney Styles · Anthropic`)다. npm 패키지는 `@vizney/styles`다.
 - **바꾸지 않는 것:** 저장소 이름(`vizney-styles`), 주소(styles.vizney.com), 공개 폴더 이름, embed 경로, 설치 명령의 형태.
 
@@ -54,7 +57,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 
 ## 화면 규칙
 
-- **가로형 실제 업무 대시보드**다. 최대 폭 1400px(여백 32px, 1359px 이하 24px, 639px 이하 16px). 구성은 패턴 인벤토리에서 고른 부품으로 짜되 늘 들어가는 것이 있다: 머리(샘플 회사 이름과 보고서 이름, 기간, EN/KO 토글), 필터 한 줄(아래 모든 카드에 적용), 결과를 말하는 머리 문장, 그 근거인 카드들, 상세 표, 만드는 법(패키지 파일 목록, 화면의 그림 하나와 DASHBOARD.md 점검 목록, 그 그림을 그리는 JS·Python·Tableau·Power BI·프롬프트 코드 창. 처음 보일 때 코드가 한 줄씩 쳐지며 그림이 층별로 그려진다. 받는 것과 의뢰하는 법을 보여 주는 자리다), 바닥(시리즈 줄로 시작하는 카탈로그 줄 `VIZNEY STYLES · 01  Anthropic style  Ivory, Editorial, Quiet`, 샘플 안내, 고지). 인벤토리가 빈약한 브랜드의 폴백 틀은 12열 그리드(KPI 4장, 추세 7 + 목록 5, 카드 3장) → 상세 표다. 예: Anthropic은 그 회사가 실제로 발행하는 그림의 종류(모델 발표의 비용·성능 그림과 비교표, 리서치 글의 계단선·오차 막대·덤벨·점 단위 설문)를 골라, 하나의 카드와 하나의 차트 문법으로 다시 그렸다(01 개요 · 02 운영 · 03 만드는 법).
+- **가로형 실제 업무 대시보드**다. 최대 폭 1400px(여백 32px, 1359px 이하 24px, 639px 이하 16px). 구성은 패턴 인벤토리에서 고른 부품으로 짜되 늘 들어가는 것이 있다: 머리(샘플 회사 이름과 보고서 이름, 기간, EN/KO 토글), 필터 한 줄(아래 모든 카드에 적용), 결과를 말하는 머리 문장, 그 근거인 카드들, 상세 표, 만드는 법(패키지 파일 목록, 화면의 그림 하나와 DASHBOARD.md 점검 목록, 그 그림을 그리는 JS·Python·Tableau·Power BI·프롬프트 코드 창. 처음 보일 때 코드가 한 줄씩 쳐지며 그림이 층별로 그려진다. 받는 것과 의뢰하는 법을 보여 주는 자리다), 바닥(시리즈 줄로 시작하는 카탈로그 줄 `VIZNEY STYLES · 01  Anthropic style  Ivory, Editorial, Quiet`, 샘플 안내, 고지, 고지 옆의 돌아가는 링크). 인벤토리가 빈약한 브랜드의 폴백 틀은 12열 그리드(KPI 4장, 추세 7 + 목록 5, 카드 3장) → 상세 표다. 예: Anthropic은 그 회사가 실제로 발행하는 그림의 종류(모델 발표의 비용·성능 그림과 비교표, 리서치 글의 계단선·오차 막대·덤벨·점 단위 설문)를 골라, 하나의 카드와 하나의 차트 문법으로 다시 그렸다(01 개요 · 02 운영 · 03 만드는 법).
 - **한 문법, 한 화면에 그림 7개 이하.** 참고한 그림(발표 자료, 리서치 글 등)은 형식만 가져오고 붙여 넣지 않는다. 모든 그림과 표는 같은 카드에 같은 해부(그림 번호 → 결과를 말하는 제목 → 부제 → 범례 → 그림·표 → 주석)로 넣고, 색·선·축·툴팁도 한 가지로 맞춘다. 화면 묶음(절)마다 그림은 7개 이하이고, 에이전트나 BI 도구가 템플릿으로 다시 만들 수 있는 표준 그림만 쓴다.
 - HTML 파일 하나로 완결한다(데이터 포함). 외부에서 불러오는 것은 글꼴뿐이다(Google Fonts와 jsDelivr만).
 - 서체: 본문 서체는 언어마다 하나. 영어는 브랜드 서체를 대신할 오픈 라틴 서체, 한국어는 브랜드의 한국어 페이지가 쓰는 서체(없으면 Pretendard). 디스플레이 서체를 쓰면 언어마다 하나씩(예: Source Serif 4 · Noto Serif KR). 숫자용 고정폭은 스타일의 특징일 때만. 화면에 서체 이름을 보여 줄 때도 그 언어의 서체만 쓴다.
@@ -72,6 +75,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - KPI 카드: 글자 크기는 대표 수치와 나머지 두 단계만 쓴다. 지표명 → 수치 → 증감 순서로 두고, 같은 줄 카드의 수치 높이가 맞게 한다(subgrid). 증감 색은 값이 움직인 방향이 아니라 그 지표에서 좋은 변화인지로 정한다.
 - 카드 안에 다시 카드를 넣지 않는다. 다크 모드는 만들지 않는다. 필터는 화면 위 한 줄에 두고 아래 모든 카드에 함께 적용한다.
 - 차트: 이중 축 금지. 범주 색은 세 가지와 회색 '기타'까지. 텍스트에 데이터 색을 쓸 때는 4.5:1을 넘는 글자용 단계만 쓴다. 쉬는 상태에서는 선 끝에 값을 적고, 툴팁은 호버·키보드에서만 띄운다. 모든 차트에 호버 툴팁, 키보드 조작(방향키, Home, End, Esc, 라이브 리전), 스크린 리더용 표를 둔다. `prefers-reduced-motion`이면 애니메이션을 끈다.
+- **돌아가는 링크:** 블로그는 나가는 링크에 `?ref=kr.vizney.com`(또는 `www.vizney.com`)을 붙인다. 바닥의 고지 옆에, `ref`(없으면 `document.referrer`)의 호스트가 블로그면 '← 포스트로' · '← Back to the post'(화면 언어의 `style-<폴더 이름>` 포스트: 한국어 kr.vizney.com, 영어 www.vizney.com), 아니면 '← 카탈로그로' · '← Back to the catalog'(`https://styles.vizney.com/?lang=<언어>`)를 둔다. 같은 탭에서 열고, 언어를 바꾸면 주소와 문구도 바뀐다. 구현은 `anthropic/index.html`의 `FROM_BLOG`·`#backLink`를 그대로 옮긴다.
 - 임베드 모드(`?embed=1`이면 `<html>`에 `vz-embed`): 화면 높이 기준 레이아웃을 풀고 바닥 안내를 숨긴다. 포스트에는 넓은 카드로 원래 크기 그대로 넣는다.
 - 반응형: 1024~1359 같은 구성에 여백만 줄임, 900~1023 추세·목록 세로 쌓기, 640~899 2열(KPI 2×2), 640 미만 1열(KPI는 2×2 유지). 표는 좁은 폭에서 열을 줄인다.
 
@@ -100,8 +104,9 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 
 - SEO 제목: `<Name> 대시보드 스타일 — <세 단어>` / `<Name> Dashboard Style — <Three, Words>`. 메타 설명은 145자 안팎으로 따로 쓴다.
 - 발췌문: 생김새를 말하는 한 문장과 샘플 한 문장. 메타 설명과 대표 이미지 대체 텍스트에도 세 단어를 넣는다.
-- **짧게 쓴다.** 사람들은 샘플을 보고 설치 명령을 복사한다. 그 밖의 설명(받는 파일 목록, 파일이 들어가는 자리, 도구별 사용법, 프롬프트 예시, 조작법)은 본문에 쓰지 않고 링크된 DASHBOARD.md·prompt.md·샘플 화면에 맡긴다. 시리즈 줄은 본문에 쓰지 않는다.
+- **짧게 쓴다.** 사람들은 샘플을 보고 설치 명령을 복사한다. 그 밖의 설명(받는 파일 목록, 파일이 들어가는 자리, 도구별 사용법, 프롬프트 예시, 조작법)은 본문에 쓰지 않고 링크된 DASHBOARD.md·prompt.md·샘플 화면에 맡긴다.
 - 본문 순서:
+  0. 시리즈 줄 한 줄, 카탈로그 링크: 한국어 `[VIZNEY STYLES · 01](https://styles.vizney.com/?lang=ko)`, 영어 `[VIZNEY STYLES · 01](https://styles.vizney.com/?lang=en)`. 문장을 붙이지 않는다.
   1. 소개 한 단락(두 문장): 생김새를 말하는 첫 문장, 무엇을 읽어 왔는지(실제 CSS 토큰, 그 기업의 차트 문법) 한 문장.
   2. 샘플 한 단락(두 문장): 가상 회사와 보고서 이름, 조작 하나(예: 필터를 바꾸면 모든 카드가 바뀐다).
   3. HTML 카드(아래 임베드 코드).
@@ -132,7 +137,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 ## Ghost 반영
 
 - 관리 화면: 한국어 vizney-kr.ghost.io/ghost(공개 kr.vizney.com), 영어 vizney.ghost.io/ghost(공개 www.vizney.com). 연결된 컴퓨터의 내장 브라우저에 로그인되어 있다. 로그인 화면이 나오면 멈추고 사용자에게 알린다.
-- 본문은 카드 세 개로 넣는다: 마크다운 카드(소개·샘플) → HTML 카드(임베드 코드 그대로) → 마크다운 카드(Design부터 고지까지). 관리 화면 탭에서 Admin API(`/ghost/api/admin/posts/`, 헤더 `Accept-Version: v5.0`, 로그인 세션 사용)로 `lexical`과 필드(`feature_image`, `feature_image_alt`, `custom_excerpt`, `meta_description`)를 함께 저장한다. 고칠 때는 같은 포스트를 읽어 `updated_at`을 넣고 PUT한다. 제목·슬러그·태그·발행일은 건드리지 않는다.
+- 본문은 카드 세 개로 넣는다: 마크다운 카드(시리즈 줄·소개·샘플) → HTML 카드(임베드 코드 그대로) → 마크다운 카드(Design부터 고지까지). 관리 화면 탭에서 Admin API(`/ghost/api/admin/posts/`, 헤더 `Accept-Version: v5.0`, 로그인 세션 사용)로 `lexical`과 필드(`feature_image`, `feature_image_alt`, `custom_excerpt`, `meta_description`)를 함께 저장한다. 고칠 때는 같은 포스트를 읽어 `updated_at`을 넣고 PUT한다. 제목·슬러그·태그·발행일은 건드리지 않는다.
 - 순서: 두 포스트의 현재 상태를 읽어 보여 준다 → 한국어부터, 저장(Update) 직전에 사용자 확인 → 공개 페이지 확인 → 영어도 같은 순서.
 - 공개 페이지 확인: iframe이 embed-host.js로 내용 높이에 맞게 늘어나는지(브라우저 창이 숨겨져 있으면 지연 로딩이 늦으니 iframe을 화면에 띄우고 기다린다), 본문 링크가 모두 열리는지, 대표 이미지·`description`·`og:image`·`twitter:image`가 새 값인지, 예전 샘플 문구가 남지 않았는지.
 - 홈 카드 테두리: 커버의 밝은 바탕이 블로그 흰 바탕과 섞이므로 두 사이트의 Code injection(Site header) 끝에 아래 규칙이 있다. 지우지 않는다. 새 스타일 포스트도 태그 `styles`만 달면 그대로 적용된다.
@@ -148,8 +153,9 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - 첫 화면은 두 단이다(`.hero--split`): 왼쪽에 문구, 오른쪽에 카탈로그의 최신 스타일 커버(`img[data-cover]`, 언어에 따라 `cover-en.png`·`cover-ko.png`로 바뀐다)와 캡션, 라이브 샘플 링크. 960px 이하에서는 커버가 문구 아래로 내려간다. 새 스타일을 공개하면 커버의 `data-cover`·`data-cover-name`, 링크 두 곳(`data-href="sample:<name>"`), `STR`의 `heroCap`을 새 스타일로 바꾼다. 404는 `.hero`만 쓰고 `.hero--split`은 쓰지 않는다.
 - 새 카드: 기존 `article.swatch`를 복사해 '우리 회사' 카드 앞에 두고, 번호와 이름(`01 Anthropic`), 폴더, 링크(샘플, DASHBOARD.md, 파일, 소개 글)를 바꾼다. `STR` 한국어·영어에 `sub_<name>`(세 단어)과 `meta_<name>`(샘플 설명)을 더한다.
 - 화면 문구는 `STR`이 기준이고, 본문의 영어 문구와 링크는 스크립트 없이 읽힐 때의 기본값이므로 둘 다 고친다. `<head>`의 제목·설명·`og:` 메타도 영어로 쓴다.
-- 머리글·버튼·바닥글, 색 값과 글꼴은 Vizney Blocks(blocks.vizney.com)에 맞춘다. 글꼴은 VZ Sans(Spoqa Han Sans Neo 부분 글꼴, SIL OFL). 두 페이지의 문구를 고치거나 카드를 더하면 `python3 tools/font.py <spoqa-han-sans 저장소>/Original/SpoqaHanSansNeo`로 `assets/fonts/`를 다시 만든다. 글꼴 주소의 `?v=`도 함께 바뀐다.
-- 마크는 Vizney 공통 마크(위 '브랜드 표기')를 머리글, `favicon.svg`, `og.png`에만 쓰고 샘플 화면에는 넣지 않는다. 머리글 메뉴와 바닥글에 vizney.com 링크를 둔다. `og.png`는 카탈로그가 바뀌면(새 스타일, 첫 화면 문구) 다시 만든다. `sitemap.xml`에는 홈만 넣고 샘플 화면은 `noindex`다.
+- 머리글은 블로그 헤더에 맞추고(위 '브랜드 표기'의 로고·사이트 UI 강조색), 버튼 모양·바닥글·회색 값과 글꼴은 Vizney Blocks(blocks.vizney.com)에 맞춘다. 글꼴은 VZ Sans(Spoqa Han Sans Neo 부분 글꼴, SIL OFL). 두 페이지의 문구를 고치거나 카드를 더하면 `python3 tools/font.py <spoqa-han-sans 저장소>/Original/SpoqaHanSansNeo`로 `assets/fonts/`를 다시 만든다. 글꼴 주소의 `?v=`도 함께 바뀐다.
+- 머리글은 워드마크 + 'Styles', 블록 마크는 `favicon.svg`에만 쓴다(위 '브랜드 표기'). 머리글 메뉴와 바닥글에 언어별 블로그 링크를 둔다.
+- `og.png`(1200×630)는 블로그 포스트 이미지 규격이다: 검정 `#1b1b1b` 바탕, 노랑 `#ffcc00` 포인트 하나(라인 이름과 'DASHBOARD.md', 최신 커버의 테두리), 하단 가운데 흰 워드마크. `python3 tools/og.py`로 만들고(catalog.json의 마지막 스타일 커버를 쓴다), 카탈로그나 첫 화면 문구가 바뀌면 다시 만들어 `index.html`의 `og:image` 주소 `?v=`를 올린다. `sitemap.xml`에는 홈만 넣고 샘플 화면은 `noindex`다.
 
 
 ## 저장소 규칙
