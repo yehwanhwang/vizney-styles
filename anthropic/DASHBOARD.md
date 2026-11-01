@@ -67,7 +67,7 @@ That puts `DASHBOARD.md` in the project root and the `dashboard-style` agent ski
 - Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/anthropic/DASHBOARD.md
 - Package: [anthropic-dashboard-style.zip](anthropic-dashboard-style.zip) (unzip in your project root) · the skill: [skill/SKILL.md](skill/SKILL.md)
 - Files in this folder: [tokens.json](tokens.json) (the source of every value here), [tokens.css](tokens.css), [anthropic.tps](anthropic.tps) (Tableau), [powerbi-theme.json](powerbi-theme.json), [prompt.md](prompt.md), [orders.csv](orders.csv) (the data behind the sample's Figure 2)
-- Catalog: https://styles.vizney.com · Vizney Styles 01
+- Catalog: VIZNEY STYLES · 01 · https://styles.vizney.com (Vizney Styles is a line of [Vizney](https://www.vizney.com))
 
 Not an official Anthropic design, and not affiliated with or endorsed by Anthropic. A reference style read from the publicly visible design of anthropic.com and claude.com; it carries no logo, typeface or data of theirs. The sample's company, Vizney Logistics, and all its numbers are fictional. Trademarks belong to their owners.
 

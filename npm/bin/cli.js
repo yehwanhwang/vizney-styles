@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// vizney-styles: put a Vizney Styles dashboard style in the current project.
+// @vizney/styles: put a Vizney Styles dashboard style in the current project.
 //
-//   npx vizney-styles@latest add anthropic
+//   npx @vizney/styles@latest add anthropic
 //
 // Writes DASHBOARD.md (the spec) to the project root and the dashboard-style agent skill to
 // .claude/skills/dashboard-style/ (SKILL.md with tokens.css, tokens.json, <style>.tps,
@@ -16,11 +16,11 @@ const SITE = 'https://styles.vizney.com';
 const SKILL_DIR = path.join('.claude', 'skills', 'dashboard-style');
 const VERSION = require('../package.json').version;
 
-const HELP = `vizney-styles ${VERSION} — dashboard styles that coding agents, Tableau and Power BI can follow
+const HELP = `@vizney/styles ${VERSION} — Vizney Styles: dashboard styles that coding agents, Tableau and Power BI can follow
 
 Usage
-  npx vizney-styles@latest add <style>     add a style to the project in this folder
-  npx vizney-styles@latest list            list the styles in the catalog
+  npx @vizney/styles@latest add <style>     add a style to the project in this folder
+  npx @vizney/styles@latest list            list the styles in the catalog
 
 Options
   --dir <path>   the project folder (default: the current folder)
@@ -57,17 +57,17 @@ async function list() {
   for (const s of cat.styles) {
     process.stdout.write(`${String(s.number).padStart(2, '0')}  ${s.slug.padEnd(16)} ${s.name} — ${s.words}\n    ${s.sample}\n`);
   }
-  process.stdout.write(`\nAdd one: npx vizney-styles@latest add <style>\n`);
+  process.stdout.write(`\nAdd one: npx @vizney/styles@latest add <style>\n`);
 }
 
 async function add(style, dir, force) {
-  if (!style) fail('Which style? For example: npx vizney-styles@latest add anthropic\nSee them all: npx vizney-styles@latest list');
+  if (!style) fail('Which style? For example: npx @vizney/styles@latest add anthropic\nSee them all: npx @vizney/styles@latest list');
   if (!/^[a-z0-9-]+$/.test(style)) fail(`Unknown style: ${style}`);
   const root = path.resolve(dir);
   if (!fs.existsSync(root) || !fs.statSync(root).isDirectory()) fail(`Not a folder: ${root}`);
   const spec = path.join(root, 'DASHBOARD.md'), skill = path.join(root, SKILL_DIR);
   if (!force && (fs.existsSync(spec) || fs.existsSync(path.join(skill, 'SKILL.md')))) {
-    fail(`DASHBOARD.md or ${SKILL_DIR} already exists in ${root}.\nRun again with --force to replace them: npx vizney-styles@latest add ${style} --force`);
+    fail(`DASHBOARD.md or ${SKILL_DIR} already exists in ${root}.\nRun again with --force to replace them: npx @vizney/styles@latest add ${style} --force`);
   }
   // Download everything first, so a failed download leaves the project untouched
   const files = [['DASHBOARD.md', spec], ['skill/SKILL.md', path.join(skill, 'SKILL.md')]]
@@ -75,7 +75,7 @@ async function add(style, dir, force) {
   const got = [];
   for (const [src, dest] of files) {
     const body = await get(`${BASE}/${style}/${src}`);
-    if (!body) fail(`No style called "${style}". See the catalog: npx vizney-styles@latest list`);
+    if (!body) fail(`No style called "${style}". See the catalog: npx @vizney/styles@latest list`);
     got.push([dest, body]);
   }
   fs.mkdirSync(skill, { recursive: true });

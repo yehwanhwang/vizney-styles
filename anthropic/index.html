@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap">
 <script src="/lib/embed.js" defer></script>
 <style>
-  /* Anthropic style (Vizney Styles 01) — Ivory, Editorial, Quiet · 아이보리, 에디토리얼, 고요함
+  /* Anthropic style (VIZNEY STYLES · 01) — Ivory, Editorial, Quiet · 아이보리, 에디토리얼, 고요함
      anthropic.com · claude.com의 공개 디자인에서 읽어 낸 참고용 스타일. 공식 디자인이 아니며 로고·서체·데이터는 쓰지 않는다.
      가상 배송 회사(Vizney Logistics · 비즈니 로지스틱스, 미국)의 월간 운영 보고. 앤트로픽이 발행하는 그림들(모델 발표의 비용·성능 그림과 비교표,
      리서치 글의 계단선·오차 막대·덤벨·점 단위 설문)을 참고하되, 모든 그림을 하나의 카드와 하나의 차트 문법으로 그린다.
@@ -278,6 +278,7 @@
   .foot .cat{font-weight:500;color:var(--on-dark)}
   .foot .cat a{color:inherit;text-decoration-color:#4d4c48;text-underline-offset:3px}
   .foot .cat a:hover{text-decoration-color:var(--on-dark)}
+  .foot .cat .ser{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;margin-right:10px}
   .foot .cat .w{font-weight:400;color:var(--on-dark-2)}
   .toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,8px);padding:9px 14px;border-radius:8px;background:var(--ink);color:var(--on-dark);font-size:13px;box-shadow:0 4px 16px rgba(20,20,19,.16);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease)}
   .toast.on{opacity:1;transform:translate(-50%,0)}
@@ -566,7 +567,7 @@
   <div class="toast" id="toast" role="status"></div>
 </div>
 <footer class="foot"><div class="foot-in">
-  <p class="cat"><a href="https://styles.vizney.com/">Vizney Styles</a> · 01 · <a href="https://styles.vizney.com/anthropic/DASHBOARD.html" data-i18n="catName"></a> <span class="w" data-i18n="words"></span></p>
+  <p class="cat"><a class="ser" href="https://styles.vizney.com/">VIZNEY STYLES · 01</a> <a href="https://styles.vizney.com/anthropic/DASHBOARD.html" data-i18n="catName"></a> <span class="w" data-i18n="words"></span></p>
   <p data-i18n="note"></p>
   <p data-i18n="notice"></p>
 </div></footer>
