@@ -30,7 +30,7 @@
 7. **검증:** 아래 '검증'을 모두 통과시킨다.
 8. **명세와 패키지:** `tokens.json`을 쓰고 DASHBOARD.md 본문과 `prompt.md`를 쓴 뒤(아래 '명세 형식') `python3 tools/package.py <name>`으로 `tokens.css`, `<name>.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, `skill/SKILL.md`, 설치용 zip을 만든다. 명세나 프롬프트를 고칠 때마다 다시 돌린다(zip이 그 파일들을 담는다).
 9. **커버:** `python3 tools/shots.py <name>`으로 `cover-en.png`, `cover-ko.png`(1440×810, 2배)를 만든다. 홈 카드, 포스트 대표 이미지, 링크 미리보기에 쓴다.
-10. **README와 홈:** README의 Catalog 표에 행을 추가하고, 홈(`index.html`)에 카드를 넣는다(아래 '홈 페이지').
+10. **README와 홈:** README의 Catalog 표에 행을 추가하고, 홈(`index.html`)에 카드를 넣고 첫 화면 오른쪽 샘플을 새 스타일로 바꾼다(아래 '홈 페이지').
 11. **배포:** 작업 브랜치 → 커밋 → PR → 머지. GitHub Actions의 'pages build and deployment'가 성공했는지로 배포를 확인한다. `main`에 올라간 것은 바로 공개된다.
 12. **포스트 초안:** 아래 '포스트 형식'으로 한국어·영어 전문과 SNS 캡션을 대화창에 바로 준다(Claude Docs는 쓰지 않는다).
 
@@ -145,6 +145,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 ## 홈 페이지
 
 - 루트의 `index.html`이 첫 화면이다. 머리(문제와 약속), 카탈로그, AI 대시보드가 어색한 이유(전후 비교), 받는 것과 진행 순서, 문의·요청. 한국어·영어를 `?lang=ko|en`과 토글로 바꾸고 기본은 영어다. 없는 주소에는 `404.html`이 보인다. 둘은 머리글·바닥글·CSS·`STR`이 같으므로 한쪽을 고치면 다른 쪽도 맞춘다.
+- 첫 화면은 두 단이다(`.hero--split`): 왼쪽에 문구, 오른쪽에 카탈로그의 최신 스타일 커버(`img[data-cover]`, 언어에 따라 `cover-en.png`·`cover-ko.png`로 바뀐다)와 캡션, 라이브 샘플 링크. 960px 이하에서는 커버가 문구 아래로 내려간다. 새 스타일을 공개하면 커버의 `data-cover`·`data-cover-name`, 링크 두 곳(`data-href="sample:<name>"`), `STR`의 `heroCap`을 새 스타일로 바꾼다. 404는 `.hero`만 쓰고 `.hero--split`은 쓰지 않는다.
 - 새 카드: 기존 `article.swatch`를 복사해 '우리 회사' 카드 앞에 두고, 번호와 이름(`01 Anthropic`), 폴더, 링크(샘플, DASHBOARD.md, 파일, 소개 글)를 바꾼다. `STR` 한국어·영어에 `sub_<name>`(세 단어)과 `meta_<name>`(샘플 설명)을 더한다.
 - 화면 문구는 `STR`이 기준이고, 본문의 영어 문구와 링크는 스크립트 없이 읽힐 때의 기본값이므로 둘 다 고친다. `<head>`의 제목·설명·`og:` 메타도 영어로 쓴다.
 - 머리글·버튼·바닥글, 색 값과 글꼴은 Vizney Blocks(blocks.vizney.com)에 맞춘다. 글꼴은 VZ Sans(Spoqa Han Sans Neo 부분 글꼴, SIL OFL). 두 페이지의 문구를 고치거나 카드를 더하면 `python3 tools/font.py <spoqa-han-sans 저장소>/Original/SpoqaHanSansNeo`로 `assets/fonts/`를 다시 만든다. 글꼴 주소의 `?v=`도 함께 바뀐다.
