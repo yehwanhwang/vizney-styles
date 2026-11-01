@@ -2,7 +2,7 @@
 
 이 저장소는 styles.vizney.com(GitHub Pages, `main` 브랜치)으로 배포된다. Vizney Styles는 Vizney의 한 라인이다. 브랜드는 Vizney 하나이고 'Styles'는 라인 이름이며 별도 브랜드가 아니다(아래 '브랜드 표기'). 기업의 공개 웹사이트에서 읽어 낸 룩을 대시보드용 명세 **DASHBOARD.md**로 만들어 카탈로그에 쌓고, 같은 패키지를 기업에 비공개로 만들어 주는 것이 사업이다. 대상은 기업(해외 중심, 국내 포함)이고, 블로그(kr.vizney.com, www.vizney.com)의 Gallery 포스트로 소개한다. 목적은 실제 데이터 분석이 아니라, AI 코딩 에이전트·Tableau·Power BI가 그대로 따를 수 있는 '우리 회사 대시보드 룩'을 전달하는 것이다.
 
-**한 브랜드에 패키지 하나.** `<name>/` 폴더에 DASHBOARD.md, 참고 화면(`index.html`), 토큰 원본(`tokens.json`)과 거기서 생성한 `tokens.css`·`<name>.tps`·`powerbi-theme.json`, 프롬프트(`prompt.md`), 에이전트 스킬(`skill/SKILL.md`, `tools/skill.md`에서 생성)과 설치용 zip(`<name>-dashboard-style.zip`), 만드는 법 섹션이 그리는 그림의 데이터(예: `orders.csv`), 커버(`cover-en.png`, `cover-ko.png`)가 들어간다. 사람들은 `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- <name>`(루트의 `install.sh`)이나 zip으로 자기 프로젝트에 넣는다: 루트에 DASHBOARD.md, `.claude/skills/dashboard-style/`에 스킬과 도구 파일. 명세로 적은 것, 화면에서 보이는 것, 도구 파일의 값이 모두 같아야 한다.
+**한 브랜드에 패키지 하나.** `<name>/` 폴더에 DASHBOARD.md, 참고 화면(`index.html`), 토큰 원본(`tokens.json`)과 거기서 생성한 `tokens.css`·`<name>.tps`·`powerbi-theme.json`, 프롬프트(`prompt.md`), 에이전트 스킬(`skill/SKILL.md`, `tools/skill.md`에서 생성)과 설치용 zip(`<name>-dashboard-style.zip`), 만드는 법 섹션이 그리는 그림의 데이터(예: `orders.csv`), 커버(`cover-en.png`, `cover-ko.png`)가 들어간다. 사람들은 `npx @vizney/styles@latest add <name>`(npm), `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- <name>`(루트의 `install.sh`)이나 zip으로 자기 프로젝트에 넣는다: 루트에 DASHBOARD.md, `.claude/skills/dashboard-style/`에 스킬과 도구 파일. 명세로 적은 것, 화면에서 보이는 것, 도구 파일의 값이 모두 같아야 한다.
 
 
 ## 핵심 약속: AI 대시보드가 어색한 이유 8가지
@@ -137,4 +137,4 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - `lib/embed.js`, `lib/embed-host.js`는 발행된 포스트가 쓰므로 이전 동작과 호환되게 고친다.
 - 생성 파일(`tokens.css`, `.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, `skill/SKILL.md`, zip)은 손으로 고치지 않고 `tokens.json`(스킬은 `tools/skill.md`)을 고친 뒤 `package.py`를 돌린다.
 - `install.sh`는 발행된 포스트와 명세가 안내하는 명령이므로 주소와 인자(`sh -s -- <name>`), 설치 위치를 바꾸지 않는다.
-- npm CLI(`npm/`, 패키지 `@vizney/styles`, `npx @vizney/styles add <name>`)도 같은 파일을 같은 자리에 둔다. 저장소의 `main`에서 파일을 읽으므로 스타일을 더하거나 고칠 때는 npm을 다시 배포하지 않는다(`package.py`가 `catalog.json`을 고친다). CLI 자체를 고칠 때만 `npm/package.json`의 버전을 올리고 'Publish npm package' 워크플로를 돌린다(저장소 시크릿 `NPM_TOKEN` 필요).
+- npm CLI(`npm/`, 패키지 `@vizney/styles`, `npx @vizney/styles add <name>`)도 같은 파일을 같은 자리에 둔다. 저장소의 `main`에서 파일을 읽으므로 스타일을 더하거나 고칠 때는 npm을 다시 배포하지 않는다(`package.py`가 `catalog.json`을 고친다). CLI 자체를 고칠 때만 `npm/package.json`의 버전을 올리고 'Publish npm package' 워크플로를 돌린다(저장소 시크릿 `NPM_TOKEN` 필요). npm은 새 버전을 먼저 스테이징하므로, 워크플로가 끝나면 npmjs.com의 Staged Packages에서 2FA로 승인해야 공개된다.

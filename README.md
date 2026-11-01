@@ -4,7 +4,7 @@ Dashboard design specs that AI coding agents, Tableau and Power BI can follow. E
 
 Served at **https://styles.vizney.com** (GitHub Pages, `main` branch). Everything pushed to `main` is published immediately, so keep work in progress off `main`. Every page opens in English; add `?lang=ko` for Korean.
 
-Vizney Styles is a line of [Vizney](https://www.vizney.com), a BI consulting studio in Seoul; the brand is Vizney, and each style carries the series line `VIZNEY STYLES · 01`. Install a style with `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- <style>` or, once published, `npx @vizney/styles@latest add <style>`.
+Vizney Styles is a line of [Vizney](https://www.vizney.com), a BI consulting studio in Seoul; the brand is Vizney, and each style carries the series line `VIZNEY STYLES · 01`. Install a style with `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- <style>` or `npx @vizney/styles@latest add <style>` ([npm](https://www.npmjs.com/package/@vizney/styles)).
 
 
 ## Catalog
@@ -62,7 +62,8 @@ The file follows the `DESIGN.md` convention (front matter tokens, then prose sec
 - **Install in a project** (run in the project folder):
 
   ```bash
-  curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic
+  npx @vizney/styles@latest add anthropic                      # Node 18+
+  curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic   # macOS, Linux
   ```
 
   It writes `DASHBOARD.md` to the project root and the `dashboard-style` skill with `tokens.css`, `tokens.json`, the `.tps`, `powerbi-theme.json` and `prompt.md` to `.claude/skills/dashboard-style/`, and touches nothing else (`FORCE=1` replaces an earlier install). Without a terminal, unzip `<style>-dashboard-style.zip` from the style's page in the project root.
@@ -80,7 +81,7 @@ npx @vizney/styles@latest add anthropic     # --force to replace, --dir <path> f
 npx @vizney/styles@latest list              # the styles in catalog.json
 ```
 
-It reads the files from this repository's `main` branch, so a new or changed style needs no new npm release; `tools/package.py` keeps `catalog.json` up to date. Release the CLI itself by raising `version` in `npm/package.json` and running the **Publish npm package** workflow (Actions → Run workflow, or push a tag `npm-v<version>`). The `@vizney` scope is an npm organization. The first release needs the repository secret `NPM_TOKEN` (a granular access token that can publish to the `@vizney` scope); after it, set up Trusted Publishing for `@vizney/styles` on npmjs.com (GitHub Actions, repository `yehwanhwang/vizney-styles`, workflow `npm-publish.yml`) and delete the token. The workflow it tests the CLI against the live catalog, skips a version that is already published and publishes with provenance.
+It reads the files from this repository's `main` branch, so a new or changed style needs no new npm release; `tools/package.py` keeps `catalog.json` up to date. Release the CLI itself by raising `version` in `npm/package.json` and running the **Publish npm package** workflow (Actions → Run workflow, or push a tag `npm-v<version>`). The `@vizney` scope is the `vizney` npm account. npm stages a release before it goes live: approve it on npmjs.com under **Staged Packages** (2FA) after the workflow finishes. The first release needs the repository secret `NPM_TOKEN` (a granular access token that can publish to the `@vizney` scope); after it, set up Trusted Publishing for `@vizney/styles` on npmjs.com (GitHub Actions, repository `yehwanhwang/vizney-styles`, workflow `npm-publish.yml`) and delete the token. The workflow tests the CLI against the live catalog, skips a version that is already published and publishes with provenance.
 
 
 ## Adding a style
