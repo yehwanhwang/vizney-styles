@@ -195,8 +195,12 @@
   .tree .in3{padding-left:42px}
   .get{margin-top:14px;padding:12px 4px 0;border-top:1px solid var(--hair)}
   .get-h{font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:6px}
-  .cmd{display:flex;align-items:flex-start;gap:6px;padding:8px 8px 8px 10px;border-radius:8px;background:var(--ink);color:var(--on-dark)}
-  .cmd code{flex:1;min-width:0;font-family:var(--mono);font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+  .cmds{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;min-width:0}
+  .cmd{display:flex;align-items:center;gap:6px;padding:7px 7px 7px 10px;border-radius:8px;background:var(--ink);color:var(--on-dark)}
+  .cmd code{flex:1;min-width:0;font-family:var(--mono);font-size:11px;line-height:1.5;white-space:nowrap;overflow-x:auto;scrollbar-width:none;border-radius:3px}
+  .cmd code::-webkit-scrollbar{display:none}
+  .cmd code.more{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
+  .cmd code:focus-visible{outline:2px solid var(--on-dark);outline-offset:2px}
   .cmd button{flex:none;width:22px;height:22px;display:grid;place-items:center;border:0;border-radius:5px;background:rgba(250,249,245,.12);color:var(--on-dark);cursor:pointer}
   .cmd button svg{width:12px;height:12px}
   .get-note{margin:6px 0 10px;font-size:11.5px;line-height:1.4;color:var(--text-2)}
@@ -311,7 +315,7 @@
     .tree .in,.tree .in2,.tree .in3{padding-left:4px}
     .get{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 12px}
     .get-h{grid-column:1/-1;margin:0}
-    .cmd{grid-row:2;grid-column:1}
+    .cmds{grid-row:2;grid-column:1}
     .get .btn{grid-row:2;grid-column:2}
     .get-note{grid-row:3;grid-column:1/-1;margin:0}
   }
@@ -520,7 +524,10 @@
         <ul class="tree" id="tree"></ul>
         <div class="get">
           <p class="get-h" data-i18n="build.get"></p>
-          <div class="cmd"><code id="cmd">curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic</code><button type="button" id="btnCmd"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/></svg></button></div>
+          <div class="cmds">
+            <div class="cmd"><code>npx @vizney/styles@latest add anthropic</code><button type="button" class="btnCmd"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/></svg></button></div>
+            <div class="cmd"><code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic</code><button type="button" class="btnCmd"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/></svg></button></div>
+          </div>
           <p class="get-note" data-i18n="build.getNote"></p>
           <a class="btn btn-sm btn-tertiary" href="anthropic-dashboard-style.zip" download data-i18n="build.zip"></a>
         </div>
@@ -684,7 +691,7 @@
         spec: 'DASHBOARD.md 읽기', cta: '우리 회사 것 의뢰하기 ↗',
         steps: [['스타일을 프로젝트에 추가', '명령 한 줄이나 zip 하나로 프로젝트에 DASHBOARD.md가, .claude/skills에 dashboard-style 스킬이 Tableau·Power BI 파일과 함께 들어갑니다.'], ['대시보드를 요청', '코딩 에이전트는 스킬을 불러 명세대로 그림 계획을 세우고 그립니다. 같은 폴더를 읽는 BI 에이전트도 같은 명세를 따릅니다.'], ['공유 전에 점검', '스킬이 DASHBOARD.md의 점검 목록을 돌려 통과한 것과 고칠 것을 알려 줍니다. 언제든 검토만 따로 맡길 수도 있습니다.']],
         pkg: '패키지', pkgSub: '프로젝트에 들어가는 파일',
-        get: '설치', getNote: '프로젝트 폴더에서 실행합니다. 터미널이 없으면 zip을 프로젝트 폴더에 풉니다.', zip: 'zip 내려받기', cmdCopied: '설치 명령을 복사했습니다',
+        get: '설치', getNote: '프로젝트 폴더에서 둘 중 하나를 실행합니다. 위 줄은 Node 18 이상, 아래 줄은 macOS·Linux 셸용입니다. 터미널이 없으면 zip을 프로젝트 폴더에 풉니다.', zip: 'zip 내려받기', cmdCopied: '설치 명령을 복사했습니다',
         files: { 'your-project/': '', 'DASHBOARD.md': '명세: 토큰, 규칙, 점검 목록', '.claude/skills/': '', 'dashboard-style/': '에이전트 스킬', 'SKILL.md': '만들기 · 고치기 · 검토', 'tokens.css': '색·서체·간격', 'anthropic.tps': 'Tableau 팔레트', 'powerbi-theme.json': 'Power BI 테마', 'prompt.md': '검증한 프롬프트' },
         modes: ['명세 없이', 'DASHBOARD.md로'], generic: '월별 주문',
         checksT: '점검 · DASHBOARD.md', checksOk: '6개 모두 통과', checksBad: '6개 중 0개 통과',
@@ -774,7 +781,7 @@
         spec: 'Read DASHBOARD.md', cta: 'Get one for your company ↗',
         steps: [['Add the style to your project', 'One command, or one zip, puts DASHBOARD.md in your project and the dashboard-style skill in .claude/skills, with the Tableau and Power BI files.'], ['Ask for the dashboard', 'Coding agents load the skill, plan the views from the spec and draw them. BI agents that read the same folder follow the same spec.'], ['Check before you share', 'The skill runs the checklist in DASHBOARD.md and reports what passed and what to fix. You can also ask it for a review on its own.']],
         pkg: 'Package', pkgSub: 'what goes in your project',
-        get: 'Install', getNote: 'Run it in your project folder. No terminal? Unzip the zip there instead.', zip: 'Download .zip', cmdCopied: 'Install command copied',
+        get: 'Install', getNote: 'Run either one in your project folder: the first needs Node 18+, the second is a shell script for macOS and Linux. No terminal? Unzip the zip there instead.', zip: 'Download .zip', cmdCopied: 'Install command copied',
         files: { 'your-project/': '', 'DASHBOARD.md': 'the spec: tokens, rules, checks', '.claude/skills/': '', 'dashboard-style/': 'the agent skill', 'SKILL.md': 'build · restyle · review', 'tokens.css': 'colors, type, spacing', 'anthropic.tps': 'Tableau palettes', 'powerbi-theme.json': 'Power BI theme', 'prompt.md': 'tested prompts' },
         modes: ['Without a spec', 'With DASHBOARD.md'], generic: 'Monthly Orders',
         checksT: 'Checks · DASHBOARD.md', checksOk: 'All 6 passed', checksBad: '0 of 6 passed',
@@ -1660,7 +1667,17 @@
     if (step === 3 && !REDUCE) { const p = $('#wbPlot')._subj; if (p) { p.setAttribute('pathLength', 1); p.classList.remove('draw'); void p.getBoundingClientRect(); p.classList.add('draw'); } }
   }
   $('#btnRun').addEventListener('click', () => playBench());
-  $('#btnCmd').addEventListener('click', async () => { await copyText($('#cmd').textContent); toast(L().build.cmdCopied); });
+  $$('.btnCmd').forEach(b => b.addEventListener('click', async () => { await copyText(b.previousElementSibling.textContent); toast(L().build.cmdCopied); }));
+  // A command longer than its box scrolls sideways; the fade shows there is more until the end is in view
+  const cmdFade = () => $$('.cmd code').forEach(c => {
+    const over = c.scrollWidth > c.clientWidth + 1;
+    c.classList.toggle('more', over && c.scrollLeft + c.clientWidth < c.scrollWidth - 2);
+    if (over) c.setAttribute('tabindex', '0'); else c.removeAttribute('tabindex');
+  });
+  $$('.cmd code').forEach(c => c.addEventListener('scroll', cmdFade, { passive: true }));
+  addEventListener('resize', cmdFade);
+  if (document.fonts) document.fonts.ready.then(cmdFade);
+  cmdFade();
   $('#btnCopyCode').addEventListener('click', async () => { await copyText(codeLines(state.code).map(l => l[1]).join('\n')); toast(L().build.copied); });
 
   /* ================= 주석·관련 보고서 ================= */
@@ -1734,7 +1751,7 @@
     for (const b of $$('.lang button')) b.setAttribute('aria-pressed', b.dataset.lang === state.lang ? 'true' : 'false');
     $('#ctaLink').href = KO() ? 'https://kr.vizney.com/contact-us/' : 'https://www.vizney.com/contact-us/';
     const cc = $('#btnCopyCode'); cc.setAttribute('aria-label', KO() ? '코드 복사' : 'Copy code'); cc.title = cc.getAttribute('aria-label');
-    const cm = $('#btnCmd'); cm.setAttribute('aria-label', KO() ? '설치 명령 복사' : 'Copy install command'); cm.title = cm.getAttribute('aria-label');
+    $$('.btnCmd').forEach(cm => { cm.setAttribute('aria-label', KO() ? '설치 명령 복사' : 'Copy install command'); cm.title = cm.getAttribute('aria-label'); });
     renderSecnav(); renderBuildStatic(); renderNotes();
   }
   function renderAll(animate) {

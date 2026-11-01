@@ -58,6 +58,8 @@ files: {tokens: tokens.json, css: tokens.css, tableau: anthropic.tps, powerbi: p
 A dashboard design spec read from the public design of anthropic.com and claude.com. It takes the sites' measured tokens and the way Anthropic publishes data (the cost-and-score figures and benchmark tables of its model launches, the step charts, error bars, dumbbells and dot-unit surveys of its research posts) and turns them into one card and one chart grammar that a whole dashboard can follow. It then adds what a website spec leaves out and a dashboard needs: validated data colors, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Add it to a project with one command (or the zip on the sample page), or hand it to whoever builds your dashboards. The live sample was built from it.
 
 ```
+npx @vizney/styles@latest add anthropic
+# or, without Node:
 curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic
 ```
 
@@ -330,7 +332,7 @@ Flat. Cards are set apart by color, not by lines or shadows, and never lift on h
 
 ## Agent Prompt Guide
 
-Install the style (`curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic`, or unzip the package in the project root). Agents that read skills load `dashboard-style` on their own and work in one of three modes: **Build** (plan the views, then draw them to this file), **Restyle** (move an existing screen onto this file without changing its data) and **Review** (a table of rule, finding, severity and fix). For an agent without skills, start the prompt with `Read DASHBOARD.md and follow it exactly.` For example:
+Install the style (`npx @vizney/styles@latest add anthropic`, `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- anthropic`, or unzip the package in the project root). Agents that read skills load `dashboard-style` on their own and work in one of three modes: **Build** (plan the views, then draw them to this file), **Restyle** (move an existing screen onto this file without changing its data) and **Review** (a table of rule, finding, severity and fix). For an agent without skills, start the prompt with `Read DASHBOARD.md and follow it exactly.` For example:
 
 ```
 Read DASHBOARD.md and follow it exactly. Build our monthly operations dashboard as one self-contained HTML file
