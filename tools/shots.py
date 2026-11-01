@@ -7,6 +7,11 @@ with reduced motion so animations never land in a capture) and writes into <name
 
     cover-en.png, cover-ko.png    1440 × 810 at 2×    home card, post feature image, link previews
 
+Each cover keeps the brand's look as its background and carries only the Vizney wordmark at the bottom
+centre: a band in the page's own background colour, faded into the screen above it, with the wordmark
+(assets/brand/vizney-wordmark-white.png used as a mask) in the colour of the page's <h1>. The sample screen
+itself never shows a mark; the band exists only in the capture.
+
 It exits with an error if a page throws.
 
 --review DIR         also writes full-page captures at 1440, 1200, 1024 and 390px, in both languages,
@@ -37,6 +42,27 @@ LANGS = ('en', 'ko')
 
 JSDELIVR = re.compile(r'https://cdn\.jsdelivr\.net/gh/([^/]+)/([^/@]+)@([^/]+)/([^?#]+)')
 GSTATIC = 'https://fonts.gstatic.com/vz-offline/'
+WORDMARK = '/assets/brand/vizney-wordmark-white.png'
+# The cover band: page background, a fade into the screen above, the wordmark in the heading colour.
+COVER_BAND = '''(wm) => {
+  const clear = c => !c || c === 'transparent' || /rgba\\([^)]*,\\s*0\\)$/.test(c);
+  let bg = getComputedStyle(document.body).backgroundColor;
+  if (clear(bg)) bg = getComputedStyle(document.documentElement).backgroundColor;
+  if (clear(bg)) bg = 'rgb(255, 255, 255)';
+  const bg0 = bg.replace(/^rgba?\\(([^,]+),([^,]+),([^,)]+).*$/, 'rgba($1,$2,$3,0)');
+  const ink = getComputedStyle(document.querySelector('h1') || document.body).color;
+  const band = document.createElement('div');
+  band.style.cssText = 'position:fixed;left:0;right:0;bottom:0;height:84px;z-index:2147483647;display:flex;' +
+    'align-items:center;justify-content:center;pointer-events:none;background:' + bg;
+  const fade = document.createElement('div');
+  fade.style.cssText = 'position:absolute;left:0;right:0;bottom:100%;height:40px;background:linear-gradient(' + bg0 + ',' + bg + ')';
+  const mark = document.createElement('div');
+  const m = 'url(' + wm + ') center / contain no-repeat';
+  mark.style.cssText = 'width:90px;height:34px;background:' + ink + ';-webkit-mask:' + m + ';mask:' + m;
+  band.append(fade, mark);
+  document.body.append(band);
+  return new Promise(done => { const i = new Image(); i.onload = i.onerror = () => done(); i.src = wm; });
+}'''
 
 
 def serve(root):
@@ -218,6 +244,8 @@ def main():
 
         for lang in LANGS:
             context, page = open_page(*COVER, 2, f'{base}?lang={lang}')
+            page.evaluate(COVER_BAND, WORDMARK)
+            page.wait_for_timeout(200)
             page.screenshot(path=str(folder / f'cover-{lang}.png'))
             context.close()
             print(f'{args.name}/cover-{lang}.png')
