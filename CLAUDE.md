@@ -40,7 +40,7 @@
 ## 브랜드 표기
 
 - **이름:** 브랜드는 Vizney, 라인은 Vizney Styles다. 글·화면·외부 등록에서 늘 'Vizney Styles'로 쓰고, 'Styles'만 따로 떼어 브랜드처럼 쓰지 않는다. 다른 라인도 같은 방식이다(Vizney Blocks, 차트 가이드, Fullcut by Vizney).
-- **시리즈 줄:** `VIZNEY STYLES · 01`(대문자, 가운뎃점, 두 자리 번호). 샘플 화면 바닥의 카탈로그 줄, 포스트 첫 줄, 생성 파일(`tokens.css`·`.tps`·Power BI 테마 이름) 머리에 이 형식으로 쓴다.
+- **시리즈 줄:** `VIZNEY STYLES · 01`(대문자, 가운뎃점, 두 자리 번호). 샘플 화면 바닥의 카탈로그 줄, 생성 파일(`tokens.css`·`.tps`·Power BI 테마 이름) 머리에 이 형식으로 쓴다. 블로그 포스트 본문에는 쓰지 않는다.
 - **마크:** Vizney 공통 마크(2×2 블록: 잉크 `#1b1b1b` · 주황 `#ff9500` · 노랑 `#ffcc00` · 분홍 `#ff2d55`, Vizney Blocks와 같은 마크)만 쓴다. Styles만의 변형 마크나 Styles 소개 페이지는 만들지 않는다. 마크는 홈·404의 머리글, `favicon.svg`, `og.png`에만 두고 샘플 화면에는 어떤 마크도 넣지 않는다.
 - **사이트:** Vizney의 한 라인으로 보이게 한다. 머리글과 바닥글에 vizney.com 링크를 두고(한국어는 kr.vizney.com), 회사 소개·브랜드 이야기는 블로그(About)에 맡긴다.
 - **외부 등록:** OpenDesign, 링크드인 등에 올릴 때 발행자 이름은 Vizney, 항목 이름은 `Vizney Styles · <브랜드>`(예: `Vizney Styles · Anthropic`)다. npm 패키지는 `@vizney/styles`다.
@@ -100,9 +100,16 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 
 - SEO 제목: `<Name> 대시보드 스타일 — <세 단어>` / `<Name> Dashboard Style — <Three, Words>`. 메타 설명은 145자 안팎으로 따로 쓴다.
 - 발췌문: 생김새를 말하는 한 문장과 샘플 한 문장. 메타 설명과 대표 이미지 대체 텍스트에도 세 단어를 넣는다.
-- 본문 첫 줄은 시리즈 줄 `VIZNEY STYLES · 01` 한 줄이다. 이어지는 첫 문장은 바로 스타일 설명으로 시작한다. 이어서 DASHBOARD.md가 무엇인지(에이전트·Tableau·Power BI에 넣는 파일) 한두 문장, 샘플과 조작 방법 한두 문장.
-- 순서: HTML 카드(아래 임베드 코드) → `### Design`(불릿 3~4개) → `### DASHBOARD.md`(파일 링크, 받는 것, 프롬프트 예시 코드 블록) → 우리 회사 것 제작 문의 링크(https://kr.vizney.com/contact-us/, https://www.vizney.com/contact-us/)와 브랜드 요청 링크 → 고지 한 단락.
-- 태그 Gallery, Brand Styles. 슬러그 `style-<name>`. 대표 이미지 cover-ko.png / cover-en.png.
+- **짧게 쓴다.** 사람들은 샘플을 보고 설치 명령을 복사한다. 그 밖의 설명(받는 파일 목록, 파일이 들어가는 자리, 도구별 사용법, 프롬프트 예시, 조작법)은 본문에 쓰지 않고 링크된 DASHBOARD.md·prompt.md·샘플 화면에 맡긴다. 시리즈 줄은 본문에 쓰지 않는다.
+- 본문 순서:
+  1. 소개 한 단락(두 문장): 생김새를 말하는 첫 문장, 무엇을 읽어 왔는지(실제 CSS 토큰, 그 기업의 차트 문법) 한 문장.
+  2. 샘플 한 단락(두 문장): 가상 회사와 보고서 이름, 조작 하나(예: 필터를 바꾸면 모든 카드가 바뀐다).
+  3. HTML 카드(아래 임베드 코드).
+  4. `### Design`: 불릿 3개, 한 줄씩(색 · 한 카드의 해부 · 글자와 숫자). 하위 불릿은 쓰지 않는다.
+  5. `### DASHBOARD.md`: 무엇이 들어가는지 한 문장 → `npx @vizney/styles@latest add <name>` 코드 블록(한 줄, curl은 쓰지 않는다) → 링크 한 줄 `DASHBOARD.md · 프롬프트 · zip 내려받기 · npm`(영어 `DASHBOARD.md · Prompts · Download the zip · npm`).
+  6. 제작 문의와 브랜드 요청 한 줄(https://kr.vizney.com/contact-us/ · https://www.vizney.com/contact-us/, `request.yml` 이슈 링크).
+  7. 고지 한 단락(위 '고지' 문구 + "샘플의 회사(비즈니 로지스틱스)와 숫자는 모두 가상입니다." · "The sample's company, Vizney Logistics, and all its numbers are fictional.").
+- 태그 Gallery, Styles(슬러그 `styles`. 홈 카드 테두리 CSS가 이 슬러그를 쓴다). 슬러그 `style-<name>`. 대표 이미지는 Ghost에 올리지 않고 `https://styles.vizney.com/<name>/cover-ko.png` · `cover-en.png` 주소를 그대로 넣는다.
 - SNS 캡션(링크드인 중심, 발행자 Vizney): 첫 줄 `Vizney Styles · <브랜드>`, 스타일 한 문장, 라이브 샘플 링크, 고지 한 줄, 세 단어 해시태그와 #Vizney #VizneyStyles #DashboardDesign · #대시보드디자인.
 - Tableau를 대체하는 이야기로 읽힐 표현은 쓰지 않는다. Tableau 적용 파일은 Tableau를 더 잘 쓰게 하는 것이다.
 
@@ -120,6 +127,19 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 ```
 
 영어 포스트는 `lang=en`, 제목 "<Name> style dashboard", 링크 문구 "Open full screen ↗"로 바꾼다.
+
+
+## Ghost 반영
+
+- 관리 화면: 한국어 vizney-kr.ghost.io/ghost(공개 kr.vizney.com), 영어 vizney.ghost.io/ghost(공개 www.vizney.com). 연결된 컴퓨터의 내장 브라우저에 로그인되어 있다. 로그인 화면이 나오면 멈추고 사용자에게 알린다.
+- 본문은 카드 세 개로 넣는다: 마크다운 카드(소개·샘플) → HTML 카드(임베드 코드 그대로) → 마크다운 카드(Design부터 고지까지). 관리 화면 탭에서 Admin API(`/ghost/api/admin/posts/`, 헤더 `Accept-Version: v5.0`, 로그인 세션 사용)로 `lexical`과 필드(`feature_image`, `feature_image_alt`, `custom_excerpt`, `meta_description`)를 함께 저장한다. 고칠 때는 같은 포스트를 읽어 `updated_at`을 넣고 PUT한다. 제목·슬러그·태그·발행일은 건드리지 않는다.
+- 순서: 두 포스트의 현재 상태를 읽어 보여 준다 → 한국어부터, 저장(Update) 직전에 사용자 확인 → 공개 페이지 확인 → 영어도 같은 순서.
+- 공개 페이지 확인: iframe이 embed-host.js로 내용 높이에 맞게 늘어나는지(브라우저 창이 숨겨져 있으면 지연 로딩이 늦으니 iframe을 화면에 띄우고 기다린다), 본문 링크가 모두 열리는지, 대표 이미지·`description`·`og:image`·`twitter:image`가 새 값인지, 예전 샘플 문구가 남지 않았는지.
+- 홈 카드 테두리: 커버의 밝은 바탕이 블로그 흰 바탕과 섞이므로 두 사이트의 Code injection(Site header) 끝에 아래 규칙이 있다. 지우지 않는다. 새 스타일 포스트도 태그 `styles`만 달면 그대로 적용된다.
+
+  ```html
+  <style>.post-card.tag-styles .post-card-image{outline:1px solid #e6e6e6;outline-offset:-1px}</style>
+  ```
 
 
 ## 홈 페이지
