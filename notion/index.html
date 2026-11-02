@@ -193,13 +193,20 @@
 
   /* ---------- 캘린더 보기: 일~토, 날짜는 칸 오른쪽 위, 칸 색은 값에 따라 짙어진다(Color by value) ---------- */
   .cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--hair-2);border-left:1px solid var(--hair-2);outline-offset:3px}
-  .cal .wd{height:30px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;font-size:12px;color:var(--muted);border-right:1px solid var(--hair-2);border-bottom:1px solid var(--hair-2)}
-  .cal .day{position:relative;min-height:70px;padding:5px 8px 7px;display:flex;flex-direction:column;border-right:1px solid var(--hair-2);border-bottom:1px solid var(--hair-2);background:var(--cb,#fff);color:var(--cc,var(--ink))}
+  /* 노션 캘린더(월 보기): 요일 머리 12px 회색, 주말 열은 옅은 회색 면, 날짜는 칸 왼쪽 위.
+     하루마다 종일 일정처럼 생긴 칩 하나에 거래 수를 적는다: 옅은 바탕 + 왼쪽 3px 막대 + 같은 색의 짙은 글자.
+     제목이 말하는 날(토요일)은 파랑, 다른 날은 회색. 행사는 주황 일정 칩(노션 캘린더의 Work 색) */
+  .cal .wd{height:30px;display:flex;align-items:center;padding:0 8px;font-size:12px;color:var(--muted);border-right:1px solid var(--hair-2);border-bottom:1px solid var(--hair-2)}
+  .cal .wd.we{background:var(--surface-2);color:var(--text-2)}
+  .cal .day{position:relative;min-height:76px;padding:6px 6px 6px;display:flex;flex-direction:column;gap:3px;border-right:1px solid var(--hair-2);border-bottom:1px solid var(--hair-2);background:#fff;color:var(--ink)}
+  .cal .day.we{background:var(--surface-2)}
   .cal .day.out{background:var(--surface-2)}
-  .cal .dn{align-self:flex-end;font-size:12px;line-height:16px;font-variant-numeric:tabular-nums}
-  .cal .dv{margin-top:auto;font-size:14px;font-weight:600;line-height:18px;font-variant-numeric:tabular-nums}
-  .cal .db{display:block;height:4px;margin-top:4px;border-radius:2px;background:var(--bc)}
-  .cal .ev{align-self:flex-start;max-width:100%;height:18px;margin-top:1px;padding:0 6px;border-radius:4px;background:#fff;color:var(--ink);font-size:11px;font-weight:500;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 0 0 1px rgba(42,28,0,.07),0 1px 2px rgba(25,25,25,.06)}
+  .cal .dn{align-self:flex-start;padding:0 2px;font-size:12px;font-weight:500;line-height:18px;color:var(--text-2);font-variant-numeric:tabular-nums}
+  .cal .evt{display:flex;align-items:center;min-width:0;height:22px;padding:0 6px 0 7px;border-radius:4px;box-shadow:inset 3px 0 0 var(--cbar);background:var(--cbg);color:var(--ctx);font-size:12px;font-weight:600;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+  .cal .evt.v{margin-top:auto}
+  .cal .evt.sub{--cbg:#e7f1fb;--cbar:#2783de;--ctx:#1a5fa8}
+  .cal .evt.rest{--cbg:#f0efed;--cbar:#a39e98;--ctx:#494846}
+  .cal .evt.ev{--cbg:#fbebdf;--cbar:#dd5b00;--ctx:#ab4a00;height:20px;font-size:11px;font-weight:500;line-height:20px}
   .cal .day.on{box-shadow:inset 0 0 0 2px var(--ink)}
 
   /* ---------- 만드는 법 ---------- */
@@ -357,7 +364,7 @@
     .kpi .v{font-size:36px}
     .code{font-size:12px}
     .code .ln{white-space:pre-wrap;overflow-wrap:anywhere}
-    .cal .ev{display:none}
+    .cal .evt.ev{display:none}
   }
   /* 900~1023: 나란한 카드를 세로로 쌓는다 */
   @media (max-width:1023px){
@@ -373,7 +380,7 @@
     .figpane{border-right:0;border-bottom:1px solid var(--hair)}
     .codepane{contain:none}
     .code{max-height:520px}
-    .cal .ev{display:block}
+    .cal .evt.ev{display:flex}
   }
   @media (max-width:899px){
     .head{min-height:56px;padding:10px 0}
@@ -383,7 +390,7 @@
     .steps{grid-template-columns:minmax(0,1fr)}
     .code{max-height:440px}
     .tbl .c-fmt,.tbl .c-ly{display:none}
-    .cal .ev{display:none}
+    .cal .evt.ev{display:none}
   }
   @media (max-width:639px){
     :root{--page:16px;--gap:12px;--sec:44px}
@@ -408,8 +415,9 @@
     .board{grid-template-columns:minmax(0,1fr)}
     .tbl .c-state,.tbl .c-time{display:none}
     .bar svg{width:64px}
-    .cal .day{min-height:52px;padding:4px 4px 5px}
-    .cal .dv{font-size:11px}
+    .cal .day{min-height:56px;padding:4px 2px 4px}
+    .cal .evt{height:20px;padding:0 2px 0 5px;font-size:10px;line-height:20px;letter-spacing:-.01em}
+    .cal .dn .mo{display:none}
     .cal .dn{font-size:11px}
     .cal .wd{padding:0 4px;font-size:11px}
     #f1Plot{min-height:280px} #f2Plot{min-height:260px} #f4Plot{min-height:220px} #f5Plot{min-height:280px}
@@ -711,11 +719,11 @@
       },
       f3: {
         label: '그림 3 · 일별 거래', title: (p, top) => `토요일 거래가 평일보다 평균 ${p} 많았고, ${josa(top, '이가')} 가장 붐볐습니다`,
-        sub: '일별 거래 수, 2026년 10월. 막대가 길수록 붐빈 날입니다', wd: ['일', '월', '화', '수', '목', '금', '토'],
+        sub: '일별 거래 수, 2026년 10월', wd: ['일', '월', '화', '수', '목', '금', '토'],
         events: { launch: '가을 메뉴', pumpkin: '펌킨 데이', halloween: '핼러윈' }, eventsLong: { launch: '가을 메뉴 출시', pumpkin: '펌킨 데이', halloween: '핼러윈' },
         top: { launch: '가을 메뉴 출시일(10월 1일)', halloween: '핼러윈(10월 31일)', pumpkin: '펌킨 데이(10월 17일)' },
-        fewer: '적음', more: '많음', sat: '토요일', rest: '다른 요일', unit: '건',
-        note: '주: 거래는 모든 채널의 완료 주문입니다. 막대는 0부터 10월에 가장 붐빈 날까지의 길이입니다.',
+        fewer: '적음', more: '많음', sat: '토요일', rest: '다른 요일', event: '행사', unit: '건',
+        note: '주: 거래는 모든 채널의 완료 주문입니다. 토요일 평균은 평일(월~금) 평균과 비교했습니다.',
         aria: '10월 일별 거래 달력. 화살표 키로 날짜를 옮기고, 위아래 키는 한 주씩 움직입니다.'
       },
       f4: {
@@ -803,11 +811,11 @@
       },
       f3: {
         label: 'Figure 3 · Transactions by day', title: (p, top) => `Saturdays averaged ${p} more transactions than weekdays, and ${top} was the busiest day`,
-        sub: 'Transactions per day, October 2026; longer bars were busier', wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        sub: 'Transactions per day, October 2026', wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         events: { launch: 'Fall menu', pumpkin: 'Pumpkin day', halloween: 'Halloween' }, eventsLong: { launch: 'Fall menu launch', pumpkin: 'Pumpkin day', halloween: 'Halloween' },
         top: { launch: 'the Oct 1 fall launch', halloween: 'Halloween', pumpkin: 'Pumpkin day' },
-        fewer: 'Fewer', more: 'More', sat: 'Saturdays', rest: 'Other days', unit: 'transactions',
-        note: 'Note: Transactions are completed orders across all channels. Each bar runs from zero to October’s busiest day.',
+        fewer: 'Fewer', more: 'More', sat: 'Saturdays', rest: 'Other days', event: 'Events', unit: 'transactions',
+        note: 'Note: Transactions are completed orders across all channels. The Saturday average is compared with the weekday (Mon–Fri) average.',
         aria: 'Transactions per day in October. Arrow keys move between days; up and down move a week.'
       },
       f4: {
@@ -1320,20 +1328,20 @@
     $('#f3Title').textContent = glue(t.f3.title(pct(fx.p, 0), topName));
     refade($('#f3Title'), animate);
     const b = calBins();
-    const vmax = Math.max(...s.tx), barCol = d => dow(d) === 6 ? C.subject : C.other;
-    keyItems($('#f3Keys'), [['bar', C.subject, t.f3.sat], ['bar', C.other, t.f3.rest]]);
+    const barCol = d => dow(d) === 6 ? C.subject : C.comparison;
+    keyItems($('#f3Keys'), [['bar', C.subject, t.f3.sat], ['bar', C.comparison, t.f3.rest], ['bar', C.orange, t.f3.event]]);
     $('#f3Table').replaceChildren(srTable(t.f3.sub, [KO() ? '날짜' : 'Date', KO() ? '거래' : 'Transactions'], s.tx.map((v, i) => [dayLong(i + 1), nf(v)])));
     const cal = h('div', { class: 'cal', role: 'img', tabindex: 0, 'aria-label': t.f3.aria });
-    t.f3.wd.forEach(w => cal.append(h('div', { class: 'wd', 'aria-hidden': 'true', text: w })));
+    t.f3.wd.forEach((w, i) => cal.append(h('div', { class: 'wd' + (i === 0 || i === 6 ? ' we' : ''), 'aria-hidden': 'true', text: w })));
     for (let i = 0; i < OCT_FIRST_DOW; i++) cal.append(h('div', { class: 'day out', 'aria-hidden': 'true' }));
     const cells = [];
     s.tx.forEach((v, i) => {
       const d = i + 1;
-      const cell = h('div', { class: 'day' + (animOK(animate) ? ' fade' : ''), 'aria-hidden': 'true', style: { '--bc': barCol(d), animationDelay: animOK(animate) ? (i * 12) + 'ms' : null } },
-        h('span', { class: 'dn', text: d === 1 ? (KO() ? '10월 1일' : 'Oct 1') : String(d) }),
-        DATA.events[d] ? h('span', { class: 'ev', text: t.f3.events[DATA.events[d]] }) : null,
-        h('span', { class: 'dv', text: KO() ? nf(v) : trimz(nf(v / 1e3, 1)) + 'K' }),
-        h('i', { class: 'db', style: { width: (v / vmax * 100).toFixed(1) + '%' } }));
+      const we = dow(d) === 0 || dow(d) === 6;
+      const cell = h('div', { class: 'day' + (we ? ' we' : '') + (animOK(animate) ? ' fade' : ''), 'aria-hidden': 'true', style: { animationDelay: animOK(animate) ? (i * 12) + 'ms' : null } },
+        h('span', { class: 'dn' }, d === 1 ? h('span', { class: 'mo', text: KO() ? '10월 ' : 'Oct ' }) : null, String(d), d === 1 && KO() ? h('span', { class: 'mo', text: '일' }) : null),
+        DATA.events[d] ? h('span', { class: 'evt ev', text: t.f3.events[DATA.events[d]] }) : null,
+        h('span', { class: 'evt v ' + (dow(d) === 6 ? 'sub' : 'rest'), text: KO() ? nf(v) : trimz(nf(v / 1e3, 1)) + 'K' }));
       cells.push(cell); cal.append(cell);
     });
     const rem = (7 - ((OCT_FIRST_DOW + 31) % 7)) % 7;
