@@ -49,9 +49,12 @@ def css_tokens(t):
         lines.append(f"  --seq-{i}:{c};")
     for i, c in enumerate(d['diverging'], 1):
         lines.append(f"  --div-{i}:{c};")
+    for k, v in t.get('tags', {}).items():   # tag and status pills: background, text, dot
+        lines.append(f"  --tag-{k}-bg:{v['bg']}; --tag-{k}-text:{v['text']}; --tag-{k}-dot:{v['dot']};")
     ty = t['typography']
     lines.append(f"  --font-sans:'{ty['sans']['en']}',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;")
-    lines.append(f"  --font-serif:'{ty['serif']['en']}',Georgia,'Times New Roman',serif;")
+    if 'serif' in ty:   # a style without a serif leaves it out
+        lines.append(f"  --font-serif:'{ty['serif']['en']}',Georgia,'Times New Roman',serif;")
     lines.append(f"  --font-mono:'{ty['mono']['family']}',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;")
     for k, v in t['radius'].items():
         lines.append(f"  --radius-{k}:{v};")
@@ -62,8 +65,9 @@ def css_tokens(t):
         if isinstance(c, str) and c.startswith('#'):
             lines.append(f"  --code-{k}:{c};")
     lines.append("}")
-    lines.append(f"html[lang=\"ko\"]{{--font-sans:'{ty['sans']['ko']}',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;"
-                 f"--font-serif:'{ty['serif']['ko']}','AppleMyungjo','Batang',serif}}")
+    ko_serif = f";--font-serif:'{ty['serif']['ko']}','AppleMyungjo','Batang',serif" if 'serif' in ty else ''
+    lines.append(f"html[lang=\"ko\"]{{--font-sans:'{ty['sans']['ko']}',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif"
+                 f"{ko_serif}}}")
     return "\n".join(lines) + "\n"
 
 
@@ -92,11 +96,12 @@ def powerbi_theme(t):
     d = t['data']
     font = t['tools']['powerbi']['fontFamily']
     refs = d.get('reference', [])
-    data_colors = [x['hex'] for x in d['categorical']] + refs + [d['other'], d['sequential'][3], d['diverging'][1], d['diverging'][5], d['comparison']]
+    # the fillers after Other repeat no earlier color (a style's diverging arm may reuse a category hue)
+    data_colors = list(dict.fromkeys([x['hex'] for x in d['categorical']] + refs + [d['other'], d['sequential'][3], d['diverging'][1], d['diverging'][5], d['comparison']]))
     visual = t['tools']['powerbi'].get('visual', {})
     vis_bg = c[visual.get('background', 'card')]
     plot_bg = c[visual.get('plot', 'plot')]
-    vis_border = [{"show": True, "color": {"solid": {"color": c[visual['border']]}}, "radius": 0}] if visual.get('border') else [{"show": False}]
+    vis_border = [{"show": True, "color": {"solid": {"color": c[visual['border']]}}, "radius": int(visual.get('radius', 0))}] if visual.get('border') else [{"show": False}]
     n_cat = len(d['categorical'])
     text = lambda size, color, family=font: {"fontFace": family, "fontSize": size, "color": color}
     return {
@@ -177,7 +182,8 @@ def front_matter(t):
     out.append(f"  good: \"{d['status']['good']}\"")
     out.append(f"  bad: \"{d['status']['bad']}\"")
     out.append("typography:")
-    out.append(f"  serif: {{ en: \"{ty['serif']['en']}\", ko: \"{ty['serif']['ko']}\" }}")
+    if 'serif' in ty:
+        out.append(f"  serif: {{ en: \"{ty['serif']['en']}\", ko: \"{ty['serif']['ko']}\" }}")
     out.append(f"  sans: {{ en: \"{ty['sans']['en']}\", ko: \"{ty['sans']['ko']}\" }}")
     out.append(f"  mono: \"{ty['mono']['family']}\"")
     out.append("radius: {" + ", ".join(f"{k}: \"{v}\"" for k, v in t['radius'].items()) + "}")

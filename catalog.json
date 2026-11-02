@@ -7,6 +7,14 @@
       "words": "Ivory, Editorial, Quiet",
       "words_ko": "아이보리, 에디토리얼, 고요함",
       "sample": "https://styles.vizney.com/anthropic/"
+    },
+    {
+      "number": 2,
+      "slug": "notion",
+      "name": "Notion style",
+      "words": "Monochrome, Blocks, Tidy",
+      "words_ko": "모노톤, 블록, 단정함",
+      "sample": "https://styles.vizney.com/notion/"
     }
   ]
 }
