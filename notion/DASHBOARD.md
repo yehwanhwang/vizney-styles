@@ -31,12 +31,12 @@ colors:
   bad: "#b01601"
   focus: "#0075de"
 data:
-  categorical: ["#b577d6", "#dd5b00", "#46a171"]
+  categorical: ["#2783de", "#dd5b00", "#46a171"]
   other: "#c7c6c4"
   comparison: "#a39e98"
-  categorical_text: ["#7237ae", "#ab4a00", "#14832b"]
-  sequential: ["#bf8eda", "#a774c9", "#8d5bb2", "#714594", "#553b69"]
-  diverging: ["#ab4a00", "#dd5b00", "#ff8a33", "#dfdcd9", "#bf8eda", "#8d5bb2", "#553b69"]
+  categorical_text: ["#1f6fc5", "#ab4a00", "#14832b"]
+  sequential: ["#7db1ea", "#5196e2", "#2271c4", "#1c5aa3", "#1d4677"]
+  diverging: ["#ab4a00", "#dd5b00", "#ff8a33", "#dfdcd9", "#7db1ea", "#2271c4", "#1d4677"]
   good: "#14832b"
   bad: "#b01601"
 typography:
@@ -75,7 +75,7 @@ Not an official Notion design, and not affiliated with or endorsed by Notion. A 
 
 A white page that reads like a Notion page turned into a report. It opens the way a Notion page does: a line icon, a bold title that states the result, three properties (scope, comparison, status) and a gray callout that names the drivers, with four number widgets beside the title. Below that, toggle headings (`Sales`, `Operations`, `How it's built`) hold database views on one card: white, a 1px hair border, a 12px radius, no shadow. Each card opens with a small view label (an icon and `Figure 1 · Net sales`), a bold title that states the finding, a gray subtitle that names the measure, then the view and a note that starts with `Note:`.
 
-The views are the ones a Notion page uses for data: a chart view (lines and bars on dotted gridlines), a database table with tags, status pills, number bars and a calculation row, the same rows as a board grouped by status, and a calendar whose days darken with the value. It is mostly black, white and warm gray. Color appears only in the data — one purple subject, orange and gray when channels are compared — and in Notion's pastel tags and status pills. Blue belongs to buttons, links and focus, never to data.
+The views are the ones a Notion page uses for data: a chart view (lines and bars on dotted gridlines), a database table with tags, status pills, number bars and a calculation row, the same rows as a board grouped by status, and a calendar whose days darken with the value. It is mostly black, white and warm gray. Color appears only in the data — Notion blue for the subject, orange and gray when channels are compared — and in Notion's pastel tags and status pills. The data blue `#2783de` is the product's blue, a step apart from the button and link blue `#0075de`.
 
 The mood is tidy and quiet: a team page you keep open, where every block lines up and nothing shouts.
 
@@ -98,30 +98,30 @@ Surfaces and text are notion.com's warm gray ladder; the rules are the product's
 | muted | `#78736f` | property names, table headers, axis ticks, unselected tabs (4.7:1: the lightest gray for small text) |
 | mark | `#a39e98` | gray marks that are not text: the comparison line, other regions' lines |
 | rule / hair / hair-2 | `#dfdcd9` / `#e6e5e3` / `#f0efed` | crosshair / card borders, dividers, dotted gridlines, baselines / table rules, empty bar tracks |
-| accent · accent-hover · accent-soft | `#0075de` · `#005bab` · `#e6f3fe` | buttons, links, focus. Never data |
+| accent · accent-hover · accent-soft | `#0075de` · `#005bab` · `#e6f3fe` | buttons, links, focus. Data uses its own blue step, `#2783de` |
 | good / bad | `#14832b` / `#b01601` | favourable / unfavourable change and missed targets, text only (4.9:1 / 7.1:1 on white) |
 | focus | `#0075de` | focus ring, 2px, 2px offset |
 
 Rules:
 - White cards with a hair border; no shadows on cards and no gray cards. Gray fills are for controls, the callout and hover only.
 - Small text on white uses muted or darker; on a gray or tinted surface (the segmented track, the callout, the package panel, board columns) it uses text-2 or darker, because muted falls just under 4.5:1 there. `#a39e98` and lighter are never text.
-- Blue is UI. A chart, a tag or a bar is never `#0075de` or a blue that reads as it.
+- Blue is Notion's key color in both places, with two steps: `#0075de` for buttons, links and focus, `#2783de` for data. Never swap them, and never put a second blue series next to the subject.
 
 
 ## Data Colors
 
-Notion's chart view paints each series in a mid tone of the same palette its tags use (purple, orange, green, gray …), on dotted gridlines. This spec keeps that palette and gives it roles: purple is the subject everywhere, orange and green are the other real categories, the product's chart gray is Other, and a darker step of each hue carries text. Every value passed an OKLab validator (color-vision-deficiency separation, normal-vision separation, contrast) on the white card `#ffffff`, where every chart sits. Use them exactly; do not generate tints.
+Notion's chart view paints each series in a mid tone of the same palette its tags use, leading with blue (blue, purple, green, red, gray …), and the dashboards drawn on notion.com lead with blue bars and lines too. This spec keeps that palette and gives it roles: blue is the subject everywhere, orange and green are the other real categories, the product's chart gray is Other, and a darker step of each hue carries text. Every value passed an OKLab validator (color-vision-deficiency separation, normal-vision separation, contrast) on the white card `#ffffff`, where every chart sits. Use them exactly; do not generate tints.
 
 | Role | Mark | Label text | Use |
 |---|---|---|---|
-| Subject | `#b577d6` | `#7237ae` | the scope the report is about: this year, the selected region, the channel the story is about |
+| Subject | `#2783de` | `#1f6fc5` | the scope the report is about: this year, the selected region, the channel the story is about |
 | Second category | `#dd5b00` | `#ab4a00` | a second real category (drive-thru) |
 | Third category | `#46a171` | `#14832b` | only when a third real category exists |
 | Other | `#c7c6c4` | text-2 | the rest (in-store), behind 2px white gaps |
 | Comparison | `#a39e98`, dashed 2px (6 on, 4 off) | ink | last year; also other regions as 1.5px solid lines |
 | Target | `#191918`, dashed 1.2px (4 on, 3 off) | ink | a goal on an axis (`Target 4:00`); a 2px ink tick on bars |
-| Sequential | `#bf8eda` `#a774c9` `#8d5bb2` `#714594` `#553b69` | ink on the first two, white on the last three | color by value: calendar days, heat cells |
-| Diverging | `#ab4a00` `#dd5b00` `#ff8a33` · `#dfdcd9` · `#bf8eda` `#8d5bb2` `#553b69` | each arm's darkest | above and below a midpoint |
+| Sequential | `#7db1ea` `#5196e2` `#2271c4` `#1c5aa3` `#1d4677` | ink on the first two, white on the last three | color by value: calendar days, heat cells |
+| Diverging | `#ab4a00` `#dd5b00` `#ff8a33` · `#dfdcd9` · `#7db1ea` `#2271c4` `#1d4677` | each arm's darkest | above and below a midpoint |
 | Status | good `#14832b`, bad `#b01601`, neutral `#a39e98` | — | change text only |
 
 Tags and status pills are not data marks; they are Notion's select and status properties, a pastel background with dark text:
@@ -137,17 +137,17 @@ Tags and status pills are not data marks; they are Notion's select and status pr
 | blue | `#cee3f7` | `#264a72` | `#2783de` |
 
 Validation (from `tokens.json`, on white):
-- Purple, orange and green pass every check, all pairs. The worst pair under color-vision deficiency is green↔orange at ΔE 9.8 (deutan); tritan 16.7; normal vision 24.2. Contrast 3.19, 3.77 and 3.18:1: every mark clears 3:1.
+- Blue, orange and green pass every check, all pairs. The worst pair under color-vision deficiency is green↔orange at ΔE 9.8 (deutan); blue sits 20.1 or more from both; normal vision 20.8 or more. Contrast 3.90, 3.77 and 3.18:1: every mark clears 3:1.
 - Other `#c7c6c4` is neutral by design: CVD 19.6 or more and normal vision 21.8 or more against the three hues. At 1.71:1 it always has a second cue: white gaps, value labels and a table.
-- Comparison `#a39e98` against purple: 12.1 / 15.8. At 2.66:1 it is always dashed and labeled at its end.
-- The sequential ramp is one hue (spread 5°), monotone, every gap ≥ 0.06 in lightness, light end 2.59:1. Text on a cell is ink on the two light steps (6.8, 5.0:1) and white on the three dark steps (4.9, 7.0, 9.5:1).
-- The diverging arms each pass the ordinal checks (light ends 2.35 and 2.59:1); the poles are 17.9 / 21.6 apart.
+- Comparison `#a39e98` against blue: 16.5 / 19.8. At 2.66:1 it is always dashed and labeled at its end.
+- The sequential ramp is one hue (spread 4°), monotone, every gap ≥ 0.06 in lightness, light end 2.25:1. Text on a cell is ink on the two light steps (7.8, 5.7:1) and white on the three dark steps (5.0, 6.9, 9.6:1).
+- The diverging arms each pass the ordinal checks (light ends 2.35 and 2.25:1); the poles are 18.8 / 27.0 apart.
 - Good and bad pass as text but do not separate for deutan vision (ΔE 4.3), and the status dots are 6.2 apart. Status is never color alone: changes keep their sign and comparison words, pills keep their labels.
 
 Rules:
 - At most three hues plus gray in one chart. A fourth real category folds into Other or becomes small multiples.
-- Color follows the entity, not its rank: the subject is purple in every figure; other regions are gray, never a second purple.
-- Never put the brand blue on data, and never a yellow series beside orange.
+- Color follows the entity, not its rank: the subject is blue in every figure; other regions are gray, never a second blue.
+- Never put the button blue `#0075de` on data, and never a yellow series beside orange.
 - Tags carry names, not quantities. Do not use tag colors to encode a measure.
 
 
@@ -248,7 +248,7 @@ At most seven views on one screen: the number widgets and three views in Sales, 
   - Many entities against two goals → a database table with a number bar for the target and a status pill; the same rows as a board grouped by status (Table 1).
   - A daily pattern within a month → a calendar colored by value, with event chips on the days that explain it (Figure 3).
   - A distribution over the day → bars by hour, the peak labeled, view tabs for weekdays and weekends (Figure 4).
-  - A daily measure against a target, with peers → the subject's line in purple, peers in thin gray, the target as a dashed ink line and `↓ Faster` when lower is better (Figure 5).
+  - A daily measure against a target, with peers → the subject's line in blue, peers in thin gray, the target as a dashed ink line and `↓ Faster` when lower is better (Figure 5).
   - Items against their own goals → horizontal bars with a goal tick and a status tag per row (Figure 6).
 - **Titles.** The card title is the finding (`Saturdays averaged 27% more transactions than weekdays, and Halloween was the busiest day`), recomputed when the filter changes. The subtitle names the measure and period; the note explains the method and the source.
 - **Marks.** Lines 2.5px for the subject, 2px for the comparison, 1.5px for peers; a hollow end marker on the subject. Bars up to 28px wide (24px by hour, 18px tall horizontal), rounded 2px at the end, 2px white gaps between stacked segments.
@@ -256,7 +256,7 @@ At most seven views on one screen: the number widgets and three views in Sales, 
 - **Labels.** Line ends carry `Name value` instead of a legend; the peak bar carries its value in the subject's text color; values beside bars 12px / 600 ink. Labels over marks have a white halo.
 - **Keys** only where labels cannot do the job, as a one-line row in the card head (swatch 12px with a 2px radius, a line, a dashed line, a tick, or a five-step ramp between `Fewer` and `More`).
 - **One axis.** Never a dual axis.
-- **Never:** pie, donut, 3D, gradients or gradient areas, smoothed lines, the brand blue on data, a fourth hue, tag colors as a measure.
+- **Never:** pie, donut, 3D, gradients or gradient areas, smoothed lines, the button blue on data, a fourth hue, tag colors as a measure.
 - Every chart has a hover tooltip, keyboard control and a screen-reader table.
 
 
@@ -278,7 +278,7 @@ Flat. Cards are set apart by a hairline, not by shadows, and never lift on hover
 
 ## Accessibility
 
-- Text ≥ 4.5:1 on its surface: muted 4.7:1 and text-2 6.5:1 on white; good 4.9:1, bad 7.1:1; purple text 7.3:1, orange text 5.7:1; tag text 5.8:1 or more on its tag; white on the primary button 4.6:1; code token colors ≥ 4.5:1.
+- Text ≥ 4.5:1 on its surface: muted 4.7:1 and text-2 6.5:1 on white; good 4.9:1, bad 7.1:1; blue text 5.1:1, orange text 5.7:1; tag text 5.8:1 or more on its tag; white on the primary button 4.6:1; code token colors ≥ 4.5:1.
 - Marks below 3:1 (Other 1.71:1, comparison 2.66:1, the light calendar step 2.59:1) always have a second cue: a gap, a dash, a label, a value in the cell or a table.
 - Identity is never color alone: names at line ends, labels on pills and tags, dashes for comparisons and targets, signs on every change.
 - Focus ring `#0075de`, 2px, 2px offset. Tab order: header → filter → sections in reading order.
@@ -311,7 +311,7 @@ Each step keeps what the wider steps changed.
 
 <!--/email_off-->
 
-**Tableau.** Paste the `<color-palette>` elements of `notion.tps` into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. The categorical palette runs purple, orange, green, Other and the comparison gray; assign the subject first.
+**Tableau.** Paste the `<color-palette>` elements of `notion.tps` into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. The categorical palette runs blue, orange, green, Other and the comparison gray; assign the subject first.
 - Dashboard background `#ffffff`; each sheet in a container with a 1px `#e6e5e3` border and 20/24px inner padding. Worksheet shading white.
 - The card head: a text object with the figure label (Tableau Book 9, `#615d59`), the finding as the sheet title (bold, 13–14pt, `#191918`) and the measure as a subtitle line; the method in the caption, starting with `Note:`.
 - Grid lines: rows only, dotted, `#e6e5e3`; zero line `#e6e5e3`; no axis rulers on the value axis; ticks Tableau Book 9 in `#78736f`.
@@ -320,14 +320,14 @@ Each step keeps what the wider steps changed.
 - Table: a text table with row dividers `#f0efed`, the target as a bar in a second sheet or a Gantt bar with a reference line at 100%, status as a circle mark in the status dot colors beside the label.
 - Formats `$#,##0.00`, `$#,##0,K`, `0.0%`, `+0.0" pts";−0.0" pts"`, durations `m:ss` from seconds; Korean workbooks `#,##0.00"달러"` and `+0.0"%p";−0.0"%p"`. Fonts: Tableau Book unless Inter is installed on every viewing machine and on the server.
 
-**Power BI.** View → Themes → Browse for themes → `powerbi-theme.json`. It sets the data colors (purple, orange, green, then Other), the white page, white visuals with a 1px `#e6e5e3` border and a 12px radius, axis and gridline colors and text classes. Install Inter on authoring and viewing machines or accept Segoe UI.
+**Power BI.** View → Themes → Browse for themes → `powerbi-theme.json`. It sets the data colors (blue, orange, green, then Other), the white page, white visuals with a 1px `#e6e5e3` border and a 12px radius, axis and gridline colors and text classes. Install Inter on authoring and viewing machines or accept Segoe UI.
 - Title each visual with the finding; put the measure in the subtitle and the method in a text box starting with `Note:`.
 - Gridlines dotted; data labels on the last point instead of a legend; a constant line for the target, dashed ink.
-- Table: conditional formatting → data bars in `#b577d6` for the target column, icons or font color in the status colors for status, `#b01601` for missed handoff times.
+- Table: conditional formatting → data bars in `#2783de` for the target column, icons or font color in the status colors for status, `#b01601` for missed handoff times.
 - Calendar: a matrix of weekday by week with background conditional formatting from the sequential steps.
 - Key figures as cards with a `#e6e5e3` border and a 12px radius; change measures with conditional formatting in `#14832b` / `#b01601` only.
 
-**Chart libraries (D3, Observable Plot, Vega-Lite, matplotlib, Datawrapper).** Subject `#b577d6` (labels `#7237ae`), second `#dd5b00` (`#ab4a00`), Other `#c7c6c4`, comparison `#a39e98` dashed `6 4`, target `#191918` dashed `4 3`, gridlines `#e6e5e3` dashed `1 3` on rows only, ticks `#78736f` at 12px, plot background white, bar ends rounded 2px. The sample's Figure 1 in five forms is in the workbench of the live sample; `sales.csv` is its data.
+**Chart libraries (D3, Observable Plot, Vega-Lite, matplotlib, Datawrapper).** Subject `#2783de` (labels `#1f6fc5`), second `#dd5b00` (`#ab4a00`), Other `#c7c6c4`, comparison `#a39e98` dashed `6 4`, target `#191918` dashed `4 3`, gridlines `#e6e5e3` dashed `1 3` on rows only, ticks `#78736f` at 12px, plot background white, bar ends rounded 2px. The sample's Figure 1 in five forms is in the workbench of the live sample; `sales.csv` is its data.
 
 
 ## Do's and Don'ts
@@ -335,7 +335,7 @@ Each step keeps what the wider steps changed.
 - Do open with a title that states the result, three properties, a callout with the drivers and four number widgets. Don't lead with a chart or a dozen KPI tiles.
 - Do put every view on the same white card with the same head and foot. Don't mix shadows, gray cards and borderless panels.
 - Do choose the form by the question (line, stacked bars, database table and board, calendar, bars by hour, lines against a target, bars against goal ticks). Don't fall back to the same bar chart in every card.
-- Do paint the subject purple and everyone else gray. Don't put the brand blue, a fourth hue or a tag color on data.
+- Do paint the subject Notion blue `#2783de` and everyone else gray. Don't put the button blue, a fourth hue or a tag color on data.
 - Do title each card with its finding and explain the method in the note. Don't title a chart with its measure alone.
 - Do use tags and status pills for names and states, with their labels. Don't let a dot or a color stand alone.
 - Do use dotted gridlines on rows only and label line ends. Don't keep a legend that labels could replace.
@@ -366,7 +366,7 @@ Every chart needs a hover tooltip, keyboard control and a screen-reader table.
 Before it is done, the agent checks:
 - [ ] The title states the result; the callout names the drivers; number widgets carry signed changes colored by good or bad.
 - [ ] Every view sits on the same white card; every card title states a finding; every note starts with `Note:` and explains the method.
-- [ ] The subject is `#b577d6` everywhere; peers and Other gray; comparison dashed `#a39e98`; no brand blue, fourth hue or tag color on data.
+- [ ] The subject is `#2783de` everywhere; peers and Other gray; comparison dashed `#a39e98`; no button blue, fourth hue or tag color on data.
 - [ ] Gridlines dotted on rows only; line ends labeled; keys only where labels cannot work; no dual axis, pie, donut or gradient.
 - [ ] Tags and status pills use the tag table and keep their labels; tables have hairline rules, header icons and a calculation row.
 - [ ] Numbers, dates and durations follow the formats in both languages.

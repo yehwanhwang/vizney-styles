@@ -21,7 +21,7 @@
     --canvas:#ffffff; --surface:#f6f5f4; --surface-2:#f9f9f8; --callout:#f9f8f7; --tabbg:rgba(33,27,23,.05);
     --ink:#191918; --body:#31302e; --text-2:#615d59; --muted:#78736f; --mark:#a39e98; --rule:#dfdcd9; --hair:#e6e5e3; --hair-2:#f0efed;
     --blue:#0075de; --blue-hover:#005bab; --blue-soft:#e6f3fe; --blue-soft-hover:#f2f9ff; --blue-soft-text:#005bab; --focus:#0075de;
-    --subject:#b577d6; --subject-text:#7237ae; --orange:#dd5b00; --orange-text:#ab4a00; --other:#c7c6c4;
+    --subject:#2783de; --subject-text:#1f6fc5; --orange:#dd5b00; --orange-text:#ab4a00; --other:#c7c6c4;
     --good:#14832b; --bad:#b01601;
     --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
     --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -262,7 +262,7 @@
   .code .ln{display:block;position:relative;min-height:1.62em;padding:0 16px 0 46px;white-space:pre;transition:background-color .2s ease}
   .code.wrap .ln{white-space:pre-wrap}
   .code .ln::before{counter-increment:ln;content:counter(ln);position:absolute;left:0;width:30px;text-align:right;color:var(--mark)}
-  .code .ln.hl{background:#f8f5fc}
+  .code .ln.hl{background:#f2f7fd}
   .building .code .ln:not(.shown){visibility:hidden}
   .code .caret::after{content:"";display:inline-block;width:7px;height:1.2em;margin-left:1px;vertical-align:-.22em;background:var(--ink);animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
@@ -634,12 +634,12 @@
   const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* 데이터 색(실측: 노션 제품 팔레트 --c-*AccPri와 notion.com tatami 램프). validate_palette.js로 흰 카드 기준 검사.
-     주인공 보라 #b577d6(글자 #7237ae), 둘째 주황 #dd5b00(글자 #ab4a00), 셋째 초록 #46a171, 기타 회색 #c7c6c4(노션 차트의 회색),
-     비교선 #a39e98 점선, 순차 보라 5단계. UI 파랑 #0075de는 단추·링크·초점에만 쓰고 데이터에는 쓰지 않는다 */
+     주인공 파랑 #2783de(글자 #1f6fc5, 노션 차트 보기가 앞세우는 파랑), 둘째 주황 #dd5b00(글자 #ab4a00), 셋째 초록 #46a171, 기타 회색 #c7c6c4(노션 차트의 회색),
+     비교선 #a39e98 점선, 순차 파랑 5단계. UI 파랑 #0075de는 단추·링크·초점에만 쓰고, 데이터는 한 단계 다른 #2783de를 쓴다 */
   const C = {
-    subject: '#b577d6', subjectText: '#7237ae', orange: '#dd5b00', orangeText: '#ab4a00', other: '#c7c6c4', otherText: '#615d59',
+    subject: '#2783de', subjectText: '#1f6fc5', orange: '#dd5b00', orangeText: '#ab4a00', other: '#c7c6c4', otherText: '#615d59',
     comparison: '#a39e98', ink: '#191918', body: '#31302e', text2: '#615d59', muted: '#78736f', grid: '#e6e5e3', hair2: '#f0efed', cross: '#dfdcd9',
-    seq: ['#bf8eda', '#a774c9', '#8d5bb2', '#714594', '#553b69'], plot: '#ffffff', surface: '#f6f5f4',
+    seq: ['#7db1ea', '#5196e2', '#2271c4', '#1c5aa3', '#1d4677'], plot: '#ffffff', surface: '#f6f5f4',
     generic: ['#3b82f6', '#ef4444'], genericGrid: '#e5e7eb'
   };
   // 노션 태그 색(흰 바탕 위 값): [배경 BacTer, 글자 TexPri, 점 BacAccPri]
@@ -747,7 +747,7 @@
         files: { 'your-project/': '', 'DASHBOARD.md': '명세: 토큰, 규칙, 점검 목록', '.claude/skills/': '', 'dashboard-style/': '에이전트 스킬', 'SKILL.md': '만들기 · 고치기 · 검토', 'tokens.css': '색·서체·간격', 'notion.tps': 'Tableau 팔레트', 'powerbi-theme.json': 'Power BI 테마', 'prompt.md': '검증한 프롬프트' },
         modes: ['명세 없이', 'DASHBOARD.md로'],
         checksT: '점검 · DASHBOARD.md', checksOk: '6개 모두 통과', checksBad: '6개 중 0개 통과',
-        checks: [[1, '점선 격자 #e6e5e3, 눈금 4~5개, 만 단위'], [2, '비교선을 먼저: 회색 점선 #a39e98'], [3, '색은 주인공 선 하나만: #b577d6'], [4, '범례 대신 선 끝 라벨'], [5, '제목은 결과를 말하고, 주석은 “주:”로 시작'], [5, '라벨 대비 4.5:1 이상, 툴팁·키보드·표']],
+        checks: [[1, '점선 격자 #e6e5e3, 눈금 4~5개, 만 단위'], [2, '비교선을 먼저: 회색 점선 #a39e98'], [3, '색은 주인공 선 하나만: #2783de'], [4, '범례 대신 선 끝 라벨'], [5, '제목은 결과를 말하고, 주석은 “주:”로 시작'], [5, '라벨 대비 4.5:1 이상, 툴팁·키보드·표']],
         run: '다시 실행', copied: '코드를 복사했습니다', lines: n => `${n}줄`, built: 'DASHBOARD.md로 그림', drawing: '그리는 중…', generated: '명세 없이 만든 첫 초안',
         cap: '그림 1을 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 같은 그림의 Tableau·Power BI 설정을 봅니다. 위의 지역 필터를 바꾸면 코드와 그림이 함께 바뀝니다.'
       },
@@ -839,7 +839,7 @@
         files: { 'your-project/': '', 'DASHBOARD.md': 'the spec: tokens, rules, checks', '.claude/skills/': '', 'dashboard-style/': 'the agent skill', 'SKILL.md': 'build · restyle · review', 'tokens.css': 'colors, type, spacing', 'notion.tps': 'Tableau palettes', 'powerbi-theme.json': 'Power BI theme', 'prompt.md': 'tested prompts' },
         modes: ['Without a spec', 'With DASHBOARD.md'],
         checksT: 'Checks · DASHBOARD.md', checksOk: 'All 6 passed', checksBad: '0 of 6 passed',
-        checks: [[1, 'Dotted grid #e6e5e3, four or five ticks, compact dollars'], [2, 'Comparison drawn first: dashed #a39e98'], [3, 'Only the subject is colored: #b577d6'], [4, 'End labels instead of a legend'], [5, 'Title states the finding; note starts with “Note:”'], [5, 'Labels at 4.5:1 or more; tooltip, keys and table']],
+        checks: [[1, 'Dotted grid #e6e5e3, four or five ticks, compact dollars'], [2, 'Comparison drawn first: dashed #a39e98'], [3, 'Only the subject is colored: #2783de'], [4, 'End labels instead of a legend'], [5, 'Title states the finding; note starts with “Note:”'], [5, 'Labels at 4.5:1 or more; tooltip, keys and table']],
         run: 'Run again', copied: 'Code copied', lines: n => `${n} lines`, built: 'Built from DASHBOARD.md', drawing: 'Drawing…', generated: 'A typical first draft without a spec',
         cap: 'Figure 1, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the same figure as Tableau and Power BI settings. The region filter at the top changes the code and the figure together.'
       },
@@ -1423,7 +1423,7 @@
     svg.addEventListener('keydown', e => { const i = keyStep(e, F4.cur, n); if (i === null) return; if (i < 0) { show(null); return; } show(i); say(`${hourRange(DATA.hours[i])}: ${pct(fx.sh[i])}`); });
   }
 
-  /* ================= 그림 5: 전달 시간(일별 선, 4분 목표선). 고른 범위는 보라, 다른 지역은 회색 ================= */
+  /* ================= 그림 5: 전달 시간(일별 선, 4분 목표선). 고른 범위는 파랑, 다른 지역은 회색 ================= */
   const F5 = { cur: 30 };
   const over = arr => arr.filter(v => v > DATA.targetSec).length;
   function f5Series() {
@@ -1556,8 +1556,8 @@
   const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-1.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
   function codeLines(kind) {
     const ko = KO(), region = state.region, title = L().f1.title(salesGrew()), note = L().f1.note.split(/(?<=\.)\s/)[0];
-    const c = ko ? { head: '그림 1 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 필터 줄', s1: '1 · 틀: 점선 격자, 월, 기준선', s2: '2 · 비교를 먼저: 지난해, 회색 점선', s3: '3 · 주인공: 올해, 보라 실선', s4: '4 · 범례 대신 선 끝에 라벨', s5: '5 · 제목은 결과를 말한다', once: '처음 한 번: notion.tps를 Preferences.tps에' }
-      : { head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the filter row above', s1: '1 · frame: dotted grid, months, the base line', s2: '2 · comparison first: last year, dashed gray', s3: '3 · the subject: this year, solid purple', s4: '4 · label the line ends instead of a legend', s5: '5 · the title states the finding', once: 'once: paste notion.tps into Preferences.tps' };
+    const c = ko ? { head: '그림 1 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 필터 줄', s1: '1 · 틀: 점선 격자, 월, 기준선', s2: '2 · 비교를 먼저: 지난해, 회색 점선', s3: '3 · 주인공: 올해, 파랑 실선', s4: '4 · 범례 대신 선 끝에 라벨', s5: '5 · 제목은 결과를 말한다', once: '처음 한 번: notion.tps를 Preferences.tps에' }
+      : { head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the filter row above', s1: '1 · frame: dotted grid, months, the base line', s2: '2 · comparison first: last year, dashed gray', s3: '3 · the subject: this year, solid blue', s4: '4 · label the line ends instead of a legend', s5: '5 · the title states the finding', once: 'once: paste notion.tps into Preferences.tps' };
     const q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(14) + v;
     const J = {
       prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '10월 매장 운영 대시보드를 만들어 줘. 매출(핵심 수치, 월별 순매출, 채널 비중, 매장 표)과 운영(일별 거래 달력, 시간대, 전달 시간, 가을 메뉴) 두 부분으로, 지역 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 1부터 sales.csv의 region "${region}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
@@ -1569,7 +1569,7 @@
         [0, `const region = ${q(region)};${' '.repeat(Math.max(1, 12 - region.length))}// ${c.filter}`], [0, 'const rows = await load("sales.csv", { region });'], [0, ''],
         [1, `// ${c.s1}`], [1, 'const fig = plot("#figure-1", {'], [1, '  grid: { stroke: tokens.colors.hair, dash: [1, 3] }, // #e6e5e3'], [1, '  y: { ticks: 4, format: fmt.money } });'], [1, ''],
         [2, `// ${c.s2}`], [2, 'fig.line(rows, { y: "net_sales_last_year", dash: [6, 4],'], [2, '  stroke: tokens.data.comparison, width: 2 }); // #a39e98'], [2, ''],
-        [3, `// ${c.s3}`], [3, 'fig.line(rows, { y: "net_sales", marker: "last",'], [3, '  stroke: tokens.data.subject, width: 2.5 });  // #b577d6'], [3, ''],
+        [3, `// ${c.s3}`], [3, 'fig.line(rows, { y: "net_sales", marker: "last",'], [3, '  stroke: tokens.data.subject, width: 2.5 });  // #2783de'], [3, ''],
         [4, `// ${c.s4}`], [4, 'fig.endLabels({ name: true, value: fmt.money });'], [4, ''],
         [5, `// ${c.s5}`], [5, `fig.title(${q(title)});`], [5, `fig.note(${q(note)});`]
       ],
@@ -1577,22 +1577,22 @@
         [0, '# Tableau · 그림 1 · Notion 스타일'], [0, `# ${c.once}`], [0, ''],
         [1, `# ${c.s1}`], [1, kv('워크시트 음영', '#ffffff')], [1, kv('격자선', '행, 점선, #e6e5e3')], [1, kv('축 눈금', 'Tableau Book 9, #78736f')], [1, ''],
         [2, '# 2 · 비교: net_sales_last_year'], [2, kv('색상', '#a39e98')], [2, kv('선 패턴', '파선')], [2, ''],
-        [3, '# 3 · 주인공: net_sales'], [3, kv('색상', '#b577d6')], [3, kv('크기', '3단계, 마지막 점에만 마커')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('마크 레이블', '선 끝, 글자 #7237ae')], [4, kv('범례', '숨기기')], [4, ''],
+        [3, '# 3 · 주인공: net_sales'], [3, kv('색상', '#2783de')], [3, kv('크기', '3단계, 마지막 점에만 마커')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('마크 레이블', '선 끝, 글자 #1f6fc5')], [4, kv('범례', '숨기기')], [4, ''],
         [5, `# ${c.s5}`], [5, kv('제목', q(title))], [5, kv('캡션', q(note))]
       ] : [
         [0, '# Tableau · Figure 1 · Notion style'], [0, `# ${c.once}`], [0, ''],
         [1, `# ${c.s1}`], [1, kv('Shading', '#ffffff')], [1, kv('Grid lines', 'rows, dotted, #e6e5e3')], [1, kv('Axis ticks', 'Tableau Book 9, #78736f')], [1, ''],
         [2, '# 2 · comparison: net_sales_last_year'], [2, kv('Color', '#a39e98')], [2, kv('Line pattern', 'dashed')], [2, ''],
-        [3, '# 3 · subject: net_sales'], [3, kv('Color', '#b577d6')], [3, kv('Size', '3rd step, marker on last point')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('Mark labels', 'line ends, text #7237ae')], [4, kv('Legend', 'hide')], [4, ''],
+        [3, '# 3 · subject: net_sales'], [3, kv('Color', '#2783de')], [3, kv('Size', '3rd step, marker on last point')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('Mark labels', 'line ends, text #1f6fc5')], [4, kv('Legend', 'hide')], [4, ''],
         [5, `# ${c.s5}`], [5, kv('Title', q(title))], [5, kv('Caption', q(note))]
       ],
       pbi: [
         [0, ko ? '// Power BI · 그림 1 · Notion 스타일' : '// Power BI · Figure 1 · Notion style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
         [1, `// ${c.s1}`], [1, '"valueAxis": { "gridlineColor": "#e6e5e3", "gridlineStyle": "dotted" },'], [1, '"plotArea": { "color": "#ffffff" },'], [1, ''],
         [2, ko ? '// 2 · 비교: net_sales_last_year' : '// 2 · comparison: net_sales_last_year'], [2, ko ? '선 → net_sales_last_year → 색 #a39e98, 파선' : 'Lines → net_sales_last_year → #a39e98, dashed'], [2, ''],
-        [3, ko ? '// 3 · 주인공: net_sales' : '// 3 · subject: net_sales'], [3, ko ? '선 → net_sales → 색 #b577d6, 너비 3' : 'Lines → net_sales → #b577d6, width 3'], [3, ''],
+        [3, ko ? '// 3 · 주인공: net_sales' : '// 3 · subject: net_sales'], [3, ko ? '선 → net_sales → 색 #2783de, 너비 3' : 'Lines → net_sales → #2783de, width 3'], [3, ''],
         [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 마지막 점 · 범례 → 끔' : 'Data labels → last point · Legend → off'], [4, ''],
         [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(title)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(note)}`]
       ]

@@ -24,7 +24,7 @@ Toggle headings open each section; at most seven views per screen; every view on
   table with tags, a number bar against the target, a status pill and a calculation row, plus a Board view grouped by status.
 - Operations: a calendar of daily <volume> colored by value with event chips beside <volume> by hour with Weekdays/Weekends
   view tabs; daily <service time> against a dashed target beside <items> against their goal ticks.
-Use only the values in "Data Colors" (the subject purple, others gray, no blue on data), the formats in "Numbers, Dates &
+Use only the values in "Data Colors" (the subject Notion blue #2783de, others gray, the button blue only on buttons), the formats in "Numbers, Dates &
 Units", the components in "Component Stylings" and the breakpoints in "Responsive Behavior". Every chart needs a hover
 tooltip, keyboard control and a screen-reader table.
 Before you finish, run the checklist at the end of "Agent Prompt Guide" and fix anything that fails.
@@ -60,14 +60,14 @@ Read DASHBOARD.md. Restyle the dashboard in <file> to match it without changing 
   that states the finding, a subtitle with the measure, keys only where labels cannot work, and a note that starts with "Note:";
 - the top to a page head: line icon, a title that states the result, three properties, four number widgets with signed,
   good/bad-colored changes, and a #f9f8f7 callout with the drivers;
-- colors to the tokens: the subject #b577d6 everywhere, a second real category #dd5b00, the rest #c7c6c4 behind 2px white gaps,
-  last year dashed #a39e98, targets dashed #191918; no blue, fourth hue or tag color on data;
+- colors to the tokens: the subject #2783de everywhere, a second real category #dd5b00, the rest #c7c6c4 behind 2px white gaps,
+  last year dashed #a39e98, targets dashed #191918; no button blue, fourth hue or tag color on data;
 - each chart to the form "Charts" picks for its question; dotted #e6e5e3 gridlines on rows only; line ends labeled;
 - tables to Notion's database grammar: #f0efed rules, 14px muted headers with property icons, tags and status pills from the
   tag table, number bars for targets, a calculation row;
 - filters to one segmented control in a #f6f5f4 track above everything;
 - number formats to "Numbers, Dates & Units" (true minus, pts / %p, $ M K / 만 건, m:ss / 분 초).
-Where the screen breaks a rule in "Do's and Don'ts" (dual axis, pie or donut, legend that labels could replace, brand blue on
+Where the screen breaks a rule in "Do's and Don'ts" (dual axis, pie or donut, legend that labels could replace, button blue on
 data, shadows or gray cards, zebra stripes, more than seven views on a screen), fix it and list what you changed.
 ```
 
@@ -77,7 +77,7 @@ data, shadows or gray cards, zebra stripes, more than seven views on a screen), 
 Read DASHBOARD.md. Review <file or screenshot> against it and report, as a table: rule, what the screen does,
 severity (must fix / should fix / fine), and the fix.
 Cover: the title states the result; properties, callout and number widgets with change colors; one card anatomy for every
-view; finding titles and "Note:" notes; the subject purple and gray for everyone else; no blue on data; the comparison and
+view; finding titles and "Note:" notes; the subject blue and gray for everyone else; no button blue on data; the comparison and
 target lines; the chart form for each question; dotted row gridlines and labels instead of legends; no dual axis; tags and
 status pills with labels; database table rules, header icons and the calculation row; number, date and duration formats in
 both languages; contrast and second cues for light marks; tooltips, keyboard and data tables; views per screen; density at
@@ -93,8 +93,8 @@ SVG chart on a white card (1px #e6e5e3 border, 12px radius).
 1. Frame: dotted gridlines #e6e5e3 (dash 1 3) on rows only, a solid #e6e5e3 baseline, five y ticks in compact money
    ($1.4M … $2.2M) in 12px #78736f, five month ticks (Nov, Feb, May, Aug, Oct) with the last month in ink.
 2. Comparison first: net_sales_last_year as a dashed #a39e98 line, 2px, dash 6 4.
-3. The subject: net_sales as a solid #b577d6 line, 2.5px, a hollow marker on the last month.
-4. Label both line ends with name and value ("This year $1.90M" in #7237ae, "Last year $1.77M" in ink, values in #615d59);
+3. The subject: net_sales as a solid #2783de line, 2.5px, a hollow marker on the last month.
+4. Label both line ends with name and value ("This year $1.90M" in #1f6fc5, "Last year $1.77M" in ink, values in #615d59);
    no legend.
 5. Title with the finding ("Net sales beat last year in all 12 months"); a note that starts with "Note:".
 Add a hover tooltip (a white popover), keyboard control and a screen-reader table, then list which checks in
@@ -103,18 +103,18 @@ Add a hover tooltip (a white popover), keyboard control and a screen-reader tabl
 
 ## Tableau (for people)
 
-1. Paste the `<color-palette>` elements from `notion.tps` into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. Assign the subject first so it takes purple; a second real category takes orange and the rest take the Other gray.
+1. Paste the `<color-palette>` elements from `notion.tps` into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. Assign the subject first so it takes blue; a second real category takes orange and the rest take the Other gray.
 2. Dashboard background `#ffffff`. Each sheet sits in a container with a 1px `#e6e5e3` border and 20/24px inner padding; worksheet shading white.
 3. Sheet title: the finding, bold, ink `#191918`; a subtitle line with the measure; the caption starts with `Note:`. A text object above holds the figure label in Tableau Book 9, `#615d59`.
 4. Grid lines: rows only, dotted, `#e6e5e3`; no axis ruler on the value axis; ticks `#78736f`. Last year as a dashed line in `#a39e98`; a target as a dashed ink reference line labeled `Target 4:00`.
 5. Calendar: WEEKDAY by WEEK of the date, Square marks colored with the sequential palette, the day number and value as labels; stacked bars with white borders between segments.
-6. Store table: row dividers `#f0efed`, the target as a purple bar in its own column with a reference line at 100%, status as a circle in the status dot colors next to its label.
+6. Store table: row dividers `#f0efed`, the target as a blue bar in its own column with a reference line at 100%, status as a circle in the status dot colors next to its label.
 7. Number formats: `$#,##0.00` · `0.0%` · `+0.0" pts";−0.0" pts"`; Korean workbooks `#,##0.00"달러"` · `+0.0"%p";−0.0"%p"`. Fonts: Tableau Book unless Inter is installed on every viewing machine and on the server.
 
 ## Power BI (for people)
 
 1. View → Themes → Browse for themes → `powerbi-theme.json`. Visuals come out white with a 1px `#e6e5e3` border and a 12px radius on a white page.
-2. The first three data colors are purple (the subject), orange and green, then the Other gray; the colors after it exist only because Power BI wants a longer list. The UI blue is not in the list on purpose.
+2. The first three data colors are blue (the subject), orange and green, then the Other gray; the colors after it exist only because Power BI wants a longer list. The button blue #0075de is not in the list on purpose.
 3. Install Inter on authoring and viewing machines, or accept the Segoe UI fallback.
 4. Title each visual with the finding and put the measure in the subtitle; gridlines dotted; data labels on the last point; legends off when labels name the series; a constant line for the target, dashed ink.
-5. Key figures: cards with the hairline border and no fill; change measures with conditional formatting in `#14832b` / `#b01601` only, always with a sign. Tables: data bars in `#b577d6` for the target column, `#b01601` text for missed times.
+5. Key figures: cards with the hairline border and no fill; change measures with conditional formatting in `#14832b` / `#b01601` only, always with a sign. Tables: data bars in `#2783de` for the target column, `#b01601` text for missed times.
