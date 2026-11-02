@@ -5,3 +5,9 @@ exclude:
   - README.md
   - tools
   - npm
+# Every style's spec page (<name>/DASHBOARD.html) gets the site's header, tabs and footer.
+defaults:
+  - scope:
+      path: "*/DASHBOARD.md"
+    values:
+      layout: spec
