@@ -12,6 +12,7 @@ Vizney Styles is a line of [Vizney](https://www.vizney.com), a BI consulting stu
 | No. | Style | Feel | Sample | Spec | Files | Post |
 |---|---|---|---|---|---|---|
 | 01 | Anthropic | Ivory, Editorial, Quiet | [Live sample](https://styles.vizney.com/anthropic/) · the monthly operations report of Vizney Logistics (fictional), drawn in one card and chart grammar from the figures Anthropic publishes in launches and research posts, with a build workbench | [DASHBOARD.md](anthropic/DASHBOARD.md) | [anthropic/](anthropic/) | [KO](https://kr.vizney.com/style-anthropic/) · [EN](https://www.vizney.com/style-anthropic/) |
+| 02 | Notion | Monochrome, Blocks, Tidy | [Live sample](https://styles.vizney.com/notion/) · the monthly store operations report of Vizney Coffee (fictional), built from the blocks of a Notion page and its database views (chart, table and board, calendar, tags and status pills) in one card and chart grammar, with a build workbench | [DASHBOARD.md](notion/DASHBOARD.md) | [notion/](notion/) | [KO](https://kr.vizney.com/style-notion/) · [EN](https://www.vizney.com/style-notion/) |
 
 Styles are independent readings of publicly visible design, the way [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) catalogs `DESIGN.md` files. They are not official designs, and they are not affiliated with or endorsed by the companies. A style never carries the company's logo, wordmark, typefaces, images or data; the sample screen uses a fictional business and fictional numbers, and the sample, the spec and the post all say so. If a company asks for its style to be taken down, it comes down. BI vendors (Tableau, Microsoft, Google, Qlik …) are out of scope. Trademarks belong to their owners.
 
@@ -44,10 +45,10 @@ The file follows the `DESIGN.md` convention (front matter tokens, then prose sec
 1. Visual Theme & Atmosphere
 2. Color Palette & Roles
 3. Data Colors — categorical, comparison, sequential, diverging and status colors, each validated for color-vision deficiency, normal-vision separation and contrast
-4. Typography Rules — one serif, one sans and one mono, with Korean counterparts
+4. Typography Rules — the sans, a serif where the brand uses one, and a mono, with Korean counterparts
 5. Numbers, Dates & Units — English and Korean formats, change notation, rounding
 6. Layout Principles — grid, reading order, density
-7. Component Stylings — KPI card, pills and tabs, trend card, ranked list, bar list, composition, band, tooltip, legends, status pills
+7. Component Stylings — the card, key figures, buttons and filters, tables, tooltips, keys, and the brand's own parts (Notion's tags, status pills and board, for example)
 8. Charts — chart choice, one axis, marks, labels, forbidden forms
 9. Depth & Elevation
 10. Interaction & Motion

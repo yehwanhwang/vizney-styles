@@ -1,0 +1,91 @@
+/* Notion style — Monochrome, Blocks, Tidy · VIZNEY STYLES · 02
+   Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
+:root{
+  --canvas:#ffffff; /* page background (notion.com background-base) */
+  --card:#ffffff; /* every figure, table and number widget: white with a 1px hair border and a 12px radius */
+  --surface:#f6f5f4; /* segmented-control track, period pill, hover band behind a bar or a row (gray-200, surface-neutral) */
+  --surface-2:#f9f9f8; /* workbench side panel, calendar days outside the month (gray-100) */
+  --callout:#f9f8f7; /* the callout block that carries the lede (the product's callout background) */
+  --tab:#f4f4f3; /* the selected view tab: rgba(33,27,23,.05) on white */
+  --ink:#191918; /* titles, key figures, table values, the current month tick, the target line, the toast (gray-900) */
+  --body:#31302e; /* running text, callout text, code (gray-800) */
+  --text-2:#615d59; /* subtitles, notes, figure labels, values beside end labels (gray-600, 6.5:1 on white) */
+  --muted:#78736f; /* property names, table headers, axis ticks, unselected tabs (gray-500, 4.7:1 on white: the lightest gray allowed for small text, and only on white; use text-2 on gray or tinted surfaces) */
+  --mark:#a39e98; /* gray marks that are not text: the comparison line, other regions' lines (gray-400) */
+  --rule:#dfdcd9; /* crosshair (gray-300) */
+  --hair:#e6e5e3; /* card borders, dividers, dotted gridlines, chart baselines (the product's border-primary) */
+  --hair-2:#f0efed; /* table row and column rules, empty bar tracks: rgba(42,28,0,.07) on white */
+  --accent:#0075de; /* the UI blue of notion.com: primary button, links, focus. Never a data color */
+  --accent-hover:#005bab; /* primary button hover; secondary button text */
+  --accent-soft:#e6f3fe; /* secondary button background */
+  --good:#14832b; /* favourable change, text only (notion.com text-success, 4.9:1 on white) */
+  --bad:#b01601; /* unfavourable change and a missed target, text only (red-700, 7.1:1 on white; text-error #f64932 is only 3.6:1) */
+  --focus:#0075de; /* focus ring, 2px with a 2px offset (interaction-focus-ring) */
+  --cat-1:#b577d6; /* purple · the subject */
+  --cat-1-text:#7237ae; /* purple · the subject for labels and text */
+  --cat-2:#dd5b00; /* orange */
+  --cat-2-text:#ab4a00; /* orange for labels and text */
+  --cat-3:#46a171; /* green */
+  --cat-3-text:#14832b; /* green for labels and text */
+  --cat-other:#c7c6c4;
+  --comparison:#a39e98;
+  --mark-grid:#e6e5e3;
+  --mark-baseline:#e6e5e3;
+  --mark-target:#191918;
+  --mark-track:#f0efed;
+  --mark-hover:#f6f5f4;
+  --seq-1:#bf8eda;
+  --seq-2:#a774c9;
+  --seq-3:#8d5bb2;
+  --seq-4:#714594;
+  --seq-5:#553b69;
+  --div-1:#ab4a00;
+  --div-2:#dd5b00;
+  --div-3:#ff8a33;
+  --div-4:#dfdcd9;
+  --div-5:#bf8eda;
+  --div-6:#8d5bb2;
+  --div-7:#553b69;
+  --tag-gray-bg:#e6e5e3; --tag-gray-text:#494846; --tag-gray-dot:#8e8b86;
+  --tag-orange-bg:#f3ddcb; --tag-orange-text:#6a4222; --tag-orange-dot:#d5803b;
+  --tag-green-bg:#d7e6dd; --tag-green-text:#2a533c; --tag-green-dot:#46a171;
+  --tag-yellow-bg:#f2e3b7; --tag-yellow-text:#655121; --tag-yellow-dot:#d8a32f;
+  --tag-red-bg:#f7d9d5; --tag-red-text:#6d3531; --tag-red-dot:#e56458;
+  --tag-purple-bg:#e8dbf2; --tag-purple-text:#553b69; --tag-purple-dot:#b577d6;
+  --tag-blue-bg:#cee3f7; --tag-blue-text:#264a72; --tag-blue-dot:#2783de;
+  --font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-card:12px;
+  --radius-callout:10px;
+  --radius-board:10px;
+  --radius-tooltip:10px;
+  --radius-button:8px;
+  --radius-button-lg:10px;
+  --radius-tag:4px;
+  --radius-status:10px;
+  --radius-view-tab:20px;
+  --radius-segment:24px;
+  --radius-chip:4px;
+  --radius-bar:2px;
+  --space-page:32px;
+  --space-gap:24px;
+  --space-section:64px;
+  --space-card:20px 24px 18px;
+  --space-card-head:0 0 16px;
+  --space-card-foot:14px 0 0;
+  --space-cell:8px 10px;
+  --space-callout:14px 16px;
+  --space-footer:28px 32px 32px;
+  --ease:cubic-bezier(0,0,.58,1);
+  --code-comment:#78736f;
+  --code-string:#14832b;
+  --code-number:#b01601;
+  --code-keyword:#005bab;
+  --code-function:#b01601;
+  --code-property:#31302e;
+  --code-line-number:#a39e98;
+  --code-highlight:#f8f5fc;
+  --code-inline-text:#b01601;
+  --code-inline-bg:#edeceb;
+}
+html[lang="ko"]{--font-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
