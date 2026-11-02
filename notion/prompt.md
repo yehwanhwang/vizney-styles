@@ -22,8 +22,9 @@ Toggle headings open each section; at most seven views per screen; every view on
 (figure label → finding title → subtitle → keys → view → "Note:"):
 - Sales: <revenue> by month against last year (dashed gray) beside channel shares as 100% stacked bars; an <entity> database
   table with tags, a number bar against the target, a status pill and a calculation row, plus a Board view grouped by status.
-- Operations: a month calendar of daily <volume> in Notion Calendar's style, each day's value as an event chip (the days the
-  title names blue, the rest gray), weekends shaded, and orange event chips beside <volume> by hour in gray with the peak hour blue and Weekdays/Weekends view tabs; daily <service time>
+- Operations: a month calendar of daily <volume> in Notion Calendar's style, values as text (the days the title names in
+  blue), weekends shaded, and the month's events as all-day bars, some running several days, beside <volume> by hour in
+  gray with the peak hour blue and Weekdays/Weekends view tabs; daily <service time>
   against a dashed target beside <items> against their goal ticks (blue when met, orange when missed).
 Use only the values in "Data Colors" (the subject Notion blue #2783de, others gray, the button blue only on buttons), the formats in "Numbers, Dates &
 Units", the components in "Component Stylings" and the breakpoints in "Responsive Behavior". Every chart needs a hover
@@ -45,7 +46,7 @@ DASHBOARD.md를 읽고 그대로 따라 줘. <회사>의 월간 운영 대시보
 (그림 번호 → 결과를 말하는 제목 → 부제 → 범례 → 그림이나 표 → "주:")에 넣어 줘:
 - 매출: 월별 <매출>과 지난해(회색 점선) 비교 선, 채널 비중 100% 누적 막대, 태그·목표 대비 숫자 막대·상태 알약·계산 행이
   있는 <단위> 데이터베이스 표와 상태별 보드 보기.
-- 운영: 노션 캘린더 월 보기처럼 날마다 값을 일정 칩으로 적은 일별 <물량> 달력(제목이 말하는 날만 파랑 칩, 나머지 회색 칩, 주말 열은 옅은 회색, 행사는 주황 칩)과 가장 붐비는 시간만
+- 운영: 노션 캘린더 월 보기처럼 값은 글자로만 적은 일별 <물량> 달력(제목이 말하는 날만 파랑 글자, 주말 열은 옅은 회색, 여러 날에 걸친 일정을 포함한 행사는 종일 일정 막대)
   파랑인 시간대별 <물량>(평일·주말 보기 탭),
   점선 목표가 있는 일별 <처리 시간>과 목표 눈금이 있는 <품목> 가로 막대(목표 달성은 파랑, 미달은 주황).
 색은 "Data Colors" 값만(주인공 보라, 나머지 회색, 데이터에 파랑 금지), 숫자·날짜는 "Numbers, Dates & Units"(한국어는
@@ -109,7 +110,7 @@ Add a hover tooltip (a white popover), keyboard control and a screen-reader tabl
 2. Dashboard background `#ffffff`. Each sheet sits in a container with a 1px `#e6e5e3` border and 20/24px inner padding; worksheet shading white.
 3. Sheet title: the finding, bold, ink `#191918`; a subtitle line with the measure; the caption starts with `Note:`. A text object above holds the figure label in Tableau Book 9, `#615d59`.
 4. Grid lines: rows only, dotted, `#e6e5e3`; no axis ruler on the value axis; ticks `#78736f`. Last year as a dashed line in `#a39e98`; a target as a dashed ink reference line labeled `Target 4:00`.
-5. Calendar: WEEKDAY by WEEK of the date, the value as a label on a pale cell background (`#e7f1fb` for the days the title names, `#f0efed` for the rest), weekend columns `#f9f9f8`; stacked bars with white borders between segments.
+5. Calendar: WEEKDAY by WEEK of the date, the value as a label (`#1f6fc5` bold for the days the title names, ink for the rest), weekend columns `#f9f9f8`; events as annotations or a Gantt sheet; stacked bars with white borders between segments.
 6. Store table: row dividers `#f0efed`, the target as a blue bar in its own column with a reference line at 100%, status as a circle in the status dot colors next to its label.
 7. Number formats: `$#,##0.00` · `0.0%` · `+0.0" pts";−0.0" pts"`; Korean workbooks `#,##0.00"달러"` · `+0.0"%p";−0.0"%p"`. Fonts: Tableau Book unless Inter is installed on every viewing machine and on the server.
 

@@ -191,23 +191,31 @@
   .bcard dd.bad{color:var(--bad)}
   .bempty{padding:10px 4px 4px;font-size:12px;color:var(--muted)}
 
-  /* ---------- 캘린더 보기: 일~토, 날짜는 칸 오른쪽 위, 칸 색은 값에 따라 짙어진다(Color by value) ---------- */
+  /* 노션 캘린더(월 보기): 요일 머리 12px 회색, 주말 열은 옅은 회색 면, 날짜는 칸 왼쪽 위, 거래 수는 글자로만 칸 아래.
+     제목이 말하는 날(토요일)의 수치만 파랑 글자. 행사는 노션 캘린더의 종일 일정처럼 옅은 바탕 + 왼쪽 3px 막대 + 짙은 글자이고,
+     여러 날 행사는 날짜 칸을 가로질러 이어진다(주가 바뀌면 다음 줄에서 이어지고, 이어지는 쪽은 모서리와 막대가 없다).
+     일정 색은 캘린더별: 마케팅 주황, 운영 초록, 휴일 보라(노션 태그 팔레트). 제목 앞 이모지는 노션 캘린더에서 흔히 쓰는 방식 */
   .cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--hair-2);border-left:1px solid var(--hair-2);outline-offset:3px}
-  /* 노션 캘린더(월 보기): 요일 머리 12px 회색, 주말 열은 옅은 회색 면, 날짜는 칸 왼쪽 위.
-     하루마다 종일 일정처럼 생긴 칩 하나에 거래 수를 적는다: 옅은 바탕 + 왼쪽 3px 막대 + 같은 색의 짙은 글자.
-     제목이 말하는 날(토요일)은 파랑, 다른 날은 회색. 행사는 주황 일정 칩(노션 캘린더의 Work 색) */
   .cal .wd{height:30px;display:flex;align-items:center;padding:0 8px;font-size:12px;color:var(--muted);border-right:1px solid var(--hair-2);border-bottom:1px solid var(--hair-2)}
   .cal .wd.we{background:var(--surface-2);color:var(--text-2)}
-  .cal .day{position:relative;min-height:76px;padding:6px 6px 6px;display:flex;flex-direction:column;gap:3px;border-right:1px solid var(--hair-2);border-bottom:1px solid var(--hair-2);background:#fff;color:var(--ink)}
-  .cal .day.we{background:var(--surface-2)}
-  .cal .day.out{background:var(--surface-2)}
-  .cal .dn{align-self:flex-start;padding:0 2px;font-size:12px;font-weight:500;line-height:18px;color:var(--text-2);font-variant-numeric:tabular-nums}
-  .cal .evt{display:flex;align-items:center;min-width:0;height:22px;padding:0 6px 0 7px;border-radius:4px;box-shadow:inset 3px 0 0 var(--cbar);background:var(--cbg);color:var(--ctx);font-size:12px;font-weight:600;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
-  .cal .evt.v{margin-top:auto}
-  .cal .evt.sub{--cbg:#e7f1fb;--cbar:#2783de;--ctx:#1a5fa8}
-  .cal .evt.rest{--cbg:#f0efed;--cbar:#a39e98;--ctx:#494846}
-  .cal .evt.ev{--cbg:#fbebdf;--cbar:#dd5b00;--ctx:#ab4a00;height:20px;font-size:11px;font-weight:500;line-height:20px}
+  .cal .wk{grid-column:1/-1;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:26px repeat(var(--lanes,0),22px) minmax(26px,1fr);row-gap:2px;min-height:84px;position:relative}
+  .cal .day{grid-row:1/-1;border-right:1px solid var(--hair-2);border-bottom:1px solid var(--hair-2);background:#fff}
+  .cal .day.we,.cal .day.out{background:var(--surface-2)}
+  .cal .dn,.cal .dv,.cal .ev{pointer-events:none;position:relative}
+  .cal .dn{grid-row:1;align-self:end;padding:0 8px;font-size:12px;font-weight:500;line-height:18px;color:var(--text-2);font-variant-numeric:tabular-nums}
+  .cal .dv{grid-row:-2/-1;align-self:end;padding:0 8px 7px;font-size:14px;font-weight:500;line-height:18px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .cal .dv.sub{font-weight:600;color:var(--subject-text)}
+  .cal .ev{margin:0 4px;display:flex;align-items:center;gap:3px;min-width:0;height:22px;padding:0 4px 0 7px;border-radius:4px;background:var(--ebg);box-shadow:inset 3px 0 0 var(--ebar);color:var(--etx);font-size:12px;font-weight:500;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cal .ev.cont{margin-left:0;border-top-left-radius:0;border-bottom-left-radius:0;box-shadow:none;padding-left:7px}
+  .cal .ev.more{margin-right:0;border-top-right-radius:0;border-bottom-right-radius:0}
+  .cal .ev.mkt{--ebg:#fbebdf;--ebar:#dd5b00;--etx:#8a3c00}
+  .cal .ev.ops{--ebg:#e4f1e9;--ebar:#46a171;--etx:#2a533c}
+  .cal .ev.hol{--ebg:#f1e9f8;--ebar:#b577d6;--etx:#553b69}
+  .cal .ev .em{flex:none;font-size:12px;line-height:1}
+  .cal .ev .et{overflow:hidden;text-overflow:ellipsis}
   .cal .day.on{box-shadow:inset 0 0 0 2px var(--ink)}
+  .keys .calk i{display:block;width:12px;height:12px;border-radius:3px;background:var(--ebar)}
+  .calk.mkt{--ebar:#dd5b00} .calk.ops{--ebar:#46a171} .calk.hol{--ebar:#b577d6}
 
   /* ---------- 만드는 법 ---------- */
   .build-intro{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:20px 64px;align-items:end;margin-top:24px}
@@ -364,7 +372,6 @@
     .kpi .v{font-size:36px}
     .code{font-size:12px}
     .code .ln{white-space:pre-wrap;overflow-wrap:anywhere}
-    .cal .evt.ev{display:none}
   }
   /* 900~1023: 나란한 카드를 세로로 쌓는다 */
   @media (max-width:1023px){
@@ -380,7 +387,6 @@
     .figpane{border-right:0;border-bottom:1px solid var(--hair)}
     .codepane{contain:none}
     .code{max-height:520px}
-    .cal .evt.ev{display:flex}
   }
   @media (max-width:899px){
     .head{min-height:56px;padding:10px 0}
@@ -390,7 +396,6 @@
     .steps{grid-template-columns:minmax(0,1fr)}
     .code{max-height:440px}
     .tbl .c-fmt,.tbl .c-ly{display:none}
-    .cal .evt.ev{display:none}
   }
   @media (max-width:639px){
     :root{--page:16px;--gap:12px;--sec:44px}
@@ -415,10 +420,12 @@
     .board{grid-template-columns:minmax(0,1fr)}
     .tbl .c-state,.tbl .c-time{display:none}
     .bar svg{width:64px}
-    .cal .day{min-height:56px;padding:4px 2px 4px}
-    .cal .evt{height:20px;padding:0 2px 0 5px;font-size:10px;line-height:20px;letter-spacing:-.01em}
+    .cal .wk{grid-template-rows:22px repeat(var(--lanes,0),8px) minmax(22px,1fr);min-height:62px}
+    .cal .ev{height:8px;margin:0 2px;padding:0;font-size:0;line-height:8px}
+    .cal .ev .em{display:none}
     .cal .dn .mo{display:none}
-    .cal .dn{font-size:11px}
+    .cal .dn{padding:0 4px;font-size:11px}
+    .cal .dv{padding:0 4px 5px;font-size:11px;letter-spacing:-.01em}
     .cal .wd{padding:0 4px;font-size:11px}
     #f1Plot{min-height:280px} #f2Plot{min-height:260px} #f4Plot{min-height:220px} #f5Plot{min-height:280px}
     .get{display:block}
@@ -719,11 +726,12 @@
       },
       f3: {
         label: '그림 3 · 일별 거래', title: (p, top) => `토요일 거래가 평일보다 평균 ${p} 많았고, ${josa(top, '이가')} 가장 붐볐습니다`,
-        sub: '일별 거래 수, 2026년 10월', wd: ['일', '월', '화', '수', '목', '금', '토'],
-        events: { launch: '가을 메뉴', pumpkin: '펌킨 데이', halloween: '핼러윈' }, eventsLong: { launch: '가을 메뉴 출시', pumpkin: '펌킨 데이', halloween: '핼러윈' },
+        sub: '일별 거래 수, 2026년 10월. 토요일은 파랑으로 적었습니다', wd: ['일', '월', '화', '수', '목', '금', '토'],
+        ev: { launch: '가을 메뉴 출시 주간', visits: '매장 방문 · 워싱턴', pumpkin: '펌킨 데이', staffing: '드라이브스루 인력 시험 · 텍사스', halloween: '핼러윈' },
+        cals: { mkt: '마케팅', ops: '운영', hol: '휴일' }, span: (a, b) => a === b ? `10월 ${a}일` : `10월 ${a}~${b}일`,
         top: { launch: '가을 메뉴 출시일(10월 1일)', halloween: '핼러윈(10월 31일)', pumpkin: '펌킨 데이(10월 17일)' },
         fewer: '적음', more: '많음', sat: '토요일', rest: '다른 요일', event: '행사', unit: '건',
-        note: '주: 거래는 모든 채널의 완료 주문입니다. 토요일 평균은 평일(월~금) 평균과 비교했습니다.',
+        note: '주: 거래는 모든 채널의 완료 주문입니다. 토요일 평균은 평일(월~금) 평균과 비교했습니다. 일정은 마케팅·운영 캘린더에서 가져왔습니다.',
         aria: '10월 일별 거래 달력. 화살표 키로 날짜를 옮기고, 위아래 키는 한 주씩 움직입니다.'
       },
       f4: {
@@ -811,11 +819,12 @@
       },
       f3: {
         label: 'Figure 3 · Transactions by day', title: (p, top) => `Saturdays averaged ${p} more transactions than weekdays, and ${top} was the busiest day`,
-        sub: 'Transactions per day, October 2026', wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        events: { launch: 'Fall menu', pumpkin: 'Pumpkin day', halloween: 'Halloween' }, eventsLong: { launch: 'Fall menu launch', pumpkin: 'Pumpkin day', halloween: 'Halloween' },
+        sub: 'Transactions per day, October 2026; Saturdays in blue', wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        ev: { launch: 'Fall menu launch week', visits: 'Store visits · Washington', pumpkin: 'Pumpkin day', staffing: 'Drive-thru staffing test · Texas', halloween: 'Halloween' },
+        cals: { mkt: 'Marketing', ops: 'Operations', hol: 'Holidays' }, span: (a, b) => a === b ? `Oct ${a}` : `Oct ${a}–${b}`,
         top: { launch: 'the Oct 1 fall launch', halloween: 'Halloween', pumpkin: 'Pumpkin day' },
         fewer: 'Fewer', more: 'More', sat: 'Saturdays', rest: 'Other days', event: 'Events', unit: 'transactions',
-        note: 'Note: Transactions are completed orders across all channels. The Saturday average is compared with the weekday (Mon–Fri) average.',
+        note: 'Note: Transactions are completed orders across all channels. The Saturday average is compared with the weekday (Mon–Fri) average. Events come from the marketing and operations calendars.',
         aria: 'Transactions per day in October. Arrow keys move between days; up and down move a week.'
       },
       f4: {
@@ -1314,7 +1323,6 @@
 
   /* ================= 그림 3: 캘린더 보기(일별 거래, 값에 따라 짙어지는 칸) ================= */
   const F3 = { cur: 31 };
-  function calBins() { const v = S().tx, lo = Math.min(...v), hi = Math.max(...v), step = (hi - lo) / 5; return { lo, hi, step, bin: x => Math.min(4, Math.floor((x - lo) / step)) }; }
   function f3Facts() {
     const v = S().tx, sat = [], wk = [];
     v.forEach((x, i) => { const d = dow(i + 1); if (d === 6) sat.push(x); else if (d >= 1 && d <= 5) wk.push(x); });
@@ -1322,39 +1330,64 @@
     const top = v.indexOf(Math.max(...v)) + 1;
     return { p, top };
   }
+  // 10월의 일정(가상): 노션 캘린더처럼 캘린더마다 색이 있고, 제목 앞에 이모지를 둔다. regions가 있으면 그 지역(과 전체)에서만 보인다
+  const CAL_EVENTS = [
+    { id: 'launch', cal: 'mkt', from: 1, to: 7, emoji: '🍂' },
+    { id: 'visits', cal: 'ops', from: 5, to: 9, emoji: '📋', regions: ['washington'] },
+    { id: 'pumpkin', cal: 'mkt', from: 17, to: 17, emoji: '🎃' },
+    { id: 'staffing', cal: 'ops', from: 19, to: 30, emoji: '🚗', regions: ['texas'] },
+    { id: 'halloween', cal: 'hol', from: 31, to: 31, emoji: '👻' }
+  ];
+  const calEvents = () => CAL_EVENTS.filter(e => !e.regions || state.region === 'all' || e.regions.includes(state.region));
+  const eventsOn = d => calEvents().filter(e => d >= e.from && d <= e.to);
   function renderF3(animate) {
     const t = L(), s = S(), fx = f3Facts(), ev = DATA.events[fx.top];
     const topName = ev ? t.f3.top[ev] : (KO() ? `10월 ${fx.top}일` : `Oct ${fx.top}`);
     $('#f3Title').textContent = glue(t.f3.title(pct(fx.p, 0), topName));
     refade($('#f3Title'), animate);
-    const b = calBins();
-    const barCol = d => dow(d) === 6 ? C.subject : C.comparison;
-    keyItems($('#f3Keys'), [['bar', C.subject, t.f3.sat], ['bar', C.comparison, t.f3.rest], ['bar', C.orange, t.f3.event]]);
-    $('#f3Table').replaceChildren(srTable(t.f3.sub, [KO() ? '날짜' : 'Date', KO() ? '거래' : 'Transactions'], s.tx.map((v, i) => [dayLong(i + 1), nf(v)])));
+    const evs = calEvents();
+    const cals = [...new Set(evs.map(e => e.cal))];
+    $('#f3Keys').replaceChildren(...cals.map(c => h('li', { class: 'calk ' + c }, h('i'), t.f3.cals[c])));
+    $('#f3Table').replaceChildren(srTable(t.f3.sub, [KO() ? '날짜' : 'Date', KO() ? '거래' : 'Transactions', KO() ? '일정' : 'Events'], s.tx.map((v, i) => [dayLong(i + 1), nf(v), eventsOn(i + 1).map(e => t.f3.ev[e.id]).join(', ')])));
     const cal = h('div', { class: 'cal', role: 'img', tabindex: 0, 'aria-label': t.f3.aria });
     t.f3.wd.forEach((w, i) => cal.append(h('div', { class: 'wd' + (i === 0 || i === 6 ? ' we' : ''), 'aria-hidden': 'true', text: w })));
-    for (let i = 0; i < OCT_FIRST_DOW; i++) cal.append(h('div', { class: 'day out', 'aria-hidden': 'true' }));
     const cells = [];
-    s.tx.forEach((v, i) => {
-      const d = i + 1;
-      const we = dow(d) === 0 || dow(d) === 6;
-      const cell = h('div', { class: 'day' + (we ? ' we' : '') + (animOK(animate) ? ' fade' : ''), 'aria-hidden': 'true', style: { animationDelay: animOK(animate) ? (i * 12) + 'ms' : null } },
-        h('span', { class: 'dn' }, d === 1 ? h('span', { class: 'mo', text: KO() ? '10월 ' : 'Oct ' }) : null, String(d), d === 1 && KO() ? h('span', { class: 'mo', text: '일' }) : null),
-        DATA.events[d] ? h('span', { class: 'evt ev', text: t.f3.events[DATA.events[d]] }) : null,
-        h('span', { class: 'evt v ' + (dow(d) === 6 ? 'sub' : 'rest'), text: KO() ? nf(v) : trimz(nf(v / 1e3, 1)) + 'K' }));
-      cells.push(cell); cal.append(cell);
-    });
-    const rem = (7 - ((OCT_FIRST_DOW + 31) % 7)) % 7;
-    for (let i = 0; i < rem; i++) cal.append(h('div', { class: 'day out', 'aria-hidden': 'true' }));
+    const first = 1 - OCT_FIRST_DOW, weeks = Math.ceil((OCT_FIRST_DOW + 31) / 7);
+    for (let w = 0; w < weeks; w++) {
+      const d0 = first + w * 7, d1 = d0 + 6;
+      // 이 주에 걸친 일정을 줄(lane)에 나눠 담는다: 겹치지 않으면 같은 줄
+      const segs = evs.filter(e => e.to >= d0 && e.from <= d1).map(e => ({ e, a: Math.max(e.from, d0), b: Math.min(e.to, d1) })).sort((x, y) => x.a - y.a || (y.b - y.a) - (x.b - x.a));
+      const lanes = [];
+      segs.forEach(sg => { let k = lanes.findIndex(end => end < sg.a); if (k < 0) { k = lanes.length; lanes.push(0); } lanes[k] = sg.b; sg.lane = k; });
+      const wk = h('div', { class: 'wk', style: { '--lanes': lanes.length } });
+      for (let c = 0; c < 7; c++) {
+        const d = d0 + c, inMonth = d >= 1 && d <= 31, we = c === 0 || c === 6;
+        const col = String(c + 1);
+        const cell = h('div', { class: 'day' + (we ? ' we' : '') + (inMonth ? '' : ' out') + (inMonth && animOK(animate) ? ' fade' : ''), 'aria-hidden': 'true', style: { gridColumn: col, animationDelay: animOK(animate) ? ((d - 1) * 12) + 'ms' : null } });
+        wk.append(cell);
+        if (!inMonth) continue;
+        const v = s.tx[d - 1];
+        wk.append(h('span', { class: 'dn', style: { gridColumn: col } }, d === 1 ? h('span', { class: 'mo', text: KO() ? '10월 ' : 'Oct ' }) : null, String(d), d === 1 && KO() ? h('span', { class: 'mo', text: '일' }) : null));
+        wk.append(h('span', { class: 'dv' + (dow(d) === 6 ? ' sub' : ''), style: { gridColumn: col }, text: KO() ? nf(v) : trimz(nf(v / 1e3, 1)) + 'K' }));
+        cells[d - 1] = cell;
+      }
+      segs.forEach(sg => {
+        const cls = 'ev ' + sg.e.cal + (sg.a > sg.e.from ? ' cont' : '') + (sg.b < sg.e.to ? ' more' : '');
+        wk.append(h('span', { class: cls, style: { gridColumn: `${sg.a - d0 + 1} / ${sg.b - d0 + 2}`, gridRow: String(sg.lane + 2) }, title: t.f3.ev[sg.e.id] },
+          h('span', { class: 'em', 'aria-hidden': 'true', text: sg.e.emoji }),   // 노션 캘린더처럼 주가 바뀌어도 제목을 다시 적는다
+          h('span', { class: 'et', text: t.f3.ev[sg.e.id] })));
+      });
+      cal.append(wk);
+    }
     $('#f3Cal').replaceChildren(cal);
     const host = $('#f3');
     const show = d => {
-      cells.forEach(c => c.classList.remove('on'));
+      cells.forEach(c => c && c.classList.remove('on'));
       if (d == null) { hideTip(host); return; }
       F3.cur = d;
       const c = cells[d - 1]; c.classList.add('on');
-      const o = offsetIn(host, c), v = s.tx[d - 1], e = DATA.events[d];
-      placeTip(host, tipNodes(dayLong(d) + (e ? ' · ' + t.f3.eventsLong[e] : ''), [{ key: barCol(d), value: nf(v), label: t.f3.unit }]), o.x + c.offsetWidth / 2, o.y, o.y + c.offsetHeight);
+      const o = offsetIn(host, c), v = s.tx[d - 1], es = eventsOn(d);
+      placeTip(host, tipNodes(dayLong(d), [{ key: dow(d) === 6 ? C.subject : C.comparison, value: nf(v), label: t.f3.unit }, ...es.map(e => ({ value: e.emoji, label: t.f3.ev[e.id] + ' · ' + t.f3.span(e.from, e.to) }))]), o.x + c.offsetWidth / 2, o.y, o.y + c.offsetHeight);
     };
     cells.forEach((c, i) => c.addEventListener('pointerenter', () => show(i + 1)));
     cal.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== cal) show(null); });
@@ -1364,7 +1397,9 @@
       let d = F3.cur;
       if (e.key === 'ArrowRight') d++; else if (e.key === 'ArrowLeft') d--; else if (e.key === 'ArrowDown') d += 7; else if (e.key === 'ArrowUp') d -= 7;
       else if (e.key === 'Home') d = 1; else if (e.key === 'End') d = 31; else if (e.key === 'Escape') { e.preventDefault(); show(null); return; } else return;
-      e.preventDefault(); d = Math.max(1, Math.min(31, d)); show(d); say(`${dayLong(d)}: ${nf(s.tx[d - 1])} ${t.f3.unit}`);
+      e.preventDefault(); d = Math.max(1, Math.min(31, d)); show(d);
+      const es = eventsOn(d).map(x => t.f3.ev[x.id]);
+      say(`${dayLong(d)}: ${nf(s.tx[d - 1])} ${t.f3.unit}${es.length ? ' · ' + es.join(', ') : ''}`);
     });
     host._reset = () => show(null);
   }
@@ -1573,8 +1608,8 @@
     const J = {
       prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '10월 매장 운영 대시보드를 만들어 줘. 매출(핵심 수치, 월별 순매출, 채널 비중, 매장 표)과 운영(일별 거래 달력, 시간대, 전달 시간, 가을 메뉴) 두 부분으로, 지역 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 1부터 sales.csv의 region "${region}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
         : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build our October store operations dashboard: sales (key figures, net sales by month, channel mix, a stores table) and operations (a calendar of transactions, hours, handoff time, the fall menu), with one region filter for every view.'], [0, ''], [0, `Start with Figure 1 from sales.csv for region "${region}".`], [0, 'Before you finish, run the checks in DASHBOARD.md and list what passed and what to fix.']],
-      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 매출 · 그림 4개'], [0, kv('핵심 수치', '숫자 위젯 4개, 전년 동월 대비, 좋고 나쁨 색')], [0, kv('그림 1', '순매출 · 지난해 점선과 선 비교')], [0, kv('그림 2', '채널 · 월별 100% 누적 막대')], [0, kv('표 1', '매장 · 데이터베이스 표, 목표 막대, 상태')], [0, ''], [0, '# 운영 · 그림 4개'], [0, kv('그림 3', '일별 거래 · 캘린더, 값에 따라 짙게')], [0, kv('그림 4', '시간대 · 막대, 평일·주말 탭')], [0, kv('그림 5', '전달 시간 · 일별 선, 4분 목표선')], [0, kv('그림 6', '가을 메뉴 · 막대와 목표 눈금')], [0, ''], [0, '# 지역 필터 하나를 모든 그림에, 한 화면 묶음은 7개 이하']]
-        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Sales · 4 views'], [0, kv('Key figures', '4 number widgets, change vs Oct 2025')], [0, kv('Figure 1', 'net sales · line against last year, dashed')], [0, kv('Figure 2', 'channels · 100% stacked bars by month')], [0, kv('Table 1', 'stores · database table, target bars, status')], [0, ''], [0, '# Operations · 4 views'], [0, kv('Figure 3', 'days · calendar, color by value')], [0, kv('Figure 4', 'hours · bars, weekday and weekend tabs')], [0, kv('Figure 5', 'handoff · daily lines, 4:00 target line')], [0, kv('Figure 6', 'fall menu · bars against goal ticks')], [0, ''], [0, '# One region filter for every view; at most 7 per screen']],
+      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 매출 · 그림 4개'], [0, kv('핵심 수치', '숫자 위젯 4개, 전년 동월 대비, 좋고 나쁨 색')], [0, kv('그림 1', '순매출 · 지난해 점선과 선 비교')], [0, kv('그림 2', '채널 · 월별 100% 누적 막대')], [0, kv('표 1', '매장 · 데이터베이스 표, 목표 막대, 상태')], [0, ''], [0, '# 운영 · 그림 4개'], [0, kv('그림 3', '일별 거래 · 캘린더, 값은 글자, 일정은 막대')], [0, kv('그림 4', '시간대 · 막대, 평일·주말 탭')], [0, kv('그림 5', '전달 시간 · 일별 선, 4분 목표선')], [0, kv('그림 6', '가을 메뉴 · 막대와 목표 눈금')], [0, ''], [0, '# 지역 필터 하나를 모든 그림에, 한 화면 묶음은 7개 이하']]
+        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Sales · 4 views'], [0, kv('Key figures', '4 number widgets, change vs Oct 2025')], [0, kv('Figure 1', 'net sales · line against last year, dashed')], [0, kv('Figure 2', 'channels · 100% stacked bars by month')], [0, kv('Table 1', 'stores · database table, target bars, status')], [0, ''], [0, '# Operations · 4 views'], [0, kv('Figure 3', 'days · calendar, values as text, events as bars')], [0, kv('Figure 4', 'hours · bars, weekday and weekend tabs')], [0, kv('Figure 5', 'handoff · daily lines, 4:00 target line')], [0, kv('Figure 6', 'fall menu · bars against goal ticks')], [0, ''], [0, '# One region filter for every view; at most 7 per screen']],
       js: [
         [0, `// ${c.head}`], [0, 'import { tokens, fmt, plot, load } from "./dashboard.js";'],
         [0, `const region = ${q(region)};${' '.repeat(Math.max(1, 12 - region.length))}// ${c.filter}`], [0, 'const rows = await load("sales.csv", { region });'], [0, ''],
