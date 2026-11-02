@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Notion style — DASHBOARD.md · Vizney Styles</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=87d56bfcbc" as="font" type="font/woff" crossorigin>
+<!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site's Markdown pages (prompt.md, skill/SKILL.md: _config.yml defaults) and, through tools/package.py, <name>/DASHBOARD.html. Header, tabs and footer are the site's (index.html / 404.html). -->
+<style>
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=87d56bfcbc) format('woff')}
+:root{
+  /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
+     The blog's Vizney header (scrolls away) and the site's sticky tabs under it; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
+     styles with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
+     built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
+     Single light theme on purpose, like Blocks and the style screens. */
+  color-scheme: light;
+  --page:#ffffff;
+  --soft:#f4f5f7;
+  --tile:#f6f7f9;
+  --ink:#1b1b1b;
+  --ink-2:#4a4a4a;
+  --muted:#616771;
+  --line:#e6e8ec;
+  --line-2:#eceef2;
+  --rule:#cfd2d8;
+  --btn-line:#e3e5ea;
+  --ink-hover:#3a3a3a;
+  /* Top bar: the blog's (kr.vizney.com · www.vizney.com) black header, so moving between the two reads as one site. */
+  --top-bg:#1b1b1b;
+  --top-ink:#ffffff;
+  --top-ink-2:rgba(255,255,255,.78);
+  --top-line:rgba(255,255,255,.22);
+  --top-soft:rgba(255,255,255,.10);
+  --top-rule:hsla(0,0%,100%,.15);
+  /* The one UI accent: the yellow of the blog's post images (#ffcc00). Buttons, active states, focus. Never a data color. */
+  --accent:#ffcc00;
+  --accent-hover:#f2c200;
+  --accent-ink:#1b1b1b;
+  --yellow:#ffcc00;
+  --pink:#ff2d55;
+  --font:'VZ Sans','Spoqa Han Sans Neo','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono','VZ Sans',monospace;
+  --shadow:0 12px 32px -12px rgba(17,24,39,.28);
+  --shadow-sm:0 1px 2px rgba(17,24,39,.12);
+  --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
+
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.7 var(--font);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--top-bg)}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{text-decoration-color:var(--ink)}
+/* Focus: the accent yellow as a halo around an ink ring, so it shows on white (yellow alone is 1.6:1 there) and on the black bar. */
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--accent);border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;white-space:nowrap}
+svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--page);font-size:14px;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}
+
+/* ---------- Vizney header (the common header of the blog, Vizney Blocks and Vizney Styles) ----------
+   Copied from the blog (kr.vizney.com · www.vizney.com): Ghost Casper, stacked navigation, with the blog's code injection
+   (black bar, Spoqa Han Sans Neo, globe language switch). 768px and up: two rows, wordmark centred over the menu.
+   767px and down: one row, wordmark left, globe · search · burger right, the menu as a full-screen sheet.
+   Not sticky: it scrolls away like the blog's. The site's own tabs stick below it. */
+.gh{position:relative;padding:0 max(4vmin, 20px);background:var(--top-bg);color:var(--top-ink);font-size:16px;line-height:1.3}
+.gh a{color:inherit;text-decoration:none}
+.gh-in{display:grid;grid-template-columns:1fr auto 1fr;grid-auto-flow:dense;column-gap:40px;align-items:center;max-width:1200px;margin:0 auto}
+.gh-brand{grid-row-start:1;grid-column-start:2;position:relative;display:flex;align-items:center;height:80px}
+.gh-logo{display:block}
+.gh-logo img{display:block;width:auto;max-height:40px}
+.gh-menu{grid-row-start:2;grid-column:1 / 4;display:flex;justify-content:center;align-items:center;height:56px;margin:0 48px;font-weight:500}
+.gh-menu::before{content:"";position:absolute;top:80px;left:0;width:100%;height:1px;background-color:var(--top-rule)}
+.gh-nav{display:inline-flex;flex-wrap:wrap;align-items:center;gap:32px;margin:0;padding:0;list-style:none}
+.gh-nav li{margin:0;padding:0}
+.gh-nav a{display:inline-flex;align-items:center;line-height:1.7}
+.gh-nav a:hover{opacity:.9}
+/* Where you are: only this site's item, underlined. */
+.gh-nav a[aria-current]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.gh-actions{grid-row-start:1;grid-column:1 / 4;display:flex;justify-content:flex-start;align-items:center;gap:8px}
+.gh-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;padding:0}
+.gh-icon svg{display:block}
+.gh-globe{opacity:.9;transition:opacity .2s ease}
+.gh-globe:hover{opacity:1}
+.gh-search:hover{opacity:.9}
+.gh-actions .gh-globe{margin-right:-4px}
+.gh-brand .gh-icon{display:none}
+/* The blog's overflow menu: items that do not fit on one line go under '…' (Casper's dropdown). */
+.gh-more{position:relative;display:inline-flex}
+.gh-more__toggle{position:relative;width:30px;height:30px;margin:0 -6px;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}
+.gh-more__toggle svg{display:block;width:24px;height:24px;margin:auto}
+.gh-dropdown{position:absolute;top:100%;right:-16px;z-index:90;width:200px;margin:24px 0 0;padding:12px 0;list-style:none;text-align:left;background:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 7px 20px -5px rgba(0,0,0,.15);opacity:0;visibility:hidden;transform:translate3d(0,6px,0);transition:opacity .3s,transform .2s}
+.gh-more.is-open .gh-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.gh-dropdown a{display:block;padding:6px 20px;color:#15171a;line-height:1.7}
+.gh-burger{position:relative;display:none;flex-shrink:0;width:30px;height:30px;margin-right:-3px;padding:0;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
+.gh-burger::before,.gh-burger::after{content:"";position:absolute;left:3px;width:24px;height:1px;background:#fff;transition:all .2s cubic-bezier(.04,.04,.12,.96) .1008s}
+.gh-burger::before{top:11px}
+.gh-burger::after{bottom:11px}
+.gh-open .gh-burger::before{top:15px;transform:rotate(45deg)}
+.gh-open .gh-burger::after{bottom:14px;transform:rotate(-45deg)}
+.gh :focus-visible{outline-color:var(--accent);box-shadow:none}
+.gh-dropdown :focus-visible{outline-color:var(--ink)}
+@media (max-width:767px){
+  .gh{height:64px}
+  .gh-in{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;gap:48px;height:100%}
+  .gh-brand{grid-column-start:1;width:100%;height:64px;flex-wrap:nowrap}
+  .gh-logo{margin-right:auto;flex-shrink:1}
+  .gh-brand .gh-icon{display:inline-flex}
+  .gh-brand .gh-globe{margin-right:8px}
+  .gh-brand .gh-search{margin-left:-6px;margin-right:8px}
+  .gh-burger{display:block}
+  .gh-menu,.gh-actions{grid-row-start:auto;grid-column:auto}
+  .gh-actions{display:none}
+  .gh-menu{position:fixed;justify-content:center;margin:0;visibility:hidden;opacity:0}
+  .gh-menu::before{content:none}
+  .gh-nav{gap:16px;line-height:1.4}
+  .gh-nav a{font-size:26px;font-weight:600}
+  .gh-nav li{opacity:0;transform:translateY(-4px)}
+  .gh-open .gh{position:fixed;inset:0;z-index:3999999;height:100%;overflow-y:auto;overscroll-behavior-y:contain}
+  .gh-open .gh-menu{position:static;visibility:visible;opacity:1}
+  .gh-open .gh-nav{display:flex;flex-direction:column}
+  .gh-open .gh-nav li{opacity:1;transform:translateY(0);transition:transform .2s,opacity .2s}
+  /* The blog keeps a footer row here for 'Sign in'; this site has no members, so the row stays empty to keep the menu where the blog's is. */
+  .gh-open .gh-actions{display:block;height:calc(max(4vmin, 20px) + max(4vmin, 28px) + 21px)}
+  .gh-open .gh-actions > *{display:none}
+}
+
+/* ---------- the site's tabs, under the Vizney header ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;padding:0 max(4vmin, 20px);background:var(--page);box-shadow:inset 0 -1px var(--line)}
+.tabs-in{display:flex;align-items:stretch;gap:28px;max-width:1200px;height:48px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs-in::-webkit-scrollbar{display:none}
+.tabs a{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;padding-top:2px;border-bottom:2px solid transparent;font-size:15px;font-weight:500;line-height:1;white-space:nowrap;color:var(--ink-2);text-decoration:none}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs .tabs__name{font-weight:700;color:var(--ink)}
+.tabs .tabs__git{margin-left:auto}
+.tabs :focus-visible{outline-offset:-2px;box-shadow:none}
+
+/* ---------- footer (as on Vizney Blocks) ---------- */
+.foot{margin-top:120px;border-top:1px solid var(--line-2)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
+.foot-in nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot-in a{color:var(--ink-2);text-decoration-color:currentColor;text-decoration-thickness:auto;text-underline-offset:auto}
+
+/* ---------- the spec (DASHBOARD.md rendered by GitHub Pages) ---------- */
+.doc{max-width:880px;margin:0 auto;padding:56px max(4vmin, 20px) 0;font-size:16px;line-height:1.75}
+.doc h1{font-size:clamp(30px, 4vw, 40px);line-height:1.2;font-weight:700;letter-spacing:-.025em}
+.doc h2{margin-top:64px;padding-top:28px;border-top:1px solid var(--line);font-size:26px;line-height:1.3;font-weight:700;letter-spacing:-.02em}
+.doc h3{margin-top:36px;font-size:19px;line-height:1.4;font-weight:700}
+.doc h4{margin-top:28px;font-size:16px;font-weight:700}
+.doc p,.doc ul,.doc ol,.doc pre,.doc blockquote,.doc table,.doc .highlighter-rouge{margin-top:16px}
+.doc .highlighter-rouge pre{margin-top:0}
+.doc ul{padding-left:22px;list-style:disc}
+.doc ol{padding-left:24px;list-style:decimal}
+.doc li + li{margin-top:6px}
+.doc li > ul,.doc li > ol{margin-top:6px}
+.doc strong{font-weight:700}
+.doc hr{margin:40px 0;border:0;border-top:1px solid var(--line)}
+.doc blockquote{padding-left:16px;border-left:3px solid var(--line);color:var(--ink-2)}
+.doc code{padding:.12em .36em;border-radius:5px;background:var(--soft);white-space:normal;overflow-wrap:anywhere}
+.doc pre{padding:16px 18px;border-radius:12px;background:var(--soft);overflow-x:auto;font-size:13.5px;line-height:1.6}
+.doc pre code{padding:0;background:none;font-size:inherit;white-space:pre;overflow-wrap:normal}
+.doc table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:14px;line-height:1.55}
+.doc th,.doc td{padding:9px 14px 9px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.doc th{font-weight:700;border-bottom-color:var(--rule);white-space:nowrap}
+.doc img{max-width:100%;height:auto}
+@media (max-width:720px){
+  .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  .doc{padding-top:36px;font-size:15px}
+  .doc h2{margin-top:48px;font-size:22px}
+  .foot-in nav{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body data-page="spec">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="gh" id="top">
+  <div class="gh-in">
+    <div class="gh-brand">
+      <a class="gh-logo" href="https://www.vizney.com/" data-href="v:home"><img src="/assets/brand/vizney-wordmark-white.png" width="106" height="40" alt="Vizney"></a>
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+      <button class="gh-burger" type="button" aria-label="Main Menu" aria-expanded="false" aria-controls="ghMenu" data-i18n-aria="ghMenu"></button>
+    </div>
+    <nav class="gh-menu" id="ghMenu" aria-label="Vizney">
+      <ul class="gh-nav">
+        <li><a href="https://www.vizney.com/chart-guide/" data-href="v:chart-guide">Chart Guide</a></li>
+        <li><a href="https://blocks.vizney.com/" data-href="v:blocks">Blocks</a></li>
+        <li><a href="https://styles.vizney.com/" data-href="v:styles" aria-current="page">Styles</a></li>
+        <li><a href="https://www.vizney.com/tips/" data-href="v:tips">Tips &amp; Tricks</a></li>
+        <li><a href="https://www.vizney.com/kb/" data-href="v:kb">Knowledge Base</a></li>
+        <li><a href="https://www.vizney.com/about/" data-href="v:about">About</a></li>
+        <li><a href="https://www.vizney.com/contact-us/" data-href="v:contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="gh-actions">
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Vizney Styles" data-i18n-aria="tabsAria">
+  <div class="tabs-in">
+    <a class="tabs__name" href="/" data-href="home" data-tab="top">Vizney Styles</a>
+    <a href="/#styles" data-href="home:styles" data-tab="styles" data-i18n="navStyles">Catalog</a>
+    <a href="/#custom" data-href="home:custom" data-tab="custom" data-i18n="navCustom">Your company</a>
+    <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true">↗</span></a>
+    <a class="tabs__git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="main" class="doc">
+<h1 id="notion-style--dashboardmd">Notion style — DASHBOARD.md</h1>
+<p><strong>Monochrome, Blocks, Tidy</strong> · 모노톤, 블록, 단정함</p>
+<p>A dashboard design spec read from the public design of notion.com and public Notion pages. It takes the site's measured design-system tokens and the way Notion shows data inside a page — the page head (icon, title, properties, callout), toggle headings and database views: the chart view, table and board, calendar, tags and status pills, number bars — and turns them into one card and one chart grammar that a whole dashboard can follow. It then adds what a website spec leaves out and a dashboard needs: validated data colors, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Add it to a project with one command (or the zip on the sample page), or hand it to whoever builds your dashboards. The live sample was built from it.</p>
+<pre><code>npx @vizney/styles@latest add notion
+# or, without Node:
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- notion
+</code></pre>
+<p>That puts <code>DASHBOARD.md</code> in the project root and the <code>dashboard-style</code> agent skill (build, restyle, review) in <code>.claude/skills/dashboard-style/</code>, together with <code>tokens.css</code>, <code>tokens.json</code>, <code>notion.tps</code>, <code>powerbi-theme.json</code> and <code>prompt.md</code>. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow <code>DASHBOARD.md</code>.</p>
+<ul>
+<li>Live sample: https://styles.vizney.com/notion/?lang=en (Korean <code>?lang=ko</code>; one region <code>&amp;region=texas</code>)</li>
+<li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/notion/DASHBOARD.md</li>
+<li>Package: <a href="notion-dashboard-style.zip">notion-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
+<li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="notion.tps">notion.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="sales.csv">sales.csv</a> (the data behind the sample's Figure 1)</li>
+<li>Catalog: VIZNEY STYLES · 02 · https://styles.vizney.com (Vizney Styles is a line of <a href="https://www.vizney.com">Vizney</a>)</li>
+</ul>
+<p>Not an official Notion design, and not affiliated with or endorsed by Notion. A reference style read from the publicly visible design of notion.com and public Notion pages; it carries no logo, typeface or data of theirs. The sample's company, Vizney Coffee, and all its numbers are fictional. Trademarks belong to their owners.</p>
+<h2 id="visual-theme--atmosphere">Visual Theme &amp; Atmosphere</h2>
+<p>A white page that reads like a Notion page turned into a report. It opens the way a Notion page does: a line icon, a bold title that states the result, three properties (scope, comparison, status) and a gray callout that names the drivers, with four number widgets beside the title. Below that, toggle headings (<code>Sales</code>, <code>Operations</code>, <code>How it's built</code>) hold database views on one card: white, a 1px hair border, a 12px radius, no shadow. Each card opens with a small view label (an icon and <code>Figure 1 · Net sales</code>), a bold title that states the finding, a gray subtitle that names the measure, then the view and a note that starts with <code>Note:</code>.</p>
+<p>The views are the ones a Notion page uses for data: a chart view (lines and bars on dotted gridlines), a database table with tags, status pills, number bars and a calculation row, the same rows as a board grouped by status, and a calendar whose days darken with the value. It is mostly black, white and warm gray. Color appears only in the data — Notion blue for the subject, orange and gray when channels are compared — and in Notion's pastel tags and status pills. The data blue <code>#2783de</code> is the product's blue, a step apart from the button and link blue <code>#0075de</code>.</p>
+<p>The mood is tidy and quiet: a team page you keep open, where every block lines up and nothing shouts.</p>
+<p>Measured on the sites (November 2026): global navigation 64px; page width 78.25rem on a 12-column grid; buttons 38px (medium) and 28px (small) with an 8px radius, 16px/500 and 14px/500; primary <code>#0075de</code> (hover <code>#005bab</code>), secondary <code>#e6f3fe</code> with <code>#005bab</code> text, tertiary white with a <code>rgba(0,0,0,.1)</code> border; cards white with a <code>rgba(0,0,0,.1)</code> border and a 12px radius; the pricing toggle a <code>#f6f5f4</code> track with a 4px border, 24px radius and a white selected pill; text <code>rgba(0,0,0,.95)</code> and grays <code>#f9f9f8 #f6f5f4 #dfdcd9 #a39e98 #78736f #615d59 #494744 #31302e #191918</code>; card titles 22px/700 at −0.25px, stats 42px/700, headings 54px/700 at −1.875px. In public Notion pages: tags with a 4px radius, status pills with a 10px radius and an 8px dot, table rows 37px with <code>rgba(42,28,0,.07)</code> rules, board columns tinted by group with white 10px cards, view tabs as <code>rgba(33,27,23,.05)</code> pills, callouts <code>#f9f8f7</code> with a 10px radius, and chart views with dotted <code>#e6e5e3</code> gridlines, 12px <code>#7d7a75</code> ticks, 12px/600 value labels and bars rounded 2px at the top.</p>
+<h2 id="color-palette--roles">Color Palette &amp; Roles</h2>
+<p>Surfaces and text are notion.com's warm gray ladder; the rules are the product's.</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas · card</td>
+<td><code>#ffffff</code> · <code>#ffffff</code></td>
+<td>page · every figure, table and number widget (with a hair border)</td>
+</tr>
+<tr>
+<td>surface</td>
+<td><code>#f6f5f4</code></td>
+<td>segmented-control track, period pill, hover band behind a bar or row</td>
+</tr>
+<tr>
+<td>surface-2</td>
+<td><code>#f9f9f8</code></td>
+<td>workbench side panel, calendar days outside the month</td>
+</tr>
+<tr>
+<td>callout</td>
+<td><code>#f9f8f7</code></td>
+<td>the callout block</td>
+</tr>
+<tr>
+<td>tab</td>
+<td><code>#f4f4f3</code></td>
+<td>the selected view tab (<code>rgba(33,27,23,.05)</code> on white)</td>
+</tr>
+<tr>
+<td>ink / body</td>
+<td><code>#191918</code> / <code>#31302e</code></td>
+<td>titles, key figures, table values, the target line / running text, code</td>
+</tr>
+<tr>
+<td>text-2</td>
+<td><code>#615d59</code></td>
+<td>subtitles, notes, figure labels, values beside end labels (6.5:1)</td>
+</tr>
+<tr>
+<td>muted</td>
+<td><code>#78736f</code></td>
+<td>property names, table headers, axis ticks, unselected tabs (4.7:1: the lightest gray for small text)</td>
+</tr>
+<tr>
+<td>mark</td>
+<td><code>#a39e98</code></td>
+<td>gray marks that are not text: the comparison line, other regions' lines</td>
+</tr>
+<tr>
+<td>rule / hair / hair-2</td>
+<td><code>#dfdcd9</code> / <code>#e6e5e3</code> / <code>#f0efed</code></td>
+<td>crosshair / card borders, dividers, dotted gridlines, baselines / table rules, empty bar tracks</td>
+</tr>
+<tr>
+<td>accent · accent-hover · accent-soft</td>
+<td><code>#0075de</code> · <code>#005bab</code> · <code>#e6f3fe</code></td>
+<td>buttons, links, focus. Data uses its own blue step, <code>#2783de</code></td>
+</tr>
+<tr>
+<td>good / bad</td>
+<td><code>#14832b</code> / <code>#b01601</code></td>
+<td>favourable / unfavourable change and missed targets, text only (4.9:1 / 7.1:1 on white)</td>
+</tr>
+<tr>
+<td>focus</td>
+<td><code>#0075de</code></td>
+<td>focus ring, 2px, 2px offset</td>
+</tr>
+</tbody>
+</table>
+<p>Rules:
+- White cards with a hair border; no shadows on cards and no gray cards. Gray fills are for controls, the callout and hover only.
+- Small text on white uses muted or darker; on a gray or tinted surface (the segmented track, the callout, the package panel, board columns) it uses text-2 or darker, because muted falls just under 4.5:1 there. <code>#a39e98</code> and lighter are never text.
+- Blue is Notion's key color in both places, with two steps: <code>#0075de</code> for buttons, links and focus, <code>#2783de</code> for data. Never swap them, and never put a second blue series next to the subject.</p>
+<h2 id="data-colors">Data Colors</h2>
+<p>Notion's chart view paints each series in a mid tone of the same palette its tags use, leading with blue (blue, purple, green, red, gray …), and the dashboards drawn on notion.com lead with blue bars and lines too. This spec keeps that palette and gives it roles: blue is the subject everywhere, orange and green are the other real categories, the product's chart gray is Other, and a darker step of each hue carries text. Every value passed an OKLab validator (color-vision-deficiency separation, normal-vision separation, contrast) on the white card <code>#ffffff</code>, where every chart sits. Use them exactly; do not generate tints.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Mark</th>
+<th>Label text</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subject</td>
+<td><code>#2783de</code></td>
+<td><code>#1f6fc5</code></td>
+<td>the scope the report is about: this year, the selected region, the channel the story is about</td>
+</tr>
+<tr>
+<td>Second category</td>
+<td><code>#dd5b00</code></td>
+<td><code>#ab4a00</code></td>
+<td>a second real category (drive-thru)</td>
+</tr>
+<tr>
+<td>Third category</td>
+<td><code>#46a171</code></td>
+<td><code>#14832b</code></td>
+<td>only when a third real category exists</td>
+</tr>
+<tr>
+<td>Other</td>
+<td><code>#c7c6c4</code></td>
+<td>text-2</td>
+<td>the rest (in-store), behind 2px white gaps</td>
+</tr>
+<tr>
+<td>Comparison</td>
+<td><code>#a39e98</code>, dashed 2px (6 on, 4 off)</td>
+<td>ink</td>
+<td>last year; also other regions as 1.5px solid lines</td>
+</tr>
+<tr>
+<td>Target</td>
+<td><code>#191918</code>, dashed 1.2px (4 on, 3 off)</td>
+<td>ink</td>
+<td>a goal on an axis (<code>Target 4:00</code>); a 2px ink tick on bars</td>
+</tr>
+<tr>
+<td>Sequential</td>
+<td><code>#7db1ea</code> <code>#5196e2</code> <code>#2271c4</code> <code>#1c5aa3</code> <code>#1d4677</code></td>
+<td>ink on the first two, white on the last three</td>
+<td>color by value: calendar days, heat cells</td>
+</tr>
+<tr>
+<td>Diverging</td>
+<td><code>#ab4a00</code> <code>#dd5b00</code> <code>#ff8a33</code> · <code>#dfdcd9</code> · <code>#7db1ea</code> <code>#2271c4</code> <code>#1d4677</code></td>
+<td>each arm's darkest</td>
+<td>above and below a midpoint</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>good <code>#14832b</code>, bad <code>#b01601</code>, neutral <code>#a39e98</code></td>
+<td>—</td>
+<td>change text only</td>
+</tr>
+</tbody>
+</table>
+<p>Tags and status pills are not data marks; they are Notion's select and status properties, a pastel background with dark text:</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Background</th>
+<th>Text</th>
+<th>Dot (status)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gray</td>
+<td><code>#e6e5e3</code></td>
+<td><code>#494846</code></td>
+<td><code>#8e8b86</code></td>
+</tr>
+<tr>
+<td>orange</td>
+<td><code>#f3ddcb</code></td>
+<td><code>#6a4222</code></td>
+<td><code>#d5803b</code></td>
+</tr>
+<tr>
+<td>green</td>
+<td><code>#d7e6dd</code></td>
+<td><code>#2a533c</code></td>
+<td><code>#46a171</code></td>
+</tr>
+<tr>
+<td>yellow</td>
+<td><code>#f2e3b7</code></td>
+<td><code>#655121</code></td>
+<td><code>#d8a32f</code></td>
+</tr>
+<tr>
+<td>red</td>
+<td><code>#f7d9d5</code></td>
+<td><code>#6d3531</code></td>
+<td><code>#e56458</code></td>
+</tr>
+<tr>
+<td>purple</td>
+<td><code>#e8dbf2</code></td>
+<td><code>#553b69</code></td>
+<td><code>#b577d6</code></td>
+</tr>
+<tr>
+<td>blue</td>
+<td><code>#cee3f7</code></td>
+<td><code>#264a72</code></td>
+<td><code>#2783de</code></td>
+</tr>
+</tbody>
+</table>
+<p>Validation (from <code>tokens.json</code>, on white):
+- Blue, orange and green pass every check, all pairs. The worst pair under color-vision deficiency is green↔orange at ΔE 9.8 (deutan); blue sits 20.1 or more from both; normal vision 20.8 or more. Contrast 3.90, 3.77 and 3.18:1: every mark clears 3:1.
+- Other <code>#c7c6c4</code> is neutral by design: CVD 19.6 or more and normal vision 21.8 or more against the three hues. At 1.71:1 it always has a second cue: white gaps, value labels and a table.
+- Comparison <code>#a39e98</code> against blue: 16.5 / 19.8. At 2.66:1 it is always dashed and labeled at its end.
+- The sequential ramp is one hue (spread 4°), monotone, every gap ≥ 0.06 in lightness, light end 2.25:1. Text on a cell is ink on the two light steps (7.8, 5.7:1) and white on the three dark steps (5.0, 6.9, 9.6:1).
+- The diverging arms each pass the ordinal checks (light ends 2.35 and 2.25:1); the poles are 18.8 / 27.0 apart.
+- Good and bad pass as text but do not separate for deutan vision (ΔE 4.3), and the status dots are 6.2 apart. Status is never color alone: changes keep their sign and comparison words, pills keep their labels.</p>
+<p>Rules:
+- At most three hues plus gray in one chart. A fourth real category folds into Other or becomes small multiples.
+- Color follows the entity, not its rank: the subject is blue in every figure; other regions are gray, never a second blue.
+- Never put the button blue <code>#0075de</code> on data, and never a yellow series beside orange.
+- Tags carry names, not quantities. Do not use tag colors to encode a measure.</p>
+<h2 id="typography-rules">Typography Rules</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>English</th>
+<th>Korean</th>
+<th>Weights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sans (everything)</td>
+<td>Inter</td>
+<td>Pretendard</td>
+<td>400, 500, 600, 700</td>
+</tr>
+<tr>
+<td>Mono (code only)</td>
+<td>IBM Plex Mono</td>
+<td>IBM Plex Mono, then Pretendard for Hangul</td>
+<td>400, 500</td>
+</tr>
+</tbody>
+</table>
+<p>Inter stands in for NotionInter. notion.com's Korean pages load no Korean webfont (the browser falls back to system fonts), so Korean uses Pretendard. There is no serif: Notion keeps its serif for testimonials, and a dashboard has none.</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Size / weight</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Title (headline)</td>
+<td><code>clamp(30px, 2.95vw, 42px)</code> / 700, line-height 1.14, −0.035em</td>
+<td>one sentence that states the result; <code>text-wrap: balance</code></td>
+</tr>
+<tr>
+<td>Key figure value</td>
+<td>38px / 700, −0.035em</td>
+<td>units at 0.45em in text-2 (<code>$ 1.90 M</code>, <code>3:48 min</code>, <code>190 만 달러</code>, <code>3분 48초</code>)</td>
+</tr>
+<tr>
+<td>Section title</td>
+<td>26px / 700, line-height 32px</td>
+<td>after a toggle caret, under a hair divider</td>
+</tr>
+<tr>
+<td>Section intro, callout</td>
+<td>16px / 400, line-height 24px</td>
+<td>text-2 / body</td>
+</tr>
+<tr>
+<td>Card title</td>
+<td>20px / 700, line-height 28px, −0.012em</td>
+<td>the finding; <code>text-wrap: balance</code></td>
+</tr>
+<tr>
+<td>Card subtitle · table · table header</td>
+<td>14px / 400</td>
+<td>text-2 · ink · muted with a property icon</td>
+</tr>
+<tr>
+<td>Figure label</td>
+<td>13px / 500 text-2</td>
+<td>a 16px view icon and <code>Figure 3 · Transactions by day</code></td>
+</tr>
+<tr>
+<td>Key · note</td>
+<td>13px / 500 · 13px / 400</td>
+<td>the note starts with <code>Note:</code> / <code>주:</code></td>
+</tr>
+<tr>
+<td>Axis ticks · value labels</td>
+<td>12px muted · 12px / 600 ink</td>
+<td></td>
+</tr>
+<tr>
+<td>Tags · status pills</td>
+<td>14px (12px on board cards)</td>
+<td>20px tall</td>
+</tr>
+<tr>
+<td>Calculation label</td>
+<td>11px / 500 uppercase, 0.06em, muted</td>
+<td><code>COUNT 9</code>, <code>SUM $1.90M</code> (Korean 12px, no tracking)</td>
+</tr>
+<tr>
+<td>Segmented control · buttons</td>
+<td>14px / 700 · 16px / 500 (small 14px / 500)</td>
+<td></td>
+</tr>
+<tr>
+<td>Code</td>
+<td>mono 12.5px, line-height 1.62</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Headings are bold and tight; body text is regular. Korean breaks between words (<code>word-break: keep-all</code>), and a number stays on the same line as the particle after it (<code>27%에</code>, <code>21일</code>).</p>
+<h2 id="numbers-dates--units">Numbers, Dates &amp; Units</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>English</th>
+<th>Korean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Money per order</td>
+<td><code>$7.93</code></td>
+<td><code>7.93달러</code></td>
+</tr>
+<tr>
+<td>Large money</td>
+<td><code>$1.90M</code>, <code>$248K</code></td>
+<td><code>190만 달러</code>, <code>24.8만 달러</code></td>
+</tr>
+<tr>
+<td>Money axis</td>
+<td><code>$1.4M $1.6M … $2.2M</code> (one decimal count per axis)</td>
+<td><code>140만 160만 … 220만</code>, with the unit in the subtitle (<code>월별 순매출(달러)</code>)</td>
+</tr>
+<tr>
+<td>Counts</td>
+<td><code>240K</code> (key figure), <code>7,365</code> (text), <code>9.1K</code> (calendar)</td>
+<td><code>24만 건</code>, <code>7,365건</code>, <code>9,132</code></td>
+</tr>
+<tr>
+<td>Rates</td>
+<td><code>26.9%</code>; whole numbers on axes and labels of small charts (<code>27%</code>)</td>
+<td>the same</td>
+</tr>
+<tr>
+<td>Points</td>
+<td><code>−0.4 pts</code></td>
+<td><code>−0.4%p</code></td>
+</tr>
+<tr>
+<td>Durations</td>
+<td><code>3:48</code> (min:sec), change <code>−0:18</code></td>
+<td><code>3분 48초</code>, change <code>−18초</code></td>
+</tr>
+<tr>
+<td>Change</td>
+<td><code>+7.8% vs Oct 2025</code></td>
+<td><code>+7.8% 전년 동월 대비</code></td>
+</tr>
+<tr>
+<td>Dates</td>
+<td><code>October 31, 2026</code>; <code>Saturday, October 31</code>; ticks <code>Oct 1 … 31</code>, <code>Nov … Oct</code></td>
+<td><code>2026년 10월 31일</code>; <code>10월 31일 토요일</code>; <code>10월 1일 … 31</code>, <code>11월 … 10월</code></td>
+</tr>
+<tr>
+<td>Hours</td>
+<td><code>8 a.m.</code>, <code>noon</code>; ticks <code>6 am … 6 pm</code></td>
+<td><code>오전 8시</code>, <code>낮 12시</code>; ticks <code>6시 … 18시</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Money is in the company's own currency; the sample's company is American, so US dollars.</li>
+<li>Signs use the true minus (<code>−</code>, U+2212). One decimal for change.</li>
+<li>The change color follows whether the move is good for that metric: handoff <code>−0:18</code> is green.</li>
+<li>Units and suffixes are smaller than the digits.</li>
+<li>Missing values are left blank in a table, as Notion does; the reason goes in the note.</li>
+</ul>
+<h2 id="layout-principles">Layout Principles</h2>
+<p>One column on a white page, at most 1400px wide, 32px side padding (24px up to 1359px, 16px below 640px), a 24px gap between cards and 64px between sections. No sidebar, no app chrome, no logo.</p>
+<ol>
+<li><strong>Header</strong> (64px): company name (16px / 700) and report name (14px text-2). On the right: a period pill, the EN/KO segmented control, a tertiary <code>Export PDF</code> and the one primary button, <code>Copy as Markdown</code>.</li>
+<li><strong>Filter row</strong> between two hairlines: the segmented control with the regions on the left, the basis (<code>As of October 31, 2026 · vs October 2025</code>) on the right. It scopes every card, and the URL keeps the choice (<code>?region=texas</code>).</li>
+<li><strong>Page head</strong>: on the left (7 of 12 columns) a 44px line icon, the title that states the result, and three properties (<code>Scope</code>, <code>Compared with</code>, <code>Status</code>); on the right (5) four number widgets, 2 × 2, bottom-aligned with the properties. Under both, a full-width callout with the drivers, then a contents line of links.</li>
+<li><strong>Sections</strong>: a hair divider, a toggle caret, a 26px title and a one-line intro; the caret collapses the section. Rows of cards on a 12-column grid; cards in one row share a subgrid, so their heads, bodies and notes line up.
+   - <code>Sales</code>: Figure 1 net sales (7) · Figure 2 channels (5); Table 1 stores (12), with Table and Board views.
+   - <code>Operations</code>: Figure 3 calendar (7) · Figure 4 hours (5); Figure 5 handoff (7) · Figure 6 fall menu (5).</li>
+<li><strong><code>How it's built</code></strong>: a paragraph with two buttons (<code>Read DASHBOARD.md</code>, <code>Get one for your company ↗</code>), three numbered steps, then the workbench window and a caption.</li>
+<li><strong>Notes + linked pages</strong>, 7 / 5, on the same card.</li>
+<li><strong>White footer</strong> above a hairline.</li>
+</ol>
+<p>At most seven views on one screen: the number widgets and three views in Sales, four in Operations. Every view is a standard form an agent or a BI tool can rebuild. A chart's body fills its card, so a chart beside a taller one grows to its height. Density: at 1440 × 900 the header, filter row, title, properties and all four number widgets are on the first screen. Reading order follows the list; never lead with a chart.</p>
+<h2 id="component-stylings">Component Stylings</h2>
+<ul>
+<li><strong>Card</strong>: white, 1px <code>#e6e5e3</code> border, 12px radius, 20px 24px 18px padding, no shadow. Three parts on a subgrid: head (view label with any view tabs on the right → title → subtitle → keys, 16px below), body (the view), foot (<code>Note:</code> 13px text-2, 14px above). Never a card inside a card.</li>
+<li><strong>Buttons</strong> (measured): 38px, 8px radius, 16px / 500, icon before the label. Primary: <code>#0075de</code>, white text, hover <code>#005bab</code>. Secondary: <code>#e6f3fe</code>, <code>#005bab</code> text, hover <code>#f2f9ff</code>. Tertiary: white, <code>rgba(0,0,0,.1)</code> border, hover <code>#f6f5f4</code>. Small: 28px, 14px / 500. Icon-only: 28 × 28.</li>
+<li><strong>Segmented control</strong> (the region filter, EN/KO, <code>Without a spec / With DASHBOARD.md</code>): a <code>#f6f5f4</code> track with a 4px border of the same color and a 24px radius; 30px options with 16px padding, 14px / 700 text-2; the selected option is a white pill with ink text and a hairline shadow. <code>role="tablist"</code>, arrow keys move. Small: 3px border, 26px options, 13px.</li>
+<li><strong>View tabs</strong> (in a card head: <code>Table · Board</code>, <code>Weekdays · Weekends</code>): 28px, 20px radius, 14px / 500, an icon before the label; muted when off, ink on <code>#f4f4f3</code> when selected.</li>
+<li><strong>Number widget</strong> (key figure): a card with 16px 18px 14px padding; label 14px / 600 ink with a muted icon → value → change line (14px text-2, the change in 600 status color, then <code>vs Oct 2025</code>). Two text sizes besides the value; the four share a subgrid so values line up.</li>
+<li><strong>Properties</strong>: rows 32px high; the name 14px muted with a 16px icon, the value 14px ink; a status value is a status pill.</li>
+<li><strong>Callout</strong>: <code>#f9f8f7</code>, 10px radius, 14px 16px padding, a 20px line icon, 16px / 24px body text.</li>
+<li><strong>Toggle heading</strong>: a 28px caret button (rotates −90° when closed, <code>aria-expanded</code>), then the title.</li>
+<li><strong>Tags</strong> (select property): 20px high, 4px radius, 0 6px padding, 14px, pastel background and dark text from the tag table. <strong>Status pills</strong>: 10px radius, 0 9px 0 7px padding, an 8px dot in the status color. On track green, Watch yellow, Off track red.</li>
+<li><strong>Table</strong> (database table view): 14px, rows 37px, cells 8px 10px, <code>#f0efed</code> rules on every row and between columns, a rule above the header. Header cells 14px muted with a 14px property icon (<code>Aa</code> title, select, <code>#</code> number, target, clock, status). Numbers right-aligned with tabular figures; the title column 500. A calculation row closes the table: <code>COUNT 9</code>, <code>SUM $1.90M</code>, <code>ON TRACK 6 of 9</code>, each a calculation label then the value.</li>
+<li><strong>Number bar</strong> (a number shown as a bar): 120px × 6px on a <code>#f0efed</code> track, 3px radius, the value in the subject color, a 1.5px ink tick at the target (100%), the value after it as text. 0–120%.</li>
+<li><strong>Board</strong> (the same rows grouped by status): one column per group, tinted with the group's lightest color (<code>#f6f9f7</code>, <code>#fcfaef</code>, <code>#fdf6f6</code>), 10px radius, 0 8px 8px padding; a header with the status pill and the count in text-2; white cards with a 10px radius and the shadow <code>0 0 0 1px rgba(42,28,0,.07), 0 4px 12px rgba(25,25,25,.027), 0 1px 2px rgba(25,25,25,.02)</code>: name 14px / 600, tags, then a two-column list 12px (property muted, value ink).</li>
+<li><strong>Calendar</strong> (calendar view): seven columns from Sunday, weekday names 12px muted right-aligned, cells at least 70px with <code>#f0efed</code> rules; the day number top right (12px), an event chip under it (white, 4px radius, 11px / 500, a hairline shadow), the value bottom left (14px / 600). Cells take the sequential color of their value; days outside the month are <code>#f9f9f8</code>.</li>
+<li><strong>Tooltip</strong> (popover): white, 10px radius, padding 8px 11px 9px, shadow <code>0 0 0 1px rgba(42,28,0,.08), 0 8px 18px rgba(25,25,25,.08), 0 2px 6px rgba(25,25,25,.05)</code>; a 12px muted title, then rows of key (square, or a line for line series, dashed for the comparison), value 600 ink, label text-2. It takes the first side that fits inside the card: above, left, right, below.</li>
+<li><strong>Toast</strong>: ink, white text, 10px radius, bottom center, 2.2s.</li>
+<li><strong>Workbench window</strong>: white, 12px radius, hair border, notion.com's <code>shadow-300</code>. A 240px package panel on <code>#f9f9f8</code> (file names in mono 12px with a one-line description, install commands in white boxes with a copy button), the figure pane (segmented <code>Without a spec / With DASHBOARD.md</code>, an inline-code chip <code>region = all</code> in <code>#b01601</code> on <code>rgba(135,131,120,.15)</code>, title, plot, note, then <strong>Checks · DASHBOARD.md</strong>), and the code pane (tabs <code>Prompt · plan.md · figure-1.js · Tableau · Power BI</code> with an ink underline, a copy button and a primary <code>Run again</code>, line-numbered code, a status bar). Syntax: comment <code>#78736f</code>, string <code>#14832b</code>, number and function <code>#b01601</code>, keyword <code>#005bab</code>, property <code>#31302e</code> 500.</li>
+<li><strong>Notes</strong>: a numbered list, 14px text-2, ink numbers. <strong>Linked pages</strong>: a page icon, the date 12px muted over a 15px / 500 title underlined in <code>rgba(55,53,47,.25)</code>, an arrow on the right, <code>#f0efed</code> rules between.</li>
+<li><strong>Footer</strong>: white over a hairline, 13px text-2; the catalog line in ink, the series in 12px / 600 with 0.06em tracking.</li>
+</ul>
+<h2 id="charts">Charts</h2>
+<ul>
+<li><strong>Choose by the question.</strong></li>
+<li>A trend against last year → a line with last year dashed gray and both line ends labeled (Figure 1).</li>
+<li>Composition over time → 100% stacked bars per month, the subject at the bottom, value labels beside the last bar (Figure 2).</li>
+<li>Many entities against two goals → a database table with a number bar for the target and a status pill; the same rows as a board grouped by status (Table 1).</li>
+<li>A daily pattern within a month → a calendar colored by value, with event chips on the days that explain it (Figure 3).</li>
+<li>A distribution over the day → bars by hour, the peak labeled, view tabs for weekdays and weekends (Figure 4).</li>
+<li>A daily measure against a target, with peers → the subject's line in blue, peers in thin gray, the target as a dashed ink line and <code>↓ Faster</code> when lower is better (Figure 5).</li>
+<li>Items against their own goals → horizontal bars with a goal tick and a status tag per row (Figure 6).</li>
+<li><strong>Titles.</strong> The card title is the finding (<code>Saturdays averaged 27% more transactions than weekdays, and Halloween was the busiest day</code>), recomputed when the filter changes. The subtitle names the measure and period; the note explains the method and the source.</li>
+<li><strong>Marks.</strong> Lines 2.5px for the subject, 2px for the comparison, 1.5px for peers; a hollow end marker on the subject. Bars up to 28px wide (24px by hour, 18px tall horizontal), rounded 2px at the end, 2px white gaps between stacked segments.</li>
+<li><strong>Axes.</strong> Dotted horizontal gridlines <code>#e6e5e3</code> (1 on, 3 off), a solid <code>#e6e5e3</code> baseline, no vertical axis line; ticks 12px muted, four or five nice ticks, one decimal count per axis; the current month or last day in ink.</li>
+<li><strong>Labels.</strong> Line ends carry <code>Name value</code> instead of a legend; the peak bar carries its value in the subject's text color; values beside bars 12px / 600 ink. Labels over marks have a white halo.</li>
+<li><strong>Keys</strong> only where labels cannot do the job, as a one-line row in the card head (swatch 12px with a 2px radius, a line, a dashed line, a tick, or a five-step ramp between <code>Fewer</code> and <code>More</code>).</li>
+<li><strong>One axis.</strong> Never a dual axis.</li>
+<li><strong>Never:</strong> pie, donut, 3D, gradients or gradient areas, smoothed lines, the button blue on data, a fourth hue, tag colors as a measure.</li>
+<li>Every chart has a hover tooltip, keyboard control and a screen-reader table.</li>
+</ul>
+<h2 id="depth--elevation">Depth &amp; Elevation</h2>
+<p>Flat. Cards are set apart by a hairline, not by shadows, and never lift on hover. Shadows exist only on board cards (a hairline ring and a soft 12px blur), the tooltip, the toast and the workbench window.</p>
+<h2 id="interaction--motion">Interaction &amp; Motion</h2>
+<ul>
+<li><strong>Filter</strong>: the segmented control scopes everything; changing it rewrites the title, properties, callout, number widgets, card titles and notes, and redraws every view. The URL keeps the region.</li>
+<li><strong>View tabs</strong> switch Table 1 between Table and Board and Figure 4 between weekdays and weekends. <strong>Toggle headings</strong> collapse a section.</li>
+<li><strong>Hover</strong> shows the tooltip and a crosshair, a hollow dot, a <code>#f6f5f4</code> band behind a bar or row, or an ink ring around a calendar day; touch taps pick and a tap elsewhere clears.</li>
+<li><strong>Keyboard</strong>: every chart and the calendar are focusable; arrow keys step (up and down move a week in the calendar), Home and End jump, Esc clears, and a live region reads the value. Segments and tabs move with arrow keys.</li>
+<li><strong>Workbench</strong>: the first time it scrolls into view, the code types itself (55ms a line, 380ms between steps) and each step draws its layer of Figure 1 (frame → comparison line → subject line → end labels → title and note) and ticks its checks. Hovering a line of code spotlights its layer; hovering the chart highlights its code. <code>Without a spec</code> shows a typical first draft and fails all six checks. Changing the filter rewrites the <code>region</code> value and flashes that line.</li>
+<li><code>Copy as Markdown</code> copies the whole report as Markdown with a toast; <code>Export PDF</code> prints.</li>
+<li>Motion: lines draw in 0.7s, bars grow in 0.45s, labels fade in 0.3s, <code>cubic-bezier(0,0,.58,1)</code>; controls change in 0.2s. <code>prefers-reduced-motion</code> turns all motion off and shows the workbench finished.</li>
+</ul>
+<h2 id="accessibility">Accessibility</h2>
+<ul>
+<li>Text ≥ 4.5:1 on its surface: muted 4.7:1 and text-2 6.5:1 on white; good 4.9:1, bad 7.1:1; blue text 5.1:1, orange text 5.7:1; tag text 5.8:1 or more on its tag; white on the primary button 4.6:1; code token colors ≥ 4.5:1.</li>
+<li>Marks below 3:1 (Other 1.71:1, comparison 2.66:1, the light calendar step 2.59:1) always have a second cue: a gap, a dash, a label, a value in the cell or a table.</li>
+<li>Identity is never color alone: names at line ends, labels on pills and tags, dashes for comparisons and targets, signs on every change.</li>
+<li>Focus ring <code>#0075de</code>, 2px, 2px offset. Tab order: header → filter → sections in reading order.</li>
+<li>Real tables with <code>scope</code>; every chart has a hidden data table and an <code>aria-label</code> that says what it shows.</li>
+</ul>
+<h2 id="responsive-behavior">Responsive Behavior</h2>
+<p>Each step keeps what the wider steps changed.</p>
+<ul>
+<li>≥ 1360: as laid out above.</li>
+<li>1200–1359: 24px padding, 20px gaps, 56px between sections; cards padded 18px 20px 16px; table cells 8px 8px; number bars 96px; the workbench lifts its package panel into one row above the figure and the code.</li>
+<li>1024–1199: the same rows; number values 36px; calendar event chips hide (the tooltip keeps them); code 12px with wrapped lines.</li>
+<li>900–1023: cards stack one per row; the page head stacks, with the four number widgets in one row (values 32px); event chips return; the workbench is one column.</li>
+<li>640–899: a 56px header without the report name or <code>Export PDF</code>; the basis line leaves the filter row; number widgets 2 × 2; steps stack; the table drops Format and vs Oct 2025; event chips hide again.</li>
+<li>&lt; 640: 16px padding, 12px gaps, 44px between sections; the period pill and <code>Copy as Markdown</code> leave the header; region segments 13px; title 27px, number values 28px, section titles 22px, card titles 17px; cards padded 16px 14px 14px; the table keeps Store, Net sales and Status; the board is one column; calendar cells 52px with 11px text; long item names end in <code>…</code>.</li>
+<li>Embedded in a post (<code>?embed=1</code>): the footer hides and the page reports its height to the host page.</li>
+</ul>
+<h2 id="tool-mapping">Tool Mapping</h2>
+<p><strong>Web and coding agents.</strong> Load <code>tokens.css</code> (installed in <code>.claude/skills/dashboard-style/</code>; or copy the <code>colors</code> block from the front matter) and these fonts (the second for Korean). Tag colors are <code>--tag-&lt;color&gt;-bg</code>, <code>--tag-&lt;color&gt;-text</code> and <code>--tag-&lt;color&gt;-dot</code>.</p>
+<!--email_off-->
+
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600;700&amp;display=swap&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css&quot;&gt;
+</code></pre>
+<!--/email_off-->
+
+<p><strong>Tableau.</strong> Paste the <code>&lt;color-palette&gt;</code> elements of <code>notion.tps</code> into <code>My Tableau Repository/Preferences.tps</code> and restart Tableau Desktop. The categorical palette runs blue, orange, green, Other and the comparison gray; assign the subject first.
+- Dashboard background <code>#ffffff</code>; each sheet in a container with a 1px <code>#e6e5e3</code> border and 20/24px inner padding. Worksheet shading white.
+- The card head: a text object with the figure label (Tableau Book 9, <code>#615d59</code>), the finding as the sheet title (bold, 13–14pt, <code>#191918</code>) and the measure as a subtitle line; the method in the caption, starting with <code>Note:</code>.
+- Grid lines: rows only, dotted, <code>#e6e5e3</code>; zero line <code>#e6e5e3</code>; no axis rulers on the value axis; ticks Tableau Book 9 in <code>#78736f</code>.
+- Lines: subject size 3, comparison dashed. Target: a reference line, constant, dashed ink, labeled <code>Target 4:00</code>. Stacked bars: Color → the categorical palette, Format → Borders → white separators.
+- Calendar: a text table of WEEKDAY(day) by WEEK(day), Square marks colored by the transaction count with the sequential palette, the day number and value as labels (ink on the two light steps, white on the dark ones).
+- Table: a text table with row dividers <code>#f0efed</code>, the target as a bar in a second sheet or a Gantt bar with a reference line at 100%, status as a circle mark in the status dot colors beside the label.
+- Formats <code>$#,##0.00</code>, <code>$#,##0,K</code>, <code>0.0%</code>, <code>+0.0" pts";−0.0" pts"</code>, durations <code>m:ss</code> from seconds; Korean workbooks <code>#,##0.00"달러"</code> and <code>+0.0"%p";−0.0"%p"</code>. Fonts: Tableau Book unless Inter is installed on every viewing machine and on the server.</p>
+<p><strong>Power BI.</strong> View → Themes → Browse for themes → <code>powerbi-theme.json</code>. It sets the data colors (blue, orange, green, then Other), the white page, white visuals with a 1px <code>#e6e5e3</code> border and a 12px radius, axis and gridline colors and text classes. Install Inter on authoring and viewing machines or accept Segoe UI.
+- Title each visual with the finding; put the measure in the subtitle and the method in a text box starting with <code>Note:</code>.
+- Gridlines dotted; data labels on the last point instead of a legend; a constant line for the target, dashed ink.
+- Table: conditional formatting → data bars in <code>#2783de</code> for the target column, icons or font color in the status colors for status, <code>#b01601</code> for missed handoff times.
+- Calendar: a matrix of weekday by week with background conditional formatting from the sequential steps.
+- Key figures as cards with a <code>#e6e5e3</code> border and a 12px radius; change measures with conditional formatting in <code>#14832b</code> / <code>#b01601</code> only.</p>
+<p><strong>Chart libraries (D3, Observable Plot, Vega-Lite, matplotlib, Datawrapper).</strong> Subject <code>#2783de</code> (labels <code>#1f6fc5</code>), second <code>#dd5b00</code> (<code>#ab4a00</code>), Other <code>#c7c6c4</code>, comparison <code>#a39e98</code> dashed <code>6 4</code>, target <code>#191918</code> dashed <code>4 3</code>, gridlines <code>#e6e5e3</code> dashed <code>1 3</code> on rows only, ticks <code>#78736f</code> at 12px, plot background white, bar ends rounded 2px. The sample's Figure 1 in five forms is in the workbench of the live sample; <code>sales.csv</code> is its data.</p>
+<h2 id="dos-and-donts">Do's and Don'ts</h2>
+<ul>
+<li>Do open with a title that states the result, three properties, a callout with the drivers and four number widgets. Don't lead with a chart or a dozen KPI tiles.</li>
+<li>Do put every view on the same white card with the same head and foot. Don't mix shadows, gray cards and borderless panels.</li>
+<li>Do choose the form by the question (line, stacked bars, database table and board, calendar, bars by hour, lines against a target, bars against goal ticks). Don't fall back to the same bar chart in every card.</li>
+<li>Do paint the subject Notion blue <code>#2783de</code> and everyone else gray. Don't put the button blue, a fourth hue or a tag color on data.</li>
+<li>Do title each card with its finding and explain the method in the note. Don't title a chart with its measure alone.</li>
+<li>Do use tags and status pills for names and states, with their labels. Don't let a dot or a color stand alone.</li>
+<li>Do use dotted gridlines on rows only and label line ends. Don't keep a legend that labels could replace.</li>
+<li>Do keep tables in Notion's grammar: hairline rules, property icons in the header, a calculation row. Don't zebra-stripe or tint whole rows.</li>
+<li>Do keep seven views or fewer on one screen. Don't add a card only to show a token.</li>
+<li>Don't put a logo, a wordmark, an emoji page icon or a photo anywhere.</li>
+</ul>
+<h2 id="agent-prompt-guide">Agent Prompt Guide</h2>
+<p>Install the style (<code>npx @vizney/styles@latest add notion</code>, <code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- notion</code>, or unzip the package in the project root). Agents that read skills load <code>dashboard-style</code> on their own and work in one of three modes: <strong>Build</strong> (plan the views, then draw them to this file), <strong>Restyle</strong> (move an existing screen onto this file without changing its data) and <strong>Review</strong> (a table of rule, finding, severity and fix). For an agent without skills, start the prompt with <code>Read DASHBOARD.md and follow it exactly.</code> For example:</p>
+<pre><code>Read DASHBOARD.md and follow it exactly. Build our monthly store operations dashboard as one self-contained HTML file
+with fictional data, in English and Korean (?lang=en|ko, English by default).
+Top: header with the period pill, EN/KO segmented control, Export PDF and Copy as Markdown; one segmented filter row of
+regions that scopes every card. Then a page head: a line icon, a title that states this month's result, three properties
+(scope, compared with, status pill), four number widgets 2 × 2 with changes vs last year, a callout with the drivers.
+Sales (toggle heading): net sales by month against last year beside channel shares as 100% stacked bars; a stores
+database table with tags, a target number bar, handoff time, a status pill and a calculation row, with a Board view.
+Operations: a calendar of daily transactions colored by value beside orders by hour with weekday/weekend tabs; daily
+handoff time against a 4:00 target beside fall menu items against their goals.
+Every view on the same card: figure label, finding title, subtitle, keys, view, &quot;Note:&quot;. At most seven views per screen.
+Use only the values in Data Colors, the formats in Numbers, Dates &amp; Units and the components in Component Stylings.
+Every chart needs a hover tooltip, keyboard control and a screen-reader table.
+</code></pre>
+<p>Before it is done, the agent checks:
+- [ ] The title states the result; the callout names the drivers; number widgets carry signed changes colored by good or bad.
+- [ ] Every view sits on the same white card; every card title states a finding; every note starts with <code>Note:</code> and explains the method.
+- [ ] The subject is <code>#2783de</code> everywhere; peers and Other gray; comparison dashed <code>#a39e98</code>; no button blue, fourth hue or tag color on data.
+- [ ] Gridlines dotted on rows only; line ends labeled; keys only where labels cannot work; no dual axis, pie, donut or gradient.
+- [ ] Tags and status pills use the tag table and keep their labels; tables have hairline rules, header icons and a calculation row.
+- [ ] Numbers, dates and durations follow the formats in both languages.
+- [ ] Text ≥ 4.5:1 on its surface; marks below 3:1 have a second cue.
+- [ ] Every chart has a tooltip, keyboard control and a data table; the filter changes every card; at most seven views per screen; nothing breaks at 390px.</p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Vizney Styles · © 2026 <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener">Vizney</a></span>
+    <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
+    <nav aria-label="Footer" data-i18n-aria="footAria">
+      <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>
+      <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="navContact">Contact</a>
+      <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
+      <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  // The site's header, tabs and footer around a spec page. The spec itself is English; ?lang=ko switches the
+  // chrome (labels and Vizney links) like the other site pages. Same code as index.html / 404.html.
+  var STR = { "ko": {"skip": "본문으로 건너뛰기", "navStyles": "카탈로그", "navCustom": "우리 회사", "navRequest": "브랜드 요청", "navContact": "문의", "globeTitle": "Switch to English", "ghSearch": "Vizney 검색", "ghMenu": "메뉴", "ghMore": "더 보기", "tabsAria": "Vizney Styles 메뉴", "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)", "footAria": "바닥글", "footBlog": "블로그"}, "en": {"skip": "Skip to content", "navStyles": "Catalog", "navCustom": "Your company", "navRequest": "Request a brand", "navContact": "Contact", "globeTitle": "한글로 보기", "ghSearch": "Search Vizney", "ghMenu": "Main Menu", "ghMore": "More", "tabsAria": "Vizney Styles menu", "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)", "footAria": "Footer", "footBlog": "Blog"} };
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
+  const state = { lang: params.get('lang') === 'ko' ? 'ko' : 'en' };
+  const S = () => STR[state.lang];
+  const PAGE = 'spec';
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  // The Vizney header's menu, as on the blog (the same addresses on Vizney Blocks). Labels are English in both languages.
+  const VZ = {
+    ko: { home: 'https://kr.vizney.com/', 'chart-guide': 'https://kr.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/ko/', styles: 'https://styles.vizney.com/?lang=ko', tips: 'https://kr.vizney.com/tips/', kb: 'https://kr.vizney.com/kb/', about: 'https://kr.vizney.com/about/', contact: 'https://kr.vizney.com/contact-us/', search: 'https://kr.vizney.com/#/search' },
+    en: { home: 'https://www.vizney.com/', 'chart-guide': 'https://www.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/', styles: 'https://styles.vizney.com/', tips: 'https://www.vizney.com/tips/', kb: 'https://www.vizney.com/kb/', about: 'https://www.vizney.com/about/', contact: 'https://www.vizney.com/contact-us/', search: 'https://www.vizney.com/#/search' }
+  };
+  function href(key) {
+    const L = state.lang;
+    const [kind, name] = key.split(':');
+    if (kind === 'home') return '/' + (L === 'ko' ? '?lang=ko' : '') + (name ? '#' + name : '');
+    if (kind === 'contact') return BLOG[L] + 'contact-us/';
+    if (kind === 'blog') return BLOG[L];
+    if (kind === 'v') return VZ[L][name];
+    if (kind === 'lang') {
+      try {
+        const u = new URL(location.href);
+        if (L === 'en') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+        return u.pathname + u.search + u.hash;
+      } catch (e) { return L === 'en' ? '?lang=ko' : '?'; }
+    }
+    return '#';
+  }
+  function applyLang() {
+    const s = S();
+    $$('[data-i18n]').forEach(el => { const v = s[el.dataset.i18n]; if (v != null) el.textContent = v; });
+    $$('[data-i18n-aria]').forEach(el => { const v = s[el.dataset.i18nAria]; if (v != null) el.setAttribute('aria-label', v); });
+    $$('[data-href]').forEach(a => { a.href = href(a.dataset.href); });
+    applyHeader();
+  }
+  function setLang(L) {
+    if (L === state.lang) return;
+    state.lang = L;
+    applyLang();
+    try {
+      const u = new URL(location.href);
+      if (L === 'ko') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* the page still switches */ }
+  }
+  /* ---------- Vizney header: menu overflow, burger, globe; the site's tabs ---------- */
+  const PHONE = window.matchMedia('(max-width:767px)');
+  const ghMenu = $('.gh-menu'), ghNav = $('.gh-nav');
+  const GH_ITEMS = $$('li', ghNav);
+  const MORE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM13.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM5.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0z"/></svg>';
+  let ghMoreEl = null;
+
+  function closeMore() {
+    if (!ghMoreEl || !ghMoreEl.classList.contains('is-open')) return;
+    ghMoreEl.classList.remove('is-open');
+    $('.gh-more__toggle', ghMoreEl).setAttribute('aria-expanded', 'false');
+  }
+  // As on the blog (Casper): items that do not fit one line move, from the end, under a '…' toggle.
+  function layoutMenu() {
+    ghMoreEl = null;
+    ghNav.replaceChildren(...GH_ITEMS);
+    GH_ITEMS.forEach((li, i) => { li.style.transitionDelay = PHONE.matches ? (0.03 * (i + 1)) + 's' : ''; });
+    if (PHONE.matches) return;
+    const sub = [];
+    while (ghNav.offsetWidth + 64 > ghMenu.offsetWidth && ghNav.lastElementChild) {
+      sub.unshift(ghNav.lastElementChild);
+      ghNav.lastElementChild.remove();
+    }
+    if (!sub.length) return;
+    const li = document.createElement('li');
+    li.className = 'gh-more';
+    li.innerHTML = '<button class="gh-more__toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="' + esc(S().ghMore) + '">' + MORE_SVG + '</button><ul class="gh-dropdown"></ul>';
+    $('.gh-dropdown', li).append(...sub);
+    ghNav.append(li);
+    ghMoreEl = li;
+  }
+  document.addEventListener('click', e => {
+    if (!ghMoreEl) return;
+    const toggle = $('.gh-more__toggle', ghMoreEl);
+    if (ghMoreEl.classList.contains('is-open')) closeMore();
+    else if (toggle.contains(e.target)) { ghMoreEl.classList.add('is-open'); toggle.setAttribute('aria-expanded', 'true'); }
+  });
+
+  const burger = $('.gh-burger');
+  function setMenuOpen(open) {
+    document.body.classList.toggle('gh-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', () => setMenuOpen(!document.body.classList.contains('gh-open')));
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (ghMoreEl && ghMoreEl.classList.contains('is-open')) { closeMore(); $('.gh-more__toggle', ghMoreEl).focus(); }
+    else if (document.body.classList.contains('gh-open')) { setMenuOpen(false); burger.focus(); }
+  });
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (!PHONE.matches) setMenuOpen(false); layoutMenu(); }, 1);
+  });
+
+  // The globe opens this page in the other language; here it switches in place, keeping the address right.
+  $$('.gh-globe').forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    setLang(state.lang === 'ko' ? 'en' : 'ko');
+  }));
+
+  // Tabs: on the home page the tab follows the section in view; elsewhere none is current.
+  const TAB_SECTIONS = PAGE === 'home' ? ['custom', 'styles'].map(id => [id, document.getElementById(id)]) : [];
+  function markTab() {
+    if (PAGE !== 'home') return;
+    const line = $('.tabs').getBoundingClientRect().bottom + 8;
+    let cur = 'top';
+    for (const [id, el] of TAB_SECTIONS) {
+      const sec = el && (el.closest('section') || el);
+      if (sec && sec.getBoundingClientRect().top <= line) { cur = id; break; }
+    }
+    $$('.tabs [data-tab]').forEach(a => { if (a.dataset.tab === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+  }
+  let tabFrame = 0;
+  window.addEventListener('scroll', () => { if (!tabFrame) tabFrame = requestAnimationFrame(() => { tabFrame = 0; markTab(); }); }, { passive: true });
+  markTab();
+
+  function applyHeader() {
+    const s = S();
+    $$('.gh-globe').forEach(a => { a.title = s.globeTitle; a.setAttribute('aria-label', s.globeTitle); });
+    $$('.gh-search').forEach(a => { a.title = s.ghSearch; });
+    layoutMenu();
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutMenu);
+  window.addEventListener('load', layoutMenu);
+  applyLang();
+})();
+</script>
+</body>
+</html>
