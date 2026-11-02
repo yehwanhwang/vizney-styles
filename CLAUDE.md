@@ -101,7 +101,7 @@ Vizney Blocks와 블로그가 같은 값을 쓰는 헤더다. 아래 규격은 �
 - 지구본은 이 페이지의 다른 언어 버전(`?lang=ko` 붙이기·빼기)이다. 홈·404·명세 페이지는 다시 불러오지 않고 그 자리에서 바꾼다. 돋보기는 블로그 검색(한국어 `https://kr.vizney.com/#/search`, 영어 `https://www.vizney.com/#/search`)이다.
 - 한국어 카탈로그 주소는 `https://styles.vizney.com/?lang=ko`다. Blocks와 블로그 메뉴가 이 주소를 쓴다.
 - **탭 줄:** 헤더 바로 아래, 흰 바탕, 높이 48px, 안쪽 폭은 헤더와 같다(최대 1200px, 좌우 max(4vmin, 20px)). 왼쪽부터 'Vizney Styles'(굵게) · 카탈로그 · 우리 회사 · 브랜드 요청 ↗, 오른쪽 끝에 GitHub ↗. 탭 이름은 화면 언어를 따른다(Catalog · Your company · Request a brand). 지금 보고 있는 탭은 `#1b1b1b` 2px 밑줄이다. 홈에서는 보이는 구역에 따라 바뀌고(머리 → Vizney Styles, 카탈로그, 우리 회사부터 끝까지), 404와 명세 페이지에서는 표시하지 않는다. 스크롤할 때 화면 위에 붙고(`position: sticky; top: 0`), 모바일에서는 가로 스크롤이다. GitHub로 나가는 두 탭만 새 탭으로 연다.
-- 명세 페이지(`<name>/DASHBOARD.html`)는 GitHub Pages가 DASHBOARD.md를 `_layouts/spec.html`로 감싸 만든다(`_config.yml`의 `defaults`, 경로 `*/DASHBOARD.md`). 헤더·탭 줄·바닥글은 홈과 같고 본문은 영어다.
+- 명세 페이지(`<name>/DASHBOARD.html`)는 GitHub Pages가 DASHBOARD.md를 `_layouts/spec.html`로 감싸 만든다(`_config.yml`의 `defaults`: 모든 Markdown 페이지, 그래서 `prompt.html`·`skill/SKILL.html`도 같은 틀이다. 경로 글롭은 GitHub Pages에서 적용되지 않는다). 헤더·탭 줄·바닥글은 홈과 같고 본문은 영어다. HTML 파일에는 머리(front matter)를 넣지 않는다. 넣으면 이 레이아웃이 씌워진다.
 - 라이브 샘플(`/<name>/`)은 대시보드 화면이므로 공통 헤더를 넣지 않는다. 대신 바닥의 고지 옆에 돌아가는 링크를 둔다(아래 '화면 규칙').
 
 

@@ -5,9 +5,11 @@ exclude:
   - README.md
   - tools
   - npm
-# Every style's spec page (<name>/DASHBOARD.html) gets the site's header, tabs and footer.
+# Every Markdown page (<name>/DASHBOARD.html, prompt.html, skill/SKILL.html) gets the site's header, tabs and footer.
+# The HTML pages have no front matter, so Jekyll copies them as they are. (A glob path here is not applied on GitHub Pages.)
 defaults:
   - scope:
-      path: "*/DASHBOARD.md"
+      path: ""
+      type: pages
     values:
       layout: spec
