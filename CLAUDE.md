@@ -28,7 +28,7 @@
 5. **세 단어:** 부제는 세 단어다. 단어마다 첫 글자를 대문자로 쓰고 쉼표로 이으며 마침표는 붙이지 않는다("Ivory, Editorial, Quiet" · "아이보리, 에디토리얼, 고요함"). 한두 단어는 사람들이 검색하는 말, 하나는 분위기 단어로 고르고, 다른 스타일과 겹치지 않는 단어를 하나 이상 넣는다. 영어와 한국어는 직역하지 않는다. 해시태그는 SNS 캡션에만 쓴다.
 6. **구현:** 아래 '화면 규칙'대로 `<name>/index.html`을 만든다.
 7. **검증:** 아래 '검증'을 모두 통과시킨다.
-8. **명세와 패키지:** `tokens.json`을 쓰고 DASHBOARD.md 본문과 `prompt.md`를 쓴 뒤(아래 '명세 형식') `python3 tools/package.py <name>`으로 `tokens.css`, `<name>.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, `skill/SKILL.md`, 설치용 zip을 만든다. 명세나 프롬프트를 고칠 때마다 다시 돌린다(zip이 그 파일들을 담는다).
+8. **명세와 패키지:** `tokens.json`을 쓰고 DASHBOARD.md 본문과 `prompt.md`를 쓴 뒤(아래 '명세 형식') `python3 tools/package.py <name>`으로 `tokens.css`, `<name>.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, 명세 페이지 `DASHBOARD.html`, `skill/SKILL.md`, 설치용 zip을 만든다(Python `markdown` 패키지 필요). 명세나 프롬프트를 고칠 때마다 다시 돌린다(zip이 그 파일들을 담는다).
 9. **커버:** `python3 tools/shots.py <name>`으로 `cover-en.png`, `cover-ko.png`(1440×810, 2배)를 만든다. 홈 카드, 포스트 대표 이미지, 링크 미리보기에 쓴다. 커버의 바탕은 그 브랜드의 룩(샘플 화면) 그대로이고, 하단 가운데에 'Vizney' 워드마크만 넣는다: 페이지 바탕색의 띠(84px, 위로 40px 페이드)에 워드마크를 그 화면 `<h1>`의 색으로 칠한다. 캡처에서만 더하는 띠이며 샘플 화면에는 마크를 넣지 않는다.
 10. **README와 홈:** README의 Catalog 표에 행을 추가하고, 홈(`index.html`)에 카드를 넣고 첫 화면 오른쪽 샘플을 새 스타일로 바꾼다(아래 '홈 페이지').
 11. **배포:** 작업 브랜치 → 커밋 → PR → 머지. GitHub Actions의 'pages build and deployment'가 성공했는지로 배포를 확인한다. `main`에 올라간 것은 바로 공개된다.
@@ -101,7 +101,7 @@ Vizney Blocks와 블로그가 같은 값을 쓰는 헤더다. 아래 규격은 �
 - 지구본은 이 페이지의 다른 언어 버전(`?lang=ko` 붙이기·빼기)이다. 홈·404·명세 페이지는 다시 불러오지 않고 그 자리에서 바꾼다. 돋보기는 블로그 검색(한국어 `https://kr.vizney.com/#/search`, 영어 `https://www.vizney.com/#/search`)이다.
 - 한국어 카탈로그 주소는 `https://styles.vizney.com/?lang=ko`다. Blocks와 블로그 메뉴가 이 주소를 쓴다.
 - **탭 줄:** 헤더 바로 아래, 흰 바탕, 높이 48px, 안쪽 폭은 헤더와 같다(최대 1200px, 좌우 max(4vmin, 20px)). 왼쪽부터 'Vizney Styles'(굵게) · 카탈로그 · 우리 회사 · 브랜드 요청 ↗, 오른쪽 끝에 GitHub ↗. 탭 이름은 화면 언어를 따른다(Catalog · Your company · Request a brand). 지금 보고 있는 탭은 `#1b1b1b` 2px 밑줄이다. 홈에서는 보이는 구역에 따라 바뀌고(머리 → Vizney Styles, 카탈로그, 우리 회사부터 끝까지), 404와 명세 페이지에서는 표시하지 않는다. 스크롤할 때 화면 위에 붙고(`position: sticky; top: 0`), 모바일에서는 가로 스크롤이다. GitHub로 나가는 두 탭만 새 탭으로 연다.
-- 명세 페이지(`<name>/DASHBOARD.html`)는 GitHub Pages가 DASHBOARD.md를 `_layouts/spec.html`로 감싸 만든다(`_config.yml`의 `defaults`: 모든 Markdown 페이지, 그래서 `prompt.html`·`skill/SKILL.html`도 같은 틀이다. 경로 글롭은 GitHub Pages에서 적용되지 않는다). 헤더·탭 줄·바닥글은 홈과 같고 본문은 영어다. HTML 파일에는 머리(front matter)를 넣지 않는다. 넣으면 이 레이아웃이 씌워진다.
+- 명세 페이지(`<name>/DASHBOARD.html`)는 `tools/package.py`가 DASHBOARD.md 본문을 `_layouts/spec.html`에 넣어 만든다. DASHBOARD.md 머리의 `layout` 토큰이 Jekyll의 레이아웃 키와 겹치므로 Jekyll이 렌더링하지 않게 `_config.yml`에서 `*/DASHBOARD.md`를 제외한다. 머리글 id는 GitHub Pages(kramdown GFM)와 같은 규칙이다. 다른 Markdown 페이지(`prompt.html`, `skill/SKILL.html`)는 Jekyll이 같은 레이아웃으로 감싼다(`_config.yml`의 `defaults`). 헤더·탭 줄·바닥글은 홈과 같고 본문은 영어다. HTML 파일에는 머리(front matter)를 넣지 않는다. 넣으면 레이아웃이 씌워진다.
 - 라이브 샘플(`/<name>/`)은 대시보드 화면이므로 공통 헤더를 넣지 않는다. 대신 바닥의 고지 옆에 돌아가는 링크를 둔다(아래 '화면 규칙').
 
 
@@ -150,7 +150,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - DESIGN.md 형식과 호환되게: YAML 머리(토큰)와 본문 섹션. 머리는 `tools/package.py`가 `tokens.json`에서 다시 쓰므로 손으로 고치지 않는다.
 - 제목 `# <Name> style — DASHBOARD.md`, 영어 세 단어 · 한국어 세 단어, 한 단락 소개(무엇을 담은 파일인지), 라이브 샘플·원본(raw) 주소·같은 폴더의 파일 링크·카탈로그 번호, 고지 한 단락.
 - 섹션 순서: Visual Theme & Atmosphere · Color Palette & Roles · Data Colors · Typography Rules · Numbers, Dates & Units · Layout Principles · Component Stylings · Charts · Depth & Elevation · Interaction & Motion · Accessibility · Responsive Behavior · Tool Mapping · Do's and Don'ts · Agent Prompt Guide.
-- 이름만 듣고 같은 스타일을 다시 만들 수 있을 만큼 구체적으로 쓴다. 영어로 쓰되 숫자·날짜 규칙은 한국어 표기도 적는다. 사이트에서는 `<name>/DASHBOARD.html`로 열린다(`_layouts/spec.html`, 위 '공통 헤더 규격').
+- 이름만 듣고 같은 스타일을 다시 만들 수 있을 만큼 구체적으로 쓴다. 영어로 쓰되 숫자·날짜 규칙은 한국어 표기도 적는다. 사이트에서는 `<name>/DASHBOARD.html`로 열린다(`package.py`가 만든다. 위 '공통 헤더 규격').
 - `prompt.md`: 새 대시보드(영어·한국어), 기존 화면 고치기, 명세로 검토하기, 샘플 그림 하나 다시 그리기 프롬프트와 Tableau·Power BI 적용 메모.
 - `tokens.json`: 색(토큰·용도), 데이터 색과 검증 결과, 서체(언어별)와 크기 체계, 모서리, 간격, 레이아웃, 움직임, 도구 메모. 값을 바꾸면 `package.py`를 다시 돌린다.
 
@@ -218,6 +218,6 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 
 - 공개된 스타일의 폴더 이름은 바꾸지 않는다(포스트 임베드가 깨진다). 고칠 때는 같은 주소에서 고치고 이력은 Git이 보관한다.
 - `lib/embed.js`, `lib/embed-host.js`는 발행된 포스트가 쓰므로 이전 동작과 호환되게 고친다.
-- 생성 파일(`tokens.css`, `.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, `skill/SKILL.md`, zip)은 손으로 고치지 않고 `tokens.json`(스킬은 `tools/skill.md`)을 고친 뒤 `package.py`를 돌린다.
+- 생성 파일(`tokens.css`, `.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, `DASHBOARD.html`, `skill/SKILL.md`, zip)은 손으로 고치지 않고 `tokens.json`(스킬은 `tools/skill.md`)을 고친 뒤 `package.py`를 돌린다.
 - `install.sh`는 발행된 포스트와 명세가 안내하는 명령이므로 주소와 인자(`sh -s -- <name>`), 설치 위치를 바꾸지 않는다.
 - npm CLI(`npm/`, 패키지 `@vizney/styles`, `npx @vizney/styles add <name>`)도 같은 파일을 같은 자리에 둔다. 저장소의 `main`에서 파일을 읽으므로 스타일을 더하거나 고칠 때는 npm을 다시 배포하지 않는다(`package.py`가 `catalog.json`을 고친다). CLI 자체를 고칠 때만 `npm/package.json`의 버전을 올리고 'Publish npm package' 워크플로를 돌린다(저장소 시크릿 `NPM_TOKEN` 필요). npm은 새 버전을 먼저 스테이징하므로, 워크플로가 끝나면 npmjs.com의 Staged Packages에서 2FA로 승인해야 공개된다.

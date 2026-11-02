@@ -9,6 +9,10 @@ Reads <name>/tokens.json, the single source of the style's tokens, and writes ne
     powerbi-theme.json  Power BI report theme (data colors, surfaces, text classes)
     DASHBOARD.md        only the YAML front matter between the first two '---' lines is rewritten; the body stays
     skill/SKILL.md      the dashboard-style agent skill (Build · Restyle · Review), from tools/skill.md
+    DASHBOARD.html      the spec as a page of the site (styles.vizney.com/<name>/DASHBOARD.html): the body of
+                        DASHBOARD.md in _layouts/spec.html (the site's header, tabs and footer). Built here, not by
+                        Jekyll, because the front matter's `layout` token would take Jekyll's layout key; _config.yml
+                        excludes */DASHBOARD.md. Needs the Python 'markdown' package.
     <name>-dashboard-style.zip
                         what a project needs, laid out to unzip in its root: DASHBOARD.md and
                         .claude/skills/dashboard-style/ (SKILL.md, tokens.css, tokens.json, <name>.tps,
@@ -19,6 +23,7 @@ Reads <name>/tokens.json, the single source of the style's tokens, and writes ne
 Run it after every change to tokens.json, DASHBOARD.md or prompt.md, so the files never drift apart.
 """
 import json
+import re
 import sys
 import zipfile
 from pathlib import Path
@@ -230,6 +235,34 @@ def update_catalog(t):
     path.write_text(json.dumps(cat, indent=2, ensure_ascii=False) + "\n", encoding='utf-8')
 
 
+def gfm_slug(text, used):
+    """Heading ids as GitHub Pages (kramdown, GFM) made them, so links to sections keep working."""
+    base = re.sub(r'[^\w\- ]', '', text).replace(' ', '-').lower()
+    slug, n = base, 0
+    while slug in used:
+        n += 1
+        slug = f'{base}-{n}'
+    used.add(slug)
+    return slug
+
+
+def spec_html(body):
+    try:
+        import markdown
+    except ImportError:
+        sys.exit('DASHBOARD.html needs the markdown package: pip install markdown')
+    used = set()
+    html = markdown.markdown(body, extensions=['tables', 'fenced_code', 'sane_lists', 'toc'],
+                             extension_configs={'toc': {'slugify': lambda v, sep: gfm_slug(v, used)}})
+    title = re.search(r'^# (.+)$', body, re.M)
+    title = title.group(1).strip() if title else 'DASHBOARD.md'
+    esc = lambda v: v.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
+    page = (ROOT / '_layouts' / 'spec.html').read_text(encoding='utf-8')
+    return (page.replace('{{ page.title | default: "DASHBOARD.md" | escape }}', esc(title))
+                .replace('{{ content }}', html)
+                .replace('<!-- Layout for the site', '<!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site'))
+
+
 def main():
     if len(sys.argv) != 2:
         sys.exit(__doc__)
@@ -248,11 +281,12 @@ def main():
         else:
             body = text
     md.write_text(front_matter(t) + "\n" + body, encoding='utf-8')
+    (folder / 'DASHBOARD.html').write_text(spec_html(body), encoding='utf-8')
     (folder / 'skill').mkdir(exist_ok=True)
     (folder / 'skill' / 'SKILL.md').write_text(skill_md(t), encoding='utf-8')
     write_zip(folder, t)
     update_catalog(t)
-    print(f"{t['slug']}: tokens.css, {t['slug']}.tps, powerbi-theme.json, DASHBOARD.md front matter, skill/SKILL.md, {t['slug']}-dashboard-style.zip")
+    print(f"{t['slug']}: tokens.css, {t['slug']}.tps, powerbi-theme.json, DASHBOARD.md front matter, DASHBOARD.html, skill/SKILL.md, {t['slug']}-dashboard-style.zip")
 
 
 if __name__ == '__main__':

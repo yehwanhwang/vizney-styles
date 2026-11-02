@@ -5,8 +5,10 @@ exclude:
   - README.md
   - tools
   - npm
-# Every Markdown page (<name>/DASHBOARD.html, prompt.html, skill/SKILL.html) gets the site's header, tabs and footer.
-# The HTML pages have no front matter, so Jekyll copies them as they are. (A glob path here is not applied on GitHub Pages.)
+  # <name>/DASHBOARD.html is built by tools/package.py (the front matter's `layout` token would clash with Jekyll's).
+  - "*/DASHBOARD.md"
+# Every Markdown page (prompt.html, skill/SKILL.html) gets the site's header, tabs and footer.
+# The HTML pages have no front matter, so Jekyll copies them as they are.
 defaults:
   - scope:
       path: ""
