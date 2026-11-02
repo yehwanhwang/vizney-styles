@@ -41,13 +41,68 @@
 
 - **이름:** 브랜드는 Vizney, 라인은 Vizney Styles다. 글·화면·외부 등록에서 늘 'Vizney Styles'로 쓰고, 'Styles'만 따로 떼어 브랜드처럼 쓰지 않는다. 다른 라인도 같은 방식이다(Vizney Blocks, 차트 가이드, Fullcut by Vizney).
 - **시리즈 줄:** `VIZNEY STYLES · 01`(대문자, 가운뎃점, 두 자리 번호). 샘플 화면 바닥의 카탈로그 줄, 생성 파일(`tokens.css`·`.tps`·Power BI 테마 이름) 머리, 블로그 포스트 본문 첫 줄에 이 형식으로 쓴다. 화면과 포스트에서는 늘 카탈로그(`https://styles.vizney.com/?lang=ko|en`) 링크다.
-- **로고:** 블로그(kr.vizney.com · www.vizney.com)가 기준이다. 블로그 테마는 Ghost 요금제상 고칠 수 없으므로 Styles가 블로그에 맞춘다. 사이트 머리글의 로고는 블로그 헤더와 같은 흰색 'Vizney' 워드마크(`assets/brand/vizney-wordmark-white.png`, 106×40 상자. Vizney 원본 로고 파일 `vizney_logo_w_v2.png`(2544×960, 블로그 헤더 로고와 같은 그림)를 636×240으로 줄인 이미지) 옆에 가는 세로선과 작은 'Styles'(VZ Sans 15px 500)다. 워드마크를 다시 그리거나 바꾸지 않는다. 밝은 바탕에서는 같은 이미지를 마스크로 써서 잉크색으로 칠한다.
+- **로고:** 블로그(kr.vizney.com · www.vizney.com)가 기준이다. 블로그 테마는 Ghost 요금제상 고칠 수 없으므로 Styles가 블로그에 맞춘다. 사이트 헤더는 블로그와 같은 Vizney 공통 헤더(아래 '공통 헤더 규격')이고, 로고는 그 가운데의 흰색 'Vizney' 워드마크(`assets/brand/vizney-wordmark-white.png`, 106×40 상자. Vizney 원본 로고 파일 `vizney_logo_w_v2.png`(2544×960, 블로그 헤더 로고와 같은 그림)를 636×240으로 줄인 이미지) 하나다. 헤더에 'Vizney Styles' 이름을 붙이지 않는다. 사이트 이름은 헤더 아래 탭 줄의 첫 항목이다. 워드마크를 다시 그리거나 바꾸지 않는다. 밝은 바탕에서는 같은 이미지를 마스크로 써서 잉크색으로 칠한다.
 - **블록 마크:** Vizney 공통 마크(2×2 블록: 잉크 `#1b1b1b` · 주황 `#ff9500` · 노랑 `#ffcc00` · 분홍 `#ff2d55`, Vizney Blocks와 같은 마크)는 브랜드 로고가 아니라 라인 아이콘이다. 워드마크가 들어갈 수 없는 자리(`favicon.svg`)에만 쓴다. Styles만의 변형 마크나 Styles 소개 페이지는 만들지 않는다. 샘플 화면에는 어떤 마크도 넣지 않는다.
-- **사이트 UI 강조색:** 블로그 포스트 이미지의 노랑 `#ffcc00` 하나다(블로그 공지 띠와 같은 값, 호버 `#f2c200`). 주 버튼, 눌린 EN/KO, 메뉴 호버 밑줄, 링크 밑줄, 포커스에 쓴다. 노랑 바탕의 글자는 잉크 `#1b1b1b`(12.9:1)다. 포커스는 흰 바탕에서 노랑만으로는 1.6:1이라 잉크 링 바깥에 노랑 테를 두르고, 검정 머리글 안에서는 노랑 링만 쓴다. 이 노랑은 사이트(홈·404·OG)에만 쓰고, 브랜드별 참고 화면과 커버의 색은 그 브랜드의 룩이므로 바꾸지 않는다. 데이터 색으로도 쓰지 않는다.
-- **사이트:** Vizney의 한 라인으로 보이게 한다. 머리글은 블로그 헤더처럼 `#1b1b1b` 바탕에 흰 글자, 본문은 흰 바탕이다. 머리글 메뉴(Catalog, Your company, Request a brand, Contact, Vizney)와 바닥글(Blog · 문의 · Vizney Blocks · GitHub)에 블로그 링크를 두고, 회사 소개·브랜드 이야기는 블로그(About)에 맡긴다.
-- **언어별 링크:** 블로그로 가는 링크(Vizney ↗, Blog, 문의, 소개 글, 샘플의 '우리 회사 것 의뢰하기', 돌아가는 링크)는 화면 언어를 따른다. 한국어는 `https://kr.vizney.com/`(문의 `https://kr.vizney.com/contact-us/`), 영어는 `https://www.vizney.com/`(문의 `https://www.vizney.com/contact-us/`). 홈·404는 `data-href`와 `href()`로, 샘플은 `applyLang()`에서 바꾼다. HTML에 적힌 주소는 스크립트 없이 읽힐 때의 영어 기본값이다.
+- **사이트 UI 강조색:** 블로그 포스트 이미지의 노랑 `#ffcc00` 하나다(블로그 공지 띠와 같은 값, 호버 `#f2c200`). 주 버튼, 링크 밑줄, 포커스에 쓴다(공통 헤더의 메뉴와 탭 줄에는 쓰지 않는다). 노랑 바탕의 글자는 잉크 `#1b1b1b`(12.9:1)다. 포커스는 흰 바탕에서 노랑만으로는 1.6:1이라 잉크 링 바깥에 노랑 테를 두르고, 검정 헤더 안에서는 노랑 링만 쓴다. 이 노랑은 사이트(홈·404·명세 페이지·OG)에만 쓰고, 브랜드별 참고 화면과 커버의 색은 그 브랜드의 룩이므로 바꾸지 않는다. 데이터 색으로도 쓰지 않는다.
+- **사이트:** Vizney의 한 라인으로 보이게 한다. 블로그 메뉴에서 Styles를 눌러 넘어와도 사이트가 바뀐 줄 모르게 하는 것이 목표다. 맨 위는 공통 헤더(Vizney 메뉴만), 그 아래에 이 사이트의 탭 줄(아래 '탭 줄'), 본문은 흰 바탕이다. 바닥글(Blog · 문의 · Vizney Blocks · GitHub)에 블로그 링크를 두고, 회사 소개·브랜드 이야기는 블로그(About)에 맡긴다.
+- **언어별 링크:** 블로그로 가는 링크(공통 헤더의 로고·메뉴·돋보기, Blog, 문의, 소개 글, 샘플의 '우리 회사 것 의뢰하기', 돌아가는 링크)는 화면 언어를 따른다. 헤더 메뉴의 주소는 아래 '공통 헤더 규격'의 주소표이고 `VZ` 표에 있다. 한국어는 `https://kr.vizney.com/`(문의 `https://kr.vizney.com/contact-us/`), 영어는 `https://www.vizney.com/`(문의 `https://www.vizney.com/contact-us/`). 홈·404·명세 페이지는 `data-href`와 `href()`로, 샘플은 `applyLang()`에서 바꾼다. HTML에 적힌 주소는 스크립트 없이 읽힐 때의 영어 기본값이다.
 - **외부 등록:** OpenDesign, 링크드인 등에 올릴 때 발행자 이름은 Vizney, 항목 이름은 `Vizney Styles · <브랜드>`(예: `Vizney Styles · Anthropic`)다. npm 패키지는 `@vizney/styles`다.
 - **바꾸지 않는 것:** 저장소 이름(`vizney-styles`), 주소(styles.vizney.com), 공개 폴더 이름, embed 경로, 설치 명령의 형태.
+
+
+## 공통 헤더 규격
+
+Vizney Blocks와 블로그가 같은 값을 쓰는 헤더다. 아래 규격은 블로그(Ghost Casper 테마, Stacked 내비게이션 + Code injection)에서 읽은 값을 그대로 옮긴 것이고, 블로그 실측값과 다를 때 말고는 바꾸지 않는다. 구현은 `index.html`·`404.html`·`_layouts/spec.html`의 `.gh`(CSS·HTML)와 헤더 스크립트(`layoutMenu`, 햄버거, 지구본)다.
+
+블로그는 Ghost Casper 테마(Stacked 내비게이션)에 Code injection으로 어두운 헤더, Spoqa Han Sans Neo 서체, 지구본 언어 전환 버튼을 더한 상태입니다. 아래 값은 그 테마 CSS와 Code injection에서 읽은 값입니다.
+
+화면 크기 기준
+- 768px 이상은 데스크톱 헤더(2줄), 767px 이하는 모바일 헤더(1줄)입니다. 블로그 테마와 같은 기준이며, 이 사이 어느 폭에서도 두 모양이 섞이지 않아야 합니다.
+
+데스크톱(폭 768px 이상)
+- 헤더: 화면 전체 폭의 띠. 배경 #1b1b1b, 글자 #fff. 스크롤하면 함께 올라갑니다(고정 아님). 총 높이 136px.
+- 안쪽 폭: 최대 1200px 가운데 정렬, 좌우 여백 max(4vmin, 20px).
+- 1행(로고 줄): 높이 80px, 3칸 격자(1fr auto 1fr).
+  - 가운데: 로고 이미지(최대 높이 40px, 비율 유지). 링크는 블로그 홈(아래 주소표).
+  - 왼쪽: 지구본, 돋보기 순서. 각 32×32px, 사이 간격 4px(gap 8px에 지구본 margin-right −4px). 아이콘은 20×20px 선 아이콘(stroke-width 2, 색 currentColor), 불투명도 .9, 마우스를 올리면 1. 지구본 SVG는 블로그와 같은 것을 씁니다:
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+    돋보기 모양은 블로그 캡처에 맞춥니다.
+  - 오른쪽: 비웁니다. 블로그에는 Sign in이 보이지만 이 사이트에는 회원 기능이 없으므로 넣지 않습니다.
+- 1행과 2행 사이: 1px 선, hsla(0,0%,100%,.15). 길이와 위치는 블로그 실측에 맞춥니다.
+- 2행(메뉴 줄): 높이 56px, 항목 가운데 정렬, 좌우 여백 48px, 항목 간격 32px. 글자 16px, 굵기 500, 줄 높이 1.7, 색 #fff, 대소문자 변환 없음, 마우스를 올리면 불투명도 .9.
+- 서체: 블로그는 Code injection으로 전체를 Spoqa Han Sans Neo로 씁니다. 헤더도 이 사이트의 VZ Sans(Spoqa Han Sans Neo 서브셋)를 그대로 씁니다. 메뉴 글자가 서브셋에 모두 들어 있는지 확인합니다.
+- 현재 위치: 지금 사이트의 메뉴 항목만 밑줄(text-decoration: underline, 두께 2px, text-underline-offset 6px). 블로그에도 같은 스타일을 넣습니다.
+
+모바일(폭 767px 이하)
+- 헤더 한 줄, 높이 64px. 왼쪽 로고, 오른쪽에 지구본 · 돋보기 · 햄버거 순서. 지구본 오른쪽 여백 8px. 햄버거는 30×30px, 흰 가로줄 두 개.
+- 햄버거를 누르면 #1b1b1b 배경의 전체 화면 메뉴가 열리고, 항목이 세로로 놓입니다: 글자 26px, 굵기 600, 간격 16px. 닫힌 상태와 열린 상태 모두 블로그 390px 캡처 2장에 맞춥니다.
+
+지구본 동작
+- 블로그와 같이 다른 언어의 같은 페이지로 갑니다. 툴팁은 한국어 페이지에서 'Switch to English', 영어 페이지에서 '한글로 보기'.
+
+메뉴 항목 (표기는 두 언어 모두 영어, 순서 고정)
+- 한국어 페이지: Chart Guide https://kr.vizney.com/chart-guide/ · Blocks https://blocks.vizney.com/ko/ · Styles https://styles.vizney.com/?lang=ko · Tips & Tricks https://kr.vizney.com/tips/ · Knowledge Base https://kr.vizney.com/kb/ · About https://kr.vizney.com/about/ · Contact https://kr.vizney.com/contact-us/ · 로고 https://kr.vizney.com/
+- 영어 페이지: Chart Guide https://www.vizney.com/chart-guide/ · Blocks https://blocks.vizney.com/ · Styles https://styles.vizney.com/ · Tips & Tricks https://www.vizney.com/tips/ · Knowledge Base https://www.vizney.com/kb/ · About https://www.vizney.com/about/ · Contact https://www.vizney.com/contact-us/ · 로고 https://www.vizney.com/
+- 모든 링크는 같은 탭에서 열고 ↗ 표시를 붙이지 않습니다. 사용자에게는 한 사이트입니다.
+- 블로그 메뉴는 곧 이 순서로 바뀝니다. 지금 블로그 메뉴가 다르게 보여도 위 주소표를 따릅니다.
+
+블로그 실측(2026-11-02, kr.vizney.com, 1440·800·390px)과 맞춘 점:
+
+- 1440px에서 헤더 136(80 + 56), 로고 중심 x 712.5, 지구본 x 112.5 · 돋보기 x 148.5, 첫 메뉴 x 360.8, 마지막 메뉴 오른쪽 끝 x 1064.2가 블로그와 같다(스크롤바 15px 포함한 창). 블로그에는 헤더 위에 공지 띠가 있고, 이 사이트에는 없다.
+- 돋보기는 불투명도 1, 마우스를 올리면 .9다(블로그 테마 값). 지구본은 .9, 마우스를 올리면 1이다.
+- 1행과 2행 사이 선은 창 전체 폭이다(`.gh-menu::before`, top 80px). 블로그의 헤더 아래 끝 선(top 136px)은 흰 바탕 위라 보이지 않아 넣지 않는다.
+- 메뉴가 한 줄에 다 들어가지 않으면(예: 800px) 블로그처럼 뒤쪽 항목을 '⋯' 드롭다운으로 옮긴다(`nav 폭 + 64 > 메뉴 폭`일 때, 흰 바탕 200px, 그림자, 글자 `#15171a`).
+- 모바일 열린 메뉴: 블로그의 Sign in 줄 자리를 빈 줄로 남겨 메뉴 위치를 블로그와 같게 둔다. Esc로 닫힌다.
+- 서체는 VZ Sans다. 메뉴 문구를 바꾸면 서브셋에 글자가 있는지 확인하고, 없으면 글꼴을 다시 만든다(아래 '홈 페이지').
+
+### Styles에 적용
+
+- 헤더에는 Vizney 메뉴만 둔다. 'Vizney Styles' 이름, 블록 마크 변형, 사이트 자체 메뉴, EN/KO 전환, GitHub 버튼은 헤더에 넣지 않는다. 메뉴의 현재 위치는 Styles다.
+- 지구본은 이 페이지의 다른 언어 버전(`?lang=ko` 붙이기·빼기)이다. 홈·404·명세 페이지는 다시 불러오지 않고 그 자리에서 바꾼다. 돋보기는 블로그 검색(한국어 `https://kr.vizney.com/#/search`, 영어 `https://www.vizney.com/#/search`)이다.
+- 한국어 카탈로그 주소는 `https://styles.vizney.com/?lang=ko`다. Blocks와 블로그 메뉴가 이 주소를 쓴다.
+- **탭 줄:** 헤더 바로 아래, 흰 바탕, 높이 48px, 안쪽 폭은 헤더와 같다(최대 1200px, 좌우 max(4vmin, 20px)). 왼쪽부터 'Vizney Styles'(굵게) · 카탈로그 · 우리 회사 · 브랜드 요청 ↗, 오른쪽 끝에 GitHub ↗. 탭 이름은 화면 언어를 따른다(Catalog · Your company · Request a brand). 지금 보고 있는 탭은 `#1b1b1b` 2px 밑줄이다. 홈에서는 보이는 구역에 따라 바뀌고(머리 → Vizney Styles, 카탈로그, 우리 회사부터 끝까지), 404와 명세 페이지에서는 표시하지 않는다. 스크롤할 때 화면 위에 붙고(`position: sticky; top: 0`), 모바일에서는 가로 스크롤이다. GitHub로 나가는 두 탭만 새 탭으로 연다.
+- 명세 페이지(`<name>/DASHBOARD.html`)는 GitHub Pages가 DASHBOARD.md를 `_layouts/spec.html`로 감싸 만든다(`_config.yml`의 `defaults`, 경로 `*/DASHBOARD.md`). 헤더·탭 줄·바닥글은 홈과 같고 본문은 영어다.
+- 라이브 샘플(`/<name>/`)은 대시보드 화면이므로 공통 헤더를 넣지 않는다. 대신 바닥의 고지 옆에 돌아가는 링크를 둔다(아래 '화면 규칙').
 
 
 ## 고지
@@ -75,7 +130,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - KPI 카드: 글자 크기는 대표 수치와 나머지 두 단계만 쓴다. 지표명 → 수치 → 증감 순서로 두고, 같은 줄 카드의 수치 높이가 맞게 한다(subgrid). 증감 색은 값이 움직인 방향이 아니라 그 지표에서 좋은 변화인지로 정한다.
 - 카드 안에 다시 카드를 넣지 않는다. 다크 모드는 만들지 않는다. 필터는 화면 위 한 줄에 두고 아래 모든 카드에 함께 적용한다.
 - 차트: 이중 축 금지. 범주 색은 세 가지와 회색 '기타'까지. 텍스트에 데이터 색을 쓸 때는 4.5:1을 넘는 글자용 단계만 쓴다. 쉬는 상태에서는 선 끝에 값을 적고, 툴팁은 호버·키보드에서만 띄운다. 모든 차트에 호버 툴팁, 키보드 조작(방향키, Home, End, Esc, 라이브 리전), 스크린 리더용 표를 둔다. `prefers-reduced-motion`이면 애니메이션을 끈다.
-- **돌아가는 링크:** 블로그는 나가는 링크에 `?ref=kr.vizney.com`(또는 `www.vizney.com`)을 붙인다. 바닥의 고지 옆에, `ref`(없으면 `document.referrer`)의 호스트가 블로그면 '← 포스트로' · '← Back to the post'(화면 언어의 `style-<폴더 이름>` 포스트: 한국어 kr.vizney.com, 영어 www.vizney.com), 아니면 '← 카탈로그로' · '← Back to the catalog'(`https://styles.vizney.com/?lang=<언어>`)를 둔다. 같은 탭에서 열고, 언어를 바꾸면 주소와 문구도 바뀐다. 구현은 `anthropic/index.html`의 `FROM_BLOG`·`#backLink`를 그대로 옮긴다.
+- **돌아가는 링크:** 샘플 화면에는 공통 헤더가 없다. 블로그는 나가는 링크에 `?ref=kr.vizney.com`(또는 `www.vizney.com`)을 붙인다. 바닥의 고지 옆에, `ref`(없으면 `document.referrer`)의 호스트가 블로그면 '← 포스트로' · '← Back to the post'(화면 언어의 `style-<폴더 이름>` 포스트: 한국어 kr.vizney.com, 영어 www.vizney.com), 아니면 '← 카탈로그로' · '← Back to the catalog'(`https://styles.vizney.com/?lang=<언어>`)를 둔다. 같은 탭에서 열고, 언어를 바꾸면 주소와 문구도 바뀐다. 구현은 `anthropic/index.html`의 `FROM_BLOG`·`#backLink`를 그대로 옮긴다.
 - 임베드 모드(`?embed=1`이면 `<html>`에 `vz-embed`): 화면 높이 기준 레이아웃을 풀고 바닥 안내를 숨긴다. 포스트에는 넓은 카드로 원래 크기 그대로 넣는다.
 - 반응형: 1024~1359 같은 구성에 여백만 줄임, 900~1023 추세·목록 세로 쌓기, 640~899 2열(KPI 2×2), 640 미만 1열(KPI는 2×2 유지). 표는 좁은 폭에서 열을 줄인다.
 
@@ -95,7 +150,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - DESIGN.md 형식과 호환되게: YAML 머리(토큰)와 본문 섹션. 머리는 `tools/package.py`가 `tokens.json`에서 다시 쓰므로 손으로 고치지 않는다.
 - 제목 `# <Name> style — DASHBOARD.md`, 영어 세 단어 · 한국어 세 단어, 한 단락 소개(무엇을 담은 파일인지), 라이브 샘플·원본(raw) 주소·같은 폴더의 파일 링크·카탈로그 번호, 고지 한 단락.
 - 섹션 순서: Visual Theme & Atmosphere · Color Palette & Roles · Data Colors · Typography Rules · Numbers, Dates & Units · Layout Principles · Component Stylings · Charts · Depth & Elevation · Interaction & Motion · Accessibility · Responsive Behavior · Tool Mapping · Do's and Don'ts · Agent Prompt Guide.
-- 이름만 듣고 같은 스타일을 다시 만들 수 있을 만큼 구체적으로 쓴다. 영어로 쓰되 숫자·날짜 규칙은 한국어 표기도 적는다. 사이트에서는 `<name>/DASHBOARD.html`로 열린다.
+- 이름만 듣고 같은 스타일을 다시 만들 수 있을 만큼 구체적으로 쓴다. 영어로 쓰되 숫자·날짜 규칙은 한국어 표기도 적는다. 사이트에서는 `<name>/DASHBOARD.html`로 열린다(`_layouts/spec.html`, 위 '공통 헤더 규격').
 - `prompt.md`: 새 대시보드(영어·한국어), 기존 화면 고치기, 명세로 검토하기, 샘플 그림 하나 다시 그리기 프롬프트와 Tableau·Power BI 적용 메모.
 - `tokens.json`: 색(토큰·용도), 데이터 색과 검증 결과, 서체(언어별)와 크기 체계, 모서리, 간격, 레이아웃, 움직임, 도구 메모. 값을 바꾸면 `package.py`를 다시 돌린다.
 
@@ -149,12 +204,12 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 
 ## 홈 페이지
 
-- 루트의 `index.html`이 첫 화면이다. 머리(문제와 약속), 카탈로그, AI 대시보드가 어색한 이유(전후 비교), 받는 것과 진행 순서, 문의·요청. 한국어·영어를 `?lang=ko|en`과 토글로 바꾸고 기본은 영어다. 없는 주소에는 `404.html`이 보인다. 둘은 머리글·바닥글·CSS·`STR`이 같으므로 한쪽을 고치면 다른 쪽도 맞춘다.
+- 루트의 `index.html`이 첫 화면이다. 머리(문제와 약속), 카탈로그, AI 대시보드가 어색한 이유(전후 비교), 받는 것과 진행 순서, 문의·요청. 한국어·영어를 `?lang=ko|en`과 헤더의 지구본으로 바꾸고 기본은 영어다. 없는 주소에는 `404.html`이 보인다. 둘은 헤더·탭 줄·바닥글·CSS·`STR`이 같으므로 한쪽을 고치면 다른 쪽도 맞춘다. 명세 페이지 레이아웃 `_layouts/spec.html`도 같은 헤더·탭 줄·바닥글을 쓴다.
 - 첫 화면은 두 단이다(`.hero--split`): 왼쪽에 문구, 오른쪽에 카탈로그의 최신 스타일 커버(`img[data-cover]`, 언어에 따라 `cover-en.png`·`cover-ko.png`로 바뀐다)와 캡션, 라이브 샘플 링크. 960px 이하에서는 커버가 문구 아래로 내려간다. 새 스타일을 공개하면 커버의 `data-cover`·`data-cover-name`, 링크 두 곳(`data-href="sample:<name>"`), `STR`의 `heroCap`을 새 스타일로 바꾼다. 404는 `.hero`만 쓰고 `.hero--split`은 쓰지 않는다.
 - 새 카드: 기존 `article.swatch`를 복사해 '우리 회사' 카드 앞에 두고, 번호와 이름(`01 Anthropic`), 폴더, 링크(샘플, DASHBOARD.md, 파일, 소개 글)를 바꾼다. `STR` 한국어·영어에 `sub_<name>`(세 단어)과 `meta_<name>`(샘플 설명)을 더한다.
 - 화면 문구는 `STR`이 기준이고, 본문의 영어 문구와 링크는 스크립트 없이 읽힐 때의 기본값이므로 둘 다 고친다. `<head>`의 제목·설명·`og:` 메타도 영어로 쓴다.
-- 머리글은 블로그 헤더에 맞추고(위 '브랜드 표기'의 로고·사이트 UI 강조색), 버튼 모양·바닥글·회색 값과 글꼴은 Vizney Blocks(blocks.vizney.com)에 맞춘다. 글꼴은 VZ Sans(Spoqa Han Sans Neo 부분 글꼴, SIL OFL). 두 페이지의 문구를 고치거나 카드를 더하면 `python3 tools/font.py <spoqa-han-sans 저장소>/Original/SpoqaHanSansNeo`로 `assets/fonts/`를 다시 만든다. 글꼴 주소의 `?v=`도 함께 바뀐다.
-- 머리글은 워드마크 + 'Styles', 블록 마크는 `favicon.svg`에만 쓴다(위 '브랜드 표기'). 머리글 메뉴와 바닥글에 언어별 블로그 링크를 둔다.
+- 헤더는 '공통 헤더 규격'을 따르고, 버튼 모양·바닥글·회색 값과 글꼴은 Vizney Blocks(blocks.vizney.com)에 맞춘다. 글꼴은 VZ Sans(Spoqa Han Sans Neo 부분 글꼴, SIL OFL). 두 페이지의 문구를 고치거나 카드를 더하면 `python3 tools/font.py <spoqa-han-sans 저장소>/Original/SpoqaHanSansNeo`로 `assets/fonts/`를 다시 만든다. 글꼴 주소의 `?v=`도 함께 바뀐다.
+- 블록 마크는 `favicon.svg`에만 쓴다(위 '브랜드 표기'). 바닥글에 언어별 블로그 링크를 둔다.
 - `og.png`(1200×630)는 블로그 포스트 이미지 규격이다: 검정 `#1b1b1b` 바탕, 노랑 `#ffcc00` 포인트 하나(라인 이름과 'DASHBOARD.md', 최신 커버의 테두리), 하단 가운데 흰 워드마크. `python3 tools/og.py`로 만들고(catalog.json의 마지막 스타일 커버를 쓴다), 카탈로그나 첫 화면 문구가 바뀌면 다시 만들어 `index.html`의 `og:image` 주소 `?v=`를 올린다. `sitemap.xml`에는 홈만 넣고 샘플 화면은 `noindex`다.
 
 
