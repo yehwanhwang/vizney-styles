@@ -40,7 +40,7 @@
 ## 브랜드 표기
 
 - **이름:** 브랜드는 Vizney, 라인은 Vizney Styles다. 글·화면·외부 등록에서 늘 'Vizney Styles'로 쓰고, 'Styles'만 따로 떼어 브랜드처럼 쓰지 않는다. 다른 라인도 같은 방식이다(Vizney Blocks, 차트 가이드, Fullcut by Vizney).
-- **시리즈 줄:** `VIZNEY STYLES · 01`(대문자, 가운뎃점, 두 자리 번호). 샘플 화면 바닥의 카탈로그 줄, 생성 파일(`tokens.css`·`.tps`·Power BI 테마 이름) 머리, 블로그 포스트 본문 첫 줄에 이 형식으로 쓴다. 화면과 포스트에서는 늘 카탈로그(`https://styles.vizney.com/?lang=ko|en`) 링크다.
+- **시리즈 줄:** `VIZNEY STYLES · 01`(대문자, 가운뎃점, 두 자리 번호). 샘플 화면 바닥의 카탈로그 줄, 생성 파일(`tokens.css`·`.tps`·Power BI 테마 이름) 머리에 이 형식으로 쓴다. 화면에서는 늘 카탈로그(`https://styles.vizney.com/?lang=ko|en`) 링크다. 블로그 포스트에는 쓰지 않는다.
 - **로고:** 블로그(kr.vizney.com · www.vizney.com)가 기준이다. 블로그 테마는 Ghost 요금제상 고칠 수 없으므로 Styles가 블로그에 맞춘다. 사이트 헤더는 블로그와 같은 Vizney 공통 헤더(아래 '공통 헤더 규격')이고, 로고는 그 가운데의 흰색 'Vizney' 워드마크(`assets/brand/vizney-wordmark-white.png`, 106×40 상자. Vizney 원본 로고 파일 `vizney_logo_w_v2.png`(2544×960, 블로그 헤더 로고와 같은 그림)를 636×240으로 줄인 이미지) 하나다. 헤더에 'Vizney Styles' 이름을 붙이지 않는다. 사이트 이름은 헤더 아래 탭 줄의 첫 항목이다. 워드마크를 다시 그리거나 바꾸지 않는다. 밝은 바탕에서는 같은 이미지를 마스크로 써서 잉크색으로 칠한다.
 - **블록 마크:** Vizney 공통 마크(2×2 블록: 잉크 `#1b1b1b` · 주황 `#ff9500` · 노랑 `#ffcc00` · 분홍 `#ff2d55`, Vizney Blocks와 같은 마크)는 브랜드 로고가 아니라 라인 아이콘이다. 워드마크가 들어갈 수 없는 자리(`favicon.svg`)에만 쓴다. Styles만의 변형 마크나 Styles 소개 페이지는 만들지 않는다. 샘플 화면에는 어떤 마크도 넣지 않는다.
 - **사이트 UI 강조색:** 블로그 포스트 이미지의 노랑 `#ffcc00` 하나다(블로그 공지 띠와 같은 값, 호버 `#f2c200`). 주 버튼, 링크 밑줄, 포커스에 쓴다(공통 헤더의 메뉴와 탭 줄에는 쓰지 않는다). 노랑 바탕의 글자는 잉크 `#1b1b1b`(12.9:1)다. 포커스는 흰 바탕에서 노랑만으로는 1.6:1이라 잉크 링 바깥에 노랑 테를 두르고, 검정 헤더 안에서는 노랑 링만 쓴다. 이 노랑은 사이트(홈·404·명세 페이지·OG)에만 쓰고, 브랜드별 참고 화면과 커버의 색은 그 브랜드의 룩이므로 바꾸지 않는다. 데이터 색으로도 쓰지 않는다.
@@ -161,7 +161,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - 발췌문: 생김새를 말하는 한 문장과 샘플 한 문장. 메타 설명과 대표 이미지 대체 텍스트에도 세 단어를 넣는다.
 - **짧게 쓴다.** 사람들은 샘플을 보고 설치 명령을 복사한다. 그 밖의 설명(받는 파일 목록, 파일이 들어가는 자리, 도구별 사용법, 프롬프트 예시, 조작법)은 본문에 쓰지 않고 링크된 DASHBOARD.md·prompt.md·샘플 화면에 맡긴다.
 - 본문 순서:
-  0. 시리즈 줄 한 줄, 카탈로그 링크: 한국어 `[VIZNEY STYLES · 01](https://styles.vizney.com/?lang=ko)`, 영어 `[VIZNEY STYLES · 01](https://styles.vizney.com/?lang=en)`. 문장을 붙이지 않는다.
+  0. 시리즈 줄은 쓰지 않는다. 본문은 소개 단락으로 바로 시작한다.
   1. 소개 한 단락(두 문장): 생김새를 말하는 첫 문장, 무엇을 읽어 왔는지(실제 CSS 토큰, 그 기업의 차트 문법) 한 문장.
   2. 샘플 한 단락(두 문장): 가상 회사와 보고서 이름, 조작 하나(예: 필터를 바꾸면 모든 카드가 바뀐다).
   3. HTML 카드(아래 임베드 코드).
@@ -169,7 +169,8 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
   5. `### DASHBOARD.md`: 무엇이 들어가는지 한 문장 → `npx @vizney/styles@latest add <name>` 코드 블록(한 줄, curl은 쓰지 않는다) → 링크 한 줄 `DASHBOARD.md · 프롬프트 · zip 내려받기 · npm`(영어 `DASHBOARD.md · Prompts · Download the zip · npm`).
   6. 제작 문의와 브랜드 요청 한 줄(https://kr.vizney.com/contact-us/ · https://www.vizney.com/contact-us/, `request.yml` 이슈 링크).
   7. 고지 한 단락(위 '고지' 문구 + "샘플의 회사(비즈니 로지스틱스)와 숫자는 모두 가상입니다." · "The sample's company, Vizney Logistics, and all its numbers are fictional.").
-- 태그 Gallery, Styles(슬러그 `styles`. 홈 카드 테두리 CSS가 이 슬러그를 쓴다). 슬러그 `style-<name>`. 대표 이미지는 Ghost에 올리지 않고 `https://styles.vizney.com/<name>/cover-ko.png` · `cover-en.png` 주소를 그대로 넣는다.
+- 태그 Styles, Gallery 순서(첫 태그 `styles`. 홈 카드 테두리 CSS가 이 슬러그를 쓴다), 추천 글(featured)로 둔다. 슬러그 `style-<name>`. 대표 이미지는 Ghost에 올리지 않고 `https://styles.vizney.com/<name>/cover-ko.png` · `cover-en.png` 주소를 그대로 넣는다. 대표 이미지는 목록 카드와 링크 미리보기에만 쓰고 포스트 본문 위에는 보이지 않게, 포스트의 Code injection(Post header, `codeinjection_head`)에 `<style>\n.article-image { display: none; }\n</style>`를 넣는다.
+- 문장은 이미 발행된 스타일 포스트(`style-anthropic`)의 틀을 따른다: 소개 "…인 대시보드 스타일입니다. <사이트>의 실제 CSS 토큰을 읽고, …을 하나의 카드와 차트 문법으로 옮겼습니다." · 샘플 "아래 샘플은 <회사>의 가상 <보고>입니다. 위쪽 지역 필터를 바꾸면 모든 카드가 함께 바뀝니다." · Design 불릿은 굵은 머리말(**색:** · **한 카드:** · **글자와 숫자:**) · DASHBOARD.md 문장 "DASHBOARD.md와 에이전트 스킬, Tableau 팔레트, Power BI 테마를 프로젝트 폴더에 한 줄로 넣습니다." · 문의 줄 "우리 회사 웹사이트로 같은 패키지를 비공개로 만들어 드립니다. [제작 문의](…) · 다음에 만들 브랜드는 [GitHub에서 요청](…)하고 👍로 투표해 주세요." · 메타 설명 "<Name> 대시보드 스타일 — <세 단어>. …로 짠 라이브 샘플, DASHBOARD.md와 에이전트 스킬, Tableau·Power BI 파일을 npx 명령 한 줄로 프로젝트에 넣습니다." 영어도 같은 포스트의 영어판을 따른다.
 - SNS 캡션(링크드인 중심, 발행자 Vizney): 첫 줄 `Vizney Styles · <브랜드>`, 스타일 한 문장, 라이브 샘플 링크, 고지 한 줄, 세 단어 해시태그와 #Vizney #VizneyStyles #DashboardDesign · #대시보드디자인.
 - Tableau를 대체하는 이야기로 읽힐 표현은 쓰지 않는다. Tableau 적용 파일은 Tableau를 더 잘 쓰게 하는 것이다.
 
@@ -192,7 +193,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 ## Ghost 반영
 
 - 관리 화면: 한국어 vizney-kr.ghost.io/ghost(공개 kr.vizney.com), 영어 vizney.ghost.io/ghost(공개 www.vizney.com). 연결된 컴퓨터의 내장 브라우저에 로그인되어 있다. 로그인 화면이 나오면 멈추고 사용자에게 알린다.
-- 본문은 카드 세 개로 넣는다: 마크다운 카드(시리즈 줄·소개·샘플) → HTML 카드(임베드 코드 그대로) → 마크다운 카드(Design부터 고지까지). 관리 화면 탭에서 Admin API(`/ghost/api/admin/posts/`, 헤더 `Accept-Version: v5.0`, 로그인 세션 사용)로 `lexical`과 필드(`feature_image`, `feature_image_alt`, `custom_excerpt`, `meta_description`)를 함께 저장한다. 고칠 때는 같은 포스트를 읽어 `updated_at`을 넣고 PUT한다. 제목·슬러그·태그·발행일은 건드리지 않는다.
+- 본문은 카드 세 개로 넣는다: 마크다운 카드(시리즈 줄·소개·샘플) → HTML 카드(임베드 코드 그대로) → 마크다운 카드(Design부터 고지까지). 관리 화면 탭에서 Admin API(`/ghost/api/admin/posts/`, 헤더 `Accept-Version: v5.0`, 로그인 세션 사용)로 `lexical`과 필드(`feature_image`, `feature_image_alt`, `custom_excerpt`, `meta_description`, `codeinjection_head`)를 함께 저장한다. 새 포스트는 초안으로 만들고, 저장 전에 같은 사이트의 `style-anthropic`을 읽어 필드를 하나씩 비교한다. 고칠 때는 같은 포스트를 읽어 `updated_at`을 넣고 PUT한다. 제목·슬러그·태그·발행일은 건드리지 않는다.
 - 순서: 두 포스트의 현재 상태를 읽어 보여 준다 → 한국어부터, 저장(Update) 직전에 사용자 확인 → 공개 페이지 확인 → 영어도 같은 순서.
 - 공개 페이지 확인: iframe이 embed-host.js로 내용 높이에 맞게 늘어나는지(브라우저 창이 숨겨져 있으면 지연 로딩이 늦으니 iframe을 화면에 띄우고 기다린다), 본문 링크가 모두 열리는지, 대표 이미지·`description`·`og:image`·`twitter:image`가 새 값인지, 예전 샘플 문구가 남지 않았는지.
 - 홈 카드 테두리: 커버의 밝은 바탕이 블로그 흰 바탕과 섞이므로 두 사이트의 Code injection(Site header) 끝에 아래 규칙이 있다. 지우지 않는다. 새 스타일 포스트도 태그 `styles`만 달면 그대로 적용된다.
