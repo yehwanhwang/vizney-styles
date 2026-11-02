@@ -15,14 +15,14 @@
   --rule:#dfdcd9; /* crosshair (gray-300) */
   --hair:#e6e5e3; /* card borders, dividers, dotted gridlines, chart baselines (the product's border-primary) */
   --hair-2:#f0efed; /* table row and column rules, empty bar tracks: rgba(42,28,0,.07) on white */
-  --accent:#0075de; /* the UI blue of notion.com: primary button, links, focus. Never a data color */
+  --accent:#0075de; /* the UI blue of notion.com: primary button, links, focus. Data takes its own blue step, #2783de */
   --accent-hover:#005bab; /* primary button hover; secondary button text */
   --accent-soft:#e6f3fe; /* secondary button background */
   --good:#14832b; /* favourable change, text only (notion.com text-success, 4.9:1 on white) */
   --bad:#b01601; /* unfavourable change and a missed target, text only (red-700, 7.1:1 on white; text-error #f64932 is only 3.6:1) */
   --focus:#0075de; /* focus ring, 2px with a 2px offset (interaction-focus-ring) */
-  --cat-1:#b577d6; /* purple · the subject */
-  --cat-1-text:#7237ae; /* purple · the subject for labels and text */
+  --cat-1:#2783de; /* blue · the subject */
+  --cat-1-text:#1f6fc5; /* blue · the subject for labels and text */
   --cat-2:#dd5b00; /* orange */
   --cat-2-text:#ab4a00; /* orange for labels and text */
   --cat-3:#46a171; /* green */
@@ -34,18 +34,18 @@
   --mark-target:#191918;
   --mark-track:#f0efed;
   --mark-hover:#f6f5f4;
-  --seq-1:#bf8eda;
-  --seq-2:#a774c9;
-  --seq-3:#8d5bb2;
-  --seq-4:#714594;
-  --seq-5:#553b69;
+  --seq-1:#7db1ea;
+  --seq-2:#5196e2;
+  --seq-3:#2271c4;
+  --seq-4:#1c5aa3;
+  --seq-5:#1d4677;
   --div-1:#ab4a00;
   --div-2:#dd5b00;
   --div-3:#ff8a33;
   --div-4:#dfdcd9;
-  --div-5:#bf8eda;
-  --div-6:#8d5bb2;
-  --div-7:#553b69;
+  --div-5:#7db1ea;
+  --div-6:#2271c4;
+  --div-7:#1d4677;
   --tag-gray-bg:#e6e5e3; --tag-gray-text:#494846; --tag-gray-dot:#8e8b86;
   --tag-orange-bg:#f3ddcb; --tag-orange-text:#6a4222; --tag-orange-dot:#d5803b;
   --tag-green-bg:#d7e6dd; --tag-green-text:#2a533c; --tag-green-dot:#46a171;
@@ -84,7 +84,7 @@
   --code-function:#b01601;
   --code-property:#31302e;
   --code-line-number:#a39e98;
-  --code-highlight:#f8f5fc;
+  --code-highlight:#f2f7fd;
   --code-inline-text:#b01601;
   --code-inline-bg:#edeceb;
 }

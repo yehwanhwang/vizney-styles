@@ -4,27 +4,27 @@
 <workbook>
   <preferences>
     <color-palette name="Notion style — Categorical" type="regular">
-      <color>#b577d6</color>
+      <color>#2783de</color>
       <color>#dd5b00</color>
       <color>#46a171</color>
       <color>#c7c6c4</color>
       <color>#a39e98</color>
     </color-palette>
     <color-palette name="Notion style — Sequential" type="ordered-sequential">
-      <color>#bf8eda</color>
-      <color>#a774c9</color>
-      <color>#8d5bb2</color>
-      <color>#714594</color>
-      <color>#553b69</color>
+      <color>#7db1ea</color>
+      <color>#5196e2</color>
+      <color>#2271c4</color>
+      <color>#1c5aa3</color>
+      <color>#1d4677</color>
     </color-palette>
     <color-palette name="Notion style — Diverging" type="ordered-diverging">
       <color>#ab4a00</color>
       <color>#dd5b00</color>
       <color>#ff8a33</color>
       <color>#dfdcd9</color>
-      <color>#bf8eda</color>
-      <color>#8d5bb2</color>
-      <color>#553b69</color>
+      <color>#7db1ea</color>
+      <color>#2271c4</color>
+      <color>#1d4677</color>
     </color-palette>
   </preferences>
 </workbook>

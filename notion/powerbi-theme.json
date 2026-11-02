@@ -1,12 +1,12 @@
 {
   "name": "Notion style · VIZNEY STYLES · 02",
   "dataColors": [
-    "#b577d6",
+    "#2783de",
     "#dd5b00",
     "#46a171",
     "#c7c6c4",
-    "#714594",
-    "#8d5bb2",
+    "#1c5aa3",
+    "#2271c4",
     "#a39e98"
   ],
   "background": "#ffffff",
@@ -15,9 +15,9 @@
   "good": "#14832b",
   "neutral": "#a39e98",
   "bad": "#b01601",
-  "maximum": "#553b69",
-  "center": "#8d5bb2",
-  "minimum": "#bf8eda",
+  "maximum": "#1d4677",
+  "center": "#2271c4",
+  "minimum": "#7db1ea",
   "null": "#e6e5e3",
   "textClasses": {
     "callout": {
