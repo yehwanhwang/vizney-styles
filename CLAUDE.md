@@ -42,7 +42,7 @@
 - **이름:** 브랜드는 Vizney, 라인은 Vizney Styles다. 글·화면·외부 등록에서 늘 'Vizney Styles'로 쓰고, 'Styles'만 따로 떼어 브랜드처럼 쓰지 않는다. 다른 라인도 같은 방식이다(Vizney Blocks, 차트 가이드, Fullcut by Vizney).
 - **시리즈 줄:** `VIZNEY STYLES · 01`(대문자, 가운뎃점, 두 자리 번호). 샘플 화면 바닥의 카탈로그 줄, 생성 파일(`tokens.css`·`.tps`·Power BI 테마 이름) 머리에 이 형식으로 쓴다. 화면에서는 늘 카탈로그(`https://styles.vizney.com/?lang=ko|en`) 링크다. 블로그 포스트에는 쓰지 않는다.
 - **로고:** 블로그(kr.vizney.com · www.vizney.com)가 기준이다. 블로그 테마는 Ghost 요금제상 고칠 수 없으므로 Styles가 블로그에 맞춘다. 사이트 헤더는 블로그와 같은 Vizney 공통 헤더(아래 '공통 헤더 규격')이고, 로고는 그 가운데의 흰색 'Vizney' 워드마크(`assets/brand/vizney-wordmark-white.png`, 106×40 상자. Vizney 원본 로고 파일 `vizney_logo_w_v2.png`(2544×960, 블로그 헤더 로고와 같은 그림)를 636×240으로 줄인 이미지) 하나다. 헤더에 'Vizney Styles' 이름을 붙이지 않는다. 사이트 이름은 헤더 아래 탭 줄의 첫 항목이다. 워드마크를 다시 그리거나 바꾸지 않는다. 밝은 바탕에서는 같은 이미지를 마스크로 써서 잉크색으로 칠한다.
-- **블록 마크:** Vizney 공통 마크(2×2 블록: 잉크 `#1b1b1b` · 주황 `#ff9500` · 노랑 `#ffcc00` · 분홍 `#ff2d55`, Vizney Blocks와 같은 마크)는 브랜드 로고가 아니라 라인 아이콘이다. 워드마크가 들어갈 수 없는 자리(`favicon.svg`)에만 쓴다. Styles만의 변형 마크나 Styles 소개 페이지는 만들지 않는다. 샘플 화면에는 어떤 마크도 넣지 않는다.
+- **아이콘(파비콘):** 블로그와 같은 Vizney 아이콘이다(검정 `#1b1b1b` 바탕에 흰 V. 원본 `vizney_icon_b_v2.png`, 720×720). `assets/brand/vizney-icon.png`(256), `apple-touch-icon.png`(180), `favicon.ico`(16·32·48)로 두고, 예전 주소 `favicon.svg`도 같은 그림이다. 홈·404·명세 페이지의 `<head>`에 `icon`과 `apple-touch-icon`을 넣는다. 샘플 화면은 링크 없이 브라우저가 `/favicon.ico`를 읽는다. 블록 마크(2×2)는 Vizney Blocks의 마크라 이 사이트에는 쓰지 않는다. Styles만의 변형 마크나 Styles 소개 페이지는 만들지 않는다. 샘플 화면에는 어떤 마크도 넣지 않는다.
 - **사이트 UI 강조색:** 블로그 포스트 이미지의 노랑 `#ffcc00` 하나다(블로그 공지 띠와 같은 값, 호버 `#f2c200`). 주 버튼, 링크 밑줄, 포커스에 쓴다(공통 헤더의 메뉴와 탭 줄에는 쓰지 않는다). 노랑 바탕의 글자는 잉크 `#1b1b1b`(12.9:1)다. 포커스는 흰 바탕에서 노랑만으로는 1.6:1이라 잉크 링 바깥에 노랑 테를 두르고, 검정 헤더 안에서는 노랑 링만 쓴다. 이 노랑은 사이트(홈·404·명세 페이지·OG)에만 쓰고, 브랜드별 참고 화면과 커버의 색은 그 브랜드의 룩이므로 바꾸지 않는다. 데이터 색으로도 쓰지 않는다.
 - **사이트:** Vizney의 한 라인으로 보이게 한다. 블로그 메뉴에서 Styles를 눌러 넘어와도 사이트가 바뀐 줄 모르게 하는 것이 목표다. 맨 위는 공통 헤더(Vizney 메뉴만), 그 아래에 이 사이트의 탭 줄(아래 '탭 줄'), 본문은 흰 바탕이다. 바닥글(Blog · 문의 · Vizney Blocks · GitHub)에 블로그 링크를 두고, 회사 소개·브랜드 이야기는 블로그(About)에 맡긴다.
 - **언어별 링크:** 블로그로 가는 링크(공통 헤더의 로고·메뉴·돋보기, Blog, 문의, 소개 글, 샘플의 '우리 회사 것 의뢰하기', 돌아가는 링크)는 화면 언어를 따른다. 헤더 메뉴의 주소는 아래 '공통 헤더 규격'의 주소표이고 `VZ` 표에 있다. 한국어는 `https://kr.vizney.com/`(문의 `https://kr.vizney.com/contact-us/`), 영어는 `https://www.vizney.com/`(문의 `https://www.vizney.com/contact-us/`). 홈·404·명세 페이지는 `data-href`와 `href()`로, 샘플은 `applyLang()`에서 바꾼다. HTML에 적힌 주소는 스크립트 없이 읽힐 때의 영어 기본값이다.
@@ -97,7 +97,7 @@ Vizney Blocks와 블로그가 같은 값을 쓰는 헤더다. 아래 규격은 �
 
 ### Styles에 적용
 
-- 헤더에는 Vizney 메뉴만 둔다. 'Vizney Styles' 이름, 블록 마크 변형, 사이트 자체 메뉴, EN/KO 전환, GitHub 버튼은 헤더에 넣지 않는다. 메뉴의 현재 위치는 Styles다.
+- 헤더에는 Vizney 메뉴만 둔다. 'Vizney Styles' 이름, Styles만의 마크, 사이트 자체 메뉴, EN/KO 전환, GitHub 버튼은 헤더에 넣지 않는다. 메뉴의 현재 위치는 Styles다.
 - 지구본은 이 페이지의 다른 언어 버전(`?lang=ko` 붙이기·빼기)이다. 홈·404·명세 페이지는 다시 불러오지 않고 그 자리에서 바꾼다. 돋보기는 블로그 검색(한국어 `https://kr.vizney.com/#/search`, 영어 `https://www.vizney.com/#/search`)이다.
 - 한국어 카탈로그 주소는 `https://styles.vizney.com/?lang=ko`다. Blocks와 블로그 메뉴가 이 주소를 쓴다.
 - **탭 줄:** 헤더 바로 아래, 흰 바탕, 높이 48px, 안쪽 폭은 헤더와 같다(최대 1200px, 좌우 max(4vmin, 20px)). 왼쪽부터 'Vizney Styles'(굵게) · 카탈로그 · 우리 회사 · 브랜드 요청 ↗, 오른쪽 끝에 GitHub ↗. 탭 이름은 화면 언어를 따른다(Catalog · Your company · Request a brand). 지금 보고 있는 탭은 `#1b1b1b` 2px 밑줄이다. 홈에서는 보이는 구역에 따라 바뀌고(머리 → Vizney Styles, 카탈로그, 우리 회사부터 끝까지), 404와 명세 페이지에서는 표시하지 않는다. 스크롤할 때 화면 위에 붙고(`position: sticky; top: 0`), 모바일에서는 가로 스크롤이다. GitHub로 나가는 두 탭만 새 탭으로 연다.
@@ -210,7 +210,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 - 새 카드: 기존 `article.swatch`를 복사해 '우리 회사' 카드 앞에 두고, 번호와 이름(`01 Anthropic`), 폴더, 링크(샘플, DASHBOARD.md, 파일, 소개 글)를 바꾼다. `STR` 한국어·영어에 `sub_<name>`(세 단어)과 `meta_<name>`(샘플 설명)을 더한다.
 - 화면 문구는 `STR`이 기준이고, 본문의 영어 문구와 링크는 스크립트 없이 읽힐 때의 기본값이므로 둘 다 고친다. `<head>`의 제목·설명·`og:` 메타도 영어로 쓴다.
 - 헤더는 '공통 헤더 규격'을 따르고, 버튼 모양·바닥글·회색 값과 글꼴은 Vizney Blocks(blocks.vizney.com)에 맞춘다. 글꼴은 VZ Sans(Spoqa Han Sans Neo 부분 글꼴, SIL OFL). 두 페이지의 문구를 고치거나 카드를 더하면 `python3 tools/font.py <spoqa-han-sans 저장소>/Original/SpoqaHanSansNeo`로 `assets/fonts/`를 다시 만든다. 글꼴 주소의 `?v=`도 함께 바뀐다.
-- 블록 마크는 `favicon.svg`에만 쓴다(위 '브랜드 표기'). 바닥글에 언어별 블로그 링크를 둔다.
+- 파비콘은 블로그와 같은 Vizney 아이콘이다(위 '브랜드 표기'). 바닥글에 언어별 블로그 링크를 둔다.
 - `og.png`(1200×630)는 블로그 포스트 이미지 규격이다: 검정 `#1b1b1b` 바탕, 노랑 `#ffcc00` 포인트 하나(라인 이름과 'DASHBOARD.md', 최신 커버의 테두리), 하단 가운데 흰 워드마크. `python3 tools/og.py`로 만들고(catalog.json의 마지막 스타일 커버를 쓴다), 카탈로그나 첫 화면 문구가 바뀌면 다시 만들어 `index.html`의 `og:image` 주소 `?v=`를 올린다. `sitemap.xml`에는 홈만 넣고 샘플 화면은 `noindex`다.
 
 
