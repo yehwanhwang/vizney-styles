@@ -198,6 +198,7 @@
   .cal .day.out{background:var(--surface-2)}
   .cal .dn{align-self:flex-end;font-size:12px;line-height:16px;font-variant-numeric:tabular-nums}
   .cal .dv{margin-top:auto;font-size:14px;font-weight:600;line-height:18px;font-variant-numeric:tabular-nums}
+  .cal .db{display:block;height:4px;margin-top:4px;border-radius:2px;background:var(--bc)}
   .cal .ev{align-self:flex-start;max-width:100%;height:18px;margin-top:1px;padding:0 6px;border-radius:4px;background:#fff;color:var(--ink);font-size:11px;font-weight:500;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 0 0 1px rgba(42,28,0,.07),0 1px 2px rgba(25,25,25,.06)}
   .cal .day.on{box-shadow:inset 0 0 0 2px var(--ink)}
 
@@ -645,7 +646,7 @@
   // 노션 태그 색(흰 바탕 위 값): [배경 BacTer, 글자 TexPri, 점 BacAccPri]
   const TAG = {
     gray: ['#e6e5e3', '#494846', '#8e8b86'], orange: ['#f3ddcb', '#6a4222', '#d5803b'], green: ['#d7e6dd', '#2a533c', '#46a171'],
-    yellow: ['#f2e3b7', '#655121', '#d8a32f'], red: ['#f7d9d5', '#6d3531', '#e56458'], purple: ['#e8dbf2', '#553b69', '#b577d6']
+    yellow: ['#f2e3b7', '#655121', '#d8a32f'], red: ['#f7d9d5', '#6d3531', '#e56458'], purple: ['#e8dbf2', '#553b69', '#b577d6'], blue: ['#cee3f7', '#264a72', '#2783de']
   };
   const STATUS = { on: { tag: 'green', col: '#f6f9f7' }, watch: { tag: 'yellow', col: '#fcfaef' }, off: { tag: 'red', col: '#fdf6f6' } };
 
@@ -710,11 +711,11 @@
       },
       f3: {
         label: '그림 3 · 일별 거래', title: (p, top) => `토요일 거래가 평일보다 평균 ${p} 많았고, ${josa(top, '이가')} 가장 붐볐습니다`,
-        sub: '일별 거래 수, 2026년 10월. 색이 짙을수록 붐빈 날입니다', wd: ['일', '월', '화', '수', '목', '금', '토'],
+        sub: '일별 거래 수, 2026년 10월. 막대가 길수록 붐빈 날입니다', wd: ['일', '월', '화', '수', '목', '금', '토'],
         events: { launch: '가을 메뉴', pumpkin: '펌킨 데이', halloween: '핼러윈' }, eventsLong: { launch: '가을 메뉴 출시', pumpkin: '펌킨 데이', halloween: '핼러윈' },
         top: { launch: '가을 메뉴 출시일(10월 1일)', halloween: '핼러윈(10월 31일)', pumpkin: '펌킨 데이(10월 17일)' },
-        fewer: '적음', more: '많음', unit: '건',
-        note: '주: 거래는 모든 채널의 완료 주문입니다. 색은 10월의 하루 거래 수를 다섯 구간으로 나눴습니다.',
+        fewer: '적음', more: '많음', sat: '토요일', rest: '다른 요일', unit: '건',
+        note: '주: 거래는 모든 채널의 완료 주문입니다. 막대는 0부터 10월에 가장 붐빈 날까지의 길이입니다.',
         aria: '10월 일별 거래 달력. 화살표 키로 날짜를 옮기고, 위아래 키는 한 주씩 움직입니다.'
       },
       f4: {
@@ -802,11 +803,11 @@
       },
       f3: {
         label: 'Figure 3 · Transactions by day', title: (p, top) => `Saturdays averaged ${p} more transactions than weekdays, and ${top} was the busiest day`,
-        sub: 'Transactions per day, October 2026; darker days were busier', wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        sub: 'Transactions per day, October 2026; longer bars were busier', wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         events: { launch: 'Fall menu', pumpkin: 'Pumpkin day', halloween: 'Halloween' }, eventsLong: { launch: 'Fall menu launch', pumpkin: 'Pumpkin day', halloween: 'Halloween' },
         top: { launch: 'the Oct 1 fall launch', halloween: 'Halloween', pumpkin: 'Pumpkin day' },
-        fewer: 'Fewer', more: 'More', unit: 'transactions',
-        note: 'Note: Transactions are completed orders across all channels. The five shades split October’s days into equal ranges.',
+        fewer: 'Fewer', more: 'More', sat: 'Saturdays', rest: 'Other days', unit: 'transactions',
+        note: 'Note: Transactions are completed orders across all channels. Each bar runs from zero to October’s busiest day.',
         aria: 'Transactions per day in October. Arrow keys move between days; up and down move a week.'
       },
       f4: {
@@ -1319,18 +1320,20 @@
     $('#f3Title').textContent = glue(t.f3.title(pct(fx.p, 0), topName));
     refade($('#f3Title'), animate);
     const b = calBins();
-    $('#f3Keys').replaceChildren(h('li', { class: 'rng' }, h('span', { text: t.f3.fewer }), ...C.seq.map(c => h('i', { style: { background: c } })), h('span', { text: t.f3.more })));
+    const vmax = Math.max(...s.tx), barCol = d => dow(d) === 6 ? C.subject : C.other;
+    keyItems($('#f3Keys'), [['bar', C.subject, t.f3.sat], ['bar', C.other, t.f3.rest]]);
     $('#f3Table').replaceChildren(srTable(t.f3.sub, [KO() ? '날짜' : 'Date', KO() ? '거래' : 'Transactions'], s.tx.map((v, i) => [dayLong(i + 1), nf(v)])));
     const cal = h('div', { class: 'cal', role: 'img', tabindex: 0, 'aria-label': t.f3.aria });
     t.f3.wd.forEach(w => cal.append(h('div', { class: 'wd', 'aria-hidden': 'true', text: w })));
     for (let i = 0; i < OCT_FIRST_DOW; i++) cal.append(h('div', { class: 'day out', 'aria-hidden': 'true' }));
     const cells = [];
     s.tx.forEach((v, i) => {
-      const d = i + 1, k = b.bin(v), dark = k >= 2;
-      const cell = h('div', { class: 'day' + (animOK(animate) ? ' fade' : ''), 'aria-hidden': 'true', style: { '--cb': C.seq[k], '--cc': dark ? '#fff' : C.ink, animationDelay: animOK(animate) ? (i * 12) + 'ms' : null } },
+      const d = i + 1;
+      const cell = h('div', { class: 'day' + (animOK(animate) ? ' fade' : ''), 'aria-hidden': 'true', style: { '--bc': barCol(d), animationDelay: animOK(animate) ? (i * 12) + 'ms' : null } },
         h('span', { class: 'dn', text: d === 1 ? (KO() ? '10월 1일' : 'Oct 1') : String(d) }),
         DATA.events[d] ? h('span', { class: 'ev', text: t.f3.events[DATA.events[d]] }) : null,
-        h('span', { class: 'dv', text: KO() ? nf(v) : trimz(nf(v / 1e3, 1)) + 'K' }));
+        h('span', { class: 'dv', text: KO() ? nf(v) : trimz(nf(v / 1e3, 1)) + 'K' }),
+        h('i', { class: 'db', style: { width: (v / vmax * 100).toFixed(1) + '%' } }));
       cells.push(cell); cal.append(cell);
     });
     const rem = (7 - ((OCT_FIRST_DOW + 31) % 7)) % 7;
@@ -1343,7 +1346,7 @@
       F3.cur = d;
       const c = cells[d - 1]; c.classList.add('on');
       const o = offsetIn(host, c), v = s.tx[d - 1], e = DATA.events[d];
-      placeTip(host, tipNodes(dayLong(d) + (e ? ' · ' + t.f3.eventsLong[e] : ''), [{ key: C.seq[b.bin(v)], value: nf(v), label: t.f3.unit }]), o.x + c.offsetWidth / 2, o.y, o.y + c.offsetHeight);
+      placeTip(host, tipNodes(dayLong(d) + (e ? ' · ' + t.f3.eventsLong[e] : ''), [{ key: barCol(d), value: nf(v), label: t.f3.unit }]), o.x + c.offsetWidth / 2, o.y, o.y + c.offsetHeight);
     };
     cells.forEach((c, i) => c.addEventListener('pointerenter', () => show(i + 1)));
     cal.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== cal) show(null); });
@@ -1400,7 +1403,7 @@
     svg.append(hl);
     for (const v of yt) { const y = Math.round(Y(v)) + .5; svg.append(v === 0 ? baseLine(L0 - 2, W - R0, y) : gridLine(L0 - 2, W - R0, y)); svg.append(sv('text', { x: L0 - 8, y, dy: '.35em', 'text-anchor': 'end', class: 'ax', text: v + '%' })); }
     fx.sh.forEach((v, i) => {
-      svg.append(sv('path', { d: topRound(X(i), Y(v), bw, Y(0) - Y(v), 2), fill: C.subject, class: animOK(animate) ? 'grow' : null, style: animOK(animate) ? { animationDelay: (i * 20) + 'ms' } : null }));
+      svg.append(sv('path', { d: topRound(X(i), Y(v), bw, Y(0) - Y(v), 2), fill: i === fx.peak ? C.subject : C.other, class: animOK(animate) ? 'grow' : null, style: animOK(animate) ? { animationDelay: (i * 20) + 'ms' } : null }));
       const hr = DATA.hours[i];
       if ((hr - 6) % 3 === 0) svg.append(sv('text', { x: X(i) + bw / 2, y: H - 8, 'text-anchor': 'middle', class: 'ax', text: hourTick(hr) }));
     });
@@ -1413,7 +1416,7 @@
       F4.cur = i;
       setAttrs(hl, { x: X(i) - 4, width: bw + 8 }); hl.style.opacity = 1;
       const o = offsetIn(host, svg);
-      placeTip(host, tipNodes(hourRange(DATA.hours[i]) + ' · ' + t.f4.tabs[state.hours === 'weekday' ? 0 : 1], [{ key: C.subject, value: pct(fx.sh[i]), label: KO() ? '하루 주문 중' : 'of the day’s orders' }, { value: nf(per * fx.sh[i] / 100), label: KO() ? '평균 주문' : 'orders on average' }]), o.x + X(i) + bw / 2, o.y + Y(fx.sh[i]), o.y + H - B0);
+      placeTip(host, tipNodes(hourRange(DATA.hours[i]) + ' · ' + t.f4.tabs[state.hours === 'weekday' ? 0 : 1], [{ key: i === fx.peak ? C.subject : C.other, value: pct(fx.sh[i]), label: KO() ? '하루 주문 중' : 'of the day’s orders' }, { value: nf(per * fx.sh[i] / 100), label: KO() ? '평균 주문' : 'orders on average' }]), o.x + X(i) + bw / 2, o.y + Y(fx.sh[i]), o.y + H - B0);
     };
     const idxAt = px => Math.max(0, Math.min(n - 1, Math.floor((px - L0) / band)));
     svg.addEventListener('pointermove', e => { const r = svg.getBoundingClientRect(); show(idxAt(e.clientX - r.left)); });
@@ -1496,7 +1499,7 @@
     const t = L(), rows = menuRows();
     $('#f6Title').textContent = glue(t.f6.title(rows.filter(r => r.v >= r.goal).length));
     refade($('#f6Title'), animate);
-    keyItems($('#f6Keys'), [['bar', C.subject, t.f6.keys[0]], ['tick', C.ink, t.f6.keys[1]]]);
+    keyItems($('#f6Keys'), [['bar', C.subject, t.f6.above], ['bar', C.orange, t.f6.below], ['tick', C.ink, t.f6.keys[1]]]);
     $('#f6Table').replaceChildren(srTable(t.f6.sub, [KO() ? '메뉴' : 'Item', t.f6.keys[0], t.f6.keys[1], KO() ? '차이' : 'Difference'], rows.map(r => [MENU[r.id][KO() ? 0 : 1], pct(r.v), pct(r.goal), pts(r.v - r.goal)])));
     drawMenu(animate);
   }
@@ -1525,12 +1528,12 @@
     rows.forEach((r, i) => {
       const y = Yc(i), ok = r.v >= r.goal;
       svg.append(sv('text', { x: 0, y, dy: '.35em', style: { fontSize: '14px' }, fill: C.ink, text: fit(names[i], L0 - 12) }));
-      svg.append(sv('path', { d: rightRound(X(0), y - bh / 2, X(r.v) - X(0), bh, 2), fill: C.subject, class: animOK(animate) ? 'growx' : null, style: animOK(animate) ? { animationDelay: (i * 40) + 'ms' } : null }));
+      svg.append(sv('path', { d: rightRound(X(0), y - bh / 2, X(r.v) - X(0), bh, 2), fill: r.v >= r.goal ? C.subject : C.orange, class: animOK(animate) ? 'growx' : null, style: animOK(animate) ? { animationDelay: (i * 40) + 'ms' } : null }));
       svg.append(sv('path', { d: `M${X(r.goal)} ${y - bh / 2 - 4}v${bh + 8}`, stroke: C.ink, 'stroke-width': 2 }));
       const vx = Math.max(X(r.v), X(r.goal)) + 6;
       svg.append(sv('text', { x: vx, y, dy: '.35em', class: 'vl', text: pct(r.v) }));
       if (!narrow) {
-        const [bg, fg] = TAG[ok ? 'green' : 'red'], tx = W - tagW, tw = Math.ceil(textW(tagLab[i], `400 12px ${f}`)) + 12;
+        const [bg, fg] = TAG[ok ? 'blue' : 'orange'], tx = W - tagW, tw = Math.ceil(textW(tagLab[i], `400 12px ${f}`)) + 12;
         svg.append(sv('rect', { x: tx, y: y - 10, width: tw, height: 20, rx: 4, fill: bg }));
         svg.append(sv('text', { x: tx + 6, y, dy: '.35em', style: { fontSize: '12px' }, fill: fg, text: tagLab[i] }));
       }
@@ -1542,7 +1545,7 @@
       F6.cur = i;
       setAttrs(hl, { y: T0 + rowH * i }); hl.style.opacity = 1;
       const r = rows[i], o = offsetIn(host, svg);
-      placeTip(host, tipNodes(names[i], [{ key: C.subject, value: pct(r.v), label: t.f6.keys[0] }, { value: pct(r.goal), label: t.f6.keys[1] }, { value: pts(r.v - r.goal), label: r.v >= r.goal ? t.f6.above : t.f6.below }]), o.x + X(Math.max(r.v, r.goal)), o.y + Yc(i) - bh / 2, o.y + Yc(i) + bh / 2);
+      placeTip(host, tipNodes(names[i], [{ key: r.v >= r.goal ? C.subject : C.orange, value: pct(r.v), label: t.f6.keys[0] }, { value: pct(r.goal), label: t.f6.keys[1] }, { value: pts(r.v - r.goal), label: r.v >= r.goal ? t.f6.above : t.f6.below }]), o.x + X(Math.max(r.v, r.goal)), o.y + Yc(i) - bh / 2, o.y + Yc(i) + bh / 2);
     };
     const idxAt = py => Math.max(0, Math.min(n - 1, Math.floor((py - T0) / rowH)));
     svg.addEventListener('pointermove', e => { const r = svg.getBoundingClientRect(); show(idxAt(e.clientY - r.top)); });
