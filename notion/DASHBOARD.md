@@ -300,8 +300,16 @@ Each step keeps what the wider steps changed.
 
 ## Tool Mapping
 
-**Web and coding agents.** Load `tokens.css` (installed in `.claude/skills/dashboard-style/`; or copy the `colors` block from the front matter) and these fonts:
-`https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap` and, for Korean, `https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css`. Tag colors are `--tag-<color>-bg`, `--tag-<color>-text` and `--tag-<color>-dot`.
+**Web and coding agents.** Load `tokens.css` (installed in `.claude/skills/dashboard-style/`; or copy the `colors` block from the front matter) and these fonts (the second for Korean). Tag colors are `--tag-<color>-bg`, `--tag-<color>-text` and `--tag-<color>-dot`.
+
+<!--email_off-->
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+```
+
+<!--/email_off-->
 
 **Tableau.** Paste the `<color-palette>` elements of `notion.tps` into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. The categorical palette runs purple, orange, green, Other and the comparison gray; assign the subject first.
 - Dashboard background `#ffffff`; each sheet in a container with a 1px `#e6e5e3` border and 20/24px inner padding. Worksheet shading white.
