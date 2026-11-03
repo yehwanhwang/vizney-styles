@@ -40,7 +40,7 @@ data:
 typography:
   sans: { en: "Roboto", ko: "Pretendard" }
   mono: "Roboto Mono"
-radius: {card: "8px", kpi: "8px", button: "4px", poster: "8px", feature-card: "16px", chip: "16px", badge: "2px", tooltip: "6px", faq: "0", bar: "2px"}
+radius: {card: "8px", kpi: "8px", button: "4px", feature-card: "16px", chip: "16px", badge: "2px", tooltip: "6px", faq: "0", bar: "2px"}
 spacing: {page: "32px", gap: "16px", section: "56px", card: "20px 24px 18px", card-head: "0 0 16px", card-foot: "14px 0 0", billboard: "44px 48px 28px", cell: "8px 10px", episode: "10px", faq: "24px", footer: "28px 32px 40px", feature-card: "24px 16px"}
 layout: {maxWidth: "1400px", columns: 12}
 files: {tokens: tokens.json, css: tokens.css, tableau: netflix.tps, powerbi: powerbi-theme.json, prompts: prompt.md, sample_data: tickets.csv}
@@ -50,7 +50,7 @@ files: {tokens: tokens.json, css: tokens.css, tableau: netflix.tps, powerbi: pow
 
 **Dark, Cinematic, Bold** · 다크, 시네마틱, 강렬함
 
-A dashboard design spec read from the public design of netflix.com and its weekly Top 10. Netflix rarely draws a chart: it ranks, badges and lines things up — a billboard with a TOP 10 badge, a rail of outlined numerals over the corners of posters, weeks in the Top 10, a thin red progress bar under a thumbnail, an episode list, a hover card with a green score and a rating box, a FAQ accordion. This spec takes those parts and the site's black-and-red tokens and turns them into one card and one chart grammar that a whole dashboard can follow, on one dark page. It then adds what a website spec leaves out and a dashboard needs: validated data colors for a dark surface, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Add it to a project with one command (or the zip on the sample page), or hand it to whoever builds your dashboards. The live sample was built from it.
+A dashboard design spec read from the public design of netflix.com and its weekly Top 10. Netflix rarely draws a chart: it ranks, badges and lines things up — a billboard with a TOP 10 badge, a Top 10 of outlined numerals, weeks in the Top 10, a thin red progress bar under a thumbnail, an episode list, a hover card with a green score and a rating box, a FAQ accordion. This spec takes those parts and the site's black-and-red tokens and turns them into one card and one chart grammar that a whole dashboard can follow, on one dark page. It then adds what a website spec leaves out and a dashboard needs: validated data colors for a dark surface, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Add it to a project with one command (or the zip on the sample page), or hand it to whoever builds your dashboards. The live sample was built from it.
 
 ```
 npx @vizney/styles@latest add netflix
@@ -73,7 +73,7 @@ Not an official Netflix design, and not affiliated with or endorsed by Netflix. 
 
 A black page with one red. The report opens the way a title opens on Netflix: a billboard. Its key art is a color block — the navy, wine, burgundy and oxblood of the landing page's Trending Now rail — with a giant outlined `1` and a dark vignette on the left. Over it sit a red TOP 10 badge with `#1 this week · <show>`, a bold headline that states the week's result, a short lede like a synopsis, a red button and a translucent gray one, and four key figures on translucent tiles. Below, sections read like the rows of the home screen: a 24px/500 row title, then cards on `#161616` with no border and no shadow, an 8px radius.
 
-The views are the ones Netflix uses for rankings and progress instead of charts: a Top 10 rail of outlined numerals over the lower-left corners of posters (color blocks with the title set in type, never photos), weeks in the Top 10 as a grid of ranks, an episode list whose thumbnails carry the continue-watching progress bar, a Top 10 table in the shape of the weekly Top 10 page, and a FAQ accordion for the method. Where a real chart is the right form — a trend, a share over time — it is drawn on the same card with the same restraint: the subject in red, everything else gray.
+The views are the ones Netflix uses for rankings and progress instead of charts: a Top 10 ranked by outlined numerals, each with its title, a bar of tickets, its move since last week and its weeks in the Top 10 (never posters or photos: the data takes the poster's place), weeks in the Top 10 as a grid of ranks, an episode list whose thumbnails carry the continue-watching progress bar, a Top 10 table in the shape of the weekly Top 10 page, and a FAQ accordion for the method. Where a real chart is the right form — a trend, a share over time — it is drawn on the same card with the same restraint: the subject in red, everything else gray.
 
 Red is the voice, and it speaks once per card. The UI red `#e50914` belongs to buttons, the TOP 10 badge and the NEW ribbon; data takes its own step, `#f0313b`, and only for what the title names. Green appears only as good news, orange only as bad. The mood is cinematic and bold: a dark room, one bright figure, the week's result in big type.
 
@@ -88,7 +88,7 @@ Surfaces are netflix.com's black and its gray steps; the rules are the product's
 |---|---|---|
 | canvas | `#000000` | page, header, footer |
 | card · plot | `#161616` · `#161616` | every figure, table and the workbench; the chart sits on the card itself |
-| raise | `#232323` | the hover card (tooltip) and the Top 10 posters |
+| raise | `#232323` | the hover card (tooltip) |
 | field | `#2d2d2d` | FAQ rows, install-command boxes |
 | hair / line / rule | `#414141` / `#2d2d2d` / `#404040` | the fill of the Top 10 numerals and chart baselines / gridlines and workbench dividers / rules between episode rows |
 | ink / body | `#ffffff` / `#e5e5e5` | titles, key figures, table values, the current week's tick / running text, code |
@@ -98,7 +98,7 @@ Surfaces are netflix.com's black and its gray steps; the rules are the product's
 | gray button | `rgba(128,128,128,.4)` with white text | the secondary button beside the red one (Learn more on netflix.com); hover at .6 |
 | good / bad | `#46d369` / `#e87c03` | favourable / unfavourable change, text only (9.3:1 / 6.3:1 on the card) |
 | focus | `#ffffff` | focus ring, 2px, 2px offset |
-| rail | `#192247` `#210e17` `#461518` `#6f181d` | the billboard's key art, the posters and thumbnails, the step cards; never data |
+| rail | `#192247` `#210e17` `#461518` `#6f181d` | the billboard's key art, thumbnails, the step cards; never data |
 
 Rules:
 - Cards are `#161616` on black with no border and no shadow; depth comes from the gray steps, as on netflix.com. Only the hover card and the toast cast a shadow.
@@ -158,8 +158,8 @@ Roboto stands in for Netflix Sans; it is in netflix.com's own fallback stack. ne
 | Card title | 20px / 500, line-height 1.35 | the finding; `text-wrap: balance` |
 | Card subtitle · table | 14px / 400 text-2 · 16px / 400 white | |
 | Table header | 14px / 500 white, sentence case | the weekly Top 10 page's header (measured) |
-| Rank · numeral | `01` 36px / 900 white in the table · 700, filled `#414141` with a 4px white stroke, about 42% of the poster's height in the Top 10 rail | both measured |
-| Poster title · poster genre | 13–18px / 900 · 9px / 700 uppercase, 0.16em | title set in type where key art would be |
+| Rank · numeral | `01` 36px / 900 white in the table · 700, filled `#414141` with a 4px white stroke, 58px tall in the Top 10 (44px on phones) | both measured (netflix.com draws the numeral 100px over a 252px poster) |
+| Top 10 row | title 16px / 500 white, value 16px / 700 with the unit 12px text-2; meta line 13px text-2 | |
 | Note · key | 13px / 400 muted · 13px / 500 body | the note starts with `Note:` / `주:` |
 | Axis ticks · value labels | 12px muted · 12px / 700 white | |
 | FAQ question · answer | 24px / 400 · 18px / 400 | white on `#2d2d2d` (measured question size) |
@@ -173,7 +173,7 @@ Headlines are bold (700); titles are medium (500); body is regular. Black weight
 | | English | Korean |
 |---|---|---|
 | Tickets, key figure and headline | `287.8K` | `28.8만 장` |
-| Tickets in the Top 10, posters and tables | `33,796` (full digits, as the weekly Top 10 writes them) | `33,796` |
+| Tickets in the Top 10 and tables | `33,796` (full digits, as the weekly Top 10 writes them) | `33,796` |
 | Tickets on an axis | `150K 200K 250K 300K` | `15만 20만 25만 30만` |
 | Money | `$25.68M`, `$924K`; per ticket `$89.22` | `2,568만 달러`, `92.4만 달러`; `89.22달러` |
 | Rates | `87.3%`; whole numbers on small labels (`58%`) | the same |
@@ -200,7 +200,7 @@ One column on a black page, at most 1400px wide, 32px side padding (24px up to 1
 2. **Filter row**: outlined chips of the cities, the selected chip white with black text; the basis (`Published Tue, Nov 3, 2026 · vs the week before`) on the right. It scopes every card, and the URL keeps the choice (`?city=ny`).
 3. **Billboard** (a card of its own, 8px radius, min 420px): on the left (7 of 12 columns) the TOP 10 badge line, the headline, the lede and two buttons (`See the Top 10`, `Method and sources`); the status tag `Final` at the right edge, where Netflix puts the maturity rating; the four key figures in one row across the bottom.
 4. **Sections**: a 24px row title and a one-line intro, then rows of cards on a 12-column grid; cards in one row share a subgrid, so their heads, bodies and notes line up.
-   - `This week`: Figure 1 the Top 10 row (12); Figure 2 tickets by week (7) · Figure 3 weeks in the Top 10 (5).
+   - `This week`: Figure 1 the Top 10 (12, two columns of five); Figure 2 tickets by week (7) · Figure 3 weeks in the Top 10 (5).
    - `Coming up`: Figure 4 performances selling fast (7) · Figure 5 where people buy (5); Table 1 every show (12).
 5. **`How it's built`**: a paragraph with two 40px buttons, three step cards in the feature-card gradient, the workbench window and a caption.
 6. **`Method and sources`**: the FAQ accordion and a source line.
@@ -218,7 +218,7 @@ At most seven views on one screen: the billboard and three views in `This week`,
 - **Buttons** (measured): 4px radius. Red `#e50914` with white text: 32px, 14px / 500, padding 4px 16px in the header; 40px, 16px / 500, padding 6px 16px for the billboard and calls to action, with a chevron (hover `#c11119`). Gray: `rgba(128,128,128,.4)`, white 16px / 500, 40px, an outlined info icon; hover at .6. Outlined: `rgba(0,0,0,.4)` with a 1px `#808080` border, white text, the border white on hover. Small: 28px, 13px. netflix.com's hero button is 56px with 24px / 500; a dashboard never needs that size.
 - **Chips** (the city filter): 32px, 16px radius, 1px `#808080` border on `rgba(0,0,0,.4)`, white 14px / 500; the selected chip white with black text. `role="tablist"`, arrow keys move. The EN/KO toggle is two 26px cells in one outlined box, the selected one white.
 - **Key figure**: on the billboard, a tile of `rgba(0,0,0,.45)` with a 1px `rgba(128,128,128,.4)` border and an 8px radius, 14px 16px 12px padding: label 14px / 500 text-2 → value → change line (14px text-2, the change in 700 status color, then `vs last week`). The four share a subgrid so their values line up.
-- **Top 10 rail** (Figure 1, measured on Trending Now): five items per row, two rows. Each item is a 5:7 poster (8px radius, 12% left inset) with its numeral in front of the lower-left corner: 700 weight, filled `#414141`, a 4px white stroke, a soft black glow (`0 0 24px rgba(0,0,0,.5)`), about 42% of the poster's height, starting left of the poster and running into it. The poster is a gradient of two rail colors at 160° with a soft light at the top right and a dark fade at the bottom, a 9px genre eyebrow (uppercase, 0.16em) at the top and the title in 900 weight at the bottom right of the numeral; no photo, no logo. Under the poster: the tickets in full digits (16px / 700) and `N weeks in Top 10` (12px muted), or `First week in Top 10` in red text for a new entry, whose poster carries the red NEW ribbon (11px / 700 on `#e50914`, on the bottom edge beside the numeral). Hover or focus outlines the poster in white and opens the hover card.
+- **Top 10** (Figure 1): two columns of five, ranks running down each column, no rules. Each row: the numeral in a 76px column (700 weight, filled `#414141`, a 4px white stroke, a soft black glow, 58px tall, right-aligned, as on netflix.com's Trending Now), then the title (16px / 500, ellipsis) with a red `NEW` badge in its first week and the tickets in full digits on the right (16px / 700, unit 12px text-2); under it a 6px bar of tickets against #1 on a `rgba(255,255,255,.08)` track, `#f0313b` for #1 and `#595959` for the rest; then a meta line (13px text-2, parts joined by `•` in `#646464`): the move since last week (`▲3` in good, `▼2` in bad, `Same` in muted, `Back` for a return; a new entry shows the badge instead), the genre, the cities, and `N weeks in Top 10` (or `First week in Top 10` in red text). Hover or focus turns the row `#262626` and opens the hover card. Netflix's posters are not drawn: without real key art they would be empty boxes, so the row carries data in their place.
 - **Weeks in the Top 10** (Figure 3): one row per show of this week's Top 10 (`1  Neon Harbor World Tour`, 13px, the current and the previous leader in white bold), one square per week (2px radius, 3px apart): red with a black digit for #1, `#333333` with a light digit for #2–10, an outline for weeks out of the Top 10; the count on the right (`12 wk`, white bold when it is all 12). Week ticks above, the current week in ink.
 - **Episode list** (Figure 4): rows of 10px padding with `#404040` rules: the index (22px / 500 text-2), a 16:9 thumbnail in the show's tile colors with the weekday (11px uppercase) and date (19px / 900) at the top and the **progress bar** at the bottom (4px, track `rgba(255,255,255,.28)`, fill red for the rows the title names and `#b3b3b3` for the rest, 10px from the edges); then the title (16px / 700) with a small TOP 10 badge, the state on the right (`Sold out` or `97% sold`, 15px / 700 white) and a line of details (14px text-2: city · time · runtime · seats left). The hovered or focused row turns `#333333`.
 - **Table** (the weekly Top 10 page, measured): 16px white, rows 56px, cells 8px 10px, no rules between rows; header 14px / 500 white in sentence case (`Ranking`, `Weeks in Top 10`, `Runtime`). The first column is the rank as `01` in 36px / 900 white; the show in 400 white after a 64px 16:9 thumbnail in its poster colors, with a red `NEW` badge in its first week; numbers centred with tabular figures; `vs last week` in good or bad; seats filled as a 96px progress bar and the value (red and red text when ≥ 95%); runtime `h:mm`; the rating box. It shows the Top 10 first; a **show-all button** below (36px, a 2px `rgba(255,255,255,.5)` border on `#2a2a2a`, an 18px radius, a chevron that turns, centred on a `#404040` rule) lists every show.
@@ -233,7 +233,7 @@ At most seven views on one screen: the billboard and three views in `This week`,
 ## Charts
 
 - **Choose by the question.** Netflix ranks before it plots; start with its parts and draw a chart only where they cannot answer.
-  - What sold most this week → the Top 10 rail: outlined numerals over posters, the value under each poster (Figure 1).
+  - What sold most this week → the Top 10: outlined numerals beside each title, a bar against #1 (red only for #1), the move since last week and weeks in the Top 10 (Figure 1).
   - A trend against last year → a line with last year dashed gray and both line ends labeled (Figure 2).
   - How long the leaders have stayed → weeks in the Top 10 as a grid of ranks, #1 in red (Figure 3).
   - Progress toward a whole (seats sold, a target) → the continue-watching progress bar under a thumbnail in an episode list, red only for the rows the title names (Figure 4).
@@ -242,10 +242,10 @@ At most seven views on one screen: the billboard and three views in `This week`,
 - **Titles.** The card title is the finding (`Neon Harbor World Tour has been #1 for 3 weeks in a row, after The Paper Moon Hotel`), recomputed when the filter changes. The subtitle names the measure and period; the note explains the method and the source.
 - **Marks.** Lines 2.5px for the subject, 2px for the comparison; a hollow end marker on the subject. Bars up to 24px wide, rounded 2px at the top, 2px gaps between stacked segments. Progress bars 4px, square ends. Rank squares with a 2px radius.
 - **Axes.** Solid `#2d2d2d` gridlines on rows only, a `#414141` baseline, no vertical axis line; ticks 12px muted, four or five nice ticks; the current week in ink.
-- **Labels.** Line ends carry `Name value` instead of a legend; values beside bars 12px / 700 in the series' text step; labels over marks have a card-colored halo. Values sit under posters and beside bars at rest; the hover card adds detail, never the only copy of a number.
+- **Labels.** Line ends carry `Name value` instead of a legend; values beside bars 12px / 700 in the series' text step; labels over marks have a card-colored halo. Values sit beside titles and bars at rest; the hover card adds detail, never the only copy of a number.
 - **Keys** only where labels cannot do the job, as a one-line row in the card head (a 12px square with a 2px radius, a line, a dashed line, an empty square).
 - **One axis.** Never a dual axis.
-- **Never:** pie, donut, 3D, gauges, gradients on data, smoothed lines, glow, the UI red on data, photos or logos on posters, green or orange as a series.
+- **Never:** pie, donut, 3D, gauges, gradients on data, smoothed lines, glow on data marks, the UI red on data, photos, posters or logos, green or orange as a series.
 - Every chart has a hover card, keyboard control and a screen-reader table.
 
 
@@ -262,7 +262,7 @@ Flat and dark. Cards are set apart by a step of gray (`#000000` → `#161616`), 
 - **Keyboard**: every chart, the Top 10 row and the episode list are focusable; arrow keys step (up and down move between shows in Figure 3), Home and End jump, Esc clears, and a live region reads the value. Chips and tabs move with arrow keys; the FAQ and the show-all button are buttons with `aria-expanded`.
 - **Workbench**: the first time it scrolls into view, the code types itself (55ms a line, 380ms between steps) and each step draws its layer of Figure 2 (frame → comparison line → subject line → end labels → title and note) and ticks its checks. Hovering a line of code spotlights its layer; hovering the chart highlights its code. `Without a spec` shows a typical first draft and fails all six checks. Changing the filter rewrites the `city` value and flashes that line.
 - `Copy as Markdown` copies the whole report as Markdown with a toast; `Export PDF` prints the dark page as it is.
-- Motion: lines draw in 0.7s, bars and progress grow in 0.45–0.5s, posters rise 8px and fade in 0.45s, one after another; labels fade in 0.3s; `cubic-bezier(.5,0,.1,1)`; controls change in 0.2s. `prefers-reduced-motion` turns all motion off and shows the workbench finished.
+- Motion: lines draw in 0.7s, bars and progress grow in 0.45–0.5s, Top 10 rows fade in 0.45s, one after another; labels fade in 0.3s; `cubic-bezier(.5,0,.1,1)`; controls change in 0.2s. `prefers-reduced-motion` turns all motion off and shows the workbench finished.
 
 
 ## Accessibility
@@ -283,7 +283,7 @@ Each step keeps what the wider steps changed.
 - 1024–1199: the same rows; key figure values 34px; code 12px with wrapped lines; the table drops Runtime.
 - 900–1023: cards stack one per row; the billboard is one column with the four key figures in a row; the workbench is one column; the table drops Gross.
 - 640–899: a 60px header without the report name, the period or `Export PDF`; the basis line leaves the filter row; key figures 2 × 2; the Top 10 row three across; step cards stack; the table drops Genre and vs last week.
-- < 640: 16px padding, 12px gaps, 40px between sections; `Copy as Markdown` becomes an icon button; chips 13px; the billboard padded 64px 16px 16px with the numeral smaller; headline 27px, key figure values 28px, section titles 21px, card titles 17px; the Top 10 rail two across; the episode list drops its index; the table keeps rank (24px), Show (no thumbnail), Tickets and Seats filled (the value only); FAQ questions 18px.
+- < 640: 16px padding, 12px gaps, 40px between sections; `Copy as Markdown` becomes an icon button; chips 13px; the billboard padded 64px 16px 16px with the numeral smaller; headline 27px, key figure values 28px, section titles 21px, card titles 17px; the Top 10 one column, without cities; the episode list drops its index; the table keeps rank (24px), Show (no thumbnail), Tickets and Seats filled (the value only); FAQ questions 18px.
 - Embedded in a post (`?embed=1`): the footer hides and the page reports its height to the host page.
 
 
@@ -344,8 +344,8 @@ Top: a black header with the period, the EN/KO toggle, an outlined Export PDF an
 outlined city chips that scopes every card. Then a billboard: color-block key art with a giant outlined numeral, the
 TOP 10 badge and "#1 this week · <show>", a headline that states the week's result, a two-sentence lede, a red and a
 gray button, four key figures with changes vs last week.
-This week: the Top 10 rail (outlined numerals over the lower-left corners of color-block posters, full-digit values under each tile, NEW
-ribbons); tickets by week against last year (dashed gray) beside weeks in the Top 10 as a grid of ranks, #1 in red.
+This week: the Top 10 in two columns (outlined numerals, titles, full-digit values, bars against #1 with only #1 in red,
+moves since last week, NEW badges); tickets by week against last year (dashed gray) beside weeks in the Top 10 as a grid of ranks, #1 in red.
 Coming up: the performances selling fast as an episode list with progress bars under the thumbnails beside channel
 shares as 100% stacked bars; a Top 10 table of every show with a show-all button.
 Method and sources as a FAQ accordion. Every view on the same #161616 card: figure label, finding title, subtitle, keys,
@@ -358,7 +358,7 @@ Before it is done, the agent checks:
 - [ ] The billboard states the result; the key figures carry signed changes colored good (`#46d369`) or bad (`#e87c03`).
 - [ ] Every view sits on the same `#161616` card with no border or shadow; every card title states a finding; every note starts with `Note:`.
 - [ ] Red `#f0313b` only for what each title names; others gray; comparison dashed `#808080`; the UI red `#e50914` only on buttons, badges and ribbons; no photo or logo.
-- [ ] Rankings use the Top 10 parts (numerals and tiles, the rank grid, the Top 10 table) with values in full digits; shares of a whole use progress bars.
+- [ ] Rankings use the Top 10 parts (outlined numerals with bars and rank moves, the rank grid, the Top 10 table) with values in full digits; shares of a whole use progress bars.
 - [ ] Gridlines on rows only; line ends labeled; keys only where labels cannot work; no dual axis, pie, donut, gauge or glow.
 - [ ] Numbers, dates, runtimes and weeks follow the formats in both languages.
 - [ ] Text ≥ 4.5:1 on its surface (muted only on `#161616` or darker); marks below 3:1 have a second cue.

@@ -231,7 +231,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 <main id="main" class="doc">
 <h1 id="netflix-style--dashboardmd">Netflix style — DASHBOARD.md</h1>
 <p><strong>Dark, Cinematic, Bold</strong> · 다크, 시네마틱, 강렬함</p>
-<p>A dashboard design spec read from the public design of netflix.com and its weekly Top 10. Netflix rarely draws a chart: it ranks, badges and lines things up — a billboard with a TOP 10 badge, a rail of outlined numerals over the corners of posters, weeks in the Top 10, a thin red progress bar under a thumbnail, an episode list, a hover card with a green score and a rating box, a FAQ accordion. This spec takes those parts and the site's black-and-red tokens and turns them into one card and one chart grammar that a whole dashboard can follow, on one dark page. It then adds what a website spec leaves out and a dashboard needs: validated data colors for a dark surface, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Add it to a project with one command (or the zip on the sample page), or hand it to whoever builds your dashboards. The live sample was built from it.</p>
+<p>A dashboard design spec read from the public design of netflix.com and its weekly Top 10. Netflix rarely draws a chart: it ranks, badges and lines things up — a billboard with a TOP 10 badge, a Top 10 of outlined numerals, weeks in the Top 10, a thin red progress bar under a thumbnail, an episode list, a hover card with a green score and a rating box, a FAQ accordion. This spec takes those parts and the site's black-and-red tokens and turns them into one card and one chart grammar that a whole dashboard can follow, on one dark page. It then adds what a website spec leaves out and a dashboard needs: validated data colors for a dark surface, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Add it to a project with one command (or the zip on the sample page), or hand it to whoever builds your dashboards. The live sample was built from it.</p>
 <pre><code>npx @vizney/styles@latest add netflix
 # or, without Node:
 curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
@@ -247,7 +247,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 <p>Not an official Netflix design, and not affiliated with or endorsed by Netflix. A reference style read from the publicly visible design of netflix.com; it carries no logo, typeface or data of theirs. The sample's company, Vizney Live, and all its numbers are fictional. Trademarks belong to their owners.</p>
 <h2 id="visual-theme--atmosphere">Visual Theme &amp; Atmosphere</h2>
 <p>A black page with one red. The report opens the way a title opens on Netflix: a billboard. Its key art is a color block — the navy, wine, burgundy and oxblood of the landing page's Trending Now rail — with a giant outlined <code>1</code> and a dark vignette on the left. Over it sit a red TOP 10 badge with <code>#1 this week · &lt;show&gt;</code>, a bold headline that states the week's result, a short lede like a synopsis, a red button and a translucent gray one, and four key figures on translucent tiles. Below, sections read like the rows of the home screen: a 24px/500 row title, then cards on <code>#161616</code> with no border and no shadow, an 8px radius.</p>
-<p>The views are the ones Netflix uses for rankings and progress instead of charts: a Top 10 rail of outlined numerals over the lower-left corners of posters (color blocks with the title set in type, never photos), weeks in the Top 10 as a grid of ranks, an episode list whose thumbnails carry the continue-watching progress bar, a Top 10 table in the shape of the weekly Top 10 page, and a FAQ accordion for the method. Where a real chart is the right form — a trend, a share over time — it is drawn on the same card with the same restraint: the subject in red, everything else gray.</p>
+<p>The views are the ones Netflix uses for rankings and progress instead of charts: a Top 10 ranked by outlined numerals, each with its title, a bar of tickets, its move since last week and its weeks in the Top 10 (never posters or photos: the data takes the poster's place), weeks in the Top 10 as a grid of ranks, an episode list whose thumbnails carry the continue-watching progress bar, a Top 10 table in the shape of the weekly Top 10 page, and a FAQ accordion for the method. Where a real chart is the right form — a trend, a share over time — it is drawn on the same card with the same restraint: the subject in red, everything else gray.</p>
 <p>Red is the voice, and it speaks once per card. The UI red <code>#e50914</code> belongs to buttons, the TOP 10 badge and the NEW ribbon; data takes its own step, <code>#f0313b</code>, and only for what the title names. Green appears only as good news, orange only as bad. The mood is cinematic and bold: a dark room, one bright figure, the week's result in big type.</p>
 <p>Measured in a browser on November 3, 2026 (netflix.com/kr signed out, and netflix.com/tudum/top10): the page is black <code>#000000</code>; text is <code>#ffffff</code> and, for secondary text, <code>rgba(255,255,255,.7)</code> (<code>#b3b3b3</code> on black); the headline is 56px/700 on a 70px line and row titles 24px/500; the primary button is red <code>#e50914</code> with a 4px radius (32px with 14px/500 in the header, 56px with 24px/500 in the hero) and the secondary button <code>rgba(128,128,128,.4)</code> at 40px with 16px/500; the Trending Now posters are <code>#232323</code> with an 8px radius (180 × 252), each carrying a 100px/700 numeral filled <code>#414141</code> with a 4px white stroke and a soft black glow over its lower-left corner; feature cards are <code>linear-gradient(149deg, #192247 0%, #210e17 96.86%)</code> with a 16px radius, 24px/500 titles and <code>rgba(255,255,255,.7)</code> text; FAQ rows are <code>#2d2d2d</code>, 24px/400 with 24px padding, 8px apart; the rails glow with <code>#461518</code> and <code>#6f181d</code>, and a curved divider runs <code>#210d16 → #b82869 → #e50914</code> with a <code>rgba(64,97,231,.4)</code> blue haze. Netflix Sans loads in 400, 500 and 700 with the fallback stack <code>'Helvetica Neue', 'Segoe UI', Roboto, Ubuntu, sans-serif</code>, and has no Hangul. The weekly Top 10 page writes the rank as <code>01</code> in 36px/900, puts a 16:9 thumbnail before the title, heads its columns in 14px/500 white, draws no rules between rows, and lists weeks in the Top 10, views (<code>10,700,000</code>), runtime (<code>1:48</code>) and hours viewed in full digits, for Monday-to-Sunday weeks (<code>10/19/26 - 10/25/26</code>). The quarterly shareholder letter carries tables, not charts.</p>
 <h2 id="color-palette--roles">Color Palette &amp; Roles</h2>
@@ -274,7 +274,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 <tr>
 <td>raise</td>
 <td><code>#232323</code></td>
-<td>the hover card (tooltip) and the Top 10 posters</td>
+<td>the hover card (tooltip)</td>
 </tr>
 <tr>
 <td>field</td>
@@ -324,7 +324,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 <tr>
 <td>rail</td>
 <td><code>#192247</code> <code>#210e17</code> <code>#461518</code> <code>#6f181d</code></td>
-<td>the billboard's key art, the posters and thumbnails, the step cards; never data</td>
+<td>the billboard's key art, thumbnails, the step cards; never data</td>
 </tr>
 </tbody>
 </table>
@@ -496,13 +496,13 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 </tr>
 <tr>
 <td>Rank · numeral</td>
-<td><code>01</code> 36px / 900 white in the table · 700, filled <code>#414141</code> with a 4px white stroke, about 42% of the poster's height in the Top 10 rail</td>
-<td>both measured</td>
+<td><code>01</code> 36px / 900 white in the table · 700, filled <code>#414141</code> with a 4px white stroke, 58px tall in the Top 10 (44px on phones)</td>
+<td>both measured (netflix.com draws the numeral 100px over a 252px poster)</td>
 </tr>
 <tr>
-<td>Poster title · poster genre</td>
-<td>13–18px / 900 · 9px / 700 uppercase, 0.16em</td>
-<td>title set in type where key art would be</td>
+<td>Top 10 row</td>
+<td>title 16px / 500 white, value 16px / 700 with the unit 12px text-2; meta line 13px text-2</td>
+<td></td>
 </tr>
 <tr>
 <td>Note · key</td>
@@ -543,7 +543,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 <td><code>28.8만 장</code></td>
 </tr>
 <tr>
-<td>Tickets in the Top 10, posters and tables</td>
+<td>Tickets in the Top 10 and tables</td>
 <td><code>33,796</code> (full digits, as the weekly Top 10 writes them)</td>
 <td><code>33,796</code></td>
 </tr>
@@ -613,7 +613,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 <li><strong>Filter row</strong>: outlined chips of the cities, the selected chip white with black text; the basis (<code>Published Tue, Nov 3, 2026 · vs the week before</code>) on the right. It scopes every card, and the URL keeps the choice (<code>?city=ny</code>).</li>
 <li><strong>Billboard</strong> (a card of its own, 8px radius, min 420px): on the left (7 of 12 columns) the TOP 10 badge line, the headline, the lede and two buttons (<code>See the Top 10</code>, <code>Method and sources</code>); the status tag <code>Final</code> at the right edge, where Netflix puts the maturity rating; the four key figures in one row across the bottom.</li>
 <li><strong>Sections</strong>: a 24px row title and a one-line intro, then rows of cards on a 12-column grid; cards in one row share a subgrid, so their heads, bodies and notes line up.
-   - <code>This week</code>: Figure 1 the Top 10 row (12); Figure 2 tickets by week (7) · Figure 3 weeks in the Top 10 (5).
+   - <code>This week</code>: Figure 1 the Top 10 (12, two columns of five); Figure 2 tickets by week (7) · Figure 3 weeks in the Top 10 (5).
    - <code>Coming up</code>: Figure 4 performances selling fast (7) · Figure 5 where people buy (5); Table 1 every show (12).</li>
 <li><strong><code>How it's built</code></strong>: a paragraph with two 40px buttons, three step cards in the feature-card gradient, the workbench window and a caption.</li>
 <li><strong><code>Method and sources</code></strong>: the FAQ accordion and a source line.</li>
@@ -629,7 +629,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 <li><strong>Buttons</strong> (measured): 4px radius. Red <code>#e50914</code> with white text: 32px, 14px / 500, padding 4px 16px in the header; 40px, 16px / 500, padding 6px 16px for the billboard and calls to action, with a chevron (hover <code>#c11119</code>). Gray: <code>rgba(128,128,128,.4)</code>, white 16px / 500, 40px, an outlined info icon; hover at .6. Outlined: <code>rgba(0,0,0,.4)</code> with a 1px <code>#808080</code> border, white text, the border white on hover. Small: 28px, 13px. netflix.com's hero button is 56px with 24px / 500; a dashboard never needs that size.</li>
 <li><strong>Chips</strong> (the city filter): 32px, 16px radius, 1px <code>#808080</code> border on <code>rgba(0,0,0,.4)</code>, white 14px / 500; the selected chip white with black text. <code>role="tablist"</code>, arrow keys move. The EN/KO toggle is two 26px cells in one outlined box, the selected one white.</li>
 <li><strong>Key figure</strong>: on the billboard, a tile of <code>rgba(0,0,0,.45)</code> with a 1px <code>rgba(128,128,128,.4)</code> border and an 8px radius, 14px 16px 12px padding: label 14px / 500 text-2 → value → change line (14px text-2, the change in 700 status color, then <code>vs last week</code>). The four share a subgrid so their values line up.</li>
-<li><strong>Top 10 rail</strong> (Figure 1, measured on Trending Now): five items per row, two rows. Each item is a 5:7 poster (8px radius, 12% left inset) with its numeral in front of the lower-left corner: 700 weight, filled <code>#414141</code>, a 4px white stroke, a soft black glow (<code>0 0 24px rgba(0,0,0,.5)</code>), about 42% of the poster's height, starting left of the poster and running into it. The poster is a gradient of two rail colors at 160° with a soft light at the top right and a dark fade at the bottom, a 9px genre eyebrow (uppercase, 0.16em) at the top and the title in 900 weight at the bottom right of the numeral; no photo, no logo. Under the poster: the tickets in full digits (16px / 700) and <code>N weeks in Top 10</code> (12px muted), or <code>First week in Top 10</code> in red text for a new entry, whose poster carries the red NEW ribbon (11px / 700 on <code>#e50914</code>, on the bottom edge beside the numeral). Hover or focus outlines the poster in white and opens the hover card.</li>
+<li><strong>Top 10</strong> (Figure 1): two columns of five, ranks running down each column, no rules. Each row: the numeral in a 76px column (700 weight, filled <code>#414141</code>, a 4px white stroke, a soft black glow, 58px tall, right-aligned, as on netflix.com's Trending Now), then the title (16px / 500, ellipsis) with a red <code>NEW</code> badge in its first week and the tickets in full digits on the right (16px / 700, unit 12px text-2); under it a 6px bar of tickets against #1 on a <code>rgba(255,255,255,.08)</code> track, <code>#f0313b</code> for #1 and <code>#595959</code> for the rest; then a meta line (13px text-2, parts joined by <code>•</code> in <code>#646464</code>): the move since last week (<code>▲3</code> in good, <code>▼2</code> in bad, <code>Same</code> in muted, <code>Back</code> for a return; a new entry shows the badge instead), the genre, the cities, and <code>N weeks in Top 10</code> (or <code>First week in Top 10</code> in red text). Hover or focus turns the row <code>#262626</code> and opens the hover card. Netflix's posters are not drawn: without real key art they would be empty boxes, so the row carries data in their place.</li>
 <li><strong>Weeks in the Top 10</strong> (Figure 3): one row per show of this week's Top 10 (<code>1  Neon Harbor World Tour</code>, 13px, the current and the previous leader in white bold), one square per week (2px radius, 3px apart): red with a black digit for #1, <code>#333333</code> with a light digit for #2–10, an outline for weeks out of the Top 10; the count on the right (<code>12 wk</code>, white bold when it is all 12). Week ticks above, the current week in ink.</li>
 <li><strong>Episode list</strong> (Figure 4): rows of 10px padding with <code>#404040</code> rules: the index (22px / 500 text-2), a 16:9 thumbnail in the show's tile colors with the weekday (11px uppercase) and date (19px / 900) at the top and the <strong>progress bar</strong> at the bottom (4px, track <code>rgba(255,255,255,.28)</code>, fill red for the rows the title names and <code>#b3b3b3</code> for the rest, 10px from the edges); then the title (16px / 700) with a small TOP 10 badge, the state on the right (<code>Sold out</code> or <code>97% sold</code>, 15px / 700 white) and a line of details (14px text-2: city · time · runtime · seats left). The hovered or focused row turns <code>#333333</code>.</li>
 <li><strong>Table</strong> (the weekly Top 10 page, measured): 16px white, rows 56px, cells 8px 10px, no rules between rows; header 14px / 500 white in sentence case (<code>Ranking</code>, <code>Weeks in Top 10</code>, <code>Runtime</code>). The first column is the rank as <code>01</code> in 36px / 900 white; the show in 400 white after a 64px 16:9 thumbnail in its poster colors, with a red <code>NEW</code> badge in its first week; numbers centred with tabular figures; <code>vs last week</code> in good or bad; seats filled as a 96px progress bar and the value (red and red text when ≥ 95%); runtime <code>h:mm</code>; the rating box. It shows the Top 10 first; a <strong>show-all button</strong> below (36px, a 2px <code>rgba(255,255,255,.5)</code> border on <code>#2a2a2a</code>, an 18px radius, a chevron that turns, centred on a <code>#404040</code> rule) lists every show.</li>
@@ -643,7 +643,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 <h2 id="charts">Charts</h2>
 <ul>
 <li><strong>Choose by the question.</strong> Netflix ranks before it plots; start with its parts and draw a chart only where they cannot answer.</li>
-<li>What sold most this week → the Top 10 rail: outlined numerals over posters, the value under each poster (Figure 1).</li>
+<li>What sold most this week → the Top 10: outlined numerals beside each title, a bar against #1 (red only for #1), the move since last week and weeks in the Top 10 (Figure 1).</li>
 <li>A trend against last year → a line with last year dashed gray and both line ends labeled (Figure 2).</li>
 <li>How long the leaders have stayed → weeks in the Top 10 as a grid of ranks, #1 in red (Figure 3).</li>
 <li>Progress toward a whole (seats sold, a target) → the continue-watching progress bar under a thumbnail in an episode list, red only for the rows the title names (Figure 4).</li>
@@ -652,10 +652,10 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 <li><strong>Titles.</strong> The card title is the finding (<code>Neon Harbor World Tour has been #1 for 3 weeks in a row, after The Paper Moon Hotel</code>), recomputed when the filter changes. The subtitle names the measure and period; the note explains the method and the source.</li>
 <li><strong>Marks.</strong> Lines 2.5px for the subject, 2px for the comparison; a hollow end marker on the subject. Bars up to 24px wide, rounded 2px at the top, 2px gaps between stacked segments. Progress bars 4px, square ends. Rank squares with a 2px radius.</li>
 <li><strong>Axes.</strong> Solid <code>#2d2d2d</code> gridlines on rows only, a <code>#414141</code> baseline, no vertical axis line; ticks 12px muted, four or five nice ticks; the current week in ink.</li>
-<li><strong>Labels.</strong> Line ends carry <code>Name value</code> instead of a legend; values beside bars 12px / 700 in the series' text step; labels over marks have a card-colored halo. Values sit under posters and beside bars at rest; the hover card adds detail, never the only copy of a number.</li>
+<li><strong>Labels.</strong> Line ends carry <code>Name value</code> instead of a legend; values beside bars 12px / 700 in the series' text step; labels over marks have a card-colored halo. Values sit beside titles and bars at rest; the hover card adds detail, never the only copy of a number.</li>
 <li><strong>Keys</strong> only where labels cannot do the job, as a one-line row in the card head (a 12px square with a 2px radius, a line, a dashed line, an empty square).</li>
 <li><strong>One axis.</strong> Never a dual axis.</li>
-<li><strong>Never:</strong> pie, donut, 3D, gauges, gradients on data, smoothed lines, glow, the UI red on data, photos or logos on posters, green or orange as a series.</li>
+<li><strong>Never:</strong> pie, donut, 3D, gauges, gradients on data, smoothed lines, glow on data marks, the UI red on data, photos, posters or logos, green or orange as a series.</li>
 <li>Every chart has a hover card, keyboard control and a screen-reader table.</li>
 </ul>
 <h2 id="depth--elevation">Depth &amp; Elevation</h2>
@@ -668,7 +668,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 <li><strong>Keyboard</strong>: every chart, the Top 10 row and the episode list are focusable; arrow keys step (up and down move between shows in Figure 3), Home and End jump, Esc clears, and a live region reads the value. Chips and tabs move with arrow keys; the FAQ and the show-all button are buttons with <code>aria-expanded</code>.</li>
 <li><strong>Workbench</strong>: the first time it scrolls into view, the code types itself (55ms a line, 380ms between steps) and each step draws its layer of Figure 2 (frame → comparison line → subject line → end labels → title and note) and ticks its checks. Hovering a line of code spotlights its layer; hovering the chart highlights its code. <code>Without a spec</code> shows a typical first draft and fails all six checks. Changing the filter rewrites the <code>city</code> value and flashes that line.</li>
 <li><code>Copy as Markdown</code> copies the whole report as Markdown with a toast; <code>Export PDF</code> prints the dark page as it is.</li>
-<li>Motion: lines draw in 0.7s, bars and progress grow in 0.45–0.5s, posters rise 8px and fade in 0.45s, one after another; labels fade in 0.3s; <code>cubic-bezier(.5,0,.1,1)</code>; controls change in 0.2s. <code>prefers-reduced-motion</code> turns all motion off and shows the workbench finished.</li>
+<li>Motion: lines draw in 0.7s, bars and progress grow in 0.45–0.5s, Top 10 rows fade in 0.45s, one after another; labels fade in 0.3s; <code>cubic-bezier(.5,0,.1,1)</code>; controls change in 0.2s. <code>prefers-reduced-motion</code> turns all motion off and shows the workbench finished.</li>
 </ul>
 <h2 id="accessibility">Accessibility</h2>
 <ul>
@@ -686,7 +686,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
 <li>1024–1199: the same rows; key figure values 34px; code 12px with wrapped lines; the table drops Runtime.</li>
 <li>900–1023: cards stack one per row; the billboard is one column with the four key figures in a row; the workbench is one column; the table drops Gross.</li>
 <li>640–899: a 60px header without the report name, the period or <code>Export PDF</code>; the basis line leaves the filter row; key figures 2 × 2; the Top 10 row three across; step cards stack; the table drops Genre and vs last week.</li>
-<li>&lt; 640: 16px padding, 12px gaps, 40px between sections; <code>Copy as Markdown</code> becomes an icon button; chips 13px; the billboard padded 64px 16px 16px with the numeral smaller; headline 27px, key figure values 28px, section titles 21px, card titles 17px; the Top 10 rail two across; the episode list drops its index; the table keeps rank (24px), Show (no thumbnail), Tickets and Seats filled (the value only); FAQ questions 18px.</li>
+<li>&lt; 640: 16px padding, 12px gaps, 40px between sections; <code>Copy as Markdown</code> becomes an icon button; chips 13px; the billboard padded 64px 16px 16px with the numeral smaller; headline 27px, key figure values 28px, section titles 21px, card titles 17px; the Top 10 one column, without cities; the episode list drops its index; the table keeps rank (24px), Show (no thumbnail), Tickets and Seats filled (the value only); FAQ questions 18px.</li>
 <li>Embedded in a post (<code>?embed=1</code>): the footer hides and the page reports its height to the host page.</li>
 </ul>
 <h2 id="tool-mapping">Tool Mapping</h2>
@@ -733,8 +733,8 @@ Top: a black header with the period, the EN/KO toggle, an outlined Export PDF an
 outlined city chips that scopes every card. Then a billboard: color-block key art with a giant outlined numeral, the
 TOP 10 badge and &quot;#1 this week · &lt;show&gt;&quot;, a headline that states the week's result, a two-sentence lede, a red and a
 gray button, four key figures with changes vs last week.
-This week: the Top 10 rail (outlined numerals over the lower-left corners of color-block posters, full-digit values under each tile, NEW
-ribbons); tickets by week against last year (dashed gray) beside weeks in the Top 10 as a grid of ranks, #1 in red.
+This week: the Top 10 in two columns (outlined numerals, titles, full-digit values, bars against #1 with only #1 in red,
+moves since last week, NEW badges); tickets by week against last year (dashed gray) beside weeks in the Top 10 as a grid of ranks, #1 in red.
 Coming up: the performances selling fast as an episode list with progress bars under the thumbnails beside channel
 shares as 100% stacked bars; a Top 10 table of every show with a show-all button.
 Method and sources as a FAQ accordion. Every view on the same #161616 card: figure label, finding title, subtitle, keys,
@@ -746,7 +746,7 @@ Every chart needs a hover card, keyboard control and a screen-reader table.
 - [ ] The billboard states the result; the key figures carry signed changes colored good (<code>#46d369</code>) or bad (<code>#e87c03</code>).
 - [ ] Every view sits on the same <code>#161616</code> card with no border or shadow; every card title states a finding; every note starts with <code>Note:</code>.
 - [ ] Red <code>#f0313b</code> only for what each title names; others gray; comparison dashed <code>#808080</code>; the UI red <code>#e50914</code> only on buttons, badges and ribbons; no photo or logo.
-- [ ] Rankings use the Top 10 parts (numerals and tiles, the rank grid, the Top 10 table) with values in full digits; shares of a whole use progress bars.
+- [ ] Rankings use the Top 10 parts (outlined numerals with bars and rank moves, the rank grid, the Top 10 table) with values in full digits; shares of a whole use progress bars.
 - [ ] Gridlines on rows only; line ends labeled; keys only where labels cannot work; no dual axis, pie, donut, gauge or glow.
 - [ ] Numbers, dates, runtimes and weeks follow the formats in both languages.
 - [ ] Text ≥ 4.5:1 on its surface (muted only on <code>#161616</code> or darker); marks below 3:1 have a second cue.
