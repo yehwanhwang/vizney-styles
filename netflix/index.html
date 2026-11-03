@@ -210,9 +210,8 @@
   .tbl .rkc{width:60px;padding-left:0;font-size:36px;font-weight:900;line-height:1.1;color:#fff;text-align:left;letter-spacing:-.01em}
   .tbl thead .rkc{font-size:14px;font-weight:500;line-height:22px;letter-spacing:0}
   .tbl .sh-t{vertical-align:middle}
-  .thumb{flex:none;width:64px;aspect-ratio:16/9;background:linear-gradient(160deg,var(--t0),var(--t1))}
   .tbl tbody th{font-weight:400;color:#fff}
-  .tbl .sh-t{display:inline-flex;align-items:center;gap:14px}
+  .tbl .sh-t{display:inline-flex;align-items:center;gap:10px}
   .newb{display:inline-flex;align-items:center;height:18px;padding:0 6px;border-radius:2px;background:var(--red);font-size:11px;font-weight:700;letter-spacing:.04em;color:#fff}
   .rbox{display:inline-flex;align-items:center;height:20px;padding:0 6px;border:1px solid rgba(255,255,255,.4);font-size:12px;font-weight:500;color:var(--body);white-space:nowrap}
   .tbl .good{color:var(--good)} .tbl .bad{color:var(--bad)} .tbl .na{color:var(--muted)}
@@ -456,7 +455,6 @@
     .tbl .c-city,.tbl .c-rate,.tbl .c-wk{display:none}
     .fbar .pg{display:none}
     .tbl .rkc{width:40px;font-size:24px}
-    .thumb{display:none}
     .faq button{font-size:18px;min-height:64px;padding:16px}
     .faq .ans{padding:16px;font-size:16px}
     #f2Plot{min-height:260px} #f3Plot{min-height:320px} #f5Plot{min-height:240px}
@@ -668,7 +666,6 @@
     generic: ['#36a2eb', '#ff6384'], genericGrid: 'rgba(255,255,255,.14)'
   };
   // 타일(키 아트 대신 색 블록): 랜딩 레일의 남색·와인·버건디·옥스블러드에서 두 색씩
-  const TILE = [['#192247', '#210e17'], ['#210e17', '#461518'], ['#461518', '#6f181d'], ['#192247', '#6f181d'], ['#0f1634', '#192247'], ['#2a0f14', '#461518']];
 
   /* ================= 가상 데이터: Vizney Live, 2026년 10월 26일~11월 1일(월~일). 돈은 미국 달러 =================
      공연 32개(뮤지컬 상주 공연, 투어 공연, 코미디·가족·댄스·마술)의 주별 티켓·좌석·매출과 다음 주 판매를 Python으로 만들고
@@ -944,7 +941,6 @@
   const rating = id => RATING[P(id).rating][KO() ? 0 : 1];
   const cityName = c => CITY[c][KO() ? 0 : 1];
   const cityList = cs => KO() ? joinKo(cs.map(cityName)) : joinEn(cs.map(cityName));
-  const tileVars = id => ({ '--t0': TILE[P(id).tile][0], '--t1': TILE[P(id).tile][1] });
   const figNodes = parts => parts.map(p => p.u ? h('span', { class: p.pre ? 'u pre' : 'u', text: p.t }) : document.createTextNode(p.t));
   function deltaNodes(d, digits, suffix, vs, goodWhenUp = true, txt) {
     const shown = Number(d.toFixed(digits)), cls = shown === 0 ? 'flat' : (shown > 0) === goodWhenUp ? null : 'bad';
@@ -1414,7 +1410,7 @@
         const ch = p.t0 ? (p.t / p.t0 - 1) * 100 : null, st = p.t / p.cap * 100;
         return h('tr', animOK(animate) ? { class: 'fade', style: { animationDelay: (i * 25) + 'ms' } } : null,
           h('td', { class: 'rkc', text: String(i + 1).padStart(2, '0') }),
-          h('th', { scope: 'row' }, h('span', { class: 'sh-t' }, h('span', { class: 'thumb', style: tileVars(p.id), 'aria-hidden': 'true' }), title(p.id), p.wk === 1 && i < 10 ? h('span', { class: 'newb', text: t.t1.newb }) : null)),
+          h('th', { scope: 'row' }, h('span', { class: 'sh-t' }, title(p.id), p.wk === 1 && i < 10 ? h('span', { class: 'newb', text: t.t1.newb }) : null)),
           h('td', { class: 'c-genre', text: genre(p.id) }),
           cityCol ? h('td', { class: 'c-city', text: p.cities.map(cityName).join(', ') }) : null,
           h('td', { class: 'num c-wk' + (p.wk ? ' wkc' : ' na'), text: p.wk ? t.t1.wk(p.wk) : '—' }),
