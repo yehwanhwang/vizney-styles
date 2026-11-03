@@ -727,7 +727,7 @@
       f5: {
         label: '그림 5 · 주유소',
         title: v => [`${v.day}에 휘발유가 가장 많이 팔렸습니다: ${v.gal}갤런, 갤런당 `, v.price, '달러'],
-        sub: '11/1(일) 마감 주 일별 판매량과 평균 주유 가격', keys: ['가장 많이 판 날', '다른 날'], gal: '갤런', price: '평균 가격', sales: '매출',
+        sub: '11/1(일) 마감 주 일별 판매량과 평균 주유 가격', keys: ['가장 많이 판 날', '다른 날'], gal: '갤런', price: '주유 가격', sales: '매출',
         note: '주: 주유 가격은 그날 모든 주유소의 갤런 가중 평균이며, 주유소 가격판처럼 0.1센트까지 적습니다.',
         aria: '일별 휘발유 판매량. 좌우 화살표 키로 날을 옮깁니다.'
       },
@@ -826,7 +826,7 @@
       f5: {
         label: 'Figure 5 · Gas station',
         title: v => [`${v.day} pumped the most gas: ${v.gal} gallons at `, v.price],
-        sub: 'Gallons sold by day, week ended 11/01/26, with the average pump price', keys: ['Busiest day', 'Other days'], gal: 'gallons', price: 'Average price', sales: 'Sales',
+        sub: 'Gallons sold by day, week ended 11/01/26, with the average pump price', keys: ['Busiest day', 'Other days'], gal: 'gallons', price: 'Pump price', sales: 'Sales',
         note: 'Note: The pump price is the day’s gallon-weighted average across stations, to a tenth of a cent as on the price sign.',
         aria: 'Gallons sold by day. Left and right arrow keys move between days.'
       },
@@ -930,7 +930,9 @@
   const dollars = v => KO() ? `${koMan(v)}달러` : `$${nf(v)}`;
   const galM = v => KO() ? `${nf(v / 1e4, 1)}만 갤런` : `${nf(v / 1e6, 2)}M gallons`;
   const kd = x => Number.isInteger(Math.round(x * 10) / 10) ? 0 : 1;
-  const compact = v => KO() ? (v >= 1e4 ? `${nf(v / 1e4, v >= 1e5 ? 0 : kd(v / 1e4))}만` : nf(v)) : (v >= 1e6 ? `${nf(v / 1e6, 1)}M` : v >= 1e3 ? `${nf(v / 1e3, kd(v / 1e3))}K` : nf(v));
+  // 값 라벨은 반올림한 K·만, 축 눈금은 2.5K처럼 필요할 때만 소수 한 자리
+  const compact = v => KO() ? (v >= 1e4 ? `${nf(v / 1e4, v >= 1e5 ? 0 : 1)}만` : nf(v)) : (v >= 1e6 ? `${nf(v / 1e6, 1)}M` : v >= 1e3 ? `${nf(v / 1e3)}K` : nf(v));
+  const compactTick = v => KO() ? (v >= 1e4 ? `${nf(v / 1e4, kd(v / 1e4))}만` : nf(v)) : (v >= 1e6 ? `${nf(v / 1e6, kd(v / 1e6))}M` : v >= 1e3 ? `${nf(v / 1e3, kd(v / 1e3))}K` : nf(v));
   const dt = s => new Date(s + 'T12:00:00');
   const addDays = (s, n) => { const d = dt(s); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
   // 코스트코 표기: 10/19/26 - 11/15/26(MM/DD/YY). 한국어는 costco.co.kr처럼 11/2(월)
@@ -1278,7 +1280,7 @@
       { key: C.ink, value: count(r.f), label: t.f2.fc },
       { value: nf(r.r * 100) + '%', label: KO() ? '예측 대비' : 'of forecast' },
       { value: dollars(r.s), label: t.f2.savK }
-    ], `${t.f2.item} ${r.meta.item} · ${t.f2.limit(r.meta.limit)}`), o.x + o.w / 2, o.y + 8, o.y + o.h - 8);
+    ], `${t.f2.item} ${r.meta.item} · ${t.f2.limit(r.meta.limit)}`), o.x + o.w / 2, o.y, o.y + o.h);
   }
   (() => {
     const list = $('#f2List');
@@ -1332,7 +1334,7 @@
     const tot = gas ? s.day_gal : s.new_prem.map((v, i) => v + s.new_std[i]);
     const top = gas ? s.day_gal.indexOf(Math.max(...s.day_gal)) : LAST;
     const yt = niceTicks(0, Math.max(...tot) * (gas ? 1.12 : 1.08), 4);
-    const tick = v => compact(v);
+    const tick = v => compactTick(v);
     const L0 = Math.ceil(Math.max(...yt.map(v => textW(tick(v), `400 12px ${f}`)))) + 10, R0 = 6, T0 = 14, B0 = gas ? 42 : 26;
     const band = (W - L0 - R0) / n, bw = Math.min(gas ? 44 : 22, band * .68);
     const X = i => L0 + band * i + (band - bw) / 2, Y = v => H - B0 - v / yt[yt.length - 1] * (H - B0 - T0);
@@ -1371,7 +1373,7 @@
       ST.i = i;
       setAttrs(hl, { x: L0 + band * i, width: band });
       const o = offsetIn(host, svg);
-      if (gas) placeTip(host, tipNodes(`${dayShort(i)} ${dshort(addDays(DAY0, i))}`, [{ key: i === top ? C.subject : C.other, value: nf(s.day_gal[i]), label: t.f5.gal }, { value: gasText(s.day_price[i]), label: t.f5.price }, { value: dollars(Math.round(s.day_gal[i] * s.day_price[i])), label: t.f5.sales }]), o.x + X(i) + bw / 2, o.y + Y(s.day_gal[i]) - 4, o.y + Y(0));
+      if (gas) placeTip(host, tipNodes(`${dayShort(i)} ${dshort(addDays(DAY0, i))}`, [{ key: i === top ? C.subject : C.other, value: nf(s.day_gal[i]), label: t.f5.gal }, { value: gasNodes(s.day_price[i]), label: t.f5.price }, { value: dollars(Math.round(s.day_gal[i] * s.day_price[i])), label: t.f5.sales }]), o.x + X(i) + bw / 2, o.y + Y(s.day_gal[i]) - 4, o.y + Y(0));
       else placeTip(host, tipNodes(weekEnded(i), [{ key: C.subject, value: nf(s.new_prem[i]), label: t.f4.keys[0] }, { key: C.other, value: nf(s.new_std[i]), label: t.f4.keys[1] }, { value: nf(tot[i]), label: t.f4.total }, { value: pct(s.new_prem[i] / tot[i] * 100), label: t.f4.share }]), o.x + X(i) + bw / 2, o.y + Y(tot[i]) - 4, o.y + Y(0));
     };
     const idxAt = px => Math.max(0, Math.min(n - 1, Math.floor((px - L0) / band)));
