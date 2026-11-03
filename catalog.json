@@ -15,6 +15,14 @@
       "words": "Monochrome, Blocks, Tidy",
       "words_ko": "모노톤, 블록, 단정함",
       "sample": "https://styles.vizney.com/notion/"
+    },
+    {
+      "number": 3,
+      "slug": "netflix",
+      "name": "Netflix style",
+      "words": "Dark, Cinematic, Bold",
+      "words_ko": "다크, 시네마틱, 강렬함",
+      "sample": "https://styles.vizney.com/netflix/"
     }
   ]
 }

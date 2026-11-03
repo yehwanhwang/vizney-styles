@@ -1,0 +1,83 @@
+/* Netflix style — Dark, Cinematic, Bold · VIZNEY STYLES · 03
+   Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
+:root{
+  --canvas:#000000; /* page background, header and footer (netflix.com's signed-out pages are black) */
+  --card:#161616; /* every figure, table and the workbench: no border, no shadow, an 8px radius (the backdrop of the landing page's Trending Now rail) */
+  --plot:#161616; /* chart background: the card itself, never a second panel */
+  --raise:#232323; /* the hover card (tooltip) and raised controls */
+  --field:#2d2d2d; /* FAQ rows, install-command boxes, chips in code; the hover band behind a bar is #262626 */
+  --hair:#414141; /* table header rule, chart baselines; the FAQ row hover */
+  --line:#2d2d2d; /* chart gridlines and the workbench dividers */
+  --rule:#404040; /* rules between table rows and between episode rows (the episode list divider) */
+  --ink:#ffffff; /* titles, key figures, table values, the current week's tick, the focus ring */
+  --body:#e5e5e5; /* running text, code, labels inside dark cells */
+  --text-2:#b3b3b3; /* subtitles, figure labels, KPI labels, values beside end labels (8.6:1 on the card) */
+  --muted:#808080; /* notes, axis ticks, table headers, captions under tiles (4.6:1 on the card: the lightest gray for small text, and only on #161616 or darker; use text-2 on #232323 and lighter) */
+  --accent:#e50914; /* Netflix red for UI only: the primary button, the TOP 10 badge, the NEW ribbon, the selected code tab. White text on it is 4.8:1. Data takes its own red step, #f0313b */
+  --accent-hover:#c11119; /* primary button hover */
+  --on-white:#000000; /* text on the white Play-style button and the selected chip */
+  --gray-button:#6d6d6e; /* the More-info button: rgba(109,109,110,.7) with white text; hover at .4 */
+  --good:#46d369; /* favourable change, text only (the green Netflix uses for match scores, 9.3:1 on the card) */
+  --bad:#e87c03; /* unfavourable change, text only (orange, so it never reads as the red subject; 6.3:1 on the card) */
+  --focus:#ffffff; /* focus ring, 2px with a 2px offset */
+  --cat-1:#f0313b; /* red · the subject */
+  --cat-1-text:#ff5a63; /* red · the subject for labels and text */
+  --cat-2:#6a88f2; /* blue */
+  --cat-2-text:#8ea5f6; /* blue for labels and text */
+  --cat-other:#595959;
+  --comparison:#808080;
+  --mark-grid:#2d2d2d;
+  --mark-baseline:#414141;
+  --mark-target:#ffffff;
+  --mark-track:#575757;
+  --mark-cell:#333333;
+  --mark-hover:#262626;
+  --mark-numeral:#595959;
+  --seq-1:#9e2027;
+  --seq-2:#c4262f;
+  --seq-3:#f0313b;
+  --seq-4:#ff6b72;
+  --seq-5:#ffa3a7;
+  --div-1:#ffa3a7;
+  --div-2:#f0313b;
+  --div-3:#9e2027;
+  --div-4:#3a3a3a;
+  --div-5:#3f55a8;
+  --div-6:#6a88f2;
+  --div-7:#b3c3f9;
+  --font-sans:'Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-card:8px;
+  --radius-kpi:8px;
+  --radius-button:4px;
+  --radius-tile:4px;
+  --radius-chip:16px;
+  --radius-badge:2px;
+  --radius-tooltip:6px;
+  --radius-step-card:16px;
+  --radius-faq:0;
+  --radius-bar:2px;
+  --space-page:32px;
+  --space-gap:16px;
+  --space-section:56px;
+  --space-card:20px 24px 18px;
+  --space-card-head:0 0 16px;
+  --space-card-foot:14px 0 0;
+  --space-billboard:44px 48px 28px;
+  --space-cell:8px 10px;
+  --space-episode:10px;
+  --space-faq:16px 24px;
+  --space-footer:28px 32px 40px;
+  --ease:cubic-bezier(.5,0,.1,1);
+  --code-background:#0b0b0b;
+  --code-comment:#808080;
+  --code-string:#46d369;
+  --code-number:#e87c03;
+  --code-keyword:#8ea5f6;
+  --code-function:#ff5a63;
+  --code-property:#e5e5e5;
+  --code-line-number:#808080;
+  --code-highlight:#262626;
+  --code-caret:#e50914;
+}
+html[lang="ko"]{--font-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}

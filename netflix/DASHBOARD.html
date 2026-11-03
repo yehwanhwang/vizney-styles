@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Netflix style — DASHBOARD.md · Vizney Styles</title>
+<link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=87d56bfcbc" as="font" type="font/woff" crossorigin>
+<!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site's Markdown pages (prompt.md, skill/SKILL.md: _config.yml defaults) and, through tools/package.py, <name>/DASHBOARD.html. Header, tabs and footer are the site's (index.html / 404.html). -->
+<style>
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=87d56bfcbc) format('woff')}
+:root{
+  /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
+     The blog's Vizney header (scrolls away) and the site's sticky tabs under it; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
+     styles with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
+     built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
+     Single light theme on purpose, like Blocks and the style screens. */
+  color-scheme: light;
+  --page:#ffffff;
+  --soft:#f4f5f7;
+  --tile:#f6f7f9;
+  --ink:#1b1b1b;
+  --ink-2:#4a4a4a;
+  --muted:#616771;
+  --line:#e6e8ec;
+  --line-2:#eceef2;
+  --rule:#cfd2d8;
+  --btn-line:#e3e5ea;
+  --ink-hover:#3a3a3a;
+  /* Top bar: the blog's (kr.vizney.com · www.vizney.com) black header, so moving between the two reads as one site. */
+  --top-bg:#1b1b1b;
+  --top-ink:#ffffff;
+  --top-ink-2:rgba(255,255,255,.78);
+  --top-line:rgba(255,255,255,.22);
+  --top-soft:rgba(255,255,255,.10);
+  --top-rule:hsla(0,0%,100%,.15);
+  /* The one UI accent: the yellow of the blog's post images (#ffcc00). Buttons, active states, focus. Never a data color. */
+  --accent:#ffcc00;
+  --accent-hover:#f2c200;
+  --accent-ink:#1b1b1b;
+  --yellow:#ffcc00;
+  --pink:#ff2d55;
+  --font:'VZ Sans','Spoqa Han Sans Neo','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono','VZ Sans',monospace;
+  --shadow:0 12px 32px -12px rgba(17,24,39,.28);
+  --shadow-sm:0 1px 2px rgba(17,24,39,.12);
+  --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
+
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.7 var(--font);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--top-bg)}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{text-decoration-color:var(--ink)}
+/* Focus: the accent yellow as a halo around an ink ring, so it shows on white (yellow alone is 1.6:1 there) and on the black bar. */
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--accent);border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;white-space:nowrap}
+svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--page);font-size:14px;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}
+
+/* ---------- Vizney header (the common header of the blog, Vizney Blocks and Vizney Styles) ----------
+   Copied from the blog (kr.vizney.com · www.vizney.com): Ghost Casper, stacked navigation, with the blog's code injection
+   (black bar, Spoqa Han Sans Neo, globe language switch). 768px and up: two rows, wordmark centred over the menu.
+   767px and down: one row, wordmark left, globe · search · burger right, the menu as a full-screen sheet.
+   Not sticky: it scrolls away like the blog's. The site's own tabs stick below it. */
+.gh{position:relative;padding:0 max(4vmin, 20px);background:var(--top-bg);color:var(--top-ink);font-size:16px;line-height:1.3}
+.gh a{color:inherit;text-decoration:none}
+.gh-in{display:grid;grid-template-columns:1fr auto 1fr;grid-auto-flow:dense;column-gap:40px;align-items:center;max-width:1200px;margin:0 auto}
+.gh-brand{grid-row-start:1;grid-column-start:2;position:relative;display:flex;align-items:center;height:80px}
+.gh-logo{display:block}
+.gh-logo img{display:block;width:auto;max-height:40px}
+.gh-menu{grid-row-start:2;grid-column:1 / 4;display:flex;justify-content:center;align-items:center;height:56px;margin:0 48px;font-weight:500}
+.gh-menu::before{content:"";position:absolute;top:80px;left:0;width:100%;height:1px;background-color:var(--top-rule)}
+.gh-nav{display:inline-flex;flex-wrap:wrap;align-items:center;gap:32px;margin:0;padding:0;list-style:none}
+.gh-nav li{margin:0;padding:0}
+.gh-nav a{display:inline-flex;align-items:center;line-height:1.7}
+.gh-nav a:hover{opacity:.9}
+/* Where you are: only this site's item, underlined. */
+.gh-nav a[aria-current]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.gh-actions{grid-row-start:1;grid-column:1 / 4;display:flex;justify-content:flex-start;align-items:center;gap:8px}
+.gh-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;padding:0}
+.gh-icon svg{display:block}
+.gh-globe{opacity:.9;transition:opacity .2s ease}
+.gh-globe:hover{opacity:1}
+.gh-search:hover{opacity:.9}
+.gh-actions .gh-globe{margin-right:-4px}
+.gh-brand .gh-icon{display:none}
+/* The blog's overflow menu: items that do not fit on one line go under '…' (Casper's dropdown). */
+.gh-more{position:relative;display:inline-flex}
+.gh-more__toggle{position:relative;width:30px;height:30px;margin:0 -6px;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}
+.gh-more__toggle svg{display:block;width:24px;height:24px;margin:auto}
+.gh-dropdown{position:absolute;top:100%;right:-16px;z-index:90;width:200px;margin:24px 0 0;padding:12px 0;list-style:none;text-align:left;background:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 7px 20px -5px rgba(0,0,0,.15);opacity:0;visibility:hidden;transform:translate3d(0,6px,0);transition:opacity .3s,transform .2s}
+.gh-more.is-open .gh-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.gh-dropdown a{display:block;padding:6px 20px;color:#15171a;line-height:1.7}
+.gh-burger{position:relative;display:none;flex-shrink:0;width:30px;height:30px;margin-right:-3px;padding:0;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
+.gh-burger::before,.gh-burger::after{content:"";position:absolute;left:3px;width:24px;height:1px;background:#fff;transition:all .2s cubic-bezier(.04,.04,.12,.96) .1008s}
+.gh-burger::before{top:11px}
+.gh-burger::after{bottom:11px}
+.gh-open .gh-burger::before{top:15px;transform:rotate(45deg)}
+.gh-open .gh-burger::after{bottom:14px;transform:rotate(-45deg)}
+.gh :focus-visible{outline-color:var(--accent);box-shadow:none}
+.gh-dropdown :focus-visible{outline-color:var(--ink)}
+@media (max-width:767px){
+  .gh{height:64px}
+  .gh-in{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;gap:48px;height:100%}
+  .gh-brand{grid-column-start:1;width:100%;height:64px;flex-wrap:nowrap}
+  .gh-logo{margin-right:auto;flex-shrink:1}
+  .gh-brand .gh-icon{display:inline-flex}
+  .gh-brand .gh-globe{margin-right:8px}
+  .gh-brand .gh-search{margin-left:-6px;margin-right:8px}
+  .gh-burger{display:block}
+  .gh-menu,.gh-actions{grid-row-start:auto;grid-column:auto}
+  .gh-actions{display:none}
+  .gh-menu{position:fixed;justify-content:center;margin:0;visibility:hidden;opacity:0}
+  .gh-menu::before{content:none}
+  .gh-nav{gap:16px;line-height:1.4}
+  .gh-nav a{font-size:26px;font-weight:600}
+  .gh-nav li{opacity:0;transform:translateY(-4px)}
+  .gh-open .gh{position:fixed;inset:0;z-index:3999999;height:100%;overflow-y:auto;overscroll-behavior-y:contain}
+  .gh-open .gh-menu{position:static;visibility:visible;opacity:1}
+  .gh-open .gh-nav{display:flex;flex-direction:column}
+  .gh-open .gh-nav li{opacity:1;transform:translateY(0);transition:transform .2s,opacity .2s}
+  /* The blog keeps a footer row here for 'Sign in'; this site has no members, so the row stays empty to keep the menu where the blog's is. */
+  .gh-open .gh-actions{display:block;height:calc(max(4vmin, 20px) + max(4vmin, 28px) + 21px)}
+  .gh-open .gh-actions > *{display:none}
+}
+
+/* ---------- the site's tabs, under the Vizney header ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;padding:0 max(4vmin, 20px);background:var(--page);box-shadow:inset 0 -1px var(--line)}
+.tabs-in{display:flex;align-items:stretch;gap:28px;max-width:1200px;height:48px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs-in::-webkit-scrollbar{display:none}
+.tabs a{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;padding-top:2px;border-bottom:2px solid transparent;font-size:15px;font-weight:500;line-height:1;white-space:nowrap;color:var(--ink-2);text-decoration:none}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs .tabs__name{font-weight:700;color:var(--ink)}
+.tabs .tabs__git{margin-left:auto}
+.tabs :focus-visible{outline-offset:-2px;box-shadow:none}
+
+/* ---------- footer (as on Vizney Blocks) ---------- */
+.foot{margin-top:120px;border-top:1px solid var(--line-2)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
+.foot-in nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot-in a{color:var(--ink-2);text-decoration-color:currentColor;text-decoration-thickness:auto;text-underline-offset:auto}
+
+/* ---------- the spec (DASHBOARD.md rendered by GitHub Pages) ---------- */
+.doc{max-width:880px;margin:0 auto;padding:56px max(4vmin, 20px) 0;font-size:16px;line-height:1.75}
+.doc h1{font-size:clamp(30px, 4vw, 40px);line-height:1.2;font-weight:700;letter-spacing:-.025em}
+.doc h2{margin-top:64px;padding-top:28px;border-top:1px solid var(--line);font-size:26px;line-height:1.3;font-weight:700;letter-spacing:-.02em}
+.doc h3{margin-top:36px;font-size:19px;line-height:1.4;font-weight:700}
+.doc h4{margin-top:28px;font-size:16px;font-weight:700}
+.doc p,.doc ul,.doc ol,.doc pre,.doc blockquote,.doc table,.doc .highlighter-rouge{margin-top:16px}
+.doc .highlighter-rouge pre{margin-top:0}
+.doc ul{padding-left:22px;list-style:disc}
+.doc ol{padding-left:24px;list-style:decimal}
+.doc li + li{margin-top:6px}
+.doc li > ul,.doc li > ol{margin-top:6px}
+.doc strong{font-weight:700}
+.doc hr{margin:40px 0;border:0;border-top:1px solid var(--line)}
+.doc blockquote{padding-left:16px;border-left:3px solid var(--line);color:var(--ink-2)}
+.doc code{padding:.12em .36em;border-radius:5px;background:var(--soft);white-space:normal;overflow-wrap:anywhere}
+.doc pre{padding:16px 18px;border-radius:12px;background:var(--soft);overflow-x:auto;font-size:13.5px;line-height:1.6}
+.doc pre code{padding:0;background:none;font-size:inherit;white-space:pre;overflow-wrap:normal}
+.doc table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:14px;line-height:1.55}
+.doc th,.doc td{padding:9px 14px 9px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.doc th{font-weight:700;border-bottom-color:var(--rule);white-space:nowrap}
+.doc img{max-width:100%;height:auto}
+@media (max-width:720px){
+  .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  .doc{padding-top:36px;font-size:15px}
+  .doc h2{margin-top:48px;font-size:22px}
+  .foot-in nav{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body data-page="spec">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="gh" id="top">
+  <div class="gh-in">
+    <div class="gh-brand">
+      <a class="gh-logo" href="https://www.vizney.com/" data-href="v:home"><img src="/assets/brand/vizney-wordmark-white.png" width="106" height="40" alt="Vizney"></a>
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+      <button class="gh-burger" type="button" aria-label="Main Menu" aria-expanded="false" aria-controls="ghMenu" data-i18n-aria="ghMenu"></button>
+    </div>
+    <nav class="gh-menu" id="ghMenu" aria-label="Vizney">
+      <ul class="gh-nav">
+        <li><a href="https://www.vizney.com/chart-guide/" data-href="v:chart-guide">Chart Guide</a></li>
+        <li><a href="https://blocks.vizney.com/" data-href="v:blocks">Blocks</a></li>
+        <li><a href="https://styles.vizney.com/" data-href="v:styles" aria-current="page">Styles</a></li>
+        <li><a href="https://www.vizney.com/tips/" data-href="v:tips">Tips &amp; Tricks</a></li>
+        <li><a href="https://www.vizney.com/kb/" data-href="v:kb">Knowledge Base</a></li>
+        <li><a href="https://www.vizney.com/about/" data-href="v:about">About</a></li>
+        <li><a href="https://www.vizney.com/contact-us/" data-href="v:contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="gh-actions">
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Vizney Styles" data-i18n-aria="tabsAria">
+  <div class="tabs-in">
+    <a class="tabs__name" href="/" data-href="home" data-tab="top">Vizney Styles</a>
+    <a href="/#styles" data-href="home:styles" data-tab="styles" data-i18n="navStyles">Catalog</a>
+    <a href="/#custom" data-href="home:custom" data-tab="custom" data-i18n="navCustom">Your company</a>
+    <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true">↗</span></a>
+    <a class="tabs__git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="main" class="doc">
+<h1 id="netflix-style--dashboardmd">Netflix style — DASHBOARD.md</h1>
+<p><strong>Dark, Cinematic, Bold</strong> · 다크, 시네마틱, 강렬함</p>
+<p>A dashboard design spec read from the public design of netflix.com and its weekly Top 10. Netflix rarely draws a chart: it ranks, badges and lines things up — a billboard with a TOP 10 badge, a row of outlined numerals beside portrait tiles, weeks in the Top 10, a thin red progress bar under a thumbnail, an episode list, a hover card with a green score and a rating box, a FAQ accordion. This spec takes those parts and the site's black-and-red tokens and turns them into one card and one chart grammar that a whole dashboard can follow, on one dark page. It then adds what a website spec leaves out and a dashboard needs: validated data colors for a dark surface, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Add it to a project with one command (or the zip on the sample page), or hand it to whoever builds your dashboards. The live sample was built from it.</p>
+<pre><code>npx @vizney/styles@latest add netflix
+# or, without Node:
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix
+</code></pre>
+<p>That puts <code>DASHBOARD.md</code> in the project root and the <code>dashboard-style</code> agent skill (build, restyle, review) in <code>.claude/skills/dashboard-style/</code>, together with <code>tokens.css</code>, <code>tokens.json</code>, <code>netflix.tps</code>, <code>powerbi-theme.json</code> and <code>prompt.md</code>. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow <code>DASHBOARD.md</code>.</p>
+<ul>
+<li>Live sample: https://styles.vizney.com/netflix/?lang=en (Korean <code>?lang=ko</code>; one city <code>&amp;city=ny</code>)</li>
+<li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/netflix/DASHBOARD.md</li>
+<li>Package: <a href="netflix-dashboard-style.zip">netflix-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
+<li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="netflix.tps">netflix.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="tickets.csv">tickets.csv</a> (the data behind the sample's Figure 2)</li>
+<li>Catalog: VIZNEY STYLES · 03 · https://styles.vizney.com (Vizney Styles is a line of <a href="https://www.vizney.com">Vizney</a>)</li>
+</ul>
+<p>Not an official Netflix design, and not affiliated with or endorsed by Netflix. A reference style read from the publicly visible design of netflix.com; it carries no logo, typeface or data of theirs. The sample's company, Vizney Live, and all its numbers are fictional. Trademarks belong to their owners.</p>
+<h2 id="visual-theme--atmosphere">Visual Theme &amp; Atmosphere</h2>
+<p>A black page with one red. The report opens the way a title opens on Netflix: a billboard. Its key art is a color block — the navy, wine, burgundy and oxblood of the landing page's Trending Now rail — with a giant outlined <code>1</code> and a dark vignette on the left. Over it sit a red TOP 10 badge with <code>#1 this week · &lt;show&gt;</code>, a black-weight headline that states the week's result, a short lede like a synopsis, a white button and a translucent gray one, and four key figures on translucent tiles. Below, sections read like the rows of the home screen: a 24px row title, then cards on <code>#161616</code> with no border and no shadow, an 8px radius.</p>
+<p>The views are the ones Netflix uses for rankings and progress instead of charts: a Top 10 row of outlined numerals behind portrait tiles (color blocks with the title set in type, never photos), weeks in the Top 10 as a grid of ranks, an episode list whose thumbnails carry the continue-watching progress bar, a Top 10 table in the shape of the weekly Top 10 page, and a FAQ accordion for the method. Where a real chart is the right form — a trend, a share over time — it is drawn on the same card with the same restraint: the subject in red, everything else gray.</p>
+<p>Red is the voice, and it speaks once per card. The UI red <code>#e50914</code> belongs to buttons, the TOP 10 badge and the NEW ribbon; data takes its own step, <code>#f0313b</code>, and only for what the title names. Green appears only as good news, orange only as bad. The mood is cinematic and bold: a dark room, one bright figure, the week's result in big type.</p>
+<p>Read from the sites (November 2026): the signed-out pages are black <code>#000000</code>, with <code>#161616</code> behind the Trending Now rail, <code>#232323</code> feature cards and FAQ rows, <code>#2d2d2d</code> inputs and <code>#414141</code> hairlines; text <code>#ffffff</code>, <code>#b3b3b3</code> and <code>#808080</code>; the red <code>#e50914</code>; the rail's gradient <code>#192247 → #210e17 → #461518 → #6f181d</code>; Netflix Sans in 400, 500, 700 and 900 with the fallback stack <code>'Helvetica Neue', 'Segoe UI', Roboto, Ubuntu, sans-serif</code>; the hero headline 56px/900; section titles 24px; buttons with a 4px radius. The weekly Top 10 page lists rank, title, weeks in the Top 10, views, runtime (<code>1:30</code>) and hours viewed, in full digits with commas (<code>25,400,000</code>), for Monday-to-Sunday weeks published on Tuesday. The quarterly shareholder letter carries tables, not charts.</p>
+<h2 id="color-palette--roles">Color Palette &amp; Roles</h2>
+<p>Surfaces are netflix.com's black and its gray steps; the rules are the product's.</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td><code>#000000</code></td>
+<td>page, header, footer</td>
+</tr>
+<tr>
+<td>card · plot</td>
+<td><code>#161616</code> · <code>#161616</code></td>
+<td>every figure, table and the workbench; the chart sits on the card itself</td>
+</tr>
+<tr>
+<td>raise</td>
+<td><code>#232323</code></td>
+<td>the hover card (tooltip)</td>
+</tr>
+<tr>
+<td>field</td>
+<td><code>#2d2d2d</code></td>
+<td>FAQ rows, install-command boxes</td>
+</tr>
+<tr>
+<td>hair / line / rule</td>
+<td><code>#414141</code> / <code>#2d2d2d</code> / <code>#404040</code></td>
+<td>table header rule and chart baselines / gridlines and workbench dividers / rules between table and episode rows</td>
+</tr>
+<tr>
+<td>ink / body</td>
+<td><code>#ffffff</code> / <code>#e5e5e5</code></td>
+<td>titles, key figures, table values, the current week's tick / running text, code</td>
+</tr>
+<tr>
+<td>text-2</td>
+<td><code>#b3b3b3</code></td>
+<td>subtitles, figure labels, KPI labels, values beside end labels (8.6:1)</td>
+</tr>
+<tr>
+<td>muted</td>
+<td><code>#808080</code></td>
+<td>notes, axis ticks, table headers, captions (4.6:1 on the card: the lightest gray for small text, and only on <code>#161616</code> or darker)</td>
+</tr>
+<tr>
+<td>accent · accent-hover</td>
+<td><code>#e50914</code> · <code>#c11119</code></td>
+<td>the primary button, the TOP 10 badge, the NEW ribbon, the selected code tab. White on it is 4.8:1. Data uses its own red, <code>#f0313b</code></td>
+</tr>
+<tr>
+<td>white button · gray button</td>
+<td><code>#ffffff</code> with <code>#000000</code> text · <code>rgba(109,109,110,.7)</code> with white text</td>
+<td>the billboard's two buttons (Play and More info on Netflix); hover <code>rgba(255,255,255,.75)</code> · <code>rgba(109,109,110,.4)</code></td>
+</tr>
+<tr>
+<td>good / bad</td>
+<td><code>#46d369</code> / <code>#e87c03</code></td>
+<td>favourable / unfavourable change, text only (9.3:1 / 6.3:1 on the card)</td>
+</tr>
+<tr>
+<td>focus</td>
+<td><code>#ffffff</code></td>
+<td>focus ring, 2px, 2px offset</td>
+</tr>
+<tr>
+<td>rail</td>
+<td><code>#192247</code> <code>#210e17</code> <code>#461518</code> <code>#6f181d</code></td>
+<td>the billboard's key art, the tiles, the step cards; never data</td>
+</tr>
+</tbody>
+</table>
+<p>Rules:
+- Cards are <code>#161616</code> on black with no border and no shadow; depth comes from the gray steps, as on netflix.com. Only the hover card and the toast cast a shadow.
+- Small text on the card uses muted or lighter; on <code>#232323</code> and lighter it uses text-2, because muted drops under 4.5:1 there.
+- Red has two steps and they never swap: <code>#e50914</code> for UI (buttons, badges, ribbons), <code>#f0313b</code> for data. Never a second red series.
+- The rail colors are art, not data. Tiles and the billboard use them so the page never needs a photo.</p>
+<h2 id="data-colors">Data Colors</h2>
+<p>Netflix shows its own figures with one red against black and gray — the red progress bar, the red TOP 10 badge, the red NEW ribbon — and keeps everything else neutral. This spec keeps that: red is the subject, the gray of the outlined Top 10 numerals is Other, and netflix.com's blue <code>#4061e7</code>, raised for a dark surface, is the only second hue. Every value passed an OKLab validator in dark mode (color-vision-deficiency separation, normal-vision separation, contrast) on the card <code>#161616</code>, where every chart sits. Use them exactly; do not generate tints.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Mark</th>
+<th>Label text</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subject</td>
+<td><code>#f0313b</code></td>
+<td><code>#ff5a63</code></td>
+<td>what the title names: this year, the #1 cells, the sold-out performances, the channel the story is about</td>
+</tr>
+<tr>
+<td>Second category</td>
+<td><code>#6a88f2</code></td>
+<td><code>#8ea5f6</code></td>
+<td>a second real category (web)</td>
+</tr>
+<tr>
+<td>Other</td>
+<td><code>#595959</code></td>
+<td>text-2</td>
+<td>the rest (box office), behind 2px gaps</td>
+</tr>
+<tr>
+<td>Comparison</td>
+<td><code>#808080</code>, dashed 2px (6 on, 4 off)</td>
+<td>ink</td>
+<td>last year</td>
+</tr>
+<tr>
+<td>Progress</td>
+<td>fill <code>#f0313b</code> (the subject) or <code>#b3b3b3</code>, track <code>rgba(255,255,255,.28)</code></td>
+<td>—</td>
+<td>share of a whole: seats sold, seats filled</td>
+</tr>
+<tr>
+<td>Rank cells</td>
+<td><code>#f0313b</code> for #1, <code>#333333</code> for #2–10, an outline <code>#2d2d2d</code> for not ranked</td>
+<td>black on red, <code>#e5e5e5</code> on gray</td>
+<td>weeks in the Top 10</td>
+</tr>
+<tr>
+<td>Target</td>
+<td><code>#ffffff</code>, dashed 1.2px (4 on, 3 off)</td>
+<td>ink</td>
+<td>a goal on an axis</td>
+</tr>
+<tr>
+<td>Sequential</td>
+<td><code>#9e2027</code> <code>#c4262f</code> <code>#f0313b</code> <code>#ff6b72</code> <code>#ffa3a7</code></td>
+<td>black on the two brightest, white on the rest</td>
+<td>color by value, dim to bright: on a dark card a larger value is brighter</td>
+</tr>
+<tr>
+<td>Diverging</td>
+<td><code>#ffa3a7</code> <code>#f0313b</code> <code>#9e2027</code> · <code>#3a3a3a</code> · <code>#3f55a8</code> <code>#6a88f2</code> <code>#b3c3f9</code></td>
+<td>each arm's brightest</td>
+<td>above and below a midpoint that sinks into the card</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>good <code>#46d369</code>, bad <code>#e87c03</code>, neutral <code>#808080</code></td>
+<td>—</td>
+<td>change text only</td>
+</tr>
+</tbody>
+</table>
+<p>Validation (from <code>tokens.json</code>, dark mode, on <code>#161616</code>):
+- Red and blue pass every check: CVD ΔE 27.6 (deutan), normal vision 32.8, both inside the dark lightness band, contrast 4.49 and 5.53:1.
+- Other <code>#595959</code> is neutral by design: CVD 7.4 against red (protan), normal vision 24.9 against blue. At 2.58:1 it always has a second cue: 2px gaps, value labels and a table.
+- Comparison <code>#808080</code> is 4.58:1, always dashed and labeled at its end.
+- The sequential ramp is one hue (spread 8°), monotone, every gap ≥ 0.06 in lightness, the dim end 2.32:1.
+- The diverging arms each pass the ordinal checks (dim ends 2.32 and 2.65:1); the poles are 11.7 (CVD) and 15.1 (normal) apart.
+- Text: red labels <code>#ff5a63</code> 5.9:1, blue labels <code>#8ea5f6</code> 7.6:1, good 9.3:1, bad 6.3:1. Digits in rank cells are black on red (5.2:1) and <code>#e5e5e5</code> on <code>#333333</code> (9.6:1).</p>
+<p>Rules:
+- Red only for what the title names; the rest gray. A card that is mostly red has highlighted nothing.
+- At most two hues plus gray in one chart. A third real category folds into Other or becomes small multiples.
+- Color follows the entity, not its rank: the subject is red in every figure.
+- Never the UI red <code>#e50914</code> on data, never green or orange as a series, never the rail colors as a measure.</p>
+<h2 id="typography-rules">Typography Rules</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>English</th>
+<th>Korean</th>
+<th>Weights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sans (everything)</td>
+<td>Roboto</td>
+<td>Pretendard</td>
+<td>400, 500, 700, 900 (Korean 800 where English takes 900)</td>
+</tr>
+<tr>
+<td>Mono (code only)</td>
+<td>Roboto Mono</td>
+<td>Roboto Mono, then Pretendard for Hangul</td>
+<td>400, 500</td>
+</tr>
+</tbody>
+</table>
+<p>Roboto stands in for Netflix Sans; it is in netflix.com's own fallback stack. netflix.com's Korean pages load no Korean webfont (the browser falls back to system fonts), so Korean uses Pretendard. There is no serif.</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Size / weight</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headline (billboard)</td>
+<td><code>clamp(30px, 3.15vw, 46px)</code> / 900, line-height 1.08, −0.015em</td>
+<td>one sentence that states the result, white with a soft shadow; Korean 800, line-height 1.24</td>
+</tr>
+<tr>
+<td>Billboard line · lede</td>
+<td>18px / 500 · 18px / 400, line-height 1.45</td>
+<td><code>#1 this week · &lt;show&gt;</code> after the TOP 10 badge · two sentences of drivers</td>
+</tr>
+<tr>
+<td>Key figure value</td>
+<td>40px / 700, −0.02em</td>
+<td>units at 0.45em in text-2 (<code>287.8 K</code>, <code>$ 25.68 M</code>, <code>28.8 만 장</code>)</td>
+</tr>
+<tr>
+<td>Section title · intro</td>
+<td>24px / 700 · 16px / 400 text-2</td>
+<td>the row title of the home screen</td>
+</tr>
+<tr>
+<td>Figure label</td>
+<td>12px / 700 uppercase, 0.12em, text-2</td>
+<td><code>FIGURE 1 · TOP 10</code> (Korean 13px, no uppercase: <code>그림 1 · Top 10</code>)</td>
+</tr>
+<tr>
+<td>Card title</td>
+<td>20px / 700, line-height 1.3</td>
+<td>the finding; <code>text-wrap: balance</code></td>
+</tr>
+<tr>
+<td>Card subtitle · table</td>
+<td>14px / 400 text-2 · 14px / 400 body</td>
+<td></td>
+</tr>
+<tr>
+<td>Table header</td>
+<td>12px / 700 uppercase, 0.08em, muted</td>
+<td>the weekly Top 10 page's header (Korean 13px, no tracking)</td>
+</tr>
+<tr>
+<td>Rank</td>
+<td>22px / 900 white in the table; the outlined numeral in the Top 10 row is about the tile's height</td>
+<td></td>
+</tr>
+<tr>
+<td>Tile title · tile genre</td>
+<td>13–18px / 900 · 9px / 700 uppercase, 0.16em</td>
+<td>title set in type where a poster would be</td>
+</tr>
+<tr>
+<td>Note · key</td>
+<td>13px / 400 muted · 13px / 500 body</td>
+<td>the note starts with <code>Note:</code> / <code>주:</code></td>
+</tr>
+<tr>
+<td>Axis ticks · value labels</td>
+<td>12px muted · 12px / 700 white</td>
+<td></td>
+</tr>
+<tr>
+<td>FAQ question · answer</td>
+<td>20px / 400 · 16px / 400</td>
+<td>white on <code>#2d2d2d</code></td>
+</tr>
+<tr>
+<td>Code</td>
+<td>mono 12.5px, line-height 1.62</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Headlines are black-weight and tight; everything else is regular or bold, never light. Korean breaks between words (<code>word-break: keep-all</code>), and a number stays on the same line as the particle after it (<code>12.3%</code>, <code>3주</code>).</p>
+<h2 id="numbers-dates--units">Numbers, Dates &amp; Units</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>English</th>
+<th>Korean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tickets, key figure and headline</td>
+<td><code>287.8K</code></td>
+<td><code>28.8만 장</code></td>
+</tr>
+<tr>
+<td>Tickets in the Top 10, tiles and tables</td>
+<td><code>33,796</code> (full digits, as the weekly Top 10 writes them)</td>
+<td><code>33,796</code></td>
+</tr>
+<tr>
+<td>Tickets on an axis</td>
+<td><code>150K 200K 250K 300K</code></td>
+<td><code>15만 20만 25만 30만</code></td>
+</tr>
+<tr>
+<td>Money</td>
+<td><code>$25.68M</code>, <code>$924K</code>; per ticket <code>$89.22</code></td>
+<td><code>2,568만 달러</code>, <code>92.4만 달러</code>; <code>89.22달러</code></td>
+</tr>
+<tr>
+<td>Rates</td>
+<td><code>87.3%</code>; whole numbers on small labels (<code>58%</code>)</td>
+<td>the same</td>
+</tr>
+<tr>
+<td>Points</td>
+<td><code>+3.8 pts</code></td>
+<td><code>+3.8%p</code></td>
+</tr>
+<tr>
+<td>Runtime</td>
+<td><code>2:35</code> (h:mm, as the weekly Top 10 writes it)</td>
+<td><code>2:35</code></td>
+</tr>
+<tr>
+<td>Change</td>
+<td><code>+12.3% vs last week</code></td>
+<td><code>+12.3% 지난주 대비</code></td>
+</tr>
+<tr>
+<td>Weeks</td>
+<td><code>Oct 26 – Nov 1, 2026</code>; <code>Week of Oct 26</code>; ticks <code>Aug 10 … Oct 26</code></td>
+<td><code>2026년 10월 26일~11월 1일</code>; <code>10월 26일 주간</code>; ticks <code>8월 10일 … 10월 26일</code></td>
+</tr>
+<tr>
+<td>A performance</td>
+<td><code>Sat, Nov 7 · 8:00 PM</code></td>
+<td><code>11월 7일(토) 오후 8시</code></td>
+</tr>
+<tr>
+<td>Ranks and weeks in the Top 10</td>
+<td><code>#1</code>, <code>3 weeks in Top 10</code>, <code>12 wk</code></td>
+<td><code>1위</code>, <code>Top 10 3주째</code>, <code>12주</code></td>
+</tr>
+<tr>
+<td>Missing</td>
+<td><code>—</code> (did not play)</td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Money is in the company's own currency; the sample's company is American, so US dollars.</li>
+<li>Signs use the true minus (<code>−</code>, U+2212). One decimal for change.</li>
+<li>The change color follows whether the move is good for that metric: a lower average ticket is orange.</li>
+<li>Units and suffixes are smaller than the digits.</li>
+<li>Weeks run Monday to Sunday and are reported on Tuesday, as the weekly Top 10 is.</li>
+</ul>
+<h2 id="layout-principles">Layout Principles</h2>
+<p>One column on a black page, at most 1400px wide, 32px side padding (24px up to 1359px, 16px below 640px), a 16px gap between cards and 56px between sections. No sidebar, no logo, no photo.</p>
+<ol>
+<li><strong>Header</strong> (72px, black): company name (20px / 900, uppercase in English) and report name (14px text-2). On the right: the period, the EN/KO toggle in an outlined box, an outlined <code>Export PDF</code> and the one red button, <code>Copy as Markdown</code>.</li>
+<li><strong>Filter row</strong>: outlined chips of the cities, the selected chip white with black text; the basis (<code>Published Tue, Nov 3, 2026 · vs the week before</code>) on the right. It scopes every card, and the URL keeps the choice (<code>?city=ny</code>).</li>
+<li><strong>Billboard</strong> (a card of its own, 8px radius, min 420px): on the left (7 of 12 columns) the TOP 10 badge line, the headline, the lede and two buttons (<code>See the Top 10</code>, <code>Method and sources</code>); the status tag <code>Final</code> at the right edge, where Netflix puts the maturity rating; the four key figures in one row across the bottom.</li>
+<li><strong>Sections</strong>: a 24px row title and a one-line intro, then rows of cards on a 12-column grid; cards in one row share a subgrid, so their heads, bodies and notes line up.
+   - <code>This week</code>: Figure 1 the Top 10 row (12); Figure 2 tickets by week (7) · Figure 3 weeks in the Top 10 (5).
+   - <code>Coming up</code>: Figure 4 performances selling fast (7) · Figure 5 where people buy (5); Table 1 every show (12).</li>
+<li><strong><code>How it's built</code></strong>: a paragraph with two 42px buttons, three step cards in the rail gradient, the workbench window and a caption.</li>
+<li><strong><code>Method and sources</code></strong>: the FAQ accordion and a source line.</li>
+<li><strong>Black footer</strong> with a hairline above the catalog line.</li>
+</ol>
+<p>At most seven views on one screen: the billboard and three views in <code>This week</code>, three in <code>Coming up</code>. Every view is a standard form an agent or a BI tool can rebuild. A chart's body fills its card, so a chart beside a taller one grows to its height. Density: at 1440 × 900 the header, filter row, billboard and all four key figures are on the first screen. Reading order follows the list; never lead with a chart.</p>
+<h2 id="component-stylings">Component Stylings</h2>
+<ul>
+<li><strong>Card</strong>: <code>#161616</code>, no border, 8px radius, 20px 24px 18px padding, no shadow. Three parts on a subgrid: head (figure label → title → subtitle → keys, 16px below), body (the view), foot (<code>Note:</code> 13px muted, 14px above). Never a card inside a card.</li>
+<li><strong>Billboard</strong>: the rail gradient at 149° (<code>#192247 0%, #210e17 48%, #461518 78%, #6f181d 100%</code>), a left vignette (<code>linear-gradient(77deg, rgba(0,0,0,.72), rgba(0,0,0,.45) 42%, transparent 78%)</code>) and a bottom fade to black; a giant numeral <code>1</code> in 900 weight, no fill, a 2.5px stroke in <code>rgba(255,255,255,.16)</code>, at the right. 44px 48px 28px padding. Text white with a 0–2px shadow.</li>
+<li><strong>TOP 10 badge</strong>: a 28px red <code>#e50914</code> square, 2px radius: <code>TOP</code> 7px / 700 over <code>10</code> 14px / 900, white. Small: 20px. It marks a show that is in this week's Top 10, and the billboard's #1 line. Decorative (<code>aria-hidden</code>); the words beside it carry the meaning.</li>
+<li><strong>Rating box</strong>: 1px <code>rgba(255,255,255,.4)</code> border, 0 6px, 12px / 500 (<code>ALL</code>, <code>8+</code>, <code>13+</code>, <code>18+</code>; Korean <code>전체</code>). <strong>Status tag</strong> (the billboard's <code>Final</code>): 36px, a 3px <code>#dcdcdc</code> left bar on <code>rgba(51,51,51,.6)</code>, flush with the right edge.</li>
+<li><strong>Buttons</strong>: 4px radius. Red <code>#e50914</code>, white 14px / 500 text, 32px (hover <code>#c11119</code>). White (Play): 42px, 16px / 700 black, a filled play icon; hover <code>rgba(255,255,255,.75)</code>. Gray (More info): 42px, <code>rgba(109,109,110,.7)</code>, white 16px / 700 and an outlined info icon; hover at .4. Outlined: <code>rgba(0,0,0,.4)</code> with a 1px <code>#808080</code> border, white text, the border white on hover. Small: 28px, 13px.</li>
+<li><strong>Chips</strong> (the city filter): 32px, 16px radius, 1px <code>#808080</code> border on <code>rgba(0,0,0,.4)</code>, white 14px / 500; the selected chip white with black text. <code>role="tablist"</code>, arrow keys move. The EN/KO toggle is two 26px cells in one outlined box, the selected one white.</li>
+<li><strong>Key figure</strong>: on the billboard, a tile of <code>rgba(0,0,0,.45)</code> with a 1px <code>rgba(128,128,128,.4)</code> border and an 8px radius, 14px 16px 12px padding: label 14px / 500 text-2 → value → change line (14px text-2, the change in 700 status color, then <code>vs last week</code>). The four share a subgrid so their values line up.</li>
+<li><strong>Top 10 row</strong> (Figure 1): five items per row, two rows. Each item is an outlined numeral (900 weight, 3px <code>#595959</code> stroke, filled with the card color, the height of the tile; <code>10</code> squeezed to the same width) with a 2:3 portrait tile overlapping its right side. The tile is a gradient of two rail colors at 160° with a soft light at the top right and a dark fade at the bottom, a 9px genre eyebrow (uppercase, 0.16em) at the top and the title in 900 weight at the bottom; no photo, no logo. Under the tile: the tickets in full digits (16px / 700) and <code>N weeks in Top 10</code> (12px muted), or <code>First week in Top 10</code> in red text for a new entry, whose tile carries the red NEW ribbon (11px / 700 on <code>#e50914</code>, centred on the bottom edge). Hover or focus outlines the tile in white and opens the hover card.</li>
+<li><strong>Weeks in the Top 10</strong> (Figure 3): one row per show of this week's Top 10 (<code>1  Neon Harbor World Tour</code>, 13px, the current and the previous leader in white bold), one square per week (2px radius, 3px apart): red with a black digit for #1, <code>#333333</code> with a light digit for #2–10, an outline for weeks out of the Top 10; the count on the right (<code>12 wk</code>, white bold when it is all 12). Week ticks above, the current week in ink.</li>
+<li><strong>Episode list</strong> (Figure 4): rows of 10px padding with <code>#404040</code> rules: the index (22px / 500 text-2), a 16:9 thumbnail in the show's tile colors with the weekday (11px uppercase) and date (19px / 900) at the top and the <strong>progress bar</strong> at the bottom (4px, track <code>rgba(255,255,255,.28)</code>, fill red for the rows the title names and <code>#b3b3b3</code> for the rest, 10px from the edges); then the title (16px / 700) with a small TOP 10 badge, the state on the right (<code>Sold out</code> or <code>97% sold</code>, 15px / 700 white) and a line of details (14px text-2: city · time · runtime · seats left). The hovered or focused row turns <code>#333333</code>.</li>
+<li><strong>Table</strong> (the weekly Top 10 page): 14px, rows 46px, cells 8px 10px, <code>#404040</code> rules between rows, a <code>#414141</code> rule under the header; header 12px / 700 uppercase muted. The first column is the rank in 22px / 900 white; the show in 700 white with a red <code>NEW</code> badge in its first week; numbers right-aligned with tabular figures; <code>vs last week</code> in good or bad; seats filled as a 96px progress bar and the value (red and red text when ≥ 95%); runtime <code>h:mm</code>; the rating box. It shows the Top 10 first; a <strong>show-all button</strong> below (36px, a 2px <code>rgba(255,255,255,.5)</code> border on <code>#2a2a2a</code>, an 18px radius, a chevron that turns, centred on a <code>#404040</code> rule) lists every show.</li>
+<li><strong>Hover card</strong> (tooltip): <code>#232323</code>, 6px radius, padding 10px 12px 11px, shadow <code>0 3px 10px rgba(0,0,0,.75)</code>: a 14px / 700 title; for a show, a meta line (the share of seats, in green 700 when it is 90% or more and white otherwise, the way Netflix shows a match score; the rating box; the runtime) and a line of genre and cities joined by <code>•</code> in <code>#646464</code>; then rows of key (square, or a line, dashed for the comparison), value 700 white, label text-2. It takes the first side that fits inside the card: above, left, right, below.</li>
+<li><strong>FAQ accordion</strong> (the method): full-width rows 8px apart, <code>#2d2d2d</code>, no radius, 16px 24px padding, the question 20px / 400 white and a 28px plus that turns into a cross; the answer below in the same gray, 1px apart, 16px. One open at a time; the first is open. Hover <code>#414141</code>.</li>
+<li><strong>Step cards</strong> (<code>How it's built</code>): 16px radius, the rail gradient (<code>#192247 → #210e17</code> at 149°), a 40px outlined number, an 18px / 700 title and 14px text-2.</li>
+<li><strong>Toast</strong>: white, black 14px / 500 text, 4px radius, bottom centre, 2.2s.</li>
+<li><strong>Workbench window</strong>: <code>#161616</code>, 8px radius. A 240px package panel on <code>#101010</code> (file names in mono 12px with a one-line description, install commands in <code>#2d2d2d</code> boxes with a copy button), the figure pane (outlined pills <code>Without a spec / With DASHBOARD.md</code>, a chip <code>city = all</code> in mono on <code>#2d2d2d</code>, title, plot, note, then <strong>Checks · DASHBOARD.md</strong>), and the code pane on <code>#0b0b0b</code> (tabs <code>Prompt · plan.md · figure-2.js · Tableau · Power BI</code> with a red underline, a copy button and a red <code>Run again</code>, line-numbered code, a red caret while typing, a status bar). Syntax: comment <code>#808080</code>, string <code>#46d369</code>, number <code>#e87c03</code>, keyword <code>#8ea5f6</code>, function <code>#ff5a63</code>, property <code>#e5e5e5</code> 500.</li>
+<li><strong>Footer</strong>: black, 13px text-2, a <code>#232323</code> hairline above; the catalog line in white, the series in 12px / 700 with 0.08em tracking.</li>
+</ul>
+<h2 id="charts">Charts</h2>
+<ul>
+<li><strong>Choose by the question.</strong> Netflix ranks before it plots; start with its parts and draw a chart only where they cannot answer.</li>
+<li>What sold most this week → the Top 10 row: outlined numerals, portrait tiles, the value under each tile (Figure 1).</li>
+<li>A trend against last year → a line with last year dashed gray and both line ends labeled (Figure 2).</li>
+<li>How long the leaders have stayed → weeks in the Top 10 as a grid of ranks, #1 in red (Figure 3).</li>
+<li>Progress toward a whole (seats sold, a target) → the continue-watching progress bar under a thumbnail in an episode list, red only for the rows the title names (Figure 4).</li>
+<li>Composition over time → 100% stacked bars per week, the subject at the bottom, value labels beside the last bar (Figure 5).</li>
+<li>Many entities and their measures → the Top 10 table: rank, name, weeks in the Top 10, value in full digits, change, a progress bar, runtime, rating; Top 10 first, then show all (Table 1).</li>
+<li><strong>Titles.</strong> The card title is the finding (<code>Neon Harbor World Tour has been #1 for 3 weeks in a row, after The Paper Moon Hotel</code>), recomputed when the filter changes. The subtitle names the measure and period; the note explains the method and the source.</li>
+<li><strong>Marks.</strong> Lines 2.5px for the subject, 2px for the comparison; a hollow end marker on the subject. Bars up to 24px wide, rounded 2px at the top, 2px gaps between stacked segments. Progress bars 4px, square ends. Rank squares with a 2px radius.</li>
+<li><strong>Axes.</strong> Solid <code>#2d2d2d</code> gridlines on rows only, a <code>#414141</code> baseline, no vertical axis line; ticks 12px muted, four or five nice ticks; the current week in ink.</li>
+<li><strong>Labels.</strong> Line ends carry <code>Name value</code> instead of a legend; values beside bars 12px / 700 in the series' text step; labels over marks have a card-colored halo. Values sit under tiles and beside bars at rest; the hover card adds detail, never the only copy of a number.</li>
+<li><strong>Keys</strong> only where labels cannot do the job, as a one-line row in the card head (a 12px square with a 2px radius, a line, a dashed line, an empty square).</li>
+<li><strong>One axis.</strong> Never a dual axis.</li>
+<li><strong>Never:</strong> pie, donut, 3D, gauges, gradients on data, smoothed lines, glow, the UI red on data, photos or logos on tiles, green or orange as a series.</li>
+<li>Every chart has a hover card, keyboard control and a screen-reader table.</li>
+</ul>
+<h2 id="depth--elevation">Depth &amp; Elevation</h2>
+<p>Flat and dark. Cards are set apart by a step of gray (<code>#000000</code> → <code>#161616</code>), never by borders or shadows, and never lift on hover. Shadows exist only on the hover card (<code>0 3px 10px rgba(0,0,0,.75)</code>) and the toast. The billboard gets its depth from its vignette and fade, not from a shadow.</p>
+<h2 id="interaction--motion">Interaction &amp; Motion</h2>
+<ul>
+<li><strong>Filter</strong>: the chips scope everything; changing one rewrites the billboard (badge line, headline, lede, key figures), every card title and note, and redraws every view. The URL keeps the city.</li>
+<li><strong>Billboard buttons</strong> jump to Figure 1 and to the method.</li>
+<li><strong>Hover</strong> opens the hover card and shows a crosshair and a hollow dot, a <code>#262626</code> band behind a bar, a white outline on a tile or a rank square, or a <code>#333333</code> row; touch taps pick and a tap elsewhere clears.</li>
+<li><strong>Keyboard</strong>: every chart, the Top 10 row and the episode list are focusable; arrow keys step (up and down move between shows in Figure 3), Home and End jump, Esc clears, and a live region reads the value. Chips and tabs move with arrow keys; the FAQ and the show-all button are buttons with <code>aria-expanded</code>.</li>
+<li><strong>Workbench</strong>: the first time it scrolls into view, the code types itself (55ms a line, 380ms between steps) and each step draws its layer of Figure 2 (frame → comparison line → subject line → end labels → title and note) and ticks its checks. Hovering a line of code spotlights its layer; hovering the chart highlights its code. <code>Without a spec</code> shows a typical first draft and fails all six checks. Changing the filter rewrites the <code>city</code> value and flashes that line.</li>
+<li><code>Copy as Markdown</code> copies the whole report as Markdown with a toast; <code>Export PDF</code> prints the dark page as it is.</li>
+<li>Motion: lines draw in 0.7s, bars and progress grow in 0.45–0.5s, tiles rise 8px and fade in 0.45s, one after another; labels fade in 0.3s; <code>cubic-bezier(.5,0,.1,1)</code>; controls change in 0.2s. <code>prefers-reduced-motion</code> turns all motion off and shows the workbench finished.</li>
+</ul>
+<h2 id="accessibility">Accessibility</h2>
+<ul>
+<li>Text ≥ 4.5:1 on its surface: muted 4.6:1 and text-2 8.6:1 on the card; good 9.3:1, bad 6.3:1; red text 5.9:1, blue text 7.6:1; white on the red button and badges 4.8:1; black on the white button 21:1; code token colors ≥ 4.5:1 on <code>#0b0b0b</code>.</li>
+<li>Marks below 3:1 (Other 2.58:1, the rank cells, the progress track) always have a second cue: a gap, a digit, a label or a value beside them.</li>
+<li>Identity is never color alone: names at line ends, digits in rank cells, <code>Sold out</code> and <code>NEW</code> in words, dashes for comparisons, signs on every change.</li>
+<li>Focus ring white, 2px, 2px offset. Tab order: header → filter → billboard → sections in reading order.</li>
+<li>Real tables with <code>scope</code>; every chart has a hidden data table and an <code>aria-label</code> that says what it shows. The TOP 10 badge is decorative; the words beside it carry the meaning.</li>
+</ul>
+<h2 id="responsive-behavior">Responsive Behavior</h2>
+<p>Each step keeps what the wider steps changed.</p>
+<ul>
+<li>≥ 1360: as laid out above.</li>
+<li>1200–1359: 24px padding, 14px gaps, 48px between sections; the billboard padded 40px 36px 24px; cards padded 18px 20px 16px; table cells 8px 8px; thumbnails 108px; the workbench lifts its package panel into one row above the figure and the code.</li>
+<li>1024–1199: the same rows; key figure values 34px; code 12px with wrapped lines; the table drops Runtime.</li>
+<li>900–1023: cards stack one per row; the billboard is one column with the four key figures in a row; the workbench is one column; the table drops Gross.</li>
+<li>640–899: a 60px header without the report name, the period or <code>Export PDF</code>; the basis line leaves the filter row; key figures 2 × 2; the Top 10 row three across; step cards stack; the table drops Genre and vs last week.</li>
+<li>&lt; 640: 16px padding, 12px gaps, 40px between sections; <code>Copy as Markdown</code> becomes an icon button; chips 13px; the billboard padded 64px 16px 16px with the numeral smaller; headline 27px, key figure values 28px, section titles 21px, card titles 17px; the Top 10 row two across; the episode list drops its index; the table keeps rank, Show, Tickets and Seats filled (the value only); FAQ questions 17px.</li>
+<li>Embedded in a post (<code>?embed=1</code>): the footer hides and the page reports its height to the host page.</li>
+</ul>
+<h2 id="tool-mapping">Tool Mapping</h2>
+<p><strong>Web and coding agents.</strong> Load <code>tokens.css</code> (installed in <code>.claude/skills/dashboard-style/</code>; or copy the <code>colors</code> block from the front matter) and these fonts (the second for Korean).</p>
+<!--email_off-->
+
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&amp;family=Roboto:wght@400;500;700;900&amp;display=swap&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css&quot;&gt;
+</code></pre>
+<!--/email_off-->
+
+<p>Set <code>&lt;meta name="color-scheme" content="dark"&gt;</code> and give <code>html</code> and <code>body</code> the canvas color, so nothing flashes white. The outlined numerals are SVG text with <code>paint-order: stroke</code> (fill the card color, stroke <code>#595959</code>); squeeze <code>10</code> with <code>textLength</code> and <code>lengthAdjust="spacingAndGlyphs"</code>.</p>
+<p><strong>Tableau.</strong> Paste the <code>&lt;color-palette&gt;</code> elements of <code>netflix.tps</code> into <code>My Tableau Repository/Preferences.tps</code> and restart Tableau Desktop. The categorical palette runs red, blue, Other and the comparison gray; assign the subject first.
+- Dashboard background <code>#000000</code>; each sheet in a container shaded <code>#161616</code> with 20/24px inner padding and no border. Worksheet shading <code>#161616</code>; all text white or <code>#b3b3b3</code>; tooltips <code>#232323</code>.
+- The card head: a text object with the figure label (Tableau Book 9 bold, uppercase, <code>#b3b3b3</code>), the finding as the sheet title (bold, 13–14pt, white) and the measure as a subtitle line; the method in the caption, starting with <code>Note:</code>.
+- Grid lines: rows only, solid, <code>#2d2d2d</code>; zero line <code>#414141</code>; no axis rulers; ticks Tableau Book 9 in <code>#808080</code>.
+- Lines: subject size 3, comparison dashed. Stacked bars: Color → the categorical palette, Format → Borders → <code>#161616</code> separators.
+- Top 10: a sheet of RANK(SUM(tickets)) ≤ 10 as text with big bold rank numbers beside a bar or shape; Tableau cannot outline text, so use the rank in white 900 weight and the value as a label. Weeks in the Top 10: a highlight table of show by week, red for rank 1, <code>#333333</code> for 2–10, the rank as the label.
+- Progress: a Gantt bar or a bar on a dual-mark track (<code>#575757</code> behind), red only for the rows the title names.
+- Formats <code>#,##0</code> (Top 10), <code>#,##0.0,K</code>, <code>$#,##0.00,,"M"</code>, <code>0.0%</code>, <code>+0.0" pts";−0.0" pts"</code>; Korean workbooks <code>#,##0.00"달러"</code> and <code>+0.0"%p";−0.0"%p"</code>. Fonts: Tableau Book unless Roboto is installed on every viewing machine and on the server.</p>
+<p><strong>Power BI.</strong> View → Themes → Browse for themes → <code>powerbi-theme.json</code>. It sets the data colors (red, blue, then Other), the black page, <code>#161616</code> visuals without borders, axis and gridline colors and text classes. Install Roboto on authoring and viewing machines or accept Segoe UI.
+- Title each visual with the finding; put the measure in the subtitle and the method in a text box starting with <code>Note:</code>.
+- Gridlines solid <code>#2d2d2d</code>; data labels on the last point instead of a legend.
+- Top 10: a table visual sorted by tickets with Top N = 10, the rank as a column in bold, data bars in <code>#f0313b</code> for seats filled; a new entry flagged in a text column, not by a row color.
+- Key figures as cards on <code>#161616</code> without borders; change measures with conditional formatting in <code>#46d369</code> / <code>#e87c03</code> only, always with a sign.</p>
+<p><strong>Chart libraries (D3, Observable Plot, Vega-Lite, matplotlib, Datawrapper).</strong> Subject <code>#f0313b</code> (labels <code>#ff5a63</code>), second <code>#6a88f2</code> (<code>#8ea5f6</code>), Other <code>#595959</code>, comparison <code>#808080</code> dashed <code>6 4</code>, gridlines <code>#2d2d2d</code> on rows only, baseline <code>#414141</code>, ticks <code>#808080</code> at 12px, plot background <code>#161616</code>, bar ends rounded 2px. The sample's Figure 2 in five forms is in the workbench of the live sample; <code>tickets.csv</code> is its data.</p>
+<h2 id="dos-and-donts">Do's and Don'ts</h2>
+<ul>
+<li>Do open with a billboard: the #1 line with a TOP 10 badge, a headline that states the result, a short lede and four key figures. Don't lead with a chart or a dozen KPI tiles.</li>
+<li>Do rank with Netflix's own parts — the Top 10 row, weeks in the Top 10, the Top 10 table — and use progress bars for shares of a whole. Don't turn every card into a bar chart.</li>
+<li>Do put every view on the same <code>#161616</code> card with the same head and foot. Don't add borders, shadows or glow, and don't mix card colors.</li>
+<li>Do keep red for what the title names (the subject, the #1 cells, the sold-out rows) and everything else gray. Don't put the UI red <code>#e50914</code> on data, and don't let a card go mostly red.</li>
+<li>Do set titles in type on color-block tiles. Don't put photos, posters, logos or the N mark anywhere.</li>
+<li>Do write Top 10 values in full digits and runtimes as <code>h:mm</code>, as the weekly Top 10 does. Don't round a ranked list's values to K.</li>
+<li>Do title each card with its finding and explain the method in the note and the FAQ. Don't title a chart with its measure alone.</li>
+<li>Do label line ends and write values under tiles. Don't keep a legend that labels could replace or hide a number behind hover.</li>
+<li>Do keep seven views or fewer on one screen. Don't add a card only to show a token.</li>
+</ul>
+<h2 id="agent-prompt-guide">Agent Prompt Guide</h2>
+<p>Install the style (<code>npx @vizney/styles@latest add netflix</code>, <code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix</code>, or unzip the package in the project root). Agents that read skills load <code>dashboard-style</code> on their own and work in one of three modes: <strong>Build</strong> (plan the views, then draw them to this file), <strong>Restyle</strong> (move an existing screen onto this file without changing its data) and <strong>Review</strong> (a table of rule, finding, severity and fix). For an agent without skills, start the prompt with <code>Read DASHBOARD.md and follow it exactly.</code> For example:</p>
+<pre><code>Read DASHBOARD.md and follow it exactly. Build our weekly ticket sales dashboard as one self-contained HTML file
+with fictional data, in English and Korean (?lang=en|ko, English by default), on the dark page the spec describes.
+Top: a black header with the period, the EN/KO toggle, an outlined Export PDF and a red Copy as Markdown; one row of
+outlined city chips that scopes every card. Then a billboard: color-block key art with a giant outlined numeral, the
+TOP 10 badge and &quot;#1 this week · &lt;show&gt;&quot;, a headline that states the week's result, a two-sentence lede, a white and a
+gray button, four key figures with changes vs last week.
+This week: the Top 10 row (outlined numerals behind portrait color-block tiles, full-digit values under each tile, NEW
+ribbons); tickets by week against last year (dashed gray) beside weeks in the Top 10 as a grid of ranks, #1 in red.
+Coming up: the performances selling fast as an episode list with progress bars under the thumbnails beside channel
+shares as 100% stacked bars; a Top 10 table of every show with a show-all button.
+Method and sources as a FAQ accordion. Every view on the same #161616 card: figure label, finding title, subtitle, keys,
+view, &quot;Note:&quot;. At most seven views per screen.
+Use only the values in Data Colors, the formats in Numbers, Dates &amp; Units and the components in Component Stylings.
+Every chart needs a hover card, keyboard control and a screen-reader table.
+</code></pre>
+<p>Before it is done, the agent checks:
+- [ ] The billboard states the result; the key figures carry signed changes colored good (<code>#46d369</code>) or bad (<code>#e87c03</code>).
+- [ ] Every view sits on the same <code>#161616</code> card with no border or shadow; every card title states a finding; every note starts with <code>Note:</code>.
+- [ ] Red <code>#f0313b</code> only for what each title names; others gray; comparison dashed <code>#808080</code>; the UI red <code>#e50914</code> only on buttons, badges and ribbons; no photo or logo.
+- [ ] Rankings use the Top 10 parts (numerals and tiles, the rank grid, the Top 10 table) with values in full digits; shares of a whole use progress bars.
+- [ ] Gridlines on rows only; line ends labeled; keys only where labels cannot work; no dual axis, pie, donut, gauge or glow.
+- [ ] Numbers, dates, runtimes and weeks follow the formats in both languages.
+- [ ] Text ≥ 4.5:1 on its surface (muted only on <code>#161616</code> or darker); marks below 3:1 have a second cue.
+- [ ] Every chart has a hover card, keyboard control and a data table; the filter changes every card; at most seven views per screen; nothing breaks at 390px.</p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Vizney Styles · © 2026 <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener">Vizney</a></span>
+    <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
+    <nav aria-label="Footer" data-i18n-aria="footAria">
+      <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>
+      <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="navContact">Contact</a>
+      <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
+      <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  // The site's header, tabs and footer around a spec page. The spec itself is English; ?lang=ko switches the
+  // chrome (labels and Vizney links) like the other site pages. Same code as index.html / 404.html.
+  var STR = { "ko": {"skip": "본문으로 건너뛰기", "navStyles": "카탈로그", "navCustom": "우리 회사", "navRequest": "브랜드 요청", "navContact": "문의", "globeTitle": "Switch to English", "ghSearch": "Vizney 검색", "ghMenu": "메뉴", "ghMore": "더 보기", "tabsAria": "Vizney Styles 메뉴", "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)", "footAria": "바닥글", "footBlog": "블로그"}, "en": {"skip": "Skip to content", "navStyles": "Catalog", "navCustom": "Your company", "navRequest": "Request a brand", "navContact": "Contact", "globeTitle": "한글로 보기", "ghSearch": "Search Vizney", "ghMenu": "Main Menu", "ghMore": "More", "tabsAria": "Vizney Styles menu", "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)", "footAria": "Footer", "footBlog": "Blog"} };
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
+  const state = { lang: params.get('lang') === 'ko' ? 'ko' : 'en' };
+  const S = () => STR[state.lang];
+  const PAGE = 'spec';
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  // The Vizney header's menu, as on the blog (the same addresses on Vizney Blocks). Labels are English in both languages.
+  const VZ = {
+    ko: { home: 'https://kr.vizney.com/', 'chart-guide': 'https://kr.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/ko/', styles: 'https://styles.vizney.com/?lang=ko', tips: 'https://kr.vizney.com/tips/', kb: 'https://kr.vizney.com/kb/', about: 'https://kr.vizney.com/about/', contact: 'https://kr.vizney.com/contact-us/', search: 'https://kr.vizney.com/#/search' },
+    en: { home: 'https://www.vizney.com/', 'chart-guide': 'https://www.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/', styles: 'https://styles.vizney.com/', tips: 'https://www.vizney.com/tips/', kb: 'https://www.vizney.com/kb/', about: 'https://www.vizney.com/about/', contact: 'https://www.vizney.com/contact-us/', search: 'https://www.vizney.com/#/search' }
+  };
+  function href(key) {
+    const L = state.lang;
+    const [kind, name] = key.split(':');
+    if (kind === 'home') return '/' + (L === 'ko' ? '?lang=ko' : '') + (name ? '#' + name : '');
+    if (kind === 'contact') return BLOG[L] + 'contact-us/';
+    if (kind === 'blog') return BLOG[L];
+    if (kind === 'v') return VZ[L][name];
+    if (kind === 'lang') {
+      try {
+        const u = new URL(location.href);
+        if (L === 'en') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+        return u.pathname + u.search + u.hash;
+      } catch (e) { return L === 'en' ? '?lang=ko' : '?'; }
+    }
+    return '#';
+  }
+  function applyLang() {
+    const s = S();
+    $$('[data-i18n]').forEach(el => { const v = s[el.dataset.i18n]; if (v != null) el.textContent = v; });
+    $$('[data-i18n-aria]').forEach(el => { const v = s[el.dataset.i18nAria]; if (v != null) el.setAttribute('aria-label', v); });
+    $$('[data-href]').forEach(a => { a.href = href(a.dataset.href); });
+    applyHeader();
+  }
+  function setLang(L) {
+    if (L === state.lang) return;
+    state.lang = L;
+    applyLang();
+    try {
+      const u = new URL(location.href);
+      if (L === 'ko') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* the page still switches */ }
+  }
+  /* ---------- Vizney header: menu overflow, burger, globe; the site's tabs ---------- */
+  const PHONE = window.matchMedia('(max-width:767px)');
+  const ghMenu = $('.gh-menu'), ghNav = $('.gh-nav');
+  const GH_ITEMS = $$('li', ghNav);
+  const MORE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM13.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM5.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0z"/></svg>';
+  let ghMoreEl = null;
+
+  function closeMore() {
+    if (!ghMoreEl || !ghMoreEl.classList.contains('is-open')) return;
+    ghMoreEl.classList.remove('is-open');
+    $('.gh-more__toggle', ghMoreEl).setAttribute('aria-expanded', 'false');
+  }
+  // As on the blog (Casper): items that do not fit one line move, from the end, under a '…' toggle.
+  function layoutMenu() {
+    ghMoreEl = null;
+    ghNav.replaceChildren(...GH_ITEMS);
+    GH_ITEMS.forEach((li, i) => { li.style.transitionDelay = PHONE.matches ? (0.03 * (i + 1)) + 's' : ''; });
+    if (PHONE.matches) return;
+    const sub = [];
+    while (ghNav.offsetWidth + 64 > ghMenu.offsetWidth && ghNav.lastElementChild) {
+      sub.unshift(ghNav.lastElementChild);
+      ghNav.lastElementChild.remove();
+    }
+    if (!sub.length) return;
+    const li = document.createElement('li');
+    li.className = 'gh-more';
+    li.innerHTML = '<button class="gh-more__toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="' + esc(S().ghMore) + '">' + MORE_SVG + '</button><ul class="gh-dropdown"></ul>';
+    $('.gh-dropdown', li).append(...sub);
+    ghNav.append(li);
+    ghMoreEl = li;
+  }
+  document.addEventListener('click', e => {
+    if (!ghMoreEl) return;
+    const toggle = $('.gh-more__toggle', ghMoreEl);
+    if (ghMoreEl.classList.contains('is-open')) closeMore();
+    else if (toggle.contains(e.target)) { ghMoreEl.classList.add('is-open'); toggle.setAttribute('aria-expanded', 'true'); }
+  });
+
+  const burger = $('.gh-burger');
+  function setMenuOpen(open) {
+    document.body.classList.toggle('gh-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', () => setMenuOpen(!document.body.classList.contains('gh-open')));
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (ghMoreEl && ghMoreEl.classList.contains('is-open')) { closeMore(); $('.gh-more__toggle', ghMoreEl).focus(); }
+    else if (document.body.classList.contains('gh-open')) { setMenuOpen(false); burger.focus(); }
+  });
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (!PHONE.matches) setMenuOpen(false); layoutMenu(); }, 1);
+  });
+
+  // The globe opens this page in the other language; here it switches in place, keeping the address right.
+  $$('.gh-globe').forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    setLang(state.lang === 'ko' ? 'en' : 'ko');
+  }));
+
+  // Tabs: on the home page the tab follows the section in view; elsewhere none is current.
+  const TAB_SECTIONS = PAGE === 'home' ? ['custom', 'styles'].map(id => [id, document.getElementById(id)]) : [];
+  function markTab() {
+    if (PAGE !== 'home') return;
+    const line = $('.tabs').getBoundingClientRect().bottom + 8;
+    let cur = 'top';
+    for (const [id, el] of TAB_SECTIONS) {
+      const sec = el && (el.closest('section') || el);
+      if (sec && sec.getBoundingClientRect().top <= line) { cur = id; break; }
+    }
+    $$('.tabs [data-tab]').forEach(a => { if (a.dataset.tab === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+  }
+  let tabFrame = 0;
+  window.addEventListener('scroll', () => { if (!tabFrame) tabFrame = requestAnimationFrame(() => { tabFrame = 0; markTab(); }); }, { passive: true });
+  markTab();
+
+  function applyHeader() {
+    const s = S();
+    $$('.gh-globe').forEach(a => { a.title = s.globeTitle; a.setAttribute('aria-label', s.globeTitle); });
+    $$('.gh-search').forEach(a => { a.title = s.ghSearch; });
+    layoutMenu();
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutMenu);
+  window.addEventListener('load', layoutMenu);
+  applyLang();
+})();
+</script>
+</body>
+</html>
