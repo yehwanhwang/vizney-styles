@@ -179,16 +179,19 @@
 
   /* ---------- 그림 4: 에피소드 목록. 번호 → 16:9 섬네일(아래에 이어보기 진행 막대) → 제목·시간 → 설명 ---------- */
   .eps{margin:0;padding:0;list-style:none;border-radius:4px;outline-offset:4px}
-  .ep{display:grid;grid-template-columns:28px 120px minmax(0,1fr);align-items:center;column-gap:16px;padding:10px 10px;border-bottom:1px solid #404040;border-radius:4px}
+  .ep{display:grid;grid-template-columns:28px 64px minmax(0,1fr);align-items:center;column-gap:16px;padding:12px 10px;border-bottom:1px solid #404040;border-radius:4px}
   .ep:last-child{border-bottom:0}
   .ep.on{background:#333}
   .ep-n{font-size:22px;font-weight:500;color:var(--text-2);text-align:center;font-variant-numeric:tabular-nums}
-  .ep-th{position:relative;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:linear-gradient(160deg,var(--t0),var(--t1));display:flex;flex-direction:column;justify-content:flex-start;padding:9px 10px 0}
-  .ep-th::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(0,0,0,0))}
-  .ep-d,.ep-dd{position:relative;color:#fff;line-height:1.05}
-  .ep-d{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.82}
-  html[lang="ko"] .ep-d{letter-spacing:.02em}
-  .ep-dd{margin-top:3px;font-size:19px;font-weight:900;letter-spacing:-.01em;white-space:nowrap}
+  /* 날짜 칸: 그림 대신 글자. 요일(작게) → 날짜(크게) → 월 */
+  .ep-th{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px 0;border-right:1px solid #404040;line-height:1}
+  .ep-d{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+  html[lang="ko"] .ep-d{letter-spacing:0;font-size:12px}
+  .ep-dd{margin:4px 0 3px;font-size:28px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+  .ep-mo{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  html[lang="ko"] .ep-mo{letter-spacing:0;font-size:12px}
+  /* 이어보기 진행 막대: 제목 아래 전체 폭. 채운 만큼이 판매 좌석 비율, 매진만 빨강 */
+  .ep-m .pg{position:relative;left:auto;right:auto;bottom:auto;display:block;height:4px;margin:8px 0 7px;background:rgba(255,255,255,.28)}
   .pg{position:absolute;left:10px;right:10px;bottom:8px;height:4px;border-radius:0;background:rgba(255,255,255,.28)}
   .pg i{display:block;height:100%;background:var(--pg,#b3b3b3)}
   .ep-m{min-width:0}
@@ -196,7 +199,7 @@
   .ep-t{font-size:16px;font-weight:700;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ep-p{margin-left:auto;padding-left:8px;font-size:15px;font-weight:700;color:#fff;white-space:nowrap;font-variant-numeric:tabular-nums}
   
-  .ep-s{margin-top:4px;font-size:14px;line-height:1.4;color:var(--text-2);font-variant-numeric:tabular-nums}
+  .ep-s{font-size:14px;line-height:1.4;color:var(--text-2);font-variant-numeric:tabular-nums}
 
   /* ---------- 표 1: Tudum Top 10 표. 머리 회색 작은 대문자, 행 사이 1px #404040, 맨 앞 열은 큰 순위 숫자 ---------- */
   .tw{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#555 transparent}
@@ -377,7 +380,7 @@
     .rate{padding-right:36px}
     .card{padding:18px 20px 16px}
     .tbl th,.tbl td{padding:8px 8px}
-    .ep{grid-template-columns:24px 108px minmax(0,1fr);column-gap:12px}
+    .ep{grid-template-columns:24px 60px minmax(0,1fr);column-gap:12px}
     .win{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
     .side{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--line)}
     .tree{display:flex;flex-wrap:wrap;gap:2px 10px}
@@ -444,10 +447,9 @@
     .rk{height:44px;width:52px}
     .t10m{font-size:12px}
     .t10m .c-city{display:none}
-    .ep{grid-template-columns:92px minmax(0,1fr);column-gap:12px;padding:10px 4px}
+    .ep{grid-template-columns:52px minmax(0,1fr);column-gap:12px;padding:10px 4px}
     .ep-n{display:none}
-    .ep-th{padding:7px 8px 0}
-    .ep-dd{font-size:15px}
+    .ep-dd{font-size:24px}
     .ep-t{font-size:15px}
     .ep-p{font-size:14px}
     .tbl th,.tbl td{padding:8px 6px}
@@ -1304,13 +1306,14 @@
     list.setAttribute('aria-label', t.f4.aria);
     list.replaceChildren(...rows.map((r, i) => {
       const p = r.sold / r.cap * 100, x = perfDate(r.d);
-      const th = h('div', { class: 'ep-th', style: tileVars(r.id) },
-        h('span', { class: 'ep-d', text: KO() ? `${DOW_KO[x.getDay()]}요일` : DOW_EN[x.getDay()] }), h('b', { class: 'ep-dd', text: KO() ? `${x.getMonth() + 1}월 ${x.getDate()}일` : `${MON_EN[x.getMonth()]} ${x.getDate()}` }),
-        h('span', { class: 'pg', style: { '--pg': r.out ? C.subject : '#b3b3b3' } }, h('i', { class: animOK(animate) ? 'growx' : null, style: { width: Math.min(100, p) + '%', animationDelay: animOK(animate) ? (i * 40) + 'ms' : null } })));
+      const th = h('div', { class: 'ep-th', 'aria-hidden': 'true' },
+        h('span', { class: 'ep-d', text: KO() ? DOW_KO[x.getDay()] : DOW_EN[x.getDay()] }), h('b', { class: 'ep-dd', text: String(x.getDate()) }),
+        h('span', { class: 'ep-mo', text: KO() ? `${x.getMonth() + 1}월` : MON_EN[x.getMonth()] }));
+      const bar = h('span', { class: 'pg', style: { '--pg': r.out ? C.subject : '#b3b3b3' }, 'aria-hidden': 'true' }, h('i', { class: animOK(animate) ? 'growx' : null, style: { width: Math.min(100, p) + '%', animationDelay: animOK(animate) ? (i * 40) + 'ms' : null } }));
       const head = h('div', { class: 'ep-h' }, h('b', { class: 'ep-t', text: title(r.id) }), topIds.has(r.id) ? t10Badge(true) : null,
         h('span', { class: 'ep-p', text: r.out ? t.f4.soldOut : t.f4.sold(pct(p, 0)) }));
       const sub = h('p', { class: 'ep-s', text: [cityName(r.c), timeText(r.hr), runtime(P(r.id).run), r.out ? t.f4.seats(full(r.cap)) : t.f4.left(full(r.cap - r.sold))].join(' · ') });
-      const li = h('li', { class: 'ep' + (animOK(animate) ? ' fade' : ''), style: animOK(animate) ? { animationDelay: (i * 30) + 'ms' } : null }, h('span', { class: 'ep-n', text: String(i + 1) }), th, h('div', { class: 'ep-m' }, head, sub));
+      const li = h('li', { class: 'ep' + (r.out ? ' out' : '') + (animOK(animate) ? ' fade' : ''), style: animOK(animate) ? { animationDelay: (i * 30) + 'ms' } : null }, h('span', { class: 'ep-n', text: String(i + 1) }), th, h('div', { class: 'ep-m' }, head, bar, sub));
       li.addEventListener('pointerenter', () => show(i));
       li.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== list) show(null); });
       return li;
@@ -1319,12 +1322,12 @@
       $$('.ep', list).forEach((el, j) => el.classList.toggle('on', j === i));
       if (i == null) { hideTip(host); return; }
       F4.cur = i;
-      const r = rows[i], el = $$('.ep-th', list)[i], o = offsetIn(host, el);
+      const r = rows[i], el = $$('.ep-m', list)[i], o = offsetIn(host, el);
       placeTip(host, tipNodes(title(r.id), [
         { key: r.out ? C.subject : '#b3b3b3', value: r.out ? t.f4.soldOut : t.f4.sold(pct(r.sold / r.cap * 100)), label: `${full(r.sold)} / ${full(r.cap)}` },
         { value: `${dayLong(r.d)} · ${timeText(r.hr)}` },
         topIds.has(r.id) ? { value: t.f4.top10 } : null
-      ].filter(Boolean), showMeta(r.id, null, false, [r.c])), o.x + o.w, o.y, o.y + o.h);
+      ].filter(Boolean), showMeta(r.id, null, false, [r.c])), o.x + Math.min(o.w - 40, 260), o.y, o.y + o.h);
     };
     list.onfocus = () => show(F4.cur);
     list.onblur = () => show(null);

@@ -24,7 +24,7 @@ Sections are rows with a 24px title; at most seven views per screen; every view 
 - This week: the Top 10 of <items> in two columns (an outlined numeral, the name, full-digit value, a bar against #1 in red
   only for #1, the move since last week and weeks in the Top 10; a red NEW badge for new entries); <measure> by week
   against last year (dashed gray, line ends labeled) beside weeks in the Top 10 as a grid of ranks with #1 in red.
-- Coming up: <upcoming items> as an episode list with the progress bar under each thumbnail (red only for the rows the
+- Coming up: <upcoming items> as an episode list led by a date block in type, the progress bar under each title (red only for the rows the
   title names) beside <channel> shares as 100% stacked bars; a Top 10 table of every <item> (rank, name, weeks in the
   Top 10, value, change, a progress bar, runtime or duration, rating) with a show-all button.
 - Method and sources as a FAQ accordion.
@@ -50,7 +50,7 @@ DASHBOARD.md를 읽고 그대로 따라 줘. <회사>의 주간 <판매·이용>
 - 이번 주: <항목> Top 10(두 줄 다섯 칸, 외곽선 숫자 옆에 이름과 전체 자릿수 값, 1위만 빨강인 1위 대비 막대,
   지난주 순위 변화와 Top 10 주 수, 새로 든 항목엔 빨간 신규 배지), 지난해(회색 점선)와 비교한 주별 <지표> 선(선 끝 라벨),
   1위만 빨강인 Top 10 주 수 순위 격자.
-- 다가오는 것: 섬네일 아래 진행 막대가 있는 에피소드 목록 형식의 <다가오는 항목>(제목이 말하는 줄만 빨강),
+- 다가오는 것: 글자 날짜 칸으로 시작하고 제목 아래 진행 막대가 있는 에피소드 목록 형식의 <다가오는 항목>(제목이 말하는 줄만 빨강),
   <경로> 비중 100% 누적 막대, 모든 <항목>의 Top 10 표(순위, 이름, Top 10 주 수, 값, 증감, 진행 막대,
   시간, 등급)와 모두 보기 단추.
 - 방법과 출처는 FAQ 아코디언.
