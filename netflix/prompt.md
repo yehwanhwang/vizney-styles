@@ -21,8 +21,8 @@ red and a gray button, and four key figures on translucent tiles (label → valu
 by whether the change is good).
 Sections are rows with a 24px title; at most seven views per screen; every view on the same #161616 card with no border
 (figure label → finding title → subtitle → keys → view → "Note:"):
-- This week: the Top 10 rail of <items> (outlined numerals over the lower-left corners of color-block posters, names in type,
-  full-digit values and weeks in the Top 10 under each tile, a red NEW ribbon for new entries); <measure> by week
+- This week: the Top 10 of <items> in two columns (an outlined numeral, the name, full-digit value, a bar against #1 in red
+  only for #1, the move since last week and weeks in the Top 10; a red NEW badge for new entries); <measure> by week
   against last year (dashed gray, line ends labeled) beside weeks in the Top 10 as a grid of ranks with #1 in red.
 - Coming up: <upcoming items> as an episode list with the progress bar under each thumbnail (red only for the rows the
   title names) beside <channel> shares as 100% stacked bars; a Top 10 table of every <item> (rank, name, weeks in the
@@ -47,8 +47,8 @@ DASHBOARD.md를 읽고 그대로 따라 줘. <회사>의 주간 <판매·이용>
 (지표명 → 값 → 지난주 대비 증감, 증감 색은 그 지표에 좋은 변화인지로).
 절은 24px 제목의 줄로 열고, 한 화면의 그림은 7개 이하, 모든 그림은 테두리 없는 #161616 카드
 (그림 번호 → 결과를 말하는 제목 → 부제 → 범례 → 그림이나 표 → "주:")에 넣어 줘:
-- 이번 주: <항목> Top 10 줄(색 블록 포스터의 왼쪽 아래를 덮는 외곽선 숫자, 이름은 글자로, 타일 아래 전체 자릿수 값과
-  Top 10 주 수, 새로 든 항목엔 빨간 신규 띠), 지난해(회색 점선)와 비교한 주별 <지표> 선(선 끝 라벨),
+- 이번 주: <항목> Top 10(두 줄 다섯 칸, 외곽선 숫자 옆에 이름과 전체 자릿수 값, 1위만 빨강인 1위 대비 막대,
+  지난주 순위 변화와 Top 10 주 수, 새로 든 항목엔 빨간 신규 배지), 지난해(회색 점선)와 비교한 주별 <지표> 선(선 끝 라벨),
   1위만 빨강인 Top 10 주 수 순위 격자.
 - 다가오는 것: 섬네일 아래 진행 막대가 있는 에피소드 목록 형식의 <다가오는 항목>(제목이 말하는 줄만 빨강),
   <경로> 비중 100% 누적 막대, 모든 <항목>의 Top 10 표(순위, 이름, Top 10 주 수, 값, 증감, 진행 막대,
@@ -72,7 +72,7 @@ Read DASHBOARD.md. Restyle the dashboard in <file> to match it without changing 
   result, a lede, a red and a gray button, four key figures with signed, good/bad-colored changes;
 - colors to the tokens: the subject #f0313b only where the title points, a second real category #6a88f2, the rest
   #595959 behind 2px gaps, last year dashed #808080; the UI red #e50914 only on buttons, badges and ribbons;
-- rankings to the Top 10 parts (outlined numerals over posters, a grid of ranks, the Top 10 table with full-digit values)
+- rankings to the Top 10 parts (outlined numerals with bars and rank moves, a grid of ranks, the Top 10 table with full-digit values)
   and shares of a whole to 4px progress bars; other charts to the form "Charts" picks for their question;
 - gridlines solid #2d2d2d on rows only, line ends labeled;
 - filters to one row of outlined chips above everything, the selected chip white;
