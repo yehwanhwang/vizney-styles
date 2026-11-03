@@ -1,0 +1,1765 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex">
+<title>Netflix style · Weekly ticket sales report sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Roboto:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="/lib/embed.js" defer></script>
+<style>
+  /* Netflix style (VIZNEY STYLES · 03) — Dark, Cinematic, Bold · 다크, 시네마틱, 강렬함
+     netflix.com(랜딩·작품 페이지)과 Tudum Top 10에서 읽어 낸 참고용 스타일. 공식 디자인이 아니며 로고·서체·사진·데이터는 쓰지 않는다.
+     가상 공연 사업부(Vizney Live · 비즈니 라이브, 로스앤젤레스·뉴욕·시카고)의 주간 티켓 판매 보고. 넷플릭스가 차트 대신 쓰는 부품
+     (빌보드, Top 10 숫자 줄, Weeks in Top 10, 이어보기 진행 막대, 에피소드 목록, 호버 카드, TOP 10 배지, FAQ 아코디언)을 하나의 카드와 하나의 그림 문법으로 옮긴다.
+     구성: 이번 주(빌보드 + 그림 3) · 다가오는 공연(그림 2 + 표 1) · 만드는 법 · 방법과 출처. 한 화면 묶음은 그림 7개 이하.
+     넷플릭스는 화면 자체가 어둡다. 밝은·어두운 두 판을 만들지 않고 이 어두운 룩 하나로 만든다. */
+  :root{
+    --canvas:#000000; --card:#161616; --raise:#232323; --field:#2d2d2d; --hair:#414141; --line:#2d2d2d;
+    --ink:#ffffff; --body:#e5e5e5; --text-2:#b3b3b3; --muted:#808080;
+    --red:#e50914; --red-hover:#c11119; --focus:#ffffff;
+    --gray-btn:rgba(128,128,128,.4); --gray-btn-hover:rgba(128,128,128,.6);
+    --subject:#f0313b; --subject-text:#ff5a63; --blue:#6a88f2; --blue-text:#8ea5f6; --other:#595959; --comparison:#808080;
+    --good:#46d369; --bad:#e87c03;
+    --rail-1:#192247; --rail-2:#210e17; --rail-3:#461518; --rail-4:#6f181d;
+    --font:'Roboto','Helvetica Neue','Segoe UI',Ubuntu,sans-serif;
+    --mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.5,0,.1,1);
+    --page:32px; --gap:16px; --sec:56px;
+  }
+  /* 한국어: netflix.com 한국어 페이지는 한글 웹 서체를 따로 싣지 않으므로(시스템 서체) 규칙대로 Pretendard */
+  html[lang="ko"]{
+    --font:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    --mono:'Roboto Mono','Pretendard Variable',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  html{background:var(--canvas)}
+  body{background:var(--canvas);color:var(--body);font-family:var(--font);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  html[lang="ko"] body{word-break:keep-all}
+  p,h1,h2,h3,h4,ul,ol,figure{margin:0}
+  button{font:inherit;color:inherit}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .ico{width:16px;height:16px;flex:none}
+  .num-t{font-variant-numeric:tabular-nums}
+
+  .page{max-width:1400px;margin:0 auto;padding:0 var(--page) 8px}
+
+  /* ---------- 머리: netflix.com 랜딩의 머리(검정, 오른쪽에 반투명 테두리 단추와 빨간 작은 단추) ---------- */
+  .head{display:flex;align-items:center;gap:12px;min-height:72px;padding:14px 0}
+  .brand{display:flex;align-items:baseline;gap:12px;min-width:0}
+  .brand-n{font-size:20px;font-weight:900;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;text-transform:uppercase}
+  html[lang="ko"] .brand-n{text-transform:none;font-size:19px}
+  .brand-s{font-size:14px;color:var(--text-2);white-space:nowrap}
+  .tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .period{display:inline-flex;align-items:center;gap:6px;height:32px;font-size:14px;font-weight:500;color:var(--body);white-space:nowrap;padding-right:6px}
+  .period .ico{color:var(--text-2)}
+  /* 단추: 모서리 4px. 빨강(가입·로그인), 흰색(재생), 회색 반투명(상세 정보), 검정 반투명 + 회색 테두리(언어 선택) */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:32px;padding:0 14px;border-radius:4px;border:1px solid transparent;font-size:14px;font-weight:500;line-height:1;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .2s var(--ease),border-color .2s var(--ease)}
+  .btn .ico{width:16px;height:16px}
+  .btn-red{background:var(--red);color:#fff}
+  .btn-red:hover{background:var(--red-hover)}
+  .btn-ghost{background:rgba(0,0,0,.4);border-color:var(--muted);color:#fff}
+  .btn-ghost:hover{border-color:#fff}
+  /* 랜딩 실측: 빨간 시작하기 56px 24px/500 · 회색 자세히 알아보기 rgba(128,128,128,.4) 40px 16px/500 6px 16px. 대시보드는 40px 단계를 쓴다 */
+  .btn-lg{height:40px;padding:6px 16px;font-size:16px;font-weight:500}
+  .btn-lg .ico{width:18px;height:18px}
+  .btn-gray{background:var(--gray-btn);color:#fff}
+  .btn-gray:hover{background:var(--gray-btn-hover)}
+  .btn-sm{height:28px;padding:0 10px;font-size:13px;gap:6px}
+  .btn-sm .ico{width:14px;height:14px}
+  .btn-icon{width:28px;padding:0}
+  /* 언어 토글: 언어 선택 단추와 같은 반투명 테두리 상자 안의 두 칸 */
+  .lang{display:inline-flex;height:32px;padding:2px;border:1px solid var(--muted);border-radius:4px;background:rgba(0,0,0,.4)}
+  .lang button{min-width:34px;height:26px;padding:0 8px;border:0;border-radius:2px;background:none;font-size:13px;font-weight:700;color:var(--text-2);cursor:pointer}
+  .lang button[aria-pressed="true"]{background:#fff;color:#000}
+
+  /* ---------- 필터 한 줄: 회색 테두리 칩, 고른 칩은 흰 바탕(재생 단추와 같은 흰색) ---------- */
+  .filter{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 16px;padding:4px 0 18px}
+  .chips{display:flex;gap:8px;max-width:100%;overflow-x:auto;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chips button{flex:none;height:32px;padding:0 16px;border:1px solid var(--muted);border-radius:16px;background:rgba(0,0,0,.4);font-size:14px;font-weight:500;color:#fff;cursor:pointer;white-space:nowrap;transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease)}
+  .chips button:hover{border-color:#fff}
+  .chips button[aria-selected="true"]{background:#fff;border-color:#fff;color:#000}
+  .aside{font-size:14px;color:var(--text-2)}
+
+  /* ---------- 빌보드: 키 아트 자리에 랜딩의 레일 그라데이션 색 블록 + 큰 외곽선 숫자, 왼쪽 비네트, 아래로 바탕색 페이드 ---------- */
+  .bill{position:relative;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:"main ." "kpis kpis";gap:0 48px;min-height:420px;padding:44px 48px 28px;border-radius:8px;overflow:hidden;isolation:isolate;
+    background:linear-gradient(149deg,var(--rail-1) 0%,var(--rail-2) 48%,var(--rail-3) 78%,var(--rail-4) 100%)}
+  .bill::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(77deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.45) 42%,rgba(0,0,0,0) 78%)}
+  .bill::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.85) 100%)}
+  .bill-art{position:absolute;right:3%;top:4%;height:100%;z-index:-1;pointer-events:none}
+  .bill-art svg{height:100%;width:auto;display:block}
+  .bill-art text{font-family:var(--font);font-weight:900;fill:none;stroke:rgba(255,255,255,.16);stroke-width:2.5}
+  .bill-main{grid-area:main;min-width:0;align-self:end}
+  .eye{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:500;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+  .t10{display:inline-grid;place-items:center;align-content:center;flex:none;width:28px;height:28px;border-radius:2px;background:var(--red);color:#fff;line-height:1;text-shadow:none}
+  .t10 i{font-style:normal;font-size:7px;font-weight:700;letter-spacing:.08em}
+  .t10 b{font-size:14px;font-weight:900;letter-spacing:-.04em;margin-top:1px}
+  .t10.sm{width:20px;height:20px}
+  .t10.sm i{font-size:5px} .t10.sm b{font-size:10px}
+  .headline{margin-top:14px;font-size:clamp(30px,3.3vw,48px);font-weight:700;line-height:1.16;letter-spacing:-.01em;color:#fff;text-wrap:balance;text-shadow:0 2px 4px rgba(0,0,0,.45)}
+  html[lang="ko"] .headline{line-height:1.28;letter-spacing:-.02em}
+  .lede{margin-top:16px;max-width:40em;font-size:18px;line-height:1.45;color:#fff;text-wrap:pretty;text-shadow:0 1px 2px rgba(0,0,0,.45)}
+  .bill-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .rate{position:absolute;right:0;top:46px;display:flex;align-items:center;height:36px;padding:0 48px 0 12px;border-left:3px solid #dcdcdc;background:rgba(51,51,51,.6);font-size:15px;font-weight:500;color:#fff;white-space:nowrap}
+  .kpis{grid-area:kpis;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto auto auto;column-gap:12px;margin-top:32px}
+  .kpi{grid-row:span 3;display:grid;grid-template-rows:subgrid;row-gap:0;min-width:0;padding:14px 16px 12px;border:1px solid rgba(128,128,128,.4);border-radius:8px;background:rgba(0,0,0,.45)}
+  .kpi .k{font-size:14px;font-weight:500;color:var(--text-2)}
+  .kpi .v{margin-top:6px;font-size:40px;font-weight:700;line-height:1.05;letter-spacing:-.02em;color:#fff;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .u{font-size:.45em;font-weight:500;letter-spacing:0;color:var(--text-2);margin-left:3px}
+  .u.pre{margin:0 2px 0 0}
+  html[lang="ko"] .u{margin-left:1px}
+  .kpi .d{margin-top:6px;font-size:14px;color:var(--text-2)}
+  .d b{font-weight:700;color:var(--good);margin-right:1px}
+  .d b.bad{color:var(--bad)} .d b.flat{color:var(--text-2)}
+
+  /* ---------- 절 머리: 랜딩의 절 제목(24px) + 회색 한 줄 ---------- */
+  .sh{margin-top:var(--sec);scroll-margin-top:12px}
+  .sh h2{font-size:24px;font-weight:500;line-height:1.45;color:#fff}
+  .sh p{margin-top:4px;font-size:16px;line-height:1.5;color:var(--text-2)}
+
+  /* ---------- 카드: 모든 그림과 표가 같은 카드, 같은 해부를 쓴다 ----------
+     #161616(랜딩의 레일 바탕) + 모서리 8px, 테두리·그림자 없음. 한 줄의 카드는 subgrid로 머리·본문·주석 높이를 맞춘다. */
+  .row{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto 1fr auto;column-gap:var(--gap);margin-top:var(--gap)}
+  .row.first{margin-top:18px}
+  .card{position:relative;grid-row:span 3;display:grid;grid-template-rows:subgrid;row-gap:0;min-width:0;background:var(--card);border-radius:8px;padding:20px 24px 18px;scroll-margin-top:12px}
+  .c5{grid-column:span 5} .c7{grid-column:span 7} .c12{grid-column:span 12}
+  .ch{display:flex;flex-direction:column;padding-bottom:16px;min-width:0}
+  .fl{display:block;margin-bottom:8px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);white-space:nowrap}
+  html[lang="ko"] .fl{letter-spacing:.02em;font-size:13px}
+  .ct{font-size:20px;font-weight:500;line-height:1.35;color:#fff;text-wrap:balance}
+  html[lang="ko"] .ct{line-height:1.42;letter-spacing:-.01em}
+  .cs{margin-top:4px;font-size:14px;line-height:20px;color:var(--text-2);text-wrap:pretty}
+  .cb{position:relative;display:flex;flex-direction:column;min-width:0}
+  .cf{padding-top:14px;font-size:13px;line-height:20px;color:var(--muted);text-wrap:pretty}
+  .keys{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:12px 0 0;padding:0;list-style:none}
+  .keys li{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:var(--body);white-space:nowrap}
+  .keys svg{width:18px;height:12px;flex:none;overflow:visible}
+  .plot{position:relative}
+  .plot > svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;touch-action:pan-y}
+  #f2Plot,#f3Plot,#f5Plot,#wbPlot{flex:1}
+  #f2Plot{min-height:300px} #f3Plot{min-height:330px} #f5Plot{min-height:280px}
+  #wbPlot{min-height:250px;margin-bottom:10px}
+  .ax{font-size:12px;fill:var(--muted);font-variant-numeric:tabular-nums}
+  .vl{font-size:12px;font-weight:700;fill:#fff;font-variant-numeric:tabular-nums}
+  .halo{paint-order:stroke;stroke:var(--card);stroke-width:3.5px;stroke-linejoin:round}
+
+  /* ---------- 그림 1: Top 10 줄. 외곽선 큰 숫자 위에 세로 타일이 겹친다(사진 대신 색 블록과 제목 글자) ---------- */
+  .top10{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px var(--gap);margin:0;padding:0;list-style:none;outline-offset:6px;border-radius:4px}
+  /* 실측(netflix.com 지금 뜨는 콘텐츠): 포스터 #232323 · 모서리 8px · 5:7, 숫자 100px/700 · 채움 #414141 · 흰 4px 외곽선 · 그림자 0 0 24px rgba(0,0,0,.5).
+     숫자는 포스터 왼쪽 아래를 앞에서 덮는다(항목 왼쪽 여백 22px 안에서 시작해 포스터 안으로 40px쯤 들어온다) */
+  .t10i{position:relative;padding-left:12%;cursor:default}
+  .poster{position:relative}
+  .rk{position:absolute;z-index:2;left:-14%;bottom:4%;height:42%;width:auto;display:block;overflow:visible;filter:drop-shadow(0 0 12px rgba(0,0,0,.5))}
+  .rk text{font-family:var(--font);font-weight:700;fill:var(--hair);stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+  .tile{position:relative;z-index:1;aspect-ratio:5/7;border-radius:8px;overflow:hidden;background:linear-gradient(160deg,var(--t0) 0%,var(--t1) 100%);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+  .tile::before{content:"";position:absolute;inset:0;background:radial-gradient(130% 75% at 85% 8%,rgba(255,255,255,.10),rgba(255,255,255,0) 58%),linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.6) 100%)}
+  .tile .tg{position:absolute;left:9px;top:9px;right:9px;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78)}
+  html[lang="ko"] .tile .tg{letter-spacing:.04em;font-size:10px}
+  .tile .tt{position:absolute;left:28%;right:9px;bottom:12px;font-size:clamp(13px,1.28vw,18px);font-weight:900;line-height:1.04;letter-spacing:-.01em;color:#fff;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+  html[lang="ko"] .tile .tt{font-weight:800;line-height:1.18}
+  .tile.new .tt{bottom:32px}
+  .tile.ten .tt,.tile.ten .rib{left:52%}
+  .rib{position:absolute;left:28%;bottom:0;padding:3px 8px 2px;border-radius:2px 2px 0 0;background:var(--red);font-size:11px;font-weight:700;letter-spacing:.04em;color:#fff;white-space:nowrap}
+  .t10i.on .tile{box-shadow:0 0 0 2px #fff}
+  .t10cap{padding-top:8px;min-width:0}
+  .t10cap b{display:block;font-size:16px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .t10cap b span{margin-left:4px;font-size:12px;font-weight:400;color:var(--text-2)}
+  .t10cap i{display:block;font-style:normal;font-size:12px;color:var(--muted);white-space:nowrap}
+  .t10cap i.hot{color:var(--subject-text);font-weight:700}
+
+  /* ---------- 그림 3: Weeks in Top 10 격자 ---------- */
+  .gl{font-size:13px;fill:var(--text-2)}
+  .gl.on{fill:#fff;font-weight:700}
+  .gn{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
+
+  /* ---------- 그림 4: 에피소드 목록. 번호 → 16:9 섬네일(아래에 이어보기 진행 막대) → 제목·시간 → 설명 ---------- */
+  .eps{margin:0;padding:0;list-style:none;border-radius:4px;outline-offset:4px}
+  .ep{display:grid;grid-template-columns:28px 120px minmax(0,1fr);align-items:center;column-gap:16px;padding:10px 10px;border-bottom:1px solid #404040;border-radius:4px}
+  .ep:last-child{border-bottom:0}
+  .ep.on{background:#333}
+  .ep-n{font-size:22px;font-weight:500;color:var(--text-2);text-align:center;font-variant-numeric:tabular-nums}
+  .ep-th{position:relative;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:linear-gradient(160deg,var(--t0),var(--t1));display:flex;flex-direction:column;justify-content:flex-start;padding:9px 10px 0}
+  .ep-th::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(0,0,0,0))}
+  .ep-d,.ep-dd{position:relative;color:#fff;line-height:1.05}
+  .ep-d{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.82}
+  html[lang="ko"] .ep-d{letter-spacing:.02em}
+  .ep-dd{margin-top:3px;font-size:19px;font-weight:900;letter-spacing:-.01em;white-space:nowrap}
+  .pg{position:absolute;left:10px;right:10px;bottom:8px;height:4px;border-radius:0;background:rgba(255,255,255,.28)}
+  .pg i{display:block;height:100%;background:var(--pg,#b3b3b3)}
+  .ep-m{min-width:0}
+  .ep-h{display:flex;align-items:center;gap:8px;min-width:0}
+  .ep-t{font-size:16px;font-weight:700;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ep-p{margin-left:auto;padding-left:8px;font-size:15px;font-weight:700;color:#fff;white-space:nowrap;font-variant-numeric:tabular-nums}
+  
+  .ep-s{margin-top:4px;font-size:14px;line-height:1.4;color:var(--text-2);font-variant-numeric:tabular-nums}
+
+  /* ---------- 표 1: Tudum Top 10 표. 머리 회색 작은 대문자, 행 사이 1px #404040, 맨 앞 열은 큰 순위 숫자 ---------- */
+  .tw{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#555 transparent}
+  .tbl{width:100%;border-collapse:collapse;font-size:16px;line-height:22px;font-variant-numeric:tabular-nums}
+  .tbl th,.tbl td{height:56px;padding:8px 10px;text-align:left;white-space:nowrap;vertical-align:middle;color:#fff;font-weight:400}
+  .tbl thead th{height:36px;padding-top:0;padding-bottom:4px;vertical-align:bottom;font-size:14px;font-weight:500;color:#fff}
+  .tbl .num{text-align:center}
+  .tbl .rkc{width:60px;padding-left:0;font-size:36px;font-weight:900;line-height:1.1;color:#fff;text-align:left;letter-spacing:-.01em}
+  .tbl thead .rkc{font-size:14px;font-weight:500;line-height:22px;letter-spacing:0}
+  .tbl .sh-t{vertical-align:middle}
+  .thumb{flex:none;width:64px;aspect-ratio:16/9;background:linear-gradient(160deg,var(--t0),var(--t1))}
+  .tbl tbody th{font-weight:400;color:#fff}
+  .tbl .sh-t{display:inline-flex;align-items:center;gap:14px}
+  .newb{display:inline-flex;align-items:center;height:18px;padding:0 6px;border-radius:2px;background:var(--red);font-size:11px;font-weight:700;letter-spacing:.04em;color:#fff}
+  .rbox{display:inline-flex;align-items:center;height:20px;padding:0 6px;border:1px solid rgba(255,255,255,.4);font-size:12px;font-weight:500;color:var(--body);white-space:nowrap}
+  .tbl .good{color:var(--good)} .tbl .bad{color:var(--bad)} .tbl .na{color:var(--muted)}
+  .tbl .wkc{color:#fff;font-weight:500}
+  .tbl tbody tr:hover td,.tbl tbody tr:hover th{background:#1f1f1f}
+  .fbar{display:inline-flex;align-items:center;gap:10px;vertical-align:middle}
+  .fbar .pg{position:static;width:96px;flex:none}
+  .fbar .hot{color:var(--subject-text);font-weight:700}
+
+  .more{position:relative;display:flex;justify-content:center;margin-top:14px}
+  .more::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid #404040}
+  .more button{position:relative;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px 0 10px;border:2px solid rgba(255,255,255,.5);border-radius:18px;background:#2a2a2a;font-size:14px;font-weight:500;color:#fff;cursor:pointer}
+  .more button:hover{border-color:#fff}
+  .more button .ico{transition:transform .2s var(--ease)}
+  .more button[aria-expanded="true"] .ico{transform:rotate(180deg)}
+
+  /* ---------- 만드는 법 ---------- */
+  .build-intro{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:20px 48px;align-items:end;margin-top:18px}
+  .build-intro p{max-width:46em;font-size:16px;line-height:1.5;color:var(--body)}
+  .build-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+  .btn-cta{height:40px;padding:6px 16px;font-size:16px;font-weight:500}
+  .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin:24px 0 0;padding:0;list-style:none}
+  .steps li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:12px;padding:24px 16px 24px 20px;border-radius:16px;background:linear-gradient(149deg,var(--rail-1) 0%,var(--rail-2) 96.86%)}
+  .steps .sn{grid-row:span 2;font-size:40px;font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.7)}
+  .steps b{font-size:20px;font-weight:500;line-height:1.35;color:#fff}
+  .steps p{margin-top:6px;font-size:14px;line-height:1.5;color:var(--text-2)}
+  .win{position:relative;display:grid;grid-template-columns:240px minmax(0,1fr) minmax(0,1.05fr);margin-top:var(--gap);background:var(--card);border-radius:8px;overflow:hidden}
+  .side{padding:16px 12px 14px;background:#101010;border-right:1px solid var(--line);font-size:14px}
+  .side-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 6px 10px}
+  .side-h b{font-size:14px;font-weight:700;color:#fff}
+  .side-h span{font-size:12px;color:var(--muted)}
+  .tree{list-style:none;margin:0;padding:0}
+  .tree li{display:block}
+  .tree a,.tree .fi{display:grid;grid-template-columns:16px minmax(0,1fr);column-gap:8px;padding:4px 6px;border-radius:4px;text-decoration:none}
+  .tree a:hover{background:#262626}
+  .tree svg{width:14px;height:14px;margin-top:3px;color:var(--muted)}
+  .tree b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tree span{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
+  .tree .root b{font-weight:400;color:var(--text-2)}
+  .tree .in{padding-left:14px} .tree .in2{padding-left:28px} .tree .in3{padding-left:42px}
+  .get{margin-top:12px;padding:12px 6px 0;border-top:1px solid var(--line)}
+  .get-h{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px}
+  .cmds{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;min-width:0}
+  .cmd{display:flex;align-items:center;gap:6px;padding:6px 6px 6px 10px;border-radius:4px;background:var(--field)}
+  .cmd code{flex:1;min-width:0;font-family:var(--mono);font-size:11.5px;line-height:1.5;color:#fff;white-space:nowrap;overflow-x:auto;scrollbar-width:none;border-radius:2px}
+  .cmd code::-webkit-scrollbar{display:none}
+  .cmd code.more-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
+  .cmd button{flex:none;width:22px;height:22px;display:grid;place-items:center;border:0;border-radius:2px;background:none;color:var(--text-2);cursor:pointer}
+  .cmd button:hover{background:rgba(255,255,255,.1);color:#fff}
+  .cmd button svg{width:13px;height:13px}
+  .get-note{margin:6px 0 10px;font-size:12px;line-height:1.45;color:var(--muted)}
+  .figpane{position:relative;display:flex;flex-direction:column;min-width:0;padding:16px 20px 18px;border-right:1px solid var(--line)}
+  .figbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .modes{display:inline-flex;gap:6px}
+  .modes button{height:28px;padding:0 12px;border:1px solid var(--muted);border-radius:14px;background:none;font-size:13px;font-weight:500;color:#fff;cursor:pointer;white-space:nowrap}
+  .modes button[aria-selected="true"]{background:#fff;border-color:#fff;color:#000}
+  .chip{display:inline-flex;align-items:center;height:22px;padding:0 6px;border-radius:2px;background:var(--field);font-family:var(--mono);font-size:12px;color:var(--text-2);white-space:nowrap}
+  .wb-t{margin-bottom:12px;font-size:16px;font-weight:700;line-height:1.4;color:#fff}
+  .wb-n{margin-top:8px;font-size:12px;color:var(--muted)}
+  .checks{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+  .checks-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;font-size:13px;font-weight:700;color:#fff}
+  .checks-h .ok{font-weight:500;color:var(--good)}
+  .checks-h .ok.bad{color:var(--bad)}
+  .checks ul{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+  .checks li{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.45;color:var(--text-2)}
+  .checks li svg{width:14px;height:14px;flex:none;margin-top:2px;color:var(--good)}
+  .checks li.no svg{color:var(--bad)}
+  .checks code{font-family:var(--mono);font-size:12px;color:#fff;white-space:nowrap}
+  .codepane{display:flex;flex-direction:column;min-width:0;background:#0b0b0b;contain:size}
+  .cbar{display:flex;align-items:center;gap:10px;height:48px;padding:0 12px 0 16px;border-bottom:1px solid var(--line)}
+  .ctabs{flex:1;min-width:0;align-self:stretch;display:flex;gap:18px;overflow-x:auto;scrollbar-width:none}
+  .ctabs::-webkit-scrollbar{display:none}
+  .cbtns{flex:none;display:flex;gap:6px}
+  .ctab{flex:none;display:flex;align-items:center;border:0;border-bottom:2px solid transparent;background:none;padding:0;font-size:14px;color:var(--muted);cursor:pointer;white-space:nowrap}
+  .ctab[aria-selected="true"]{border-bottom-color:var(--red);color:#fff;font-weight:500}
+  .code{position:relative;flex:1;margin:0;padding:10px 0;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.62;color:var(--body);counter-reset:ln;tab-size:2;scrollbar-width:thin;scrollbar-color:#555 transparent}
+  .code .ln{display:block;position:relative;min-height:1.62em;padding:0 16px 0 46px;white-space:pre;transition:background-color .2s ease}
+  .code.wrap .ln{white-space:pre-wrap}
+  .code .ln::before{counter-increment:ln;content:counter(ln);position:absolute;left:0;width:30px;text-align:right;color:var(--muted)}
+  .code .ln.hl{background:#262626}
+  .building .code .ln:not(.shown){visibility:hidden}
+  .code .caret::after{content:"";display:inline-block;width:7px;height:1.2em;margin-left:1px;vertical-align:-.22em;background:var(--red);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  /* 코드 색: 화면의 글자용 단계를 그대로(키워드 파랑, 문자열 초록, 숫자 주황, 함수 빨강), 모두 #0b0b0b에서 4.5:1 이상 */
+  .tk-c{color:var(--muted)} .tk-s{color:var(--good)} .tk-n{color:var(--bad)} .tk-k{color:var(--blue-text)} .tk-f{color:var(--subject-text)} .tk-p{color:var(--body);font-weight:500}
+  .code .kv{display:inline-block;min-width:14ch;color:var(--text-2)}
+  .tk-hex::before{content:"";display:inline-block;width:.78em;height:.78em;margin-right:4px;border-radius:2px;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);vertical-align:-.04em}
+  .cstat{display:flex;justify-content:space-between;gap:12px;padding:8px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+  .cstat .dot{display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--good);vertical-align:1px}
+  .layer{transition:opacity .3s ease}
+  .building .layer:not(.on){opacity:0}
+  .focus-step .layer:not(.focus){opacity:.18}
+  .focus-step .layer[data-step="1"]:not(.focus){opacity:.5}
+  .build-cap{margin-top:12px;max-width:62em;font-size:13px;line-height:1.5;color:var(--muted)}
+
+  /* ---------- 방법과 출처: 랜딩의 FAQ 아코디언(#2d2d2d 줄, 오른쪽 +, 펼치면 바로 아래 같은 바탕) ---------- */
+  .faq{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+  .faq h3{margin:0;font-size:inherit;font-weight:inherit}
+  .faq button{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:84px;padding:24px;border:0;border-radius:0;background:var(--field);font-size:24px;font-weight:400;line-height:1.3;color:#fff;text-align:left;cursor:pointer;transition:background-color .2s var(--ease)}
+  .faq button:hover{background:#414141}
+  .faq button svg{width:28px;height:28px;flex:none;transition:transform .25s var(--ease)}
+  .faq button[aria-expanded="true"] svg{transform:rotate(45deg)}
+  .faq .ans{margin-top:1px;padding:24px;background:var(--field);font-size:18px;line-height:1.5;color:#fff}
+  .faq .ans[hidden]{display:none}
+  .faq-src{margin-top:14px;font-size:13px;color:var(--muted)}
+
+  /* ---------- 호버 카드(툴팁): 앱의 미니 모달처럼 어두운 판 + 그림자, 일치율 자리에 초록 수치, 등급 상자, 점으로 이은 장르 ---------- */
+  .tip{position:absolute;z-index:8;left:0;top:0;pointer-events:none;min-width:150px;background:var(--raise);color:#fff;border-radius:6px;padding:10px 12px 11px;box-shadow:0 3px 10px rgba(0,0,0,.75);white-space:nowrap;opacity:0;transition:opacity .15s var(--ease)}
+  .tip.on{opacity:1}
+  .tip-h{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+  .tip-m{display:flex;align-items:center;gap:8px;margin:2px 0 4px;font-size:13px;color:var(--body)}
+  .tip-m .g{color:var(--good);font-weight:700}
+  .tip-m .s{color:#fff;font-weight:700}
+  .tip-m .rbox{height:18px;font-size:11px}
+  .tip-gn{font-size:13px;color:#fff;margin-bottom:4px}
+  .tip-gn i{font-style:normal;color:#646464;margin:0 6px}
+  .tip-r{display:flex;align-items:center;gap:7px;font-size:13px;line-height:1.5}
+  .tip-r i{width:9px;height:9px;flex:none;border-radius:2px;background:var(--c)}
+  .tip-r i.ln{width:14px;height:0;border-radius:0;background:none;border-top:2px solid var(--c)}
+  .tip-r i.ln.dash{border-top-style:dashed}
+  .tip-r b{font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+  .tip-r span{color:var(--text-2)}
+
+  /* ---------- 바닥: 랜딩의 바닥글(검정, 회색 글자) ---------- */
+  .foot{margin-top:72px;background:var(--canvas);color:var(--text-2);font-size:13px;line-height:1.65}
+  .foot-in{max-width:1400px;margin:0 auto;padding:0 var(--page) 40px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px 40px}
+  .foot-in > div{padding-top:28px}
+  .foot-in{background:linear-gradient(#232323,#232323) var(--page) 0/calc(100% - 2 * var(--page)) 1px no-repeat}
+  .foot .back{margin-top:28px}
+  .foot .back{flex:none;font-weight:500;color:#fff;white-space:nowrap;text-decoration:underline;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:3px}
+  .foot .back:hover{text-decoration-color:#fff}
+  .foot p{max-width:100ch}
+  .foot p + p{margin-top:6px}
+  .foot .cat{font-weight:500;color:#fff}
+  .foot .cat a{color:inherit;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:3px}
+  .foot .cat a:hover{text-decoration-color:#fff}
+  .foot .cat .ser{font-size:12px;font-weight:700;letter-spacing:.08em;margin-right:10px}
+  .foot .cat .w{font-weight:400;color:var(--text-2)}
+  .toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,8px);padding:10px 16px;border-radius:4px;background:#fff;color:#000;font-size:14px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease)}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  /* ---------- 움직임 ---------- */
+  .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .7s var(--ease) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .fade{animation:fade .3s ease both}
+  @keyframes fade{from{opacity:0}}
+  .grow{transform-box:fill-box;transform-origin:bottom;animation:grow .45s var(--ease) both}
+  @keyframes grow{from{transform:scaleY(0)}}
+  .growx{transform-box:fill-box;transform-origin:left;animation:growx .5s var(--ease) both}
+  @keyframes growx{from{transform:scaleX(0)}}
+  .rise{animation:rise .45s var(--ease) both}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+  /* ---------- 임베드(?embed=1 · lib/embed.js): 포스트가 고지를 싣는다 ---------- */
+  html.vz-embed .foot{display:none}
+  html.vz-embed .page{padding-bottom:24px}
+  @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.tools .btn,.tools .lang,.cbtns,.build-cta,.foot .back,.more{display:none}.building .code .ln{visibility:visible!important}.building .layer{opacity:1!important}.card{break-inside:avoid}}
+
+  /* ---------- 반응형 ---------- */
+  /* 1024~1359: 같은 구성, 여백만 줄임 */
+  @media (max-width:1359px){
+    :root{--page:24px;--gap:14px;--sec:48px}
+    .bill{padding:40px 36px 24px;gap:0 32px}
+    .rate{padding-right:36px}
+    .card{padding:18px 20px 16px}
+    .tbl th,.tbl td{padding:8px 8px}
+    .ep{grid-template-columns:24px 108px minmax(0,1fr);column-gap:12px}
+    .win{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    .side{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--line)}
+    .tree{display:flex;flex-wrap:wrap;gap:2px 10px}
+    .tree span,.tree .root{display:none}
+    .tree .in,.tree .in2,.tree .in3{padding-left:6px}
+    .get{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 12px}
+    .get-h{grid-column:1/-1;margin:0}
+    .cmds{grid-row:2;grid-column:1}
+    .get .btn{grid-row:2;grid-column:2}
+    .get-note{grid-row:3;grid-column:1/-1;margin:0}
+  }
+  @media (max-width:1199px){
+    .kpi .v{font-size:34px}
+    .code{font-size:12px}
+    .code .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+    .tbl .c-run{display:none}
+  }
+  /* 900~1023: 나란한 카드를 세로로 쌓는다 */
+  @media (max-width:1023px){
+    .row{grid-template-columns:minmax(0,1fr);grid-template-rows:none;row-gap:var(--gap)}
+    .card{grid-column:1/-1;grid-row:auto;grid-template-rows:auto 1fr auto}
+    .bill{grid-template-columns:minmax(0,1fr);grid-template-areas:"main" "kpis"}
+    .build-intro{grid-template-columns:minmax(0,1fr);align-items:start}
+    .build-cta{justify-content:flex-start}
+    .win{grid-template-columns:minmax(0,1fr)}
+    .figpane{border-right:0;border-bottom:1px solid var(--line)}
+    .codepane{contain:none}
+    .code{max-height:520px}
+    .tbl .c-gross{display:none}
+  }
+  @media (max-width:899px){
+    .head{min-height:60px;padding:10px 0}
+    .brand-s,#btnPdf,.period{display:none}
+    .filter .aside{display:none}
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,auto auto auto);row-gap:12px}
+    .top10{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .steps{grid-template-columns:minmax(0,1fr)}
+    .code{max-height:440px}
+    .tbl .c-genre,.tbl .c-ly{display:none}
+    .rate{top:24px;height:32px;font-size:13px}
+  }
+  @media (max-width:639px){
+    :root{--page:16px;--gap:12px;--sec:40px}
+    .foot-in{flex-direction:column;align-items:flex-start}
+    .tools{gap:6px}
+    #btnMd .lbl{display:none}
+    #btnMd{width:32px;padding:0}
+    .chips button{padding:0 12px;font-size:13px}
+    .bill{min-height:0;padding:64px 16px 16px}
+    .bill-art{right:-6%;top:2%;height:64%}
+    .rate{padding-right:16px}
+    .eye{font-size:15px}
+    .headline{font-size:27px}
+    .lede{font-size:16px}
+    .btn-lg{height:38px;font-size:15px;padding:6px 14px}
+    .kpis{column-gap:8px;row-gap:8px;margin-top:22px}
+    .kpi{padding:12px 12px 10px}
+    .kpi .v{font-size:28px}
+    .sh h2{font-size:21px}
+    .sh p{font-size:15px}
+    .card{padding:16px 14px 14px}
+    .ct{font-size:17px}
+    .top10{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 10px}
+    .tile .tt{font-size:15px}
+    .ep{grid-template-columns:92px minmax(0,1fr);column-gap:12px;padding:10px 4px}
+    .ep-n{display:none}
+    .ep-th{padding:7px 8px 0}
+    .ep-dd{font-size:15px}
+    .ep-t{font-size:15px}
+    .ep-p{font-size:14px}
+    .tbl th,.tbl td{padding:8px 6px}
+    .tbl .c-city,.tbl .c-rate,.tbl .c-wk{display:none}
+    .fbar .pg{display:none}
+    .tbl .rkc{width:40px;font-size:24px}
+    .thumb{display:none}
+    .faq button{font-size:18px;min-height:64px;padding:16px}
+    .faq .ans{padding:16px;font-size:16px}
+    #f2Plot{min-height:260px} #f3Plot{min-height:320px} #f5Plot{min-height:240px}
+    .get{display:block}
+    .get-h{margin-bottom:6px}
+    .get-note{margin:6px 0 10px}
+    .get .btn{width:100%}
+    .cbar{flex-wrap:wrap;height:auto;padding:0 12px 10px 16px}
+    .ctabs{flex:1 0 100%;height:44px}
+    .cbtns{margin-left:auto}
+    .code .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="head">
+    <div class="brand"><span class="brand-n" data-i18n="brand"></span><span class="brand-s" data-i18n="brandSub"></span></div>
+    <div class="tools">
+      <span class="period" data-icon="cal"><span data-i18n="period"></span></span>
+      <div class="lang" id="langSeg" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+      </div>
+      <button type="button" class="btn btn-ghost" id="btnPdf" data-icon="download"><span data-i18n="pdf"></span></button>
+      <button type="button" class="btn btn-red" id="btnMd" data-icon="copy"><span class="lbl" data-i18n="copy"></span></button>
+    </div>
+  </header>
+
+  <div class="filter">
+    <div class="chips" id="tabs" role="tablist"></div>
+    <span class="aside" data-i18n="aside"></span>
+  </div>
+
+  <div id="panel" role="tabpanel">
+    <section class="bill" aria-labelledby="headline">
+      <div class="bill-art" aria-hidden="true"><svg viewBox="0 0 260 300"><text x="250" y="292" text-anchor="end" style="font-size:390px">1</text></svg></div>
+      <div class="bill-main">
+        <p class="eye"><span class="t10" aria-hidden="true"><i>TOP</i><b>10</b></span><span id="eye"></span></p>
+        <h1 class="headline" id="headline"></h1>
+        <p class="lede" id="lede"></p>
+        <div class="bill-btns">
+          <a class="btn btn-lg btn-red" href="#f1"><span data-i18n="btnTop"></span><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg></a>
+          <a class="btn btn-lg btn-gray" href="#notes" data-icon="info"><span data-i18n="btnInfo"></span></a>
+        </div>
+      </div>
+      <span class="rate" id="rate"></span>
+      <div class="kpis" id="kpis"></div>
+    </section>
+
+    <!-- 이번 주: Top 10, 주별 티켓, Weeks in Top 10 -->
+    <header class="sh" id="s1"><h2 data-i18n="s1.t"></h2><p data-i18n="s1.p"></p></header>
+    <div class="row first">
+      <figure class="card c12" id="f1">
+        <div class="ch">
+          <span class="fl" data-i18n="f1.label"></span>
+          <h3 class="ct" id="f1Title"></h3>
+          <p class="cs" data-i18n="f1.sub"></p>
+        </div>
+        <div class="cb"><ol class="top10" id="f1List" tabindex="0"></ol></div>
+        <figcaption class="cf" data-i18n="f1.note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f1Table"></div>
+      </figure>
+    </div>
+    <div class="row">
+      <figure class="card c7" id="f2">
+        <div class="ch">
+          <span class="fl" data-i18n="f2.label"></span>
+          <h3 class="ct" id="f2Title"></h3>
+          <p class="cs" data-i18n="f2.sub"></p>
+        </div>
+        <div class="cb"><div class="plot" id="f2Plot"></div></div>
+        <figcaption class="cf" data-i18n="f2.note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f2Table"></div>
+      </figure>
+      <figure class="card c5" id="f3">
+        <div class="ch">
+          <span class="fl" data-i18n="f3.label"></span>
+          <h3 class="ct" id="f3Title"></h3>
+          <p class="cs" data-i18n="f3.sub"></p>
+          <ul class="keys" id="f3Keys" aria-hidden="true"></ul>
+        </div>
+        <div class="cb"><div class="plot" id="f3Plot"></div></div>
+        <figcaption class="cf" data-i18n="f3.note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f3Table"></div>
+      </figure>
+    </div>
+
+    <!-- 다가오는 공연: 매진 임박 회차, 구매 경로, 모든 공연 -->
+    <header class="sh" id="s2"><h2 data-i18n="s2.t"></h2><p data-i18n="s2.p"></p></header>
+    <div class="row first">
+      <figure class="card c7" id="f4">
+        <div class="ch">
+          <span class="fl" data-i18n="f4.label"></span>
+          <h3 class="ct" id="f4Title"></h3>
+          <p class="cs" data-i18n="f4.sub"></p>
+        </div>
+        <div class="cb"><ol class="eps" id="f4List" tabindex="0"></ol></div>
+        <figcaption class="cf" data-i18n="f4.note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f4Table"></div>
+      </figure>
+      <figure class="card c5" id="f5">
+        <div class="ch">
+          <span class="fl" data-i18n="f5.label"></span>
+          <h3 class="ct" id="f5Title"></h3>
+          <p class="cs" data-i18n="f5.sub"></p>
+          <ul class="keys" id="f5Keys" aria-hidden="true"></ul>
+        </div>
+        <div class="cb"><div class="plot" id="f5Plot"></div></div>
+        <figcaption class="cf" data-i18n="f5.note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f5Table"></div>
+      </figure>
+    </div>
+    <div class="row">
+      <section class="card c12" id="t1" aria-labelledby="t1Title">
+        <div class="ch">
+          <span class="fl" data-i18n="t1.label"></span>
+          <h3 class="ct" id="t1Title"></h3>
+          <p class="cs" data-i18n="t1.sub"></p>
+        </div>
+        <div class="cb" id="t1Body"></div>
+        <p class="cf" data-i18n="t1.note"></p>
+      </section>
+    </div>
+
+    <!-- 만드는 법: 프로젝트 폴더의 패키지 → 에이전트가 계획하고 그림 → 점검 -->
+    <header class="sh" id="s3"><h2 data-i18n="s3.t"></h2><p data-i18n="s3.p"></p></header>
+    <div class="build-intro">
+      <p data-i18n="build.p"></p>
+      <div class="build-cta"><a class="btn btn-gray btn-cta" href="DASHBOARD.html" target="_blank" rel="noopener" data-i18n="build.spec"></a><a class="btn btn-red btn-cta" id="ctaLink" href="https://www.vizney.com/contact-us/" target="_blank" rel="noopener" data-i18n="build.cta"></a></div>
+    </div>
+    <ol class="steps" id="steps"></ol>
+    <div class="win" id="win">
+      <aside class="side" aria-label="Package">
+        <div class="side-h"><b data-i18n="build.pkg"></b><span data-i18n="build.pkgSub"></span></div>
+        <ul class="tree" id="tree"></ul>
+        <div class="get">
+          <p class="get-h" data-i18n="build.get"></p>
+          <div class="cmds">
+            <div class="cmd"><code>npx @vizney/styles@latest add netflix</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+            <div class="cmd"><code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- netflix</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+          </div>
+          <p class="get-note" data-i18n="build.getNote"></p>
+          <a class="btn btn-sm btn-ghost" href="netflix-dashboard-style.zip" download data-i18n="build.zip"></a>
+        </div>
+      </aside>
+      <div class="figpane">
+        <div class="figbar"><div class="modes" id="modeSeg" role="tablist"></div><span class="chip" id="wbScope"></span></div>
+        <p class="wb-t layer" data-step="5" id="wbTitle"></p>
+        <div class="plot" id="wbPlot"></div>
+        <p class="wb-n layer" data-step="5" id="wbNote"></p>
+        <div class="checks">
+          <p class="checks-h"><span data-i18n="build.checksT"></span><span class="ok layer" data-step="5" id="checksOk"></span></p>
+          <ul id="checks"></ul>
+        </div>
+        <div class="tip" aria-hidden="true"></div>
+      </div>
+      <div class="codepane">
+        <div class="cbar">
+          <div class="ctabs" id="ctabs" role="tablist" aria-label="Code"></div>
+          <div class="cbtns">
+            <button type="button" class="btn btn-sm btn-ghost btn-icon" id="btnCopyCode" data-icon="copy"></button>
+            <button type="button" class="btn btn-sm btn-red" id="btnRun" data-icon="play"><span data-i18n="build.run"></span></button>
+          </div>
+        </div>
+        <pre class="code" id="code" tabindex="0" aria-label="Code"></pre>
+        <div class="cstat"><span id="cstatL"></span><span id="cstatR"></span></div>
+      </div>
+    </div>
+    <p class="build-cap" data-i18n="build.cap"></p>
+
+    <!-- 방법과 출처: FAQ 아코디언 -->
+    <header class="sh" id="notes"><h2 data-i18n="notes.t"></h2><p data-i18n="notes.p"></p></header>
+    <ul class="faq" id="faq"></ul>
+    <p class="faq-src"><span data-i18n="notes.src"></span> <span data-i18n="notes.upd"></span></p>
+  </div>
+  <p class="sr-only" id="live" aria-live="polite"></p>
+  <div class="toast" id="toast" role="status"></div>
+</div>
+<footer class="foot"><div class="foot-in">
+  <div>
+  <p class="cat"><a class="ser" href="https://styles.vizney.com/">VIZNEY STYLES · 03</a> <a href="https://styles.vizney.com/netflix/DASHBOARD.html" data-i18n="catName"></a> <span class="w" data-i18n="words"></span></p>
+  <p data-i18n="note"></p>
+  <p data-i18n="notice"></p>
+  </div>
+  <a class="back" id="backLink" href="https://styles.vizney.com/">← Back to the catalog</a>
+</div></footer>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 데이터 색: 넷플릭스는 그림에서도 빨강 하나를 앞세운다. UI 빨강 #e50914는 단추·배지에만 쓰고, 데이터는 한 단계 밝은 #f0313b(글자 #ff5a63).
+     둘째 색은 랜딩의 파랑 #4061e7 계열을 어두운 면에 맞춘 #6a88f2, 기타는 앱 Top 10 숫자 외곽선의 회색 #595959, 비교선은 #808080 점선.
+     validate_palette.js로 카드 #161616 기준 검사. 좋음은 초록 #46d369, 나쁨은 주황 #e87c03(주인공 빨강과 섞이지 않게) */
+  const C = {
+    subject: '#f0313b', subjectText: '#ff5a63', blue: '#6a88f2', blueText: '#8ea5f6', other: '#595959', otherText: '#b3b3b3',
+    comparison: '#808080', ink: '#ffffff', body: '#e5e5e5', text2: '#b3b3b3', muted: '#808080', grid: '#2d2d2d', base: '#414141', cross: '#5a5a5a',
+    plot: '#161616', cell: '#333333', track: 'rgba(255,255,255,.28)', red: '#e50914',
+    generic: ['#36a2eb', '#ff6384'], genericGrid: 'rgba(255,255,255,.14)'
+  };
+  // 타일(키 아트 대신 색 블록): 랜딩 레일의 남색·와인·버건디·옥스블러드에서 두 색씩
+  const TILE = [['#192247', '#210e17'], ['#210e17', '#461518'], ['#461518', '#6f181d'], ['#192247', '#6f181d'], ['#0f1634', '#192247'], ['#2a0f14', '#461518']];
+
+  /* ================= 가상 데이터: Vizney Live, 2026년 10월 26일~11월 1일(월~일). 돈은 미국 달러 =================
+     공연 32개(뮤지컬 상주 공연, 투어 공연, 코미디·가족·댄스·마술)의 주별 티켓·좌석·매출과 다음 주 판매를 Python으로 만들고
+     도시·전체로 합쳤다(합계·비율·증감·순위·Top 10 주 수 검산 완료). */
+  const DATA = {"weeks":["2026-08-10","2026-08-17","2026-08-24","2026-08-31","2026-09-07","2026-09-14","2026-09-21","2026-09-28","2026-10-05","2026-10-12","2026-10-19","2026-10-26","2026-11-02"],"prods":{"midnight":{"en":"Midnight Avenue","ko":"미드나잇 애비뉴","genre":"musical","run":155,"rating":"13","tile":0},"papermoon":{"en":"The Paper Moon Hotel","ko":"페이퍼 문 호텔","genre":"musical","run":140,"rating":"all","tile":2},"copper":{"en":"Copper & Coin","ko":"코퍼 앤드 코인","genre":"musical","run":160,"rating":"13","tile":3},"lantern":{"en":"Lantern Street","ko":"랜턴 스트리트","genre":"musical","run":135,"rating":"all","tile":1},"orchard":{"en":"The Glass Orchard","ko":"글라스 오처드","genre":"musical","run":145,"rating":"13","tile":4},"saltwater":{"en":"Saltwater","ko":"솔트워터","genre":"musical","run":150,"rating":"13","tile":5},"wildflower":{"en":"Wildflower Road","ko":"와일드플라워 로드","genre":"musical","run":140,"rating":"all","tile":2},"riverwalk":{"en":"Riverwalk Revue","ko":"리버워크 레뷰","genre":"musical","run":105,"rating":"all","tile":0},"neon":{"en":"Neon Harbor World Tour","ko":"네온 하버 월드 투어","genre":"concert","run":130,"rating":"all","tile":3},"static":{"en":"Static Hearts Tour","ko":"스태틱 하츠 투어","genre":"concert","run":120,"rating":"all","tile":1},"velvet":{"en":"Velvet Hour Orchestra","ko":"벨벳 아워 오케스트라","genre":"concert","run":110,"rating":"all","tile":4},"golden":{"en":"Golden Hour Strings","ko":"골든 아워 스트링스","genre":"concert","run":100,"rating":"all","tile":5},"planes":{"en":"Paper Planes Tour","ko":"페이퍼 플레인스 투어","genre":"concert","run":115,"rating":"all","tile":0},"moonlight":{"en":"Moonlight Cinema Orchestra","ko":"문라이트 시네마 오케스트라","genre":"concert","run":135,"rating":"all","tile":2},"northside":{"en":"Northside Strings","ko":"노스사이드 스트링스","genre":"concert","run":95,"rating":"all","tile":3},"brunch":{"en":"Midtown Jazz Brunch","ko":"미드타운 재즈 브런치","genre":"concert","run":90,"rating":"all","tile":1},"canyon":{"en":"Canyon Sessions","ko":"캐니언 세션스","genre":"concert","run":95,"rating":"all","tile":4},"late":{"en":"Laugh Out Late","ko":"래프 아웃 레이트","genre":"comedy","run":90,"rating":"18","tile":5},"smalltalk":{"en":"Small Talk, Big Room","ko":"스몰 토크, 빅 룸","genre":"comedy","run":80,"rating":"18","tile":0},"openmic":{"en":"Open Mic Royale","ko":"오픈 마이크 로열","genre":"comedy","run":105,"rating":"18","tile":2},"punchline":{"en":"Punchline Parade","ko":"펀치라인 퍼레이드","genre":"comedy","run":85,"rating":"18","tile":3},"lakeeffect":{"en":"Lake Effect Improv","ko":"레이크 이펙트 즉흥극","genre":"comedy","run":90,"rating":"13","tile":1},"sketchbook":{"en":"Sketchbook Live","ko":"스케치북 라이브","genre":"comedy","run":75,"rating":"13","tile":4},"robot":{"en":"Little Robot, Big City","ko":"리틀 로봇, 빅 시티","genre":"family","run":70,"rating":"all","tile":5},"kitchen":{"en":"The Great Kitchen Mix-Up","ko":"그레이트 키친 믹스업","genre":"family","run":75,"rating":"all","tile":0},"circus":{"en":"Cloud Circus","ko":"클라우드 서커스","genre":"family","run":90,"rating":"all","tile":2},"dino":{"en":"Dino Detectives","ko":"다이노 탐정단","genre":"family","run":65,"rating":"all","tile":3},"steps":{"en":"Ten Thousand Steps","ko":"텐 사우전드 스텝스","genre":"dance","run":100,"rating":"all","tile":1},"ballroom":{"en":"Ballroom After Dark","ko":"볼룸 애프터 다크","genre":"dance","run":110,"rating":"13","tile":4},"desert":{"en":"Desert Bloom","ko":"디저트 블룸","genre":"dance","run":95,"rating":"all","tile":5},"vanishing":{"en":"The Vanishing Hour","ko":"배니싱 아워","genre":"magic","run":95,"rating":"8","tile":0},"hidden":{"en":"Hidden Door","ko":"히든 도어","genre":"magic","run":85,"rating":"8","tile":2}},"scopes":{"all":{"tickets":[183963,184559,199753,200241,189911,205186,222074,222019,211369,243335,256210,287802],"cap":[227200,227200,243200,245200,233600,250600,270800,269800,260400,292400,306900,329800],"gross":[15644163,15939944,17313721,17616263,16243061,17615517,18731888,18829248,17479422,21339474,23405566,25676713],"ly":[173571,171992,188038,209722,179194,196602,209274,228618,195749,220496,234780,268968],"channels":[[88525,59782,35656],[91136,59555,33868],[99226,63834,36693],[101196,63229,35816],[98435,58994,32482],[108436,63498,33252],[118353,67961,35760],[120809,67617,33593],[116408,63613,31348],[138080,73100,32155],[143522,74507,38181],[167026,84050,36726]],"prods":[{"id":"neon","t":33796,"t0":35460,"cap":34000,"g":4123112,"wk":3,"cities":["chi"],"n":2},{"id":"papermoon","t":17471,"t0":17667,"cap":19200,"g":2064094,"wk":12,"cities":["la"],"n":8},{"id":"circus","t":16865,"t0":14370,"cap":19200,"g":923748,"wk":6,"cities":["la"],"n":6},{"id":"robot","t":15841,"t0":13721,"cap":17900,"g":704942,"wk":12,"cities":["la","chi"],"n":17},{"id":"static","t":15392,"t0":0,"cap":16000,"g":1662336,"wk":3,"cities":["la"],"n":1},{"id":"midnight","t":14811,"t0":14587,"cap":15200,"g":2062499,"wk":12,"cities":["ny"],"n":8},{"id":"steps","t":14276,"t0":14358,"cap":19600,"g":1083234,"wk":12,"cities":["ny","chi"],"n":8},{"id":"copper","t":14212,"t0":13934,"cap":16000,"g":1480762,"wk":12,"cities":["chi"],"n":8},{"id":"orchard","t":13393,"t0":9450,"cap":14000,"g":1843132,"wk":1,"cities":["ny"],"n":8},{"id":"wildflower","t":11932,"t0":12344,"cap":14400,"g":1120301,"wk":12,"cities":["chi"],"n":8},{"id":"vanishing","t":10801,"t0":10045,"cap":12000,"g":708564,"wk":7,"cities":["la","chi"],"n":12},{"id":"saltwater","t":10788,"t0":11516,"cap":16800,"g":1150334,"wk":11,"cities":["la"],"n":8},{"id":"lantern","t":10706,"t0":10569,"cap":11600,"g":1354888,"wk":11,"cities":["ny"],"n":8},{"id":"kitchen","t":8956,"t0":7802,"cap":9600,"g":460017,"wk":1,"cities":["ny"],"n":8},{"id":"late","t":7806,"t0":7326,"cap":8400,"g":436579,"wk":0,"cities":["ny","chi"],"n":10},{"id":"ballroom","t":7386,"t0":7700,"cap":10500,"g":525610,"wk":2,"cities":["la"],"n":5},{"id":"velvet","t":7010,"t0":6904,"cap":8100,"g":621086,"wk":0,"cities":["ny"],"n":3},{"id":"punchline","t":6914,"t0":6492,"cap":7600,"g":372297,"wk":0,"cities":["la","ny"],"n":8},{"id":"dino","t":6597,"t0":5640,"cap":8000,"g":271132,"wk":0,"cities":["chi"],"n":8},{"id":"riverwalk","t":6111,"t0":5952,"cap":8400,"g":373638,"wk":0,"cities":["chi"],"n":6},{"id":"golden","t":5763,"t0":5541,"cap":6400,"g":429150,"wk":0,"cities":["la"],"n":2},{"id":"hidden","t":5408,"t0":4987,"cap":5600,"g":409285,"wk":0,"cities":["ny"],"n":7},{"id":"moonlight","t":5076,"t0":0,"cap":5400,"g":426384,"wk":0,"cities":["ny"],"n":2},{"id":"smalltalk","t":4036,"t0":3840,"cap":4400,"g":257692,"wk":0,"cities":["la"],"n":4},{"id":"desert","t":3240,"t0":3262,"cap":4800,"g":198444,"wk":0,"cities":["la"],"n":4},{"id":"lakeeffect","t":2862,"t0":2634,"cap":3500,"g":109319,"wk":0,"cities":["chi"],"n":5},{"id":"canyon","t":2339,"t0":2403,"cap":3300,"g":115919,"wk":0,"cities":["la"],"n":3},{"id":"openmic","t":2266,"t0":2117,"cap":2700,"g":99867,"wk":0,"cities":["chi"],"n":3},{"id":"brunch","t":2080,"t0":2049,"cap":2400,"g":109769,"wk":0,"cities":["ny"],"n":4},{"id":"sketchbook","t":1907,"t0":1785,"cap":2400,"g":78989,"wk":0,"cities":["ny"],"n":3},{"id":"northside","t":1761,"t0":1755,"cap":2400,"g":99590,"wk":0,"cities":["chi"],"n":2}],"hist":{"neon":[0,0,0,0,0,0,0,0,0,1,1,1],"papermoon":[1,1,1,1,1,1,1,1,1,2,2,2],"circus":[0,0,0,0,0,0,6,5,4,5,4,3],"robot":[6,6,7,7,5,6,7,7,6,7,7,4],"static":[0,0,0,2,0,0,0,2,0,0,0,5],"midnight":[2,2,2,3,2,3,3,3,2,3,3,6],"steps":[4,3,3,4,3,4,4,4,3,4,5,7],"copper":[5,5,4,5,4,5,5,6,5,6,6,8],"orchard":[0,0,0,0,0,0,0,0,0,0,0,9],"wildflower":[7,7,8,8,7,8,9,9,8,9,8,10]},"up":[["static","ny",4,20,18000,18000],["copper","chi",5,20,2000,2000],["moonlight","la",5,20,3200,3200],["orchard","ny",4,20,1706,1750],["orchard","ny",5,20,1704,1750],["midnight","ny",6,15,1848,1900]],"upCount":187,"soldOut":3},"la":{"tickets":[60987,60501,74978,60394,65463,65719,80316,80683,83684,115442,83306,102026],"cap":[75500,75500,91500,75500,81900,81900,101100,101100,105500,137500,105500,121500],"gross":[5249448,5358076,6782419,5273393,5720746,5688331,6568371,6570721,6654277,10651433,6583084,8341552],"ly":[57535,55506,71408,64940,62346,59745,75062,84929,74718,100384,78591,104108],"channels":[[30411,20890,9686],[31156,20264,9081],[38451,24688,11839],[31988,20030,8376],[34845,21141,9477],[36095,20861,8763],[44511,25769,10036],[45448,25059,10176],[47551,26406,9727],[67803,35879,11760],[48875,25257,9174],[61818,30358,9850]],"prods":[{"id":"papermoon","t":17471,"t0":17667,"cap":19200,"g":2064094,"wk":12,"cities":["la"],"n":8},{"id":"circus","t":16865,"t0":14370,"cap":19200,"g":923748,"wk":6,"cities":["la"],"n":6},{"id":"static","t":15392,"t0":0,"cap":16000,"g":1662336,"wk":1,"cities":["la"],"n":1},{"id":"saltwater","t":10788,"t0":11516,"cap":16800,"g":1150334,"wk":12,"cities":["la"],"n":8},{"id":"robot","t":8783,"t0":7673,"cap":9900,"g":403302,"wk":12,"cities":["la"],"n":9},{"id":"ballroom","t":7386,"t0":7700,"cap":10500,"g":525610,"wk":12,"cities":["la"],"n":5},{"id":"vanishing","t":6029,"t0":5687,"cap":6600,"g":401993,"wk":12,"cities":["la"],"n":6},{"id":"golden","t":5763,"t0":5541,"cap":6400,"g":429150,"wk":8,"cities":["la"],"n":2},{"id":"smalltalk","t":4036,"t0":3840,"cap":4400,"g":257692,"wk":12,"cities":["la"],"n":4},{"id":"punchline","t":3934,"t0":3647,"cap":4400,"g":208930,"wk":4,"cities":["la"],"n":4},{"id":"desert","t":3240,"t0":3262,"cap":4800,"g":198444,"wk":10,"cities":["la"],"n":4},{"id":"canyon","t":2339,"t0":2403,"cap":3300,"g":115919,"wk":8,"cities":["la"],"n":3}],"hist":{"papermoon":[1,1,1,1,1,1,1,1,1,2,1,1],"circus":[0,0,0,0,0,0,2,2,2,3,2,2],"static":[0,0,0,0,0,0,0,0,0,0,0,3],"saltwater":[2,2,2,2,2,2,3,3,3,4,3,4],"robot":[4,4,4,3,3,3,5,5,4,5,5,5],"ballroom":[3,3,5,4,4,4,4,4,5,6,4,6],"vanishing":[5,5,6,5,5,5,6,6,6,7,6,7],"golden":[0,0,0,0,6,6,7,7,7,8,7,8],"smalltalk":[6,6,7,6,7,7,8,8,8,9,8,9],"punchline":[0,0,0,0,0,0,0,0,9,10,9,10]},"up":[["moonlight","la",5,20,3200,3200],["papermoon","la",5,14,2329,2400],["papermoon","la",5,20,2324,2400],["papermoon","la",4,20,2314,2400],["moonlight","la",4,20,3034,3200],["papermoon","la",6,15,2239,2400]],"upCount":61,"soldOut":1},"ny":{"tickets":[60903,61128,61907,77603,61405,61005,77809,61408,63821,63921,108898,85041],"cap":[70500,70500,70500,88500,70500,70500,88500,70500,73700,73700,120200,93100],"gross":[5819993,5978765,5942637,7799894,5906439,5889702,7503987,5940033,6132520,6014042,12147092,8447938],"ly":[56919,58217,57321,84351,57929,55968,75543,65328,60782,59186,96370,78019],"channels":[[26559,18718,15626],[27709,18843,14576],[27929,18580,15398],[35754,23502,18347],[29208,18081,14116],[29456,17813,13736],[38289,22776,16744],[30260,18130,13018],[32347,18168,13306],[33119,18479,12323],[57125,30601,21172],[44977,24077,15987]],"prods":[{"id":"midnight","t":14811,"t0":14587,"cap":15200,"g":2062499,"wk":12,"cities":["ny"],"n":8},{"id":"orchard","t":13393,"t0":9450,"cap":14000,"g":1843132,"wk":2,"cities":["ny"],"n":8},{"id":"lantern","t":10706,"t0":10569,"cap":11600,"g":1354888,"wk":12,"cities":["ny"],"n":8},{"id":"kitchen","t":8956,"t0":7802,"cap":9600,"g":460017,"wk":12,"cities":["ny"],"n":8},{"id":"steps","t":8172,"t0":8167,"cap":10800,"g":650720,"wk":12,"cities":["ny"],"n":4},{"id":"velvet","t":7010,"t0":6904,"cap":8100,"g":621086,"wk":12,"cities":["ny"],"n":3},{"id":"hidden","t":5408,"t0":4987,"cap":5600,"g":409285,"wk":12,"cities":["ny"],"n":7},{"id":"moonlight","t":5076,"t0":0,"cap":5400,"g":426384,"wk":1,"cities":["ny"],"n":2},{"id":"late","t":4542,"t0":4293,"cap":4800,"g":267802,"wk":12,"cities":["ny"],"n":6},{"id":"punchline","t":2980,"t0":2845,"cap":3200,"g":163367,"wk":4,"cities":["ny"],"n":4},{"id":"brunch","t":2080,"t0":2049,"cap":2400,"g":109769,"wk":10,"cities":["ny"],"n":4},{"id":"sketchbook","t":1907,"t0":1785,"cap":2400,"g":78989,"wk":10,"cities":["ny"],"n":3}],"hist":{"midnight":[1,1,1,2,1,1,2,1,1,1,2,1],"orchard":[0,0,0,0,0,0,0,0,0,0,4,2],"lantern":[2,2,2,3,2,2,3,2,2,2,3,3],"kitchen":[4,4,4,5,4,4,5,4,4,4,6,4],"steps":[3,3,3,4,3,3,4,3,3,3,5,5],"velvet":[5,5,5,6,5,5,6,5,5,5,7,6],"hidden":[6,6,6,7,6,6,7,6,6,6,8,7],"moonlight":[0,0,0,0,0,0,0,0,0,0,0,8],"late":[7,7,7,8,7,7,8,7,7,7,9,9],"punchline":[0,0,0,0,0,0,0,0,8,8,10,10]},"up":[["static","ny",4,20,18000,18000],["orchard","ny",4,20,1706,1750],["orchard","ny",5,20,1704,1750],["midnight","ny",6,15,1848,1900],["orchard","ny",5,14,1696,1750],["midnight","ny",5,14,1837,1900]],"upCount":64,"soldOut":1},"chi":{"tickets":[62073,62930,62868,62244,63043,78462,63949,79928,63864,63972,64006,100735],"cap":[81200,81200,81200,81200,81200,98200,81200,98200,81200,81200,81200,115200],"gross":[4574722,4603103,4588665,4542976,4615876,6037484,4659530,6318494,4692625,4673999,4675390,8887223],"ly":[59117,58269,59309,60431,58919,80889,58669,78361,60249,60926,59819,86841],"channels":[[31555,20174,10344],[32271,20448,10211],[32846,20566,9456],[33454,19697,9093],[34382,19772,8889],[42885,24824,10753],[35553,19416,8980],[45101,24428,10399],[36510,19039,8315],[37158,18742,8072],[37522,18649,7835],[60231,29615,10889]],"prods":[{"id":"neon","t":33796,"t0":0,"cap":34000,"g":4123112,"wk":1,"cities":["chi"],"n":2},{"id":"copper","t":14212,"t0":13934,"cap":16000,"g":1480762,"wk":12,"cities":["chi"],"n":8},{"id":"wildflower","t":11932,"t0":12344,"cap":14400,"g":1120301,"wk":12,"cities":["chi"],"n":8},{"id":"robot","t":7058,"t0":6048,"cap":8000,"g":301640,"wk":12,"cities":["chi"],"n":8},{"id":"dino","t":6597,"t0":5640,"cap":8000,"g":271132,"wk":12,"cities":["chi"],"n":8},{"id":"riverwalk","t":6111,"t0":5952,"cap":8400,"g":373638,"wk":12,"cities":["chi"],"n":6},{"id":"steps","t":6104,"t0":6191,"cap":8800,"g":432514,"wk":12,"cities":["chi"],"n":4},{"id":"vanishing","t":4772,"t0":4358,"cap":5400,"g":306571,"wk":12,"cities":["chi"],"n":6},{"id":"late","t":3264,"t0":3033,"cap":3600,"g":168777,"wk":12,"cities":["chi"],"n":4},{"id":"lakeeffect","t":2862,"t0":2634,"cap":3500,"g":109319,"wk":12,"cities":["chi"],"n":5},{"id":"openmic","t":2266,"t0":2117,"cap":2700,"g":99867,"wk":9,"cities":["chi"],"n":3},{"id":"northside","t":1761,"t0":1755,"cap":2400,"g":99590,"wk":0,"cities":["chi"],"n":2}],"hist":{"neon":[0,0,0,0,0,0,0,0,0,0,0,1],"copper":[1,1,1,1,1,2,1,2,1,1,1,2],"wildflower":[2,2,2,2,2,3,2,3,2,2,2,3],"robot":[5,5,5,5,5,6,5,5,5,5,4,4],"dino":[6,6,6,6,6,7,6,7,6,6,6,5],"riverwalk":[4,4,4,4,4,4,4,6,4,4,5,6],"steps":[3,3,3,3,3,5,3,4,3,3,3,7],"vanishing":[7,7,7,7,7,8,7,8,7,7,7,8],"late":[8,8,8,8,8,9,8,9,8,8,8,9],"lakeeffect":[9,9,9,9,9,10,9,10,9,9,9,10]},"up":[["copper","chi",5,20,2000,2000],["copper","chi",5,14,1900,2000],["wildflower","chi",5,20,1676,1800],["copper","chi",6,15,1838,2000],["wildflower","chi",5,14,1653,1800],["copper","chi",3,19,1793,2000]],"upCount":62,"soldOut":1}}};
+  const SCOPES = ['all', 'la', 'ny', 'chi'];
+  const CITY = { la: ['로스앤젤레스', 'Los Angeles'], ny: ['뉴욕', 'New York'], chi: ['시카고', 'Chicago'] };
+  const GENRE = { musical: ['뮤지컬', 'Musical'], concert: ['콘서트', 'Concert'], comedy: ['코미디', 'Comedy'], family: ['가족', 'Family'], dance: ['댄스', 'Dance'], magic: ['마술', 'Magic'] };
+  const RATING = { all: ['전체', 'ALL'], '8': ['8+', '8+'], '13': ['13+', '13+'], '18': ['18+', '18+'] };
+  const MON_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const DOW_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], DOW_KO = ['일', '월', '화', '수', '목', '금', '토'];
+  const NW = 12, LAST = 11;
+
+  /* ================= 문구 ================= */
+  const T = {
+    ko: {
+      locale: 'ko-KR', docTitle: 'Netflix 스타일 · 주간 티켓 판매 보고 샘플',
+      brand: '비즈니 라이브', brandSub: '주간 티켓 판매 보고', period: '2026년 10월 26일~11월 1일', pdf: 'PDF로 내보내기', copy: '마크다운으로 복사', copied: '보고서를 마크다운으로 복사했습니다',
+      catName: 'Netflix 스타일', words: '다크, 시네마틱, 강렬함',
+      tabsLabel: '도시', scopes: { all: '전체 도시', la: '로스앤젤레스', ny: '뉴욕', chi: '시카고' },
+      aside: '2026년 11월 3일(화) 발행 · 지난주 대비',
+      eye: name => `이번 주 1위 · ${name}`, rate: '확정',
+      headline: v => `${v.who ? josa(v.who, '은는') + ' ' : '비즈니 라이브는 '}10월 26일 주간에 티켓 ${v.tickets}을 팔아 지난주보다 ${v.ch} ${v.up ? '늘었습니다' : '줄었습니다'}.`,
+      lede: v => `1위는 ${v.where}에서 ${v.n}회 공연한 ${josa(v.top, '으로')} ${v.topT}장을 팔았습니다. 좌석은 ${v.st} 찼고, 티켓의 ${v.app}가 앱에서 팔렸습니다.`,
+      btnTop: 'Top 10 보기', btnInfo: '방법과 출처',
+      kpi: { tickets: '판매 티켓', gross: '매출', st: '좌석 판매율', avg: '평균 티켓 가격', vs: '지난주 대비' },
+      pts: '%p',
+      s1: { t: '이번 주', p: '10월 26일부터 11월 1일까지 무엇이 팔렸나: Top 10, 12주 흐름, 오래 머문 공연' },
+      s2: { t: '다가오는 공연', p: '11월 2~8일 공연은 얼마나 팔렸나, 어디서 사나, 모든 공연의 성적' },
+      s3: { t: '만드는 법', p: '명세 하나로, 어떤 도구에서든 같은 대시보드' },
+      f1: {
+        label: '그림 1 · Top 10',
+        title: v => v.newTop ? `${josa(v.top, '이가')} Top 10에 처음 들자마자 티켓 ${v.t}장으로 1위에 올랐습니다`
+          : `${josa(v.top, '이가')} 티켓 ${v.t}장으로 1위였고, ` + (v.news.length ? `${josa(joinKo(v.news), '이가')} Top 10에 새로 들어왔습니다` : '새로 들어온 공연은 없습니다'),
+        sub: '판매 티켓 순위, 2026년 10월 26일~11월 1일', unit: '장', newRib: '신규', first: 'Top 10 첫 주', weeks: n => `Top 10 ${n}주째`,
+        note: '주: 투어 공연은 고른 도시에서 판 티켓만 셉니다. Top 10 주 수는 8월 10일 주간부터 셉니다.',
+        aria: '이번 주 Top 10 공연. 좌우 화살표 키로 공연을 옮깁니다.'
+      },
+      f2: {
+        label: '그림 2 · 주별 티켓', title: n => n === 12 ? '12주 내내 지난해보다 많이 팔았습니다' : `12주 중 ${n}주 지난해보다 많이 팔았습니다`,
+        sub: '주별 판매 티켓, 최근 12주와 지난해 같은 주', y26: '올해', y25: '지난해', generic: 'Weekly Tickets',
+        note: '주: 한 주는 월요일부터 일요일까지입니다. 튀어 오른 주는 투어 공연이 온 주로, 아레나 하룻밤이 1만 6,000~1만 8,000석입니다.',
+        aria: (s, p) => `주별 판매 티켓. 최근 12주 ${s}, 지난해 같은 주 ${p}. 좌우 화살표 키로 주를 옮깁니다.`
+      },
+      f3: {
+        label: '그림 3 · Top 10 주 수',
+        title: v => v.same ? (v.n === 12 ? `${josa(v.cur, '이가')} 12주 내내 1위였습니다` : `${josa(v.cur, '이가')} 12주 중 ${v.n}주 1위였습니다`)
+          : v.streak > 1 ? `${josa(v.cur, '이가')} ${v.prev}에 이어 ${v.streak}주 연속 1위입니다` : `${josa(v.cur, '이가')} 이번 주 ${josa(v.prev, '을를')} 제치고 1위에 올랐습니다`,
+        sub: '이번 주 Top 10이 지난 12주 동안 받은 순위. 1위는 빨강으로 칠했습니다', keys: ['1위', '2~10위', 'Top 10 밖'], wk: n => `${n}주`, rank: r => `${r}위`, out: 'Top 10 밖',
+        note: '주: 빈칸은 그 주에 Top 10 밖이었거나 공연이 없던 주입니다. 오른쪽 숫자는 8월 10일 주간부터 Top 10에 든 주 수입니다.',
+        aria: '이번 주 Top 10의 주별 순위 격자. 화살표 키로 칸을 옮깁니다. 위아래는 공연, 좌우는 주입니다.'
+      },
+      f4: {
+        label: '그림 4 · 빠르게 팔리는 회차',
+        title: v => v.n === 0 ? `다음 주에는 아직 매진된 공연이 없고, 가장 많이 팔린 회차는 ${v.day} ${v.big}(${v.p})입니다`
+          : v.n === 1 ? `다음 주 공연 중 ${v.day} ${josa(v.big, '이가')} 벌써 매진됐습니다` : `다음 주 공연 ${v.n}회가 벌써 매진됐고, 가장 큰 공연은 ${v.day} ${v.big}입니다`,
+        sub: '11월 2~8일 공연 중 좌석이 가장 많이 팔린 6회, 11월 1일 마감 기준', soldOut: '매진', sold: p => `${p} 판매`, seats: n => `${n}석`,
+        left: n => `${n}석 남음`, top10: '이번 주 Top 10',
+        note: '주: 판매 좌석은 11월 1일(일) 마감 기준입니다. 매진 회차도 반환된 표가 몇 장씩 다시 나올 수 있습니다.',
+        aria: '다음 주 회차 목록. 위아래 화살표 키로 회차를 옮깁니다.'
+      },
+      f5: {
+        label: '그림 5 · 구매 경로', title: (a, b) => `앱 구매가 12주 새 티켓의 ${a}에서 ${b}로 늘었습니다`,
+        sub: '주별 판매 티켓의 구매 경로 비중', keys: ['앱', '웹', '매표소'],
+        note: '주: 매표소에는 전화 예매가 들어갑니다. 앱 구매는 비즈니 라이브 앱에서 결제한 티켓입니다.',
+        aria: '구매 경로별 비중. 좌우 화살표 키로 주를 옮깁니다.'
+      },
+      t1: {
+        label: '표 1 · 모든 공연',
+        title: v => `${v.n}개 공연 중 ${v.full}개가 좌석의 95% 이상을 채웠습니다`,
+        sub: '2026년 10월 26일~11월 1일, 판매 티켓 순. Top 10 주 수는 8월 10일 주간부터 셉니다.',
+        cols: ['순위', '공연', '장르', '도시', 'Top 10 주 수', '판매 티켓', '지난주 대비', '매출', '좌석 판매율', '상영 시간', '등급'],
+        newb: '신규', more: n => `모두 보기 · ${n}개 공연`, less: 'Top 10만 보기', wk: n => `${n}주`,
+        note: '주: 상영 시간은 시:분이며 인터미션을 포함합니다. ‘—’는 지난주에 공연이 없었다는 뜻입니다.'
+      },
+      build: {
+        p: '이 화면의 모든 그림은 DASHBOARD.md 하나를 따릅니다. 패키지를 프로젝트 폴더에 두면, 그 폴더를 읽는 에이전트는 같은 규칙으로 만들고 같은 목록으로 스스로 점검합니다. Tableau와 Power BI 파일은 같은 색과 서식을 그 도구로 옮깁니다.',
+        spec: 'DASHBOARD.md 읽기', cta: '우리 회사 것 의뢰하기 ↗',
+        steps: [['스타일을 프로젝트에 추가', '명령 한 줄이나 zip 하나로 프로젝트에 DASHBOARD.md가, .claude/skills에 dashboard-style 스킬이 Tableau·Power BI 파일과 함께 들어갑니다.'], ['대시보드를 요청', '코딩 에이전트는 스킬을 불러 명세대로 그림 계획을 세우고 그립니다. 같은 폴더를 읽는 BI 에이전트도 같은 명세를 따릅니다.'], ['공유 전에 점검', '스킬이 DASHBOARD.md의 점검 목록을 돌려 통과한 것과 고칠 것을 알려 줍니다. 언제든 검토만 따로 맡길 수도 있습니다.']],
+        pkg: '패키지', pkgSub: '프로젝트에 들어가는 파일',
+        get: '설치', getNote: '프로젝트 폴더에서 둘 중 하나를 실행합니다. 위 줄은 Node 18 이상, 아래 줄은 macOS·Linux 셸용입니다. 터미널이 없으면 zip을 프로젝트 폴더에 풉니다.', zip: 'zip 내려받기', cmdCopied: '설치 명령을 복사했습니다',
+        files: { 'your-project/': '', 'DASHBOARD.md': '명세: 토큰, 규칙, 점검 목록', '.claude/skills/': '', 'dashboard-style/': '에이전트 스킬', 'SKILL.md': '만들기 · 고치기 · 검토', 'tokens.css': '색·서체·간격', 'netflix.tps': 'Tableau 팔레트', 'powerbi-theme.json': 'Power BI 테마', 'prompt.md': '검증한 프롬프트' },
+        modes: ['명세 없이', 'DASHBOARD.md로'],
+        checksT: '점검 · DASHBOARD.md', checksOk: '6개 모두 통과', checksBad: '6개 중 0개 통과',
+        checks: [[1, '격자 #2d2d2d, 눈금 4~5개, 만 단위'], [2, '비교선을 먼저: 회색 점선 #808080'], [3, '빨강은 주인공 선 하나만: #f0313b'], [4, '범례 대신 선 끝 라벨'], [5, '제목은 결과를 말하고, 주석은 “주:”로 시작'], [5, '카드 #161616에서 글자 대비 4.5:1 이상, 툴팁·키보드·표']],
+        run: '다시 실행', copied: '코드를 복사했습니다', lines: n => `${n}줄`, built: 'DASHBOARD.md로 그림', drawing: '그리는 중…', generated: '명세 없이 만든 첫 초안',
+        cap: '그림 2를 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 같은 그림의 Tableau·Power BI 설정을 봅니다. 위의 도시 필터를 바꾸면 코드와 그림이 함께 바뀝니다.'
+      },
+      notes: {
+        t: '방법과 출처', p: '숫자를 어떻게 셌는지, 자주 묻는 질문으로 정리했습니다',
+        items: [
+          ['Top 10은 어떻게 정하나요?', '고른 도시에서 월요일부터 일요일까지 판 티켓 수로 정합니다. 투어 공연은 그 도시들에서 열린 공연의 티켓만 셉니다. 같으면 판매에 내놓은 좌석이 적은 공연이 앞섭니다.'],
+          ['어떤 티켓을 세나요?', '그 주 공연의 유료 입장권입니다. 초대권, 환불, 교환은 빼고, 재판매된 표는 두 번 세지 않습니다.'],
+          ['좌석 판매율과 평균 티켓 가격은 어떻게 계산하나요?', '좌석 판매율은 판매 티켓을 그 주 공연에 내놓은 좌석으로 나눈 값입니다. 평균 티켓 가격은 매출을 판매 티켓으로 나눈 값이며, 수수료를 빼고 세금 전 미국 달러입니다.'],
+          ['Top 10 주 수는 무엇인가요?', '8월 10일 주간부터 그 공연이 고른 도시의 Top 10에 든 주의 수입니다. 연속 주가 아니라 든 주를 모두 셉니다.'],
+          ['언제 갱신되나요?', '주간 차트처럼 매주 화요일 아침에 지난 월요일부터 일요일까지를 냅니다. 다가오는 공연의 판매는 일요일 마감 기준입니다.']
+        ],
+        src: '출처: 티켓 판매 시스템, 공연장 매표소, 비즈니 라이브 앱.', upd: '2026년 11월 3일(화) 오전 9:00(태평양 시간) 갱신.'
+      },
+      md: { title: '비즈니 라이브 · 주간 티켓 판매 보고 · 2026년 10월 26일~11월 1일', kpis: '핵심 수치', figs: '그림과 표' },
+      note: '가상의 공연 회사와 가상 데이터로 구성한 샘플 화면입니다.',
+      notice: 'Netflix의 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 공개된 웹사이트(netflix.com)에서 보이는 디자인을 읽어 낸 참고용 스타일이며 로고·서체·데이터는 포함하지 않습니다. 상표는 각 소유자의 것입니다.',
+      back: { post: '← 포스트로', catalog: '← 카탈로그로' }
+    },
+    en: {
+      locale: 'en-US', docTitle: 'Netflix style · Weekly ticket sales report sample',
+      brand: 'Vizney Live', brandSub: 'Weekly ticket sales report', period: 'Oct 26 – Nov 1, 2026', pdf: 'Export PDF', copy: 'Copy as Markdown', copied: 'Report copied as Markdown',
+      catName: 'Netflix style', words: 'Dark, Cinematic, Bold',
+      tabsLabel: 'City', scopes: { all: 'All cities', la: 'Los Angeles', ny: 'New York', chi: 'Chicago' },
+      aside: 'Published Tue, Nov 3, 2026 · vs the week before',
+      eye: name => `#1 this week · ${name}`, rate: 'Final',
+      headline: v => `${v.who || 'Vizney Live'} sold ${v.tickets} tickets in the week of Oct 26, ${v.up ? 'up' : 'down'} ${v.ch} on the week before.`,
+      lede: v => `${v.top} led with ${v.topT} tickets from ${v.n} ${v.n === 1 ? 'performance' : 'performances'} in ${v.where}. Seats were ${v.st} full, and the app sold ${v.app} of all tickets.`,
+      btnTop: 'See the Top 10', btnInfo: 'Method and sources',
+      kpi: { tickets: 'Tickets sold', gross: 'Gross', st: 'Seats filled', avg: 'Average ticket', vs: 'vs last week' },
+      pts: ' pts',
+      s1: { t: 'This week', p: 'What sold from Oct 26 to Nov 1: the Top 10, twelve weeks of sales and the shows that stay' },
+      s2: { t: 'Coming up', p: 'How Nov 2–8 is selling, where people buy, and every show’s week' },
+      s3: { t: 'How it’s built', p: 'One spec, the same dashboard in any tool' },
+      f1: {
+        label: 'Figure 1 · Top 10',
+        title: v => `${v.top} led with ${v.t} tickets` + (v.newTop ? ' in its first week in the Top 10' : v.news.length ? `; ${joinEn(v.news)} ${v.news.length > 1 ? 'are' : 'is'} new to the Top 10` : '; no show is new to the Top 10'),
+        sub: 'Shows ranked by tickets sold, Oct 26 – Nov 1, 2026', unit: 'tickets', newRib: 'NEW', first: 'First week in Top 10', weeks: n => `${n} weeks in Top 10`,
+        note: 'Note: Tours count only the tickets sold in the selected cities. Weeks in the Top 10 count from the week of Aug 10.',
+        aria: 'This week’s Top 10 shows. Left and right arrow keys move between shows.'
+      },
+      f2: {
+        label: 'Figure 2 · Tickets by week', title: n => n === 12 ? 'Tickets beat last year in all 12 weeks' : `Tickets beat last year in ${n} of 12 weeks`,
+        sub: 'Tickets sold per week, the last 12 weeks against the same weeks a year earlier', y26: 'This year', y25: 'Last year', generic: 'Weekly Tickets',
+        note: 'Note: Weeks run Monday to Sunday. The spikes are tour stops: one arena night sells 16,000 to 18,000 seats.',
+        aria: (s, p) => `Tickets sold per week. ${s} in the last 12 weeks, ${p} in the same weeks a year earlier. Left and right arrow keys move between weeks.`
+      },
+      f3: {
+        label: 'Figure 3 · Weeks in the Top 10',
+        title: v => v.same ? (v.n === 12 ? `${v.cur} was #1 in all 12 weeks` : `${v.cur} was #1 in ${v.n} of 12 weeks`)
+          : v.streak > 1 ? `${v.cur} has been #1 for ${v.streak} weeks in a row, after ${v.prev}` : `${v.cur} took #1 this week from ${v.prev}`,
+        sub: 'Where this week’s Top 10 ranked in each of the last 12 weeks; #1 in red', keys: ['#1', '#2–10', 'Not in Top 10'], wk: n => `${n} wk`, rank: r => `#${r}`, out: 'Not in the Top 10',
+        note: 'Note: An empty square means the show was outside the Top 10 or not playing that week. The number on the right is weeks in the Top 10 since the week of Aug 10.',
+        aria: 'Weekly ranks of this week’s Top 10. Arrow keys move between squares: up and down for shows, left and right for weeks.'
+      },
+      f4: {
+        label: 'Figure 4 · Selling fast',
+        title: v => v.n === 0 ? `Nothing next week is sold out yet; the fullest is ${v.big} on ${v.day} at ${v.p}`
+          : v.n === 1 ? `One performance next week is already sold out: ${v.big} on ${v.day}` : `${v.n} performances next week are already sold out; the biggest is ${v.big} on ${v.day}`,
+        sub: 'The 6 performances of Nov 2–8 with the highest share of seats sold, as of Nov 1', soldOut: 'Sold out', sold: p => `${p} sold`, seats: n => `${n} seats`,
+        left: n => `${n} seats left`, top10: 'In this week’s Top 10',
+        note: 'Note: Seats sold at the close of Sunday, Nov 1. A sold-out performance can still release a few returned seats.',
+        aria: 'Next week’s performances. Up and down arrow keys move between them.'
+      },
+      f5: {
+        label: 'Figure 5 · Where people buy', title: (a, b) => `App purchases grew from ${a} to ${b} of tickets in 12 weeks`,
+        sub: 'Share of tickets sold each week, by where they were bought', keys: ['App', 'Web', 'Box office'],
+        note: 'Note: Box office includes phone sales. App purchases are tickets paid for in the Vizney Live app.',
+        aria: 'Share of tickets by channel. Left and right arrow keys move between weeks.'
+      },
+      t1: {
+        label: 'Table 1 · Every show',
+        title: v => `${v.full} of ${v.n} shows filled 95% of their seats or more`,
+        sub: 'Oct 26 – Nov 1, 2026, by tickets sold. Weeks in the Top 10 count from the week of Aug 10.',
+        cols: ['Ranking', 'Show', 'Genre', 'City', 'Weeks in Top 10', 'Tickets', 'vs last week', 'Gross', 'Seats filled', 'Runtime', 'Rating'],
+        newb: 'NEW', more: n => `Show all ${n} shows`, less: 'Show the Top 10', wk: n => String(n),
+        note: 'Note: Runtime is in hours and minutes, including the interval. “—” means the show did not play the week before.'
+      },
+      build: {
+        p: 'Every view on this page follows one DASHBOARD.md. Put the package in your project folder and any agent that reads the folder builds to the same rules and checks its work against the same list. The Tableau and Power BI files carry the same colors and formats into those tools.',
+        spec: 'Read DASHBOARD.md', cta: 'Get one for your company ↗',
+        steps: [['Add the style to your project', 'One command, or one zip, puts DASHBOARD.md in your project and the dashboard-style skill in .claude/skills, with the Tableau and Power BI files.'], ['Ask for the dashboard', 'Coding agents load the skill, plan the views from the spec and draw them. BI agents that read the same folder follow the same spec.'], ['Check before you share', 'The skill runs the checklist in DASHBOARD.md and reports what passed and what to fix. You can also ask it for a review on its own.']],
+        pkg: 'Package', pkgSub: 'what goes in your project',
+        get: 'Install', getNote: 'Run either one in your project folder: the first needs Node 18+, the second is a shell script for macOS and Linux. No terminal? Unzip the zip there instead.', zip: 'Download .zip', cmdCopied: 'Install command copied',
+        files: { 'your-project/': '', 'DASHBOARD.md': 'the spec: tokens, rules, checks', '.claude/skills/': '', 'dashboard-style/': 'the agent skill', 'SKILL.md': 'build · restyle · review', 'tokens.css': 'colors, type, spacing', 'netflix.tps': 'Tableau palettes', 'powerbi-theme.json': 'Power BI theme', 'prompt.md': 'tested prompts' },
+        modes: ['Without a spec', 'With DASHBOARD.md'],
+        checksT: 'Checks · DASHBOARD.md', checksOk: 'All 6 passed', checksBad: '0 of 6 passed',
+        checks: [[1, 'Grid #2d2d2d, four or five ticks, compact K'], [2, 'Comparison drawn first: dashed #808080'], [3, 'Red for the subject only: #f0313b'], [4, 'End labels instead of a legend'], [5, 'Title states the finding; note starts with “Note:”'], [5, 'Text at 4.5:1 or more on #161616; tooltip, keys and table']],
+        run: 'Run again', copied: 'Code copied', lines: n => `${n} lines`, built: 'Built from DASHBOARD.md', drawing: 'Drawing…', generated: 'A typical first draft without a spec',
+        cap: 'Figure 2, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the same figure as Tableau and Power BI settings. The city filter at the top changes the code and the figure together.'
+      },
+      notes: {
+        t: 'Method and sources', p: 'How the numbers were counted, as frequently asked questions',
+        items: [
+          ['How is the Top 10 ranked?', 'By tickets sold from Monday to Sunday in the selected cities. A touring show counts only the tickets for its performances in those cities. A tie goes to the show that put fewer seats on sale.'],
+          ['What counts as a ticket?', 'A paid admission to a performance that week. Comps, refunds and exchanges are left out, and resold tickets are not counted twice.'],
+          ['How are seats filled and the average ticket worked out?', 'Seats filled is tickets sold divided by the seats put on sale for that week’s performances. The average ticket is gross divided by tickets sold, after fees and before tax, in US dollars.'],
+          ['What are weeks in the Top 10?', 'The number of weeks since the week of Aug 10 in which the show made the Top 10 for the selected cities. It counts every week it made the list, not only a streak.'],
+          ['When is the report updated?', 'Every Tuesday morning, for the Monday-to-Sunday week before, the way weekly charts are published. Coming-up sales are as of the Sunday close.']
+        ],
+        src: 'Sources: ticketing system, venue box offices, the Vizney Live app.', upd: 'Updated Tue, Nov 3, 2026, 9:00 a.m. PT.'
+      },
+      md: { title: 'Vizney Live · Weekly ticket sales report · Oct 26 – Nov 1, 2026', kpis: 'Key figures', figs: 'Figures and tables' },
+      note: 'A sample screen built around a fictional live entertainment company and fictional data.',
+      notice: 'Not an official Netflix design, and not affiliated with or endorsed by Netflix. A reference style read from the publicly visible design of netflix.com; it carries no logo, typeface or data of theirs. Trademarks belong to their owners.',
+      back: { post: '← Back to the post', catalog: '← Back to the catalog' }
+    }
+  };
+
+  const qs = new URLSearchParams(location.search);
+  const state = { lang: qs.get('lang') === 'ko' ? 'ko' : 'en', scope: SCOPES.includes(qs.get('city')) ? qs.get('city') : 'all', allRows: false, code: 'js', mode: 'with', faq: 0 };
+  const L = () => T[state.lang];
+  const KO = () => state.lang === 'ko';
+  const S = () => DATA.scopes[state.scope];
+  const pick = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
+  // 돌아가는 길: 블로그가 나가는 링크에 붙이는 ?ref=kr.vizney.com · www.vizney.com(없으면 referrer)로 포스트에서 왔는지 본다.
+  // 포스트는 화면 언어를 따른다(ko → kr.vizney.com, en → www.vizney.com). 슬러그는 style-<폴더 이름>.
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  const FROM_BLOG = (() => {
+    const hosts = ['kr.vizney.com', 'www.vizney.com', 'vizney.com'];
+    const host = v => { try { return new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v).hostname.toLowerCase(); } catch (e) { return ''; } };
+    return hosts.includes(host(qs.get('ref') || '')) || (!!document.referrer && hosts.includes(host(document.referrer)));
+  })();
+  const SLUG = location.pathname.split('/').filter(Boolean)[0] || 'netflix';
+
+  /* ================= 도우미 ================= */
+  const sum = a => a.reduce((s, x) => s + x, 0);
+  function setAttrs(e, a) {
+    if (!a) return;
+    for (const k in a) {
+      const v = a[k];
+      if (v == null || v === false) continue;
+      if (k === 'text') e.textContent = v;
+      else if (k === 'html') e.innerHTML = v;
+      else if (k === 'style') for (const p in v) { if (v[p] == null) continue; if (p.startsWith('--')) e.style.setProperty(p, v[p]); else e.style[p] = v[p]; }
+      else e.setAttribute(k, v);
+    }
+  }
+  function add(e, kids) { for (const k of kids.flat()) { if (k == null || k === false) continue; e.append(k instanceof Node ? k : document.createTextNode(String(k))); } }
+  function h(tag, attrs, ...kids) { const e = document.createElement(tag); setAttrs(e, attrs); add(e, kids); return e; }
+  function sv(tag, attrs, ...kids) { const e = document.createElementNS(SVGNS, tag); setAttrs(e, attrs); add(e, kids); return e; }
+  const animOK = a => a && !REDUCE;
+  const refade = (el, a) => { el.classList.remove('fade'); if (animOK(a)) { void el.offsetWidth; el.classList.add('fade'); } };
+  let measureCtx = null;
+  const textW = (txt, font) => { measureCtx = measureCtx || document.createElement('canvas').getContext('2d'); measureCtx.font = font; return measureCtx.measureText(txt).width; };
+  const fam = el => getComputedStyle(el).fontFamily;
+  // 한국어에서 숫자·%와 뒤따르는 조사가 다른 줄로 갈라지지 않게 잇는다(U+2060, 보이지 않음)
+  const glue = str => KO() ? String(str).replace(/([0-9%])(?=[가-힣])/g, '$1⁠') : str;
+  // 한국어 조사: 마지막 한글 음절의 받침으로 고른다(괄호·숫자·영문은 건너뛴다). '으로'는 ㄹ 받침이면 '로'
+  function lastHangul(word) { const s = String(word).replace(/[^가-힣0-9]+$/g, ''); return s.slice(-1); }
+  function batchim(word) {
+    const ch = lastHangul(word);
+    if (/[0-9]/.test(ch)) return '013678'.includes(ch);
+    const c = ch.charCodeAt(0);
+    return c >= 0xAC00 && c <= 0xD7A3 ? (c - 0xAC00) % 28 !== 0 : false;
+  }
+  const josa = (w, pair) => {
+    if (pair === '으로') { const ch = lastHangul(w), c = ch.charCodeAt(0), j = c >= 0xAC00 && c <= 0xD7A3 ? (c - 0xAC00) % 28 : 0; return w + (j === 0 || j === 8 ? '로' : '으로'); }
+    return w + (batchim(w) ? pair[0] : pair[1]);
+  };
+  const joinKo = arr => arr.length < 2 ? (arr[0] || '') : arr.slice(0, -1).map((x, i) => i === arr.length - 2 ? josa(x, '과와') : x + ',').join(' ') + ' ' + arr[arr.length - 1];
+  const joinEn = arr => arr.length < 3 ? arr.join(' and ') : arr.slice(0, -1).join(', ') + ' and ' + arr[arr.length - 1];
+
+  /* 숫자: 한국어 만·장·달러·%p, 영어 K·M·$·pts. 부호는 진짜 마이너스. Top 10 표와 타일은 넷플릭스 Top 10처럼 전체 자릿수 */
+  const nf = (n, d = 0) => Number(n).toLocaleString(L().locale, { minimumFractionDigits: d, maximumFractionDigits: d });
+  const trimz = s => String(s).replace(/\.0+$/, '');
+  const signed = (n, d = 1) => { const v = Number(Number(n).toFixed(d)); return (v > 0 ? '+' : v < 0 ? '−' : '') + nf(Math.abs(v), d); };
+  const pct = (v, d = 1) => nf(v, d) + '%';
+  const full = v => nf(v);
+  const ticketsBig = v => KO() ? `${trimz(nf(v / 1e4, 1))}만 장` : `${nf(v / 1e3, 1)}K`;
+  const moneyBig = v => { if (KO()) { const m = v / 1e4; return `${m >= 100 ? nf(m) : trimz(nf(m, 1))}만 달러`; } return v >= 1e6 ? `$${nf(v / 1e6, 2)}M` : `$${nf(v / 1e3)}K`; };
+  const price = v => KO() ? `${nf(v, 2)}달러` : `$${nf(v, 2)}`;
+  const runtime = m => `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')}`;
+  const tickTk = yt => KO() ? (v => `${trimz(nf(v / 1e4, 1))}만`) : (v => `${nf(v / 1e3)}K`);
+  const wkDate = i => new Date(DATA.weeks[i] + 'T12:00:00');
+  const addDays = (d, n) => new Date(d.getTime() + n * 864e5);
+  const dShort = d => KO() ? `${d.getMonth() + 1}월 ${d.getDate()}일` : `${MON_EN[d.getMonth()]} ${d.getDate()}`;
+  const weekLabel = i => KO() ? `${dShort(wkDate(i))} 주간` : `Week of ${dShort(wkDate(i))}`;
+  const weekRange = i => { const a = wkDate(i), b = addDays(a, 6); return KO() ? `${dShort(a)}~${a.getMonth() === b.getMonth() ? b.getDate() + '일' : dShort(b)}` : `${dShort(a)} – ${a.getMonth() === b.getMonth() ? b.getDate() : dShort(b)}`; };
+  const perfDate = d => addDays(wkDate(12), d);
+  const dayLong = d => { const x = perfDate(d); return KO() ? `${x.getMonth() + 1}월 ${x.getDate()}일(${DOW_KO[x.getDay()]})` : `${DOW_EN[x.getDay()]}, ${MON_EN[x.getMonth()]} ${x.getDate()}`; };
+  const timeText = hr => KO() ? (hr < 12 ? `오전 ${hr}시` : hr === 12 ? '낮 12시' : `오후 ${hr - 12}시`) : (hr === 12 ? '12:00 PM' : hr < 12 ? `${hr}:00 AM` : `${hr - 12}:00 PM`);
+  const P = id => DATA.prods[id];
+  const title = id => KO() ? P(id).ko : P(id).en;
+  const genre = id => GENRE[P(id).genre][KO() ? 0 : 1];
+  const rating = id => RATING[P(id).rating][KO() ? 0 : 1];
+  const cityName = c => CITY[c][KO() ? 0 : 1];
+  const cityList = cs => KO() ? joinKo(cs.map(cityName)) : joinEn(cs.map(cityName));
+  const tileVars = id => ({ '--t0': TILE[P(id).tile][0], '--t1': TILE[P(id).tile][1] });
+  const figNodes = parts => parts.map(p => p.u ? h('span', { class: p.pre ? 'u pre' : 'u', text: p.t }) : document.createTextNode(p.t));
+  function deltaNodes(d, digits, suffix, vs, goodWhenUp = true, txt) {
+    const shown = Number(d.toFixed(digits)), cls = shown === 0 ? 'flat' : (shown > 0) === goodWhenUp ? null : 'bad';
+    return [h('b', { class: cls, text: txt || signed(shown, digits) + suffix }), ' ' + vs];
+  }
+  function niceTicks(lo, hi, count) {
+    const span = hi - lo, raw = span / count, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    const step = [1, 2, 2.5, 5, 10].map(x => x * mag).find(x => x >= raw);
+    const out = [];
+    for (let v = Math.floor(lo / step) * step; v <= hi + step * .999; v += step) out.push(Number(v.toFixed(6)));
+    if (out[out.length - 1] < hi) out.push(Number((out[out.length - 1] + step).toFixed(6)));
+    return out;
+  }
+  // 주 눈금: 처음과 마지막은 늘 두고, 가운데 눈금은 이웃과 겹치지 않을 때만 둔다(좁은 폭에서 글자가 붙지 않게)
+  function weekTicks(cands, xAt, f) {
+    const w = i => textW(dShort(wkDate(i)), `400 12px ${f}`), keep = [cands[0]], last = cands[cands.length - 1];
+    const left = i => i === cands[0] ? xAt(i) : xAt(i) - w(i) / 2, right = i => i === cands[0] ? xAt(i) + w(i) : i === last ? xAt(i) + w(i) / 2 : xAt(i) + w(i) / 2;
+    for (const i of cands.slice(1, -1)) if (left(i) > right(keep[keep.length - 1]) + 10 && right(i) + 10 < left(last)) keep.push(i);
+    if (left(last) > right(keep[keep.length - 1]) + 6) keep.push(last); else keep[keep.length - 1] = last;
+    return keep;
+  }
+  const topRound = (x, y, w, hgt, r) => { r = Math.min(r, w / 2, hgt); return `M${x},${y + hgt}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + hgt}Z`; };
+
+  /* ================= 아이콘(16px, 한 획 굵기) ================= */
+  const ICONS = {
+    cal: '<rect x="2.5" y="3.5" width="11" height="10" rx="1.5"/><path d="M2.5 6.8h11M5.5 2v3M10.5 2v3"/>',
+    download: '<path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/>',
+    copy: '<rect x="5.5" y="5.5" width="8" height="8" rx="1.2"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/>',
+    play: '<path d="M4.2 2.6v10.8a.6.6 0 0 0 .9.5l8.6-5.4a.6.6 0 0 0 0-1L5.1 2.1a.6.6 0 0 0-.9.5z" fill="currentColor" stroke="none"/>',
+    info: '<circle cx="8" cy="8" r="6.4"/><path d="M8 7.2v4.2M8 4.8v.01" stroke-width="1.8"/>',
+    plus: '<path d="M8 2.5v11M2.5 8h11" stroke-width="1.6"/>',
+    down: '<path d="M3.5 6 8 10.5 12.5 6" stroke-width="1.8"/>'
+  };
+  const icon = (name, cls = 'ico') => { const s = sv('svg', { class: cls, viewBox: '0 0 16 16', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }); s.innerHTML = ICONS[name]; return s; };
+  for (const el of $$('[data-icon]')) el.prepend(icon(el.dataset.icon));
+  const t10Badge = (sm) => h('span', { class: 't10' + (sm ? ' sm' : ''), 'aria-hidden': 'true' }, h('i', { text: 'TOP' }), h('b', { text: '10' }));
+
+  // 범례 견본: 선, 점선, 칸, 빈칸
+  function keySwatch(kind, color) {
+    const g = sv('svg', { viewBox: '0 0 18 12', 'aria-hidden': 'true' });
+    if (kind === 'line') g.append(sv('path', { d: 'M1 6h16', stroke: color, 'stroke-width': 2.5, 'stroke-linecap': 'round' }));
+    else if (kind === 'dash') g.append(sv('path', { d: 'M1 6h16', stroke: color, 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }));
+    else if (kind === 'bar') g.append(sv('rect', { x: 3, y: 1, width: 12, height: 10, rx: 2, fill: color }));
+    else if (kind === 'cell') g.append(sv('rect', { x: 3, y: 0, width: 12, height: 12, rx: 2, fill: color }));
+    else if (kind === 'empty') g.append(sv('rect', { x: 3.5, y: .5, width: 11, height: 11, rx: 2, fill: 'none', stroke: color }));
+    return g;
+  }
+  const keyItems = (ul, items) => ul.replaceChildren(...items.map(([kind, color, label]) => h('li', null, keySwatch(kind, color), label)));
+
+  /* ================= 호버 카드: 앱의 미니 모달. 카드 안에서 위 → 왼쪽 → 오른쪽 → 아래 순으로 자리를 찾는다 ================= */
+  function tipNodes(head, rows, extra) {
+    return [h('div', { class: 'tip-h', text: head })].concat(extra || [], rows.map(r => h('div', { class: 'tip-r' },
+      r.key ? h('i', { class: r.line ? ('ln' + (r.dash ? ' dash' : '')) : null, style: { '--c': r.key } }) : null,
+      h('b', { text: r.value }), r.label ? h('span', { text: r.label }) : null)));
+  }
+  // 공연 한 편: 제목 → 수치(90% 이상이면 일치율처럼 초록)·등급 상자·상영 시간 → 점으로 이은 장르·도시
+  function showMeta(id, score, good, cities) {
+    const parts = [genre(id)].concat(cities ? cities.map(cityName) : []);
+    const gn = h('div', { class: 'tip-gn' });
+    parts.forEach((p, i) => { if (i) gn.append(h('i', { text: '•' })); gn.append(p); });
+    return [h('div', { class: 'tip-m' }, score ? h('span', { class: good ? 'g' : 's', text: score }) : null, h('span', { class: 'rbox', text: rating(id) }), h('span', { text: runtime(P(id).run) })), gn];
+  }
+  function placeTip(host, nodes, ax, ayTop, ayBottom) {
+    const tip = $(':scope > .tip', host);
+    tip.replaceChildren(...nodes);
+    const cw = host.clientWidth, ch = host.clientHeight, tw = tip.offsetWidth, th = tip.offsetHeight, gap = 12, mid = (ayTop + ayBottom) / 2;
+    const cx = l => Math.max(6, Math.min(cw - tw - 6, l)), cy = y => Math.max(6, Math.min(ch - th - 6, y));
+    const options = [
+      ['above', cx(ax - tw / 2), ayTop - gap - th, ayTop - gap - th >= 6],
+      ['left', ax - gap - tw, cy(mid - th / 2), ax - gap - tw >= 6],
+      ['right', ax + gap, cy(mid - th / 2), ax + gap + tw <= cw - 6],
+      ['below', cx(ax - tw / 2), ayBottom + gap, ayBottom + gap + th <= ch - 6]
+    ];
+    const [side, left, top] = options.find(o => o[3]) || options[1];
+    tip.dataset.side = side;
+    tip.style.left = Math.round(left) + 'px';
+    tip.style.top = Math.round(top) + 'px';
+    tip.classList.add('on');
+  }
+  const hideTip = host => { const tip = $(':scope > .tip', host); if (tip) tip.classList.remove('on'); };
+  const offsetIn = (host, el) => { const a = host.getBoundingClientRect(), b = el.getBoundingClientRect(); return { x: b.left - a.left, y: b.top - a.top, w: b.width, h: b.height }; };
+  function keyStep(e, cur, n) {
+    const k = e.key;
+    let i = null;
+    if (k === 'ArrowRight' || k === 'ArrowDown') i = cur + 1;
+    else if (k === 'ArrowLeft' || k === 'ArrowUp') i = cur - 1;
+    else if (k === 'Home') i = 0;
+    else if (k === 'End') i = n - 1;
+    else if (k === 'Escape') i = -1;
+    if (i === null) return null;
+    e.preventDefault();
+    return k === 'Escape' ? -1 : Math.max(0, Math.min(n - 1, i));
+  }
+  function srTable(caption, head, rows) {
+    return h('table', null, h('caption', { text: caption }),
+      h('thead', null, h('tr', null, head.map(x => h('th', { scope: 'col', text: x })))),
+      h('tbody', null, rows.map(r => h('tr', null, r.map((c, j) => h(j ? 'td' : 'th', j ? { text: c } : { scope: 'row', text: c }))))));
+  }
+  const say = msg => { $('#live').textContent = msg; };
+  const gridLine = (x1, x2, y) => sv('line', { x1, x2, y1: y, y2: y, stroke: C.grid, 'stroke-width': 1 });
+  const baseLine = (x1, x2, y) => sv('line', { x1, x2, y1: y, y2: y, stroke: C.base, 'stroke-width': 1 });
+
+  /* ================= 빌보드: 이번 주 1위 → 결과 문장 → 줄거리 자리의 근거 → 두 단추 → 숫자 넷 ================= */
+  function heroValues() {
+    const s = S(), w = LAST, t = s.tickets[w], t0 = s.tickets[w - 1], ch = s.channels[w];
+    return { t, t0, st: t / s.cap[w] * 100, st0: t0 / s.cap[w - 1] * 100, g: s.gross[w], g0: s.gross[w - 1], avg: s.gross[w] / t, avg0: s.gross[w - 1] / t0, top: s.prods[0], app: ch[0] / sum(ch) * 100 };
+  }
+  function renderHero(animate) {
+    const t = L(), v = heroValues(), who = state.scope === 'all' ? null : t.scopes[state.scope];
+    $('#eye').textContent = t.eye(title(v.top.id));
+    $('#headline').textContent = glue(t.headline({ who, tickets: ticketsBig(v.t), ch: pct(Math.abs((v.t / v.t0 - 1) * 100)), up: v.t >= v.t0 }));
+    $('#lede').textContent = glue(t.lede({ top: title(v.top.id), topT: full(v.top.t), n: v.top.n, where: cityList(v.top.cities), st: pct(v.st), app: pct(v.app, 0) }));
+    $('#rate').textContent = t.rate;
+    refade($('#headline'), animate); refade($('#lede'), animate);
+    const kpi = (label, parts, delta) => h('div', { class: 'kpi' + (animOK(animate) ? ' fade' : '') }, h('div', { class: 'k', text: label }), h('div', { class: 'v' }, figNodes(parts)), h('div', { class: 'd' }, delta));
+    const tParts = KO() ? [{ t: trimz(nf(v.t / 1e4, 1)) }, { t: '만 장', u: 1 }] : [{ t: nf(v.t / 1e3, 1) }, { t: 'K', u: 1 }];
+    const gm = v.g / 1e4;
+    const gParts = KO() ? [{ t: gm >= 100 ? nf(gm) : trimz(nf(gm, 1)) }, { t: '만 달러', u: 1 }] : [{ t: '$', u: 1, pre: 1 }, { t: nf(v.g / 1e6, 2) }, { t: 'M', u: 1 }];
+    const sParts = [{ t: nf(v.st, 1) }, { t: '%', u: 1 }];
+    const aParts = KO() ? [{ t: nf(v.avg, 2) }, { t: '달러', u: 1 }] : [{ t: '$', u: 1, pre: 1 }, { t: nf(v.avg, 2) }];
+    $('#kpis').replaceChildren(
+      kpi(t.kpi.tickets, tParts, deltaNodes((v.t / v.t0 - 1) * 100, 1, '%', t.kpi.vs)),
+      kpi(t.kpi.gross, gParts, deltaNodes((v.g / v.g0 - 1) * 100, 1, '%', t.kpi.vs)),
+      kpi(t.kpi.st, sParts, deltaNodes(v.st - v.st0, 1, t.pts, t.kpi.vs)),
+      kpi(t.kpi.avg, aParts, deltaNodes((v.avg / v.avg0 - 1) * 100, 1, '%', t.kpi.vs)));
+  }
+
+  /* ================= 그림 1: Top 10 줄(외곽선 숫자 + 세로 타일). 값은 늘 타일 아래에 적고, 호버 카드는 마우스·키보드에서만 ================= */
+  const F1 = { cur: 0 };
+  function f1Facts() {
+    const top = S().prods.slice(0, 10), news = top.filter(p => p.wk === 1);
+    return { top, news, newTop: news.length === 1 && news[0] === top[0] };
+  }
+  function renderF1(animate) {
+    const t = L(), f = f1Facts(), list = $('#f1List'), host = $('#f1');
+    $('#f1Title').textContent = glue(t.f1.title({ top: title(f.top[0].id), t: full(f.top[0].t), news: f.news.map(p => title(p.id)), newTop: f.newTop }));
+    refade($('#f1Title'), animate);
+    list.setAttribute('aria-label', t.f1.aria);
+    list.replaceChildren(...f.top.map((p, i) => {
+      const isNew = p.wk === 1;
+      const vw = i === 9 ? 118 : 66;   // 숫자 칸: 한 자리 66, 10은 118(실측 글자 폭 61px · 100px 글씨)
+      const rk = sv('svg', { class: 'rk', viewBox: `0 0 ${vw} 100`, 'aria-hidden': 'true' },
+        sv('text', { x: vw - 3, y: 88, 'text-anchor': 'end', style: { fontSize: '100px' }, text: String(i + 1) }));
+      const tile = h('div', { class: 'tile' + (isNew ? ' new' : '') + (i === 9 ? ' ten' : ''), style: tileVars(p.id) },
+        h('span', { class: 'tg', text: genre(p.id) }), h('span', { class: 'tt', text: title(p.id) }), isNew ? h('span', { class: 'rib', text: t.f1.newRib }) : null);
+      const cap = h('div', { class: 't10cap' }, h('b', null, full(p.t), h('span', { text: t.f1.unit })), h('i', { class: isNew ? 'hot' : null, text: isNew ? t.f1.first : t.f1.weeks(p.wk) }));
+      const li = h('li', { class: 't10i' + (animOK(animate) ? ' rise' : ''), style: animOK(animate) ? { animationDelay: (i * 40) + 'ms' } : null, 'data-i': i }, h('div', { class: 'poster' }, tile, rk), cap);
+      li.addEventListener('pointerenter', () => show(i));
+      li.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== list) show(null); });
+      return li;
+    }));
+    const show = i => {
+      $$('.t10i', list).forEach((el, j) => el.classList.toggle('on', j === i && document.activeElement === list));
+      if (i == null) { hideTip(host); return; }
+      F1.cur = i;
+      const p = f.top[i], el = $$('.tile', list)[i], o = offsetIn(host, el);
+      placeTip(host, tipNodes(`${i + 1}. ${title(p.id)}`, [
+        { value: full(p.t), label: t.f1.unit },
+        { value: moneyBig(p.g), label: KO() ? '매출' : 'gross' },
+        { value: p.wk === 1 ? t.f1.first : t.f1.weeks(p.wk) }
+      ], showMeta(p.id, (KO() ? '좌석 ' : '') + pct(p.t / p.cap * 100, 0) + (KO() ? '' : ' full'), p.t / p.cap >= .9, p.cities)), o.x + o.w / 2, o.y, o.y + o.h);
+    };
+    list.onfocus = () => show(F1.cur);
+    list.onblur = () => show(null);
+    list.onkeydown = e => { const i = keyStep(e, F1.cur, f.top.length); if (i === null) return; if (i < 0) { show(null); return; } show(i); const p = f.top[i]; say(`${i + 1}. ${title(p.id)}: ${full(p.t)} ${t.f1.unit}, ${p.wk === 1 ? t.f1.first : t.f1.weeks(p.wk)}`); };
+    $('#f1Table').replaceChildren(srTable(t.f1.sub, ['#', KO() ? '공연' : 'Show', KO() ? '판매 티켓' : 'Tickets', KO() ? 'Top 10 주 수' : 'Weeks in Top 10'], f.top.map((p, i) => [String(i + 1), title(p.id), full(p.t), String(p.wk)])));
+  }
+
+  /* ================= 그림 2: 주별 티켓과 지난해(만드는 법의 워크벤치가 같은 그림을 그린다) =================
+     mode 'with' = DASHBOARD.md를 따른 그림, 'without' = 명세 없이 흔히 나오는 첫 초안 */
+  const TRD = { f2: LAST, wb: LAST };
+  function beatWeeks() { const s = S(); return s.tickets.filter((v, i) => v > s.ly[i]).length; }
+  function drawTrend(boxSel, hostSel, opts) {
+    const box = $(boxSel), host = $(hostSel), W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
+    if (!W || !H) return;
+    box._w = W; box._h = H;
+    const t = L(), s = S(), f = fam(box), n = NW, last = LAST, without = opts.mode === 'without', bg = opts.bg || C.plot, key = opts.key;
+    const layer = (step, ...kids) => sv('g', opts.layers ? { class: 'layer', 'data-step': step } : null, ...kids);
+    let yt, L0, R0, T0 = 12, B0 = 28, tick = null;
+    if (without) {
+      yt = niceTicks(0, Math.max(...s.tickets, ...s.ly) * 1.05, 4);
+      L0 = Math.ceil(Math.max(...yt.map(v => textW(String(v), `400 11px ${f}`)))) + 12; R0 = 12; B0 = 44; T0 = 34;
+    } else {
+      const vals = s.tickets.concat(s.ly);
+      yt = niceTicks(Math.min(...vals) * .94, Math.max(...vals) * 1.03, 4);
+      tick = tickTk(yt);
+      const endA = `${t.f2.y26} ${ticketsBig(s.tickets[last])}`, endB = `${t.f2.y25} ${ticketsBig(s.ly[last])}`;
+      const lw = Math.ceil(Math.max(textW(endA, `700 12px ${f}`), textW(endB, `700 12px ${f}`)));
+      L0 = Math.ceil(Math.max(...yt.map(v => textW(tick(v), `400 12px ${f}`)))) + 10; R0 = lw + 18;
+    }
+    const y0 = yt[0], y1 = yt[yt.length - 1];
+    const X = i => L0 + i / (n - 1) * (W - L0 - R0), Y = v => H - B0 - (v - y0) / (y1 - y0) * (H - B0 - T0);
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.f2.aria(ticketsBig(sum(s.tickets)), ticketsBig(sum(s.ly))) });
+    const path = vals => vals.map((v, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(v).toFixed(1)).join('');
+    let subjPath = null;
+    if (without) {
+      // 흔한 첫 초안: 0부터 시작하는 축, 날것의 숫자, 두 방향 격자, 모든 점에 표식, 원색 두 개, 오른쪽 위 범례, 필드 이름 그대로
+      const g = sv('g');
+      for (const v of yt) { const y = Math.round(Y(v)) + .5; g.append(sv('line', { x1: L0, x2: W - R0, y1: y, y2: y, stroke: C.genericGrid })); g.append(sv('text', { x: L0 - 6, y, dy: '.35em', 'text-anchor': 'end', style: { fontSize: '11px' }, fill: '#9ca3af', text: String(v) })); }
+      for (let i = 0; i < n; i++) { g.append(sv('line', { x1: X(i), x2: X(i), y1: T0, y2: H - B0, stroke: C.genericGrid })); g.append(sv('text', { x: X(i), y: H - B0 + 14, 'text-anchor': 'end', transform: `rotate(-35 ${X(i)} ${H - B0 + 14})`, style: { fontSize: '10px' }, fill: '#9ca3af', text: DATA.weeks[i] })); }
+      [[s.ly, C.generic[0]], [s.tickets, C.generic[1]]].forEach(([vals, col]) => { g.append(sv('path', { d: path(vals), fill: 'none', stroke: col, 'stroke-width': 2 })); vals.forEach((v, i) => g.append(sv('circle', { cx: X(i), cy: Y(v), r: 3, fill: col }))); });
+      const lg = sv('g', { transform: `translate(${W - R0 - 236},4)` });
+      lg.append(sv('rect', { x: 0, y: 0, width: 236, height: 22, rx: 4, fill: '#1f2937', stroke: C.genericGrid }));
+      [['tickets_last_year', C.generic[0], 10], ['tickets', C.generic[1], 158]].forEach(([lab, col, x]) => { lg.append(sv('rect', { x, y: 7, width: 10, height: 8, fill: col })); lg.append(sv('text', { x: x + 15, y: 15, style: { fontSize: '11px' }, fill: '#e5e7eb', text: lab })); });
+      g.append(lg);
+      svg.append(g);
+    } else {
+      const frame = layer(1);
+      for (const v of yt) {
+        const y = Math.round(Y(v)) + .5;
+        frame.append(v === y0 ? baseLine(L0, W - R0 + 6, y) : gridLine(L0, W - R0 + 6, y));
+        frame.append(sv('text', { x: L0 - 8, y, dy: '.35em', 'text-anchor': 'end', class: 'ax', text: tick(v) }));
+      }
+      weekTicks([0, 4, 8, last], X, f).forEach(i => frame.append(sv('text', { x: X(i), y: H - 8, 'text-anchor': i === 0 ? 'start' : 'middle', class: 'ax', style: i === last ? { fill: C.ink } : null, text: dShort(wkDate(i)) })));
+      svg.append(frame);
+      svg.append(layer(2, sv('path', { d: path(s.ly), fill: 'none', stroke: C.comparison, 'stroke-width': 2, 'stroke-dasharray': '6 4', 'stroke-linejoin': 'round' })));
+      subjPath = sv('path', { d: path(s.tickets), fill: 'none', stroke: C.subject, 'stroke-width': 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', pathLength: animOK(opts.animate) ? 1 : null, class: animOK(opts.animate) ? 'draw' : null });
+      svg.append(layer(3, subjPath, sv('circle', { cx: X(last), cy: Y(s.tickets[last]), r: 4, fill: bg, stroke: C.subject, 'stroke-width': 2.5 })));
+      let ya = Y(s.tickets[last]), yb = Y(s.ly[last]);
+      if (Math.abs(ya - yb) < 16) { const m = (ya + yb) / 2; ya = ya <= yb ? m - 8 : m + 8; yb = ya <= m ? m + 8 : m - 8; }
+      svg.append(layer(4,
+        sv('text', { x: X(last) + 10, y: ya, dy: '.35em', style: { fontSize: '12px', fontWeight: 700 }, fill: C.subjectText }, sv('tspan', { text: t.f2.y26 + ' ' }), sv('tspan', { fill: C.text2, style: { fontWeight: 400 }, text: ticketsBig(s.tickets[last]) })),
+        sv('text', { x: X(last) + 10, y: yb, dy: '.35em', style: { fontSize: '12px', fontWeight: 700 }, fill: C.ink }, sv('tspan', { text: t.f2.y25 + ' ' }), sv('tspan', { fill: C.text2, style: { fontWeight: 400 }, text: ticketsBig(s.ly[last]) }))));
+    }
+    const cross = sv('line', { y1: T0, y2: H - B0, stroke: C.cross, style: { opacity: 0 } });
+    const dA = sv('circle', { r: 4.5, fill: bg, stroke: without ? C.generic[1] : C.subject, 'stroke-width': 2.5, style: { opacity: 0 } });
+    const dB = sv('circle', { r: 3.5, fill: bg, stroke: without ? C.generic[0] : C.comparison, 'stroke-width': 2, style: { opacity: 0 } });
+    svg.append(cross, dB, dA, sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+    box._subj = subjPath;
+    const show = i => {
+      [cross, dA, dB].forEach(e => { e.style.opacity = i == null ? 0 : 1; });
+      if (i == null) { hideTip(host); return; }
+      TRD[key] = i;
+      setAttrs(cross, { x1: X(i), x2: X(i) }); setAttrs(dA, { cx: X(i), cy: Y(s.tickets[i]) }); setAttrs(dB, { cx: X(i), cy: Y(s.ly[i]) });
+      const o = offsetIn(host, svg), a = Y(s.tickets[i]), b = Y(s.ly[i]);
+      placeTip(host, tipNodes(weekRange(i), [{ key: without ? C.generic[1] : C.subject, line: true, value: full(s.tickets[i]), label: t.f2.y26 }, { key: without ? C.generic[0] : C.comparison, line: true, dash: !without, value: full(s.ly[i]), label: t.f2.y25 }, { value: signed((s.tickets[i] / s.ly[i] - 1) * 100) + '%', label: KO() ? '증감' : 'change' }]), o.x + X(i), o.y + Math.min(a, b) - 6, o.y + Math.max(a, b) + 6);
+    };
+    const idxAt = px => Math.max(0, Math.min(last, Math.round((px - L0) / ((W - L0 - R0) / (n - 1)))));
+    svg.addEventListener('pointermove', e => {
+      const r = svg.getBoundingClientRect(), i = idxAt(e.clientX - r.left); show(i);
+      if (opts.layers && BENCH.built && !without) { const py = e.clientY - r.top, da = Math.abs(py - Y(s.tickets[i])), db = Math.abs(py - Y(s.ly[i])); focusStep(Math.min(da, db) < 14 ? (da <= db ? 3 : 2) : 0); }
+    });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(null); if (opts.layers) focusStep(0); });
+    svg.addEventListener('focus', () => show(TRD[key]));
+    svg.addEventListener('blur', () => show(null));
+    svg.addEventListener('keydown', e => { const i = keyStep(e, TRD[key], n); if (i === null) return; if (i < 0) { show(null); return; } show(i); say(`${weekRange(i)}: ${t.f2.y26} ${full(s.tickets[i])}, ${t.f2.y25} ${full(s.ly[i])}`); });
+    if (opts.layers && BENCH.built) $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+  }
+  function renderF2(animate) {
+    const t = L(), s = S();
+    $('#f2Title').textContent = glue(t.f2.title(beatWeeks()));
+    refade($('#f2Title'), animate);
+    $('#f2Table').replaceChildren(srTable(t.f2.sub, [KO() ? '주' : 'Week', t.f2.y26, t.f2.y25], s.tickets.map((v, i) => [weekRange(i), full(v), full(s.ly[i])])));
+    drawTrend('#f2Plot', '#f2', { key: 'f2', animate });
+  }
+
+  /* ================= 그림 3: Weeks in Top 10 격자. 줄은 이번 주 Top 10, 칸은 지난 12주의 순위, 1위만 빨강 ================= */
+  const F3 = { r: 0, c: LAST };
+  function f3Facts() {
+    const s = S(), top = s.prods.slice(0, 10), leaders = [];
+    for (let w = 0; w < NW; w++) { const p = top.find(x => s.hist[x.id][w] === 1); leaders.push(p ? p.id : null); }
+    const cur = top[0].id, count = id => leaders.filter(x => x === id).length;
+    let streak = 0; for (let w = LAST; w >= 0 && leaders[w] === cur; w--) streak++;
+    const others = [...new Set(leaders.filter(x => x && x !== cur))].sort((a, b) => count(b) - count(a));
+    const same = !others.length || count(cur) >= count(others[0]);
+    const before = leaders[LAST - streak];   // the #1 of the week before the current run began
+    const prev = before && before !== cur ? before : others[0];
+    return { top, leaders, cur, n: count(cur), streak, same, prev, m: prev ? count(prev) : 0 };
+  }
+  function renderF3(animate) {
+    const t = L(), v = f3Facts();
+    $('#f3Title').textContent = glue(t.f3.title({ same: v.same, cur: title(v.cur), n: v.n, streak: v.streak, prev: v.prev ? title(v.prev) : '', m: v.m }));
+    refade($('#f3Title'), animate);
+    keyItems($('#f3Keys'), [['cell', C.subject, t.f3.keys[0]], ['cell', C.cell, t.f3.keys[1]], ['empty', C.base, t.f3.keys[2]]]);
+    const s = S();
+    $('#f3Table').replaceChildren(srTable(t.f3.sub, [KO() ? '공연' : 'Show', ...DATA.weeks.slice(0, NW).map((_, i) => weekLabel(i)), KO() ? 'Top 10 주 수' : 'Weeks in Top 10'],
+      v.top.map(p => [title(p.id), ...s.hist[p.id].map(r => r ? t.f3.rank(r) : '—'), String(p.wk)])));
+    drawGrid(animate);
+  }
+  function drawGrid(animate) {
+    const box = $('#f3Plot'), host = $('#f3'), W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
+    if (!W || !H) return;
+    box._w = W; box._h = H;
+    const t = L(), s = S(), v = f3Facts(), f = fam(box), rows = v.top.length, gap = 3;
+    const R0 = Math.ceil(textW(t.f3.wk(12), `700 12px ${f}`)) + 12, T0 = 22, B0 = 4;
+    const maxLab = Math.min(W * .42, 190);
+    const labs = v.top.map((p, i) => { let txt = `${i + 1}  ${title(p.id)}`; while (txt.length > 4 && textW(txt, `400 13px ${f}`) > maxLab) txt = txt.slice(0, -2) + '…'; return txt.replace(/\s…$/, '…'); });
+    const L0 = Math.ceil(Math.max(...labs.map(x => textW(x, `700 13px ${f}`)))) + 12;
+    const cw = (W - L0 - R0) / NW, rh = (H - T0 - B0) / rows, sz = Math.max(8, Math.min(cw, rh) - gap);
+    const X = c => L0 + c * cw + (cw - sz) / 2, Y = r => T0 + r * rh + (rh - sz) / 2;
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.f3.aria });
+    const hl = sv('rect', { rx: 3, fill: 'none', stroke: '#fff', 'stroke-width': 2, style: { opacity: 0 } });
+    weekTicks([0, 4, 8, LAST], c => c === 0 ? X(c) : X(c) + sz / 2, f).forEach(c => svg.append(sv('text', { x: c === 0 ? X(c) : X(c) + sz / 2, y: 12, 'text-anchor': c === 0 ? 'start' : 'middle', class: 'ax', style: c === LAST ? { fill: C.ink } : null, text: dShort(wkDate(c)) })));
+    v.top.forEach((p, r) => {
+      const lead = p.id === v.cur || p.id === v.prev;
+      svg.append(sv('text', { x: 0, y: Y(r) + sz / 2, dy: '.35em', class: 'gl' + (lead ? ' on' : ''), text: labs[r] }));
+      const g = sv('g', { class: animOK(animate) ? 'fade' : null, style: animOK(animate) ? { animationDelay: (r * 35) + 'ms' } : null });
+      s.hist[p.id].forEach((rk, c) => {
+        if (!rk) { g.append(sv('rect', { x: X(c) + .5, y: Y(r) + .5, width: sz - 1, height: sz - 1, rx: 2, fill: 'none', stroke: C.grid })); return; }
+        g.append(sv('rect', { x: X(c), y: Y(r), width: sz, height: sz, rx: 2, fill: rk === 1 ? C.subject : C.cell }));
+        if (sz >= 15) g.append(sv('text', { x: X(c) + sz / 2, y: Y(r) + sz / 2, dy: '.36em', 'text-anchor': 'middle', class: 'gn', fill: rk === 1 ? '#000' : C.body, text: String(rk) }));
+      });
+      svg.append(g);
+      svg.append(sv('text', { x: W - 2, y: Y(r) + sz / 2, dy: '.35em', 'text-anchor': 'end', class: 'vl', style: { fill: p.wk === 12 ? C.ink : C.text2, fontWeight: p.wk === 12 ? 700 : 400 }, text: t.f3.wk(p.wk) }));
+    });
+    svg.append(hl, sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+    const show = (r, c) => {
+      if (r == null) { hl.style.opacity = 0; hideTip(host); return; }
+      F3.r = r; F3.c = c;
+      setAttrs(hl, { x: X(c) - 2, y: Y(r) - 2, width: sz + 4, height: sz + 4 }); hl.style.opacity = 1;
+      const p = v.top[r], rk = s.hist[p.id][c], o = offsetIn(host, svg);
+      placeTip(host, tipNodes(title(p.id), [{ key: rk ? (rk === 1 ? C.subject : C.cell) : null, value: rk ? t.f3.rank(rk) : t.f3.out, label: weekLabel(c) }, { value: t.f3.wk(p.wk), label: KO() ? 'Top 10에 든 주' : 'in the Top 10 since Aug 10' }]), o.x + X(c) + sz / 2, o.y + Y(r), o.y + Y(r) + sz);
+    };
+    svg.addEventListener('pointermove', e => {
+      const b = svg.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
+      const c = Math.floor((x - L0) / cw), r = Math.floor((y - T0) / rh);
+      if (c < 0 || c >= NW || r < 0 || r >= rows) { show(null); return; }
+      show(r, c);
+    });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(null); });
+    svg.addEventListener('focus', () => show(F3.r, F3.c));
+    svg.addEventListener('blur', () => show(null));
+    svg.addEventListener('keydown', e => {
+      let { r, c } = F3;
+      if (e.key === 'ArrowRight') c++; else if (e.key === 'ArrowLeft') c--; else if (e.key === 'ArrowDown') r++; else if (e.key === 'ArrowUp') r--;
+      else if (e.key === 'Home') c = 0; else if (e.key === 'End') c = LAST; else if (e.key === 'Escape') { e.preventDefault(); show(null); return; } else return;
+      e.preventDefault();
+      r = Math.max(0, Math.min(rows - 1, r)); c = Math.max(0, Math.min(LAST, c));
+      show(r, c);
+      const rk = s.hist[v.top[r].id][c];
+      say(`${title(v.top[r].id)}, ${weekLabel(c)}: ${rk ? t.f3.rank(rk) : t.f3.out}`);
+    });
+  }
+
+  /* ================= 그림 4: 에피소드 목록. 섬네일 아래의 이어보기 진행 막대가 판매 좌석 비율, 매진만 빨강 ================= */
+  const F4 = { cur: 0 };
+  function f4Rows() { return S().up.map(([id, c, d, hr, sold, cap]) => ({ id, c, d, hr, sold, cap, out: sold >= cap })); }
+  function renderF4(animate) {
+    const t = L(), rows = f4Rows(), list = $('#f4List'), host = $('#f4'), s = S();
+    const outs = rows.filter(r => r.out), topIds = new Set(s.prods.slice(0, 10).map(p => p.id));
+    const big = outs.length ? outs.slice().sort((a, b) => b.cap - a.cap || a.d - b.d)[0] : rows[0];
+    $('#f4Title').textContent = glue(t.f4.title({ n: s.soldOut, big: title(big.id), day: dayLong(big.d), p: pct(big.sold / big.cap * 100) }));
+    refade($('#f4Title'), animate);
+    list.setAttribute('aria-label', t.f4.aria);
+    list.replaceChildren(...rows.map((r, i) => {
+      const p = r.sold / r.cap * 100, x = perfDate(r.d);
+      const th = h('div', { class: 'ep-th', style: tileVars(r.id) },
+        h('span', { class: 'ep-d', text: KO() ? `${DOW_KO[x.getDay()]}요일` : DOW_EN[x.getDay()] }), h('b', { class: 'ep-dd', text: KO() ? `${x.getMonth() + 1}월 ${x.getDate()}일` : `${MON_EN[x.getMonth()]} ${x.getDate()}` }),
+        h('span', { class: 'pg', style: { '--pg': r.out ? C.subject : '#b3b3b3' } }, h('i', { class: animOK(animate) ? 'growx' : null, style: { width: Math.min(100, p) + '%', animationDelay: animOK(animate) ? (i * 40) + 'ms' : null } })));
+      const head = h('div', { class: 'ep-h' }, h('b', { class: 'ep-t', text: title(r.id) }), topIds.has(r.id) ? t10Badge(true) : null,
+        h('span', { class: 'ep-p', text: r.out ? t.f4.soldOut : t.f4.sold(pct(p, 0)) }));
+      const sub = h('p', { class: 'ep-s', text: [cityName(r.c), timeText(r.hr), runtime(P(r.id).run), r.out ? t.f4.seats(full(r.cap)) : t.f4.left(full(r.cap - r.sold))].join(' · ') });
+      const li = h('li', { class: 'ep' + (animOK(animate) ? ' fade' : ''), style: animOK(animate) ? { animationDelay: (i * 30) + 'ms' } : null }, h('span', { class: 'ep-n', text: String(i + 1) }), th, h('div', { class: 'ep-m' }, head, sub));
+      li.addEventListener('pointerenter', () => show(i));
+      li.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== list) show(null); });
+      return li;
+    }));
+    const show = i => {
+      $$('.ep', list).forEach((el, j) => el.classList.toggle('on', j === i));
+      if (i == null) { hideTip(host); return; }
+      F4.cur = i;
+      const r = rows[i], el = $$('.ep-th', list)[i], o = offsetIn(host, el);
+      placeTip(host, tipNodes(title(r.id), [
+        { key: r.out ? C.subject : '#b3b3b3', value: r.out ? t.f4.soldOut : t.f4.sold(pct(r.sold / r.cap * 100)), label: `${full(r.sold)} / ${full(r.cap)}` },
+        { value: `${dayLong(r.d)} · ${timeText(r.hr)}` },
+        topIds.has(r.id) ? { value: t.f4.top10 } : null
+      ].filter(Boolean), showMeta(r.id, null, false, [r.c])), o.x + o.w, o.y, o.y + o.h);
+    };
+    list.onfocus = () => show(F4.cur);
+    list.onblur = () => show(null);
+    list.onkeydown = e => { const i = keyStep(e, F4.cur, rows.length); if (i === null) return; if (i < 0) { show(null); return; } show(i); const r = rows[i]; say(`${title(r.id)}, ${dayLong(r.d)} ${timeText(r.hr)}: ${r.out ? t.f4.soldOut : t.f4.sold(pct(r.sold / r.cap * 100))}`); };
+    $('#f4Table').replaceChildren(srTable(t.f4.sub, ['#', KO() ? '공연' : 'Show', KO() ? '날짜' : 'Date', KO() ? '도시' : 'City', KO() ? '판매' : 'Sold', KO() ? '좌석' : 'Seats'],
+      rows.map((r, i) => [String(i + 1), title(r.id), `${dayLong(r.d)} ${timeText(r.hr)}`, cityName(r.c), r.out ? t.f4.soldOut : pct(r.sold / r.cap * 100), full(r.cap)])));
+  }
+
+  /* ================= 그림 5: 구매 경로(100% 누적 막대). 주인공(앱)을 바닥에 둔다 ================= */
+  const F5 = { cur: LAST };
+  const CH_COL = () => [C.subject, C.blue, C.other], CH_TXT = () => [C.subjectText, C.blueText, C.otherText];
+  const shares = i => { const c = S().channels[i], tot = sum(c); return c.map(v => v / tot * 100); };
+  function renderF5(animate) {
+    const t = L();
+    $('#f5Title').textContent = glue(t.f5.title(pct(shares(0)[0], 0), pct(shares(LAST)[0], 0)));
+    refade($('#f5Title'), animate);
+    keyItems($('#f5Keys'), t.f5.keys.map((k, i) => ['bar', CH_COL()[i], k]));
+    $('#f5Table').replaceChildren(srTable(t.f5.sub, [KO() ? '주' : 'Week', ...t.f5.keys], S().channels.map((c, i) => [weekRange(i), ...shares(i).map(v => pct(v))])));
+    drawMix(animate);
+  }
+  function drawMix(animate) {
+    const box = $('#f5Plot'), host = $('#f5'), W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
+    if (!W || !H) return;
+    box._w = W; box._h = H;
+    const t = L(), s = S(), f = fam(box), n = NW, last = LAST, gapPx = 2;
+    const lastSh = shares(last), labs = lastSh.map(v => pct(v, 0));
+    const L0 = Math.ceil(textW('100%', `400 12px ${f}`)) + 10, R0 = Math.ceil(Math.max(...labs.map(x => textW(x, `700 12px ${f}`)))) + 14, T0 = 8, B0 = 28;
+    const band = (W - L0 - R0) / n, bw = Math.min(24, band * .62);
+    const X = i => L0 + band * i + (band - bw) / 2, Y = v => H - B0 - v / 100 * (H - B0 - T0);
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.f5.aria });
+    const ticks = weekTicks([0, 4, 8, last], i => i === 0 ? X(i) : X(i) + bw / 2, f);
+    const hl = sv('rect', { y: T0 - 4, height: H - B0 - T0 + 4, rx: 4, fill: '#262626', style: { opacity: 0 } });
+    svg.append(hl);
+    for (const v of [0, 25, 50, 75, 100]) {
+      const y = Math.round(Y(v)) + .5;
+      svg.append(v === 0 ? baseLine(L0 - 2, W - R0 + 2, y) : gridLine(L0 - 2, W - R0 + 2, y));
+      svg.append(sv('text', { x: L0 - 8, y, dy: '.35em', 'text-anchor': 'end', class: 'ax', text: v + '%' }));
+    }
+    for (let i = 0; i < n; i++) {
+      const sh = shares(i);
+      let acc = 0;
+      const g = sv('g', { class: animOK(animate) ? 'grow' : null, style: animOK(animate) ? { animationDelay: (i * 25) + 'ms' } : null });
+      sh.forEach((v, k) => {
+        const yTop = Y(acc + v), yBot = Y(acc), hgt = Math.max(0, yBot - yTop - (k < 2 ? gapPx : 0));
+        if (v > 0) g.append(k === 2 ? sv('path', { d: topRound(X(i), yTop, bw, yBot - yTop, 2), fill: CH_COL()[k] }) : sv('rect', { x: X(i), y: yTop + gapPx, width: bw, height: hgt, fill: CH_COL()[k] }));
+        acc += v;
+      });
+      svg.append(g);
+      if (ticks.includes(i)) svg.append(sv('text', { x: i === 0 ? X(i) : X(i) + bw / 2, y: H - 8, 'text-anchor': i === 0 ? 'start' : 'middle', class: 'ax', style: i === last ? { fill: C.ink } : null, text: dShort(wkDate(i)) }));
+    }
+    let acc = 0;
+    const mids = lastSh.map(v => { const m = Y(acc + v / 2); acc += v; return m; });
+    for (let k = 1; k < 3; k++) if (mids[k - 1] - mids[k] < 15) mids[k] = mids[k - 1] - 15;
+    lastSh.forEach((v, k) => { if (v > 0) svg.append(sv('text', { x: X(last) + bw + 8, y: mids[k], dy: '.35em', class: 'halo', style: { fontSize: '12px', fontWeight: 700 }, fill: CH_TXT()[k], text: labs[k] })); });
+    svg.append(sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+    const show = i => {
+      if (i == null) { hl.style.opacity = 0; hideTip(host); return; }
+      F5.cur = i;
+      setAttrs(hl, { x: X(i) - 5, width: bw + 10 }); hl.style.opacity = 1;
+      const o = offsetIn(host, svg), c = s.channels[i], sh = shares(i);
+      placeTip(host, tipNodes(weekRange(i), t.f5.keys.map((k, j) => ({ key: CH_COL()[j], value: pct(sh[j]), label: `${k} · ${full(c[j])}` }))), o.x + X(i) + bw / 2, o.y + T0, o.y + H - B0);
+    };
+    const idxAt = px => Math.max(0, Math.min(last, Math.floor((px - L0) / band)));
+    svg.addEventListener('pointermove', e => { const r = svg.getBoundingClientRect(); show(idxAt(e.clientX - r.left)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(null); });
+    svg.addEventListener('focus', () => show(F5.cur));
+    svg.addEventListener('blur', () => show(null));
+    svg.addEventListener('keydown', e => { const i = keyStep(e, F5.cur, n); if (i === null) return; if (i < 0) { show(null); return; } show(i); const sh = shares(i); say(`${weekRange(i)}: ${t.f5.keys.map((k, j) => `${k} ${pct(sh[j])}`).join(', ')}`); });
+  }
+
+  /* ================= 표 1: 모든 공연(Tudum Top 10 표). 처음엔 Top 10, 아래 단추로 모두 ================= */
+  function renderTable(animate) {
+    const t = L(), s = S(), rows = s.prods, n = rows.length, fullRows = rows.filter(p => p.t / p.cap >= .95).length;
+    $('#t1Title').textContent = glue(t.t1.title({ n, full: fullRows }));
+    refade($('#t1Title'), animate);
+    const cityCol = state.scope === 'all';
+    const shown = state.allRows ? rows : rows.slice(0, 10);
+    const hd = (label, cls) => h('th', { scope: 'col', class: cls || null, text: label });
+    const fbar = st => h('span', { class: 'fbar' }, h('span', { class: 'pg', style: { '--pg': st >= 95 ? C.subject : '#b3b3b3' } }, h('i', { style: { width: Math.min(100, st) + '%' } })), h('span', { class: st >= 95 ? 'hot' : null, text: pct(st) }));
+    const table = h('table', { class: 'tbl' + (n > 10 ? ' capped' : '') },
+      h('thead', null, h('tr', null, hd(t.t1.cols[0], 'rkc'), hd(t.t1.cols[1]), hd(t.t1.cols[2], 'c-genre'), cityCol ? hd(t.t1.cols[3], 'c-city') : null, hd(t.t1.cols[4], 'num c-wk'), hd(t.t1.cols[5], 'num'), hd(t.t1.cols[6], 'num c-ly'), hd(t.t1.cols[7], 'num c-gross'), hd(t.t1.cols[8]), hd(t.t1.cols[9], 'num c-run'), hd(t.t1.cols[10], 'c-rate'))),
+      h('tbody', null, shown.map((p, i) => {
+        const ch = p.t0 ? (p.t / p.t0 - 1) * 100 : null, st = p.t / p.cap * 100;
+        return h('tr', animOK(animate) ? { class: 'fade', style: { animationDelay: (i * 25) + 'ms' } } : null,
+          h('td', { class: 'rkc', text: String(i + 1).padStart(2, '0') }),
+          h('th', { scope: 'row' }, h('span', { class: 'sh-t' }, h('span', { class: 'thumb', style: tileVars(p.id), 'aria-hidden': 'true' }), title(p.id), p.wk === 1 && i < 10 ? h('span', { class: 'newb', text: t.t1.newb }) : null)),
+          h('td', { class: 'c-genre', text: genre(p.id) }),
+          cityCol ? h('td', { class: 'c-city', text: p.cities.map(cityName).join(', ') }) : null,
+          h('td', { class: 'num c-wk' + (p.wk ? ' wkc' : ' na'), text: p.wk ? t.t1.wk(p.wk) : '—' }),
+          h('td', { class: 'num', text: full(p.t) }),
+          h('td', { class: 'num c-ly ' + (ch == null ? 'na' : ch >= 0 ? 'good' : 'bad'), text: ch == null ? '—' : signed(ch) + '%' }),
+          h('td', { class: 'num c-gross', text: moneyBig(p.g) }),
+          h('td', null, fbar(st)),
+          h('td', { class: 'num c-run', text: runtime(P(p.id).run) }),
+          h('td', { class: 'c-rate' }, h('span', { class: 'rbox', text: rating(p.id) })));
+      })));
+    const more = h('button', { type: 'button', 'aria-expanded': state.allRows ? 'true' : 'false', 'aria-controls': 't1Body' }, icon('down'), state.allRows ? t.t1.less : t.t1.more(n));
+    more.addEventListener('click', () => { state.allRows = !state.allRows; renderTable(false); $('#t1Body .more button').focus(); });
+    $('#t1Body').replaceChildren(h('div', { class: 'tw' }, table), n > 10 ? h('div', { class: 'more' }, more) : null);
+  }
+
+  /* ================= 만드는 법: 프로젝트 폴더 · 그림 2와 점검 · 코드 ================= */
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-2.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  function codeLines(kind) {
+    const ko = KO(), city = { all: 'all', la: 'Los Angeles', ny: 'New York', chi: 'Chicago' }[state.scope], ttl = L().f2.title(beatWeeks()), note = L().f2.note.split(/(?<=\.)\s/)[0];
+    const c = ko ? { head: '그림 2 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 필터 줄', s1: '1 · 틀: 가는 격자, 주, 기준선', s2: '2 · 비교를 먼저: 지난해, 회색 점선', s3: '3 · 주인공: 올해, 빨강 실선', s4: '4 · 범례 대신 선 끝에 라벨', s5: '5 · 제목은 결과를 말한다', once: '처음 한 번: netflix.tps를 Preferences.tps에' }
+      : { head: 'Figure 2 · drawn by an agent from DASHBOARD.md', filter: 'the filter row above', s1: '1 · frame: thin grid, weeks, the base line', s2: '2 · comparison first: last year, dashed gray', s3: '3 · the subject: this year, solid red', s4: '4 · label the line ends instead of a legend', s5: '5 · the title states the finding', once: 'once: paste netflix.tps into Preferences.tps' };
+    const q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(14) + v;
+    const J = {
+      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '주간 티켓 판매 대시보드를 만들어 줘. 이번 주(빌보드와 핵심 수치, Top 10, 주별 티켓, Top 10 주 수)와 다가오는 공연(빠르게 팔리는 회차, 구매 경로, 모든 공연 표) 두 부분으로, 도시 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 2부터 tickets.csv의 city "${city}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
+        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build our weekly ticket sales dashboard: this week (the billboard with key figures, the Top 10, tickets by week, weeks in the Top 10) and coming up (performances selling fast, where people buy, a table of every show), with one city filter for every view.'], [0, ''], [0, `Start with Figure 2 from tickets.csv for city "${city}".`], [0, 'Before you finish, run the checks in DASHBOARD.md and list what passed and what to fix.']],
+      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 이번 주 · 그림 3개'], [0, kv('빌보드', '1위 줄, 결과 문장, 단추 둘, 숫자 넷')], [0, kv('그림 1', 'Top 10 · 외곽선 숫자 + 세로 타일')], [0, kv('그림 2', '주별 티켓 · 지난해 점선과 선 비교')], [0, kv('그림 3', 'Top 10 주 수 · 순위 격자, 1위만 빨강')], [0, ''], [0, '# 다가오는 공연 · 그림 2개와 표'], [0, kv('그림 4', '빠르게 팔리는 회차 · 에피소드 목록 + 진행 막대')], [0, kv('그림 5', '구매 경로 · 주별 100% 누적 막대')], [0, kv('표 1', '모든 공연 · Top 10 표, 모두 보기')], [0, ''], [0, '# 도시 필터 하나를 모든 그림에, 한 화면 묶음은 7개 이하']]
+        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# This week · 3 views'], [0, kv('Billboard', '#1 line, the finding, two buttons, 4 numbers')], [0, kv('Figure 1', 'Top 10 · outlined numerals + portrait tiles')], [0, kv('Figure 2', 'tickets by week · line against last year')], [0, kv('Figure 3', 'weeks in Top 10 · rank grid, #1 in red')], [0, ''], [0, '# Coming up · 2 views and a table'], [0, kv('Figure 4', 'selling fast · episode list + progress bars')], [0, kv('Figure 5', 'where people buy · 100% stacked bars')], [0, kv('Table 1', 'every show · Top 10 table, show all')], [0, ''], [0, '# One city filter for every view; at most 7 per screen']],
+      js: [
+        [0, `// ${c.head}`], [0, 'import { tokens, fmt, plot, load } from "./dashboard.js";'],
+        [0, `const city = ${q(city)};${' '.repeat(Math.max(1, 14 - city.length))}// ${c.filter}`], [0, 'const rows = await load("tickets.csv", { city });'], [0, ''],
+        [1, `// ${c.s1}`], [1, 'const fig = plot("#figure-2", { surface: tokens.colors.card,'], [1, '  grid: { stroke: tokens.colors.line },       // #2d2d2d'], [1, '  y: { ticks: 4, format: fmt.compact } });'], [1, ''],
+        [2, `// ${c.s2}`], [2, 'fig.line(rows, { y: "tickets_last_year", dash: [6, 4],'], [2, '  stroke: tokens.data.comparison, width: 2 }); // #808080'], [2, ''],
+        [3, `// ${c.s3}`], [3, 'fig.line(rows, { y: "tickets", marker: "last",'], [3, '  stroke: tokens.data.subject, width: 2.5 });  // #f0313b'], [3, ''],
+        [4, `// ${c.s4}`], [4, 'fig.endLabels({ name: true, value: fmt.compact });'], [4, ''],
+        [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.note(${q(note)});`]
+      ],
+      tab: ko ? [
+        [0, '# Tableau · 그림 2 · Netflix 스타일'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('워크시트 음영', '#161616')], [1, kv('격자선', '행, 실선, #2d2d2d')], [1, kv('축 눈금', 'Tableau Book 9, #808080')], [1, ''],
+        [2, '# 2 · 비교: tickets_last_year'], [2, kv('색상', '#808080')], [2, kv('선 패턴', '파선')], [2, ''],
+        [3, '# 3 · 주인공: tickets'], [3, kv('색상', '#f0313b')], [3, kv('크기', '3단계, 마지막 점에만 마커')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('마크 레이블', '선 끝, 글자 #ff5a63')], [4, kv('범례', '숨기기')], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('캡션', q(note))]
+      ] : [
+        [0, '# Tableau · Figure 2 · Netflix style'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('Shading', '#161616')], [1, kv('Grid lines', 'rows, solid, #2d2d2d')], [1, kv('Axis ticks', 'Tableau Book 9, #808080')], [1, ''],
+        [2, '# 2 · comparison: tickets_last_year'], [2, kv('Color', '#808080')], [2, kv('Line pattern', 'dashed')], [2, ''],
+        [3, '# 3 · subject: tickets'], [3, kv('Color', '#f0313b')], [3, kv('Size', '3rd step, marker on last point')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('Mark labels', 'line ends, text #ff5a63')], [4, kv('Legend', 'hide')], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Caption', q(note))]
+      ],
+      pbi: [
+        [0, ko ? '// Power BI · 그림 2 · Netflix 스타일' : '// Power BI · Figure 2 · Netflix style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
+        [1, `// ${c.s1}`], [1, '"valueAxis": { "gridlineColor": "#2d2d2d", "gridlineStyle": "solid" },'], [1, '"plotArea": { "color": "#161616" },'], [1, ''],
+        [2, ko ? '// 2 · 비교: tickets_last_year' : '// 2 · comparison: tickets_last_year'], [2, ko ? '선 → tickets_last_year → 색 #808080, 파선' : 'Lines → tickets_last_year → #808080, dashed'], [2, ''],
+        [3, ko ? '// 3 · 주인공: tickets' : '// 3 · subject: tickets'], [3, ko ? '선 → tickets → 색 #f0313b, 너비 3' : 'Lines → tickets → #f0313b, width 3'], [3, ''],
+        [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 마지막 점 · 범례 → 끔' : 'Data labels → last point · Legend → off'], [4, ''],
+        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(note)}`]
+      ]
+    };
+    return J[kind];
+  }
+  const KW = { js: 'import|from|const|let|await|async|return|new|true|false' };
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const hexify = s => s.replace(/#[0-9a-fA-F]{6}\b/g, m => `<span class="tk-hex" style="--sw:${m}">${m}</span>`);
+  function commentAt(text, kind) {
+    let q = null;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (q) { if (ch === '\\') { i++; continue; } if (ch === q) q = null; continue; }
+      if (ch === '"' || ch === "'" || ch === '`') { q = ch; continue; }
+      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
+      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+    }
+    return -1;
+  }
+  function highlight(text, kind) {
+    if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
+    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? esc(m[2]) : highlightCode(m[2], kind)}`; }
+    return highlightCode(text, kind);
+  }
+  function highlightCode(text, kind) {
+    const ci = commentAt(text, kind), code = ci < 0 ? text : text.slice(0, ci), comment = ci < 0 ? '' : text.slice(ci), kw = KW[kind];
+    const re = new RegExp('("(?:[^"\\\\]|\\\\.)*"|\'(?:[^\'\\\\]|\\\\.)*\')|(#[0-9a-fA-F]{6}\\b)|(\\b\\d+(?:\\.\\d+)?\\b)' + (kw ? `|\\b(${kw})\\b` : '|(?!x)x()') + '|([A-Za-z_][\\w.]*)(?=\\s*\\()|(\\b[A-Za-z_]\\w*)(?=\\s*:(?!:))', 'g');
+    let out = '', last = 0, m;
+    while ((m = re.exec(code))) {
+      out += esc(code.slice(last, m.index));
+      const [all, str, hex, num, k, fn, prop] = m;
+      if (str) out += /^\s*:/.test(code.slice(m.index + all.length)) ? `<span class="tk-p">${esc(str)}</span>` : `<span class="tk-s">${hexify(esc(str))}</span>`;
+      else if (hex) out += hexify(hex);
+      else if (num) out += `<span class="tk-n">${num}</span>`;
+      else if (k) out += `<span class="tk-k">${k}</span>`;
+      else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
+      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else out += esc(all);
+      last = m.index + all.length;
+    }
+    out += esc(code.slice(last));
+    if (comment) out += `<span class="tk-c">${hexify(esc(comment))}</span>`;
+    return out;
+  }
+  function renderBuildStatic() {
+    const t = L();
+    $('#steps').replaceChildren(...t.build.steps.map(([b, p], i) => h('li', null, h('span', { class: 'sn', 'aria-hidden': 'true', text: String(i + 1) }), h('b', { text: b }), h('p', { text: p }))));
+    const fileIcon = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.2, 'aria-hidden': 'true' }, sv('path', { d: 'M3.5 1.5h4.6L11 4.4v7.1a1 1 0 0 1-1 1H3.5a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1z' }), sv('path', { d: 'M8 1.5v3h3' }));
+    const dirIcon = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.2, 'aria-hidden': 'true' }, sv('path', { d: 'M1.5 3.5a1 1 0 0 1 1-1h3l1.2 1.4h4.8a1 1 0 0 1 1 1v6.1a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1z' }));
+    // 설치하면 놓이는 자리 그대로 보여 준다. 파일은 이 폴더의 원본을 연다(스킬 파일은 skill/SKILL.md)
+    const item = (name, href, opt = {}) => {
+      const inner = [opt.dir ? dirIcon() : fileIcon(), h('div', null, h('b', { text: name }), t.build.files[name] ? h('span', { text: t.build.files[name] }) : null)];
+      const el = href ? h('a', { href, target: opt.dl ? null : '_blank', rel: opt.dl ? null : 'noopener', download: opt.dl ? name : null }, inner) : h('div', { class: 'fi' }, inner);
+      return h('li', { class: [opt.cls, opt.root ? 'root' : null].filter(Boolean).join(' ') || null }, el);
+    };
+    $('#tree').replaceChildren(
+      item('your-project/', null, { dir: 1, root: 1 }),
+      item('DASHBOARD.md', 'DASHBOARD.html', { cls: 'in' }),
+      item('.claude/skills/', null, { dir: 1, cls: 'in' }), item('dashboard-style/', null, { dir: 1, cls: 'in2' }),
+      item('SKILL.md', 'skill/SKILL.html', { cls: 'in3' }), item('tokens.css', 'tokens.css', { cls: 'in3' }),
+      item('netflix.tps', 'netflix.tps', { cls: 'in3', dl: 1 }), item('powerbi-theme.json', 'powerbi-theme.json', { cls: 'in3', dl: 1 }),
+      item('prompt.md', 'prompt.html', { cls: 'in3' }));
+    $('#modeSeg').replaceChildren(...t.build.modes.map((x, i) => {
+      const k = i ? 'with' : 'without';
+      const b = h('button', { type: 'button', role: 'tab', 'aria-selected': state.mode === k ? 'true' : 'false', tabindex: state.mode === k ? 0 : -1, text: x });
+      b.addEventListener('click', () => setMode(k));
+      return b;
+    }));
+    $('#modeSeg').setAttribute('aria-label', KO() ? '비교' : 'Compare');
+  }
+  const BENCH = { built: true, playing: false, token: 0 };
+  function setMode(k) {
+    if (state.mode === k) return;
+    if (BENCH.playing) finishBench();
+    state.mode = k; renderBuildStatic(); renderBench();
+  }
+  function setCode(k) {
+    if (state.code === k) return;
+    if (BENCH.playing) finishBench();
+    state.code = k; renderCodeTabs(); renderCode();
+  }
+  function renderCodeTabs() {
+    $('#ctabs').replaceChildren(...CODE_TABS.map(([k, label]) => {
+      const b = h('button', { type: 'button', class: 'ctab', role: 'tab', 'aria-selected': state.code === k ? 'true' : 'false', tabindex: state.code === k ? 0 : -1, text: label || (KO() ? '프롬프트' : 'Prompt') });
+      b.addEventListener('click', () => setCode(k));
+      return b;
+    }));
+  }
+  function renderCode() {
+    const lines = codeLines(state.code), pre = $('#code');
+    pre.classList.toggle('wrap', state.code === 'prompt');
+    pre.replaceChildren(...lines.map(([step, text]) => {
+      const ln = h('span', { class: 'ln' + (BENCH.built ? ' shown' : ''), 'data-step': step, html: highlight(text, state.code) || ' ' });
+      if (step) { ln.addEventListener('mouseenter', () => focusStep(step)); ln.addEventListener('mouseleave', () => focusStep(0)); }
+      return ln;
+    }));
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), BENCH.built ? L().build.built : L().build.drawing);
+    $('#cstatR').textContent = L().build.lines(lines.length);
+  }
+  function focusStep(step) {
+    const win = $('#win'), on = step > 0 && BENCH.built && state.mode === 'with';
+    $$('.code .ln', win).forEach(ln => ln.classList.toggle('hl', step > 0 && Number(ln.dataset.step) === step));
+    win.classList.toggle('focus-step', on);
+    $$('.layer', win).forEach(el => el.classList.toggle('focus', Number(el.dataset.step) === step));
+  }
+  function renderBench() {
+    const t = L(), without = state.mode === 'without';
+    $('#wbScope').textContent = `city = ${{ all: 'all', la: 'Los Angeles', ny: 'New York', chi: 'Chicago' }[state.scope]}`;
+    $('#wbTitle').textContent = glue(without ? t.f2.generic : t.f2.title(beatWeeks()));
+    $('#wbNote').textContent = without ? t.build.generated : glue(t.f2.note.split(/(?<=\.)\s/)[0]);
+    const ok = $('#checksOk'); ok.textContent = without ? t.build.checksBad : t.build.checksOk; ok.classList.toggle('bad', without);
+    const ic = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' },
+      sv('circle', { cx: 7, cy: 7, r: 6.2, 'stroke-width': 1.2 }), sv('path', { d: without ? 'M4.8 4.8l4.4 4.4M9.2 4.8l-4.4 4.4' : 'M4.3 7.2 6.2 9l3.5-3.8' }));
+    $('#checks').replaceChildren(...t.build.checks.map(([step, txt]) => h('li', { class: 'layer' + (without ? ' no' : ''), 'data-step': step }, ic(),
+      h('span', null, txt.split(/(#[0-9a-f]{6})/).map(part => /^#[0-9a-f]{6}$/.test(part) ? h('code', { class: 'tk-hex', style: { '--sw': part }, text: part }) : part)))));
+    $('#win').classList.toggle('without', without);
+    renderCodeTabs(); renderCode();
+    drawTrend('#wbPlot', '.figpane', { key: 'wb', layers: true, mode: state.mode, bg: C.plot });
+    if (BENCH.playing) playBench();   // 치는 중에 필터나 언어가 바뀌면 새 값으로 다시 친다
+  }
+  function flashScope() {
+    const lines = $$('.code .ln').filter(ln => ln.dataset.step === '0' && /city/.test(ln.textContent));
+    lines.forEach(ln => ln.classList.add('hl'));
+    setTimeout(() => lines.forEach(ln => ln.classList.remove('hl')), 1400);
+  }
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  async function playBench() {
+    const win = $('#win'), pre = $('#code'), token = ++BENCH.token;
+    if (REDUCE) { finishBench(); return; }
+    if (state.mode !== 'with') { state.mode = 'with'; renderBuildStatic(); }
+    BENCH.built = false; BENCH.playing = false;   // 아래 renderBench가 타이핑을 다시 부르지 않게
+    win.classList.add('building');
+    renderBench();
+    BENCH.playing = true;
+    pre.scrollTop = 0;
+    $$('.layer', win).forEach(el => el.classList.remove('on'));
+    const lines = $$('.code .ln', win);
+    let prevStep = 0;
+    for (const ln of lines) {
+      if (token !== BENCH.token) return;
+      const step = Number(ln.dataset.step);
+      if (step !== prevStep && prevStep > 0) { revealStep(prevStep); await sleep(380); if (token !== BENCH.token) return; }
+      prevStep = step;
+      lines.forEach(x => x.classList.remove('caret'));
+      ln.classList.add('shown', 'caret');
+      const bottom = ln.offsetTop + ln.offsetHeight + 12;   // 치는 줄이 늘 보이게 코드 창만 스크롤한다
+      if (bottom > pre.scrollTop + pre.clientHeight) pre.scrollTop = bottom - pre.clientHeight;
+      await sleep(ln.textContent.trim() ? 55 : 20);
+    }
+    if (token !== BENCH.token) return;
+    revealStep(prevStep);
+    await sleep(500);
+    if (token !== BENCH.token) return;
+    lines.forEach(x => x.classList.remove('caret'));
+    BENCH.built = true; BENCH.playing = false;
+    win.classList.remove('building');
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), L().build.built);
+  }
+  function finishBench() {
+    BENCH.token++; BENCH.playing = false; BENCH.built = true;
+    $('#win').classList.remove('building');
+    renderCode();
+    $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+  }
+  function revealStep(step) {
+    $$(`.layer[data-step="${step}"]`, $('#win')).forEach(el => el.classList.add('on'));
+    if (step === 3 && !REDUCE) { const p = $('#wbPlot')._subj; if (p) { p.setAttribute('pathLength', 1); p.classList.remove('draw'); void p.getBoundingClientRect(); p.classList.add('draw'); } }
+  }
+  $('#btnRun').addEventListener('click', () => playBench());
+  $$('.btnCmd').forEach(b => b.addEventListener('click', async () => { await copyText(b.previousElementSibling.textContent); toast(L().build.cmdCopied); }));
+  // 상자보다 긴 명령은 옆으로 스크롤한다. 끝이 보일 때까지 오른쪽을 흐리게 해서 더 있음을 알린다
+  const cmdFade = () => $$('.cmd code').forEach(c => {
+    const ov = c.scrollWidth > c.clientWidth + 1;
+    c.classList.toggle('more-r', ov && c.scrollLeft + c.clientWidth < c.scrollWidth - 2);
+    if (ov) c.setAttribute('tabindex', '0'); else c.removeAttribute('tabindex');
+  });
+  $$('.cmd code').forEach(c => c.addEventListener('scroll', cmdFade, { passive: true }));
+  addEventListener('resize', cmdFade);
+  if (document.fonts) document.fonts.ready.then(cmdFade);
+  cmdFade();
+  $('#btnCopyCode').addEventListener('click', async () => { await copyText(codeLines(state.code).map(l => l[1]).join('\n')); toast(L().build.copied); });
+
+  /* ================= 방법과 출처: FAQ 아코디언(한 번에 하나만 펼친다) ================= */
+  function renderFaq() {
+    const t = L();
+    $('#faq').replaceChildren(...t.notes.items.map(([q, a], i) => {
+      const open = state.faq === i;
+      const btn = h('button', { type: 'button', id: 'faq-q' + i, 'aria-expanded': open ? 'true' : 'false', 'aria-controls': 'faq-a' + i }, h('span', { text: q }), icon('plus'));
+      btn.addEventListener('click', () => { state.faq = state.faq === i ? -1 : i; renderFaq(); $('#faq-q' + i).focus(); });
+      return h('li', null, h('h3', null, btn), h('div', { class: 'ans', id: 'faq-a' + i, role: 'region', 'aria-labelledby': 'faq-q' + i, hidden: open ? null : 'hidden', text: a }));
+    }));
+  }
+
+  /* ================= 마크다운으로 복사 · PDF ================= */
+  function toMarkdown() {
+    const t = L(), s = S(), lines = [];
+    lines.push(`# ${t.md.title}`, '', `**${$('#headline').textContent}**`, '', `> ${$('#lede').textContent}`, '', `## ${t.md.kpis} · ${t.scopes[state.scope]}`, '');
+    $$('#kpis .kpi').forEach(k => lines.push(`- ${$('.k', k).textContent}: ${$('.v', k).textContent} (${$('.d', k).textContent})`));
+    lines.push('', `## ${t.md.figs}`, '');
+    ['#f1', '#f2', '#f3', '#f4', '#f5', '#t1'].forEach(id => {
+      const card = $(id), label = $('.fl', card).textContent, ttl = $('.ct', card).textContent;
+      lines.push(`### ${label}`, '', `**${ttl}**`, '');
+      if (id === '#f1') { s.prods.slice(0, 10).forEach((p, i) => lines.push(`${i + 1}. ${title(p.id)}: ${full(p.t)} (${p.wk === 1 ? t.f1.first : t.f1.weeks(p.wk)})`)); lines.push(''); }
+      if (id === '#f4') { f4Rows().forEach((r, i) => lines.push(`${i + 1}. ${title(r.id)} · ${dayLong(r.d)} ${timeText(r.hr)} · ${cityName(r.c)}: ${r.out ? t.f4.soldOut : pct(r.sold / r.cap * 100)}`)); lines.push(''); }
+      if (id === '#t1') {
+        lines.push(`| ${t.t1.cols.filter((x, i) => i !== 3 || state.scope === 'all').join(' | ')} |`, '|' + t.t1.cols.filter((x, i) => i !== 3 || state.scope === 'all').map((x, i) => i >= 4 && i <= 9 ? '---:' : '---').join('|') + '|');
+        s.prods.forEach((p, i) => {
+          const ch = p.t0 ? signed((p.t / p.t0 - 1) * 100) + '%' : '—';
+          lines.push(`| ${i + 1} | ${title(p.id)} | ${genre(p.id)} | ${state.scope === 'all' ? p.cities.map(cityName).join(', ') + ' | ' : ''}${p.wk || '—'} | ${full(p.t)} | ${ch} | ${moneyBig(p.g)} | ${pct(p.t / p.cap * 100)} | ${runtime(P(p.id).run)} | ${rating(p.id)} |`);
+        });
+        lines.push('');
+      }
+      const note = $('.cf', card).textContent;
+      if (note) lines.push(note, '');
+    });
+    lines.push(`## ${t.notes.t}`, '');
+    t.notes.items.forEach(([q, a]) => lines.push(`**${q}** ${a}`, ''));
+    lines.push(t.notes.src, '', t.note, t.notice, '');
+    return lines.join('\n').replace(/⁠/g, '');
+  }
+  async function copyText(txt) {
+    try { await navigator.clipboard.writeText(txt); } catch (e) { const ta = h('textarea', { class: 'sr-only', text: txt }); document.body.append(ta); ta.select(); try { document.execCommand('copy'); } catch (_) {} ta.remove(); }
+  }
+  let toastTimer = null;
+  function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('on'), 2200); }
+  $('#btnMd').addEventListener('click', async () => { await copyText(toMarkdown()); toast(L().copied); });
+  $('#btnPdf').addEventListener('click', () => window.print());
+
+  /* ================= 필터(도시 칩) ================= */
+  const tabsEl = $('#tabs');
+  for (const k of SCOPES) { const b = h('button', { type: 'button', id: 'tab-' + k, role: 'tab', 'aria-controls': 'panel', 'data-k': k }); b.addEventListener('click', () => select(k)); tabsEl.append(b); }
+  const arrowNav = (el, keys, cur, go) => el.addEventListener('keydown', e => {
+    const idx = keys.indexOf(cur()), next = { ArrowRight: idx + 1, ArrowLeft: idx - 1, Home: 0, End: keys.length - 1 }[e.key];
+    if (next == null) return;
+    e.preventDefault(); go(keys[(next + keys.length) % keys.length]);
+  });
+  arrowNav(tabsEl, SCOPES, () => state.scope, k => { select(k); $('#tab-' + k).focus(); });
+  arrowNav($('#ctabs'), CODE_TABS.map(x => x[0]), () => state.code, k => { setCode(k); $$('.ctab')[CODE_TABS.findIndex(x => x[0] === k)].focus(); });
+  arrowNav($('#modeSeg'), ['without', 'with'], () => state.mode, k => { setMode(k); $$('#modeSeg button')[k === 'with' ? 1 : 0].focus(); });
+  function syncTabs() {
+    for (const b of $$('button', tabsEl)) { const on = b.dataset.k === state.scope; b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; }
+    $('#panel').setAttribute('aria-labelledby', 'tab-' + state.scope);
+  }
+
+  /* ================= 언어와 그리기 ================= */
+  function applyLang() {
+    const t = L();
+    document.documentElement.lang = state.lang;
+    document.title = t.docTitle;
+    for (const el of $$('[data-i18n]')) { const val = pick(t, el.dataset.i18n); if (typeof val === 'string') el.textContent = val; }
+    for (const b of $$('button', tabsEl)) b.textContent = t.scopes[b.dataset.k];
+    tabsEl.setAttribute('aria-label', t.tabsLabel);
+    for (const b of $$('#langSeg button')) b.setAttribute('aria-pressed', b.dataset.lang === state.lang ? 'true' : 'false');
+    $('#ctaLink').href = BLOG[state.lang] + 'contact-us/';
+    const md = $('#btnMd'); md.setAttribute('aria-label', t.copy); md.title = t.copy;
+    const cc = $('#btnCopyCode'); cc.setAttribute('aria-label', KO() ? '코드 복사' : 'Copy code'); cc.title = cc.getAttribute('aria-label');
+    $$('.btnCmd').forEach(cm => { cm.setAttribute('aria-label', KO() ? '설치 명령 복사' : 'Copy install command'); cm.title = cm.getAttribute('aria-label'); });
+    $('.foot .ser').href = 'https://styles.vizney.com/?lang=' + state.lang;
+    const back = $('#backLink');
+    back.textContent = FROM_BLOG ? L().back.post : L().back.catalog;
+    back.href = FROM_BLOG ? BLOG[state.lang] + 'style-' + SLUG + '/' : 'https://styles.vizney.com/?lang=' + state.lang;
+    renderBuildStatic(); renderFaq();
+  }
+  function renderAll(animate) {
+    renderHero(animate); renderF1(animate); renderF2(animate); renderF3(animate);
+    renderF4(animate); renderF5(animate); renderTable(animate); renderBench();
+  }
+  function keepInUrl() {
+    try {
+      const u = new URL(location.href);
+      u.searchParams.set('lang', state.lang);
+      if (state.scope === 'all') u.searchParams.delete('city'); else u.searchParams.set('city', state.scope);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* 주소를 못 바꾸는 환경에서는 화면만 바뀐다 */ }
+  }
+  function select(k) {
+    if (k === state.scope) return;
+    state.scope = k; state.allRows = false;
+    syncTabs(); renderAll(true); keepInUrl();
+    if (BENCH.built) flashScope();
+  }
+  for (const b of $$('#langSeg button')) b.addEventListener('click', () => { if (b.dataset.lang === state.lang) return; state.lang = b.dataset.lang; applyLang(); renderAll(false); keepInUrl(); });
+
+  syncTabs();
+  applyLang();
+  renderAll(true);
+  // 만드는 법: 처음 화면에 들어올 때 한 번, 코드를 한 줄씩 치며 그림 2를 다시 그린다
+  if (!REDUCE && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); playBench(); } }, { threshold: .35 });
+    io.observe($('#win'));
+  }
+  const redraws = [['#f2Plot', () => drawTrend('#f2Plot', '#f2', { key: 'f2' })], ['#f3Plot', () => drawGrid(false)], ['#f5Plot', () => drawMix(false)], ['#wbPlot', () => drawTrend('#wbPlot', '.figpane', { key: 'wb', layers: true, mode: state.mode, bg: C.plot })]];
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(entries => {
+      for (const en of entries) {
+        const r = redraws.find(x => $(x[0]) === en.target);
+        if (!r) continue;
+        const el = en.target;
+        if (Math.round(el.clientWidth) !== el._w || Math.round(el.clientHeight) !== el._h) r[1]();
+      }
+    });
+    redraws.forEach(([sel]) => ro.observe($(sel)));
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => redraws.forEach(r => r[1]()));
+})();
+</script>
+</body>
+</html>
