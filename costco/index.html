@@ -385,7 +385,7 @@
   /* 1200 아래: 영수증은 가격표 아래로 내려 전체 폭을 쓴다 */
   /* 900~1199: 결과 문장과 가격표는 전체 폭, 그 아래 그림 1(7)과 영수증(5)을 나란히. 영수증은 늘 좁게 둔다 */
   @media (max-width:1199px){
-    .top{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--gap)}
+    .top{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--gap);row-gap:0}
     .top-main{display:contents}
     .headline,.lede,.signs,.fn{grid-column:1/-1}
     .top-main .panel,.rcpt{margin-top:22px}
@@ -922,10 +922,11 @@
   const pct = (v, d = 1) => nf(v, d) + '%';
   const ptsTxt = (v, d = 1) => signed(v, d) + L().pts;
   const chg = (a, b) => (a / b - 1) * 100;
-  const koMan = n => { n = Math.round(n); if (Math.abs(n) < 1e4) return nf(n); const m = Math.floor(n / 1e4), r = n % 1e4; return `${nf(m)}만` + (r ? ` ${nf(r)}` : ''); };
+  // 만 단위와 나머지, 숫자와 단위는 줄이 갈라지지 않게 붙임 공백(U+00A0)으로 잇는다
+  const koMan = n => { n = Math.round(n); if (Math.abs(n) < 1e4) return nf(n); const m = Math.floor(n / 1e4), r = n % 1e4; return `${nf(m)}만` + (r ? `\u00a0${nf(r)}` : ''); };
   const count = n => KO() ? koMan(n) : nf(n);
-  const moneyM = v => KO() ? `${nf(Math.round(v / 1e4))}만 달러` : `$${nf(v / 1e6, 2)}M`;
-  const moneyWords = v => KO() ? `${nf(Math.round(v / 1e4))}만 달러` : `$${nf(v / 1e6, 2)} million`;
+  const moneyM = v => KO() ? `${nf(Math.round(v / 1e4))}만\u00a0달러` : `$${nf(v / 1e6, 2)}M`;
+  const moneyWords = v => KO() ? `${nf(Math.round(v / 1e4))}만\u00a0달러` : `$${nf(v / 1e6, 2)}\u00a0million`;
   const money = (v, d = 2) => KO() ? `${nf(v, d)}달러` : `$${nf(v, d)}`;
   const dollars = v => KO() ? `${koMan(v)}달러` : `$${nf(v)}`;
   const galM = v => KO() ? `${nf(v / 1e4, 1)}만 갤런` : `${nf(v / 1e6, 2)}M gallons`;
