@@ -16,12 +16,12 @@ file with fictional data, in English and Korean (?lang=en|ko, English by default
 Top: a black header with the period, the EN/KO toggle, an outlined Export PDF and a red Copy as Markdown; one row of
 outlined chips for <cities, regions or business units> that scopes every card, kept in the URL.
 Then the billboard: color-block key art in the rail gradient with a giant outlined numeral, the TOP 10 badge and
-"#1 this week · <item>", a black-weight headline that states the week's result, a two-sentence lede with the drivers, a
-white and a gray button, and four key figures on translucent tiles (label → value → signed change vs last week, colored
+"#1 this week · <item>", a bold headline that states the week's result, a two-sentence lede with the drivers, a
+red and a gray button, and four key figures on translucent tiles (label → value → signed change vs last week, colored
 by whether the change is good).
 Sections are rows with a 24px title; at most seven views per screen; every view on the same #161616 card with no border
 (figure label → finding title → subtitle → keys → view → "Note:"):
-- This week: the Top 10 row of <items> (outlined numerals behind portrait color-block tiles with the name set in type,
+- This week: the Top 10 rail of <items> (outlined numerals over the lower-left corners of color-block posters, names in type,
   full-digit values and weeks in the Top 10 under each tile, a red NEW ribbon for new entries); <measure> by week
   against last year (dashed gray, line ends labeled) beside weeks in the Top 10 as a grid of ranks with #1 in red.
 - Coming up: <upcoming items> as an episode list with the progress bar under each thumbnail (red only for the rows the
@@ -43,11 +43,11 @@ DASHBOARD.md를 읽고 그대로 따라 줘. <회사>의 주간 <판매·이용>
 맨 위에 기간, EN/KO 토글, 테두리만 있는 PDF로 내보내기, 빨간 마크다운으로 복사가 있는 검정 머리. 그 아래
 <도시·지역·사업부> 칩 한 줄이 모든 카드에 함께 적용되고 주소에도 남게 해 줘.
 이어서 빌보드: 레일 그라데이션 색 블록에 큰 외곽선 숫자를 얹은 키 아트, TOP 10 배지와 "이번 주 1위 · <항목>",
-이번 주 결과를 말하는 아주 굵은 제목, 원인을 말하는 두 문장, 흰 단추와 회색 단추, 반투명 타일의 핵심 수치 4개
+이번 주 결과를 말하는 굵은 제목, 원인을 말하는 두 문장, 빨간 단추와 회색 단추, 반투명 타일의 핵심 수치 4개
 (지표명 → 값 → 지난주 대비 증감, 증감 색은 그 지표에 좋은 변화인지로).
 절은 24px 제목의 줄로 열고, 한 화면의 그림은 7개 이하, 모든 그림은 테두리 없는 #161616 카드
 (그림 번호 → 결과를 말하는 제목 → 부제 → 범례 → 그림이나 표 → "주:")에 넣어 줘:
-- 이번 주: <항목> Top 10 줄(외곽선 숫자 뒤에 겹치는 세로 색 블록 타일, 이름은 글자로, 타일 아래 전체 자릿수 값과
+- 이번 주: <항목> Top 10 줄(색 블록 포스터의 왼쪽 아래를 덮는 외곽선 숫자, 이름은 글자로, 타일 아래 전체 자릿수 값과
   Top 10 주 수, 새로 든 항목엔 빨간 신규 띠), 지난해(회색 점선)와 비교한 주별 <지표> 선(선 끝 라벨),
   1위만 빨강인 Top 10 주 수 순위 격자.
 - 다가오는 것: 섬네일 아래 진행 막대가 있는 에피소드 목록 형식의 <다가오는 항목>(제목이 말하는 줄만 빨강),
@@ -69,10 +69,10 @@ Read DASHBOARD.md. Restyle the dashboard in <file> to match it without changing 
   figure label, a title that states the finding, a subtitle with the measure, keys only where labels cannot work, and a
   note that starts with "Note:";
 - the top to a billboard: color-block key art in the rail gradient, the TOP 10 badge line, a headline that states the
-  result, a lede, a white and a gray button, four key figures with signed, good/bad-colored changes;
+  result, a lede, a red and a gray button, four key figures with signed, good/bad-colored changes;
 - colors to the tokens: the subject #f0313b only where the title points, a second real category #6a88f2, the rest
   #595959 behind 2px gaps, last year dashed #808080; the UI red #e50914 only on buttons, badges and ribbons;
-- rankings to the Top 10 parts (outlined numerals and tiles, a grid of ranks, the Top 10 table with full-digit values)
+- rankings to the Top 10 parts (outlined numerals over posters, a grid of ranks, the Top 10 table with full-digit values)
   and shares of a whole to 4px progress bars; other charts to the form "Charts" picks for their question;
 - gridlines solid #2d2d2d on rows only, line ends labeled;
 - filters to one row of outlined chips above everything, the selected chip white;

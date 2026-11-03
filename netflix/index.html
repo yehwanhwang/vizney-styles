@@ -22,7 +22,7 @@
     --canvas:#000000; --card:#161616; --raise:#232323; --field:#2d2d2d; --hair:#414141; --line:#2d2d2d;
     --ink:#ffffff; --body:#e5e5e5; --text-2:#b3b3b3; --muted:#808080;
     --red:#e50914; --red-hover:#c11119; --focus:#ffffff;
-    --white-btn:#ffffff; --white-btn-hover:rgba(255,255,255,.75); --gray-btn:rgba(109,109,110,.7); --gray-btn-hover:rgba(109,109,110,.4);
+    --gray-btn:rgba(128,128,128,.4); --gray-btn-hover:rgba(128,128,128,.6);
     --subject:#f0313b; --subject-text:#ff5a63; --blue:#6a88f2; --blue-text:#8ea5f6; --other:#595959; --comparison:#808080;
     --good:#46d369; --bad:#e87c03;
     --rail-1:#192247; --rail-2:#210e17; --rail-3:#461518; --rail-4:#6f181d;
@@ -67,11 +67,11 @@
   .btn-red:hover{background:var(--red-hover)}
   .btn-ghost{background:rgba(0,0,0,.4);border-color:var(--muted);color:#fff}
   .btn-ghost:hover{border-color:#fff}
-  .btn-white{height:42px;padding:0 22px 0 18px;background:var(--white-btn);color:#000;font-size:16px;font-weight:700}
-  .btn-white:hover{background:var(--white-btn-hover)}
-  .btn-gray{height:42px;padding:0 22px 0 18px;background:var(--gray-btn);color:#fff;font-size:16px;font-weight:700}
+  /* 랜딩 실측: 빨간 시작하기 56px 24px/500 · 회색 자세히 알아보기 rgba(128,128,128,.4) 40px 16px/500 6px 16px. 대시보드는 40px 단계를 쓴다 */
+  .btn-lg{height:40px;padding:6px 16px;font-size:16px;font-weight:500}
+  .btn-lg .ico{width:18px;height:18px}
+  .btn-gray{background:var(--gray-btn);color:#fff}
   .btn-gray:hover{background:var(--gray-btn-hover)}
-  .btn-white .ico,.btn-gray .ico{width:20px;height:20px}
   .btn-sm{height:28px;padding:0 10px;font-size:13px;gap:6px}
   .btn-sm .ico{width:14px;height:14px}
   .btn-icon{width:28px;padding:0}
@@ -104,8 +104,8 @@
   .t10 b{font-size:14px;font-weight:900;letter-spacing:-.04em;margin-top:1px}
   .t10.sm{width:20px;height:20px}
   .t10.sm i{font-size:5px} .t10.sm b{font-size:10px}
-  .headline{margin-top:14px;font-size:clamp(30px,3.15vw,46px);font-weight:900;line-height:1.08;letter-spacing:-.015em;color:#fff;text-wrap:balance;text-shadow:0 2px 4px rgba(0,0,0,.45)}
-  html[lang="ko"] .headline{font-weight:800;line-height:1.24;letter-spacing:-.02em}
+  .headline{margin-top:14px;font-size:clamp(30px,3.3vw,48px);font-weight:700;line-height:1.16;letter-spacing:-.01em;color:#fff;text-wrap:balance;text-shadow:0 2px 4px rgba(0,0,0,.45)}
+  html[lang="ko"] .headline{line-height:1.28;letter-spacing:-.02em}
   .lede{margin-top:16px;max-width:40em;font-size:18px;line-height:1.45;color:#fff;text-wrap:pretty;text-shadow:0 1px 2px rgba(0,0,0,.45)}
   .bill-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
   .rate{position:absolute;right:0;top:46px;display:flex;align-items:center;height:36px;padding:0 48px 0 12px;border-left:3px solid #dcdcdc;background:rgba(51,51,51,.6);font-size:15px;font-weight:500;color:#fff;white-space:nowrap}
@@ -122,7 +122,7 @@
 
   /* ---------- 절 머리: 랜딩의 절 제목(24px) + 회색 한 줄 ---------- */
   .sh{margin-top:var(--sec);scroll-margin-top:12px}
-  .sh h2{font-size:24px;font-weight:700;line-height:1.25;color:#fff}
+  .sh h2{font-size:24px;font-weight:500;line-height:1.45;color:#fff}
   .sh p{margin-top:4px;font-size:16px;line-height:1.5;color:var(--text-2)}
 
   /* ---------- 카드: 모든 그림과 표가 같은 카드, 같은 해부를 쓴다 ----------
@@ -134,7 +134,7 @@
   .ch{display:flex;flex-direction:column;padding-bottom:16px;min-width:0}
   .fl{display:block;margin-bottom:8px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);white-space:nowrap}
   html[lang="ko"] .fl{letter-spacing:.02em;font-size:13px}
-  .ct{font-size:20px;font-weight:700;line-height:1.3;color:#fff;text-wrap:balance}
+  .ct{font-size:20px;font-weight:500;line-height:1.35;color:#fff;text-wrap:balance}
   html[lang="ko"] .ct{line-height:1.42;letter-spacing:-.01em}
   .cs{margin-top:4px;font-size:14px;line-height:20px;color:var(--text-2);text-wrap:pretty}
   .cb{position:relative;display:flex;flex-direction:column;min-width:0}
@@ -153,19 +153,23 @@
 
   /* ---------- 그림 1: Top 10 줄. 외곽선 큰 숫자 위에 세로 타일이 겹친다(사진 대신 색 블록과 제목 글자) ---------- */
   .top10{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px var(--gap);margin:0;padding:0;list-style:none;outline-offset:6px;border-radius:4px}
-  .t10i{position:relative;display:grid;grid-template-columns:minmax(0,46fr) minmax(0,54fr);grid-template-rows:auto auto;align-items:end;cursor:default}
-  .rk{grid-row:1;grid-column:1;width:118%;height:auto;align-self:end;display:block;overflow:visible}
-  .rk text{font-family:var(--font);font-weight:900;fill:var(--card);stroke:var(--other);stroke-width:3px;paint-order:stroke;stroke-linejoin:round}
-  .tile{grid-row:1;grid-column:2;position:relative;z-index:1;aspect-ratio:2/3;border-radius:4px;overflow:hidden;background:linear-gradient(160deg,var(--t0) 0%,var(--t1) 100%);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+  /* 실측(netflix.com 지금 뜨는 콘텐츠): 포스터 #232323 · 모서리 8px · 5:7, 숫자 100px/700 · 채움 #414141 · 흰 4px 외곽선 · 그림자 0 0 24px rgba(0,0,0,.5).
+     숫자는 포스터 왼쪽 아래를 앞에서 덮는다(항목 왼쪽 여백 22px 안에서 시작해 포스터 안으로 40px쯤 들어온다) */
+  .t10i{position:relative;padding-left:12%;cursor:default}
+  .poster{position:relative}
+  .rk{position:absolute;z-index:2;left:-14%;bottom:4%;height:42%;width:auto;display:block;overflow:visible;filter:drop-shadow(0 0 12px rgba(0,0,0,.5))}
+  .rk text{font-family:var(--font);font-weight:700;fill:var(--hair);stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+  .tile{position:relative;z-index:1;aspect-ratio:5/7;border-radius:8px;overflow:hidden;background:linear-gradient(160deg,var(--t0) 0%,var(--t1) 100%);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
   .tile::before{content:"";position:absolute;inset:0;background:radial-gradient(130% 75% at 85% 8%,rgba(255,255,255,.10),rgba(255,255,255,0) 58%),linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.6) 100%)}
   .tile .tg{position:absolute;left:9px;top:9px;right:9px;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78)}
   html[lang="ko"] .tile .tg{letter-spacing:.04em;font-size:10px}
-  .tile .tt{position:absolute;left:9px;right:9px;bottom:10px;font-size:clamp(13px,1.28vw,18px);font-weight:900;line-height:1.04;letter-spacing:-.01em;color:#fff;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+  .tile .tt{position:absolute;left:28%;right:9px;bottom:12px;font-size:clamp(13px,1.28vw,18px);font-weight:900;line-height:1.04;letter-spacing:-.01em;color:#fff;text-wrap:balance;text-shadow:0 1px 3px rgba(0,0,0,.5)}
   html[lang="ko"] .tile .tt{font-weight:800;line-height:1.18}
-  .tile.new .tt{bottom:30px}
-  .rib{position:absolute;left:50%;bottom:0;transform:translateX(-50%);padding:3px 8px 2px;border-radius:2px 2px 0 0;background:var(--red);font-size:11px;font-weight:700;letter-spacing:.04em;color:#fff;white-space:nowrap}
+  .tile.new .tt{bottom:32px}
+  .tile.ten .tt,.tile.ten .rib{left:52%}
+  .rib{position:absolute;left:28%;bottom:0;padding:3px 8px 2px;border-radius:2px 2px 0 0;background:var(--red);font-size:11px;font-weight:700;letter-spacing:.04em;color:#fff;white-space:nowrap}
   .t10i.on .tile{box-shadow:0 0 0 2px #fff}
-  .t10cap{grid-row:2;grid-column:2;padding-top:8px;min-width:0}
+  .t10cap{padding-top:8px;min-width:0}
   .t10cap b{display:block;font-size:16px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
   .t10cap b span{margin-left:4px;font-size:12px;font-weight:400;color:var(--text-2)}
   .t10cap i{display:block;font-style:normal;font-size:12px;color:var(--muted);white-space:nowrap}
@@ -199,14 +203,16 @@
 
   /* ---------- 표 1: Tudum Top 10 표. 머리 회색 작은 대문자, 행 사이 1px #404040, 맨 앞 열은 큰 순위 숫자 ---------- */
   .tw{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#555 transparent}
-  .tbl{width:100%;border-collapse:collapse;font-size:14px;line-height:20px;font-variant-numeric:tabular-nums}
-  .tbl th,.tbl td{height:46px;padding:8px 10px;text-align:left;white-space:nowrap;vertical-align:middle;border-bottom:1px solid #404040;color:var(--body);font-weight:400}
-  .tbl thead th{height:36px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--hair)}
-  html[lang="ko"] .tbl thead th{font-size:13px;letter-spacing:0}
-  .tbl .num{text-align:right}
-  .tbl .rkc{width:44px;font-size:22px;font-weight:900;color:#fff;text-align:center}
-  .tbl tbody th{font-weight:700;color:#fff}
-  .tbl .sh-t{display:inline-flex;align-items:center;gap:8px}
+  .tbl{width:100%;border-collapse:collapse;font-size:16px;line-height:22px;font-variant-numeric:tabular-nums}
+  .tbl th,.tbl td{height:56px;padding:8px 10px;text-align:left;white-space:nowrap;vertical-align:middle;color:#fff;font-weight:400}
+  .tbl thead th{height:36px;padding-top:0;padding-bottom:4px;vertical-align:bottom;font-size:14px;font-weight:500;color:#fff}
+  .tbl .num{text-align:center}
+  .tbl .rkc{width:60px;padding-left:0;font-size:36px;font-weight:900;line-height:1.1;color:#fff;text-align:left;letter-spacing:-.01em}
+  .tbl thead .rkc{font-size:14px;font-weight:500;line-height:22px;letter-spacing:0}
+  .tbl .sh-t{vertical-align:middle}
+  .thumb{flex:none;width:64px;aspect-ratio:16/9;background:linear-gradient(160deg,var(--t0),var(--t1))}
+  .tbl tbody th{font-weight:400;color:#fff}
+  .tbl .sh-t{display:inline-flex;align-items:center;gap:14px}
   .newb{display:inline-flex;align-items:center;height:18px;padding:0 6px;border-radius:2px;background:var(--red);font-size:11px;font-weight:700;letter-spacing:.04em;color:#fff}
   .rbox{display:inline-flex;align-items:center;height:20px;padding:0 6px;border:1px solid rgba(255,255,255,.4);font-size:12px;font-weight:500;color:var(--body);white-space:nowrap}
   .tbl .good{color:var(--good)} .tbl .bad{color:var(--bad)} .tbl .na{color:var(--muted)}
@@ -215,7 +221,7 @@
   .fbar{display:inline-flex;align-items:center;gap:10px;vertical-align:middle}
   .fbar .pg{position:static;width:96px;flex:none}
   .fbar .hot{color:var(--subject-text);font-weight:700}
-  .tbl.capped tbody tr:last-child th,.tbl.capped tbody tr:last-child td{border-bottom:0}
+
   .more{position:relative;display:flex;justify-content:center;margin-top:14px}
   .more::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid #404040}
   .more button{position:relative;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px 0 10px;border:2px solid rgba(255,255,255,.5);border-radius:18px;background:#2a2a2a;font-size:14px;font-weight:500;color:#fff;cursor:pointer}
@@ -227,11 +233,11 @@
   .build-intro{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:20px 48px;align-items:end;margin-top:18px}
   .build-intro p{max-width:46em;font-size:16px;line-height:1.5;color:var(--body)}
   .build-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
-  .btn-cta{height:42px;padding:0 20px;font-size:16px;font-weight:700}
+  .btn-cta{height:40px;padding:6px 16px;font-size:16px;font-weight:500}
   .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin:24px 0 0;padding:0;list-style:none}
-  .steps li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:12px;padding:20px 22px;border-radius:16px;background:linear-gradient(149deg,var(--rail-1) 0%,var(--rail-2) 100%)}
+  .steps li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:12px;padding:24px 16px 24px 20px;border-radius:16px;background:linear-gradient(149deg,var(--rail-1) 0%,var(--rail-2) 96.86%)}
   .steps .sn{grid-row:span 2;font-size:40px;font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.7)}
-  .steps b{font-size:18px;font-weight:700;line-height:24px;color:#fff}
+  .steps b{font-size:20px;font-weight:500;line-height:1.35;color:#fff}
   .steps p{margin-top:6px;font-size:14px;line-height:1.5;color:var(--text-2)}
   .win{position:relative;display:grid;grid-template-columns:240px minmax(0,1fr) minmax(0,1.05fr);margin-top:var(--gap);background:var(--card);border-radius:8px;overflow:hidden}
   .side{padding:16px 12px 14px;background:#101010;border-right:1px solid var(--line);font-size:14px}
@@ -305,11 +311,11 @@
   /* ---------- 방법과 출처: 랜딩의 FAQ 아코디언(#2d2d2d 줄, 오른쪽 +, 펼치면 바로 아래 같은 바탕) ---------- */
   .faq{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:8px}
   .faq h3{margin:0;font-size:inherit;font-weight:inherit}
-  .faq button{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:64px;padding:16px 24px;border:0;border-radius:0;background:var(--field);font-size:20px;font-weight:400;line-height:1.3;color:#fff;text-align:left;cursor:pointer;transition:background-color .2s var(--ease)}
+  .faq button{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:84px;padding:24px;border:0;border-radius:0;background:var(--field);font-size:24px;font-weight:400;line-height:1.3;color:#fff;text-align:left;cursor:pointer;transition:background-color .2s var(--ease)}
   .faq button:hover{background:#414141}
   .faq button svg{width:28px;height:28px;flex:none;transition:transform .25s var(--ease)}
   .faq button[aria-expanded="true"] svg{transform:rotate(45deg)}
-  .faq .ans{margin-top:1px;padding:20px 24px 22px;background:var(--field);font-size:16px;line-height:1.55;color:#fff}
+  .faq .ans{margin-top:1px;padding:24px;background:var(--field);font-size:18px;line-height:1.5;color:#fff}
   .faq .ans[hidden]{display:none}
   .faq-src{margin-top:14px;font-size:13px;color:var(--muted)}
 
@@ -429,7 +435,7 @@
     .eye{font-size:15px}
     .headline{font-size:27px}
     .lede{font-size:16px}
-    .btn-white,.btn-gray{height:38px;font-size:15px;padding:0 16px 0 12px}
+    .btn-lg{height:38px;font-size:15px;padding:6px 14px}
     .kpis{column-gap:8px;row-gap:8px;margin-top:22px}
     .kpi{padding:12px 12px 10px}
     .kpi .v{font-size:28px}
@@ -448,9 +454,10 @@
     .tbl th,.tbl td{padding:8px 6px}
     .tbl .c-city,.tbl .c-rate,.tbl .c-wk{display:none}
     .fbar .pg{display:none}
-    .tbl .rkc{width:30px;font-size:18px}
-    .faq button{font-size:17px;min-height:56px;padding:14px 16px}
-    .faq .ans{padding:16px;font-size:15px}
+    .tbl .rkc{width:40px;font-size:24px}
+    .thumb{display:none}
+    .faq button{font-size:18px;min-height:64px;padding:16px}
+    .faq .ans{padding:16px;font-size:16px}
     #f2Plot{min-height:260px} #f3Plot{min-height:320px} #f5Plot{min-height:240px}
     .get{display:block}
     .get-h{margin-bottom:6px}
@@ -491,8 +498,8 @@
         <h1 class="headline" id="headline"></h1>
         <p class="lede" id="lede"></p>
         <div class="bill-btns">
-          <a class="btn btn-white" href="#f1" data-icon="play"><span data-i18n="btnTop"></span></a>
-          <a class="btn btn-gray" href="#notes" data-icon="info"><span data-i18n="btnInfo"></span></a>
+          <a class="btn btn-lg btn-red" href="#f1"><span data-i18n="btnTop"></span><svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg></a>
+          <a class="btn btn-lg btn-gray" href="#notes" data-icon="info"><span data-i18n="btnInfo"></span></a>
         </div>
       </div>
       <span class="rate" id="rate"></span>
@@ -732,7 +739,7 @@
         label: '표 1 · 모든 공연',
         title: v => `${v.n}개 공연 중 ${v.full}개가 좌석의 95% 이상을 채웠습니다`,
         sub: '2026년 10월 26일~11월 1일, 판매 티켓 순. Top 10 주 수는 8월 10일 주간부터 셉니다.',
-        cols: ['#', '공연', '장르', '도시', 'Top 10 주 수', '판매 티켓', '지난주 대비', '매출', '좌석 판매율', '상영 시간', '등급'],
+        cols: ['순위', '공연', '장르', '도시', 'Top 10 주 수', '판매 티켓', '지난주 대비', '매출', '좌석 판매율', '상영 시간', '등급'],
         newb: '신규', more: n => `모두 보기 · ${n}개 공연`, less: 'Top 10만 보기', wk: n => `${n}주`,
         note: '주: 상영 시간은 시:분이며 인터미션을 포함합니다. ‘—’는 지난주에 공연이 없었다는 뜻입니다.'
       },
@@ -820,7 +827,7 @@
         label: 'Table 1 · Every show',
         title: v => `${v.full} of ${v.n} shows filled 95% of their seats or more`,
         sub: 'Oct 26 – Nov 1, 2026, by tickets sold. Weeks in the Top 10 count from the week of Aug 10.',
-        cols: ['#', 'Show', 'Genre', 'City', 'Weeks in Top 10', 'Tickets', 'vs last week', 'Gross', 'Seats filled', 'Runtime', 'Rating'],
+        cols: ['Ranking', 'Show', 'Genre', 'City', 'Weeks in Top 10', 'Tickets', 'vs last week', 'Gross', 'Seats filled', 'Runtime', 'Rating'],
         newb: 'NEW', more: n => `Show all ${n} shows`, less: 'Show the Top 10', wk: n => String(n),
         note: 'Note: Runtime is in hours and minutes, including the interval. “—” means the show did not play the week before.'
       },
@@ -1075,12 +1082,13 @@
     list.setAttribute('aria-label', t.f1.aria);
     list.replaceChildren(...f.top.map((p, i) => {
       const isNew = p.wk === 1;
-      const rk = sv('svg', { class: 'rk', viewBox: '0 0 120 150', 'aria-hidden': 'true' },
-        sv('text', { x: 117, y: 146, 'text-anchor': 'end', style: { fontSize: '196px' }, textLength: i === 9 ? 116 : null, lengthAdjust: i === 9 ? 'spacingAndGlyphs' : null, text: String(i + 1) }));
-      const tile = h('div', { class: 'tile' + (isNew ? ' new' : ''), style: tileVars(p.id) },
+      const vw = i === 9 ? 118 : 66;   // 숫자 칸: 한 자리 66, 10은 118(실측 글자 폭 61px · 100px 글씨)
+      const rk = sv('svg', { class: 'rk', viewBox: `0 0 ${vw} 100`, 'aria-hidden': 'true' },
+        sv('text', { x: vw - 3, y: 88, 'text-anchor': 'end', style: { fontSize: '100px' }, text: String(i + 1) }));
+      const tile = h('div', { class: 'tile' + (isNew ? ' new' : '') + (i === 9 ? ' ten' : ''), style: tileVars(p.id) },
         h('span', { class: 'tg', text: genre(p.id) }), h('span', { class: 'tt', text: title(p.id) }), isNew ? h('span', { class: 'rib', text: t.f1.newRib }) : null);
       const cap = h('div', { class: 't10cap' }, h('b', null, full(p.t), h('span', { text: t.f1.unit })), h('i', { class: isNew ? 'hot' : null, text: isNew ? t.f1.first : t.f1.weeks(p.wk) }));
-      const li = h('li', { class: 't10i' + (animOK(animate) ? ' rise' : ''), style: animOK(animate) ? { animationDelay: (i * 40) + 'ms' } : null, 'data-i': i }, rk, tile, cap);
+      const li = h('li', { class: 't10i' + (animOK(animate) ? ' rise' : ''), style: animOK(animate) ? { animationDelay: (i * 40) + 'ms' } : null, 'data-i': i }, h('div', { class: 'poster' }, tile, rk), cap);
       li.addEventListener('pointerenter', () => show(i));
       li.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== list) show(null); });
       return li;
@@ -1388,8 +1396,8 @@
       h('tbody', null, shown.map((p, i) => {
         const ch = p.t0 ? (p.t / p.t0 - 1) * 100 : null, st = p.t / p.cap * 100;
         return h('tr', animOK(animate) ? { class: 'fade', style: { animationDelay: (i * 25) + 'ms' } } : null,
-          h('td', { class: 'rkc', text: String(i + 1) }),
-          h('th', { scope: 'row' }, h('span', { class: 'sh-t' }, title(p.id), p.wk === 1 && i < 10 ? h('span', { class: 'newb', text: t.t1.newb }) : null)),
+          h('td', { class: 'rkc', text: String(i + 1).padStart(2, '0') }),
+          h('th', { scope: 'row' }, h('span', { class: 'sh-t' }, h('span', { class: 'thumb', style: tileVars(p.id), 'aria-hidden': 'true' }), title(p.id), p.wk === 1 && i < 10 ? h('span', { class: 'newb', text: t.t1.newb }) : null)),
           h('td', { class: 'c-genre', text: genre(p.id) }),
           cityCol ? h('td', { class: 'c-city', text: p.cities.map(cityName).join(', ') }) : null,
           h('td', { class: 'num c-wk' + (p.wk ? ' wkc' : ' na'), text: p.wk ? t.t1.wk(p.wk) : '—' }),
