@@ -260,6 +260,26 @@
   .tbl .vb{display:inline-flex;align-items:center;justify-content:flex-end;gap:8px}
   .tbl .vb i{display:inline-block;height:8px;background:var(--other)}
 
+  /* ---------- 그림 7: 노선도. 구간마다 선 하나(= 계획). 출구 번호(= 마일 표지) 자리에 사이트, 계획 대비 막대가 선에서 아래위로.
+     문제(판매량 3% 넘게 미달 · 탱크 · 충전기)가 두 가지 겹친 사이트는 #f2f2f2 칸. 좁으면 출구 순서의 세로 노선 목록 ---------- */
+  #f7Plot{flex:none;min-height:120px}
+  .mp-cor{font-size:18px;font-weight:700;fill:var(--ink)}
+  .mp-sub{font-size:12.5px;fill:var(--muted)}
+  .mp-ex{font-size:12px;font-weight:500;fill:var(--text-2);text-anchor:middle;font-variant-numeric:tabular-nums}
+  .mp-ex.is{font-weight:700;fill:var(--ink)}
+  .mp-v{font-size:11.5px;fill:var(--muted);text-anchor:middle;font-variant-numeric:tabular-nums}
+  .mp-v.bad{font-weight:700;fill:var(--bad)}
+  .mp-lab{font-size:11px;fill:var(--muted)}
+  /* 표 1: 구간 합계만 보이고, 구간 이름을 누르면 사이트가 펼쳐진다 */
+  .rt .t1-all{margin-left:auto}
+  .t1-tog{display:inline-flex;align-items:center;gap:7px;padding:0;border:0;background:none;font:inherit;font-weight:700;color:var(--ink);cursor:pointer;text-align:left;white-space:nowrap}
+  .t1-tog svg{width:11px;height:11px;flex:none;transition:transform .15s var(--ease)}
+  .t1-tog[aria-expanded="true"] svg{transform:rotate(90deg)}
+  .t1-tog:hover span{text-decoration:underline;text-decoration-color:var(--yellow-ui);text-decoration-thickness:2px;text-underline-offset:3px}
+  .tbl tbody tr.site th{padding-left:28px}
+  .tbl .t1-n{font-weight:400;color:var(--muted)}
+  .tbl.t1-compact .t1-n{display:none}
+
   /* ---------- 만드는 법 ---------- */
   .build-intro{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px 40px;align-items:end;margin-top:var(--gap)}
   .build-intro p{max-width:46em;font-size:15px;line-height:1.55;color:var(--text)}
@@ -512,6 +532,7 @@
     .foot .wrap{flex-direction:column;align-items:flex-start}
     .tbl{font-size:13px}
     .tbl th,.tbl td{padding:6px 5px}
+    .tbl tbody tr.site th{padding-left:20px}
     .tbl thead tr.grp th span{font-size:11px}
   }
 </style>
@@ -640,14 +661,27 @@
     </figure>
   </div>
 
-  <!-- 사이트별 실적: 실적 표 -->
+  <!-- 사이트: 노선도(주인공) · 구간 합계만 보이는 접힌 실적 표 -->
   <div class="sec" id="s4"><p class="sec-k"><b>04</b><span data-i18n="s4.k"></span></p><h2 data-i18n="s4.t"></h2><div class="yrule" aria-hidden="true"></div></div>
+  <figure class="panel" id="f7" style="margin-top:var(--gap)">
+    <div class="ch">
+      <span class="fl" data-i18n="f7.label"></span>
+      <h3 class="ct" id="f7Title"></h3>
+      <div class="yrule" aria-hidden="true"></div>
+      <p class="rt"><b data-i18n="f7.rt"></b><span data-i18n="f7.unit"></span></p>
+      <ul class="keys" id="f7Keys" aria-hidden="true"></ul>
+    </div>
+    <div class="cb"><div class="plot" id="f7Plot"></div></div>
+    <figcaption class="cf" id="f7Note"></figcaption>
+    <div class="tip" aria-hidden="true"></div>
+    <div class="sr-only" id="f7Table"></div>
+  </figure>
   <figure class="panel" id="t1" style="margin-top:var(--gap)">
     <div class="ch">
       <span class="fl" data-i18n="t1.label"></span>
       <h3 class="ct" id="t1Title"></h3>
       <div class="yrule" aria-hidden="true"></div>
-      <p class="rt"><b data-i18n="t1.rt"></b><span data-i18n="t1.unit"></span></p>
+      <p class="rt"><b data-i18n="t1.rt"></b><span data-i18n="t1.unit"></span><button type="button" class="btn btn-sm btn-line t1-all" id="t1All" aria-controls="t1Wrap"></button></p>
     </div>
     <div class="cb"><div class="tbl-wrap" id="t1Wrap"></div></div>
     <figcaption class="cf" data-i18n="t1.note"></figcaption>
@@ -731,7 +765,7 @@
   const C = {
     hero: '#e03a35', heroText: '#c4161c', blue: '#2f6aae', ochre: '#b08500', other: '#a3a3a3', comparison: '#7b7b7b',
     total: '#818181', up: '#008443', down: '#e03a35', ink: '#404040', text: '#4a4a4a', text2: '#595959', muted: '#707070',
-    grid: '#e4e4e4', base: '#9a9a9a', band: '#f2f2f2', plot: '#ffffff', good: '#007a3d', bad: '#c4161c', red: '#dd1d21', yellow: '#fbce07',
+    grid: '#e4e4e4', base: '#9a9a9a', band: '#f2f2f2', plot: '#ffffff', good: '#007a3d', bad: '#c4161c', red: '#dd1d21', yellow: '#fbce07', rule: '#d9d9d9', edge: '#bfbfbf',
     cross: '#7b7b7b', generic: ['#4e79a7', '#f28e2b', '#59a14f'], genericGrid: 'rgba(0,0,0,.12)'
   };
 
@@ -836,15 +870,31 @@
         tip: { up: '가동률', down: '멈춘 시간', sess: '세션', lost: '놓친 세션' },
         aria: '가동률이 가장 낮은 충전기. 위아래 화살표 키로 충전기를 옮깁니다.'
       },
-      s4: { k: '사이트', t: '사이트별 실적' },
+      s4: { k: '사이트', t: '구간을 따라 본 사이트별 실적' },
+      f7: {
+        label: '그림 7 · 노선도', rt: '출구별 사이트, 44주', unit: '연료 판매량 계획 대비',
+        title: v => v.n >= 2 ? `문제가 두 가지 겹친 사이트는 ${v.list} ${v.n}곳입니다`
+          : v.n === 1 ? `${v.site}에서 문제 두 가지가 겹쳤습니다: ${v.a}, ${v.b}`
+          : v.k === 1 ? `문제가 두 가지 겹친 사이트는 없고, ${v.oneSite}에만 하나 있습니다(${v.oneIssue})`
+          : v.k > 1 ? `문제가 두 가지 겹친 사이트는 없고, ${v.k}곳에 하나씩 있습니다`
+          : '이번 주 판매량·탱크·충전기 문제가 있는 사이트가 없습니다',
+        keys: ['계획보다 3% 넘게 미달', '다른 사이트', '탱크 2일 미만, 배송 없음', '충전기 97% 미만', '계획 −3%', '두 가지가 겹친 사이트'],
+        iss: { miss: (a, s) => `판매량 계획 대비 ${s}`, tank: (g, d) => `${g} 탱크 ${d}일`, ev: (cp, u) => `충전기 ${cp} ${u}` },
+        sites: n => `${n}곳`, plan: '계획', thr: '−3%', mi: '마일',
+        note: '주: 출구 번호는 마일 표지라서 사이트 사이 간격이 실제 거리입니다. 선이 계획이고, 막대는 계획에 못 미친 만큼 아래로, 넘은 만큼 위로 그립니다. 회색 칸은 문제가 두 가지 겹친 사이트입니다.',
+        noteList: '주: 사이트를 출구 순서대로 놓았습니다. 막대는 계획 선에서 못 미친 만큼 왼쪽으로, 넘은 만큼 오른쪽으로 그립니다. 회색 줄은 문제가 두 가지 겹친 사이트입니다.',
+        tip: { vp: '계획 대비', vol: '44주 판매량', plan: '계획', m: '마진', pos: '시세 대비', shop: '편의점 매출', up: '가동률', none: '탱크·충전기 문제 없음' },
+        aria: '출구별 사이트 노선도. 화살표 키로 사이트를 옮깁니다.'
+      },
       t1: {
-        label: '표 1 · 사이트별 실적', rt: '44주, 43주와 계획 대비', unit: '구간별, 계획에 많이 못 미친 순',
+        label: '표 1 · 사이트별 실적', rt: '44주, 43주와 계획 대비', unit: '구간 합계, 펼치면 계획에 많이 못 미친 사이트부터',
+        open: '사이트 모두 보기', close: '사이트 접기', show: c => `${c} 사이트 펼치기`, hide: c => `${c} 사이트 접기`,
         title: v => v.all ? (v.same ? `${josa(v.wc, '이가')} 판매량 부족(${v.wcd})과 마진(${v.tcd}) 모두 가장 컸습니다` : `판매량 부족은 ${v.wc}(${v.wcd})에서, 계획보다 얇은 마진은 ${v.tc}(${v.tcd})에서 나왔습니다`)
           : `${v.cor} 8곳 중 ${v.n}곳이 계획보다 적게 팔았고, ${josa(v.best, '이가')} ${v.bv}로 가장 앞섰습니다`,
         grp: [['연료 판매량', '천 갤런'], ['연료 마진', '센트/갤런'], ['프리미엄', '%'], ['시세 대비', '센트'], ['편의점 매출', '천 달러'], ['충전', 'MWh'], ['가동률', '%']],
         cols: ['44주', '43주', '계획 대비 %', '44주', '43주', '44주', '기본 등급', '44주', '계획 대비 %', '44주', '44주'],
         site: '사이트', total: v => `전체 · ${v}곳`, cor: (c, n) => `${c} · ${n}곳`,
-        note: '주: 천 단위는 사이트를 더하면 구간이, 구간을 더하면 전체가 되게 나머지가 큰 줄부터 조정했습니다. 음수는 괄호로 적고, 충전기가 없는 사이트는 —입니다.',
+        note: '주: 구간 이름을 누르면 사이트가 펼쳐집니다. 천 단위는 사이트를 더하면 구간이, 구간을 더하면 전체가 되게 나머지가 큰 줄부터 조정했습니다. 음수는 괄호로 적고, 충전기가 없는 사이트는 —입니다.',
         tip: { vol: '판매량', plan: '계획', vp: '계획 대비', w43: '43주', m: '마진', mp: '계획 마진', prem: '프리미엄', pos: '시세 대비', shop: '편의점 매출', ev: '충전량', up: '가동률', share: '전체 판매량 중' },
         aria: '사이트별 실적 표. 위아래 화살표 키로 줄을 옮깁니다.'
       },
@@ -972,15 +1022,31 @@
         tip: { up: 'Uptime', down: 'Hours down', sess: 'Sessions', lost: 'Sessions lost' },
         aria: 'Charge points with the lowest uptime. Up and down arrow keys move between charge points.'
       },
-      s4: { k: 'Sites', t: 'Results by site' },
+      s4: { k: 'Sites', t: 'Results by site, along each corridor' },
+      f7: {
+        label: 'Figure 7 · Corridor map', rt: 'Sites by exit, week 44', unit: 'fuel volume against plan',
+        title: v => v.n >= 2 ? `${v.n} sites carry two problems at once: ${v.list}`
+          : v.n === 1 ? `${v.site} carries two problems at once: ${v.a} and ${v.b}`
+          : v.k === 1 ? `No site carries two problems at once; only ${v.oneSite} has one, ${v.oneIssue}`
+          : v.k > 1 ? `No site carries two problems at once; ${v.k} sites have one each`
+          : 'No site has a volume, tank or charger problem this week',
+        keys: ['More than 3% below plan', 'Other sites', 'Tank under 2 days, not booked', 'Charge point below 97%', '−3% of plan', 'Two problems at once'],
+        iss: { miss: (a, s) => `fuel volume ${a} below plan`, tank: (g, d) => `the ${g.toLowerCase()} tank at ${d} days`, ev: (cp, u) => `charge point ${cp} at ${u}` },
+        sites: n => `${n} sites`, plan: 'plan', thr: '−3%', mi: 'mi',
+        note: 'Note: Exit numbers are mile markers, so the gaps between sites are distances. The line is plan: a bar drops below it by a site\'s shortfall and rises above it when the site beat plan. Shaded columns are sites with two problems at once.',
+        noteList: 'Note: Sites run in exit order. Bars run left of the plan line by a site\'s shortfall and right of it when the site beat plan. Shaded rows are sites with two problems at once.',
+        tip: { vp: 'vs plan', vol: 'Week 44 volume', plan: 'Plan', m: 'Margin', pos: 'vs street', shop: 'Convenience', up: 'Uptime', none: 'No tank or charger problem' },
+        aria: 'Corridor map of sites by exit. Arrow keys move between sites.'
+      },
       t1: {
-        label: 'Table 1 · Results by site', rt: 'Week 44 against week 43 and plan', unit: 'by corridor, furthest below plan first',
+        label: 'Table 1 · Results by site', rt: 'Week 44 against week 43 and plan', unit: 'corridor totals; open one for its sites, furthest below plan first',
+        open: 'Show all sites', close: 'Hide sites', show: c => `Show ${c} sites`, hide: c => `Hide ${c} sites`,
         title: v => v.all ? (v.same ? `${v.wc} carried both the volume miss (${v.wcd}) and the thinnest margin against plan (${v.tcd})` : `${v.wc} carried the volume miss (${v.wcd}); ${v.tc} sold at a margin ${v.tcdAbs} below plan`)
           : `${v.n} of 8 ${v.cor} sites sold less fuel than plan; ${v.best} beat it by the most, ${v.bv}`,
         grp: [['Fuel volume', 'thousand gal'], ['Fuel margin', '¢/gal'], ['Premium', '%'], ['vs street', '¢'], ['Convenience', '$ thousand'], ['Charging', 'MWh'], ['Uptime', '%']],
         cols: ['Wk 44', 'Wk 43', 'vs plan %', 'Wk 44', 'Wk 43', 'Wk 44', 'Main', 'Wk 44', 'vs plan %', 'Wk 44', 'Wk 44'],
         site: 'Site', total: v => `Total · ${v} sites`, cor: (c, n) => `${c} · ${n} sites`,
-        note: 'Note: Thousands are rounded so sites add up to their corridor and corridors to the total, adjusting the largest remainders first. Negative numbers are in parentheses; — marks a site without charge points.',
+        note: 'Note: Select a corridor to open its sites. Thousands are rounded so sites add up to their corridor and corridors to the total, adjusting the largest remainders first. Negative numbers are in parentheses; — marks a site without charge points.',
         tip: { vol: 'Volume', plan: 'Plan', vp: 'vs plan', w43: 'Week 43', m: 'Margin', mp: 'Plan margin', prem: 'Premium', pos: 'vs street', shop: 'Convenience', ev: 'Charging', up: 'Uptime', share: 'of all gallons' },
         aria: 'Results by site. Up and down arrow keys move between rows.'
       },
@@ -1020,7 +1086,7 @@
   };
 
   const qs = new URLSearchParams(location.search);
-  const state = { lang: qs.get('lang') === 'ko' ? 'ko' : 'en', scope: SCOPES.includes(qs.get('corridor')) ? qs.get('corridor') : 'all', code: 'js', mode: 'with' };
+  const state = { lang: qs.get('lang') === 'ko' ? 'ko' : 'en', scope: SCOPES.includes(qs.get('corridor')) ? qs.get('corridor') : 'all', code: 'js', mode: 'with', open: new Set(), shut: new Set() };
   const L = () => T[state.lang];
   const KO = () => state.lang === 'ko';
   const S = () => DATA.scopes[state.scope];
@@ -1153,6 +1219,10 @@
     else if (kind === 'bar') g.append(sv('rect', { x: 2, y: 1, width: 14, height: 10, fill: color }));
     else if (kind === 'tick') g.append(sv('path', { d: 'M9 0v12', stroke: color, 'stroke-width': 1.5, 'stroke-dasharray': '2 2' }));
     else if (kind === 'zero') g.append(sv('path', { d: 'M9 0v12', stroke: color, 'stroke-width': 1.5 }));
+    else if (kind === 'sq') g.append(sv('rect', { x: 5, y: 2, width: 8, height: 8, fill: color }));
+    else if (kind === 'tri') g.append(sv('path', { d: 'M9 1.5 14 10.5H4z', fill: color }));
+    else if (kind === 'dashh') g.append(sv('path', { d: 'M1 6h16', stroke: color, 'stroke-width': 1.5, 'stroke-dasharray': '3 2' }));
+    else if (kind === 'band') g.append(sv('rect', { x: 3.5, y: .5, width: 11, height: 11, fill: color, stroke: C.rule }));
     return g;
   }
   const keyItems = (ul, items) => ul.replaceChildren(...items.map(([kind, color, label]) => h('li', null, keySwatch(kind, color), label)));
@@ -1205,7 +1275,7 @@
 
   // 줄 목록(그림 3 · 5 · 6)과 가격 기둥, 실적 표: 마우스·키보드로 줄을 고르면 툴팁을 띄운다
   function wireRows(host, list, rowSel, cur, show) {
-    const rows = () => $$(rowSel, list);
+    const rows = () => $$(rowSel, list).filter(r => !r.hidden);
     const pickRow = i => { rows().forEach((r, k) => r.classList.toggle('on', k === i)); if (i == null || i < 0) { hideTip(host); return; } cur.i = i; show(i, rows()[i]); };
     list.onpointermove = e => { const r = e.target.closest(rowSel); if (r && list.contains(r)) pickRow(rows().indexOf(r)); };
     list.onpointerleave = e => { if (e.pointerType === 'mouse' && document.activeElement !== list) pickRow(-1); };
@@ -1716,6 +1786,149 @@
     });
   }
 
+  /* ================= 그림 7: 노선도 =================
+     구간마다 선 하나가 계획(0%)이다. 출구 번호는 마일 표지라서 사이트를 그 자리에 찍으면 간격이 실제 거리가 된다.
+     계획 대비 막대는 선에서 아래(미달)·위(초과)로, 3% 넘게 미달하면 빨강. 위에는 출구 번호와 문제 표시(탱크 ■, 충전기 ▲),
+     아래 한 줄에는 계획 대비 값. 판매량 · 탱크 · 충전기 문제가 두 가지 이상 겹친 사이트는 #f2f2f2 칸(실적 표의 이번 주 칸과 같은 문법).
+     그림 폭이 860px보다 좁으면 출구 순서의 세로 노선 목록으로 바꾼다 */
+  const F7 = { i: 0 }, F7_MILES = 620, F7_K = 5;
+  function siteIssues(x) {
+    const vp = chg(x.vol, x.plan);
+    const tanks = x.tanks.filter(tk => tk.days < 2 && !tk.deliv).sort((a, b) => a.days - b.days);
+    const cps = x.cps.filter(c => c.up < DATA.uptime_target).sort((a, b) => a.up - b.up);
+    const list = [];
+    if (vp < -3) list.push({ k: 'miss', vp });
+    if (tanks.length) list.push({ k: 'tank', t: tanks[0] });
+    if (cps.length) list.push({ k: 'ev', c: cps[0] });
+    return { vp, list };
+  }
+  function mapModel() {
+    const cs = state.scope === 'all' ? ['i5', 'i10', 'i95'] : [state.scope];
+    return cs.map(c => ({ c, s: DATA.scopes[c], sites: DATA.sites.filter(x => x.cor === c).sort((a, b) => a.exit - b.exit).map(x => ({ ...x, ...siteIssues(x) })) }));
+  }
+  const issueText = is => { const t = L().f7.iss; return is.k === 'miss' ? t.miss(pct(Math.abs(is.vp)), pctS(is.vp)) : is.k === 'tank' ? t.tank(grade(is.t.g), nf(is.t.days, 1)) : t.ev(is.c.cp, pct(is.c.up)); };
+  function f7Facts() {
+    const all = mapModel().flatMap(r => r.sites), two = all.filter(x => x.list.length >= 2), one = all.filter(x => x.list.length === 1);
+    return { n: two.length, k: one.length, list: (KO() ? joinKo : joinEn)(two.map(site)),
+      site: two[0] ? site(two[0]) : '', a: two[0] ? issueText(two[0].list[0]) : '', b: two[0] ? issueText(two[0].list[1]) : '',
+      oneSite: one[0] ? site(one[0]) : '', oneIssue: one[0] ? issueText(one[0].list[0]) : '' };
+  }
+  function renderF7(animate) {
+    const t = L().f7;
+    $('#f7Title').textContent = glue(t.title(f7Facts()));
+    refade($('#f7Title'), animate);
+    keyItems($('#f7Keys'), [['bar', C.down, t.keys[0]], ['bar', C.other, t.keys[1]], ['sq', C.down, t.keys[2]], ['tri', C.down, t.keys[3]], ['dashh', C.edge, t.keys[4]], ['band', C.band, t.keys[5]]]);
+    const rows = mapModel().flatMap(r => r.sites);
+    $('#f7Table').replaceChildren(srTable(`${t.rt} (${t.unit})`, [KO() ? '사이트' : 'Site', t.tip.vp, KO() ? '문제' : 'Problems'], rows.map(x => [site(x), pctS(x.vp), x.list.map(issueText).join('; ') || '—'])));
+    drawMap(animate);
+  }
+  const flagMark = (is, fx, fy) => is.k === 'tank' ? sv('rect', { x: fx - 4, y: fy - 4, width: 8, height: 8, fill: C.down }) : sv('path', { d: `M${fx} ${fy - 5}L${fx + 5.5} ${fy + 4.5}H${fx - 5.5}Z`, fill: C.down });
+  function drawMap(animate) {
+    const box = $('#f7Plot'), host = $('#f7'), W = Math.round(box.clientWidth);
+    if (!W) return;
+    const t = L().f7, f = fam(box), model = mapModel(), wide = W >= 860;
+    const items = model.flatMap(r => r.sites), pos = [], kids = [];
+    const corSum = r => { const v = chg(r.s.vol[LAST], r.s.vol_plan[LAST]); return [sv('tspan', { text: `${t.sites(r.sites.length)} · ` }), sv('tspan', { style: { fill: rnd(v, 1) < 0 ? C.bad : rnd(v, 1) > 0 ? C.good : C.text2, fontWeight: 600 }, text: pctS(v) })]; };
+    const hl = sv('rect', { fill: 'rgba(64,64,64,.07)', style: { opacity: 0 } });
+    let H;
+    if (wide) {
+      const subTxt = r => `${t.sites(r.sites.length)} · ${pctS(chg(r.s.vol[LAST], r.s.vol_plan[LAST]))}`;
+      const labW = Math.ceil(Math.max(...model.map(r => Math.max(textW(COR(r.c), `700 18px ${f}`), textW(subTxt(r), `600 12.5px ${f}`)))));
+      const L0 = labW + 34, R0 = 40, rowH = 124, T0 = 2, AX = 24;
+      const X = m => L0 + m / F7_MILES * (W - L0 - R0);
+      H = T0 + model.length * rowH + AX;
+      const grid = sv('g');
+      for (let m = 0; m <= 600; m += 100) {
+        grid.append(sv('line', { x1: X(m), x2: X(m), y1: T0, y2: H - AX + 2, stroke: C.grid, 'stroke-width': 1 }));
+        grid.append(sv('text', { x: X(m), y: H - 6, 'text-anchor': m === 0 ? 'start' : 'middle', class: 'ax', text: m === 600 ? `${nf(m)} ${t.mi}` : nf(m) }));
+      }
+      kids.push(grid, hl);
+      model.forEach((r, ri) => {
+        const top = T0 + ri * rowH, y0 = top + 52, end = X(Math.max(...r.sites.map(x => x.exit)) + 16), yt = y0 + 3 * F7_K, yv = y0 + 8.4 * F7_K + 15;
+        const g = sv('g');
+        r.sites.forEach(x => { if (x.list.length >= 2) g.append(sv('rect', { x: X(x.exit) - 23, y: top + 8, width: 46, height: rowH - 14, fill: C.band })); });
+        g.append(sv('text', { x: 0, y: y0 + 2, class: 'mp-cor', text: COR(r.c) }), sv('text', { x: 0, y: y0 + 21, class: 'mp-sub' }, corSum(r)));
+        // 노선 = 계획 선, 그 아래 −3% 점선
+        g.append(sv('line', { x1: X(0), x2: end, y1: y0, y2: y0, stroke: C.grid, 'stroke-width': 8, 'stroke-linecap': 'round' }));
+        g.append(sv('line', { x1: X(0), x2: end, y1: y0, y2: y0, stroke: C.ink, 'stroke-width': 1.5 }));
+        g.append(sv('line', { x1: X(0), x2: end, y1: yt, y2: yt, stroke: C.edge, 'stroke-width': 1, 'stroke-dasharray': '3 3' }));
+        if (ri === 0) g.append(sv('text', { x: end + 6, y: y0, dy: '.35em', class: 'mp-lab', text: t.plan }), sv('text', { x: end + 6, y: yt, dy: '.35em', class: 'mp-lab', text: t.thr }));
+        r.sites.forEach((x, j) => {
+          const cx = X(x.exit), v = x.vp, bad = v < -3, hh = Math.abs(v) * F7_K;
+          g.append(sv('rect', { x: cx - 4.5, y: v < 0 ? y0 : y0 - hh, width: 9, height: Math.max(1.5, hh), fill: bad ? C.down : C.other, class: animOK(animate) ? 'fade' : null, style: animOK(animate) ? { animationDelay: (ri * 120 + j * 40) + 'ms' } : null }));
+          g.append(sv('circle', { cx, cy: y0, r: 5, fill: C.plot, stroke: C.ink, 'stroke-width': 1.5 }));
+          g.append(sv('text', { x: cx, y: y0 - 18, class: 'mp-ex' + (x.list.length ? ' is' : ''), text: nf(x.exit) }));
+          const flags = x.list.filter(is => is.k !== 'miss');
+          flags.forEach((is, k) => g.append(flagMark(is, cx + (k - (flags.length - 1) / 2) * 13, y0 - 39)));
+          g.append(sv('text', { x: cx, y: yv, class: 'mp-v' + (bad ? ' bad' : ''), text: pctS(v) }));
+          pos.push({ x: cx, top: top + 8, h: rowH - 14, ay: y0 - 46, by: yv + 4 });
+        });
+        kids.push(g);
+      });
+    } else {
+      const rowH = 34, headH = 38, gap = 14, xr = 10, xb0 = Math.max(150, Math.round(W * .52)), xb1 = W - 54;
+      const bx = v => xb0 + (Math.max(-10, Math.min(4, v)) + 10) / 14 * (xb1 - xb0);
+      kids.push(hl);
+      let y = 0;
+      model.forEach((r, ri) => {
+        const g = sv('g'), y1 = y + headH, n = r.sites.length;
+        g.append(sv('text', { x: 0, y: y + 22, class: 'mp-cor', text: COR(r.c) }), sv('text', { x: W, y: y + 22, 'text-anchor': 'end', class: 'mp-sub' }, corSum(r)));
+        r.sites.forEach((x, j) => { if (x.list.length >= 2) g.append(sv('rect', { x: 0, y: y1 + j * rowH + 1, width: W, height: rowH - 2, fill: C.band })); });
+        g.append(sv('line', { x1: xr, x2: xr, y1: y1 + rowH / 2, y2: y1 + (n - .5) * rowH, stroke: C.grid, 'stroke-width': 8, 'stroke-linecap': 'round' }));
+        g.append(sv('line', { x1: xr, x2: xr, y1: y1 + rowH / 2, y2: y1 + (n - .5) * rowH, stroke: C.ink, 'stroke-width': 1.5 }));
+        g.append(sv('line', { x1: bx(0), x2: bx(0), y1: y1 + 3, y2: y1 + n * rowH - 3, stroke: C.ink, 'stroke-width': 1 }));
+        g.append(sv('line', { x1: bx(-3), x2: bx(-3), y1: y1 + 3, y2: y1 + n * rowH - 3, stroke: C.edge, 'stroke-dasharray': '3 3' }));
+        r.sites.forEach((x, j) => {
+          const cy = y1 + j * rowH + rowH / 2, v = x.vp, bad = v < -3, nm = exitName(x), wt = x.list.length ? 700 : 500;
+          g.append(sv('circle', { cx: xr, cy, r: 5, fill: C.plot, stroke: C.ink, 'stroke-width': 1.5 }));
+          g.append(sv('text', { x: xr + 16, y: cy, dy: '.35em', class: 'mp-ex' + (x.list.length ? ' is' : ''), style: { textAnchor: 'start', fontSize: '13px' }, text: nm }));
+          const lw = textW(nm, `${wt} 13px ${f}`);
+          x.list.filter(is => is.k !== 'miss').forEach((is, k) => g.append(flagMark(is, xr + 16 + lw + 12 + k * 14, cy)));
+          const b0 = bx(0), b1 = bx(v);
+          g.append(sv('rect', { x: Math.min(b0, b1), y: cy - 5, width: Math.max(1.5, Math.abs(b1 - b0)), height: 10, fill: bad ? C.down : C.other }));
+          g.append(sv('text', { x: W, y: cy, dy: '.35em', class: 'mp-v' + (bad ? ' bad' : ''), style: { textAnchor: 'end' }, text: pctS(v) }));
+          pos.push({ x: W * .45, top: cy - rowH / 2 + 1, h: rowH - 2, ay: cy - rowH / 2, by: cy + rowH / 2, row: true });
+        });
+        kids.push(g);
+        y = y1 + n * rowH + gap;
+      });
+      H = y - gap + 2;
+    }
+    box.style.height = H + 'px';
+    box._w = W; box._h = H;
+    $('#f7Note').textContent = wide ? t.note : t.noteList;
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.aria }, ...kids, sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+    const tt = t.tip;
+    const tipFor = x => tipNodes(site(x), [
+      { key: x.vp < -3 ? C.down : C.other, value: pctS(x.vp), label: tt.vp },
+      { value: `${galK(x.vol)} (${tt.plan} ${galK(x.plan)})`, label: tt.vol },
+      { value: cents(x.margin), label: tt.m }, { value: centsS(x.pos), label: tt.pos },
+      { value: pctS(chg(x.shop, x.shop_plan)), label: tt.shop }, x.up == null ? null : { value: pct(x.up), label: tt.up },
+      ...x.list.filter(is => is.k !== 'miss').map(is => ({ key: C.down, value: issueText(is) })),
+      x.list.some(is => is.k !== 'miss') ? null : { value: tt.none }
+    ]);
+    const show = i => {
+      hl.style.opacity = i == null ? 0 : 1;
+      if (i == null) { hideTip(host); return; }
+      F7.i = i;
+      const p = pos[i];
+      setAttrs(hl, p.row ? { x: 0, y: p.top, width: W, height: p.h } : { x: p.x - 23, y: p.top, width: 46, height: p.h });
+      const o = offsetIn(host, svg);
+      placeTip(host, tipFor(items[i]), o.x + p.x, o.y + p.ay, o.y + p.by);
+    };
+    const idxAt = (px, py) => {
+      let best = null, bd = 1e9;
+      pos.forEach((p, i) => { if (py < p.top - 4 || py > p.top + p.h + 4) return; const d = p.row ? 0 : Math.abs(px - p.x); if (d < bd) { bd = d; best = i; } });
+      return best;   // 그 줄에서 가장 가까운 사이트
+    };
+    svg.addEventListener('pointermove', e => { const r = svg.getBoundingClientRect(), i = idxAt(e.clientX - r.left, e.clientY - r.top); if (i == null) { if (document.activeElement !== svg) show(null); } else show(i); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(null); });
+    svg.addEventListener('focus', () => show(Math.min(F7.i, items.length - 1)));
+    svg.addEventListener('blur', () => show(null));
+    svg.addEventListener('keydown', e => { const i = keyStep(e, F7.i, items.length); if (i === null) return; if (i < 0) { show(null); return; } show(i); const x = items[i]; say(`${site(x)}: ${pctS(x.vp)} ${tt.vp}${x.list.filter(is => is.k !== 'miss').map(is => ', ' + issueText(is)).join('')}`); });
+  }
+
   /* ================= 표 1: 사이트별 실적(연차보고서 표: 무리 머리와 단위, 이번 주 열 회색, 음수는 괄호) =================
      천 단위는 사이트 → 구간 → 전체가 맞게 나머지가 큰 줄부터 조정한다 */
   const T1 = { i: 0 };
@@ -1735,12 +1948,13 @@
       vol: V.site[x.id], vol43: V43.site[x.id], vp: chg(x.vol, x.plan), m: x.margin, m43: x.margin43, mp: x.mplan, prem: x.prem, pos: x.pos,
       shop: SH.site[x.id], sp: chg(x.shop, x.shop_plan), kwh: x.ev ? EV.site[x.id] : null, up: x.up,
       raw: { vol: x.vol, plan: x.plan, vol43: x.vol43, shop: x.shop, kwh: x.kwh, post: x.post, street: x.street } });
+    // 구간 줄(합계, 펼침 단추) → 그 구간의 사이트(계획에 많이 못 미친 순). 전체 구간이면 맨 아래에 전체 줄
     const rows = [];
     cs.forEach(c => {
-      if (cs.length > 1) rows.push(scopeRow(c, 'cor', L().t1.cor(COR(c), DATA.scopes[c].sites), T => T.cor[c]));
-      of(c).map(siteRow).sort((a, b) => a.vp - b.vp).forEach(r => rows.push(r));
+      rows.push({ ...scopeRow(c, 'cor', L().t1.cor(COR(c), DATA.scopes[c].sites), T => T.cor[c]), cor: c, main: COR(c), n: DATA.scopes[c].sites });
+      of(c).map(siteRow).sort((a, b) => a.vp - b.vp).forEach(r => rows.push({ ...r, cor: c }));
     });
-    rows.push(scopeRow(state.scope, 'tot', cs.length > 1 ? L().t1.total(DATA.scopes.all.sites) : L().t1.cor(COR(cs[0]), DATA.scopes[cs[0]].sites), T => T.tot));
+    if (cs.length > 1) rows.push({ ...scopeRow('all', 'tot', L().t1.total(DATA.scopes.all.sites), T => T.tot), main: KO() ? '전체' : 'Total', n: DATA.scopes.all.sites });
     return rows;
   }
   function t1Facts() {
@@ -1788,16 +2002,36 @@
       }
     };
     const name = r => r.kind === 'site' ? site(r.label) : r.label;
-    const body = h('tbody', null, rows.map((r, i) => h('tr', { class: r.kind, 'data-i': i,
-      'data-say': `${name(r)}: ${t.grp[0][0]} ${nf(r.vol, 1)} (${pctS(r.vp)} ${t.cols[2]}), ${t.grp[1][0]} ${cents(r.m)}` },
-      h('th', { scope: 'row', class: 'l' }, r.kind === 'site' ? exitName(r.label) : r.label), cols.map(j => cell(r, j)))));
+    // 접힌 표: 전체 구간에서는 구간 합계만 보이고, 구간 하나를 고르면 그 구간이 펼쳐진 채로 시작한다
+    const isOpen = c => state.scope === 'all' ? state.open.has(c) : !state.shut.has(c);
+    const rowId = r => 't1-' + String(r.k).replace(/[^A-Za-z0-9]+/g, '-');
+    const chev = () => sv('svg', { viewBox: '0 0 12 12', 'aria-hidden': 'true' }, sv('path', { d: 'M4.2 2.2 8 6l-3.8 3.8', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.7, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+    const body = h('tbody', null, rows.map((r, i) => {
+      const head = r.kind === 'cor'
+        ? h('th', { scope: 'row', class: 'l' }, h('button', { type: 'button', class: 't1-tog', 'data-cor': r.cor, 'aria-expanded': isOpen(r.cor) ? 'true' : 'false',
+            'aria-controls': rows.filter(x => x.kind === 'site' && x.cor === r.cor).map(rowId).join(' ') }, chev(), h('span', { text: r.main }), h('small', { class: 't1-n', text: KO() ? ` · ${r.n}곳` : ` · ${r.n} sites` })))
+        : h('th', { scope: 'row', class: 'l' }, r.kind === 'site' ? exitName(r.label) : [r.main, h('small', { class: 't1-n', text: KO() ? ` · ${r.n}곳` : ` · ${r.n} sites` })]);
+      return h('tr', { class: r.kind, 'data-i': i, 'data-cor': r.cor || null, id: r.kind === 'site' ? rowId(r) : null, hidden: r.kind === 'site' && !isOpen(r.cor) ? '' : null,
+        'data-say': `${name(r)}: ${t.grp[0][0]} ${nf(r.vol, 1)} (${pctS(r.vp)} ${t.cols[2]}), ${t.grp[1][0]} ${cents(r.m)}` }, head, cols.map(j => cell(r, j)));
+    }));
     const tbl = h('table', { class: 'tbl t1-' + mode }, h('caption', { class: 'sr-only', text: `${t.label}. ${t.rt}` }), thead, body);
     wrap.replaceChildren(tbl);
     wrap.setAttribute('tabindex', '0');
     wrap.setAttribute('aria-label', t.aria);
     const total = DATA.scopes.all.vol[LAST];
+    const cors = rows.filter(r => r.kind === 'cor').map(r => r.cor);
+    const syncAll = () => { const all = cors.every(isOpen), b = $('#t1All'); b.textContent = all ? t.close : t.open; b.setAttribute('aria-expanded', all ? 'true' : 'false'); };
+    const setOpen = (c, on) => {
+      if (state.scope === 'all') { if (on) state.open.add(c); else state.open.delete(c); } else if (on) state.shut.delete(c); else state.shut.add(c);
+      $$(`tr.site[data-cor="${c}"]`, body).forEach(tr => { tr.hidden = !on; });
+      const b = $(`.t1-tog[data-cor="${c}"]`, body); if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+      hideTip(host); syncAll();
+    };
+    $$('.t1-tog', body).forEach(b => b.addEventListener('click', () => setOpen(b.dataset.cor, b.getAttribute('aria-expanded') !== 'true')));
+    $('#t1All').onclick = () => { const all = cors.every(isOpen); cors.forEach(c => setOpen(c, !all)); };
+    syncAll();
     wireRows(host, body, 'tr', T1, (i, tr) => {
-      const r = rows[i], o = offsetIn(host, tr), tt = t.tip, R = r.raw;
+      const r = rows[+tr.dataset.i], o = offsetIn(host, tr), tt = t.tip, R = r.raw;
       placeTip(host, tipNodes(name(r), [
         { value: galK(R.vol), label: tt.vol }, { value: galK(R.plan), label: tt.plan }, { value: pctS(r.vp), label: tt.vp }, { value: galK(R.vol43), label: tt.w43 },
         { value: `${cents(r.m)} (${tt.mp} ${cents(r.mp)})`, label: tt.m }, { value: pct(r.prem), label: tt.prem }, { value: centsS(r.pos), label: tt.pos },
@@ -2048,11 +2282,12 @@
     lines.push('', `### ${t.md.sign} · ${t.ps.k}`, '', `| ${KO() ? '등급' : 'Grade'} | ${t.ps.tip.p44} | ${t.ps.tip.d} | ${t.ps.tip.m} |`, '|---|---:|---:|---:|');
     s.sign.forEach(r => lines.push(`| ${grade(r.g)} | ${gasText(r.p)}${signUnit(r.g)} | ${centsS((r.p - r.p43) * 100)} | ${cents(r.m)} |`));
     lines.push('', `${t.ps.pos}: ${centsS(s.sign[0].st)}`, '', `## ${t.md.figs}`, '');
-    ['#f1', '#f2', '#f3', '#f4', '#f5', '#f6', '#t1'].forEach(id => {
+    ['#f1', '#f2', '#f3', '#f4', '#f5', '#f6', '#f7', '#t1'].forEach(id => {
       const card = $(id), label = $('.fl', card).textContent, ttl = $('.ct', card).textContent;
       lines.push(`### ${label}`, '', `**${ttl}**`, '');
       if (id === '#f2') { const d = bridgeData(); d.forEach((x, i) => lines.push(`- ${t.f2.steps[i]}: ${x.kind === 'total' ? nf(x.v, 1) : paren(x.v, 1)} (${t.f2.unit})`)); lines.push(''); }
       if (id === '#f3' || id === '#f5' || id === '#f6') { $$('.ls-r', card).forEach(r => lines.push(`- ${r.dataset.say}`)); lines.push(''); }
+      if (id === '#f7') { mapModel().forEach(r => { lines.push(`**${COR(r.c)}**`, ''); r.sites.forEach(x => lines.push(`- ${exitName(x)}: ${pctS(x.vp)}${x.list.filter(is => is.k !== 'miss').map(is => '; ' + issueText(is)).join('')}`)); lines.push(''); }); }
       if (id === '#t1') {
         const c = t.t1.cols, g = t.t1.grp;
         lines.push(`| ${t.t1.site} | ${g[0][0]} ${c[0]} | ${g[0][0]} ${c[2]} | ${g[1][0]} ${c[3]} | ${g[4][0]} ${c[7]} | ${g[6][0]} |`, '|---|---:|---:|---:|---:|---:|');
@@ -2116,7 +2351,7 @@
   }
   function renderAll(animate) {
     renderChrome(); renderHeadline(animate); renderSign(animate); renderKpis(animate); renderF1(animate);
-    renderF2(animate); renderRanking(animate); renderF4(animate); renderTanks(animate); renderCps(animate); renderTable(animate); renderBench();
+    renderF2(animate); renderRanking(animate); renderF4(animate); renderTanks(animate); renderCps(animate); renderF7(animate); renderTable(animate); renderBench();
   }
   function keepInUrl() {
     try {
@@ -2144,7 +2379,7 @@
   }
   const redraws = [
     ['#f1p0', () => drawMarker(0, f1Panels()[0])], ['#f1p1', () => drawMarker(1, f1Panels()[1])], ['#f1p2', () => drawMarker(2, f1Panels()[2])],
-    ['#f2Plot', () => drawBridge('#f2Plot', '#f2', { key: 'f2' })], ['#f4Plot', () => drawHours(false)],
+    ['#f2Plot', () => drawBridge('#f2Plot', '#f2', { key: 'f2' })], ['#f4Plot', () => drawHours(false)], ['#f7Plot', () => drawMap(false)],
     ['#wbPlot', () => drawBridge('#wbPlot', '.figpane', { key: 'wb', layers: true, mode: state.mode })]
   ];
   if ('ResizeObserver' in window) {
