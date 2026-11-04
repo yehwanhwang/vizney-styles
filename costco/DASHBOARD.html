@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Costco style — DASHBOARD.md · Vizney Styles</title>
+<link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=87d56bfcbc" as="font" type="font/woff" crossorigin>
+<!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site's Markdown pages (prompt.md, skill/SKILL.md: _config.yml defaults) and, through tools/package.py, <name>/DASHBOARD.html. Header, tabs and footer are the site's (index.html / 404.html). -->
+<style>
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=87d56bfcbc) format('woff')}
+:root{
+  /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
+     The blog's Vizney header (scrolls away) and the site's sticky tabs under it; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
+     styles with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
+     built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
+     Single light theme on purpose, like Blocks and the style screens. */
+  color-scheme: light;
+  --page:#ffffff;
+  --soft:#f4f5f7;
+  --tile:#f6f7f9;
+  --ink:#1b1b1b;
+  --ink-2:#4a4a4a;
+  --muted:#616771;
+  --line:#e6e8ec;
+  --line-2:#eceef2;
+  --rule:#cfd2d8;
+  --btn-line:#e3e5ea;
+  --ink-hover:#3a3a3a;
+  /* Top bar: the blog's (kr.vizney.com · www.vizney.com) black header, so moving between the two reads as one site. */
+  --top-bg:#1b1b1b;
+  --top-ink:#ffffff;
+  --top-ink-2:rgba(255,255,255,.78);
+  --top-line:rgba(255,255,255,.22);
+  --top-soft:rgba(255,255,255,.10);
+  --top-rule:hsla(0,0%,100%,.15);
+  /* The one UI accent: the yellow of the blog's post images (#ffcc00). Buttons, active states, focus. Never a data color. */
+  --accent:#ffcc00;
+  --accent-hover:#f2c200;
+  --accent-ink:#1b1b1b;
+  --yellow:#ffcc00;
+  --pink:#ff2d55;
+  --font:'VZ Sans','Spoqa Han Sans Neo','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono','VZ Sans',monospace;
+  --shadow:0 12px 32px -12px rgba(17,24,39,.28);
+  --shadow-sm:0 1px 2px rgba(17,24,39,.12);
+  --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
+
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.7 var(--font);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--top-bg)}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{text-decoration-color:var(--ink)}
+/* Focus: the accent yellow as a halo around an ink ring, so it shows on white (yellow alone is 1.6:1 there) and on the black bar. */
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--accent);border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;white-space:nowrap}
+svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--page);font-size:14px;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}
+
+/* ---------- Vizney header (the common header of the blog, Vizney Blocks and Vizney Styles) ----------
+   Copied from the blog (kr.vizney.com · www.vizney.com): Ghost Casper, stacked navigation, with the blog's code injection
+   (black bar, Spoqa Han Sans Neo, globe language switch). 768px and up: two rows, wordmark centred over the menu.
+   767px and down: one row, wordmark left, globe · search · burger right, the menu as a full-screen sheet.
+   Not sticky: it scrolls away like the blog's. The site's own tabs stick below it. */
+.gh{position:relative;padding:0 max(4vmin, 20px);background:var(--top-bg);color:var(--top-ink);font-size:16px;line-height:1.3}
+.gh a{color:inherit;text-decoration:none}
+.gh-in{display:grid;grid-template-columns:1fr auto 1fr;grid-auto-flow:dense;column-gap:40px;align-items:center;max-width:1200px;margin:0 auto}
+.gh-brand{grid-row-start:1;grid-column-start:2;position:relative;display:flex;align-items:center;height:80px}
+.gh-logo{display:block}
+.gh-logo img{display:block;width:auto;max-height:40px}
+.gh-menu{grid-row-start:2;grid-column:1 / 4;display:flex;justify-content:center;align-items:center;height:56px;margin:0 48px;font-weight:500}
+.gh-menu::before{content:"";position:absolute;top:80px;left:0;width:100%;height:1px;background-color:var(--top-rule)}
+.gh-nav{display:inline-flex;flex-wrap:wrap;align-items:center;gap:32px;margin:0;padding:0;list-style:none}
+.gh-nav li{margin:0;padding:0}
+.gh-nav a{display:inline-flex;align-items:center;line-height:1.7}
+.gh-nav a:hover{opacity:.9}
+/* Where you are: only this site's item, underlined. */
+.gh-nav a[aria-current]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.gh-actions{grid-row-start:1;grid-column:1 / 4;display:flex;justify-content:flex-start;align-items:center;gap:8px}
+.gh-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;padding:0}
+.gh-icon svg{display:block}
+.gh-globe{opacity:.9;transition:opacity .2s ease}
+.gh-globe:hover{opacity:1}
+.gh-search:hover{opacity:.9}
+.gh-actions .gh-globe{margin-right:-4px}
+.gh-brand .gh-icon{display:none}
+/* The blog's overflow menu: items that do not fit on one line go under '…' (Casper's dropdown). */
+.gh-more{position:relative;display:inline-flex}
+.gh-more__toggle{position:relative;width:30px;height:30px;margin:0 -6px;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}
+.gh-more__toggle svg{display:block;width:24px;height:24px;margin:auto}
+.gh-dropdown{position:absolute;top:100%;right:-16px;z-index:90;width:200px;margin:24px 0 0;padding:12px 0;list-style:none;text-align:left;background:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 7px 20px -5px rgba(0,0,0,.15);opacity:0;visibility:hidden;transform:translate3d(0,6px,0);transition:opacity .3s,transform .2s}
+.gh-more.is-open .gh-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.gh-dropdown a{display:block;padding:6px 20px;color:#15171a;line-height:1.7}
+.gh-burger{position:relative;display:none;flex-shrink:0;width:30px;height:30px;margin-right:-3px;padding:0;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
+.gh-burger::before,.gh-burger::after{content:"";position:absolute;left:3px;width:24px;height:1px;background:#fff;transition:all .2s cubic-bezier(.04,.04,.12,.96) .1008s}
+.gh-burger::before{top:11px}
+.gh-burger::after{bottom:11px}
+.gh-open .gh-burger::before{top:15px;transform:rotate(45deg)}
+.gh-open .gh-burger::after{bottom:14px;transform:rotate(-45deg)}
+.gh :focus-visible{outline-color:var(--accent);box-shadow:none}
+.gh-dropdown :focus-visible{outline-color:var(--ink)}
+@media (max-width:767px){
+  .gh{height:64px}
+  .gh-in{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;gap:48px;height:100%}
+  .gh-brand{grid-column-start:1;width:100%;height:64px;flex-wrap:nowrap}
+  .gh-logo{margin-right:auto;flex-shrink:1}
+  .gh-brand .gh-icon{display:inline-flex}
+  .gh-brand .gh-globe{margin-right:8px}
+  .gh-brand .gh-search{margin-left:-6px;margin-right:8px}
+  .gh-burger{display:block}
+  .gh-menu,.gh-actions{grid-row-start:auto;grid-column:auto}
+  .gh-actions{display:none}
+  .gh-menu{position:fixed;justify-content:center;margin:0;visibility:hidden;opacity:0}
+  .gh-menu::before{content:none}
+  .gh-nav{gap:16px;line-height:1.4}
+  .gh-nav a{font-size:26px;font-weight:600}
+  .gh-nav li{opacity:0;transform:translateY(-4px)}
+  .gh-open .gh{position:fixed;inset:0;z-index:3999999;height:100%;overflow-y:auto;overscroll-behavior-y:contain}
+  .gh-open .gh-menu{position:static;visibility:visible;opacity:1}
+  .gh-open .gh-nav{display:flex;flex-direction:column}
+  .gh-open .gh-nav li{opacity:1;transform:translateY(0);transition:transform .2s,opacity .2s}
+  /* The blog keeps a footer row here for 'Sign in'; this site has no members, so the row stays empty to keep the menu where the blog's is. */
+  .gh-open .gh-actions{display:block;height:calc(max(4vmin, 20px) + max(4vmin, 28px) + 21px)}
+  .gh-open .gh-actions > *{display:none}
+}
+
+/* ---------- the site's tabs, under the Vizney header ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;padding:0 max(4vmin, 20px);background:var(--page);box-shadow:inset 0 -1px var(--line)}
+.tabs-in{display:flex;align-items:stretch;gap:28px;max-width:1200px;height:48px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs-in::-webkit-scrollbar{display:none}
+.tabs a{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;padding-top:2px;border-bottom:2px solid transparent;font-size:15px;font-weight:500;line-height:1;white-space:nowrap;color:var(--ink-2);text-decoration:none}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs .tabs__name{font-weight:700;color:var(--ink)}
+.tabs .tabs__git{margin-left:auto}
+.tabs :focus-visible{outline-offset:-2px;box-shadow:none}
+
+/* ---------- footer (as on Vizney Blocks) ---------- */
+.foot{margin-top:120px;border-top:1px solid var(--line-2)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
+.foot-in nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot-in a{color:var(--ink-2);text-decoration-color:currentColor;text-decoration-thickness:auto;text-underline-offset:auto}
+
+/* ---------- the spec (DASHBOARD.md rendered by GitHub Pages) ---------- */
+.doc{max-width:880px;margin:0 auto;padding:56px max(4vmin, 20px) 0;font-size:16px;line-height:1.75}
+.doc h1{font-size:clamp(30px, 4vw, 40px);line-height:1.2;font-weight:700;letter-spacing:-.025em}
+.doc h2{margin-top:64px;padding-top:28px;border-top:1px solid var(--line);font-size:26px;line-height:1.3;font-weight:700;letter-spacing:-.02em}
+.doc h3{margin-top:36px;font-size:19px;line-height:1.4;font-weight:700}
+.doc h4{margin-top:28px;font-size:16px;font-weight:700}
+.doc p,.doc ul,.doc ol,.doc pre,.doc blockquote,.doc table,.doc .highlighter-rouge{margin-top:16px}
+.doc .highlighter-rouge pre{margin-top:0}
+.doc ul{padding-left:22px;list-style:disc}
+.doc ol{padding-left:24px;list-style:decimal}
+.doc li + li{margin-top:6px}
+.doc li > ul,.doc li > ol{margin-top:6px}
+.doc strong{font-weight:700}
+.doc hr{margin:40px 0;border:0;border-top:1px solid var(--line)}
+.doc blockquote{padding-left:16px;border-left:3px solid var(--line);color:var(--ink-2)}
+.doc code{padding:.12em .36em;border-radius:5px;background:var(--soft);white-space:normal;overflow-wrap:anywhere}
+.doc pre{padding:16px 18px;border-radius:12px;background:var(--soft);overflow-x:auto;font-size:13.5px;line-height:1.6}
+.doc pre code{padding:0;background:none;font-size:inherit;white-space:pre;overflow-wrap:normal}
+.doc table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:14px;line-height:1.55}
+.doc th,.doc td{padding:9px 14px 9px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.doc th{font-weight:700;border-bottom-color:var(--rule);white-space:nowrap}
+.doc img{max-width:100%;height:auto}
+@media (max-width:720px){
+  .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  .doc{padding-top:36px;font-size:15px}
+  .doc h2{margin-top:48px;font-size:22px}
+  .foot-in nav{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body data-page="spec">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="gh" id="top">
+  <div class="gh-in">
+    <div class="gh-brand">
+      <a class="gh-logo" href="https://www.vizney.com/" data-href="v:home"><img src="/assets/brand/vizney-wordmark-white.png" width="106" height="40" alt="Vizney"></a>
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+      <button class="gh-burger" type="button" aria-label="Main Menu" aria-expanded="false" aria-controls="ghMenu" data-i18n-aria="ghMenu"></button>
+    </div>
+    <nav class="gh-menu" id="ghMenu" aria-label="Vizney">
+      <ul class="gh-nav">
+        <li><a href="https://www.vizney.com/chart-guide/" data-href="v:chart-guide">Chart Guide</a></li>
+        <li><a href="https://blocks.vizney.com/" data-href="v:blocks">Blocks</a></li>
+        <li><a href="https://styles.vizney.com/" data-href="v:styles" aria-current="page">Styles</a></li>
+        <li><a href="https://www.vizney.com/tips/" data-href="v:tips">Tips &amp; Tricks</a></li>
+        <li><a href="https://www.vizney.com/kb/" data-href="v:kb">Knowledge Base</a></li>
+        <li><a href="https://www.vizney.com/about/" data-href="v:about">About</a></li>
+        <li><a href="https://www.vizney.com/contact-us/" data-href="v:contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="gh-actions">
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Vizney Styles" data-i18n-aria="tabsAria">
+  <div class="tabs-in">
+    <a class="tabs__name" href="/" data-href="home" data-tab="top">Vizney Styles</a>
+    <a href="/#styles" data-href="home:styles" data-tab="styles" data-i18n="navStyles">Catalog</a>
+    <a href="/#custom" data-href="home:custom" data-tab="custom" data-i18n="navCustom">Your company</a>
+    <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true">↗</span></a>
+    <a class="tabs__git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="main" class="doc">
+<h1 id="costco-style--dashboardmd">Costco style — DASHBOARD.md</h1>
+<p><strong>Warehouse, Receipt, No-Frills</strong> · 창고형, 영수증, 꾸밈없음</p>
+<p>A dashboard design spec read from the public design of costco.com, its monthly sales releases and the places members meet the company: the warehouse price sign, the register receipt and the Warehouse Savings coupon book. Costco publishes almost no charts; it shows its numbers on signs, receipts, coupons and in release tables. This spec turns those into dashboard parts — price signs as key figures, the receipt as the department table (with barcode bars, and transactions by hour where the receipt prints its barcode), the coupon book as a figure — and adds a warehouse board against plan and the holiday buy stacked as pallet racks, all in one card and chart grammar on costco.com's blue bands, charcoal section bands and ruled grids. It then adds what a website spec leaves out and a dashboard needs: validated data colors, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Add it to a project with one command (or the zip on the sample page), or hand it to whoever builds your dashboards. The live sample was built from it.</p>
+<pre><code>npx @vizney/styles@latest add costco
+# or, without Node:
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- costco
+</code></pre>
+<p>That puts <code>DASHBOARD.md</code> in the project root and the <code>dashboard-style</code> agent skill (build, restyle, review) in <code>.claude/skills/dashboard-style/</code>, together with <code>tokens.css</code>, <code>tokens.json</code>, <code>costco.tps</code>, <code>powerbi-theme.json</code> and <code>prompt.md</code>. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow <code>DASHBOARD.md</code>.</p>
+<ul>
+<li>Live sample: https://styles.vizney.com/costco/?lang=en (Korean <code>?lang=ko</code>; one region <code>&amp;region=west</code>)</li>
+<li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/costco/DASHBOARD.md</li>
+<li>Package: <a href="costco-dashboard-style.zip">costco-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
+<li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="costco.tps">costco.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="comps.csv">comps.csv</a> (the data behind the sample's Figure 1)</li>
+<li>Catalog: VIZNEY STYLES · 04 · https://styles.vizney.com (Vizney Styles is a line of <a href="https://www.vizney.com">Vizney</a>)</li>
+</ul>
+<p>Not an official Costco design, and not affiliated with or endorsed by Costco Wholesale. A reference style read from the publicly visible design of costco.com and its public touchpoints such as warehouse signs, receipts and printed coupons; it carries no logo, typeface, photo or data of theirs. The sample's company, Vizney Wholesale, and all its numbers are fictional. Trademarks belong to their owners.</p>
+<h2 id="visual-theme--atmosphere">Visual Theme &amp; Atmosphere</h2>
+<p>A warehouse that prints its numbers. The page is white under costco.com's frame: a blue promo band with the week and the coupon book's dates, a <code>#fafafa</code> header, the blue region band that is the filter, and a <code>#fafafa</code> status row that reports in green, where costco.com says which warehouse is open. The report opens like a monthly sales release — <code>Net sales of $51.46 million for the retail week ended November 1, 2026, an increase of 8.6 percent from $47.39 million last year.</code> — set in regular weight with only the money and the percent bold, the way a price is. Below it stand six price signs: white cards in a thin black frame, an item code at the top, the name in bold caps, the figure huge with <code>$</code> and decimals as superscripts, and a date code in the corner.</p>
+<p>Three devices carry the report, and each is built to be read before it is admired. The <strong>price sign</strong> is the key figure. The <strong>register receipt</strong> is the department table: monospace lines with a barcode-striped bar for each department's sales, thousands of dollars that add up to the subtotal, <code>****  TOTAL</code>, the item count, and — where a receipt prints its barcode — transactions by hour as thin ink bars. The <strong>coupon book</strong> is the promotion figure: a charcoal band and a ruled grid of coupons with the channel line, the item number and limit, the green savings and a bar of redemptions against forecast. Around them sit standard views on plain white cards: comparable sales as lines (reported against <code>Adjusted*</code>), a warehouse board ranked against plan, and the holiday buy stacked as pallets on racks.</p>
+<p>No frills: no shadows, no rounded cards, no gradients, no photos. Section bands are charcoal <code>#333333</code> with white 22px/700 headings, like the coupon page's categories; blocks under them are ruled by 1px <code>#eeeeee</code>. One blue does the data's talking, gray does the rest, and orange flags what fell short. Every number answers a question someone acts on: against last year and against plan, the shortfalls ranked, the busy hours shown where the receipt's barcode sits.</p>
+<p>Measured in a browser on November 4, 2026 (costco.com signed out, its Warehouse Savings page and warehouse locator, costco.co.kr, investor.costco.com): costco.com's MUI tokens are costco-blue <code>#005dab</code>, blue-700 <code>#004c8a</code>, blue-100 <code>#eff7fb</code>, the logo red <code>#e51937</code>, red-500 <code>#c13533</code>, green <code>#008000</code>, green-700 <code>#0b6e22</code>, caution <code>#ca4d00</code> and a gray ladder <code>#fafafa</code> <code>#eeeeee</code> <code>#d9d9d9</code> <code>#cccccc</code> <code>#909090</code> <code>#707070</code> <code>#5f5f5f</code> <code>#333333</code>; text <code>#333333</code> / <code>#5f5f5f</code> / <code>#707070</code>; spacing 4 · 8 · 12 · 16 · 24 · 32; radius 4px (shape) and 3px (buttons). The header is a 31px <code>#005dab</code> promo band (white 18px), a 138px <code>#fafafa</code> header, a 44px <code>#005dab</code> nav band (white 16px) and a <code>#fafafa</code> row that names the member's warehouse with an <code>Open until &lt;time&gt;</code> status in 12px <code>#008000</code>. The primary button is <code>#005dab</code> with white 16px/400, a 3px radius and 12px 16px padding. A product tile sets its price at 24px/700 with 14px/700 superscript <code>$</code> and cents; badges are 20px slanted tags (<code>clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)</code>). The Warehouse Savings page has 22px/700 white headings on <code>#333333</code> bands (12px 16px 4px, 50px tall), a grid of white cells ruled 1px <code>#eeeeee</code>, and coupons that read: the channel (<code>Warehouse</code> 16px/700 <code>#c13533</code> <code>&amp;</code> <code>Online</code> <code>#005dab</code>, or an <code>Online Only</code> tag) → the item name 16px → <code>Item &lt;7 digits&gt;</code> and <code>Limit &lt;n&gt;.</code> in 12px <code>#707070</code> → the price in <code>#0b6e22</code> at 40px/700 with 18px superscripts → <code>After $&lt;n&gt; OFF</code>. The locator writes gas prices to a tenth of a cent with the last digit as a superscript. The monthly sales release writes one sentence of net sales and tables of comparable sales, with a second set <code>*Excluding the impacts from changes in gasoline prices and foreign exchange.</code>; there are no charts. On a warehouse price sign the item code sits at the top, a date code at the bottom right, and an asterisk marks an item that will not be restocked; at the exit the item count at the foot of the receipt is checked against the cart. Costco Sans has no Hangul, and costco.co.kr loads no Korean web font.</p>
+<h2 id="color-palette--roles">Color Palette &amp; Roles</h2>
+<p>Surfaces and text are costco.com's gray ladder; blue frames the page; the rules are the coupon page's.</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td><code>#ffffff</code></td>
+<td>page background</td>
+</tr>
+<tr>
+<td>bar</td>
+<td><code>#fafafa</code></td>
+<td>header, the status row, the footer, the workbench's package panel</td>
+</tr>
+<tr>
+<td>paper · plot</td>
+<td><code>#ffffff</code> · <code>#ffffff</code></td>
+<td>price signs, cards, the receipt, coupon cells; a chart sits on its card</td>
+</tr>
+<tr>
+<td>rule · hair</td>
+<td><code>#eeeeee</code></td>
+<td>the ruled grid between cells, rules between board rows, chart gridlines</td>
+</tr>
+<tr>
+<td>line</td>
+<td><code>#d9d9d9</code></td>
+<td>the edge of a standalone card, the workbench window</td>
+</tr>
+<tr>
+<td>edge</td>
+<td><code>#cccccc</code></td>
+<td>chart baselines, the tooltip border, the language toggle, the edge of an arriving pallet slot</td>
+</tr>
+<tr>
+<td>sign · band · ink</td>
+<td><code>#333333</code></td>
+<td>the 1px frame of a price sign · section bands · titles, key figures and table values</td>
+</tr>
+<tr>
+<td>text-2</td>
+<td><code>#5f5f5f</code></td>
+<td>subtitles, the comparison words of a change, secondary values (6.4:1)</td>
+</tr>
+<tr>
+<td>muted</td>
+<td><code>#707070</code></td>
+<td>figure labels, notes, axis ticks, item numbers, table headers (4.95:1)</td>
+</tr>
+<tr>
+<td>faint</td>
+<td><code>#909090</code></td>
+<td>date codes, line numbers and the receipt's dashed rules only (3.2:1, never running text)</td>
+</tr>
+<tr>
+<td>blue · blue-700 · blue-100</td>
+<td><code>#005dab</code> · <code>#004c8a</code> · <code>#eff7fb</code></td>
+<td>the promo and region bands, buttons, links, focus, the <code>Online</code> channel word, slanted tags · button hover and the subject's text step · hovered rows and cells</td>
+</tr>
+<tr>
+<td>red · red-500</td>
+<td><code>#e51937</code> · <code>#c13533</code></td>
+<td>the logo red, only on a second kind of slanted tag · the <code>Warehouse</code> channel word</td>
+</tr>
+<tr>
+<td>green · green-700</td>
+<td><code>#008000</code> · <code>#0b6e22</code></td>
+<td>status text (<code>24 of 24 warehouses reporting</code>) · coupon savings (<code>$10 OFF</code>) and good changes</td>
+</tr>
+<tr>
+<td>caution → bad</td>
+<td><code>#ca4d00</code> → <code>#bc4700</code></td>
+<td>costco.com's caution, darkened to 4.5:1 for text: bad changes, behind plan</td>
+</tr>
+</tbody>
+</table>
+<p>Rules:
+- Cards are white with a 1px <code>#d9d9d9</code> edge, or cells of a ruled block (1px <code>#eeeeee</code>). No radius except the price sign's 2px and the buttons' 3px; no shadows except the tooltip and the toast.
+- Blue <code>#005dab</code> is the frame (bands, buttons, links); data gets its own blue <code>#1a70c2</code>. The logo red <code>#e51937</code> is never data.
+- Charcoal <code>#333333</code> is for section bands, the sign frame and ink; never fill a card with it.
+- Green says that something is fine, in words (<code>reporting</code>, <code>ahead of plan</code>, <code>OFF</code>); orange says that something fell short. Neither is ever a series.</p>
+<h2 id="data-colors">Data Colors</h2>
+<p>Costco draws almost no charts — its sales releases are tables — so the data hues come from the pair costco.com uses to split its channels: <code>Warehouse</code> red and <code>Online</code> blue. Blue is the subject everywhere; red appears only beside blue, in the channel figure; everything else is gray. Every value passed an OKLab validator (color-vision-deficiency separation, normal-vision separation, contrast) on the card <code>#ffffff</code> and the header <code>#fafafa</code>. Use them exactly; do not generate tints.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Mark</th>
+<th>Label text</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subject</td>
+<td><code>#1a70c2</code></td>
+<td><code>#004c8a</code></td>
+<td>what the title names: adjusted comparable sales, the department or coupon the title picks, the busiest day, sold pallets, Premium sign-ups, Online</td>
+</tr>
+<tr>
+<td>Second category</td>
+<td><code>#d42f37</code></td>
+<td><code>#c13533</code></td>
+<td>Warehouse, only beside Online in the channel figure</td>
+</tr>
+<tr>
+<td>Other</td>
+<td><code>#cccccc</code></td>
+<td>text-2</td>
+<td>everything else; bars of warehouses ahead of plan; pallets in the warehouse</td>
+</tr>
+<tr>
+<td>Comparison</td>
+<td><code>#909090</code>, dashed 2px (6 on, 4 off)</td>
+<td>ink</td>
+<td>reported comparable sales against adjusted; last year</td>
+</tr>
+<tr>
+<td>Plan</td>
+<td><code>#333333</code>, solid 1px (the board) or 2px (the racks)</td>
+<td>ink</td>
+<td>the plan line; <code>PLAN 30%</code></td>
+</tr>
+<tr>
+<td>Behind plan</td>
+<td><code>#bc4700</code></td>
+<td><code>#bc4700</code></td>
+<td>bars and values of warehouses behind plan; negative VS LY in the receipt</td>
+</tr>
+<tr>
+<td>Receipt bar</td>
+<td>stripes of <code>#333333</code>; the line the title names <code>#1a70c2</code></td>
+<td>—</td>
+<td>department sales in the receipt</td>
+</tr>
+<tr>
+<td>Arriving</td>
+<td><code>#ffffff</code> with a 1px <code>#cccccc</code> edge</td>
+<td>—</td>
+<td>pallet slots still to come</td>
+</tr>
+<tr>
+<td>Sequential</td>
+<td><code>#8eb6e5</code> <code>#5c96d7</code> <code>#2174c7</code> <code>#10599e</code> <code>#0a3e6f</code></td>
+<td>ink on the two lightest, white on the rest</td>
+<td>color by value</td>
+</tr>
+<tr>
+<td>Diverging</td>
+<td><code>#9b1e22</code> <code>#d42f34</code> <code>#e9a29c</code> · <code>#d9d9d9</code> · <code>#8eb6e5</code> <code>#2174c7</code> <code>#0b569a</code></td>
+<td>each arm's darkest</td>
+<td>above and below a midpoint</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>good <code>#0b6e22</code>, bad <code>#bc4700</code>, neutral <code>#909090</code></td>
+<td>—</td>
+<td>change text and status words only</td>
+</tr>
+</tbody>
+</table>
+<p>Validation (from <code>tokens.json</code>, light mode, on <code>#ffffff</code> and <code>#fafafa</code>):
+- Blue <code>#1a70c2</code> and red <code>#d42f37</code>: CVD ΔE 21.4 (protan), normal vision 32.1, lightness inside 0.43–0.77, contrast 5.07 and 4.93:1 on white (4.86 and 4.72:1 on <code>#fafafa</code>). Blue sits one step lighter than the UI blue <code>#005dab</code>; red sits between the logo red <code>#e51937</code> and the error red <code>#c13533</code>.
+- Other <code>#cccccc</code> is costco.com's gray-500, neutral by design (the lightness band and chroma floor do not apply). At 1.61:1 it always has a second cue: value labels, a 2px gap, a table.
+- Comparison <code>#909090</code> (gray-600) is 3.19:1, always dashed and labeled at its end.
+- The sequential ramp is one hue (spread 1°), monotone, every gap ≥ 0.06 in lightness, the light end 2.11:1. The diverging arms pass the ordinal checks (light ends 2.08 and 2.11:1); the poles are 19.5 (CVD) and 26.6 (normal vision) apart; the midpoint is gray-300.
+- Text: blue labels <code>#004c8a</code> 8.75:1, red labels <code>#c13533</code> 5.49:1, good 6.43:1, bad 5.20:1 (4.98:1 on <code>#fafafa</code>).</p>
+<p>Rules:
+- Blue only for what the title names; the rest gray. A card that is mostly blue has highlighted nothing. The one exception is the holiday racks, where blue is the share sold in every rack — the measure the title talks about — beside gray stock and empty slots.
+- Red belongs to the Warehouse channel, so a bad change is caution orange, never red.
+- Status is never color alone: arrows, signs, the side of the plan line and the words <code>behind plan</code> carry it too.
+- Never the UI blue <code>#005dab</code> or the logo red <code>#e51937</code> on data.</p>
+<h2 id="typography-rules">Typography Rules</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>English</th>
+<th>Korean</th>
+<th>Weights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sans (everything)</td>
+<td>Barlow</td>
+<td>Pretendard</td>
+<td>400, 500, 600, 700</td>
+</tr>
+<tr>
+<td>Mono (the receipt, codes)</td>
+<td>Overpass Mono</td>
+<td>Overpass Mono, then Pretendard for Hangul</td>
+<td>400, 500, 600</td>
+</tr>
+</tbody>
+</table>
+<p>Barlow stands in for Costco Sans. Measured at 100px, Costco Sans has a 72 cap height, a 52 x-height and 540 for ten digits; among about fifty open sans faces Barlow came second by these proportions, and it is drawn from California road signs and plates, which suits warehouse signage. Overpass comes from Highway Gothic, the US highway sign face; it sets the receipt, item numbers, sign codes, date codes and code. costco.co.kr loads no Hangul web font, so Korean uses Pretendard. There is no serif.</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Size / weight</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headline</td>
+<td><code>clamp(24px, 2.15vw, 30px)</code> / 400, line-height 1.28</td>
+<td>the sales-release sentence; only the money and the percent bold (700), like a price; Korean line-height 1.38</td>
+</tr>
+<tr>
+<td>Lede</td>
+<td>16px / 400, line-height 1.5, text-2</td>
+<td>figures in 600 ink</td>
+</tr>
+<tr>
+<td>Report name · eyebrow</td>
+<td>28px / 400 · 12px / 700 uppercase, 0.1em, text-2</td>
+<td>costco.com's h1 (measured); the company name above it</td>
+</tr>
+<tr>
+<td>Sign code · name</td>
+<td>mono 11px / 500 muted · 15px / 700 uppercase, 0.02em</td>
+<td><code>101</code> · <code>NET SALES</code> (Korean 15px, no uppercase)</td>
+</tr>
+<tr>
+<td>Sign value</td>
+<td>58px / 700, line-height 0.92, −0.015em, tabular</td>
+<td><code>$</code> and decimals at 0.42em as superscripts; the unit word under the decimals (11px / 700, 0.08em, uppercase: <code>MILLION</code>, <code>PER TRIP</code>) or after the number (13px / 700: <code>TRIPS</code>, <code>M GAL</code>); Korean 50px with the unit after it (<code>5,146만 달러</code>, <code>302,773건</code>)</td>
+</tr>
+<tr>
+<td>Sign change · fine print</td>
+<td>13px text-2, the change in 700 status color · 12px, the key 11px / 700 uppercase muted, the date code mono 11px faint</td>
+<td></td>
+</tr>
+<tr>
+<td>Section band</td>
+<td>22px / 700 white</td>
+<td>the coupon page's category band (measured); Korean 21px</td>
+</tr>
+<tr>
+<td>Figure label</td>
+<td>12px / 700 uppercase, 0.08em, muted</td>
+<td><code>FIGURE 1 · COMPARABLE SALES</code>, <code>TABLE 1 · DEPARTMENT LEDGER</code> (Korean 13px, no uppercase: <code>그림 1 · 기존점 매출</code>)</td>
+</tr>
+<tr>
+<td>Card title · subtitle</td>
+<td>19px / 600, line-height 1.3 · 14px on 20px, text-2</td>
+<td>the finding; <code>text-wrap: balance</code> (Korean 18px on 1.42)</td>
+</tr>
+<tr>
+<td>Receipt</td>
+<td>mono 12.5px on 19px</td>
+<td>caps; Korean department names in Pretendard 13px</td>
+</tr>
+<tr>
+<td>Coupon</td>
+<td>channel 14px / 700 uppercase · name 16px · item line 12px muted, the number in mono 11.5px · savings 40px / 700 <code>#0b6e22</code> with 18px <code>$</code> and <code>OFF</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Board</td>
+<td>rank mono 11.5px muted · code mono 13.5px / 600 · region 12.5px muted · values 12.5px / 600</td>
+<td></td>
+</tr>
+<tr>
+<td>Rack</td>
+<td>name 14px / 700 uppercase, 0.04em · <code>27.4% sold</code> 17px / 700 <code>#004c8a</code> · status 13px / 600</td>
+<td></td>
+</tr>
+<tr>
+<td>Note · key</td>
+<td>12px on 18px muted · 13px / 500 ink</td>
+<td>the note starts with <code>Note:</code> / <code>주:</code></td>
+</tr>
+<tr>
+<td>Axis ticks · value labels</td>
+<td>12px muted · 12px / 700 ink</td>
+<td></td>
+</tr>
+<tr>
+<td>Fine print (method)</td>
+<td>12.5px, line-height 1.65</td>
+<td>the coupon book's terms</td>
+</tr>
+</tbody>
+</table>
+<p>Headlines are regular (400) with bold money, as costco.com sets its h1; card titles are semibold (600); sign names and figures are bold (700). Korean breaks between words (<code>word-break: keep-all</code>), and a number stays on the line with the particle after it.</p>
+<h2 id="numbers-dates--units">Numbers, Dates &amp; Units</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>English</th>
+<th>Korean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Net sales in the headline</td>
+<td><code>$51.46 million</code></td>
+<td><code>5,146만 달러</code></td>
+</tr>
+<tr>
+<td>On a price sign</td>
+<td><code>$51.46 MILLION</code>, <code>$150.55 PER TRIP</code> (superscript <code>$</code> and decimals)</td>
+<td><code>5,146만 달러</code>, <code>150.55달러</code></td>
+</tr>
+<tr>
+<td>In the receipt</td>
+<td>thousands of dollars: <code>3,720</code>, <code>51,464</code>; the header <code>$K</code></td>
+<td>the same digits; the header <code>천 달러</code></td>
+</tr>
+<tr>
+<td>Warehouses and plans</td>
+<td><code>$2.19M</code>, <code>PLAN $50.86M (+1.2%)</code></td>
+<td><code>219만 달러</code>, <code>계획 5,086만 달러(+1.2%)</code></td>
+</tr>
+<tr>
+<td>Counts</td>
+<td><code>302,773 trips</code>, <code>3,096,130</code> items</td>
+<td><code>302,773건</code>; in sentences <code>30만 2,773번</code></td>
+</tr>
+<tr>
+<td>Members · gallons</td>
+<td><code>1.28 million</code> · <code>1.74 M gal</code></td>
+<td><code>128.5만 명</code> · <code>174.1만 갤런</code></td>
+</tr>
+<tr>
+<td>Savings</td>
+<td><code>$721,748</code> in sentences, <code>$721,748.46</code> in the receipt</td>
+<td><code>72만 1,748달러</code>, <code>721,748.46</code></td>
+</tr>
+<tr>
+<td>Pump price</td>
+<td><code>$3.37⁸</code> (the tenth of a cent as a superscript, as on a gas sign)</td>
+<td><code>3.37⁸달러</code></td>
+</tr>
+<tr>
+<td>Coupon</td>
+<td><code>$10 OFF</code>, <code>Item 9310542 · Limit 10.</code></td>
+<td><code>10 달러 할인</code>, <code>상품 번호 9310542 · 구매 한도 10개</code></td>
+</tr>
+<tr>
+<td>Rates · points</td>
+<td><code>6.2%</code> · <code>−0.1 pts</code>, <code>▲ 4.5 pts ahead of plan</code></td>
+<td><code>6.2%</code> · <code>−0.1%p</code>, <code>▲ 계획보다 4.5%p 앞섬</code></td>
+</tr>
+<tr>
+<td>Change</td>
+<td><code>+8.6% from $47.39M last year</code></td>
+<td><code>+8.6% 지난해 4,739만 달러 대비</code></td>
+</tr>
+<tr>
+<td>Dates</td>
+<td><code>11/01/26</code>, <code>10/26/26 – 11/01/26</code>, <code>Week ended 11/01/26</code>; axis <code>08/09</code></td>
+<td><code>11/1(일)</code>, <code>10/26(월) ~ 11/1(일)</code>, <code>11/1(일) 마감 주</code>; axis <code>8/9</code></td>
+</tr>
+<tr>
+<td>Hours</td>
+<td><code>12 PM</code>, <code>9–10 AM</code></td>
+<td><code>낮 12시</code>, <code>오전 9시~오전 10시</code></td>
+</tr>
+<tr>
+<td>Codes</td>
+<td>sign codes <code>101</code>–<code>106</code>, date codes <code>11/01</code>, departments <code>01</code>–<code>14</code>, warehouses <code>W-04</code></td>
+<td>the same</td>
+</tr>
+<tr>
+<td>Missing</td>
+<td><code>—</code> (no sales last year)</td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Money is in the company's currency; the sample's company is American, so US dollars. The item numbers, warehouse codes and prices in the sample are made up.</li>
+<li>Signs use the true minus (<code>−</code>, U+2212); one decimal for change.</li>
+<li>Change colors follow whether the move is good for that metric (a lower comparable-sales rate is orange).</li>
+<li>Units and suffixes are smaller than the digits.</li>
+<li>A table that is rounded still adds up: round each line to the unit, then hand the leftover units to the lines with the largest remainders (the receipt's <code>$K</code> lines sum to its subtotal, and subtotal plus gas to the total). The exact value is in the tooltip.</li>
+<li>Weeks run Monday to Sunday; the report is as of Sunday 11:59 PM and published Monday morning.</li>
+</ul>
+<h2 id="layout-principles">Layout Principles</h2>
+<p>One column on a white page, at most 1400px wide, 32px side padding (24px up to 1359px, 16px below 640px), a 16px gap, 40px above each band. No sidebar, no logo, no photo.</p>
+<ol>
+<li><strong>Promo band</strong> (<code>#005dab</code>, 32px): <code>Week ended 11/01/26 · Warehouse Savings valid 10/26/26 – 11/22/26 · Week 1 of 4</code>, white 15px / 500, centered.</li>
+<li><strong>Header</strong> (<code>#fafafa</code>, 76px): the company eyebrow and the report name; on the right the period with a calendar icon, the EN/KO toggle, an outlined <code>Export PDF</code> and a blue <code>Copy as Markdown</code>.</li>
+<li><strong>Region band</strong> (<code>#005dab</code>, 44px): <code>All warehouses (24) · West (9) · Central (7) · East (8)</code>, the selected one bold with a 3px white underline; <code>vs the same week last year</code> on the right. It is the filter: it scopes every card, and the URL keeps it (<code>?region=west</code>).</li>
+<li><strong>Status row</strong> (<code>#fafafa</code>, 40px, 1px <code>#eeeeee</code> below): a green dot and <code>24 of 24 warehouses reporting</code>, gas stations, paid members, and <code>Data as of Sun 11/01/26, 11:59 PM PT</code> on the right.</li>
+<li><strong>This week</strong> (no band): the left 8 of 12 columns hold the headline, the lede, six price signs (3 × 2 on a subgrid), the asterisk footnote and Figure 1 comparable sales; the right 4 hold Table 1, the receipt. The two columns end on one line: the shorter one takes the extra height — Figure 1's plot, or the receipt's hourly barcode up to 124px, with any rest above the barcode.</li>
+<li><strong>Warehouses and holiday stock</strong> (a band): Table 2 the warehouse board (two columns) and Figure 2 the holiday buy (four racks), stacked in a ruled block.</li>
+<li><strong>Warehouse Savings</strong> (a band with the book's dates, the week and the coupon count): Figure 3, eight coupons in a 4 × 2 ruled grid.</li>
+<li><strong>Channels, members and gas</strong> (a band): Figure 4 channels · Figure 5 new members · Figure 6 gas by day, three cells in a ruled row.</li>
+<li><strong>How it's built</strong> (a band): a paragraph with two buttons, three ruled steps, the workbench window and a caption.</li>
+<li><strong>Method and sources</strong> (a band): fine print in two columns, like the coupon book's terms.</li>
+<li><strong>Footer</strong> (<code>#fafafa</code>): the catalog line, the sample note, the notice and the way back.</li>
+</ol>
+<p>At most seven views in one band, and every view a standard form an agent or a BI tool can rebuild. Density: at 1440 × 810 the frame, the headline, all six price signs and the top half of the receipt are on the first screen. Reading order follows the list; never lead with a chart.</p>
+<h2 id="component-stylings">Component Stylings</h2>
+<ul>
+<li><strong>Card</strong>: white, 1px <code>#d9d9d9</code>, no radius, no shadow, 18px 22px 16px. Head (figure label → title → subtitle → keys, 14px below), body, foot (<code>Note:</code> 12px muted, 12px above). Never a card inside a card. Inside a ruled block the card loses its edge and the 1px <code>#eeeeee</code> rules take over.</li>
+<li><strong>Price sign</strong> (key figure): white, a 1px <code>#333333</code> frame, 2px radius, 10px 14px 9px, 12px apart. Five rows on a subgrid so the values line up: the code (mono 11px muted) → the name (15px / 700 caps) → the value (58px / 700 with superscripts) → the change (<code>▲ +8.6%</code> in good or <code>▼ −0.1 pts</code> in bad, 700, then the comparison words in text-2) → a fine-print line above a 1px <code>#eeeeee</code> rule, with a key (11px / 700 caps muted) and a value (600 ink) — <code>PLAN $50.86M (+1.2%)</code>, <code>REPORTED 6.2%</code>, <code>PER WAREHOUSE A DAY 1,802</code>, <code>ITEMS PER TRIP 10.2</code>, <code>RENEWAL RATE 88.3%</code>, <code>PUMP PRICE $3.37⁸</code> — and the date code <code>11/01</code> at the right in mono faint. An asterisk in a name points to the footnote under the signs.</li>
+<li><strong>Receipt</strong> (Table 1): a card padded 18px 20px 16px in Overpass Mono 12.5px on 19px. A dashed <code>#909090</code> rule, then two centered caps lines (<code>ALL WAREHOUSES · 24 WAREHOUSES</code>, <code>WEEK ENDED 11/01/26 · RPT 044</code>). Columns <code>DEPT</code> (4.4ch) · <code>DESCRIPTION</code> (17ch, receipt abbreviations: <code>MEAT/SEAFOOD</code>, <code>HOME/SEASONAL</code>) · <code>SALES</code> (the bar) · <code>$K</code> (6.6ch, right) · <code>VS LY%</code> (7ch, right); headers 11.5px muted. Each department line carries a <strong>barcode bar</strong>: 11px tall, its length the line's net sales against the largest line, filled with vertical stripes of uneven width — a 38px pattern, about 63% ink, widths 3 · 1 · 1 · 1 · 2 · 1 · 4 · 1 · 1 · 1 · 2 · 2 · 1 · 1 · 3 · 1 · 2 · 1 · 1 · 1 · 3 · 1 · 1 · 2 px, ink first — and a solid 2px end, so the length reads exactly. Ink <code>#333333</code>; the line the title names in <code>#1a70c2</code>, its text in <code>#004c8a</code> / 600. Negative VS LY in <code>#bc4700</code> / 600. A blank line, <code>SUBTOTAL</code> and <code>GAS STATION</code> (600) and <code>****  TOTAL</code> (700), all in <code>$K</code> that add up. After a dashed rule: <code>TOTAL NUMBER OF ITEMS SOLD = 3,096,130</code> (700), <code>INSTANT SAVINGS</code>, <code>TRANSACTIONS</code>, <code>AVERAGE TICKET</code>. After another dashed rule, where a receipt prints its barcode: <code>TRANSACTIONS BY HOUR</code> with <code>PEAK SAT 12 PM · 10,538</code> (600) on the right, then one ink bar per open hour (Mon–Fri 10 AM–9 PM, Sat 9 AM–6 PM, Sun 10 AM–6 PM), each about 62% of its slot and at most 4px wide, a 9px gap between days, heights from zero, the day names under them (mono 10.5px muted); then the code line (<code>11/01/26 23:59  W-ALL 24  RPT 044</code>, 11.5px muted, centered). A line turns <code>#eff7fb</code> on hover and shows a tooltip: net sales in full dollars, last year, vs last year, the share of merchandise, items sold.</li>
+<li><strong>Section band</strong>: <code>#333333</code>, at least 50px, 12px 16px 8px; a 22px / 700 white heading on the left and a 14px <code>#e6e6e6</code> line on the right (bold parts white). The blocks under it are ruled: 1px <code>#eeeeee</code> outside and between cells, no top edge.</li>
+<li><strong>Coupon</strong> (Figure 3): cells 14px 18px 16px in a 4-column ruled grid, the best coupon first. The channel line (<code>WAREHOUSE</code> <code>#c13533</code> <code>&amp;</code> <code>ONLINE</code> <code>#005dab</code>, 14px / 700 caps; <code>WAREHOUSE ONLY</code>; or the slanted <code>Online Only</code> tag); a 24px asterisk at the top right for a seasonal item that will not be restocked; the item 16px; <code>Item 9310542 · Limit 10.</code> 12px muted; the savings in <code>#0b6e22</code> (<code>$</code> 18px, the amount 40px / 700, <code>OFF</code> 18px); a 10px bar of redemptions against forecast on a <code>#eeeeee</code> track — the coupon the title names in blue, the rest <code>#cccccc</code>, a 2px ink forecast tick that overhangs 3px, bars stopping at 250%; <code>11,731 redeemed</code> and <code>188% of forecast</code> (13px; the title's coupon in <code>#004c8a</code>); <code>Member savings $117,310</code> (12px muted). A hovered cell turns <code>#eff7fb</code>.</li>
+<li><strong>Slanted tag</strong> (measured): 20px, 12px / 600 white on <code>#005dab</code> (or <code>#e51937</code> for a second kind), padding 0 16px 0 5px, <code>clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)</code>, radius 3px 0 0 3px. Small (18px, 11px) for <code>New</code> on the warehouse board.</li>
+<li><strong>Warehouse board</strong> (Table 2), from the warehouse locator's numbered list: two columns of equal length, ranked best first, 40px apart. Columns: the rank (mono 11.5px muted, <code>01</code>), the warehouse (the code in mono 13.5px / 600, the region in 12.5px muted in the all-regions view, a small <code>New</code> tag), <code>VS PLAN</code> (the bar), <code>NET SALES</code> (<code>$2.19M</code>, 600, right) and <code>VS LY</code> (13px text-2; <code>—</code> for a new warehouse). The header is 11px / 700 caps muted over a 1px <code>#d9d9d9</code> rule, with ticks <code>−4%</code> <code>PLAN</code> <code>+4%</code> <code>+8%</code>; rows are 29px with 1px <code>#eeeeee</code> rules. The bar is 12px tall and starts at the plan line (1px ink through every row): to the right in <code>#cccccc</code> when ahead, to the left in <code>#bc4700</code> when behind, its value (12.5px / 600) beyond its end and orange when behind. The scale runs from −6% to +10% of plan, with room for labels on both sides. The title counts the warehouses behind plan and names the furthest.</li>
+<li><strong>Pallet rack</strong> (Figure 2): four racks in a row (two on narrower screens), 30px apart. Each: the category in 14px / 700 caps and <code>2,560 pallets</code> (12.5px muted); a grid of 20 bays × 5 levels with 2px gaps and square slots, filled bay by bay from the left and from the floor up — sold <code>#1a70c2</code>, in the warehouse <code>#cccccc</code>, arriving white with a 1px <code>#cccccc</code> edge; one slot is 1% of the category's pallets, rounded so the three parts make 100; a 2px ink floor line; the plan-to-date line, 2px ink at a bay boundary, overhanging 6px above and 5px below, labeled <code>PLAN 30%</code> (mono 10.5px / 600) above it. Under the rack: <code>27.4% sold</code> (17px / 700 <code>#004c8a</code>) and <code>▼ 2.6 pts behind plan</code> (13px / 600 in bad; <code>▲ … ahead of plan</code> in good; <code>On plan</code> in text-2), then <code>1,460 in the warehouse · 398 arriving</code> (12.5px muted). Plans to date are multiples of 5% so the line falls between bays. A hovered rack turns <code>#eff7fb</code>.</li>
+<li><strong>Buttons</strong> (measured): 40px, 3px radius, 15px / 500, 0 16px. Blue <code>#005dab</code> with white text (hover <code>#004c8a</code>); outlined white with a 1px <code>#005dab</code> border and blue text (hover <code>#eff7fb</code>). Small: 32px, 14px.</li>
+<li><strong>Region band tabs</strong>: 16px white with 14px side padding, the count 14px at 0.85 opacity; the selected tab bold with a 3px white underline; <code>role="tablist"</code>, arrow keys move. The EN/KO toggle is a 40px box with a 1px <code>#cccccc</code> edge and two 32px cells, the selected one blue with white text.</li>
+<li><strong>Status row</strong>: 13px; <code>24 of 24 warehouses reporting</code> in <code>#008000</code> / 500 after an 8px green dot; keys 12px muted, values bold.</li>
+<li><strong>Tooltip</strong>: white, 1px <code>#cccccc</code>, 3px radius, 9px 12px 10px, costco.com's shadow <code>0 0 5px rgba(0,0,0,.3)</code>: a 13px / 700 head, an optional 12px muted line, then rows of key (a 9px square, a 14px line, dashed for the comparison, or an outlined square), value 700 ink and label text-2. It takes the first side that fits inside its card: above, left, right, below.</li>
+<li><strong>Toast</strong>: <code>#333333</code> with white 14px / 500, 3px radius, bottom centre, 2.2s.</li>
+<li><strong>Workbench window</strong>: 1px <code>#d9d9d9</code>, white. A 240px package panel on <code>#fafafa</code> (file names in mono 12px, blue links, install commands in white boxes with a copy button), the figure pane (the <code>Without a spec / With DASHBOARD.md</code> toggle in a 3px box with the selected cell blue, a chip <code>region = all</code> in mono, the title, the plot, the note, then <strong>Checks · DASHBOARD.md</strong>), and the code pane on white (tabs <code>Prompt · plan.md · figure-1.js · Tableau · Power BI</code> with a 3px blue underline, a copy button and a blue <code>Run again</code>, line-numbered code, a blue caret while typing, a status bar). Syntax: comment <code>#707070</code>, string <code>#0b6e22</code>, number <code>#bc4700</code>, keyword <code>#004c8a</code>, function <code>#c13533</code>, property <code>#333333</code> 500.</li>
+<li><strong>Fine print</strong> (Method and sources): 12.5px, line-height 1.65, in two columns; terms bold; the sources line in text-2.</li>
+<li><strong>Footer</strong>: <code>#fafafa</code>, a 1px <code>#eeeeee</code> rule above, 13px text-2; the catalog line in 600 ink, the series in 12px / 700 with 0.08em tracking.</li>
+</ul>
+<h2 id="charts">Charts</h2>
+<ul>
+<li><strong>Choose by the question.</strong> Costco shows its numbers on signs, receipts and coupons; start with those parts and draw a chart only where they cannot answer.</li>
+<li>How did the week do → the sales-release headline and six price signs, each with its comparison (last year, the week before, plan).</li>
+<li>A rate against its own history → lines, the subject solid blue and the comparison dashed gray, both ends labeled (Figure 1, Figure 4).</li>
+<li>Where the money came from, by department → the receipt: <code>$K</code> lines with barcode bars, VS LY beside them, totals that add up (Table 1).</li>
+<li>When the members came → the receipt's barcode: transactions by hour, one bar an hour, a gap between days (Table 1).</li>
+<li>Who hit plan → the warehouse board: a ranked list with bars from the plan line, the shortfalls in orange (Table 2).</li>
+<li>How fast a stock sells against plan → pallet racks: 100 slots per category, sold / in the warehouse / arriving, the plan-to-date line (Figure 2).</li>
+<li>Which promotions worked → the coupon grid with redemptions against forecast (Figure 3).</li>
+<li>Composition over time → stacked bars, the subject at the bottom, a 2px gap (Figure 5).</li>
+<li>One measure by day → bars, the day the title names in blue, values on top (Figure 6).</li>
+<li><strong>Titles.</strong> The card title is the finding (<code>Electronics grew the most, up 14.7%; food court was the only department down</code>; <code>7 of 24 warehouses finished behind plan; E-03 missed it by the most, 4.1%</code>), recomputed when the filter changes. The subtitle names the measure and the period; the note explains the method.</li>
+<li><strong>Marks.</strong> Lines 2.5px for the subject and 2px for the comparison, with a hollow end marker. Bars up to 22px wide (44px for seven days), square ends, 2px gaps between stacked segments. Board bars 12px, coupon bars 10px, receipt bars 11px; rack slots square with 2px gaps.</li>
+<li><strong>Axes.</strong> <code>#eeeeee</code> gridlines on rows only, a <code>#cccccc</code> baseline, no vertical axis line; ticks 12px muted, four to six nice ticks; dates <code>08/09</code>, the last one in ink.</li>
+<li><strong>Labels.</strong> Line ends carry <code>Name value</code> (the name in the series' text step, the value in ink) instead of a legend; values above bars 12px / 700, the bar the title names in ink and the rest in 500 text-2. The tooltip adds detail; it is never the only copy of a number.</li>
+<li><strong>Keys</strong> only where labels cannot do the job, as one row in the card head (a 14 × 10 square, a line, a dashed line, a tick, an outlined square).</li>
+<li><strong>Rounding.</strong> Tables round to a readable unit and still add up; the exact value is in the tooltip.</li>
+<li><strong>One axis.</strong> Never a dual axis.</li>
+<li><strong>Never:</strong> pie, donut, 3D, gauges, gradients on data, smoothed lines, the UI blue or the logo red on data, photos, product shots or logos, decoration that carries no number.</li>
+<li>Every chart and list has a tooltip, keyboard control and a screen-reader table.</li>
+</ul>
+<h2 id="depth--elevation">Depth &amp; Elevation</h2>
+<p>Flat and white. Cards are set apart by a 1px <code>#d9d9d9</code> edge or by the ruled grid, never by shadows, and never lift on hover. Shadows exist only on the tooltip and the toast (<code>0 0 5px rgba(0,0,0,.3)</code>, costco.com's). Bands are flat charcoal; the price sign's frame is a line, not a shadow.</p>
+<h2 id="interaction--motion">Interaction &amp; Motion</h2>
+<ul>
+<li><strong>Filter</strong>: the region band scopes everything. Changing it rewrites the headline, the lede, the signs, every title and note, the receipt's header and code line, and redraws every view. The URL keeps the region.</li>
+<li><strong>Hover</strong> shows a crosshair and hollow dots on lines, a blue-tinted band behind a bar or an hour, <code>#eff7fb</code> behind a receipt line, a board row, a coupon cell or a rack, and the tooltip; a tap picks on touch screens.</li>
+<li><strong>Keyboard</strong>: every chart, the receipt table, the hourly barcode, the board, the racks and the coupon grid are focusable; arrow keys step, Home and End jump, Esc clears, and a live region reads the value. Tabs move with arrow keys.</li>
+<li><strong>Workbench</strong>: the first time it scrolls into view, the code types itself (55ms a line, 380ms between steps) and each step draws its layer of Figure 1 (frame → reported → adjusted → end labels → title and note) and ticks its checks. Hovering a line of code spotlights its layer; hovering the chart highlights its code. <code>Without a spec</code> shows a typical first draft and fails all six checks. Changing the region rewrites the <code>region</code> value and flashes that line.</li>
+<li><code>Copy as Markdown</code> copies the whole report (the key figures, the receipt, the board, the racks, the coupons and the notes) with a toast; <code>Export PDF</code> prints the page.</li>
+<li>Motion: lines draw in 0.7s; bars, receipt bars and hours grow in 0.45–0.5s, one after another; board rows and sold slots fade in 0.3s; buttons change in 0.15s; <code>cubic-bezier(.4,0,.2,1)</code>. <code>prefers-reduced-motion</code> turns all motion off and shows the workbench finished.</li>
+</ul>
+<h2 id="accessibility">Accessibility</h2>
+<ul>
+<li>Text ≥ 4.5:1: ink 12.6:1, text-2 6.4:1 and muted 4.95:1 on white; blue labels 8.75:1, red labels 5.49:1, good 6.43:1, bad 5.20:1; white on <code>#005dab</code> 6.7:1 and on <code>#333333</code> 12.6:1. Faint <code>#909090</code> only for date codes, line numbers and rules.</li>
+<li>Marks below 3:1 (Other <code>#cccccc</code> at 1.61:1, the arriving slots, the coupon track) always have a second cue: a value label, a gap, an edge or a table.</li>
+<li>Identity is never color alone: names at line ends, the side of the plan line and the sign, <code>behind plan</code> and <code>ahead of plan</code> in words, dashes for comparisons, <code>▲</code> / <code>▼</code> on every change.</li>
+<li>Focus ring 2px <code>#005dab</code> with a 2px offset (white inside the blue band).</li>
+<li>Real tables with <code>scope</code> (the receipt is a table); every chart has a hidden data table and an <code>aria-label</code> that says what it shows and how to move.</li>
+</ul>
+<h2 id="responsive-behavior">Responsive Behavior</h2>
+<p>Each step keeps what the wider steps changed.</p>
+<ul>
+<li>≥ 1360: as laid out above.</li>
+<li>1024–1359: 24px padding, 14px gaps; sign values 50px (Korean 43px); the receipt 12px. The headline and the lede run across; below them the left 7 of 12 columns hold the price signs in two columns of three, the footnote and Figure 1, and the receipt takes the right 5, so it keeps room for its bars and both columns still end on one line. The workbench lifts its package panel into one row.</li>
+<li>1024–1199: code 12px with wrapped lines; the racks two by two; the coupon grid keeps four columns.</li>
+<li>900–1023: one column — the signs in three columns, Figure 1, then the receipt at most 620px wide; the channel row stacks; the coupons 2 × 4; the workbench in one column; the fine print in one column.</li>
+<li>640–899: the header wraps; <code>Export PDF</code> and the band's right-hand line hide; the signs 2 × 3; the board in one column.</li>
+<li>&lt; 640: 16px padding; the promo band shows two lines; sign values 34px (Korean 30px); the receipt 11px; the coupons and the racks in one column; the board drops the region and <code>VS LY</code> and keeps only <code>PLAN</code> in its header.</li>
+<li>Embedded in a post (<code>?embed=1</code>): the footer hides and the page reports its height to the host page.</li>
+</ul>
+<h2 id="tool-mapping">Tool Mapping</h2>
+<p><strong>Web and coding agents.</strong> Load <code>tokens.css</code> (installed in <code>.claude/skills/dashboard-style/</code>; or copy the <code>colors</code> block from the front matter) and these fonts (the second for Korean).</p>
+<!--email_off-->
+
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Overpass+Mono:wght@400;500;600&amp;display=swap&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css&quot;&gt;
+</code></pre>
+<!--/email_off-->
+
+<p>The barcode bar is a <code>repeating-linear-gradient(90deg, …)</code> of the stripe widths above, with <code>box-shadow: inset -2px 0 0</code> for its solid end. The racks are a CSS grid (<code>grid-template-columns: repeat(20, 1fr)</code>, <code>grid-auto-flow: column</code>) whose slots are classed in fill order, so each bay fills from the floor. Superscripts are spans at 0.42em aligned to the top of the digits. Give a device's parts a prefix (<code>rc-</code>, <code>bd-</code>, <code>rk-</code>) so shared classes never leak into them.</p>
+<p><strong>Tableau.</strong> Paste the <code>&lt;color-palette&gt;</code> elements of <code>costco.tps</code> into <code>My Tableau Repository/Preferences.tps</code> and restart Tableau Desktop. The categorical palette runs blue, red, Other and the comparison gray; assign the subject first.
+- Dashboard background <code>#ffffff</code>. The header in a <code>#fafafa</code> container; the region filter as a single-value list in a <code>#005dab</code> container with white text; section bands as text objects on <code>#333333</code> with white bold text.
+- Each sheet in a container with a 1px <code>#d9d9d9</code> border and 18/22px inner padding; worksheet shading white; tooltips white with a <code>#cccccc</code> border.
+- Price signs: text sheets in containers with a 1px <code>#333333</code> border — the code in Tableau Book 8 <code>#707070</code>, the name in bold caps, the value at 36–40pt bold (Tableau cannot raise the cents; write <code>$51.46M</code>), the change in <code>#0b6e22</code> or <code>#bc4700</code> with ▲ or ▼, the plan or the comparison in a small line under it.
+- Receipt: a text table in a monospace font with Measure Names columns for <code>$K</code> and <code>VS LY%</code> (negatives in <code>#bc4700</code>), beside a thin bar sheet in <code>#333333</code> with the subject's row in <code>#1a70c2</code>. Tableau has no pattern fills, so the barcode bar becomes a plain bar; keep it thin and keep the totals in the table. Transactions by hour: a bar chart of hour inside day (both discrete), small bars in <code>#333333</code>, no axis, the peak as a label.
+- Warehouse board: bars of <code>SUM([Net sales]) / SUM([Plan]) - 1</code>, sorted descending, a reference line at 0 in <code>#333333</code>, Color by <code>vs plan &lt; 0</code> (<code>#bc4700</code> / <code>#cccccc</code>), labels at the bar ends; the code and region as row headers.
+- Racks: one waffle per category from a 100-row scaffold (<code>X = INT((INDEX()-1)/5)</code>, <code>Y = (INDEX()-1) % 5</code>), Color by state (<code>#1a70c2</code>, <code>#cccccc</code>, white with a gray border as a square shape), a reference line at the plan's bay.
+- Coupons: bars of redemptions over forecast with a reference line at 100%, the title's coupon in blue.
+- Grid lines on rows only, solid <code>#eeeeee</code>; zero line <code>#cccccc</code>; ticks Tableau Book 9 in <code>#707070</code>.
+- Formats: <code>$#,##0.00,,"M"</code> · <code>#,##0,</code> (thousands, for <code>$K</code>) · <code>#,##0</code> · <code>0.0%</code> · <code>+0.0" pts";−0.0" pts"</code>; Korean workbooks <code>#,##0.00"달러"</code> and <code>+0.0"%p";−0.0"%p"</code>. Fonts: Tableau Book unless Barlow is installed on every viewing machine and on the server.</p>
+<p><strong>Power BI.</strong> View → Themes → Browse for themes → <code>powerbi-theme.json</code>. It sets the data colors (blue, red, then Other), the white page, white visuals with a 1px <code>#d9d9d9</code> border and no radius, axis and gridline colors and text classes. Install Barlow on authoring and viewing machines or accept Segoe UI.
+- Title each visual with the finding; put the measure in the subtitle and the method in a text box that starts with <code>Note:</code>.
+- Price signs: cards with a <code>#333333</code> border, the callout value 28–36pt bold, the change as a measure with conditional formatting in <code>#0b6e22</code> / <code>#bc4700</code>, always with a sign.
+- Receipt: a table visual in a monospace font, <code>$K</code> with display units in thousands, data bars on the sales column in <code>#333333</code> (the stripes become a solid bar), VS LY with a conditional font color <code>#bc4700</code> below zero.
+- Warehouse board: a bar chart of vs plan with an X-axis constant line at 0 and conditional colors (<code>#bc4700</code> below zero, <code>#cccccc</code> above).
+- Racks: a matrix of 5 rows × 20 columns with conditional background colors, or a waffle custom visual; the plan as a constant line or a text marker.</p>
+<p><strong>Chart libraries (D3, Observable Plot, Vega-Lite, matplotlib, Datawrapper).</strong> Subject <code>#1a70c2</code> (labels <code>#004c8a</code>), second <code>#d42f37</code> (<code>#c13533</code>), Other <code>#cccccc</code>, comparison <code>#909090</code> dashed <code>6 4</code>, plan <code>#333333</code>, behind <code>#bc4700</code>, gridlines <code>#eeeeee</code> on rows only, baseline <code>#cccccc</code>, ticks <code>#707070</code> at 12px, plot background <code>#ffffff</code>, square bar ends. The sample's Figure 1 in five forms is in the workbench of the live sample; <code>comps.csv</code> is its data.</p>
+<h2 id="dos-and-donts">Do's and Don'ts</h2>
+<ul>
+<li>Do open with the sales-release sentence and six price signs, each with a comparison and a date code. Don't lead with a chart or a dozen KPI tiles.</li>
+<li>Do make every device readable first: round the receipt to <code>$K</code> so it adds up, put a bar beside every size that is compared, and turn ornaments into data (the receipt's barcode is transactions by hour). Don't print cents in a table of millions, and don't keep a device that reads worse than a plain bar or table.</li>
+<li>Do compare against plan as well as last year, rank the warehouses with the shortfalls in orange, and show stock as pallets against the plan to date. Don't report growth alone.</li>
+<li>Do frame the page with costco.com's blue bands and the coupon page's charcoal bands and ruled grids. Don't add shadows, gradients, rounded cards or photos.</li>
+<li>Do keep blue for what the title names and everything else gray; red only for the Warehouse channel beside Online. Don't put <code>#005dab</code> or the logo red on data, and don't color a bad change red.</li>
+<li>Do end cards in one row on one line. Don't stretch a chart to an odd height to get there; change the layout instead.</li>
+<li>Do title each card with its finding and explain the method in the note and the fine print. Don't title a chart with its measure alone.</li>
+<li>Do write money and dates the Costco way (<code>$3.37⁸</code>, <code>11/01/26</code>, <code>Item 9310542 · Limit 10.</code>). Don't use a real item number, warehouse number or price, or Costco's logo, wordmark or typeface.</li>
+<li>Do keep at most seven views in a band. Don't add a card only to show a token.</li>
+</ul>
+<h2 id="agent-prompt-guide">Agent Prompt Guide</h2>
+<p>Install the style (<code>npx @vizney/styles@latest add costco</code>, <code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- costco</code>, or unzip the package in the project root). Agents that read skills load <code>dashboard-style</code> on their own and work in one of three modes: <strong>Build</strong> (plan the views, then draw them to this file), <strong>Restyle</strong> (move an existing screen onto this file without changing its data) and <strong>Review</strong> (a table of rule, finding, severity and fix). For an agent without skills, start the prompt with <code>Read DASHBOARD.md and follow it exactly.</code> For example:</p>
+<pre><code>Read DASHBOARD.md and follow it exactly. Build our weekly warehouse report as one self-contained HTML file with
+fictional data, in English and Korean (?lang=en|ko, English by default), on the white page the spec describes.
+Top: a blue promo band with the week and the coupon book's dates; a #fafafa header with the report name, the period,
+the EN/KO toggle, an outlined Export PDF and a blue Copy as Markdown; the blue region band as the filter for every view,
+kept in the URL; a #fafafa status row with the reporting count in green.
+This week: the sales-release headline (&quot;Net sales of $X million for the retail week ended …, an increase of n percent
+from $Y million last year&quot;), a lede with comparable sales and the result against plan, and six price signs (code, caps
+name, a big value with superscript $ and decimals, a signed change, a fine-print line, a date code); comparable sales as
+lines (adjusted solid blue, reported dashed gray, ends labeled); beside them the department receipt: $K lines with
+barcode bars and VS LY, SUBTOTAL, GAS STATION, **** TOTAL, the item count, and transactions by hour as its barcode.
+The two columns end on one line.
+Warehouses and holiday stock: a warehouse board ranked against plan (bars from the plan line, behind plan in orange,
+two columns) and the holiday buy as pallet racks (20 × 5 slots per category: sold blue, in the warehouse gray, arriving
+outlined, a plan-to-date line).
+Warehouse Savings: eight coupons in a ruled grid with redemptions against forecast. Then channels, new members and gas
+by day in a ruled row, and the method as fine print.
+Every view on the same white card: figure label, finding title, subtitle, keys, view, &quot;Note:&quot;. At most seven views per band.
+Use only the values in Data Colors, the formats in Numbers, Dates &amp; Units and the components in Component Stylings.
+Every chart and list needs a tooltip, keyboard control and a screen-reader table.
+</code></pre>
+<p>Before it is done, the agent checks:
+- [ ] The headline is the sales-release sentence; the six price signs carry signed changes colored good (<code>#0b6e22</code>) or bad (<code>#bc4700</code>), a fine-print line and a date code; net sales shows its plan.
+- [ ] Every view sits on a white card (1px <code>#d9d9d9</code>) or in a ruled cell, with no shadow; every card title states a finding; every note starts with <code>Note:</code>.
+- [ ] Blue <code>#1a70c2</code> only for what each title names and the rest gray; red only for Warehouse beside Online; behind plan and bad changes in <code>#bc4700</code>; no <code>#005dab</code> or logo red on data.
+- [ ] The receipt reads at a glance: <code>$K</code> lines that add up to the subtotal, a barcode bar on every department, VS LY with negatives in orange, transactions by hour where the barcode sits.
+- [ ] Plan appears where it matters (the lede, the net sales sign, the warehouse board, the racks), and the shortfalls are ranked and named.
+- [ ] Gridlines on rows only; line ends labeled; no dual axis, pie, donut, gauge, gradient or photo.
+- [ ] Numbers, dates, hours and money follow the formats in both languages.
+- [ ] Cards side by side end on one line at 1440, 1280 and 1024px without a stretched chart; nothing breaks at 390px.
+- [ ] Text ≥ 4.5:1; marks below 3:1 have a second cue; every view has a tooltip, keyboard control and a data table; the filter changes every card.</p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Vizney Styles · © 2026 <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener">Vizney</a></span>
+    <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
+    <nav aria-label="Footer" data-i18n-aria="footAria">
+      <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>
+      <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="navContact">Contact</a>
+      <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
+      <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  // The site's header, tabs and footer around a spec page. The spec itself is English; ?lang=ko switches the
+  // chrome (labels and Vizney links) like the other site pages. Same code as index.html / 404.html.
+  var STR = { "ko": {"skip": "본문으로 건너뛰기", "navStyles": "카탈로그", "navCustom": "우리 회사", "navRequest": "브랜드 요청", "navContact": "문의", "globeTitle": "Switch to English", "ghSearch": "Vizney 검색", "ghMenu": "메뉴", "ghMore": "더 보기", "tabsAria": "Vizney Styles 메뉴", "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)", "footAria": "바닥글", "footBlog": "블로그"}, "en": {"skip": "Skip to content", "navStyles": "Catalog", "navCustom": "Your company", "navRequest": "Request a brand", "navContact": "Contact", "globeTitle": "한글로 보기", "ghSearch": "Search Vizney", "ghMenu": "Main Menu", "ghMore": "More", "tabsAria": "Vizney Styles menu", "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)", "footAria": "Footer", "footBlog": "Blog"} };
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
+  const state = { lang: params.get('lang') === 'ko' ? 'ko' : 'en' };
+  const S = () => STR[state.lang];
+  const PAGE = 'spec';
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  // The Vizney header's menu, as on the blog (the same addresses on Vizney Blocks). Labels are English in both languages.
+  const VZ = {
+    ko: { home: 'https://kr.vizney.com/', 'chart-guide': 'https://kr.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/ko/', styles: 'https://styles.vizney.com/?lang=ko', tips: 'https://kr.vizney.com/tips/', kb: 'https://kr.vizney.com/kb/', about: 'https://kr.vizney.com/about/', contact: 'https://kr.vizney.com/contact-us/', search: 'https://kr.vizney.com/#/search' },
+    en: { home: 'https://www.vizney.com/', 'chart-guide': 'https://www.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/', styles: 'https://styles.vizney.com/', tips: 'https://www.vizney.com/tips/', kb: 'https://www.vizney.com/kb/', about: 'https://www.vizney.com/about/', contact: 'https://www.vizney.com/contact-us/', search: 'https://www.vizney.com/#/search' }
+  };
+  function href(key) {
+    const L = state.lang;
+    const [kind, name] = key.split(':');
+    if (kind === 'home') return '/' + (L === 'ko' ? '?lang=ko' : '') + (name ? '#' + name : '');
+    if (kind === 'contact') return BLOG[L] + 'contact-us/';
+    if (kind === 'blog') return BLOG[L];
+    if (kind === 'v') return VZ[L][name];
+    if (kind === 'lang') {
+      try {
+        const u = new URL(location.href);
+        if (L === 'en') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+        return u.pathname + u.search + u.hash;
+      } catch (e) { return L === 'en' ? '?lang=ko' : '?'; }
+    }
+    return '#';
+  }
+  function applyLang() {
+    const s = S();
+    $$('[data-i18n]').forEach(el => { const v = s[el.dataset.i18n]; if (v != null) el.textContent = v; });
+    $$('[data-i18n-aria]').forEach(el => { const v = s[el.dataset.i18nAria]; if (v != null) el.setAttribute('aria-label', v); });
+    $$('[data-href]').forEach(a => { a.href = href(a.dataset.href); });
+    applyHeader();
+  }
+  function setLang(L) {
+    if (L === state.lang) return;
+    state.lang = L;
+    applyLang();
+    try {
+      const u = new URL(location.href);
+      if (L === 'ko') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* the page still switches */ }
+  }
+  /* ---------- Vizney header: menu overflow, burger, globe; the site's tabs ---------- */
+  const PHONE = window.matchMedia('(max-width:767px)');
+  const ghMenu = $('.gh-menu'), ghNav = $('.gh-nav');
+  const GH_ITEMS = $$('li', ghNav);
+  const MORE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM13.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM5.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0z"/></svg>';
+  let ghMoreEl = null;
+
+  function closeMore() {
+    if (!ghMoreEl || !ghMoreEl.classList.contains('is-open')) return;
+    ghMoreEl.classList.remove('is-open');
+    $('.gh-more__toggle', ghMoreEl).setAttribute('aria-expanded', 'false');
+  }
+  // As on the blog (Casper): items that do not fit one line move, from the end, under a '…' toggle.
+  function layoutMenu() {
+    ghMoreEl = null;
+    ghNav.replaceChildren(...GH_ITEMS);
+    GH_ITEMS.forEach((li, i) => { li.style.transitionDelay = PHONE.matches ? (0.03 * (i + 1)) + 's' : ''; });
+    if (PHONE.matches) return;
+    const sub = [];
+    while (ghNav.offsetWidth + 64 > ghMenu.offsetWidth && ghNav.lastElementChild) {
+      sub.unshift(ghNav.lastElementChild);
+      ghNav.lastElementChild.remove();
+    }
+    if (!sub.length) return;
+    const li = document.createElement('li');
+    li.className = 'gh-more';
+    li.innerHTML = '<button class="gh-more__toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="' + esc(S().ghMore) + '">' + MORE_SVG + '</button><ul class="gh-dropdown"></ul>';
+    $('.gh-dropdown', li).append(...sub);
+    ghNav.append(li);
+    ghMoreEl = li;
+  }
+  document.addEventListener('click', e => {
+    if (!ghMoreEl) return;
+    const toggle = $('.gh-more__toggle', ghMoreEl);
+    if (ghMoreEl.classList.contains('is-open')) closeMore();
+    else if (toggle.contains(e.target)) { ghMoreEl.classList.add('is-open'); toggle.setAttribute('aria-expanded', 'true'); }
+  });
+
+  const burger = $('.gh-burger');
+  function setMenuOpen(open) {
+    document.body.classList.toggle('gh-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', () => setMenuOpen(!document.body.classList.contains('gh-open')));
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (ghMoreEl && ghMoreEl.classList.contains('is-open')) { closeMore(); $('.gh-more__toggle', ghMoreEl).focus(); }
+    else if (document.body.classList.contains('gh-open')) { setMenuOpen(false); burger.focus(); }
+  });
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (!PHONE.matches) setMenuOpen(false); layoutMenu(); }, 1);
+  });
+
+  // The globe opens this page in the other language; here it switches in place, keeping the address right.
+  $$('.gh-globe').forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    setLang(state.lang === 'ko' ? 'en' : 'ko');
+  }));
+
+  // Tabs: on the home page the tab follows the section in view; elsewhere none is current.
+  const TAB_SECTIONS = PAGE === 'home' ? ['custom', 'styles'].map(id => [id, document.getElementById(id)]) : [];
+  function markTab() {
+    if (PAGE !== 'home') return;
+    const line = $('.tabs').getBoundingClientRect().bottom + 8;
+    let cur = 'top';
+    for (const [id, el] of TAB_SECTIONS) {
+      const sec = el && (el.closest('section') || el);
+      if (sec && sec.getBoundingClientRect().top <= line) { cur = id; break; }
+    }
+    $$('.tabs [data-tab]').forEach(a => { if (a.dataset.tab === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+  }
+  let tabFrame = 0;
+  window.addEventListener('scroll', () => { if (!tabFrame) tabFrame = requestAnimationFrame(() => { tabFrame = 0; markTab(); }); }, { passive: true });
+  markTab();
+
+  function applyHeader() {
+    const s = S();
+    $$('.gh-globe').forEach(a => { a.title = s.globeTitle; a.setAttribute('aria-label', s.globeTitle); });
+    $$('.gh-search').forEach(a => { a.title = s.ghSearch; });
+    layoutMenu();
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutMenu);
+  window.addEventListener('load', layoutMenu);
+  applyLang();
+})();
+</script>
+</body>
+</html>

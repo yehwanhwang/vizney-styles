@@ -23,6 +23,14 @@
       "words": "Dark, Cinematic, Bold",
       "words_ko": "다크, 시네마틱, 강렬함",
       "sample": "https://styles.vizney.com/netflix/"
+    },
+    {
+      "number": 4,
+      "slug": "costco",
+      "name": "Costco style",
+      "words": "Warehouse, Receipt, No-Frills",
+      "words_ko": "창고형, 영수증, 꾸밈없음",
+      "sample": "https://styles.vizney.com/costco/"
     }
   ]
 }

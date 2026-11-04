@@ -206,8 +206,11 @@ SKILL_FILES = ('tokens.css', 'tokens.json', '{slug}.tps', 'powerbi-theme.json', 
 def skill_md(t):
     brand = t['name'].removesuffix(' style')
     sites = ", ".join(u.split('//')[-1].strip('/') for u in t['source'])
+    # a style read from real-world touchpoints too (tokens.json "touchpoints") says so, and that it carries no photo either
+    seen = f" and public touchpoints such as {t['touchpoints']}" if t.get('touchpoints') else ""
+    carries = "logo, typeface, photo or data" if t.get('touchpoints') else "logo, typeface or data"
     disclaimer = (f"Not an official {brand} design and not affiliated with or endorsed by {brand}; a reference style read from "
-                  f"the public websites {sites}, with no logo, typeface or data of theirs. Trademarks belong to their owners.")
+                  f"the public websites {sites}{seen}, with no {carries} of theirs. Trademarks belong to their owners.")
     text = (ROOT / 'tools' / 'skill.md').read_text(encoding='utf-8')
     for k, v in {'__STYLE__': t['name'], '__WORDS__': t['words']['en'], '__SLUG__': t['slug'], '__DISCLAIMER__': disclaimer}.items():
         text = text.replace(k, v)
