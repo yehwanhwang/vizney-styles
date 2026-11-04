@@ -1,0 +1,29 @@
+corridor,week_ending,step,kind,usd
+all,2026-11-01,Plan,total,1099526.84
+all,2026-11-01,Fuel volume,step,-8997.89
+all,2026-11-01,Margin per gallon,step,17193.27
+all,2026-11-01,Premium mix,step,-2483.61
+all,2026-11-01,Convenience,step,-963.21
+all,2026-11-01,Charging,step,-2316.41
+all,2026-11-01,Actual,total,1101958.99
+i5,2026-11-01,Plan,total,390210.79
+i5,2026-11-01,Fuel volume,step,-6857.14
+i5,2026-11-01,Margin per gallon,step,16543.21
+i5,2026-11-01,Premium mix,step,-515.12
+i5,2026-11-01,Convenience,step,-609.11
+i5,2026-11-01,Charging,step,-1352.40
+i5,2026-11-01,Actual,total,397420.22
+i10,2026-11-01,Plan,total,360186.73
+i10,2026-11-01,Fuel volume,step,1466.41
+i10,2026-11-01,Margin per gallon,step,-2048.10
+i10,2026-11-01,Premium mix,step,-4390.07
+i10,2026-11-01,Convenience,step,-39.76
+i10,2026-11-01,Charging,step,-214.82
+i10,2026-11-01,Actual,total,354960.40
+i95,2026-11-01,Plan,total,349129.33
+i95,2026-11-01,Fuel volume,step,-3607.16
+i95,2026-11-01,Margin per gallon,step,2698.16
+i95,2026-11-01,Premium mix,step,2421.57
+i95,2026-11-01,Convenience,step,-314.34
+i95,2026-11-01,Charging,step,-749.19
+i95,2026-11-01,Actual,total,349578.37
