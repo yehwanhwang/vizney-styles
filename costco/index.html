@@ -101,8 +101,10 @@
   .page{padding-top:24px;padding-bottom:8px}
 
   /* ---------- 첫 화면: 왼쪽 8열(결과 문장 → 가격표 KPI → 그림 1), 오른쪽 4열(영수증) ---------- */
-  .top{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:24px;align-items:start}
-  .top-main{min-width:0}
+  /* 두 단의 아래 끝을 맞춘다: 짧은 쪽이 늘어나고, 늘어난 높이는 그림 1의 그림 칸이나 영수증 바닥의 바코드가 받는다 */
+  .top{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);gap:24px;align-items:stretch}
+  .top-main{min-width:0;display:flex;flex-direction:column}
+  #f1{flex:1 1 auto}
   /* 결과 문장: 월별 매출 보도자료의 문장 그대로. 코스트코 제목처럼 400 굵기, 돈만 굵게(가격처럼) */
   .headline{font-size:clamp(24px,2.15vw,30px);font-weight:400;line-height:1.28;color:var(--ink);text-wrap:pretty;max-width:46em}
   .headline b{font-weight:700}
@@ -164,30 +166,94 @@
   .halo{paint-order:stroke;stroke:#fff;stroke-width:3.5px;stroke-linejoin:round}
 
   /* ---------- 대표 장치 2: 계산대 영수증 → 상세 표. 고정폭, 대문자, 괘선 대신 빈 줄과 점선 한 줄.
-     부서 줄 → 즉시 할인 줄(뒤에 붙는 마이너스) → SUBTOTAL · GAS STATION · **** TOTAL → 품목 수 ---------- */
-  .rcpt{display:block;padding:18px 20px 16px}
-  .rc{font-family:var(--mono);font-size:12.5px;line-height:19px;color:var(--ink);font-variant-numeric:tabular-nums}
+     부서 줄(번호 · 이름 · 바코드 막대 · 천 달러 · 전년비) → SUBTOTAL · GAS STATION · **** TOTAL → 품목 수 → 맨 아래 바코드(시간대별 구매 건수) ---------- */
+  .rcpt{display:flex;flex-direction:column;padding:18px 20px 16px}
+  .rc{position:relative;flex:1 1 auto;display:flex;flex-direction:column;font-family:var(--mono);font-size:12.5px;line-height:19px;color:var(--ink);font-variant-numeric:tabular-nums}
   .rc-hd{padding:12px 0 10px;border-top:1px dashed var(--faint);text-align:center;text-transform:uppercase;letter-spacing:.02em}
   html[lang="ko"] .rc-hd{text-transform:none;letter-spacing:0}
   .rc-hd span{display:block}
-  .rc table{width:100%;border-collapse:collapse;table-layout:fixed}
+  .rc table{width:100%;border-collapse:collapse;table-layout:fixed;outline-offset:3px}
   .rc th,.rc td{padding:0;font-weight:400;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:clip;vertical-align:top}
   .rc thead th{padding-bottom:4px;color:var(--muted);font-size:11.5px}
-  .rc .c-d{width:4.6ch} .rc .c-v{width:13.4ch;text-align:right} .rc .c-p{width:7.4ch;text-align:right}
-  .rc .c-n{padding-left:1ch}
+  .rc col.c-d{width:4.4ch} .rc col.c-n{width:17ch} .rc col.c-v{width:6.6ch} .rc col.c-p{width:7ch}
+  .rc .c-v,.rc .c-p{text-align:right}
+  .rc .c-n{padding-left:.4ch}
   html[lang="ko"] .rc .c-n{font-family:var(--font);font-size:13px}
-  .rc tbody tr:hover td,.rc tbody tr:hover th{background:var(--blue-100)}
-  .rc tr.sv td,.rc tr.sv th{color:var(--text-2)}
-  .rc tr.sv .c-n{padding-left:2ch}
+  .rc .c-b{padding:0 .4ch 0 .6ch}
+  /* 바코드 막대: 굵기가 다른 세로 줄무늬(38px 한 묶음, 잉크 63%). 길이가 순매출이고, 오른쪽 끝 2px은 늘 채워 끝을 정확히 읽게 한다 */
+  .rc .bc{--bk:var(--ink);display:block;height:11px;margin-top:4px;max-width:100%;transform-origin:left;
+    background:repeating-linear-gradient(90deg,var(--bk) 0 3px,transparent 3px 4px,var(--bk) 4px 5px,transparent 5px 6px,var(--bk) 6px 8px,transparent 8px 9px,var(--bk) 9px 13px,transparent 13px 14px,var(--bk) 14px 15px,transparent 15px 16px,var(--bk) 16px 18px,transparent 18px 20px,var(--bk) 20px 21px,transparent 21px 22px,var(--bk) 22px 25px,transparent 25px 26px,var(--bk) 26px 28px,transparent 28px 29px,var(--bk) 29px 30px,transparent 30px 31px,var(--bk) 31px 34px,transparent 34px 35px,var(--bk) 35px 36px,transparent 36px 38px);
+    box-shadow:inset -2px 0 0 var(--bk)}
+  .rc tr.hot .bc{--bk:var(--subject)}
+  .rc tbody tr[data-i]:hover td,.rc tbody tr[data-i]:hover th,.rc tbody tr.on td,.rc tbody tr.on th{background:var(--blue-100)}
   .rc tr.gap td{height:9px}
   .rc tr.tt td,.rc tr.tt th{font-weight:600}
   .rc tr.tot td,.rc tr.tot th{font-weight:700}
   .rc tr.hot td,.rc tr.hot th{color:var(--subject-text);font-weight:600}
+  .rc td.neg{color:var(--bad);font-weight:600}
   .rc-ft{margin-top:10px;padding-top:10px;border-top:1px dashed var(--faint)}
-  .rc-ft p{display:flex;justify-content:space-between;gap:12px;text-transform:uppercase}
-  html[lang="ko"] .rc-ft p{text-transform:none}
+  .rc-ft p,.bc-h{display:flex;justify-content:space-between;gap:12px;text-transform:uppercase}
+  html[lang="ko"] .rc-ft p,html[lang="ko"] .bc-h{text-transform:none}
   .rc-ft p.big{font-weight:700}
-  .rc-ft .code{margin-top:8px;justify-content:center;color:var(--muted);font-size:11.5px}
+  /* 영수증 맨 아래 바코드 = 시간대별 구매 건수(한 시간에 막대 하나, 요일마다 틈). 두 단을 맞추며 남는 높이를 받는다(최대 150px) */
+  .rc-ft{margin-bottom:12px}
+  .bc-h{margin-top:auto;padding-top:10px;border-top:1px dashed var(--faint)}
+  .bc-h .pk{font-weight:600}
+  .bc-plot{position:relative;flex:1 1 auto;min-height:72px;max-height:124px;margin-top:8px}
+  .bc-plot > svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;outline-offset:3px}
+  .bc-d{font-family:var(--mono);font-size:10.5px;fill:var(--muted);letter-spacing:.04em}
+  html[lang="ko"] .bc-d{font-family:var(--font);font-size:11px;letter-spacing:0}
+  .rc-code{margin-top:6px;text-align:center;color:var(--muted);font-size:11.5px}
+
+  /* ---------- 표 2: 매장 찾기 목록(번호 → 굵은 매장 이름 → 작은 회색 정보)을 순위 표로. 막대는 계획선에서 갈라진다:
+     계획에 못 미친 매장만 주황(나쁨 #bc4700), 나머지는 회색. 신규 매장은 사선 배지. 두 단, 높은 순 ---------- */
+  .board{--bcols:2.2em minmax(9.6em,1fr) minmax(0,2.3fr) 5.6em 4.4em;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px;outline-offset:4px}
+  .bh,.br{display:grid;grid-template-columns:var(--bcols);align-items:center;column-gap:10px}
+  .bh{min-height:26px;padding-bottom:3px;border-bottom:1px solid var(--line);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  html[lang="ko"] .bh{letter-spacing:0;text-transform:none;font-size:12px}
+  .br{min-height:29px;border-bottom:1px solid var(--rule);font-size:14px;cursor:default}
+  .br.on{background:var(--blue-100)}
+  .b-rk{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right}
+  .b-wh{display:flex;align-items:center;gap:7px;min-width:0;white-space:nowrap}
+  .b-wh b{font-family:var(--mono);font-size:13.5px;font-weight:600;letter-spacing:.02em;color:var(--ink)}
+  .b-wh .rg{min-width:0;font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis}
+  .b-wh .tag{flex:none;height:18px;font-size:11px;padding:0 15px 0 5px}
+  .b-bar{position:relative;align-self:stretch;min-height:26px}
+  .b-trk{position:absolute;left:46px;right:48px;top:0;bottom:0}
+  .br .b-trk::before{content:"";position:absolute;left:var(--x0);top:0;bottom:-1px;width:1px;margin-left:-.5px;background:var(--ink)}
+  .b-trk i{position:absolute;top:50%;height:12px;margin-top:-6px;background:var(--other)}
+  .br.neg .b-trk i{background:var(--bad)}
+  .b-trk .v{position:absolute;top:50%;transform:translateY(-50%);padding:0 5px;font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+  .br.neg .b-trk .v{color:var(--bad)}
+  .bh .b-trk em{position:absolute;bottom:5px;line-height:1;transform:translateX(-50%);font-style:normal;font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted)}
+  .bh .b-trk em.z{font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--ink)}
+  html[lang="ko"] .bh .b-trk em.z{letter-spacing:0;font-size:12px}
+  .b-net,.b-ly{text-align:right;font-variant-numeric:tabular-nums}
+  .b-net{font-weight:600}
+  .b-ly{font-size:13px;color:var(--text-2)}
+
+  /* ---------- 그림 2: 시즌 물량을 팔레트 랙으로. 20칸 × 5단 = 100칸(한 칸 = 그 카테고리 팔레트의 1%).
+     왼쪽부터 아래에서 위로 쌓는다: 판매(파랑) → 매장 재고(회색) → 입고 예정(빈 칸). 바닥선 2px, 계획선 2px 잉크 ---------- */
+  .racks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px 30px;margin:0;padding:0;list-style:none;outline-offset:4px}
+  .rack{min-width:0;margin:0 -10px;padding:8px 10px 10px;cursor:default}
+  .rack.on{background:var(--blue-100)}
+  .rk-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+  .rk-h b{min-width:0;font-size:14px;font-weight:700;letter-spacing:.04em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  html[lang="ko"] .rk-h b{letter-spacing:0;font-size:15px}
+  .rk-h span{flex:none;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .rk-g{position:relative;display:grid;grid-template-columns:repeat(20,minmax(0,1fr));grid-template-rows:repeat(5,auto);grid-auto-flow:column;gap:2px;margin-top:24px;padding-bottom:3px;border-bottom:2px solid var(--ink)}
+  .rk-g i{display:block;aspect-ratio:1;background:var(--other)}
+  .rk-g i.s{background:var(--subject)}
+  .rk-g i.a{background:#fff;box-shadow:inset 0 0 0 1px var(--edge)}
+  .rk-plan{position:absolute;top:-6px;bottom:-5px;width:2px;margin-left:-1px;background:var(--ink)}
+  .rk-plan em{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:2px;font-style:normal;font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--ink);white-space:nowrap}
+  html[lang="ko"] .rk-plan em{font-family:var(--font);font-size:11.5px}
+  .rk-f{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px 10px;margin-top:9px;font-size:13px;line-height:1.35}
+  .rk-f b{font-size:17px;font-weight:700;color:var(--subject-text);font-variant-numeric:tabular-nums}
+  .rk-f .good,.rk-f .bad,.rk-f .flat{font-weight:600;font-variant-numeric:tabular-nums}
+  .rk-f .good{color:var(--good)} .rk-f .bad{color:var(--bad)} .rk-f .flat{color:var(--text-2)}
+  .rk-n{margin-top:2px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .rack.build .rk-g i.s{animation:fade .35s ease both}
 
   /* ---------- 숯색 분류 띠(Warehouse Savings 실측: #333, 12px 16px 4px, 높이 50px, 22px/700 흰 글자) ---------- */
   .band{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 16px;min-height:50px;margin-top:var(--sec);padding:12px 16px 8px;background:var(--band);color:#fff;scroll-margin-top:12px}
@@ -200,6 +266,7 @@
   .ruled > *{background:var(--paper)}
   .ruled .panel{border:0}
   .r3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .r1{grid-template-columns:minmax(0,1fr)}
 
   /* ---------- 대표 장치 3: 쿠폰북 → 프로모션 그림. 판매 경로 줄(빨강 Warehouse & 파랑 Online, 또는 사선 배지) → 품목 →
      상품 번호·구매 한도 → 초록 할인액($ 위첨자) → 예측 대비 사용 막대(제목이 짚은 쿠폰만 파랑) → 회원 절감액 ---------- */
@@ -321,7 +388,7 @@
   .terms p.src{color:var(--text-2)}
 
   /* ---------- 툴팁: 흰 바탕 + 1px #cccccc + costco.com의 그림자(rgba(0,0,0,.3) 0 0 5px) ---------- */
-  .tip{position:absolute;z-index:8;left:0;top:0;pointer-events:none;min-width:150px;background:#fff;color:var(--ink);border:1px solid var(--edge);border-radius:3px;padding:9px 12px 10px;box-shadow:0 0 5px rgba(0,0,0,.3);white-space:nowrap;opacity:0;transition:opacity .15s var(--ease)}
+  .tip{position:absolute;z-index:8;left:0;top:0;pointer-events:none;min-width:150px;font-family:var(--font);font-variant-numeric:normal;background:#fff;color:var(--ink);border:1px solid var(--edge);border-radius:3px;padding:9px 12px 10px;box-shadow:0 0 5px rgba(0,0,0,.3);white-space:nowrap;opacity:0;transition:opacity .15s var(--ease)}
   .tip.on{opacity:1}
   .tip-h{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
   .tip-s{font-size:12px;color:var(--muted);margin:-2px 0 4px}
@@ -329,6 +396,7 @@
   .tip-r i{width:9px;height:9px;flex:none;background:var(--c)}
   .tip-r i.ln{width:14px;height:0;background:none;border-top:2px solid var(--c)}
   .tip-r i.ln.dash{border-top-style:dashed}
+  .tip-r i.bx{background:#fff;box-shadow:inset 0 0 0 1px var(--c)}
   .tip-r b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
   .tip-r span{color:var(--text-2)}
 
@@ -360,12 +428,24 @@
   /* ---------- 임베드(?embed=1 · lib/embed.js): 포스트가 고지를 싣는다 ---------- */
   html.vz-embed .foot{display:none}
   html.vz-embed .page{padding-bottom:24px}
-  @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.tools .btn,.tools .lang,.cbtns,.build-cta,.foot .back{display:none}.building .code .ln{visibility:visible!important}.building .layer{opacity:1!important}.panel,.sign,.cpn{break-inside:avoid}}
+  @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.tools .btn,.tools .lang,.cbtns,.build-cta,.foot .back{display:none}.building .code .ln{visibility:visible!important}.building .layer{opacity:1!important}.panel,.sign,.cpn,.rack,.br{break-inside:avoid}}
 
   /* ---------- 반응형 ---------- */
+  /* 1024~1359: 결과 문장은 전체 폭, 그 아래 왼쪽(7)에 가격표 2열 · 각주 · 그림 1, 오른쪽(5)에 영수증.
+     그림 1의 줄을 1fr로 두어 영수증과 아래 끝을 맞춘다(남는 높이는 짧은 쪽이 받는다) */
   @media (max-width:1359px){
     :root{--page:24px;--gap:14px}
-    .rc{font-size:12px} .rc .c-p{width:6.8ch}
+    .top{grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-rows:auto auto auto auto 1fr;column-gap:var(--gap);row-gap:0}
+    .top-main{display:contents}
+    .headline{grid-column:1/-1;grid-row:1} .lede{grid-column:1/-1;grid-row:2}
+    .signs{grid-column:1;grid-row:3;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,auto auto auto auto auto)}
+    .sign:nth-child(n+3){margin-top:12px}
+    .fn{grid-column:1;grid-row:4}
+    #f1{grid-column:1;grid-row:5}
+    .rcpt{grid-column:2;grid-row:3/6;margin-top:20px}
+    .top-main .panel{margin-top:22px}
+    .rc{font-size:12px}
+    .rcpt{padding:16px 16px 14px}
     .panel{padding:16px 18px 14px}
     .sg-v{font-size:50px}
     html[lang="ko"] .sg-v{font-size:43px}
@@ -382,21 +462,21 @@
     .get .btn{grid-row:2;grid-column:2}
     .get-note{grid-row:3;grid-column:1/-1;margin:0}
   }
-  /* 1200 아래: 영수증은 가격표 아래로 내려 전체 폭을 쓴다 */
-  /* 900~1199: 결과 문장과 가격표는 전체 폭, 그 아래 그림 1(7)과 영수증(5)을 나란히. 영수증은 늘 좁게 둔다 */
   @media (max-width:1199px){
-    .top{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--gap);row-gap:0}
-    .top-main{display:contents}
-    .headline,.lede,.signs,.fn{grid-column:1/-1}
-    .top-main .panel,.rcpt{margin-top:22px}
     .rc{font-size:12px}
     .code{font-size:12px}
     .code .ln{white-space:pre-wrap;overflow-wrap:anywhere}
     .cpns{grid-template-columns:repeat(4,minmax(0,1fr))}
     .cp-nm{white-space:normal}
+    .racks{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 40px}
+    .board{column-gap:28px}
   }
   @media (max-width:1023px){
-    .top{grid-template-columns:minmax(0,1fr)}
+    .top{grid-template-columns:minmax(0,1fr);grid-template-rows:none}
+    .headline,.lede,.signs,.fn,#f1,.rcpt{grid-column:1;grid-row:auto}
+    .signs{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,auto auto auto auto auto)}
+    .sign:nth-child(3){margin-top:0}
+    .rcpt{margin-top:22px}
     .rc{max-width:620px}
     .r3{grid-template-columns:minmax(0,1fr)}
     .cpns{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -418,6 +498,8 @@
     .sign:nth-child(n+3){margin-top:12px}
     .steps{grid-template-columns:minmax(0,1fr)}
     .code{max-height:440px}
+    .board{grid-template-columns:minmax(0,1fr)}
+    .bd-col + .bd-col .bh{display:none}
   }
   @media (max-width:639px){
     :root{--page:16px;--gap:12px;--sec:32px}
@@ -449,6 +531,12 @@
     .band h2{font-size:19px}
     .cpns{grid-template-columns:minmax(0,1fr)}
     .ct{font-size:17px}
+    .racks{grid-template-columns:minmax(0,1fr);gap:10px}
+    .board{--bcols:1.7em minmax(5.4em,auto) minmax(0,1fr) 4.9em}
+    .b-ly,.b-wh .rg{display:none}
+    .b-trk{left:42px;right:44px}
+    .bh .b-trk em:not(.z){display:none}
+    .br{font-size:13px}
     #f1Plot,#f3Plot,#f4Plot,#f5Plot{min-height:230px}
     .get{display:block}
     .get-h{margin-bottom:6px}
@@ -510,7 +598,37 @@
       </div>
       <div class="rc" id="t1Body"></div>
       <p class="cf" data-i18n="t1.note"></p>
+      <div class="sr-only" id="t1Table"></div>
     </section>
+  </div>
+
+  <!-- 매장 실적과 시즌 재고: 매장 찾기 목록 → 순위 표, 팔레트를 쌓은 랙 → 시즌 물량 -->
+  <div class="band" id="s5"><h2 data-i18n="s5.t"></h2><p data-i18n="s5.p"></p></div>
+  <div class="ruled r1">
+    <figure class="panel" id="t2">
+      <div class="ch">
+        <span class="fl" data-i18n="t2.label"></span>
+        <h3 class="ct" id="t2Title"></h3>
+        <p class="cs" data-i18n="t2.sub"></p>
+        <ul class="keys" id="t2Keys" aria-hidden="true"></ul>
+      </div>
+      <div class="cb"><div class="board" id="t2Board" tabindex="0" role="group"></div></div>
+      <figcaption class="cf" id="t2Note"></figcaption>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="t2Table"></div>
+    </figure>
+    <figure class="panel" id="fh">
+      <div class="ch">
+        <span class="fl" data-i18n="fh.label"></span>
+        <h3 class="ct" id="fhTitle"></h3>
+        <p class="cs" data-i18n="fh.sub"></p>
+        <ul class="keys" id="fhKeys" aria-hidden="true"></ul>
+      </div>
+      <div class="cb"><ol class="racks" id="fhRacks" tabindex="0"></ol></div>
+      <figcaption class="cf" data-i18n="fh.note"></figcaption>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="fhTable"></div>
+    </figure>
   </div>
 
   <!-- 쿠폰북: 숯색 띠 + 괘선 격자 -->
@@ -653,7 +771,7 @@
   /* ================= 가상 데이터: Vizney Wholesale, 2026년 10월 26일(월)~11월 1일(일). 돈은 미국 달러 =================
      매장 24곳(서부 9, 중부 7 중 올해 문을 연 1곳은 기존점 제외, 동부 8)의 13주 기존점 매출(보고·휘발유 가격 조정), 판매 경로 성장,
      회원권별 신규 가입과, 마지막 주의 부서별 매출·즉시 할인·쿠폰·일별 주유를 Python으로 만들고 지역에서 전체로 합쳤다(검산 완료). */
-  const DATA = {"weeks":["2026-08-09","2026-08-16","2026-08-23","2026-08-30","2026-09-06","2026-09-13","2026-09-20","2026-09-27","2026-10-04","2026-10-11","2026-10-18","2026-10-25","2026-11-01"],"regions":{},"scopes":{"all":{"wh":24,"stations":21,"net":51463721.84,"net_ly":47388252.07,"merch":45583350.92,"gas":5880370.92,"gal":1740966,"gal_ly":1698329,"price":3.3776,"price_ly":3.1529,"trans":302773,"trans_ly":285354,"ticket":150.55,"ticket_ly":147.3,"sav":721748.46,"mem":1284800,"prem":38.2,"renew":88.3,"new_std":[3784,3874,3949,3996,4086,3567,3788,3802,3933,3681,4060,4476,4177],"new_prem":[2563,2891,2920,2731,3096,2753,2868,2897,3033,2942,3215,3454,3483],"rep":[6.7,6.6,6.8,6.5,6.9,5.3,6.0,6.8,6.6,6.3,7.0,6.4,6.2],"adj":[5.3,5.6,5.7,5.5,5.8,4.1,4.9,5.6,5.3,5.3,5.9,5.5,5.4],"onl":[17.9,17.9,17.4,16.6,17.6,17.7,18.2,17.7,17.6,17.9,17.4,17.9,19.5],"whg":[4.8,5.0,5.2,5.1,5.3,3.4,4.3,5.2,4.8,4.9,5.6,5.1,4.7],"day_gal":[219357,211523,218537,237095,264862,311821,277771],"day_price":[3.359,3.369,3.379,3.379,3.389,3.389,3.389],"depts":[{"id":"01","g":3723910.2,"s":4007.33,"net":3719902.87,"ly":3426961.53,"u":568768},{"id":"02","g":5213594.31,"s":2003.67,"net":5211590.64,"ly":4689230.64,"u":249075},{"id":"03","g":2815498.29,"s":2003.67,"net":2813494.62,"ly":2697124.34,"u":291878},{"id":"04","g":3811663.32,"s":6011.0,"net":3805652.32,"ly":3600162.88,"u":471772},{"id":"05","g":5011384.5,"s":52763.98,"net":4958620.52,"ly":4463184.22,"u":435860},{"id":"06","g":3265211.25,"s":14025.65,"net":3251185.6,"ly":2955525.45,"u":236588},{"id":"07","g":4119860.34,"s":187084.62,"net":3932775.72,"ly":3608397.93,"u":180411},{"id":"08","g":2866391.67,"s":20036.64,"net":2846355.03,"ly":2714371.92,"u":110667},{"id":"09","g":3773550.08,"s":142479.3,"net":3631070.78,"ly":3167034.07,"u":21574},{"id":"10","g":4450138.62,"s":147974.96,"net":4302163.66,"ly":3857552.86,"u":116966},{"id":"11","g":2315665.09,"s":143357.64,"net":2172307.45,"ly":2119820.81,"u":120653},{"id":"12","g":2311839.71,"s":0.0,"net":2311839.71,"ly":2199113.6,"u":55081},{"id":"13","g":1216949.46,"s":0.0,"net":1216949.46,"ly":1220158.16,"u":221967},{"id":"14","g":1409442.54,"s":0.0,"net":1409442.54,"ly":1314983.74,"u":14870}],"coupons":[{"id":"vest","f":6226,"n":11731,"s":117310},{"id":"mixer","f":807,"n":989,"s":69230},{"id":"robot","f":527,"n":570,"s":85500},{"id":"towels","f":19466,"n":20059,"s":80236},{"id":"pods","f":14795,"n":14958,"s":74790},{"id":"throw","f":7364,"n":8115,"s":48690},{"id":"oil","f":12686,"n":11577,"s":34731},{"id":"aa","f":8925,"n":7232,"s":28928}],"items":3096130},"west":{"wh":9,"stations":8,"net":21075129.1,"net_ly":19620703.38,"merch":18452956.41,"gas":2622172.69,"gal":716658,"gal_ly":694994,"price":3.6589,"price_ly":3.363,"trans":123019,"trans_ly":118244,"ticket":150.0,"ticket_ly":146.17,"sav":271253.83,"mem":482300,"prem":41.0,"renew":89.6,"new_std":[1348,1518,1543,1517,1637,1333,1402,1408,1501,1311,1599,1802,1669],"new_prem":[1038,1263,1314,1184,1479,1210,1239,1171,1300,1227,1330,1553,1592],"rep":[7.1,8.0,7.2,7.4,7.6,6.4,6.7,7.4,8.2,6.8,7.4,6.5,7.4],"adj":[5.8,6.7,6.1,6.1,6.3,5.0,5.5,6.2,6.7,6.0,6.4,5.7,6.3],"onl":[16.9,17.3,18.2,16.3,18.5,18.9,18.3,18.0,16.2,19.5,16.9,18.2,20.0],"whg":[5.3,6.5,5.6,5.9,6.0,4.5,5.1,5.7,6.5,5.5,6.3,5.4,5.7],"day_gal":[89931,87720,91694,95931,109652,128342,113388],"day_price":[3.639,3.649,3.649,3.659,3.669,3.669,3.669],"depts":[{"id":"01","g":1536528.51,"s":1622.24,"net":1534906.27,"ly":1430579.75,"u":234445},{"id":"02","g":2140196.13,"s":811.12,"net":2139385.01,"ly":2038431.11,"u":100499},{"id":"03","g":1161584.62,"s":811.12,"net":1160773.5,"ly":1132873.54,"u":119964},{"id":"04","g":1550583.85,"s":2433.36,"net":1548150.49,"ly":1542598.7,"u":185848},{"id":"05","g":2019180.48,"s":20539.07,"net":1998641.41,"ly":1788995.46,"u":172718},{"id":"06","g":1312911.89,"s":5677.83,"net":1307234.06,"ly":1191880.62,"u":95373},{"id":"07","g":1637596.73,"s":72780.9,"net":1564815.83,"ly":1426608.98,"u":75041},{"id":"08","g":1165165.2,"s":8111.19,"net":1157054.01,"ly":1101370.57,"u":43371},{"id":"09","g":1540469.36,"s":60245.67,"net":1480223.69,"ly":1306195.73,"u":8611},{"id":"10","g":1796548.56,"s":57196.78,"net":1739351.78,"ly":1530047.5,"u":49242},{"id":"11","g":900616.3,"s":41024.55,"net":859591.75,"ly":848096.02,"u":48864},{"id":"12","g":914683.27,"s":0.0,"net":914683.27,"ly":893907.51,"u":20613},{"id":"13","g":485428.31,"s":0.0,"net":485428.31,"ly":508659.44,"u":83340},{"id":"14","g":562717.03,"s":0.0,"net":562717.03,"ly":543193.99,"u":5913}],"coupons":[{"id":"vest","f":2357,"n":3048,"s":30480},{"id":"mixer","f":312,"n":456,"s":31920},{"id":"robot","f":205,"n":251,"s":37650},{"id":"towels","f":7671,"n":8002,"s":32008},{"id":"pods","f":5831,"n":5559,"s":27795},{"id":"throw","f":2646,"n":2185,"s":13110},{"id":"oil","f":4728,"n":4413,"s":13239},{"id":"aa","f":3409,"n":2810,"s":11240}],"items":1243842},"central":{"wh":7,"stations":6,"net":13584611.11,"net_ly":11707025.83,"merch":12038733.68,"gas":1545877.43,"gal":498171,"gal_ly":488601,"price":3.1031,"price_ly":2.935,"trans":81528,"trans_ly":71189,"ticket":147.66,"ticket_ly":144.31,"sav":208984.96,"mem":351900,"prem":34.4,"renew":86.9,"new_std":[1324,1340,1311,1387,1315,1174,1276,1253,1310,1254,1312,1443,1228],"new_prem":[798,861,763,803,773,718,792,851,883,850,953,991,877],"rep":[7.1,6.9,7.7,7.2,7.4,5.6,6.1,6.8,5.9,6.9,7.7,7.5,6.5],"adj":[5.6,5.7,6.5,5.9,6.2,4.2,4.8,5.8,4.9,5.7,6.4,6.4,5.8],"onl":[18.4,18.1,16.3,18.7,17.1,17.4,20.0,17.3,19.4,16.5,18.3,17.0,18.4],"whg":[5.3,5.2,6.2,5.6,5.9,3.7,4.2,5.6,4.3,5.6,6.1,6.4,5.5],"day_gal":[64055,61391,60754,68634,75048,88874,79415],"day_price":[3.089,3.079,3.099,3.109,3.109,3.109,3.119],"depts":[{"id":"01","g":984388.74,"s":1058.35,"net":983330.39,"ly":837809.81,"u":149804},{"id":"02","g":1347532.26,"s":529.18,"net":1347003.08,"ly":1102385.56,"u":69807},{"id":"03","g":742782.38,"s":529.18,"net":742253.2,"ly":667179.94,"u":81794},{"id":"04","g":940146.36,"s":1587.53,"net":938558.83,"ly":825361.2,"u":117089},{"id":"05","g":1340825.71,"s":14668.58,"net":1326157.13,"ly":1173147.56,"u":126671},{"id":"06","g":854562.61,"s":3704.23,"net":850858.38,"ly":704953.02,"u":60559},{"id":"07","g":1149934.44,"s":52218.8,"net":1097715.64,"ly":980181.59,"u":50152},{"id":"08","g":768292.67,"s":5291.75,"net":763000.92,"ly":632923.53,"u":30734},{"id":"09","g":1020707.08,"s":36556.45,"net":984150.63,"ly":798567.55,"u":6119},{"id":"10","g":1172808.16,"s":41231.63,"net":1131576.53,"ly":936404.82,"u":31030},{"id":"11","g":610965.84,"s":51609.28,"net":559356.56,"ly":493446.64,"u":32242},{"id":"12","g":609411.66,"s":0.0,"net":609411.66,"ly":511037.88,"u":15822},{"id":"13","g":318051.47,"s":0.0,"net":318051.47,"ly":285295.84,"u":59867},{"id":"14","g":387309.26,"s":0.0,"net":387309.26,"ly":324288.26,"u":3984}],"coupons":[{"id":"vest","f":1885,"n":4473,"s":44730},{"id":"mixer","f":225,"n":237,"s":16590},{"id":"robot","f":146,"n":136,"s":20400},{"id":"towels","f":5317,"n":5883,"s":23532},{"id":"pods","f":3932,"n":4044,"s":20220},{"id":"throw","f":2106,"n":2784,"s":16704},{"id":"oil","f":3787,"n":3302,"s":9906},{"id":"aa","f":2606,"n":2187,"s":8748}],"items":835674},"east":{"wh":8,"stations":7,"net":16803981.63,"net_ly":16060522.86,"merch":15091660.83,"gas":1712320.8,"gal":526137,"gal_ly":514734,"price":3.2545,"price_ly":3.076,"trans":98226,"trans_ly":95921,"ticket":153.64,"ticket_ly":150.93,"sav":241509.67,"mem":450600,"prem":38.1,"renew":88.1,"new_std":[1112,1016,1095,1092,1134,1060,1110,1141,1122,1116,1149,1231,1280],"new_prem":[727,767,843,744,844,825,837,875,850,865,932,910,1014],"rep":[6.0,4.7,5.6,5.0,5.5,3.9,5.0,5.9,5.1,5.2,6.0,5.4,4.6],"adj":[4.6,4.0,4.7,4.3,4.7,2.9,4.2,4.8,3.9,4.2,4.9,4.5,4.0],"onl":[18.9,18.5,17.1,15.7,16.7,16.3,17.0,17.5,18.1,16.9,17.3,18.0,19.7],"whg":[3.9,3.1,4.1,3.7,4.1,1.9,3.5,4.2,3.0,3.5,4.3,3.7,3.1],"day_gal":[65371,62412,66089,72530,80162,94605,84968],"day_price":[3.229,3.239,3.259,3.259,3.259,3.259,3.269],"depts":[{"id":"01","g":1202992.95,"s":1326.74,"net":1201666.21,"ly":1158571.97,"u":184519},{"id":"02","g":1725865.92,"s":663.37,"net":1725202.55,"ly":1548413.97,"u":78769},{"id":"03","g":911131.29,"s":663.37,"net":910467.92,"ly":897070.86,"u":90120},{"id":"04","g":1320933.11,"s":1990.11,"net":1318943.0,"ly":1232202.98,"u":168835},{"id":"05","g":1651378.31,"s":17556.33,"net":1633821.98,"ly":1501041.2,"u":136471},{"id":"06","g":1097736.75,"s":4643.59,"net":1093093.16,"ly":1058691.81,"u":80656},{"id":"07","g":1332329.17,"s":62084.92,"net":1270244.25,"ly":1201607.36,"u":55218},{"id":"08","g":932933.8,"s":6633.7,"net":926300.1,"ly":980077.82,"u":36562},{"id":"09","g":1212373.64,"s":45677.18,"net":1166696.46,"ly":1062270.79,"u":6844},{"id":"10","g":1480781.9,"s":49546.55,"net":1431235.35,"ly":1391100.54,"u":36694},{"id":"11","g":804082.95,"s":50723.81,"net":753359.14,"ly":778278.15,"u":39547},{"id":"12","g":787744.78,"s":0.0,"net":787744.78,"ly":794168.21,"u":18646},{"id":"13","g":413469.68,"s":0.0,"net":413469.68,"ly":426202.88,"u":78760},{"id":"14","g":459416.25,"s":0.0,"net":459416.25,"ly":447501.49,"u":4973}],"coupons":[{"id":"vest","f":1984,"n":4210,"s":42100},{"id":"mixer","f":270,"n":296,"s":20720},{"id":"robot","f":176,"n":183,"s":27450},{"id":"towels","f":6478,"n":6174,"s":24696},{"id":"pods","f":5032,"n":5355,"s":26775},{"id":"throw","f":2612,"n":3146,"s":18876},{"id":"oil","f":4171,"n":3862,"s":11586},{"id":"aa","f":2910,"n":2235,"s":8940}],"items":1016614}},"depts":[{"id":"01","en":"FRESH PRODUCE","ko":"\uc2e0\uc120 \ub18d\uc0b0\ubb3c"},{"id":"02","en":"MEAT & SEAFOOD","ko":"\uc815\uc721\u00b7\uc218\uc0b0"},{"id":"03","en":"BAKERY & DELI","ko":"\ubca0\uc774\ucee4\ub9ac\u00b7\ub378\ub9ac"},{"id":"04","en":"DAIRY & FROZEN","ko":"\uc720\uc81c\ud488\u00b7\ub0c9\ub3d9"},{"id":"05","en":"DRY GROCERY","ko":"\uac00\uacf5\uc2dd\ud488"},{"id":"06","en":"BEVERAGES","ko":"\uc74c\ub8cc"},{"id":"07","en":"HOUSEHOLD & PAPER","ko":"\uc0dd\ud65c\uc6a9\ud488\u00b7\uc885\uc774\ub958"},{"id":"08","en":"HEALTH & BEAUTY","ko":"\uac74\uac15\u00b7\ubbf8\uc6a9"},{"id":"09","en":"ELECTRONICS","ko":"\uac00\uc804\u00b7\uc804\uc790"},{"id":"10","en":"HOME & SEASONAL","ko":"\ud648\u00b7\uc2dc\uc98c"},{"id":"11","en":"APPAREL","ko":"\uc758\ub958"},{"id":"12","en":"PHARMACY & OPTICAL","ko":"\uc57d\uad6d\u00b7\uc548\uacbd"},{"id":"13","en":"FOOD COURT","ko":"\ud478\ub4dc\ucf54\ud2b8"},{"id":"14","en":"TIRE CENTER","ko":"\ud0c0\uc774\uc5b4 \uc13c\ud130"}],"coupons":[{"id":"vest","dept":"11","en":"Heated vest, men's or women's","ko":"\ubc1c\uc5f4 \uc870\ub07c(\ub0a8\ub140)","off":10,"limit":10,"ch":"both","seas":true,"item":"9310542"},{"id":"mixer","dept":"10","en":"Stand mixer, 6 qt","ko":"\uc2a4\ud0e0\ub4dc \ubbf9\uc11c 6\ucffc\ud2b8","off":70,"limit":5,"ch":"both","seas":false,"item":"9248807"},{"id":"robot","dept":"09","en":"Robot vacuum and mop","ko":"\ub85c\ubd07 \uccad\uc18c\uae30(\ubb3c\uac78\ub808)","off":150,"limit":2,"ch":"online","seas":false,"item":"9177163"},{"id":"towels","dept":"07","en":"Paper towels, 12 rolls","ko":"\ud0a4\uce5c\ud0c0\uc6d4 12\ub864","off":4,"limit":5,"ch":"both","seas":false,"item":"9025518"},{"id":"pods","dept":"07","en":"Laundry pods, 152 ct","ko":"\uc138\ud0c1 \ucea1\uc290 152\uac1c","off":5,"limit":5,"ch":"both","seas":false,"item":"9034471"},{"id":"throw","dept":"10","en":"Sherpa throw, 2-pack","ko":"\uc170\ub974\ud30c \ub2f4\uc694 2\uc7a5","off":6,"limit":10,"ch":"wh","seas":true,"item":"9341096"},{"id":"oil","dept":"05","en":"Olive oil, 2 L","ko":"\uc62c\ub9ac\ube0c\uc720 2L","off":3,"limit":5,"ch":"wh","seas":false,"item":"9002754"},{"id":"aa","dept":"09","en":"AA batteries, 48 ct","ko":"AA \uac74\uc804\uc9c0 48\uac1c","off":4,"limit":3,"ch":"both","seas":false,"item":"9119820"}]};
+  const DATA = {"weeks":["2026-08-09","2026-08-16","2026-08-23","2026-08-30","2026-09-06","2026-09-13","2026-09-20","2026-09-27","2026-10-04","2026-10-11","2026-10-18","2026-10-25","2026-11-01"],"regions":{},"scopes":{"all":{"wh":24,"stations":21,"net":51463721.84,"net_ly":47388252.07,"merch":45583350.92,"gas":5880370.92,"gal":1740966,"gal_ly":1698329,"price":3.3776,"price_ly":3.1529,"trans":302773,"trans_ly":285354,"ticket":150.55,"ticket_ly":147.3,"sav":721748.46,"mem":1284800,"prem":38.2,"renew":88.3,"new_std":[3784,3874,3949,3996,4086,3567,3788,3802,3933,3681,4060,4476,4177],"new_prem":[2563,2891,2920,2731,3096,2753,2868,2897,3033,2942,3215,3454,3483],"rep":[6.7,6.6,6.8,6.5,6.9,5.3,6.0,6.8,6.6,6.3,7.0,6.4,6.2],"adj":[5.3,5.6,5.7,5.5,5.8,4.1,4.9,5.6,5.3,5.3,5.9,5.5,5.4],"onl":[17.9,17.9,17.4,16.6,17.6,17.7,18.2,17.7,17.6,17.9,17.4,17.9,19.5],"whg":[4.8,5.0,5.2,5.1,5.3,3.4,4.3,5.2,4.8,4.9,5.6,5.1,4.7],"day_gal":[219357,211523,218537,237095,264862,311821,277771],"day_price":[3.359,3.369,3.379,3.379,3.389,3.389,3.389],"depts":[{"id":"01","g":3723910.2,"s":4007.33,"net":3719902.87,"ly":3426961.53,"u":568768},{"id":"02","g":5213594.31,"s":2003.67,"net":5211590.64,"ly":4689230.64,"u":249075},{"id":"03","g":2815498.29,"s":2003.67,"net":2813494.62,"ly":2697124.34,"u":291878},{"id":"04","g":3811663.32,"s":6011.0,"net":3805652.32,"ly":3600162.88,"u":471772},{"id":"05","g":5011384.5,"s":52763.98,"net":4958620.52,"ly":4463184.22,"u":435860},{"id":"06","g":3265211.25,"s":14025.65,"net":3251185.6,"ly":2955525.45,"u":236588},{"id":"07","g":4119860.34,"s":187084.62,"net":3932775.72,"ly":3608397.93,"u":180411},{"id":"08","g":2866391.67,"s":20036.64,"net":2846355.03,"ly":2714371.92,"u":110667},{"id":"09","g":3773550.08,"s":142479.3,"net":3631070.78,"ly":3167034.07,"u":21574},{"id":"10","g":4450138.62,"s":147974.96,"net":4302163.66,"ly":3857552.86,"u":116966},{"id":"11","g":2315665.09,"s":143357.64,"net":2172307.45,"ly":2119820.81,"u":120653},{"id":"12","g":2311839.71,"s":0.0,"net":2311839.71,"ly":2199113.6,"u":55081},{"id":"13","g":1216949.46,"s":0.0,"net":1216949.46,"ly":1220158.16,"u":221967},{"id":"14","g":1409442.54,"s":0.0,"net":1409442.54,"ly":1314983.74,"u":14870}],"coupons":[{"id":"vest","f":6226,"n":11731,"s":117310},{"id":"mixer","f":807,"n":989,"s":69230},{"id":"robot","f":527,"n":570,"s":85500},{"id":"towels","f":19466,"n":20059,"s":80236},{"id":"pods","f":14795,"n":14958,"s":74790},{"id":"throw","f":7364,"n":8115,"s":48690},{"id":"oil","f":12686,"n":11577,"s":34731},{"id":"aa","f":8925,"n":7232,"s":28928}],"items":3096130,"whs":[{"code":"W-01","r":"west","net":2183136.79,"ly":2049325.19,"plan":2172375.08,"new":false,"gas":true},{"code":"W-02","r":"west","net":2817515.56,"ly":2628801.33,"plan":2721856.21,"new":false,"gas":true},{"code":"W-03","r":"west","net":2020925.87,"ly":1858378.3,"plan":2034102.29,"new":false,"gas":true},{"code":"W-04","r":"west","net":2194859.04,"ly":2009153.67,"plan":2086367.91,"new":false,"gas":true},{"code":"W-05","r":"west","net":2375963.36,"ly":2213707.51,"plan":2308215.05,"new":false,"gas":true},{"code":"W-06","r":"west","net":1884445.15,"ly":1764009.43,"plan":1893932.47,"new":false,"gas":false},{"code":"W-07","r":"west","net":2634298.86,"ly":2400120.93,"plan":2556212.79,"new":false,"gas":true},{"code":"W-08","r":"west","net":2387826.53,"ly":2307601.91,"plan":2326409.15,"new":false,"gas":true},{"code":"W-09","r":"west","net":2576157.94,"ly":2389605.11,"plan":2552060.75,"new":false,"gas":true},{"code":"C-01","r":"central","net":2031632.62,"ly":1846518.2,"plan":2048486.0,"new":false,"gas":true},{"code":"C-02","r":"central","net":1810865.72,"ly":1720541.84,"plan":1760443.11,"new":false,"gas":true},{"code":"C-03","r":"central","net":1997700.66,"ly":1887335.47,"plan":1930750.77,"new":false,"gas":true},{"code":"C-04","r":"central","net":2013351.88,"ly":1877873.11,"plan":1984388.59,"new":false,"gas":true},{"code":"C-05","r":"central","net":2276831.44,"ly":2133456.9,"plan":2272286.87,"new":false,"gas":true},{"code":"C-06","r":"central","net":2340290.85,"ly":2241300.31,"plan":2318804.74,"new":false,"gas":true},{"code":"C-07","r":"central","net":1113937.94,"ly":null,"plan":1018224.81,"new":true,"gas":false},{"code":"E-01","r":"east","net":1736515.63,"ly":1643930.36,"plan":1745167.52,"new":false,"gas":true},{"code":"E-02","r":"east","net":1967745.86,"ly":1934712.96,"plan":2026535.19,"new":false,"gas":true},{"code":"E-03","r":"east","net":2405796.49,"ly":2363511.91,"plan":2508651.19,"new":false,"gas":true},{"code":"E-04","r":"east","net":2283233.24,"ly":2128779.27,"plan":2227075.59,"new":false,"gas":true},{"code":"E-05","r":"east","net":2110323.72,"ly":1944811.34,"plan":2075839.18,"new":false,"gas":false},{"code":"E-06","r":"east","net":1933066.66,"ly":1833417.55,"plan":1961463.6,"new":false,"gas":true},{"code":"E-07","r":"east","net":2472410.29,"ly":2429789.0,"plan":2464348.58,"new":false,"gas":true},{"code":"E-08","r":"east","net":1894889.74,"ly":1781570.47,"plan":1868118.12,"new":false,"gas":true}],"plan":50862115.56,"hours":[[2028,4094,4689,4342,3076,2780,4334,5525,4703,2611,1491],[1939,3713,4456,3953,2744,2664,4053,5537,4451,2377,1383],[1934,3712,4672,3725,2802,2741,3939,5567,4350,2458,1475],[2011,3988,5003,4455,3034,2758,4539,5849,4544,2537,1500],[2342,4686,5607,4665,3489,3205,5072,6500,5272,2948,1720],[3617,7490,10535,10538,9098,5949,3613,2723,2317],[2897,5985,8718,9780,8429,5422,3316,2304]],"hb":[{"id":"toys","bought":2560,"rec":2162,"sold":702},{"id":"decor","bought":1990,"rec":1600,"sold":474},{"id":"tech","bought":1100,"rec":954,"sold":302},{"id":"outer","bought":1170,"rec":1076,"sold":521}]},"west":{"wh":9,"stations":8,"net":21075129.1,"net_ly":19620703.38,"merch":18452956.41,"gas":2622172.69,"gal":716658,"gal_ly":694994,"price":3.6589,"price_ly":3.363,"trans":123019,"trans_ly":118244,"ticket":150.0,"ticket_ly":146.17,"sav":271253.83,"mem":482300,"prem":41.0,"renew":89.6,"new_std":[1348,1518,1543,1517,1637,1333,1402,1408,1501,1311,1599,1802,1669],"new_prem":[1038,1263,1314,1184,1479,1210,1239,1171,1300,1227,1330,1553,1592],"rep":[7.1,8.0,7.2,7.4,7.6,6.4,6.7,7.4,8.2,6.8,7.4,6.5,7.4],"adj":[5.8,6.7,6.1,6.1,6.3,5.0,5.5,6.2,6.7,6.0,6.4,5.7,6.3],"onl":[16.9,17.3,18.2,16.3,18.5,18.9,18.3,18.0,16.2,19.5,16.9,18.2,20.0],"whg":[5.3,6.5,5.6,5.9,6.0,4.5,5.1,5.7,6.5,5.5,6.3,5.4,5.7],"day_gal":[89931,87720,91694,95931,109652,128342,113388],"day_price":[3.639,3.649,3.649,3.659,3.669,3.669,3.669],"depts":[{"id":"01","g":1536528.51,"s":1622.24,"net":1534906.27,"ly":1430579.75,"u":234445},{"id":"02","g":2140196.13,"s":811.12,"net":2139385.01,"ly":2038431.11,"u":100499},{"id":"03","g":1161584.62,"s":811.12,"net":1160773.5,"ly":1132873.54,"u":119964},{"id":"04","g":1550583.85,"s":2433.36,"net":1548150.49,"ly":1542598.7,"u":185848},{"id":"05","g":2019180.48,"s":20539.07,"net":1998641.41,"ly":1788995.46,"u":172718},{"id":"06","g":1312911.89,"s":5677.83,"net":1307234.06,"ly":1191880.62,"u":95373},{"id":"07","g":1637596.73,"s":72780.9,"net":1564815.83,"ly":1426608.98,"u":75041},{"id":"08","g":1165165.2,"s":8111.19,"net":1157054.01,"ly":1101370.57,"u":43371},{"id":"09","g":1540469.36,"s":60245.67,"net":1480223.69,"ly":1306195.73,"u":8611},{"id":"10","g":1796548.56,"s":57196.78,"net":1739351.78,"ly":1530047.5,"u":49242},{"id":"11","g":900616.3,"s":41024.55,"net":859591.75,"ly":848096.02,"u":48864},{"id":"12","g":914683.27,"s":0.0,"net":914683.27,"ly":893907.51,"u":20613},{"id":"13","g":485428.31,"s":0.0,"net":485428.31,"ly":508659.44,"u":83340},{"id":"14","g":562717.03,"s":0.0,"net":562717.03,"ly":543193.99,"u":5913}],"coupons":[{"id":"vest","f":2357,"n":3048,"s":30480},{"id":"mixer","f":312,"n":456,"s":31920},{"id":"robot","f":205,"n":251,"s":37650},{"id":"towels","f":7671,"n":8002,"s":32008},{"id":"pods","f":5831,"n":5559,"s":27795},{"id":"throw","f":2646,"n":2185,"s":13110},{"id":"oil","f":4728,"n":4413,"s":13239},{"id":"aa","f":3409,"n":2810,"s":11240}],"items":1243842,"whs":[{"code":"W-01","r":"west","net":2183136.79,"ly":2049325.19,"plan":2172375.08,"new":false,"gas":true},{"code":"W-02","r":"west","net":2817515.56,"ly":2628801.33,"plan":2721856.21,"new":false,"gas":true},{"code":"W-03","r":"west","net":2020925.87,"ly":1858378.3,"plan":2034102.29,"new":false,"gas":true},{"code":"W-04","r":"west","net":2194859.04,"ly":2009153.67,"plan":2086367.91,"new":false,"gas":true},{"code":"W-05","r":"west","net":2375963.36,"ly":2213707.51,"plan":2308215.05,"new":false,"gas":true},{"code":"W-06","r":"west","net":1884445.15,"ly":1764009.43,"plan":1893932.47,"new":false,"gas":false},{"code":"W-07","r":"west","net":2634298.86,"ly":2400120.93,"plan":2556212.79,"new":false,"gas":true},{"code":"W-08","r":"west","net":2387826.53,"ly":2307601.91,"plan":2326409.15,"new":false,"gas":true},{"code":"W-09","r":"west","net":2576157.94,"ly":2389605.11,"plan":2552060.75,"new":false,"gas":true}],"plan":20651531.7,"hours":[[794,1655,1868,1734,1296,1160,1752,2229,1940,1064,564],[807,1550,1759,1578,1022,1146,1659,2283,1851,949,539],[818,1592,1920,1481,1172,1103,1584,2423,1808,987,637],[782,1690,1961,1789,1195,1038,1819,2376,1814,1020,594],[964,1927,2244,1835,1399,1224,2176,2682,2088,1234,714],[1483,3097,4244,4294,3662,2438,1487,1135,960],[1212,2444,3457,3938,3421,2251,1300,907]],"hb":[{"id":"toys","bought":980,"rec":843,"sold":294},{"id":"decor","bought":760,"rec":623,"sold":205},{"id":"tech","bought":420,"rec":370,"sold":110},{"id":"outer","bought":380,"rec":346,"sold":128}]},"central":{"wh":7,"stations":6,"net":13584611.11,"net_ly":11707025.83,"merch":12038733.68,"gas":1545877.43,"gal":498171,"gal_ly":488601,"price":3.1031,"price_ly":2.935,"trans":81528,"trans_ly":71189,"ticket":147.66,"ticket_ly":144.31,"sav":208984.96,"mem":351900,"prem":34.4,"renew":86.9,"new_std":[1324,1340,1311,1387,1315,1174,1276,1253,1310,1254,1312,1443,1228],"new_prem":[798,861,763,803,773,718,792,851,883,850,953,991,877],"rep":[7.1,6.9,7.7,7.2,7.4,5.6,6.1,6.8,5.9,6.9,7.7,7.5,6.5],"adj":[5.6,5.7,6.5,5.9,6.2,4.2,4.8,5.8,4.9,5.7,6.4,6.4,5.8],"onl":[18.4,18.1,16.3,18.7,17.1,17.4,20.0,17.3,19.4,16.5,18.3,17.0,18.4],"whg":[5.3,5.2,6.2,5.6,5.9,3.7,4.2,5.6,4.3,5.6,6.1,6.4,5.5],"day_gal":[64055,61391,60754,68634,75048,88874,79415],"day_price":[3.089,3.079,3.099,3.109,3.109,3.109,3.119],"depts":[{"id":"01","g":984388.74,"s":1058.35,"net":983330.39,"ly":837809.81,"u":149804},{"id":"02","g":1347532.26,"s":529.18,"net":1347003.08,"ly":1102385.56,"u":69807},{"id":"03","g":742782.38,"s":529.18,"net":742253.2,"ly":667179.94,"u":81794},{"id":"04","g":940146.36,"s":1587.53,"net":938558.83,"ly":825361.2,"u":117089},{"id":"05","g":1340825.71,"s":14668.58,"net":1326157.13,"ly":1173147.56,"u":126671},{"id":"06","g":854562.61,"s":3704.23,"net":850858.38,"ly":704953.02,"u":60559},{"id":"07","g":1149934.44,"s":52218.8,"net":1097715.64,"ly":980181.59,"u":50152},{"id":"08","g":768292.67,"s":5291.75,"net":763000.92,"ly":632923.53,"u":30734},{"id":"09","g":1020707.08,"s":36556.45,"net":984150.63,"ly":798567.55,"u":6119},{"id":"10","g":1172808.16,"s":41231.63,"net":1131576.53,"ly":936404.82,"u":31030},{"id":"11","g":610965.84,"s":51609.28,"net":559356.56,"ly":493446.64,"u":32242},{"id":"12","g":609411.66,"s":0.0,"net":609411.66,"ly":511037.88,"u":15822},{"id":"13","g":318051.47,"s":0.0,"net":318051.47,"ly":285295.84,"u":59867},{"id":"14","g":387309.26,"s":0.0,"net":387309.26,"ly":324288.26,"u":3984}],"coupons":[{"id":"vest","f":1885,"n":4473,"s":44730},{"id":"mixer","f":225,"n":237,"s":16590},{"id":"robot","f":146,"n":136,"s":20400},{"id":"towels","f":5317,"n":5883,"s":23532},{"id":"pods","f":3932,"n":4044,"s":20220},{"id":"throw","f":2106,"n":2784,"s":16704},{"id":"oil","f":3787,"n":3302,"s":9906},{"id":"aa","f":2606,"n":2187,"s":8748}],"items":835674,"whs":[{"code":"C-01","r":"central","net":2031632.62,"ly":1846518.2,"plan":2048486.0,"new":false,"gas":true},{"code":"C-02","r":"central","net":1810865.72,"ly":1720541.84,"plan":1760443.11,"new":false,"gas":true},{"code":"C-03","r":"central","net":1997700.66,"ly":1887335.47,"plan":1930750.77,"new":false,"gas":true},{"code":"C-04","r":"central","net":2013351.88,"ly":1877873.11,"plan":1984388.59,"new":false,"gas":true},{"code":"C-05","r":"central","net":2276831.44,"ly":2133456.9,"plan":2272286.87,"new":false,"gas":true},{"code":"C-06","r":"central","net":2340290.85,"ly":2241300.31,"plan":2318804.74,"new":false,"gas":true},{"code":"C-07","r":"central","net":1113937.94,"ly":null,"plan":1018224.81,"new":true,"gas":false}],"plan":13333384.89,"hours":[[571,1066,1225,1223,820,731,1148,1534,1301,709,399],[524,1014,1263,1075,752,720,1095,1489,1180,686,367],[486,977,1188,1024,722,732,1081,1449,1196,649,376],[569,1046,1336,1222,834,804,1232,1571,1299,668,417],[639,1240,1568,1335,940,911,1308,1760,1464,751,472],[959,1880,2926,2818,2438,1653,944,685,605],[776,1464,2448,2664,2187,1395,907,621]],"hb":[{"id":"toys","bought":720,"rec":605,"sold":202},{"id":"decor","bought":540,"rec":432,"sold":124},{"id":"tech","bought":300,"rec":261,"sold":100},{"id":"outer","bought":340,"rec":316,"sold":174}]},"east":{"wh":8,"stations":7,"net":16803981.63,"net_ly":16060522.86,"merch":15091660.83,"gas":1712320.8,"gal":526137,"gal_ly":514734,"price":3.2545,"price_ly":3.076,"trans":98226,"trans_ly":95921,"ticket":153.64,"ticket_ly":150.93,"sav":241509.67,"mem":450600,"prem":38.1,"renew":88.1,"new_std":[1112,1016,1095,1092,1134,1060,1110,1141,1122,1116,1149,1231,1280],"new_prem":[727,767,843,744,844,825,837,875,850,865,932,910,1014],"rep":[6.0,4.7,5.6,5.0,5.5,3.9,5.0,5.9,5.1,5.2,6.0,5.4,4.6],"adj":[4.6,4.0,4.7,4.3,4.7,2.9,4.2,4.8,3.9,4.2,4.9,4.5,4.0],"onl":[18.9,18.5,17.1,15.7,16.7,16.3,17.0,17.5,18.1,16.9,17.3,18.0,19.7],"whg":[3.9,3.1,4.1,3.7,4.1,1.9,3.5,4.2,3.0,3.5,4.3,3.7,3.1],"day_gal":[65371,62412,66089,72530,80162,94605,84968],"day_price":[3.229,3.239,3.259,3.259,3.259,3.259,3.269],"depts":[{"id":"01","g":1202992.95,"s":1326.74,"net":1201666.21,"ly":1158571.97,"u":184519},{"id":"02","g":1725865.92,"s":663.37,"net":1725202.55,"ly":1548413.97,"u":78769},{"id":"03","g":911131.29,"s":663.37,"net":910467.92,"ly":897070.86,"u":90120},{"id":"04","g":1320933.11,"s":1990.11,"net":1318943.0,"ly":1232202.98,"u":168835},{"id":"05","g":1651378.31,"s":17556.33,"net":1633821.98,"ly":1501041.2,"u":136471},{"id":"06","g":1097736.75,"s":4643.59,"net":1093093.16,"ly":1058691.81,"u":80656},{"id":"07","g":1332329.17,"s":62084.92,"net":1270244.25,"ly":1201607.36,"u":55218},{"id":"08","g":932933.8,"s":6633.7,"net":926300.1,"ly":980077.82,"u":36562},{"id":"09","g":1212373.64,"s":45677.18,"net":1166696.46,"ly":1062270.79,"u":6844},{"id":"10","g":1480781.9,"s":49546.55,"net":1431235.35,"ly":1391100.54,"u":36694},{"id":"11","g":804082.95,"s":50723.81,"net":753359.14,"ly":778278.15,"u":39547},{"id":"12","g":787744.78,"s":0.0,"net":787744.78,"ly":794168.21,"u":18646},{"id":"13","g":413469.68,"s":0.0,"net":413469.68,"ly":426202.88,"u":78760},{"id":"14","g":459416.25,"s":0.0,"net":459416.25,"ly":447501.49,"u":4973}],"coupons":[{"id":"vest","f":1984,"n":4210,"s":42100},{"id":"mixer","f":270,"n":296,"s":20720},{"id":"robot","f":176,"n":183,"s":27450},{"id":"towels","f":6478,"n":6174,"s":24696},{"id":"pods","f":5032,"n":5355,"s":26775},{"id":"throw","f":2612,"n":3146,"s":18876},{"id":"oil","f":4171,"n":3862,"s":11586},{"id":"aa","f":2910,"n":2235,"s":8940}],"items":1016614,"whs":[{"code":"E-01","r":"east","net":1736515.63,"ly":1643930.36,"plan":1745167.52,"new":false,"gas":true},{"code":"E-02","r":"east","net":1967745.86,"ly":1934712.96,"plan":2026535.19,"new":false,"gas":true},{"code":"E-03","r":"east","net":2405796.49,"ly":2363511.91,"plan":2508651.19,"new":false,"gas":true},{"code":"E-04","r":"east","net":2283233.24,"ly":2128779.27,"plan":2227075.59,"new":false,"gas":true},{"code":"E-05","r":"east","net":2110323.72,"ly":1944811.34,"plan":2075839.18,"new":false,"gas":false},{"code":"E-06","r":"east","net":1933066.66,"ly":1833417.55,"plan":1961463.6,"new":false,"gas":true},{"code":"E-07","r":"east","net":2472410.29,"ly":2429789.0,"plan":2464348.58,"new":false,"gas":true},{"code":"E-08","r":"east","net":1894889.74,"ly":1781570.47,"plan":1868118.12,"new":false,"gas":true}],"plan":16877198.97,"hours":[[663,1373,1596,1385,960,889,1434,1762,1462,838,528],[608,1149,1434,1300,970,798,1299,1765,1420,742,477],[630,1143,1564,1220,908,906,1274,1695,1346,822,462],[660,1252,1706,1444,1005,916,1488,1902,1431,849,489],[739,1519,1795,1495,1150,1070,1588,2058,1720,963,534],[1175,2513,3365,3426,2998,1858,1182,903,752],[909,2077,2813,3178,2821,1776,1109,776]],"hb":[{"id":"toys","bought":860,"rec":714,"sold":206},{"id":"decor","bought":690,"rec":545,"sold":145},{"id":"tech","bought":380,"rec":323,"sold":92},{"id":"outer","bought":450,"rec":414,"sold":219}]}},"depts":[{"id":"01","en":"FRESH PRODUCE","ko":"\uc2e0\uc120 \ub18d\uc0b0\ubb3c"},{"id":"02","en":"MEAT & SEAFOOD","ko":"\uc815\uc721\u00b7\uc218\uc0b0"},{"id":"03","en":"BAKERY & DELI","ko":"\ubca0\uc774\ucee4\ub9ac\u00b7\ub378\ub9ac"},{"id":"04","en":"DAIRY & FROZEN","ko":"\uc720\uc81c\ud488\u00b7\ub0c9\ub3d9"},{"id":"05","en":"DRY GROCERY","ko":"\uac00\uacf5\uc2dd\ud488"},{"id":"06","en":"BEVERAGES","ko":"\uc74c\ub8cc"},{"id":"07","en":"HOUSEHOLD & PAPER","ko":"\uc0dd\ud65c\uc6a9\ud488\u00b7\uc885\uc774\ub958"},{"id":"08","en":"HEALTH & BEAUTY","ko":"\uac74\uac15\u00b7\ubbf8\uc6a9"},{"id":"09","en":"ELECTRONICS","ko":"\uac00\uc804\u00b7\uc804\uc790"},{"id":"10","en":"HOME & SEASONAL","ko":"\ud648\u00b7\uc2dc\uc98c"},{"id":"11","en":"APPAREL","ko":"\uc758\ub958"},{"id":"12","en":"PHARMACY & OPTICAL","ko":"\uc57d\uad6d\u00b7\uc548\uacbd"},{"id":"13","en":"FOOD COURT","ko":"\ud478\ub4dc\ucf54\ud2b8"},{"id":"14","en":"TIRE CENTER","ko":"\ud0c0\uc774\uc5b4 \uc13c\ud130"}],"coupons":[{"id":"vest","dept":"11","en":"Heated vest, men's or women's","ko":"\ubc1c\uc5f4 \uc870\ub07c(\ub0a8\ub140)","off":10,"limit":10,"ch":"both","seas":true,"item":"9310542"},{"id":"mixer","dept":"10","en":"Stand mixer, 6 qt","ko":"\uc2a4\ud0e0\ub4dc \ubbf9\uc11c 6\ucffc\ud2b8","off":70,"limit":5,"ch":"both","seas":false,"item":"9248807"},{"id":"robot","dept":"09","en":"Robot vacuum and mop","ko":"\ub85c\ubd07 \uccad\uc18c\uae30(\ubb3c\uac78\ub808)","off":150,"limit":2,"ch":"online","seas":false,"item":"9177163"},{"id":"towels","dept":"07","en":"Paper towels, 12 rolls","ko":"\ud0a4\uce5c\ud0c0\uc6d4 12\ub864","off":4,"limit":5,"ch":"both","seas":false,"item":"9025518"},{"id":"pods","dept":"07","en":"Laundry pods, 152 ct","ko":"\uc138\ud0c1 \ucea1\uc290 152\uac1c","off":5,"limit":5,"ch":"both","seas":false,"item":"9034471"},{"id":"throw","dept":"10","en":"Sherpa throw, 2-pack","ko":"\uc170\ub974\ud30c \ub2f4\uc694 2\uc7a5","off":6,"limit":10,"ch":"wh","seas":true,"item":"9341096"},{"id":"oil","dept":"05","en":"Olive oil, 2 L","ko":"\uc62c\ub9ac\ube0c\uc720 2L","off":3,"limit":5,"ch":"wh","seas":false,"item":"9002754"},{"id":"aa","dept":"09","en":"AA batteries, 48 ct","ko":"AA \uac74\uc804\uc9c0 48\uac1c","off":4,"limit":3,"ch":"both","seas":false,"item":"9119820"}],"hours":[[10,11,12,13,14,15,16,17,18,19,20],[10,11,12,13,14,15,16,17,18,19,20],[10,11,12,13,14,15,16,17,18,19,20],[10,11,12,13,14,15,16,17,18,19,20],[10,11,12,13,14,15,16,17,18,19,20],[9,10,11,12,13,14,15,16,17],[10,11,12,13,14,15,16,17]],"hb":[{"id":"toys","dept":"10","en":"Toys & games","ko":"\uc7a5\ub09c\uac10\u00b7\uac8c\uc784","plan":30},{"id":"decor","dept":"10","en":"Trees & d\u00e9cor","ko":"\ud2b8\ub9ac\u00b7\uc7a5\uc2dd","plan":25},{"id":"tech","dept":"09","en":"TV & tech gifts","ko":"TV\u00b7\uc804\uc790 \uc120\ubb3c","plan":25},{"id":"outer","dept":"11","en":"Outerwear","ko":"\uc544\uc6b0\ud130","plan":40}]};
   const SCOPES = ['all', 'west', 'central', 'east'];
   const NW = 13, LAST = 12;
   const DOW_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], DOW_KO = ['일', '월', '화', '수', '목', '금', '토'];
@@ -672,11 +790,11 @@
       promo: v => [`${v.end} 마감 주`, `스페셜 할인 ${v.ba} ~ ${v.bb}`, '4주 중 1주차'],
       status: v => ({ ok: `매장 ${v.wh}곳 모두 보고`, gas: ['주유소', `${v.st}곳`], members: ['유료 회원', v.mem], upd: '11/1(일) 오후 11:59(태평양 시간) 기준' }),
       headline: v => `${v.where ? v.where + ' ' : ''}11월 1일까지 한 주 순매출은 **${v.net}**로, 지난해 **${v.ly}**보다 **${v.ch}** ${v.up ? '늘었습니다' : '줄었습니다'}.`,
-      lede: v => `기존점 매출은 **${v.rep}**, 휘발유 가격 영향을 빼면 **${v.adj}** ${v.adjUp ? '늘었습니다' : '줄었습니다'}. 회원은 **${v.trans}번** 장을 보며 한 번에 **${v.ticket}**를 썼고, 쿠폰북으로 **${v.sav}**를 아꼈습니다.`,
+      lede: v => `기존점 매출은 **${v.rep}**, 휘발유 가격 영향을 빼면 **${v.adj}** ${v.adjUp ? '늘었고' : '줄었고'}, 순매출은 계획보다 **${v.vp} ${v.vpUp ? '높았습니다' : '낮았습니다'}**. 회원은 **${v.trans}번** 장을 보며 한 번에 **${v.ticket}**를 썼고, 쿠폰북으로 **${v.sav}**를 아꼈습니다.`,
       k: {
         net: '순매출', comp: '기존점 매출, 조정*', traffic: '객수', ticket: '객단가', members: '유료 회원', gas: '휘발유 판매량',
         fromLY: x => `지난해 ${x} 대비`, fromWk: x => `전주 ${x} 대비`, joined: '이번 주 가입',
-        perWh: '매장당', reported: '보고 기준', perWhDay: '매장당 하루', items: '한 번에 담은 품목', renew: '회원권 갱신율', pump: '주유 가격',
+        plan: '계획', reported: '보고 기준', perWhDay: '매장당 하루', items: '한 번에 담은 품목', renew: '회원권 갱신율', pump: '주유 가격',
         uTrips: '건', uMem: '만 명', uGal: '만 갤런', uItems: '개', uDay: '건'
       },
       signsNote: '*휘발유 가격 변화의 영향을 뺀 값입니다. 기존점 매출은 올해 문을 연 중부 매장 1곳을 뺍니다.',
@@ -691,17 +809,44 @@
       t1: {
         label: '표 1 · 부서별 매출 장부',
         title: v => `${josa(v.top, '이가')} ${v.topCh} 늘어 가장 많이 늘었고, ` + (v.neg.length === 0 ? '모든 부서가 늘었습니다' : v.neg.length === 1 ? `${v.neg[0]}만 줄었습니다` : `${v.neg.length}개 부서가 줄었습니다(가장 많이 준 곳은 ${v.neg[0]})`),
-        sub: '11/1(일) 마감 주 부서별 매출, 즉시 할인과 주유를 영수증처럼 합산',
-        hd: v => [`${v.scope} · ${v.wh}`, `11/1(일) 마감 주 · 보고서 044 · 단위 달러`],
-        cols: ['부서', '품목', '매출', '전년비'],
-        sav: id => `즉시 할인 /${id}`, savOther: '기타 즉시 할인', subtotal: '소계', gas: '주유소', total: '**** 합계',
-        items: '총 판매 수량', savings: '즉시 할인 합계', trans: '구매 건수', ticket: '객단가',
+        sub: '11/1(일) 마감 주 부서별 순매출(천 달러), 영수증처럼 주유까지 합산',
+        hd: v => [`${v.scope} · ${v.wh}`, `11/1(일) 마감 주 · 보고서 044`],
+        cols: ['부서', '품목', '매출', '천 달러', '전년비'], bar: '매출 막대',
+        subtotal: '상품 소계', gas: '주유소', total: '**** 합계',
+        items: '총 판매 수량', savings: '즉시 할인', trans: '구매 건수', ticket: '객단가',
+        byHour: '시간대별 구매 건수', peak: v => `가장 붐빈 시간 ${v.day} ${v.hr} · ${v.n}건`,
         code: v => `11/1 23:59  ${v.code}  RPT 044`,
-        note: '주: 부서 줄은 즉시 할인 전 매출이고, 그 아래 할인 줄이 그 부서에서 쓰인 쿠폰입니다. 휘발유는 주유기에서 결제해 객단가에 넣지 않습니다. 전년비는 올해 문을 연 중부 매장을 포함합니다.'
+        tip: { sales: '순매출', ly: '지난해', vsLy: '전년비', share: '상품 매출 중', units: '판매 수량', trans: '구매 건수', day: '그날 합계', week: '주간 중' },
+        bcAria: '시간대별 구매 건수, 월요일부터 일요일까지. 좌우 화살표 키로 시간을 옮깁니다.', aria: '부서 14개. 위아래 화살표 키로 부서를 옮깁니다.',
+        note: '주: 부서 줄은 즉시 할인 뒤 매출이며, 소계와 맞게 천 달러 단위로 반올림했습니다. 휘발유는 주유기에서 결제해 객단가와 구매 건수에 넣지 않습니다. 전년비는 올해 문을 연 중부 매장을 포함합니다.'
+      },
+      s5: { t: '매장 실적과 시즌 재고', p: '어느 매장이 계획을 넘었는지, 시즌 팔레트가 얼마나 빨리 팔리는지' },
+      t2: {
+        label: '표 2 · 매장별 실적',
+        title: v => v.n === 0 ? `모든 매장이 계획을 넘었고, ${josa(v.best, '이가')} ${v.bv}로 가장 앞섰습니다`
+          : v.n === 1 ? `${v.worst}만 계획에 못 미쳤습니다(${v.wv})` : `${v.total}곳 중 ${v.n}곳이 계획에 못 미쳤고, ${josa(v.worst, '이가')} ${v.wv}로 가장 많이 못 미쳤습니다`,
+        sub: '11/1(일) 마감 주 매장별 순매출의 계획 대비, 높은 순', keys: ['계획 미달', '계획 초과', '계획'],
+        cols: ['순위', '매장', '계획 대비', '순매출', '전년비'], plan: '계획', new: '신규',
+        tip: { net: '순매출', plan: '계획', vp: '계획 대비', ly: '지난해', vl: '전년비', opened: '올봄 개점, 지난해 매출 없음' },
+        note: v => `주: 계획은 분기 전에 정한 매장별 주간 순매출 목표입니다.${v.hasNew ? ' C-07은 올봄 문을 열어 지난해 매출이 없습니다.' : ''} 막대는 계획 대비 −6%에서 +10%까지 그립니다.`,
+        aria: '매장별 계획 대비 순매출. 위아래 화살표 키로 매장을 옮깁니다.'
+      },
+      fh: {
+        label: '그림 2 · 시즌 물량',
+        title: v => v.worstD >= 0 ? `${josa(v.best, '은는')} 시즌 물량의 ${v.bs}를 팔아 계획보다 ${v.bd} 앞섰고, 모든 카테고리가 계획 이상입니다`
+          : v.bestD < 0 ? `모든 카테고리가 계획보다 뒤처졌고, ${josa(v.worst, '이가')} ${v.wd}로 가장 많이 뒤처졌습니다`
+          : `${josa(v.best, '은는')} 시즌 물량의 ${v.bs}를 팔아 계획보다 ${v.bd} 앞섰고, ${josa(v.worst, '은는')} ${v.wd} 뒤처졌습니다`,
+        sub: '11/1(일)까지 카테고리별 시즌 매입 팔레트: 판매, 매장 재고, 입고 예정. 한 칸은 그 카테고리 팔레트의 1%', keys: ['판매', '매장 재고', '입고 예정', '이번 주까지 계획'],
+        pallets: n => `${n}팔레트`, sold: x => `${x} 판매`, plan: x => `계획 ${x}`,
+        ahead: x => `▲ 계획보다 ${x} 앞섬`, behind: x => `▼ 계획보다 ${x} 뒤처짐`, onPlan: '계획과 같음',
+        stock: (o, a) => `매장 재고 ${o} · 입고 예정 ${a}`,
+        tip: { sold: '판매', onh: '매장 재고', arr: '입고 예정', plan: '이번 주까지 계획', unit: '팔레트' },
+        note: '주: 이번 주까지 계획은 시즌 팔레트 가운데 이번 주까지 팔기로 한 비율입니다. 트리와 선물은 시즌 후반에 팔려 계획이 낮습니다. 입고 예정 팔레트는 11/22(일)까지 들어옵니다.',
+        aria: '카테고리 4개의 시즌 팔레트. 좌우 화살표 키로 카테고리를 옮깁니다.'
       },
       s2: { t: '스페셜 할인' }, s2Meta: v => [`${v.a} ~ ${v.b}`, '4주 중 1주차', `쿠폰 ${v.n}개`],
       f2: {
-        label: '그림 2 · 쿠폰북',
+        label: '그림 3 · 쿠폰북',
         title: v => `${v.top} 쿠폰이 예측의 ${v.x}배 쓰였고, 8개 중 ${v.beat}개가 예측을 넘었습니다`,
         sub: '이번 주 가장 많이 쓰인 쿠폰 8개, 예측 대비 사용 건수(왼쪽부터 높은 순)', keys: ['제목의 쿠폰', '다른 쿠폰', '예측'],
         av: { both: ['매장', '온라인'], wh: '매장 전용', online: '온라인 전용' }, item: '상품 번호', limit: n => `구매 한도 ${n}개`,
@@ -711,21 +856,21 @@
       },
       s3: { t: '판매 경로 · 회원 · 주유', p: '어디서 샀는지, 누가 가입했는지, 주유소는 어땠는지' },
       f3: {
-        label: '그림 3 · 판매 경로',
+        label: '그림 4 · 판매 경로',
         title: v => `온라인 매출이 ${v.o} 늘어 매장(${v.w})의 ${v.x}배였습니다`,
         sub: '지난해 대비 기존점 상품 매출 증가율, 주문한 곳별', keys: ['온라인', '매장'],
         note: '주: 온라인은 웹사이트와 앱 주문이며, 매장에서 찾아가거나 배송받은 것을 모두 넣습니다. 휘발유는 뺍니다.',
         aria: '판매 경로별 증가율. 좌우 화살표 키로 주를 옮깁니다.'
       },
       f4: {
-        label: '그림 4 · 신규 회원',
+        label: '그림 5 · 신규 회원',
         title: v => `이번 주 ${v.n}명이 가입했고, 그중 ${v.p}가 프리미엄을 골랐습니다`,
         sub: '최근 13주 주별 유료 가입, 회원권별', keys: ['프리미엄', '일반'], total: '합계', share: '프리미엄 비중',
         note: v => `주: 회원권 갱신율 ${v.renew}는 지난 52주 동안 만기가 된 회원권 기준입니다. 프리미엄은 전체 유료 회원의 ${v.prem}입니다.`,
         aria: '주별 신규 회원. 좌우 화살표 키로 주를 옮깁니다.'
       },
       f5: {
-        label: '그림 5 · 주유소',
+        label: '그림 6 · 주유소',
         title: v => [`${v.day}에 휘발유가 가장 많이 팔렸습니다: ${v.gal}갤런, 갤런당 `, v.price, '달러'],
         sub: '11/1(일) 마감 주 일별 판매량과 평균 주유 가격', keys: ['가장 많이 판 날', '다른 날'], gal: '갤런', price: '주유 가격', sales: '매출',
         note: '주: 주유 가격은 그날 모든 주유소의 갤런 가중 평균이며, 주유소 가격판처럼 0.1센트까지 적습니다.',
@@ -752,6 +897,9 @@
           ['객수와 객단가', '객수는 매장과 온라인의 구매 건수입니다. 객단가는 즉시 할인 뒤 상품 매출을 객수로 나눈 값입니다. 휘발유는 주유기에서 결제하므로 따로 셉니다.'],
           ['즉시 할인', '회원 쿠폰북의 쿠폰을 계산대나 온라인 결제에서 바로 뺀 금액입니다. 쿠폰북은 4주 동안, 월요일부터 일요일까지 씁니다.'],
           ['회원', '유료 회원은 회원권이 유효한 주 회원입니다. 갱신율은 지난 52주 동안 만기가 된 회원권 가운데 6개월 안에 갱신한 비율입니다.'],
+          ['계획', '분기 전에 매장마다 정한 주간 순매출 목표입니다. 계획 대비는 순매출을 이 목표와 비교합니다.'],
+          ['시즌 물량', '시즌 상품을 카테고리별로 산 팔레트입니다. 판매는 다 팔린 팔레트, 입고 예정은 주문해서 쿠폰북이 끝나기 전에 들어올 팔레트입니다. 이번 주까지 계획은 이번 주까지 팔기로 한 비율입니다.'],
+          ['시간대별 구매 건수', '계산대와 온라인 구매 건수를 시작한 시각(매장 현지 시간)의 한 시간 단위로 셉니다. 영업시간은 평일 오전 10시~오후 9시, 토요일 오전 9시~오후 6시, 일요일 오전 10시~오후 6시입니다.'],
           ['주유', '매장 주유소에서 판 갤런입니다. 24곳 중 21곳에 주유소가 있습니다.']
         ],
         src: '출처: 계산대와 주유기 시스템, 회원 시스템, 쿠폰북. 11/1(일) 마감 주, 11/2(월) 오전 6:00(태평양 시간) 발행.'
@@ -771,11 +919,11 @@
       promo: v => [`Week ended ${v.end}`, `Warehouse Savings valid ${v.ba} – ${v.bb}`, 'Week 1 of 4'],
       status: v => ({ ok: `${v.wh} of ${v.wh} warehouses reporting`, gas: ['Gas stations', String(v.st)], members: ['Paid members', v.mem], upd: 'Data as of Sun 11/01/26, 11:59 PM PT' }),
       headline: v => `Net sales${v.where ? ' in the ' + v.where : ''} of **${v.net}** for the retail week ended November 1, 2026, ${v.up ? 'an increase' : 'a decrease'} of **${v.chw} percent** from **${v.ly}** last year.`,
-      lede: v => `Comparable sales ${v.repUp ? 'rose' : 'fell'} **${v.rep}**, or **${v.adj}** excluding gasoline prices. Members made **${v.trans}** trips at **${v.ticket}** each, and the coupon book saved them **${v.sav}**.`,
+      lede: v => `Comparable sales ${v.repUp ? 'rose' : 'fell'} **${v.rep}**, or **${v.adj}** excluding gasoline prices, and net sales finished **${v.vp} ${v.vpUp ? 'above' : 'below'} plan**. Members made **${v.trans}** trips at **${v.ticket}** each, and the coupon book saved them **${v.sav}**.`,
       k: {
         net: 'Net sales', comp: 'Comparable sales, adjusted*', traffic: 'Traffic', ticket: 'Average ticket', members: 'Paid members', gas: 'Gas sold',
         fromLY: x => `from ${x} last year`, fromWk: x => `from ${x} the week before`, joined: 'joined this week',
-        perWh: 'Per warehouse', reported: 'Reported', perWhDay: 'Per warehouse a day', items: 'Items per trip', renew: 'Renewal rate', pump: 'Pump price',
+        plan: 'Plan', reported: 'Reported', perWhDay: 'Per warehouse a day', items: 'Items per trip', renew: 'Renewal rate', pump: 'Pump price',
         uTrips: 'trips', uMem: 'million', uGal: 'M gal', uItems: '', uDay: ''
       },
       signsNote: '*Excluding the impacts from changes in gasoline prices. Comparable sales leave out the Central warehouse that opened this year.',
@@ -789,18 +937,45 @@
       },
       t1: {
         label: 'Table 1 · Department ledger',
-        title: v => `${v.top} grew the most, up ${v.topCh}` + (v.neg.length === 0 ? '; every department grew' : v.neg.length === 1 ? `; ${v.neg[0]} was the only department down` : `; ${v.neg.length} departments were down, ${v.neg[0].toLowerCase()} the most`),
-        sub: 'Sales by department for the week ended 11/01/26, totaled like a receipt with instant savings and gas',
+        title: v => `${v.top} grew the most, up ${v.topCh}` + (v.neg.length === 0 ? '; every department grew' : v.neg.length === 1 ? `; ${lcFirst(v.neg[0])} was the only department down` : `; ${v.neg.length} departments were down, ${lcFirst(v.neg[0])} the most`),
+        sub: 'Net sales by department for the week ended 11/01/26, in $\u00a0thousands, totaled like a receipt with gas',
         hd: v => [`${v.scope} · ${v.wh}`, 'Week ended 11/01/26 · RPT 044'],
-        cols: ['DEPT', 'DESCRIPTION', 'SALES', 'VS LY%'],
-        sav: id => `INST SAV /${id}`, savOther: 'OTHER INST SAV', subtotal: 'SUBTOTAL', gas: 'GAS STATION', total: '****  TOTAL',
+        cols: ['DEPT', 'DESCRIPTION', 'SALES', '$K', 'VS LY%'], bar: 'Sales bar',
+        subtotal: 'SUBTOTAL', gas: 'GAS STATION', total: '****  TOTAL',
         items: 'Total number of items sold', savings: 'Instant savings', trans: 'Transactions', ticket: 'Average ticket',
+        byHour: 'Transactions by hour', peak: v => `Peak ${v.day} ${v.hr} · ${v.n}`,
         code: v => `11/01/26 23:59  ${v.code}  RPT 044`,
-        note: 'Note: Department lines are before instant savings; the savings line under one is the coupons redeemed there. Gas is paid at the pump and kept out of the average ticket. VS LY includes the Central warehouse that opened this year.'
+        tip: { sales: 'Net sales', ly: 'Last year', vsLy: 'vs last year', share: 'of merchandise', units: 'items sold', trans: 'transactions', day: 'that day', week: 'of the week' },
+        bcAria: 'Transactions by hour, Monday to Sunday. Left and right arrow keys move between hours.', aria: 'Fourteen departments. Up and down arrow keys move between them.',
+        note: 'Note: Department lines are after instant savings, rounded to the thousand so they add up to the subtotal. Gas is paid at the pump and kept out of the average ticket and the transactions. VS LY includes the Central warehouse that opened this year.'
+      },
+      s5: { t: 'Warehouses and holiday stock', p: 'Which warehouses hit plan, and how fast the season’s pallets are selling' },
+      t2: {
+        label: 'Table 2 · Warehouses',
+        title: v => v.n === 0 ? `Every warehouse finished ahead of plan, ${v.best} by the most at ${v.bv}`
+          : v.n === 1 ? `${v.worst} was the only warehouse behind plan, by ${v.wv}` : `${v.n} of ${v.total} warehouses finished behind plan; ${v.worst} missed it by the most, ${v.wv}`,
+        sub: 'Net sales against plan by warehouse for the week ended 11/01/26, best first', keys: ['Behind plan', 'Ahead of plan', 'Plan'],
+        cols: ['#', 'WAREHOUSE', 'VS PLAN', 'NET SALES', 'VS LY'], plan: 'PLAN', new: 'New',
+        tip: { net: 'Net sales', plan: 'Plan', vp: 'vs plan', ly: 'Last year', vl: 'vs last year', opened: 'Opened this spring, no sales last year' },
+        note: v => `Note: Plan is each warehouse’s weekly net sales budget, set before the quarter.${v.hasNew ? ' C-07 opened this spring and has no sales last year.' : ''} Bars run from −6% to +10% of plan.`,
+        aria: 'Net sales against plan by warehouse. Up and down arrow keys move between warehouses.'
+      },
+      fh: {
+        label: 'Figure 2 · Holiday buy',
+        title: v => v.worstD >= 0 ? `${v.best} has sold ${v.bs} of its holiday buy, ${v.bd} ahead of plan; every category is on or ahead of plan`
+          : v.bestD < 0 ? `Every category is behind plan; ${lcFirst(v.worst)} trails by the most, ${v.wd}`
+          : `${v.best} has sold ${v.bs} of its holiday buy, ${v.bd} ahead of plan; ${lcFirst(v.worst)} trails plan by ${v.wd}`,
+        sub: 'Pallets bought for the season by category through 11/01/26: sold, in the warehouse and still arriving. One square is 1% of the category’s pallets', keys: ['Sold', 'In the warehouse', 'Arriving', 'Plan to date'],
+        pallets: n => `${n} pallets`, sold: x => `${x} sold`, plan: x => `PLAN ${x}`,
+        ahead: x => `▲ ${x} ahead of plan`, behind: x => `▼ ${x} behind plan`, onPlan: 'On plan',
+        stock: (o, a) => `${o} in the warehouse · ${a} arriving`,
+        tip: { sold: 'sold', onh: 'in the warehouse', arr: 'arriving', plan: 'Plan to date', unit: 'pallets' },
+        note: 'Note: Plan to date is the share of the season’s pallets planned to sell by this week; trees and gifts sell late in the season, so their plan is lower. Arriving pallets are due by 11/22.',
+        aria: 'Holiday pallets for four categories. Left and right arrow keys move between categories.'
       },
       s2: { t: 'Warehouse Savings' }, s2Meta: v => [`Valid ${v.a} – ${v.b}`, 'Week 1 of 4', `${v.n} coupons`],
       f2: {
-        label: 'Figure 2 · Coupon book',
+        label: 'Figure 3 · Coupon book',
         title: v => `The ${v.top.toLowerCase()} coupon was redeemed ${v.x}× its forecast; ${v.beat} of 8 beat forecast`,
         sub: 'The 8 most-redeemed coupons this week, redemptions against forecast, highest first', keys: ['The coupon in the title', 'Other coupons', 'Forecast'],
         av: { both: ['Warehouse', 'Online'], wh: 'Warehouse only', online: 'Online Only' }, item: 'Item', limit: n => `Limit ${n}.`,
@@ -810,21 +985,21 @@
       },
       s3: { t: 'Channels, members and gas', p: 'Where members bought, who joined, and what the pumps did' },
       f3: {
-        label: 'Figure 3 · Sales by channel',
+        label: 'Figure 4 · Sales by channel',
         title: v => `Online sales grew ${v.o}, ${v.x} times the warehouse’s ${v.w}`,
         sub: 'Comparable merchandise sales growth over last year, by where the order was placed', keys: ['Online', 'Warehouse'],
         note: 'Note: Online covers orders on the website or app, picked up in a warehouse or shipped. Gas is left out.',
         aria: 'Sales growth by channel. Left and right arrow keys move between weeks.'
       },
       f4: {
-        label: 'Figure 4 · New members',
+        label: 'Figure 5 · New members',
         title: v => `${v.n} members joined this week; ${v.p} of them chose Premium`,
         sub: 'Paid sign-ups per week by membership, last 13 weeks', keys: ['Premium', 'Standard'], total: 'Total', share: 'Premium share',
         note: v => `Note: The renewal rate of ${v.renew} covers memberships that came due in the last 52 weeks. Premium holds ${v.prem} of all paid members.`,
         aria: 'New members by week. Left and right arrow keys move between weeks.'
       },
       f5: {
-        label: 'Figure 5 · Gas station',
+        label: 'Figure 6 · Gas station',
         title: v => [`${v.day} pumped the most gas: ${v.gal} gallons at `, v.price],
         sub: 'Gallons sold by day, week ended 11/01/26, with the average pump price', keys: ['Busiest day', 'Other days'], gal: 'gallons', price: 'Pump price', sales: 'Sales',
         note: 'Note: The pump price is the day’s gallon-weighted average across stations, to a tenth of a cent as on the price sign.',
@@ -851,6 +1026,9 @@
           ['Traffic and average ticket', 'Traffic counts warehouse and online transactions. The average ticket is merchandise sales after instant savings, divided by traffic. Gas is paid at the pump and counted apart.'],
           ['Instant savings', 'Coupons from the member book, taken off at the register or at online checkout. A book runs four weeks, Monday to Sunday.'],
           ['Members', 'Paid members are primary cardholders with a current membership. The renewal rate counts memberships that came due over the last 52 weeks and were renewed within six months.'],
+          ['Plan', 'Each warehouse’s weekly net sales budget, set before the quarter. Vs plan compares net sales with it.'],
+          ['Holiday buy', 'Pallets of seasonal merchandise bought for the season, by category. Sold counts pallets sold through; arriving pallets are ordered and due before the coupon book ends. Plan to date is the share planned to sell by this week.'],
+          ['Transactions by hour', 'Register and online transactions by the local hour they started. Warehouses open 10 AM–9 PM on weekdays, 9 AM–6 PM on Saturday and 10 AM–6 PM on Sunday.'],
           ['Gas', 'Gallons sold at the warehouse gas stations; 21 of the 24 warehouses have one.']
         ],
         src: 'Sources: register and pump systems, the membership system, the coupon book. Week ended Sun 11/01/26; published Mon 11/02/26, 6:00 AM PT.'
@@ -949,7 +1127,10 @@
   const gasNodes = (p, cur = true) => { const [a, b] = gasParts(p); return [KO() || !cur ? a : '$' + a, h('sup', { class: 'c9', text: b }), KO() && cur ? '달러' : null]; };
   const gasText = p => { const [a, b] = gasParts(p); return KO() ? `${a}${b}달러` : `$${a}${b}`; };
   const deptName = id => { const d = DATA.depts.find(x => x.id === id); return KO() ? d.ko : d.en.charAt(0) + d.en.slice(1).toLowerCase(); };
-  const deptRc = id => { const d = DATA.depts.find(x => x.id === id); return KO() ? d.ko : d.en; };
+  // 영수증 줄의 영어 이름은 계산대 영수증처럼 줄여 쓴다(제목과 툴팁은 deptName의 온전한 이름)
+  const RC_EN = { '01': 'PRODUCE', '02': 'MEAT/SEAFOOD', '03': 'BAKERY/DELI', '04': 'DAIRY/FROZEN', '05': 'DRY GROCERY', '06': 'BEVERAGES', '07': 'HOUSEHOLD/PAPER', '08': 'HEALTH/BEAUTY', '09': 'ELECTRONICS', '10': 'HOME/SEASONAL', '11': 'APPAREL', '12': 'PHARMACY/OPTICAL', '13': 'FOOD COURT', '14': 'TIRE CENTER' };
+  const deptRc = id => KO() ? DATA.depts.find(x => x.id === id).ko : RC_EN[id];
+  const lcFirst = s => /^[A-Z]{2}/.test(s) ? s : s.charAt(0).toLowerCase() + s.slice(1);
   const CP = id => DATA.coupons.find(c => c.id === id);
   const cpName = id => KO() ? CP(id).ko : CP(id).en;
   const bold = str => String(str).split('**').map((p, i) => i % 2 ? h('b', { text: p }) : document.createTextNode(p));
@@ -978,6 +1159,7 @@
     else if (kind === 'dash') g.append(sv('path', { d: 'M1 6h16', stroke: color, 'stroke-width': 2, 'stroke-dasharray': '4 3' }));
     else if (kind === 'bar') g.append(sv('rect', { x: 2, y: 1, width: 14, height: 10, fill: color }));
     else if (kind === 'tick') g.append(sv('path', { d: 'M9 0v12', stroke: color, 'stroke-width': 2 }));
+    else if (kind === 'box') g.append(sv('rect', { x: 2.5, y: 1.5, width: 13, height: 9, fill: '#ffffff', stroke: color }));
     return g;
   }
   const keyItems = (ul, items) => ul.replaceChildren(...items.map(([kind, color, label]) => h('li', null, keySwatch(kind, color), label)));
@@ -985,7 +1167,7 @@
   /* ================= 툴팁: 흰 판 + 회색 테두리 + 그림자. 카드 안에서 위 → 왼쪽 → 오른쪽 → 아래 순으로 자리를 찾는다 ================= */
   function tipNodes(head, rows, sub) {
     return [h('div', { class: 'tip-h', text: head }), sub ? h('div', { class: 'tip-s', text: sub }) : null].concat(rows.map(r => h('div', { class: 'tip-r' },
-      r.key ? h('i', { class: r.line ? ('ln' + (r.dash ? ' dash' : '')) : null, style: { '--c': r.key } }) : null,
+      r.key ? h('i', { class: r.line ? ('ln' + (r.dash ? ' dash' : '')) : r.box ? 'bx' : null, style: { '--c': r.key } }) : null,
       h('b', null, r.value), r.label ? h('span', { text: r.label }) : null)));
   }
   function placeTip(host, nodes, ax, ayTop, ayBottom) {
@@ -1042,7 +1224,8 @@
   function renderHeadline(animate) {
     const t = L(), s = S(), ch = chg(s.net, s.net_ly), where = state.scope === 'all' ? '' : t.scopes[state.scope] + (KO() ? '' : ' region');
     $('#headline').replaceChildren(...bold(glue(t.headline({ where: KO() && where ? where + ' 매장의' : where, net: moneyWords(s.net), ly: moneyWords(s.net_ly), ch: pct(Math.abs(ch)), chw: nf(Math.abs(ch), 1), up: ch >= 0 }))));
-    $('#lede').replaceChildren(...bold(glue(t.lede({ rep: pct(Math.abs(s.rep[LAST])), repUp: s.rep[LAST] >= 0, adj: pct(s.adj[LAST]), adjUp: s.adj[LAST] >= 0, trans: count(s.trans), ticket: money(s.ticket), sav: dollars(s.sav) }))));
+    const vp = chg(s.net, s.plan);
+    $('#lede').replaceChildren(...bold(glue(t.lede({ rep: pct(Math.abs(s.rep[LAST])), repUp: s.rep[LAST] >= 0, adj: pct(s.adj[LAST]), adjUp: s.adj[LAST] >= 0, vp: pct(Math.abs(vp)), vpUp: vp >= 0, trans: count(s.trans), ticket: money(s.ticket), sav: dollars(s.sav) }))));
     refade($('#headline'), animate);
   }
 
@@ -1074,7 +1257,7 @@
   function signsData() {
     const t = L().k, s = S(), newWk = s.new_std[LAST] + s.new_prem[LAST], prevAdj = s.adj[LAST - 1];
     return [
-      { code: '101', name: t.net, kind: 'netM', v: s.net, aria: moneyWords(s.net), d: deltaNodes(chg(s.net, s.net_ly), signed(chg(s.net, s.net_ly)) + '%', t.fromLY(moneyM(s.net_ly))), fine: [t.perWh, moneyM(s.net / s.wh)] },
+      { code: '101', name: t.net, kind: 'netM', v: s.net, aria: moneyWords(s.net), d: deltaNodes(chg(s.net, s.net_ly), signed(chg(s.net, s.net_ly)) + '%', t.fromLY(moneyM(s.net_ly))), fine: [t.plan, `${moneyM(s.plan)}${KO() ? '' : ' '}(${signed(chg(s.net, s.plan))}%)`] },
       { code: '102', name: t.comp, kind: 'pct', v: s.adj[LAST], aria: pct(s.adj[LAST]), d: deltaNodes(s.adj[LAST] - prevAdj, ptsTxt(s.adj[LAST] - prevAdj), t.fromWk(pct(prevAdj))), fine: [t.reported, pct(s.rep[LAST])] },
       { code: '103', name: t.traffic, kind: 'count', v: s.trans, aria: count(s.trans), d: deltaNodes(chg(s.trans, s.trans_ly), signed(chg(s.trans, s.trans_ly)) + '%', t.fromLY(count(s.trans_ly))), fine: [t.perWhDay, nf(Math.round(s.trans / s.wh / 7)) + (KO() ? '건' : '')] },
       { code: '104', name: t.ticket, kind: 'ticket', v: s.ticket, aria: money(s.ticket), d: deltaNodes(chg(s.ticket, s.ticket_ly), signed(chg(s.ticket, s.ticket_ly)) + '%', t.fromLY(money(s.ticket_ly))), fine: [t.items, nf(s.items / s.trans, 1) + (KO() ? '개' : '')] },
@@ -1192,48 +1375,257 @@
     drawLines('#f1Plot', '#f1', { key: 'f1', animate });
   }
 
-  /* ================= 대표 장치 2: 영수증(부서별 매출 장부) ================= */
+  /* ================= 대표 장치 2: 영수증(부서별 매출 장부) =================
+     부서 줄 = 번호 · 이름 · 바코드 줄무늬 막대(순매출 크기) · 천 달러 · 전년비. 천 달러 값은 소계와 맞게 나머지가 큰 순으로 반올림.
+     영수증 맨 아래 바코드 자리 = 시간대별 구매 건수(가는 세로 막대 72개) */
+  // 정수로 반올림하면서 합계를 지킨다(나머지가 큰 순으로 1씩 더하거나, 모자라면 작은 순으로 뺀다)
+  function roundTo(vals, total) {
+    const fl = vals.map(Math.floor), order = vals.map((v, i) => [v - fl[i], i]).sort((a, b) => b[0] - a[0]);
+    let rest = total - sum(fl);
+    for (let k = 0; rest > 0; k++, rest--) fl[order[k % order.length][1]]++;
+    for (let k = 0; rest < 0; k++, rest++) fl[order[order.length - 1 - (k % order.length)][1]]--;
+    return fl;
+  }
   function ledger() {
     const s = S(), rows = s.depts.map(d => ({ ...d, ch: chg(d.net, d.ly) }));
-    const bySav = rows.slice().sort((a, b) => b.s - a.s), savShown = new Set(bySav.slice(0, 5).map(d => d.id));
-    const other = sum(rows.filter(d => !savShown.has(d.id)).map(d => d.s));
     const merchLy = sum(rows.map(d => d.ly)), gasLy = s.net_ly - merchLy;
-    const top = rows.slice().sort((a, b) => b.ch - a.ch)[0], neg = rows.filter(d => d.ch < 0).sort((a, b) => a.ch - b.ch);
-    return { rows, savShown, other, merchLy, gasLy, top, neg };
+    const totK = Math.round(s.net / 1e3), gasK = Math.round(s.gas / 1e3), subK = totK - gasK;
+    roundTo(rows.map(d => d.net / 1e3), subK).forEach((k, i) => { rows[i].k = k; });
+    const top = rows.slice().sort((a, b) => b.ch - a.ch)[0], neg = rows.filter(d => Number(d.ch.toFixed(1)) < 0).sort((a, b) => a.ch - b.ch);
+    return { rows, merchLy, gasLy, top, neg, totK, gasK, subK, max: Math.max(...rows.map(d => d.net)) };
   }
+  const T1 = { i: 0 };
   function renderTable(animate) {
     const t = L(), s = S(), lg = ledger();
     $('#t1Title').textContent = glue(t.t1.title({ top: deptName(lg.top.id), topCh: pct(lg.top.ch), neg: lg.neg.map(d => deptName(d.id)) }));
     refade($('#t1Title'), animate);
-    const amt = v => nf(v, 2), neg = v => nf(v, 2) + '−';
-    const tr = (cls, cells) => h('tr', { class: cls || null }, cells);
-    const row = (code, name, val, ch, cls) => tr(cls, [h('td', { class: 'c-d', text: code }), h('th', { scope: 'row', class: 'c-n', text: name }), h('td', { class: 'c-v', text: val }), h('td', { class: 'c-p', text: ch == null ? '' : signed(ch) })]);
-    const body = [];
-    for (const d of lg.rows) {
-      body.push(row(d.id, deptRc(d.id), amt(d.g), d.ch, d.id === lg.top.id ? 'hot' : null));
-      if (lg.savShown.has(d.id)) body.push(row('', t.t1.sav(d.id), neg(d.s), null, 'sv'));
-    }
-    body.push(row('', t.t1.savOther, neg(lg.other), null, 'sv'));
-    body.push(tr('gap', [h('td', { colspan: 4 })]));
-    body.push(row('', t.t1.subtotal, amt(s.merch), chg(s.merch, lg.merchLy), 'tt'));
-    body.push(row('', t.t1.gas, amt(s.gas), chg(s.gas, lg.gasLy), 'tt'));
-    body.push(row('', t.t1.total, amt(s.net), chg(s.net, s.net_ly), 'tot'));
-    const table = h('table', null, h('caption', { class: 'sr-only', text: t.t1.sub }),
-      h('colgroup', null, h('col', { class: 'c-d' }), h('col'), h('col', { class: 'c-v' }), h('col', { class: 'c-p' })),
-      h('thead', null, h('tr', null, t.t1.cols.map((c, i) => h('th', { scope: 'col', class: ['c-d', 'c-n', 'c-v', 'c-p'][i], text: c })))),
+    const pc = ch => h('td', { class: 'c-p' + (ch != null && Number(ch.toFixed(1)) < 0 ? ' neg' : ''), text: ch == null ? '' : signed(ch) });
+    const body = lg.rows.map((d, i) => h('tr', { class: d.id === lg.top.id ? 'hot' : null, 'data-i': i },
+      h('td', { class: 'c-d', text: d.id }),
+      h('th', { scope: 'row', class: 'c-n', text: deptRc(d.id) }),
+      h('td', { class: 'c-b', 'aria-hidden': 'true' }, h('i', { class: 'bc' + (animOK(animate) ? ' growx' : ''), style: { width: (d.net / lg.max * 100).toFixed(2) + '%', animationDelay: animOK(animate) ? (i * 25) + 'ms' : null } })),
+      h('td', { class: 'c-v', text: nf(d.k) }), pc(d.ch)));
+    const tot = (cls, name, v, ch) => h('tr', { class: cls }, h('td', { class: 'c-d' }), h('th', { scope: 'row', class: 'c-n', text: name }), h('td', { class: 'c-b' }), h('td', { class: 'c-v', text: nf(v) }), pc(ch));
+    body.push(h('tr', { class: 'gap' }, h('td', { colspan: 5 })),
+      tot('tt', t.t1.subtotal, lg.subK, chg(s.merch, lg.merchLy)), tot('tt', t.t1.gas, lg.gasK, chg(s.gas, lg.gasLy)), tot('tot', t.t1.total, lg.totK, chg(s.net, s.net_ly)));
+    const cls = ['c-d', 'c-n', 'c-b', 'c-v', 'c-p'];
+    const table = h('table', { tabindex: 0, 'aria-label': t.t1.aria }, h('caption', { class: 'sr-only', text: t.t1.sub }),
+      h('colgroup', null, cls.map(c => h('col', { class: c }))),
+      h('thead', null, h('tr', null, t.t1.cols.map((c, i) => h('th', { scope: 'col', class: cls[i] }, i === 2 ? h('span', { 'aria-hidden': 'true', text: c }) : c, i === 2 ? h('span', { class: 'sr-only', text: t.t1.bar }) : null)))),
       h('tbody', null, body));
     const scopeName = t.scopes[state.scope];
-    const ft = (k, v, cls) => h('p', { class: cls || null }, h('span', { text: k }), h('span', { text: v }));
+    const ft = (k, v, c) => h('p', { class: c || null }, h('span', { text: k }), h('span', { text: v }));
+    const pk = peakHour();
     $('#t1Body').replaceChildren(
       h('div', { class: 'rc-hd' }, t.t1.hd({ scope: KO() ? scopeName : scopeName.toUpperCase(), wh: KO() ? `${s.wh}곳` : `${s.wh} warehouses`.toUpperCase() }).map(x => h('span', { text: x }))),
       table,
       h('div', { class: 'rc-ft' },
-        ft(KO() ? `${t.t1.items} =` : `${t.t1.items} =`, nf(s.items), 'big'),
+        ft(`${t.t1.items} =`, nf(s.items), 'big'),
         ft(t.t1.savings, KO() ? nf(s.sav, 2) : '$' + nf(s.sav, 2)),
         ft(t.t1.trans, nf(s.trans)),
-        ft(t.t1.ticket, KO() ? nf(s.ticket, 2) : '$' + nf(s.ticket, 2)),
-        h('p', { class: 'code', text: t.t1.code({ code: { all: 'W-ALL 24', west: 'W-WST 09', central: 'W-CEN 07', east: 'W-EST 08' }[state.scope] }) })));
+        ft(t.t1.ticket, KO() ? nf(s.ticket, 2) : '$' + nf(s.ticket, 2))),
+      // 바코드 칸은 .rc의 바로 아래 자식으로 둔다(한 겹 더 감싸면 늘어난 높이를 받지 못한다)
+      h('p', { class: 'bc-h' }, h('span', { text: t.t1.byHour }), h('span', { class: 'pk', text: t.t1.peak({ day: dayShort(pk.d), hr: hourLabel(pk.hr), n: nf(pk.v) }) })),
+      h('div', { class: 'bc-plot', id: 't1Bars' }),
+      h('p', { class: 'rc-code', text: t.t1.code({ code: { all: 'W-ALL 24', west: 'W-WST 09', central: 'W-CEN 07', east: 'W-EST 08' }[state.scope] }) }),
+      h('div', { class: 'tip', 'aria-hidden': 'true' }));
+    $('#t1Table').replaceChildren(srTable(t.t1.byHour, [KO() ? '시간' : 'Hour', ...[0, 1, 2, 3, 4, 5, 6].map(dayShort)],
+      Array.from({ length: 12 }, (_, k) => 9 + k).map(hr => [hourLabel(hr), ...DATA.hours.map((hrs, d) => { const j = hrs.indexOf(hr); return j < 0 ? '—' : nf(s.hours[d][j]); })])));
+    T1.i = Math.min(T1.i, lg.rows.length - 1);
+    wireLedger(table, lg);
+    drawBarcode(animate);
   }
+  // 부서 줄: 마우스·키보드로 한 줄씩 자세히(순매출, 지난해, 전년비, 상품 매출 중 비중, 판매 수량)
+  function wireLedger(table, lg) {
+    const host = $('#t1Body'), t = L(), s = S();
+    const rowsEl = $$('tbody tr[data-i]', table);
+    const show = i => {
+      rowsEl.forEach((r, k) => r.classList.toggle('on', k === i));
+      if (i == null || i < 0) { hideTip(host); return; }
+      T1.i = i;
+      const d = lg.rows[i], o = offsetIn(host, rowsEl[i]);
+      placeTip(host, tipNodes(deptName(d.id), [
+        { key: d.id === lg.top.id ? C.subject : C.ink, value: dollars(Math.round(d.net)), label: t.t1.tip.sales },
+        { value: dollars(Math.round(d.ly)), label: t.t1.tip.ly },
+        { value: signed(d.ch) + '%', label: t.t1.tip.vsLy },
+        { value: pct(d.net / s.merch * 100), label: t.t1.tip.share },
+        { value: count(d.u), label: t.t1.tip.units }
+      ]), o.x + o.w * .62, o.y, o.y + o.h);
+    };
+    table.addEventListener('pointermove', e => { const tr = e.target.closest('tr[data-i]'); if (tr) show(Number(tr.dataset.i)); else if (e.pointerType === 'mouse') show(null); });
+    table.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== table) show(null); });
+    table.addEventListener('focus', () => show(T1.i));
+    table.addEventListener('blur', () => show(null));
+    table.addEventListener('keydown', e => { const i = keyStep(e, T1.i, lg.rows.length); if (i === null) return; if (i < 0) { show(null); return; } show(i); const d = lg.rows[i]; say(`${deptName(d.id)}: ${dollars(Math.round(d.net))}, ${signed(d.ch)}%`); });
+  }
+
+  /* 시간: 영어 9 AM · 12 PM, 한국어 오전 9시 · 낮 12시 · 오후 3시 */
+  const hourLabel = hr => KO() ? (hr < 12 ? `오전 ${hr}시` : hr === 12 ? '낮 12시' : `오후 ${hr - 12}시`) : `${((hr + 11) % 12) + 1} ${hr < 12 ? 'AM' : 'PM'}`;
+  const hourRange = hr => KO() ? `${hourLabel(hr)}~${hourLabel(hr + 1)}` : `${hourLabel(hr).replace(/ (AM|PM)$/, (m, ap) => (hr < 12) === (hr + 1 < 12) ? '' : ' ' + ap)}–${hourLabel(hr + 1)}`;
+  function hourFlat() { const s = S(); return DATA.hours.flatMap((hrs, d) => hrs.map((hr, j) => ({ d, hr, v: s.hours[d][j] }))); }
+  function peakHour() { return hourFlat().reduce((a, b) => (b.v > a.v ? b : a)); }
+  const BC = { i: null };
+  function drawBarcode(animate) {
+    const box = $('#t1Bars');
+    if (!box) return;
+    const W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
+    if (!W || !H) return;
+    box._w = W; box._h = H;
+    const t = L(), s = S(), host = $('#t1Body'), flat = hourFlat(), n = flat.length, dayGap = W < 360 ? 6 : 9, LB = 16;
+    const slot = (W - dayGap * 6) / n, bw = Math.max(1, Math.min(4, Math.round(slot * .62)));
+    const max = Math.max(...flat.map(p => p.v)), Hb = H - LB;
+    const xs = []; let x = 0;
+    flat.forEach((p, i) => { if (i && p.d !== flat[i - 1].d) x += dayGap; xs.push(x); x += slot; });
+    const bx = i => Math.round(xs[i] + (slot - bw) / 2), Y = v => Math.round(Hb - v / max * (Hb - 2));
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.t1.bcAria });
+    const hl = sv('rect', { y: 0, height: Hb, fill: 'rgba(0,93,171,.10)', style: { opacity: 0 } });
+    const g = sv('g', { 'shape-rendering': 'crispEdges' });
+    flat.forEach((p, i) => g.append(sv('rect', { x: bx(i), y: Y(p.v), width: bw, height: Hb - Y(p.v), fill: C.ink, class: animOK(animate) ? 'grow' : null, style: animOK(animate) ? { animationDelay: (i * 6) + 'ms' } : null })));
+    const labels = sv('g');
+    for (let d = 0; d < 7; d++) {
+      const idx = flat.map((p, i) => (p.d === d ? i : -1)).filter(i => i >= 0), a = xs[idx[0]], b = xs[idx[idx.length - 1]] + slot;
+      labels.append(sv('text', { x: (a + b) / 2, y: H - 3, 'text-anchor': 'middle', class: 'bc-d', text: KO() ? dayShort(d) : dayShort(d).toUpperCase() }));
+    }
+    svg.append(hl, g, labels, sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+    const show = i => {
+      hl.style.opacity = i == null ? 0 : 1;
+      if (i == null) { hideTip(host); return; }
+      BC.i = i;
+      const p = flat[i], dayTot = sum(s.hours[p.d]);
+      setAttrs(hl, { x: xs[i] - 1, width: slot + 2 });
+      const o = offsetIn(host, svg);
+      placeTip(host, tipNodes(`${KO() ? dko(addDays(DAY0, p.d)) : dayShort(p.d) + ' ' + mdy(addDays(DAY0, p.d))} · ${hourRange(p.hr)}`, [
+        { key: C.ink, value: nf(p.v), label: t.t1.tip.trans },
+        { value: nf(dayTot), label: t.t1.tip.day },
+        { value: pct(p.v / s.trans * 100), label: t.t1.tip.week }
+      ]), o.x + bx(i) + bw / 2, o.y + Y(p.v) - 4, o.y + Hb);
+    };
+    const idxAt = px => { let best = 0, bd = Infinity; xs.forEach((x0, i) => { const dd = Math.abs(px - (x0 + slot / 2)); if (dd < bd) { bd = dd; best = i; } }); return best; };
+    svg.addEventListener('pointermove', e => { const r = svg.getBoundingClientRect(); show(idxAt(e.clientX - r.left)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(null); });
+    svg.addEventListener('focus', () => show(BC.i == null ? flat.indexOf(peakHour()) : BC.i));
+    svg.addEventListener('blur', () => show(null));
+    svg.addEventListener('keydown', e => { const cur = BC.i == null ? flat.indexOf(peakHour()) : BC.i, i = keyStep(e, cur, n); if (i === null) return; if (i < 0) { show(null); return; } show(i); const p = flat[i]; say(`${dayName(p.d)} ${hourRange(p.hr)}: ${nf(p.v)}`); });
+  }
+
+  /* ================= 표 2: 매장별 실적(매장 찾기 목록의 번호 줄 + 계획선에서 갈라지는 막대) =================
+     계획에 못 미친 매장만 주황(나쁨), 나머지는 회색. 신규 매장은 사선 배지. 두 단으로 나눠 높은 순 */
+  const T2 = { i: 0 }, VP = [-6, 10];
+  const vpX = v => (Math.max(VP[0], Math.min(VP[1], v)) - VP[0]) / (VP[1] - VP[0]) * 100;
+  function boardRows() { return S().whs.map(w => ({ ...w, vp: chg(w.net, w.plan), vl: w.ly ? chg(w.net, w.ly) : null })).sort((a, b) => b.vp - a.vp); }
+  function renderBoard(animate) {
+    const t = L(), rows = boardRows(), behind = rows.filter(r => Number(r.vp.toFixed(1)) < 0), worst = rows[rows.length - 1], best = rows[0];
+    $('#t2Title').textContent = glue(t.t2.title({ n: behind.length, total: rows.length, worst: worst.code, wv: pct(Math.abs(worst.vp)), best: best.code, bv: pct(best.vp) }));
+    refade($('#t2Title'), animate);
+    keyItems($('#t2Keys'), [['bar', C.bad, t.t2.keys[0]], ['bar', C.other, t.t2.keys[1]], ['tick', C.ink, t.t2.keys[2]]]);
+    $('#t2Note').textContent = t.t2.note({ hasNew: rows.some(r => r.new) });
+    const half = Math.ceil(rows.length / 2), cols = [rows.slice(0, half), rows.slice(half)];
+    const all = state.scope === 'all';
+    const head = () => h('div', { class: 'bh', 'aria-hidden': 'true' },
+      h('span', { class: 'b-rk', text: t.t2.cols[0] }), h('span', { class: 'b-wh', text: t.t2.cols[1] }),
+      h('span', { class: 'b-bar' }, h('span', { class: 'b-trk' }, [-4, 0, 4, 8].map(v => h('em', { class: v === 0 ? 'z' : null, style: { left: vpX(v) + '%' }, text: v === 0 ? t.t2.plan : signed(v, 0) + '%' })))),
+      h('span', { class: 'b-net', text: t.t2.cols[3] }), h('span', { class: 'b-ly', text: t.t2.cols[4] }));
+    const row = (r, i) => {
+      const neg = Number(r.vp.toFixed(1)) < 0, a = vpX(Math.min(0, r.vp)), b = vpX(Math.max(0, r.vp));
+      return h('div', { class: 'br' + (neg ? ' neg' : '') + (animOK(animate) ? ' fade' : ''), 'data-i': i, style: animOK(animate) ? { animationDelay: (i * 15) + 'ms' } : null },
+        h('span', { class: 'b-rk', text: String(i + 1).padStart(2, '0') }),
+        h('span', { class: 'b-wh' }, h('b', { text: r.code }), all ? h('span', { class: 'rg', text: t.scopes[r.r] }) : null, r.new ? h('span', { class: 'tag', text: t.t2.new }) : null),
+        h('span', { class: 'b-bar', 'aria-hidden': 'true' }, h('span', { class: 'b-trk' },
+          h('i', { class: animOK(animate) ? 'growx' : null, style: { left: a + '%', width: Math.max(.6, b - a) + '%', transformOrigin: neg ? 'right' : 'left' } }),
+          h('span', { class: 'v', style: neg ? { right: (100 - a) + '%' } : { left: b + '%' }, text: signed(r.vp) + '%' }))),
+        h('span', { class: 'b-net', text: moneyM(r.net) }),
+        h('span', { class: 'b-ly', text: r.vl == null ? '—' : signed(r.vl) + '%' }));
+    };
+    const board = $('#t2Board');
+    board.style.setProperty('--x0', vpX(0) + '%');
+    board.replaceChildren(...cols.filter(c => c.length).map((c, k) => h('div', { class: 'bd-col' }, head(), c.map((r, j) => row(r, k * half + j)))));
+    board.setAttribute('aria-label', t.t2.aria);
+    $('#t2Table').replaceChildren(srTable(t.t2.sub, [t.t2.cols[0], t.t2.cols[1], t.t2.cols[3], t.t2.tip.plan, t.t2.cols[2], t.t2.cols[4]],
+      rows.map((r, i) => [String(i + 1), `${r.code} · ${t.scopes[r.r]}${r.new ? ' · ' + t.t2.new : ''}`, moneyM(r.net), moneyM(r.plan), signed(r.vp) + '%', r.vl == null ? '—' : signed(r.vl) + '%'])));
+    T2.i = Math.min(T2.i, rows.length - 1);
+  }
+  function showWarehouse(i) {
+    const host = $('#t2'), items = $$('.br', host);
+    items.forEach((el, k) => el.classList.toggle('on', k === i));
+    if (i == null || i < 0) { hideTip(host); return; }
+    T2.i = i;
+    const t = L(), r = boardRows()[i], o = offsetIn(host, items[i]);
+    placeTip(host, tipNodes(`${r.code} · ${t.scopes[r.r]}${r.new ? ' · ' + t.t2.new : ''}`, [
+      { key: Number(r.vp.toFixed(1)) < 0 ? C.bad : C.other, value: moneyM(r.net), label: t.t2.tip.net },
+      { value: moneyM(r.plan), label: t.t2.tip.plan },
+      { value: signed(r.vp) + '%', label: t.t2.tip.vp },
+      r.ly ? { value: moneyM(r.ly), label: t.t2.tip.ly } : null,
+      r.ly ? { value: signed(r.vl) + '%', label: t.t2.tip.vl } : { value: '—', label: t.t2.tip.opened }
+    ].filter(Boolean)), o.x + o.w * .55, o.y, o.y + o.h);
+  }
+  (() => {
+    const board = $('#t2Board');
+    board.addEventListener('pointermove', e => { const el = e.target.closest('.br'); if (el) showWarehouse(Number(el.dataset.i)); });
+    board.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== board) showWarehouse(null); });
+    board.addEventListener('focus', () => showWarehouse(T2.i));
+    board.addEventListener('blur', () => showWarehouse(null));
+    board.addEventListener('keydown', e => { const n = $$('.br', board).length, i = keyStep(e, T2.i, n); if (i === null) return; if (i < 0) { showWarehouse(null); return; } showWarehouse(i); const r = boardRows()[i]; say(`${r.code}: ${moneyM(r.net)}, ${signed(r.vp)}%`); });
+  })();
+
+  /* ================= 그림 2: 시즌 물량(팔레트를 쌓은 랙. 한 칸 = 그 카테고리 팔레트의 1%) =================
+     20칸 × 5단, 왼쪽부터 아래에서 위로 쌓는다: 판매(파랑) → 매장 재고(회색) → 입고 예정(빈 칸). 계획선은 이번 주까지 계획 */
+  const FH = { i: 0 };
+  function hbRows() {
+    return S().hb.map(c => {
+      // 팔레트 수(sold · rec · bought)와 비율(%)을 따로 둔다
+      const m = DATA.hb.find(x => x.id === c.id), soldP = c.sold / c.bought * 100, onhP = (c.rec - c.sold) / c.bought * 100, arrP = (c.bought - c.rec) / c.bought * 100;
+      return { ...c, m, soldP, onhP, arrP, d: Number(soldP.toFixed(1)) - m.plan, sq: roundTo([soldP, onhP, arrP], 100) };
+    });
+  }
+  const hbName = m => KO() ? m.ko : m.en;
+  const ptsOf = d => KO() ? nf(Math.abs(d), 1) + '%p' : nf(Math.abs(d), 1) + ' pts';
+  function renderRacks(animate) {
+    const t = L(), rows = hbRows();
+    const best = rows.reduce((a, b) => (b.d > a.d ? b : a)), worst = rows.reduce((a, b) => (b.d < a.d ? b : a));
+    $('#fhTitle').textContent = glue(t.fh.title({ best: hbName(best.m), bs: pct(best.soldP), bd: ptsOf(best.d), bestD: best.d, worst: hbName(worst.m), wd: ptsOf(worst.d), worstD: worst.d }));
+    refade($('#fhTitle'), animate);
+    keyItems($('#fhKeys'), [['bar', C.subject, t.fh.keys[0]], ['bar', C.other, t.fh.keys[1]], ['box', C.other, t.fh.keys[2]], ['tick', C.ink, t.fh.keys[3]]]);
+    $('#fhRacks').replaceChildren(...rows.map((c, i) => {
+      const cells = [];
+      for (let col = 0; col < 20; col++) for (let r = 0; r < 5; r++) {
+        const k = col * 5 + (4 - r);
+        cells.push(h('i', { class: k < c.sq[0] ? 's' : k < c.sq[0] + c.sq[1] ? 'o' : 'a', style: animOK(animate) && k < c.sq[0] ? { animationDelay: (col * 18 + i * 60) + 'ms' } : null }));
+      }
+      const st = c.d > 0 ? h('span', { class: 'good', text: t.fh.ahead(ptsOf(c.d)) }) : c.d < 0 ? h('span', { class: 'bad', text: t.fh.behind(ptsOf(c.d)) }) : h('span', { class: 'flat', text: t.fh.onPlan });
+      return h('li', { class: 'rack' + (animOK(animate) ? ' build' : ''), 'data-i': i },
+        h('p', { class: 'rk-h' }, h('b', { text: KO() ? c.m.ko : c.m.en.toUpperCase() }), h('span', { text: t.fh.pallets(nf(c.bought)) })),
+        h('div', { class: 'rk-g', 'aria-hidden': 'true' }, cells,
+          h('span', { class: 'rk-plan', style: { left: `calc((100% + 2px) * ${c.m.plan / 5} / 20 - 1px)` } }, h('em', { text: t.fh.plan(pct(c.m.plan, 0)) }))),
+        h('p', { class: 'rk-f' }, h('b', { text: t.fh.sold(pct(c.soldP)) }), st),
+        h('p', { class: 'rk-n', text: t.fh.stock(nf(c.rec - c.sold), nf(c.bought - c.rec)) }));
+    }));
+    $('#fhRacks').setAttribute('aria-label', t.fh.aria);
+    $('#fhTable').replaceChildren(srTable(t.fh.sub, [KO() ? '카테고리' : 'Category', KO() ? '산 팔레트' : 'Pallets bought', t.fh.keys[0], t.fh.keys[1], t.fh.keys[2], t.fh.keys[3]],
+      rows.map(c => [hbName(c.m), nf(c.bought), `${nf(c.sold)} (${pct(c.soldP)})`, `${nf(c.rec - c.sold)} (${pct(c.onhP)})`, `${nf(c.bought - c.rec)} (${pct(c.arrP)})`, pct(c.m.plan, 0)])));
+    FH.i = Math.min(FH.i, rows.length - 1);
+  }
+  function showRack(i) {
+    const host = $('#fh'), items = $$('.rack', host);
+    items.forEach((el, k) => el.classList.toggle('on', k === i));
+    if (i == null || i < 0) { hideTip(host); return; }
+    FH.i = i;
+    const t = L(), c = hbRows()[i], o = offsetIn(host, $('.rk-g', items[i]));
+    placeTip(host, tipNodes(hbName(c.m), [
+      { key: C.subject, value: `${nf(c.sold)} (${pct(c.soldP)})`, label: t.fh.tip.sold },
+      { key: C.other, value: `${nf(c.rec - c.sold)} (${pct(c.onhP)})`, label: t.fh.tip.onh },
+      { key: C.other, box: true, value: `${nf(c.bought - c.rec)} (${pct(c.arrP)})`, label: t.fh.tip.arr },
+      { value: pct(c.m.plan, 0), label: t.fh.tip.plan }
+    ], t.fh.pallets(nf(c.bought))), o.x + o.w / 2, o.y - 18, o.y + o.h);
+  }
+  (() => {
+    const list = $('#fhRacks');
+    list.addEventListener('pointermove', e => { const li = e.target.closest('.rack'); if (li) showRack(Number(li.dataset.i)); });
+    list.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== list) showRack(null); });
+    list.addEventListener('focus', () => showRack(FH.i));
+    list.addEventListener('blur', () => showRack(null));
+    list.addEventListener('keydown', e => { const n = $$('.rack', list).length, i = keyStep(e, FH.i, n); if (i === null) return; if (i < 0) { showRack(null); return; } showRack(i); const c = hbRows()[i]; say(`${hbName(c.m)}: ${pct(c.soldP)}, ${KO() ? '계획' : 'plan'} ${pct(c.m.plan, 0)}`); });
+  })();
 
   /* ================= 대표 장치 3: 쿠폰북(예측 대비 사용) ================= */
   const F2 = { i: 0 };
@@ -1393,10 +1785,10 @@
       : { head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the region band above', s1: '1 · frame: thin grid, weeks, the base line', s2: '2 · comparison first: reported, dashed gray', s3: '3 · the subject: adjusted*, solid blue', s4: '4 · label the line ends instead of a legend', s5: '5 · the title states the finding; the asterisk note', once: 'once: paste costco.tps into Preferences.tps' };
     const q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(14) + v;
     const J = {
-      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '주간 매장 운영 보고 대시보드를 만들어 줘. 보도자료 문장으로 쓴 머리, 가격표 KPI 6개, 영수증으로 만든 부서별 매출 장부, 예측 대비 사용을 보여 주는 쿠폰북, 그리고 판매 경로·회원·주유로, 지역 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 1부터 comps.csv의 region "${region}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
-        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build our weekly warehouse report: a sales-release headline, six price-sign KPIs, a department ledger set as a receipt, the coupon book with redemptions against forecast, then channels, members and gas, with one region filter for every view.'], [0, ''], [0, `Start with Figure 1 from comps.csv for region "${region}".`], [0, 'Before you finish, run the checks in DASHBOARD.md and list what passed and what to fix.']],
-      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 머리 · costco.com 구조'], [0, kv('공지 띠', '주와 쿠폰북 기간, #005dab에 흰 글자')], [0, kv('지역 띠', '지역 필터, #005dab에 흰 글자')], [0, kv('상태 줄', '보고 현황, 주유소, 기준 시각')], [0, ''], [0, '# 이번 주 · 가격표, 영수증, 그림 1개'], [0, kv('머리 문장', '월별 매출 보도자료의 문장')], [0, kv('KPI', '가격표 6장 · 번호, 이름, 가격, 증감, 날짜')], [0, kv('그림 1', '기존점 매출 · 조정* 선과 보고 기준')], [0, kv('표 1', '부서별 장부 · 영수증 줄과 합계')], [0, ''], [0, '# 스페셜 할인 · 그림 1개'], [0, kv('그림 2', '쿠폰 8개 · 괘선 격자, 예측 대비 막대')], [0, ''], [0, '# 판매 경로 · 회원 · 주유 · 그림 3개'], [0, kv('그림 3', '온라인과 매장 · 파랑과 빨강 선')], [0, kv('그림 4', '신규 회원 · 쌓은 막대, 프리미엄 파랑')], [0, kv('그림 5', '일별 주유 · 막대, 가격은 0.1센트까지')], [0, ''], [0, '# 지역 필터 하나를 모든 그림에, 한 화면 묶음은 7개 이하']]
-        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Header · the costco.com structure'], [0, kv('Promo band', 'week and coupon book, white on #005dab')], [0, kv('Region band', 'the region filter, white on #005dab')], [0, kv('Status row', 'reporting, gas stations, as-of time')], [0, ''], [0, '# This week · price signs, a receipt, 1 figure'], [0, kv('Headline', 'the monthly sales release sentence')], [0, kv('KPI', '6 price signs · code, name, price, change, date')], [0, kv('Figure 1', 'comparable sales · adjusted* vs reported')], [0, kv('Table 1', 'department ledger · receipt lines and totals')], [0, ''], [0, '# Warehouse Savings · 1 figure'], [0, kv('Figure 2', '8 coupons · ruled grid, bars against forecast')], [0, ''], [0, '# Channels, members and gas · 3 figures'], [0, kv('Figure 3', 'online vs warehouse · blue and red lines')], [0, kv('Figure 4', 'new members · stacked bars, Premium in blue')], [0, kv('Figure 5', 'gas by day · bars, price to a tenth of a cent')], [0, ''], [0, '# One region filter for every view; at most 7 per screen']],
+      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '주간 매장 운영 보고 대시보드를 만들어 줘. 보도자료 문장으로 쓴 머리, 가격표 KPI 6개, 바코드 막대를 넣은 영수증 부서 장부, 계획 대비 매장 순위, 팔레트 랙으로 쌓은 시즌 물량, 예측 대비 사용을 보여 주는 쿠폰북, 그리고 판매 경로·회원·주유로, 지역 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 1부터 comps.csv의 region "${region}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
+        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build our weekly warehouse report: a sales-release headline, six price-sign KPIs, a department ledger set as a receipt with barcode bars, a warehouse board against plan, the holiday buy stacked as pallet racks, the coupon book with redemptions against forecast, then channels, members and gas, with one region filter for every view.'], [0, ''], [0, `Start with Figure 1 from comps.csv for region "${region}".`], [0, 'Before you finish, run the checks in DASHBOARD.md and list what passed and what to fix.']],
+      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 머리 · costco.com 구조'], [0, kv('공지 띠', '주와 쿠폰북 기간, #005dab에 흰 글자')], [0, kv('지역 띠', '지역 필터, #005dab에 흰 글자')], [0, kv('상태 줄', '보고 현황, 주유소, 기준 시각')], [0, ''], [0, '# 이번 주 · 가격표, 영수증, 그림 1개'], [0, kv('머리 문장', '월별 매출 보도자료의 문장')], [0, kv('KPI', '가격표 6장 · 번호, 이름, 가격, 증감, 날짜')], [0, kv('그림 1', '기존점 매출 · 조정* 선과 보고 기준')], [0, kv('표 1', '부서별 장부 · 바코드 막대, 시간대별 바코드')], [0, ''], [0, '# 매장 실적과 시즌 재고 · 표 1개, 그림 1개'], [0, kv('표 2', '매장 순위 · 계획선에서 갈라지는 막대')], [0, kv('그림 2', '시즌 물량 · 100칸 팔레트 랙, 계획선')], [0, ''], [0, '# 스페셜 할인 · 그림 1개'], [0, kv('그림 3', '쿠폰 8개 · 괘선 격자, 예측 대비 막대')], [0, ''], [0, '# 판매 경로 · 회원 · 주유 · 그림 3개'], [0, kv('그림 4', '온라인과 매장 · 파랑과 빨강 선')], [0, kv('그림 5', '신규 회원 · 쌓은 막대, 프리미엄 파랑')], [0, kv('그림 6', '일별 주유 · 막대, 가격은 0.1센트까지')], [0, ''], [0, '# 지역 필터 하나를 모든 그림에, 한 화면 묶음은 7개 이하']]
+        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Header · the costco.com structure'], [0, kv('Promo band', 'week and coupon book, white on #005dab')], [0, kv('Region band', 'the region filter, white on #005dab')], [0, kv('Status row', 'reporting, gas stations, as-of time')], [0, ''], [0, '# This week · price signs, a receipt, 1 figure'], [0, kv('Headline', 'the monthly sales release sentence')], [0, kv('KPI', '6 price signs · code, name, price, change, date')], [0, kv('Figure 1', 'comparable sales · adjusted* vs reported')], [0, kv('Table 1', 'department ledger · barcode bars, hourly barcode')], [0, ''], [0, '# Warehouses and holiday stock · 1 table, 1 figure'], [0, kv('Table 2', 'warehouse board · bars from the plan line')], [0, kv('Figure 2', 'holiday buy · 100-slot pallet racks, plan line')], [0, ''], [0, '# Warehouse Savings · 1 figure'], [0, kv('Figure 3', '8 coupons · ruled grid, bars against forecast')], [0, ''], [0, '# Channels, members and gas · 3 figures'], [0, kv('Figure 4', 'online vs warehouse · blue and red lines')], [0, kv('Figure 5', 'new members · stacked bars, Premium in blue')], [0, kv('Figure 6', 'gas by day · bars, price to a tenth of a cent')], [0, ''], [0, '# One region filter for every view; at most 7 per screen']],
       js: [
         [0, `// ${c.head}`], [0, 'import { tokens, fmt, plot, load } from "./dashboard.js";'],
         [0, `const region = ${q(region)};${' '.repeat(Math.max(1, 14 - region.length))}// ${c.filter}`], [0, 'const rows = await load("comps.csv", { region });'], [0, ''],
@@ -1619,16 +2011,24 @@
     lines.push(`# ${t.md.title}`, '', `**${$('#headline').textContent}**`, '', `> ${$('#lede').textContent}`, '', `## ${t.md.kpis} · ${t.scopes[state.scope]}`, '');
     signsData().forEach(g => lines.push(`- ${g.name}: ${g.aria} (${h('span', null, g.d).textContent}; ${g.fine[0]} ${h('span', null, g.fine[1]).textContent})`));
     lines.push('', L().signsNote, '', `## ${t.md.figs}`, '');
-    ['#f1', '#t1', '#f2', '#f3', '#f4', '#f5'].forEach(id => {
+    ['#f1', '#t1', '#t2', '#fh', '#f2', '#f3', '#f4', '#f5'].forEach(id => {
       const card = $(id), label = $('.fl', card).textContent, ttl = $('.ct', card).textContent;
       lines.push(`### ${label}`, '', `**${ttl}**`, '');
       if (id === '#t1') {
-        const lg = ledger();
-        lines.push(`| ${t.t1.cols.join(' | ')} |`, '|---|---|---:|---:|');
-        lg.rows.forEach(d => { lines.push(`| ${d.id} | ${deptRc(d.id)} | ${nf(d.g, 2)} | ${signed(d.ch)} |`); if (lg.savShown.has(d.id)) lines.push(`|  | ${t.t1.sav(d.id)} | ${nf(d.s, 2)}− |  |`); });
-        lines.push(`|  | ${t.t1.savOther} | ${nf(lg.other, 2)}− |  |`, `|  | ${t.t1.subtotal} | ${nf(s.merch, 2)} | ${signed(chg(s.merch, lg.merchLy))} |`, `|  | ${t.t1.gas} | ${nf(s.gas, 2)} | ${signed(chg(s.gas, lg.gasLy))} |`, `|  | ${t.t1.total} | ${nf(s.net, 2)} | ${signed(chg(s.net, s.net_ly))} |`, '');
-        lines.push(`${t.t1.items} = ${nf(s.items)}`, '');
+        const lg = ledger(), c = t.t1.cols;
+        lines.push(`| ${c[0]} | ${c[1]} | ${c[3]} | ${c[4]} |`, '|---|---|---:|---:|');
+        lg.rows.forEach(d => lines.push(`| ${d.id} | ${deptRc(d.id)} | ${nf(d.k)} | ${signed(d.ch)} |`));
+        lines.push(`|  | ${t.t1.subtotal} | ${nf(lg.subK)} | ${signed(chg(s.merch, lg.merchLy))} |`, `|  | ${t.t1.gas} | ${nf(lg.gasK)} | ${signed(chg(s.gas, lg.gasLy))} |`, `|  | ${t.t1.total} | ${nf(lg.totK)} | ${signed(chg(s.net, s.net_ly))} |`, '');
+        const pk = peakHour();
+        lines.push(`${t.t1.items} = ${nf(s.items)} · ${t.t1.trans} ${nf(s.trans)} · ${t.t1.peak({ day: dayShort(pk.d), hr: hourLabel(pk.hr), n: nf(pk.v) })}`, '');
       }
+      if (id === '#t2') {
+        const c = t.t2.cols;
+        lines.push(`| ${c[0]} | ${c[1]} | ${c[3]} | ${t.t2.tip.plan} | ${c[2]} | ${c[4]} |`, '|---:|---|---:|---:|---:|---:|');
+        boardRows().forEach((r, i) => lines.push(`| ${i + 1} | ${r.code} · ${t.scopes[r.r]}${r.new ? ' · ' + t.t2.new : ''} | ${moneyM(r.net)} | ${moneyM(r.plan)} | ${signed(r.vp)}% | ${r.vl == null ? '—' : signed(r.vl) + '%'} |`));
+        lines.push('');
+      }
+      if (id === '#fh') { hbRows().forEach(c => lines.push(`- ${hbName(c.m)} · ${t.fh.pallets(nf(c.bought))}: ${t.fh.sold(pct(c.soldP))} (${t.fh.tip.plan} ${pct(c.m.plan, 0)}), ${t.fh.stock(nf(c.rec - c.sold), nf(c.bought - c.rec))}`)); lines.push(''); }
       if (id === '#f2') { couponRows().forEach((r, i) => lines.push(`${i + 1}. ${cpName(r.id)}${r.meta.seas ? ' *' : ''} · ${KO() ? r.meta.off + '달러 할인' : '$' + r.meta.off + ' off'}: ${nf(r.n)} (${nf(r.r * 100)}%)`)); lines.push(''); }
       const note = $('.cf', card).textContent;
       if (note) lines.push(note, '');
@@ -1687,7 +2087,7 @@
   }
   function renderAll(animate) {
     renderChrome(); renderHeadline(animate); renderSigns(animate); renderF1(animate); renderTable(animate);
-    renderF2(animate); renderF3(animate); renderF4(animate); renderF5(animate); renderBench();
+    renderBoard(animate); renderRacks(animate); renderF2(animate); renderF3(animate); renderF4(animate); renderF5(animate); renderBench();
   }
   function keepInUrl() {
     try {
@@ -1723,8 +2123,10 @@
       }
     });
     redraws.forEach(([sel]) => ro.observe($(sel)));
+    // 영수증은 지역을 바꿀 때마다 다시 만들므로, 늘 있는 #t1Body를 지켜보다가 바코드 칸의 크기가 바뀌면 다시 그린다
+    new ResizeObserver(() => { const b = $('#t1Bars'); if (b && (Math.round(b.clientWidth) !== b._w || Math.round(b.clientHeight) !== b._h)) drawBarcode(false); }).observe($('#t1Body'));
   }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => redraws.forEach(r => r[1]()));
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { redraws.forEach(r => r[1]()); drawBarcode(false); });
 })();
 </script>
 </body>
