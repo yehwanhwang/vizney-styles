@@ -1,0 +1,84 @@
+/* Costco style — Warehouse, Receipt, No-Frills · VIZNEY STYLES · 04
+   Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
+:root{
+  --canvas:#ffffff; /* page background (costco.com's body is white, measured) */
+  --bar:#fafafa; /* header and the status row under the region band (measured: the header body and the My Warehouse row are #fafafa) */
+  --paper:#ffffff; /* price signs, figure panels, the receipt, coupon cells */
+  --plot:#ffffff; /* chart background: the panel itself */
+  --rule:#eeeeee; /* the ruled grid between coupons and cells, the outer edge of ruled blocks (measured on Warehouse Savings), chart gridlines */
+  --hair:#eeeeee; /* gridlines in BI tools (same as rule) */
+  --line:#d9d9d9; /* edges of standalone panels, the workbench window */
+  --edge:#cccccc; /* chart baselines, tooltip border, the language toggle */
+  --sign:#333333; /* the 1px frame of a price sign */
+  --band:#333333; /* section bands with white 22px/700 headings (measured: Warehouse Savings category bands #333333, 12px 16px 4px, 50px) */
+  --ink:#333333; /* titles, key figures, table values (costco.com text-primary) */
+  --body:#333333; /* running text */
+  --text-2:#5f5f5f; /* subtitles, small print, deltas' comparison words (text-secondary, 6.4:1) */
+  --muted:#707070; /* figure labels, notes, axis ticks, item numbers and limits (text-light, 4.95:1) */
+  --faint:#909090; /* date codes and line numbers only (3.2:1, never for running text) */
+  --blue:#005dab; /* the promo band and the region band, buttons, links, focus, the 'Online' channel word and the slanted tag (costco-blue, measured) */
+  --blue-700:#004c8a; /* button hover; the subject's text step (8.75:1) */
+  --blue-100:#eff7fb; /* hovered rows and coupons, highlighted code lines */
+  --red:#e51937; /* logo red: only the second slanted tag; never data */
+  --red-500:#c13533; /* the 'Warehouse' channel word (measured), the red series' text step (5.49:1) */
+  --green:#008000; /* status text: '24 of 24 warehouses reporting' (the 'Open until 8:30PM' color, measured) */
+  --green-700:#0b6e22; /* coupon savings '$10 OFF' (the coupon price color, measured); good changes */
+  --caution:#ca4d00; /* costco.com text-caution; darkened to #bc4700 for text */
+  --cat-1:#1a70c2; /* blue · the subject (also Online) */
+  --cat-1-text:#004c8a; /* blue · the subject (also Online) for labels and text */
+  --cat-2:#d42f37; /* red · Warehouse, only beside Online */
+  --cat-2-text:#c13533; /* red · Warehouse, only beside Online for labels and text */
+  --cat-other:#cccccc;
+  --comparison:#909090;
+  --mark-grid:#eeeeee;
+  --mark-baseline:#cccccc;
+  --mark-target:#333333;
+  --mark-plan:#333333;
+  --mark-track:#eeeeee;
+  --mark-hover:#eff7fb;
+  --mark-behind:#bc4700;
+  --mark-arriving:#ffffff;
+  --mark-arriving-edge:#cccccc;
+  --mark-receipt-bar:#333333;
+  --seq-1:#8eb6e5;
+  --seq-2:#5c96d7;
+  --seq-3:#2174c7;
+  --seq-4:#10599e;
+  --seq-5:#0a3e6f;
+  --div-1:#9b1e22;
+  --div-2:#d42f34;
+  --div-3:#e9a29c;
+  --div-4:#d9d9d9;
+  --div-5:#8eb6e5;
+  --div-6:#2174c7;
+  --div-7:#0b569a;
+  --font-sans:'Barlow',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'Overpass Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-sign:2px;
+  --radius-card:0;
+  --radius-button:3px;
+  --radius-tag:3px 0 0 3px;
+  --radius-tooltip:3px;
+  --radius-bar:0;
+  --space-page:32px;
+  --space-gap:16px;
+  --space-section:40px;
+  --space-card:18px 22px 16px;
+  --space-sign:10px 14px 9px;
+  --space-coupon:14px 18px 16px;
+  --space-band:12px 16px 8px;
+  --space-receipt:18px 20px 16px;
+  --space-footer:24px 32px 36px;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --code-background:#ffffff;
+  --code-comment:#707070;
+  --code-string:#0b6e22;
+  --code-number:#bc4700;
+  --code-keyword:#004c8a;
+  --code-function:#c13533;
+  --code-property:#333333;
+  --code-line-number:#909090;
+  --code-highlight:#eff7fb;
+  --code-caret:#005dab;
+}
+html[lang="ko"]{--font-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
