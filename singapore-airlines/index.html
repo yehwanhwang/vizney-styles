@@ -1,0 +1,2052 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Singapore Airlines style · Monthly operating statistics sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&family=Source+Code+Pro:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="/lib/embed.js" defer></script>
+<style>
+  /* Singapore Airlines style (VIZNEY STYLES · 05) — Premium, Boarding Pass, Courteous · 프리미엄, 탑승권, 단아함
+     singaporeair.com(홈, 회원 등급, 투자자 정보)의 디자인 토큰과 월간 운항 통계·연차 보고서의 표와 차트, 기종별 좌석 배치도,
+     앱 디지털 탑승권에서 읽어 낸 참고용 스타일. 공식 디자인이 아니며 로고·서체·사진·데이터는 쓰지 않는다.
+     가상 사업부 Vizney Air(비즈니 에어, 시카고 오헤어 ORD 허브의 장거리 항공사)의 월간 운항 통계.
+     대표 장치 셋: 탑승권 → 머리 아래 KPI(남색 머리 띠·대문자 필드·남색 쪽지, 바코드 자리는 날짜별 수송 여객),
+     좌석 배치도 → 객실별 탑승률(객실 색 띠·J·S·Y 코드·Forward zone), 운항 통계 보도자료와 연차 보고서 표 → 결과 문장과 상세 표.
+     화면 틀은 singaporeair.com 예약 위젯(남색 탭 띠, 흰 활성 탭은 왼쪽 위만 16px 둥글게, 아래 판은 아래 두 모서리 16px)과
+     주황 머리카락선(--color-background-hairline #ff9f00: 제목 왼쪽 3px 막대, 활성 탭 밑줄). 차트는 연차 보고서 문법:
+     청록 막대·선, 격자 없음, 단위는 축 위, 최신 기간 굵게, 대문자 그림 이름표. */
+  :root{
+    --canvas:#fafafa; --paper:#ffffff; --plot:#ffffff;
+    --navy:#00266b; --navy-700:#001a4f; --tint:#e5e9f0; --tint-2:#edf4ff; --grey-blue:#a6b4cd; --rule:#e5e9f0; --edge:#c8d6f1; --hair:#dddddd;
+    --orange:#ff9f00; --gold:#946e31;
+    --ink:#222222; --text-2:#666666; --muted:#666666; --faint:#999999; --link:#0045c5;
+    --subject:#0096ae; --subject-text:#00788c; --second:#005584; --third:#c3892a; --third-text:#946e31;
+    --other:#afafaf; --comparison:#868ba0; --ly:#c4c9d4;
+    --good:#03760b; --good-bg:#cdf0cf; --bad:#dc0202; --bad-bg:#fff1f0; --warn:#ba5400; --warn-bg:#fff5e5;
+    --cab-j:#12447d; --cab-s:#4f635f; --cab-y:#084935; --fz:#e2eee8;
+    --font:'Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --display:'Source Sans 3','Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'Source Code Pro',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.4,0,.2,1);
+    --page:32px; --gap:16px; --sec:44px;
+  }
+  /* 한국어: singaporeair.com/ko_KR는 한글 웹 서체를 싣지 않는다(Proxima Nova → 시스템 서체). 규칙대로 Pretendard 하나로 본문과 제목 모두 */
+  html[lang="ko"]{
+    --font:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    --display:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    --mono:'Source Code Pro','Pretendard Variable','Pretendard',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  html{background:var(--canvas)}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  html[lang="ko"] body{word-break:keep-all}
+  p,h1,h2,h3,h4,ul,ol,figure{margin:0}
+  button{font:inherit;color:inherit}
+  a{color:var(--link)}
+  :focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .ico{width:16px;height:16px;flex:none}
+  .wrap{max-width:1400px;margin:0 auto;padding:0 var(--page)}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* ---------- 머리: 흰 판에 회사(대문자 눈썹)와 보고서 이름(제목 서체, 남색 400), 기간, 언어, 내보내기 ---------- */
+  .head{background:var(--paper);border-bottom:1px solid var(--rule)}
+  .head .wrap{display:flex;align-items:center;gap:16px;min-height:84px;padding-top:14px;padding-bottom:14px}
+  .brand{min-width:0}
+  .brand-e{display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
+  html[lang="ko"] .brand-e{letter-spacing:.02em;font-size:13px}
+  .brand h1{margin-top:2px;font-family:var(--display);font-size:30px;font-weight:400;line-height:1.15;color:var(--navy);white-space:nowrap}
+  html[lang="ko"] .brand h1{font-size:27px;font-weight:500;letter-spacing:-.01em}
+  .tools{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .period{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--ink);white-space:nowrap}
+  .period .ico{color:var(--navy)}
+  /* 단추: singaporeair.com SEARCH 실측. 채움 #00266b · 흰 12px/600 대문자 자간 1.44px · 높이 48 → 머리에서는 40 · 모서리 4px */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:4px;border:1px solid var(--navy);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;line-height:1;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .15s var(--ease),color .15s var(--ease)}
+  html[lang="ko"] .btn{letter-spacing:0;text-transform:none;font-size:14px}
+  .btn-navy{background:var(--navy);color:#fff}
+  .btn-navy:hover{background:var(--navy-700);border-color:var(--navy-700)}
+  .btn-line{background:#fff;color:var(--navy)}
+  .btn-line:hover{background:var(--tint-2)}
+  .btn-sm{height:32px;padding:0 12px;font-size:11px;gap:6px}
+  html[lang="ko"] .btn-sm{font-size:13px}
+  .btn-icon{width:32px;padding:0}
+  /* 언어: 예약 위젯의 알약 세그먼트(BOOK FLIGHTS | REDEEM FLIGHTS) 실측. 모서리 40px, 12px/600 대문자, 고른 쪽은 남색 채움 */
+  .lang{display:inline-flex;height:36px;padding:3px;border:1px solid var(--edge);border-radius:40px;background:#fff}
+  .lang button{min-width:42px;height:28px;padding:0 12px;border:0;border-radius:40px;background:none;font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--text-2);cursor:pointer}
+  .lang button[aria-pressed="true"]{background:var(--navy);color:#fff}
+
+  /* ---------- 탭 띠 = 노선 지역 필터. 예약 위젯의 탭(BOOK TRIPS · MANAGE BOOKING · CHECK IN · FLIGHT STATUS) 실측:
+     남색 띠 위 흰 12px/600 대문자 자간 1.5px, 고른 탭은 흰 바탕 + 남색 700 + 왼쪽 위 모서리만 16px ---------- */
+  .tabbar{background:var(--navy);color:#fff}
+  .tabbar .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;min-height:56px;padding-top:12px}
+  .tabs{display:flex;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs.more-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent)}
+  .tabs.more-l{-webkit-mask-image:linear-gradient(90deg,transparent,#000 44px);mask-image:linear-gradient(90deg,transparent,#000 44px)}
+  .tabs.more-l.more-r{-webkit-mask-image:linear-gradient(90deg,transparent,#000 44px,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,transparent,#000 44px,#000 calc(100% - 44px),transparent)}
+  .tabs button{flex:none;display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border:0;border-radius:16px 0 0 0;background:none;font-size:12px;font-weight:600;letter-spacing:.125em;text-transform:uppercase;color:#fff;cursor:pointer;white-space:nowrap}
+  html[lang="ko"] .tabs button{font-size:14px;letter-spacing:0;text-transform:none}
+  .tabs button:hover{background:rgba(255,255,255,.08)}
+  .tabs button[aria-selected="true"]{background:var(--paper);color:var(--navy);font-weight:700}
+  .tabs .n{font-weight:500;letter-spacing:.04em;opacity:.7}
+  .tabs button[aria-selected="true"] .n{opacity:1;color:var(--text-2)}
+  .tab-aside{display:flex;align-items:center;gap:10px;height:44px;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);white-space:nowrap}
+  html[lang="ko"] .tab-aside{letter-spacing:0;text-transform:none;font-size:13px}
+  /* 헤더 항목 사이의 1px 주황 구분선(.OrangeSeparator, 높이 8px) */
+  .tab-aside i{width:1px;height:8px;background:var(--orange)}
+  .tabbar :focus-visible{outline:2px solid var(--orange);outline-offset:-3px}
+
+  .page{padding-bottom:8px}
+
+  /* ---------- 위젯 판: 활성 탭과 이어지는 흰 판(아래 두 모서리 16px). 결과 문장 → 운항 통계 보도자료의 첫 단락 → 탑승권 ---------- */
+  .widget{background:var(--paper);border:1px solid var(--rule);border-top:0;border-radius:0 0 16px 16px;padding:24px 28px 22px}
+  /* 결과 문장: 제목 왼쪽 3px 주황 막대(.left-border .cmp-title__text 실측: border-left 3px #ff9f00, padding-left 15px) */
+  .headline{padding-left:15px;border-left:3px solid var(--orange);font-family:var(--display);font-size:clamp(23px,2.05vw,29px);font-weight:400;line-height:1.3;color:var(--navy);text-wrap:pretty;max-width:52em}
+  .headline b{font-weight:600}
+  html[lang="ko"] .headline{font-weight:400;line-height:1.42;letter-spacing:-.01em}
+  html[lang="ko"] .headline b{font-weight:700}
+  .lede{margin-top:8px;padding-left:18px;max-width:64em;font-size:15px;line-height:1.55;color:var(--text-2);text-wrap:pretty}
+  .lede b{font-weight:600;color:var(--ink)}
+
+  /* ---------- 대표 장치 1: 탑승권 → KPI. 흰 판 + 1px #c8d6f1, 모서리 8px.
+     남색 머리 띠(대문자 11px) → 출발 → 도착 줄(공항 코드는 제목 서체) → 필드 다섯(대문자 라벨 → 큰 값 → 계획 대비 → 지난해 대비) →
+     바코드 자리 = 날짜별 수송 여객(31일). 오른쪽 남색 쪽지는 탑승률(좌석 번호의 자리) ---------- */
+  .bp{display:grid;grid-template-columns:minmax(0,1fr) 270px;margin-top:20px;border:1px solid var(--edge);border-radius:8px;overflow:hidden;background:var(--paper)}
+  .bp-main{display:flex;flex-direction:column;min-width:0}
+  .bp-top,.bp-stop{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:38px;padding:0 20px;background:var(--navy);color:#fff;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+  html[lang="ko"] .bp-top,html[lang="ko"] .bp-stop{letter-spacing:.02em;text-transform:none;font-size:12.5px}
+  .bp-top span:last-child{opacity:.8}
+  .bp-route{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px 28px;padding:14px 20px 12px;border-bottom:1px solid var(--rule)}
+  .bp-k{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);white-space:nowrap}
+  .bp-fields .bp-k{white-space:normal;line-height:1.35}
+  html[lang="ko"] .bp-k{letter-spacing:0;text-transform:none;font-size:12px}
+  .bp-ap{display:flex;align-items:flex-end;gap:14px;min-width:0}
+  .bp-code{display:block;font-family:var(--display);font-size:32px;font-weight:600;line-height:1.05;color:var(--navy);letter-spacing:.01em;white-space:nowrap}
+  html[lang="ko"] .bp-code{font-size:28px;letter-spacing:-.01em}
+  .bp-city{display:block;margin-top:2px;font-size:13px;color:var(--text-2);white-space:nowrap}
+  .bp-arrow{flex:none;align-self:center;width:44px;height:2px;margin-top:14px;background:var(--grey-blue);position:relative}
+  .bp-arrow::after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left:7px solid var(--grey-blue);border-right:0}
+  .bp-dest{flex:1 1 auto;min-width:0}
+  .bp-dest .bp-city{white-space:normal;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;line-height:1.5}
+  .bp-mini{display:flex;gap:24px}
+  .bp-mini b{display:block;margin-top:2px;font-family:var(--display);font-size:20px;font-weight:600;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .bp-fields{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:auto auto auto auto}
+  .bp-f{grid-row:span 4;display:grid;grid-template-rows:subgrid;min-width:0;padding:12px 16px 14px;border-left:1px solid var(--rule)}
+  .bp-f:first-child{border-left:0;padding-left:20px}
+  .bp-v{margin-top:6px;font-family:var(--display);font-size:34px;font-weight:600;line-height:1;letter-spacing:-.005em;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  html[lang="ko"] .bp-v{font-size:30px;font-weight:700;letter-spacing:-.02em}
+  .bp-v .u{margin-left:2px;font-size:15px;font-weight:600;letter-spacing:0;color:var(--text-2)}
+  html[lang="ko"] .bp-v .u{font-size:14px;font-weight:600}
+  .bp-d{margin-top:8px;font-size:12.5px;line-height:1.35;color:var(--text-2)}
+  .bp-d + .bp-d{margin-top:2px}
+  .bp-d b{font-weight:600;color:var(--good)}
+  .bp-d b.bad{color:var(--bad)} .bp-d b.flat{color:var(--text-2)}
+  /* 바코드 자리: 날짜별 수송 여객. 하루에 막대 하나, 가장 붐빈 날만 청록. 남는 높이를 받는다(최대 96px) */
+  .bp-bc{display:flex;flex-direction:column;flex:1 1 auto;padding:10px 20px 10px;border-top:1px solid var(--rule)}
+  .bp-bch{display:flex;justify-content:space-between;gap:12px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+  html[lang="ko"] .bp-bch{letter-spacing:0;text-transform:none;font-size:12px}
+  .bp-bch .pk{color:var(--ink);font-weight:600}
+  .bp-plot{position:relative;flex:1 1 auto;min-height:64px;max-height:96px;margin-top:6px}
+  .bp-plot > svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;outline-offset:3px}
+  .bp-dl{font-size:10.5px;fill:var(--text-2);font-variant-numeric:tabular-nums}
+  /* 남색 쪽지: 탑승률. 증감은 사이트 알림의 칩(성공 #03760b on #cdf0cf, 오류 #df0000 on #fff1f0) */
+  .bp-stub{display:flex;flex-direction:column;min-width:0;background:var(--navy);color:#fff;border-left:1px solid var(--navy)}
+  .bp-stop{background:var(--navy-700)}
+  .bp-sb{display:flex;flex-direction:column;flex:1;padding:16px 20px 16px}
+  .bp-sv{font-family:var(--display);font-size:52px;font-weight:600;line-height:1;letter-spacing:-.01em;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+  html[lang="ko"] .bp-sv{font-size:46px;font-weight:700}
+  .bp-sv .u{margin-left:3px;font-size:20px;font-weight:600;letter-spacing:0;color:rgba(255,255,255,.8)}
+  .chips{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-top:12px}
+  .chip-s{display:inline-block;max-width:100%;min-height:24px;padding:3px 8px;border-radius:4px;font-size:12.5px;font-weight:500;line-height:1.4;background:var(--good-bg);color:var(--good)}
+  .chip-s b{font-weight:700}
+  .chip-s.bad{background:var(--bad-bg);color:var(--bad)}
+  .chip-s.flat{background:var(--tint);color:var(--navy)}
+  .bp-be{margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.22)}
+  .bp-be .bp-k{color:rgba(255,255,255,.75)}
+  .bp-be p{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:4px;font-size:13px;color:rgba(255,255,255,.85)}
+  .bp-be b{font-family:var(--display);font-size:20px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
+  .fn{margin-top:12px;padding-left:2px;font-size:12px;line-height:1.5;color:var(--text-2)}
+
+  /* ---------- 절 제목: 사이트 h2(Sigvar 24px 남색 400) + 왼쪽 3px 주황 막대 ---------- */
+  .sec-h{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 16px;margin:var(--sec) 0 14px;scroll-margin-top:12px}
+  .sec-h h2{padding-left:15px;border-left:3px solid var(--orange);font-family:var(--display);font-size:24px;font-weight:400;line-height:1.2;color:var(--navy)}
+  html[lang="ko"] .sec-h h2{font-size:22px;font-weight:600;letter-spacing:-.01em}
+  .sec-h p{font-size:14px;color:var(--text-2)}
+  .row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap);align-items:stretch}
+
+  /* ---------- 카드: 모든 그림과 표가 같은 해부. 흰 판 + 1px #e5e9f0 + 모서리 4px, 그림자 없음.
+     그림 이름표(대문자 금색 #946e31, 연차 보고서의 대문자 차트 제목) → 결과를 말하는 제목(남색) → 부제 → 범례 → 그림 → 'Note 1:' 주석 ---------- */
+  .panel{position:relative;display:flex;flex-direction:column;min-width:0;background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:18px 22px 16px}
+  .ch{display:flex;flex-direction:column;padding-bottom:14px;min-width:0}
+  .fl{display:block;margin-bottom:6px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+  html[lang="ko"] .fl{letter-spacing:.02em;font-size:12.5px}
+  .ct{font-family:var(--display);font-size:20px;font-weight:600;line-height:1.3;color:var(--navy);text-wrap:balance}
+  html[lang="ko"] .ct{font-size:18.5px;font-weight:700;line-height:1.42;letter-spacing:-.01em}
+  .cs{margin-top:4px;font-size:14px;line-height:20px;color:var(--text-2);text-wrap:pretty}
+  .cb{position:relative;display:flex;flex-direction:column;flex:1 1 auto;min-width:0}
+  .cf{padding-top:12px;font-size:12px;line-height:18px;color:var(--text-2);text-wrap:pretty}
+  .keys{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:10px 0 0;padding:0;list-style:none}
+  .keys li{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap}
+  .keys svg{width:18px;height:12px;flex:none;overflow:visible}
+  .plot{position:relative}
+  .plot > svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;touch-action:pan-y}
+  #f2Plot,#f4Plot,#wbPlot{flex:1 1 auto}
+  #f2Plot{min-height:260px} #f4Plot{min-height:260px}
+  #wbPlot{min-height:250px;margin-bottom:10px}
+  .ax{font-size:12px;fill:var(--text-2);font-variant-numeric:tabular-nums}
+  .ax-u{font-size:11px;font-weight:700;fill:var(--ink);letter-spacing:.06em}
+  .vl{font-size:12px;font-weight:700;fill:var(--ink);font-variant-numeric:tabular-nums}
+  .halo{paint-order:stroke;stroke:#fff;stroke-width:3.5px;stroke-linejoin:round}
+
+  /* ---------- 대표 장치 2: 좌석 배치도 → 객실별 탑승률. 기종별 좌석 배치도 PDF의 문법:
+     객실 머리(Business Class - J / 28 seats), 객실 색(비즈니스 #12447d · 프리미엄 이코노미 #4f635f · 이코노미 #084935, 사이트 --cabin-*-standard),
+     줄 번호(13열 없음), 좌석 글자(이코노미 3-3-3은 A B C · D E G · H J K), Forward zone 띠. 비행기 외곽선·창문 그림은 넣지 않는다.
+     팔린 좌석은 제목이 짚은 객실만 청록, 나머지는 회색, 빈 좌석은 테두리만 ---------- */
+  .sm-map{position:relative;flex:1 1 auto;display:flex;align-items:center;min-height:200px}
+  .sm-map > svg{display:block;width:100%;height:auto;overflow:visible;outline-offset:4px}
+  .sm-rn{font-size:9px;fill:var(--text-2);font-variant-numeric:tabular-nums;text-anchor:middle}
+  .sm-band{font-size:10px;font-weight:700;fill:#fff;letter-spacing:.08em}
+  .sm-ltr{font-size:9px;font-weight:600;fill:var(--text-2);text-anchor:middle}
+  .sm-fz{font-size:9.5px;font-weight:700;letter-spacing:.1em;fill:var(--cab-y)}
+  html[lang="ko"] .sm-fz{letter-spacing:0;font-size:10px}
+  .sm-hl{fill:none;stroke:var(--navy);stroke-width:1.5;opacity:0}
+  .sm-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+  .sm-c{min-width:0;padding:8px 0 0;border-top:3px solid var(--c);cursor:default}
+  .sm-c.on{background:var(--tint-2);box-shadow:0 0 0 6px var(--tint-2)}
+  .sm-n{display:flex;align-items:baseline;justify-content:space-between;gap:6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c);white-space:nowrap}
+  html[lang="ko"] .sm-n{letter-spacing:0;text-transform:none;font-size:12.5px}
+  .sm-n span{font-weight:600;color:var(--text-2);letter-spacing:.04em}
+  .sm-v{margin-top:4px;font-family:var(--display);font-size:26px;font-weight:600;line-height:1.05;color:var(--ink);font-variant-numeric:tabular-nums}
+  html[lang="ko"] .sm-v{font-size:24px;font-weight:700}
+  .sm-v .u{font-size:14px;color:var(--text-2);margin-left:1px}
+  .sm-s{margin-top:4px;font-size:12.5px;line-height:1.4;color:var(--text-2)}
+  .sm-s b{font-weight:600;color:var(--ink)}
+  .sm-s .good{color:var(--good);font-weight:600} .sm-s .bad{color:var(--bad);font-weight:600} .sm-s .flat{color:var(--text-2);font-weight:600}
+
+  /* ---------- 그림 3: 손익분기 대비 노선 순위(예외 먼저). 0선 = 손익분기, 손익분기 아래는 나쁨(빨강)과 부호, 나머지는 회색.
+     줄 수는 지역마다 다르다(2~14줄). 옆 카드(그림 4)의 그림 칸이 늘어나 아래 끝을 맞추고, 줄이 적으면 줄 높이가 늘어난다(최대 44px) ---------- */
+  .rt{--cols:minmax(9.5em,1.25fr) minmax(0,2.2fr) 4.2em 4.2em;display:flex;flex-direction:column;flex:1 1 auto;outline-offset:4px}
+  .rt-h,.rt-r{display:grid;grid-template-columns:var(--cols);align-items:center;column-gap:12px}
+  .rt-h{min-height:28px;padding-bottom:4px;border-bottom:1px solid var(--edge);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);white-space:nowrap}
+  html[lang="ko"] .rt-h{letter-spacing:0;text-transform:none;font-size:12px}
+  .rt-h .r,.rt-r .r{text-align:right}
+  .rt-body{display:flex;flex-direction:column;flex:1 1 auto}
+  .rt-r{flex:1 1 auto;min-height:25px;max-height:44px;border-bottom:1px solid var(--rule);font-size:14px;cursor:default}
+  .rt-r.on{background:var(--tint-2)}
+  .rt-nm{display:flex;align-items:baseline;gap:6px;min-width:0;white-space:nowrap}
+  .rt-nm b{font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis}
+  .rt-nm span{flex:none;font-family:var(--mono);font-size:11.5px;color:var(--text-2);letter-spacing:.04em}
+  .rt-bar{position:relative;align-self:stretch;min-height:24px}
+  .rt-trk{position:absolute;left:46px;right:50px;top:0;bottom:0}
+  .rt-r .rt-trk::before{content:"";position:absolute;left:var(--x0);top:0;bottom:-1px;width:1px;margin-left:-.5px;background:var(--ink)}
+  .rt-trk i{position:absolute;top:50%;height:12px;margin-top:-6px;background:var(--other)}
+  .rt-r.neg .rt-trk i{background:var(--bad)}
+  .rt-trk .v{position:absolute;top:50%;transform:translateY(-50%);padding:0 5px;font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+  .rt-trk .pu{font-size:11px;font-weight:500;color:var(--text-2)}
+  .rt-r.neg .rt-trk .v{color:var(--bad)}
+  .rt-h .rt-trk em{position:absolute;bottom:6px;line-height:1;transform:translateX(-50%);font-style:normal;font-size:10.5px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--text-2)}
+  .rt-h .rt-trk em.z{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+  html[lang="ko"] .rt-h .rt-trk em.z{letter-spacing:0;font-size:11.5px}
+  .rt-lf{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+  .rt-be{text-align:right;font-size:13px;color:var(--text-2);font-variant-numeric:tabular-nums}
+
+  /* ---------- 그림 4: 시카고 출발 시간대. 한 시간에 막대 하나: 정시(회색) + 지연(나쁨 빨강), 사이 2px.
+     저녁 몰림(17:00~20:59)은 연파랑 띠와 이름표, 이름표에 그 시간대의 정시율. 시간마다의 정시율은 툴팁 ---------- */
+  .bk-band{fill:var(--tint-2)}
+  .bk-bl{font-size:10.5px;font-weight:700;letter-spacing:.1em;fill:var(--navy)}
+  html[lang="ko"] .bk-bl{letter-spacing:0;font-size:11.5px}
+
+  /* ---------- 대표 장치 3: 운항 통계표(월간 Operating Statistics와 연차 보고서 OPERATING STATISTICS 표).
+     남색 머리 띠에 흰 대문자, 노선 지역 그룹 줄은 연파랑 #e5e9f0 띠(굵게, 지역 합계), 단위는 열 이름의 괄호,
+     증감은 부호 칸을 따로(+ 2.5 · − 3.0), 탑승률 증감은 pts, 해당 없음 n.m., 전체 노선(Systemwide) 줄은 굵게 + 남색 2px 윗선.
+     수송 여객 열에는 막대. 줄마다 툴팁 ---------- */
+  .os-wrap{position:relative;overflow-x:auto}
+  .os{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums;outline-offset:3px}
+  .os th,.os td{padding:7px 10px;text-align:right;white-space:nowrap;font-weight:400}
+  .os thead th{padding:9px 10px 8px;background:var(--navy);color:#fff;font-size:11px;font-weight:600;line-height:1.3;letter-spacing:.06em;text-transform:uppercase;vertical-align:bottom;white-space:normal}
+  html[lang="ko"] .os thead th{letter-spacing:0;text-transform:none;font-size:12px}
+  .os thead th small{display:block;font-size:10.5px;font-weight:500;letter-spacing:.02em;text-transform:none;opacity:.8}
+  .os thead th:first-child,.os tbody th{text-align:left}
+  .os tbody tr > *{border-bottom:1px solid var(--rule)}
+  .os tbody th{font-weight:600;color:var(--ink)}
+  .os tbody th span{margin-left:6px;font-family:var(--mono);font-size:11.5px;font-weight:400;color:var(--text-2);letter-spacing:.04em}
+  .os tr.os-grp > *{background:var(--tint);font-weight:700;color:var(--navy)}
+  .os tr.os-grp th{font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  html[lang="ko"] .os tr.os-grp th{letter-spacing:0;text-transform:none;font-size:13.5px}
+  .os tr.os-tot > *{font-weight:700;border-top:2px solid var(--navy);border-bottom:0;color:var(--ink)}
+  .os tr.os-tot th{color:var(--navy);letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+  html[lang="ko"] .os tr.os-tot th{letter-spacing:0;text-transform:none;font-size:13.5px}
+  .os tbody tr[data-i]:hover > *,.os tbody tr.on > *{background:var(--tint-2)}
+  .os .chg{display:inline-flex;justify-content:flex-end;align-items:baseline;gap:.3em;min-width:4.4em}
+  .os .chg .s{display:inline-block;width:.75em;text-align:center}
+  .os .neg,.os tr.os-grp > .neg,.os tr.os-tot > .neg{color:var(--bad)}
+  .os .neg{font-weight:600}
+  .os .nm{color:var(--text-2)}
+  .os .pax{display:grid;grid-template-columns:minmax(36px,1fr) auto;align-items:center;gap:8px;min-width:120px}
+  .os .pax i{display:block;height:8px;justify-self:start;background:var(--other)}
+  .os .lf{font-weight:600}
+
+  /* ---------- 만드는 법 ---------- */
+  .build-intro{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px 40px;align-items:end;padding:18px 22px;border:1px solid var(--rule);border-radius:4px;background:var(--paper)}
+  .build-intro p{max-width:46em;font-size:15px;line-height:1.55;color:var(--ink)}
+  .build-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+  .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin:var(--gap) 0 0;padding:0;list-style:none}
+  .steps li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;padding:16px 20px 18px;background:var(--paper);border:1px solid var(--rule);border-radius:4px}
+  .steps .sn{grid-row:span 2;font-family:var(--display);font-size:22px;font-weight:600;line-height:24px;color:var(--gold)}
+  .steps b{font-size:16px;font-weight:700;line-height:1.35;color:var(--navy)}
+  .steps p{margin-top:4px;font-size:14px;line-height:1.5;color:var(--text-2)}
+  .win{position:relative;display:grid;grid-template-columns:240px minmax(0,1fr) minmax(0,1.05fr);margin-top:var(--gap);border:1px solid var(--edge);border-radius:8px;overflow:hidden;background:var(--paper)}
+  .side{padding:16px 12px 14px;background:var(--canvas);border-right:1px solid var(--rule);font-size:14px}
+  .side-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 6px 10px}
+  .side-h b{font-size:14px;font-weight:700;color:var(--navy)}
+  .side-h span{font-size:12px;color:var(--text-2)}
+  .tree{list-style:none;margin:0;padding:0}
+  .tree li{display:block}
+  .tree a,.tree .fi{display:grid;grid-template-columns:16px minmax(0,1fr);column-gap:8px;padding:4px 6px;border-radius:4px;text-decoration:none;color:inherit}
+  .tree a:hover{background:var(--tint-2)}
+  .tree svg{width:14px;height:14px;margin-top:3px;color:var(--text-2)}
+  .tree b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tree a b{color:var(--link)}
+  .tree span{display:block;font-size:12px;line-height:1.35;color:var(--text-2)}
+  .tree .root b{font-weight:400;color:var(--text-2)}
+  .tree .in{padding-left:14px} .tree .in2{padding-left:28px} .tree .in3{padding-left:42px}
+  .get{margin-top:12px;padding:12px 6px 0;border-top:1px solid var(--rule)}
+  .get-h{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px}
+  .cmds{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;min-width:0}
+  .cmd{display:flex;align-items:center;gap:6px;padding:6px 6px 6px 10px;border:1px solid var(--edge);border-radius:4px;background:#fff}
+  .cmd code{flex:1;min-width:0;font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--ink);white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+  .cmd code::-webkit-scrollbar{display:none}
+  .cmd code.more-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
+  .cmd button{flex:none;width:22px;height:22px;display:grid;place-items:center;border:0;border-radius:4px;background:none;color:var(--text-2);cursor:pointer}
+  .cmd button:hover{background:var(--tint-2);color:var(--navy)}
+  .cmd button svg{width:13px;height:13px}
+  .get-note{margin:6px 0 10px;font-size:12px;line-height:1.45;color:var(--text-2)}
+  .figpane{position:relative;display:flex;flex-direction:column;min-width:0;padding:16px 20px 18px;border-right:1px solid var(--rule)}
+  .figbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .modes{display:inline-flex;padding:3px;border:1px solid var(--edge);border-radius:40px}
+  .modes button{height:28px;padding:0 14px;border:0;border-radius:40px;background:none;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--text-2);cursor:pointer;white-space:nowrap}
+  html[lang="ko"] .modes button{letter-spacing:0;font-size:13px}
+  .modes button[aria-selected="true"]{background:var(--navy);color:#fff}
+  .chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border:1px solid var(--edge);border-radius:4px;font-family:var(--mono);font-size:11.5px;color:var(--text-2);white-space:nowrap}
+  .wb-t{margin-bottom:12px;font-family:var(--display);font-size:17px;font-weight:600;line-height:1.4;color:var(--navy)}
+  html[lang="ko"] .wb-t{font-weight:700;font-size:16px}
+  .wb-n{margin-top:8px;font-size:12px;color:var(--text-2)}
+  .checks{margin-top:14px;padding-top:12px;border-top:1px solid var(--rule)}
+  .checks-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;font-size:13px;font-weight:700;color:var(--navy)}
+  .checks-h .ok{font-weight:600;color:var(--good)}
+  .checks-h .ok.bad{color:var(--bad)}
+  .checks ul{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+  .checks li{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.45;color:var(--text-2)}
+  .checks li svg{width:14px;height:14px;flex:none;margin-top:2px;color:var(--good)}
+  .checks li.no svg{color:var(--bad)}
+  .checks code{font-family:var(--mono);font-size:12px;color:var(--ink);white-space:nowrap}
+  .codepane{display:flex;flex-direction:column;min-width:0;background:#fff;contain:size}
+  .cbar{display:flex;align-items:center;gap:10px;height:48px;padding:0 12px 0 16px;border-bottom:1px solid var(--rule);background:var(--canvas)}
+  .ctabs{flex:1;min-width:0;align-self:stretch;display:flex;gap:18px;overflow-x:auto;scrollbar-width:none}
+  .ctabs::-webkit-scrollbar{display:none}
+  .cbtns{flex:none;display:flex;gap:6px}
+  /* 코드 탭: 사이트 탭(.tab-wrapper .active) 실측. 고른 탭은 3px 주황 밑줄 + 남색 600 */
+  .ctab{flex:none;display:flex;align-items:center;border:0;border-bottom:3px solid transparent;border-top:3px solid transparent;background:none;padding:0;font-size:14px;color:var(--text-2);cursor:pointer;white-space:nowrap}
+  .ctab[aria-selected="true"]{border-bottom-color:var(--orange);color:var(--navy);font-weight:600}
+  .code{position:relative;flex:1;margin:0;padding:10px 0;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.62;color:var(--ink);counter-reset:ln;tab-size:2;scrollbar-width:thin;scrollbar-color:#cccccc transparent}
+  .code .ln{display:block;position:relative;min-height:1.62em;padding:0 16px 0 46px;white-space:pre;transition:background-color .2s ease}
+  .code.wrap .ln{white-space:pre-wrap}
+  .code .ln::before{counter-increment:ln;content:counter(ln);position:absolute;left:0;width:30px;text-align:right;color:var(--faint)}
+  .code .ln.hl{background:var(--tint-2)}
+  .building .code .ln:not(.shown){visibility:hidden}
+  .code .caret::after{content:"";display:inline-block;width:7px;height:1.2em;margin-left:1px;vertical-align:-.22em;background:var(--navy);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  /* 코드 색: 화면의 글자용 단계(키워드 남색, 문자열 초록, 숫자 주황, 함수 금색), 흰 바탕에서 모두 4.5:1 이상 */
+  .tk-c{color:var(--text-2)} .tk-s{color:var(--good)} .tk-n{color:var(--warn)} .tk-k{color:var(--navy)} .tk-f{color:var(--gold)} .tk-p{color:var(--ink);font-weight:500}
+  .code .kv{display:inline-block;min-width:14ch;color:var(--text-2)}
+  .tk-hex::before{content:"";display:inline-block;width:.78em;height:.78em;margin-right:4px;border-radius:1px;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(0,0,0,.2);vertical-align:-.04em}
+  .cstat{display:flex;justify-content:space-between;gap:12px;padding:8px 16px;border-top:1px solid var(--rule);font-size:12px;color:var(--text-2)}
+  .cstat .dot{display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--good);vertical-align:1px}
+  .layer{transition:opacity .3s ease}
+  .building .layer:not(.on){opacity:0}
+  .focus-step .layer:not(.focus){opacity:.18}
+  .focus-step .layer[data-step="1"]:not(.focus){opacity:.5}
+  .build-cap{margin-top:12px;max-width:62em;font-size:13px;line-height:1.5;color:var(--text-2)}
+
+  /* ---------- 방법과 출처: 보도자료 끝의 'Note 1:'처럼 ---------- */
+  .terms{padding:16px 22px 18px;border:1px solid var(--rule);border-radius:4px;background:var(--paper);columns:2 380px;column-gap:40px}
+  .terms p{break-inside:avoid;margin:0 0 10px;font-size:12.5px;line-height:1.65;color:var(--ink)}
+  .terms p b{font-weight:700;color:var(--navy)}
+  .terms p.src{color:var(--text-2)}
+
+  /* ---------- 툴팁: 흰 판 + 1px #c8d6f1 + 모서리 4px, 남색 그림자 ---------- */
+  .tip{position:absolute;z-index:8;left:0;top:0;pointer-events:none;min-width:150px;font-family:var(--font);font-variant-numeric:normal;background:#fff;color:var(--ink);border:1px solid var(--edge);border-radius:4px;padding:9px 12px 10px;box-shadow:0 4px 12px rgba(0,38,107,.14);white-space:nowrap;opacity:0;transition:opacity .15s var(--ease)}
+  .tip.on{opacity:1}
+  .tip-h{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px}
+  .tip-s{font-size:12px;color:var(--text-2);margin:-2px 0 4px}
+  .tip-r{display:flex;align-items:center;gap:7px;font-size:13px;line-height:1.5}
+  .tip-r i{width:9px;height:9px;flex:none;background:var(--c)}
+  .tip-r i.ln{width:14px;height:0;background:none;border-top:2px solid var(--c)}
+  .tip-r i.ln.dash{border-top-style:dashed}
+  .tip-r i.bx{background:#fff;box-shadow:inset 0 0 0 1px var(--c)}
+  .tip-r b{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .tip-r b.bad{color:var(--bad)}
+  .tip-r span{color:var(--text-2)}
+
+  /* ---------- 바닥 ---------- */
+  .foot{margin-top:56px;background:var(--paper);border-top:1px solid var(--rule);color:var(--text-2);font-size:13px;line-height:1.65}
+  .foot .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 40px;padding-top:24px;padding-bottom:36px}
+  .foot .back{flex:none;font-weight:600;color:var(--link);white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+  .foot p{max-width:100ch}
+  .foot p + p{margin-top:6px}
+  .foot .cat{font-weight:600;color:var(--ink)}
+  .foot .cat a{color:inherit;text-underline-offset:3px;text-decoration-color:var(--edge)}
+  .foot .cat a:hover{text-decoration-color:var(--ink)}
+  .foot .cat .ser{font-size:12px;font-weight:700;letter-spacing:.08em;margin-right:10px}
+  .foot .cat .w{font-weight:400;color:var(--text-2)}
+  .toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,8px);padding:10px 16px;border-radius:4px;background:var(--navy);color:#fff;font-size:14px;font-weight:500;box-shadow:0 4px 12px rgba(0,38,107,.2);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease)}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  /* ---------- 움직임 ---------- */
+  .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw .7s var(--ease) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .fade{animation:fade .3s ease both}
+  @keyframes fade{from{opacity:0}}
+  .grow{transform-box:fill-box;transform-origin:bottom;animation:grow .45s var(--ease) both}
+  @keyframes grow{from{transform:scaleY(0)}}
+  .growx{transform-origin:left;animation:growx .5s var(--ease) both}
+  @keyframes growx{from{transform:scaleX(0)}}
+  .pop{transform-box:fill-box;transform-origin:center;animation:pop .35s var(--ease) both}
+  @keyframes pop{from{opacity:0;transform:scale(.4)}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+  /* ---------- 임베드(?embed=1 · lib/embed.js): 포스트가 고지를 싣는다 ---------- */
+  html.vz-embed .foot{display:none}
+  html.vz-embed .page{padding-bottom:24px}
+  @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.tools .btn,.tools .lang,.cbtns,.build-cta,.foot .back{display:none}.building .code .ln{visibility:visible!important}.building .layer{opacity:1!important}.panel,.bp,.rt-r,.os tr{break-inside:avoid}}
+
+  /* ---------- 반응형 ---------- */
+  @media (max-width:1359px){
+    :root{--page:24px;--gap:14px}
+    .tab-aside{display:none}
+    .widget{padding:22px 24px 20px}
+    .bp{grid-template-columns:minmax(0,1fr) 240px}
+    .bp-f{padding:12px 12px 14px}
+    .bp-f:first-child{padding-left:20px}
+    .bp-v{font-size:30px}
+    html[lang="ko"] .bp-v{font-size:26px}
+    .bp-sv{font-size:44px}
+    html[lang="ko"] .bp-sv{font-size:40px}
+    .panel{padding:16px 18px 14px}
+    .win{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    .side{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--rule)}
+    .tree{display:flex;flex-wrap:wrap;gap:2px 10px}
+    .tree span,.tree .root{display:none}
+    .tree .in,.tree .in2,.tree .in3{padding-left:6px}
+    .get{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 12px}
+    .get-h{grid-column:1/-1;margin:0}
+    .cmds{grid-row:2;grid-column:1}
+    .get .btn{grid-row:2;grid-column:2}
+    .get-note{grid-row:3;grid-column:1/-1;margin:0}
+  }
+  @media (max-width:1199px){
+    .tabs button{padding:0 14px}
+    .bp-mini{gap:18px}
+    .rt{--cols:minmax(9em,1.1fr) minmax(0,2fr) 4.2em}
+    .rt-be,.rt-h .be{display:none}
+    .os{font-size:13px}
+    .os th,.os td{padding:7px 8px}
+    .code{font-size:12px}
+    .code .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+  }
+  @media (max-width:1023px){
+    .row2{grid-template-columns:minmax(0,1fr)}
+    .bp{grid-template-columns:minmax(0,1fr)}
+    .bp-stub{border-left:0;border-top:1px solid var(--navy)}
+    .bp-sb{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 24px;align-items:start}
+    .bp-sb .chips{margin-top:0}
+    .bp-be{grid-column:1/-1;margin-top:0}
+    .rt{--cols:minmax(9.5em,1.25fr) minmax(0,2.2fr) 4.2em 4.2em}
+    .rt-be,.rt-h .be{display:revert}
+    .rt-r{max-height:36px}
+    .build-intro{grid-template-columns:minmax(0,1fr);align-items:start}
+    .build-cta{justify-content:flex-start}
+    .win{grid-template-columns:minmax(0,1fr)}
+    .figpane{border-right:0;border-bottom:1px solid var(--rule)}
+    .codepane{contain:none}
+    .code{max-height:520px}
+    .terms{columns:1}
+    .os .c-ask,.os .c-be{display:none}
+  }
+  @media (max-width:899px){
+    .head .wrap{flex-wrap:wrap;min-height:0}
+    .tools{margin-left:0;width:100%;justify-content:flex-start;flex-wrap:wrap}
+    #btnPdf{display:none}
+    .bp-fields{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,auto auto auto auto)}
+    .bp-f:nth-child(4){border-left:0;padding-left:20px}
+    .bp-f:nth-child(n+4){border-top:1px solid var(--rule)}
+    .steps{grid-template-columns:minmax(0,1fr)}
+    .code{max-height:440px}
+    .os .c-rpk,.os .c-yld{display:none}
+  }
+  @media (max-width:639px){
+    :root{--page:16px;--gap:12px;--sec:32px}
+    .brand h1{font-size:23px;white-space:normal}
+    html[lang="ko"] .brand h1{font-size:22px}
+    .period{display:none}
+    #btnMd .lbl{display:none}
+    #btnMd{width:40px;padding:0}
+    .tabs button{padding:0 12px;height:40px}
+    .widget{padding:18px 16px 16px;border-radius:0 0 12px 12px}
+    .headline{font-size:21px;padding-left:12px}
+    .lede{font-size:14.5px;padding-left:15px}
+    .bp-route{padding:12px 14px 10px;gap:8px 18px}
+    .bp-code{font-size:26px}
+    .bp-dest{flex:1 1 auto}
+    .bp-dest .bp-code{white-space:normal;font-size:22px;line-height:1.15}
+    .bp-arrow{width:28px}
+    .bp-route{grid-template-columns:minmax(0,1fr)}
+    .bp-mini{gap:18px}
+    .bp-fields{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,auto auto auto auto)}
+    .bp-f,.bp-f:first-child{padding:10px 12px 12px}
+    .bp-f:nth-child(4){border-left:1px solid var(--rule);padding-left:12px}
+    .bp-f:nth-child(odd){border-left:0}
+    .bp-f:nth-child(n+3){border-top:1px solid var(--rule)}
+    .bp-v{font-size:26px}
+    html[lang="ko"] .bp-v{font-size:23px}
+    .bp-sv{font-size:38px}
+    html[lang="ko"] .bp-sv{font-size:34px}
+    .bp-bc{padding:10px 14px}
+    .bp-top,.bp-stop{padding:0 14px}
+    .bp-top span:last-child{display:none}
+    .bp-sb{grid-template-columns:minmax(0,1fr);padding:14px}
+    .sec-h h2{font-size:21px}
+    .panel{padding:14px 14px 12px}
+    .ct{font-size:18px}
+    .sm-strip{gap:8px}
+    .sm-n{align-items:flex-start;white-space:normal}
+    .sm-v{font-size:21px}
+    .sm-s{font-size:11.5px}
+    .rt{--cols:minmax(6.4em,1fr) minmax(0,1.6fr) 3.9em}
+    .rt-be,.rt-h .be,.rt-trk .pu{display:none}
+    .rt-nm span{display:none}
+    .rt-trk{left:40px;right:44px}
+    .rt-h .rt-trk em:not(.z){display:none}
+    #f2Plot,#f4Plot{min-height:230px}
+    .os .c-fl,.os .c-ly,.os .c-otp{display:none}
+    .os tbody th span{display:none}
+    .os th,.os td{padding:7px 6px}
+    .os .pax{min-width:76px;gap:6px}
+    .os .chg{min-width:3.6em}
+    .get{display:block}
+    .get-h{margin-bottom:6px}
+    .get-note{margin:6px 0 10px}
+    .get .btn{width:100%}
+    .cbar{flex-wrap:wrap;height:auto;padding:0 12px 10px 16px}
+    .ctabs{flex:1 0 100%;height:44px}
+    .cbtns{margin-left:auto}
+    .foot .wrap{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+<header class="head"><div class="wrap">
+  <div class="brand"><span class="brand-e" data-i18n="brand"></span><h1 data-i18n="report"></h1></div>
+  <div class="tools">
+    <span class="period" data-icon="cal"><span id="period"></span></span>
+    <div class="lang" id="langSeg" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+    </div>
+    <button type="button" class="btn btn-line" id="btnPdf" data-icon="download"><span data-i18n="pdf"></span></button>
+    <button type="button" class="btn btn-navy" id="btnMd" data-icon="copy"><span class="lbl" data-i18n="copy"></span></button>
+  </div>
+</div></header>
+<nav class="tabbar" id="tabBar"><div class="wrap">
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <span class="tab-aside" id="tabAside"></span>
+</div></nav>
+
+<main class="page wrap" id="panel" role="tabpanel">
+  <!-- 위젯 판: 결과 문장 · 첫 단락 · 탑승권 -->
+  <section class="widget" aria-labelledby="headline">
+    <h2 class="headline" id="headline"></h2>
+    <p class="lede" id="lede"></p>
+    <div class="bp" id="bp"></div>
+    <p class="fn" id="bpNote"></p>
+  </section>
+
+  <!-- 탑승률: 객실과 올해 (좌석 배치도 + 월별 탑승률. 오른쪽 그림 칸이 늘어 아래 끝을 맞춘다) -->
+  <div class="sec-h" id="s1"><h2 data-i18n="s1.t"></h2><p data-i18n="s1.p"></p></div>
+  <div class="row2">
+    <figure class="panel" id="f1">
+      <div class="ch">
+        <span class="fl" data-i18n="f1.label"></span>
+        <h3 class="ct" id="f1Title"></h3>
+        <p class="cs" data-i18n="f1.sub"></p>
+        <ul class="keys" id="f1Keys" aria-hidden="true"></ul>
+      </div>
+      <div class="cb">
+        <div class="sm-map" id="f1Map"></div>
+        <div class="sm-strip" id="f1Strip"></div>
+      </div>
+      <figcaption class="cf" data-i18n="f1.note"></figcaption>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="f1Table"></div>
+    </figure>
+    <figure class="panel" id="f2">
+      <div class="ch">
+        <span class="fl" data-i18n="f2.label"></span>
+        <h3 class="ct" id="f2Title"></h3>
+        <p class="cs" data-i18n="f2.sub"></p>
+        <ul class="keys" id="f2Keys" aria-hidden="true"></ul>
+      </div>
+      <div class="cb"><div class="plot" id="f2Plot"></div></div>
+      <figcaption class="cf" data-i18n="f2.note"></figcaption>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="f2Table"></div>
+    </figure>
+  </div>
+
+  <!-- 노선과 시카고 허브 (손익분기 대비 노선 + 시간대별 출발. 오른쪽 그림 칸이 늘어 아래 끝을 맞춘다) -->
+  <div class="sec-h" id="s2"><h2 data-i18n="s2.t"></h2><p data-i18n="s2.p"></p></div>
+  <div class="row2">
+    <figure class="panel" id="f3">
+      <div class="ch">
+        <span class="fl" data-i18n="f3.label"></span>
+        <h3 class="ct" id="f3Title"></h3>
+        <p class="cs" data-i18n="f3.sub"></p>
+        <ul class="keys" id="f3Keys" aria-hidden="true"></ul>
+      </div>
+      <div class="cb"><div class="rt" id="f3List" tabindex="0" role="group"></div></div>
+      <figcaption class="cf" id="f3Note"></figcaption>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="f3Table"></div>
+    </figure>
+    <figure class="panel" id="f4">
+      <div class="ch">
+        <span class="fl" data-i18n="f4.label"></span>
+        <h3 class="ct" id="f4Title"></h3>
+        <p class="cs" data-i18n="f4.sub"></p>
+        <ul class="keys" id="f4Keys" aria-hidden="true"></ul>
+      </div>
+      <div class="cb"><div class="plot" id="f4Plot"></div></div>
+      <figcaption class="cf" id="f4Note"></figcaption>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="f4Table"></div>
+    </figure>
+  </div>
+
+  <!-- 운항 통계표 -->
+  <div class="sec-h" id="s3"><h2 data-i18n="s3.t"></h2><p data-i18n="s3.p"></p></div>
+  <section class="panel" id="t1" aria-labelledby="t1Title">
+    <div class="ch">
+      <span class="fl" data-i18n="t1.label"></span>
+      <h3 class="ct" id="t1Title"></h3>
+      <p class="cs" data-i18n="t1.sub"></p>
+    </div>
+    <div class="os-wrap" id="t1Body"></div>
+    <p class="cf" data-i18n="t1.note"></p>
+    <div class="tip" aria-hidden="true"></div>
+  </section>
+
+  <!-- 만드는 법 -->
+  <div class="sec-h" id="s4"><h2 data-i18n="s4.t"></h2><p data-i18n="s4.p"></p></div>
+  <div class="build-intro">
+    <p data-i18n="build.p"></p>
+    <div class="build-cta"><a class="btn btn-line" href="DASHBOARD.html" target="_blank" rel="noopener" data-i18n="build.spec"></a><a class="btn btn-navy" id="ctaLink" href="https://www.vizney.com/contact-us/" target="_blank" rel="noopener" data-i18n="build.cta"></a></div>
+  </div>
+  <ol class="steps" id="steps"></ol>
+  <div class="win" id="win">
+    <aside class="side" aria-label="Package">
+      <div class="side-h"><b data-i18n="build.pkg"></b><span data-i18n="build.pkgSub"></span></div>
+      <ul class="tree" id="tree"></ul>
+      <div class="get">
+        <p class="get-h" data-i18n="build.get"></p>
+        <div class="cmds">
+          <div class="cmd"><code>npx @vizney/styles@latest add singapore-airlines</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+          <div class="cmd"><code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- singapore-airlines</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+        </div>
+        <p class="get-note" data-i18n="build.getNote"></p>
+        <a class="btn btn-sm btn-line" href="singapore-airlines-dashboard-style.zip" download data-i18n="build.zip"></a>
+      </div>
+    </aside>
+    <div class="figpane">
+      <div class="figbar"><div class="modes" id="modeSeg" role="tablist"></div><span class="chip" id="wbScope"></span></div>
+      <p class="wb-t layer" data-step="5" id="wbTitle"></p>
+      <div class="plot" id="wbPlot"></div>
+      <p class="wb-n layer" data-step="5" id="wbNote"></p>
+      <div class="checks">
+        <p class="checks-h"><span data-i18n="build.checksT"></span><span class="ok layer" data-step="5" id="checksOk"></span></p>
+        <ul id="checks"></ul>
+      </div>
+      <div class="tip" aria-hidden="true"></div>
+    </div>
+    <div class="codepane">
+      <div class="cbar">
+        <div class="ctabs" id="ctabs" role="tablist" aria-label="Code"></div>
+        <div class="cbtns">
+          <button type="button" class="btn btn-sm btn-line btn-icon" id="btnCopyCode" data-icon="copy"></button>
+          <button type="button" class="btn btn-sm btn-navy" id="btnRun" data-icon="play"><span data-i18n="build.run"></span></button>
+        </div>
+      </div>
+      <pre class="code" id="code" tabindex="0" aria-label="Code"></pre>
+      <div class="cstat"><span id="cstatL"></span><span id="cstatR"></span></div>
+    </div>
+  </div>
+  <p class="build-cap" data-i18n="build.cap"></p>
+
+  <!-- 방법과 출처 -->
+  <div class="sec-h" id="notes"><h2 data-i18n="notes.t"></h2><p data-i18n="notes.p"></p></div>
+  <div class="terms" id="terms"></div>
+  <p class="sr-only" id="live" aria-live="polite"></p>
+  <div class="toast" id="toast" role="status"></div>
+</main>
+<footer class="foot"><div class="wrap">
+  <div>
+  <p class="cat"><a class="ser" href="https://styles.vizney.com/">VIZNEY STYLES · 05</a> <a href="https://styles.vizney.com/singapore-airlines/DASHBOARD.html" data-i18n="catName"></a> <span class="w" data-i18n="words"></span></p>
+  <p data-i18n="note"></p>
+  <p data-i18n="notice"></p>
+  </div>
+  <a class="back" id="backLink" href="https://styles.vizney.com/">← Back to the catalog</a>
+</div></footer>
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 데이터 색: 싱가포르항공 연차 보고서의 차트 색에서. 주인공은 보고서 막대의 청록 #0096ae(글자 #00788c),
+     둘째 #005584(보고서의 두 번째 계열), 셋째 청동 #c3892a(글자는 사이트 금색 토큰 #946e31). 그림마다 주인공 하나와 회색:
+     기타 #afafaf(사이트 darkGrey), 비교선 #868ba0 점선(보고서의 회청색), 지난해 #c4c9d4. 상태는 사이트 알림 색: 좋음 #03760b, 나쁨 #dc0202.
+     남색 #00266b와 주황 #ff9f00은 UI(틀과 머리카락선)에만, 객실 색(--cabin-*-standard)은 좌석 배치도의 객실 띠에만 쓴다.
+     validate_palette.js로 흰 카드 #ffffff 기준 검사 */
+  const C = {
+    subject: '#0096ae', subjectText: '#00788c', second: '#005584', third: '#c3892a', thirdText: '#946e31',
+    other: '#afafaf', comparison: '#868ba0', ly: '#c4c9d4', ink: '#222222', text2: '#666666', navy: '#00266b',
+    base: '#a6b4cd', edge: '#c8d6f1', grid: '#e5e9f0', plot: '#ffffff', good: '#03760b', bad: '#dc0202', empty: '#a6b4cd',
+    cab: { J: '#12447d', S: '#4f635f', Y: '#084935' }, fz: '#e2eee8', band: '#edf4ff',
+    generic: ['#36a2eb', '#ff6384', '#4bc0c0'], genericGrid: 'rgba(0,0,0,.12)'
+  };
+
+  /* ================= 가상 데이터: Vizney Air(시카고 오헤어 ORD 허브의 장거리 항공사), 2026년 10월. 돈은 미국 달러 =================
+     노선 14개(5개 노선 지역), 좌석 배치 하나(비즈니스 28 · 프리미엄 이코노미 21 · 이코노미 198 = 247석). 편수·여객·좌석-km는 양방향,
+     정시 출발은 시카고 출발만. 회계연도는 4월~3월(FY2026/27). Python으로 만들고 합계를 검산했다 */
+  const DATA = {"month":"2026-10","days":31,"seats":{"J":28,"S":21,"Y":198},"fz_seats":45,"otp_target":85.0,"routes":[{"code":"MEX","region":"americas","dist":2719,"deps":62,"flights":124,"pax":25946,"cab":{"J":72.0046,"S":88.5945,"Y":86.0989},"ask":83277532,"rpk":70547174,"plf":84.7133,"plan":82.4421,"plan_pax":25250.4,"blf":76.0,"yield":15.6,"plan_yield":15.9,"ly_flights":124,"ly_pax":24992,"ly_ask":83277532,"ly_rpk":67953248,"ly":81.6,"on":56,"slots":[{"t":"08:10","n":31,"on":29},{"t":"16:45","n":31,"on":27}],"launched":null,"city":["Mexico City","멕시코시티"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"GRU","region":"americas","dist":8428,"deps":31,"flights":62,"pax":13556,"cab":{"J":80.1843,"S":95.0845,"Y":89.0029},"ask":129066392,"rpk":114249968,"plf":88.5203,"plan":86.1312,"plan_pax":13190.1,"blf":80.5,"yield":10.8,"plan_yield":11.0,"ly_flights":62,"ly_pax":13170,"ly_ask":129066392,"ly_rpk":110996760,"ly":86.0,"on":28,"slots":[{"t":"21:40","n":31,"on":28}],"launched":null,"city":["São Paulo","상파울루"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"LIM","region":"americas","dist":6105,"deps":22,"flights":44,"pax":8572,"cab":{"J":64.1234,"S":86.039,"Y":80.1997},"ask":66349140,"rpk":52332060,"plf":78.8738,"plan":82.1117,"plan_pax":8923.9,"blf":74.5,"yield":11.9,"plan_yield":12.4,"ly_flights":36,"ly_pax":7149,"ly_ask":54285660,"ly_rpk":43644645,"ly":80.4,"on":20,"slots":[{"t":"22:20","n":22,"on":20}],"launched":null,"city":["Lima","리마"],"days":[1,2,4,5,7,8,9,11,12,14,15,16,18,19,21,22,23,25,26,28,29,30]},{"code":"LHR","region":"europe","dist":6344,"deps":62,"flights":124,"pax":28178,"cab":{"J":88.1048,"S":97.1966,"Y":92.0007},"ask":194304032,"rpk":178761232,"plf":92.0008,"plan":89.5377,"plan_pax":27423.6,"blf":79.0,"yield":13.0,"plan_yield":13.2,"ly_flights":124,"ly_pax":27259,"ly_ask":194304032,"ly_rpk":172931096,"ly":89.0,"on":48,"slots":[{"t":"17:35","n":31,"on":21},{"t":"20:55","n":31,"on":27}],"launched":null,"city":["London","런던"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"FRA","region":"europe","dist":6970,"deps":31,"flights":62,"pax":13598,"cab":{"J":82.0276,"S":94.0092,"Y":89.1984},"ask":106738580,"rpk":94778060,"plf":88.7946,"plan":86.5182,"plan_pax":13249.4,"blf":80.0,"yield":12.2,"plan_yield":12.3,"ly_flights":62,"ly_pax":13231,"ly_ask":106738580,"ly_rpk":92220070,"ly":86.4,"on":22,"slots":[{"t":"17:50","n":31,"on":22}],"launched":null,"city":["Frankfurt","프랑크푸르트"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"CDG","region":"europe","dist":6664,"deps":31,"flights":62,"pax":13627,"cab":{"J":77.9954,"S":93.0876,"Y":90.1026},"ask":102052496,"rpk":90810328,"plf":88.9839,"plan":86.9142,"plan_pax":13310.0,"blf":80.5,"yield":12.4,"plan_yield":12.7,"ly_flights":62,"ly_pax":13201,"ly_ask":102052496,"ly_rpk":87971464,"ly":86.2,"on":23,"slots":[{"t":"18:15","n":31,"on":23}],"launched":null,"city":["Paris","파리"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"DUB","region":"europe","dist":5895,"deps":31,"flights":62,"pax":13562,"cab":{"J":70.2189,"S":90.0154,"Y":90.9987},"ask":90276030,"rpk":79947990,"plf":88.5595,"plan":85.8372,"plan_pax":13145.1,"blf":78.5,"yield":11.6,"plan_yield":11.8,"ly_flights":44,"ly_pax":9238,"ly_ask":64066860,"ly_rpk":54458010,"ly":85.0,"on":24,"slots":[{"t":"19:25","n":31,"on":24}],"launched":null,"city":["Dublin","더블린"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"HND","region":"eastasia","dist":10124,"deps":62,"flights":124,"pax":27612,"cab":{"J":86.0023,"S":96.1982,"Y":90.0986},"ask":310077872,"rpk":279543888,"plf":90.1528,"plan":87.736,"plan_pax":26871.8,"blf":80.0,"yield":11.5,"plan_yield":11.6,"ly_flights":124,"ly_pax":26830,"ly_ask":310077872,"ly_rpk":271626920,"ly":87.6,"on":58,"slots":[{"t":"10:55","n":31,"on":29},{"t":"13:15","n":31,"on":29}],"launched":null,"city":["Tokyo","도쿄"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"ICN","region":"eastasia","dist":10520,"deps":31,"flights":62,"pax":12954,"cab":{"J":76.0945,"S":92.0123,"Y":85.0033},"ask":161103280,"rpk":136276080,"plf":84.5893,"plan":87.5182,"plan_pax":13402.5,"blf":81.0,"yield":10.7,"plan_yield":11.1,"ly_flights":62,"ly_pax":13262,"ly_ask":161103280,"ly_rpk":139516240,"ly":86.6,"on":29,"slots":[{"t":"12:30","n":31,"on":29}],"launched":null,"city":["Seoul","서울"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"TPE","region":"eastasia","dist":11979,"deps":31,"flights":62,"pax":13215,"cab":{"J":69.9885,"S":90.0922,"Y":88.1965},"ask":183446406,"rpk":158302485,"plf":86.2936,"plan":84.2623,"plan_pax":12903.9,"blf":82.0,"yield":9.9,"plan_yield":10.1,"ly_flights":62,"ly_pax":12894,"ly_ask":183446406,"ly_rpk":154457226,"ly":84.2,"on":28,"slots":[{"t":"00:45","n":31,"on":28}],"launched":null,"city":["Taipei","타이베이"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"SYD","region":"swp","dist":14862,"deps":31,"flights":62,"pax":13771,"cab":{"J":84.1014,"S":97.0046,"Y":89.9967},"ask":227596668,"rpk":204664602,"plf":89.9243,"plan":87.5093,"plan_pax":13401.2,"blf":82.0,"yield":10.4,"plan_yield":10.5,"ly_flights":62,"ly_pax":13384,"ly_ask":227596668,"ly_rpk":198913008,"ly":87.4,"on":25,"slots":[{"t":"20:10","n":31,"on":25}],"launched":null,"city":["Sydney","시드니"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"AKL","region":"swp","dist":13184,"deps":18,"flights":36,"pax":7112,"cab":{"J":65.9722,"S":88.0952,"Y":81.1027},"ask":117232128,"rpk":93764608,"plf":79.982,"plan":81.1498,"plan_pax":7215.8,"blf":79.5,"yield":9.8,"plan_yield":10.2,"ly_flights":0,"ly_pax":0,"ly_ask":0,"ly_rpk":0,"ly":null,"on":15,"slots":[{"t":"19:40","n":18,"on":15}],"launched":"2026-06-02","city":["Auckland","오클랜드"],"days":[1,3,4,6,8,10,11,13,15,17,18,20,22,24,25,27,29,31]},{"code":"DEL","region":"wasia","dist":12022,"deps":31,"flights":62,"pax":12249,"cab":{"J":61.9816,"S":85.023,"Y":81.9974},"ask":184104908,"rpk":147257478,"plf":79.9856,"plan":82.9223,"plan_pax":12698.7,"blf":83.0,"yield":9.0,"plan_yield":9.5,"ly_flights":62,"ly_pax":12527,"ly_ask":184104908,"ly_rpk":150599594,"ly":81.8,"on":25,"slots":[{"t":"20:35","n":31,"on":25}],"launched":null,"city":["Delhi","델리"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},{"code":"JNB","region":"wasia","dist":14018,"deps":17,"flights":34,"pax":6601,"cab":{"J":63.9706,"S":84.0336,"Y":80.0951},"ask":117723164,"rpk":92532818,"plf":78.602,"plan":81.234,"plan_pax":6822.0,"blf":81.0,"yield":9.6,"plan_yield":9.9,"ly_flights":26,"ly_pax":5125,"ly_ask":90023596,"ly_rpk":71842250,"ly":79.8,"on":12,"slots":[{"t":"17:20","n":17,"on":12}],"launched":null,"city":["Johannesburg","요하네스버그"],"days":[2,4,5,7,9,11,12,14,16,18,19,21,23,25,26,28,30]}],"scopes":{"all":{"routes":14,"deps":491,"flights":982,"pax":210553,"plan_pax":207808.6,"ly_pax":192262,"ask":2073348628,"rpk":1793768771,"ly_ask":1890144282,"ly_rpk":1617130531,"ly_flights":912,"plf":86.5155,"plan":85.7083,"ly":85.5559,"blf":79.8811,"yield":11.1452,"plan_yield":11.3695,"rev":199919609,"on":413,"otp":84.1141,"cab":{"J":76.6293,"S":92.091,"Y":87.6854},"cab_plan":{"J":77.002,"S":90.7088,"Y":86.3678},"fz":42236,"fzlf":95.5782,"pax_c":{"J":21070,"S":18991,"Y":170492},"hours":[[31,28],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[31,29],[0,0],[31,29],[0,0],[31,29],[31,29],[0,0],[0,0],[31,27],[79,55],[31,23],[49,39],[93,77],[31,28],[22,20],[0,0]],"daily":[6773,7307,6527,7695,6627,5882,6364,6756,7706,6715,8346,7049,5791,6428,6802,7266,6493,7675,6597,5873,6262,6696,7238,6492,7797,6640,5908,6324,6724,7299,6501],"months":[{"m":4,"lf":84.2276,"plan":85.1553,"ly":82.9566},{"m":5,"lf":84.7675,"plan":85.5458,"ly":83.2641},{"m":6,"lf":86.4274,"plan":86.0272,"ly":85.4485},{"m":7,"lf":89.0738,"plan":88.3889,"ly":87.9574},{"m":8,"lf":88.8086,"plan":88.3067,"ly":87.6784},{"m":9,"lf":85.6173,"plan":85.3064,"ly":84.6386},{"m":10,"lf":86.5155,"plan":85.7083,"ly":85.5559}]},"americas":{"routes":3,"deps":115,"flights":230,"pax":48074,"plan_pax":47364.4,"ly_pax":45311,"ask":278693064,"rpk":237129202,"ly_ask":266629584,"ly_rpk":222594653,"ly_flights":222,"plf":85.0862,"plan":84.0719,"ly":83.4846,"blf":77.6189,"yield":12.4708,"plan_yield":12.7613,"rev":29571871,"on":104,"otp":90.4348,"cab":{"J":72.7019,"S":89.8551,"Y":85.7532},"cab_plan":{"J":73.5043,"S":88.0,"Y":84.2783},"fz":9683,"fzlf":93.5556,"pax_c":{"J":4682,"S":4340,"Y":39052},"hours":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[31,29],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[31,27],[0,0],[0,0],[0,0],[0,0],[31,28],[22,20],[0,0]],"daily":[1686,1754,1300,1738,1613,1142,1584,1644,1906,1301,1908,1734,1125,1596,1668,1730,1321,1744,1591,1186,1496,1639,1749,1268,1744,1607,1147,1512,1610,1775,1256],"months":[{"m":4,"lf":81.9419,"plan":82.9065,"ly":80.558},{"m":5,"lf":83.3183,"plan":83.8219,"ly":81.283},{"m":6,"lf":85.6422,"plan":85.0183,"ly":83.7792},{"m":7,"lf":88.9416,"plan":87.6909,"ly":87.0144},{"m":8,"lf":88.0383,"plan":87.2619,"ly":86.1701},{"m":9,"lf":83.6549,"plan":83.4883,"ly":81.9583},{"m":10,"lf":85.0862,"plan":84.0719,"ly":83.4846}]},"europe":{"routes":4,"deps":155,"flights":310,"pax":68965,"plan_pax":67128.1,"ly_pax":62929,"ask":493371138,"rpk":444297610,"ly_ask":467161968,"ly_rpk":407580640,"ly_flights":292,"plf":90.0534,"plan":87.6647,"ly":87.2461,"blf":79.384,"yield":12.4548,"plan_yield":12.6545,"rev":55336331,"on":117,"otp":75.4839,"cab":{"J":81.2903,"S":94.3011,"Y":90.8602},"cab_plan":{"J":79.8,"S":92.4,"Y":88.28},"fz":13701,"fzlf":98.2151,"pax_c":{"J":7056,"S":6139,"Y":55770},"hours":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[62,43],[31,23],[31,24],[31,27],[0,0],[0,0],[0,0]],"daily":[2207,2369,2235,2355,2196,2036,2074,2202,2518,2322,2593,2274,1986,2084,2189,2377,2205,2379,2128,1971,2015,2140,2365,2250,2441,2122,2058,2057,2187,2397,2233],"months":[{"m":4,"lf":85.7898,"plan":85.4347,"ly":83.0528},{"m":5,"lf":87.5386,"plan":86.8747,"ly":84.6466},{"m":6,"lf":90.9711,"plan":88.9647,"ly":88.0816},{"m":7,"lf":93.8508,"plan":91.3047,"ly":90.6288},{"m":8,"lf":92.9013,"plan":90.7647,"ly":89.5153},{"m":9,"lf":89.8813,"plan":87.7047,"ly":86.7395},{"m":10,"lf":90.0534,"plan":87.6647,"ly":87.2461}]},"eastasia":{"routes":3,"deps":124,"flights":248,"pax":53781,"plan_pax":53178.3,"ly_pax":52986,"ask":654627558,"rpk":574122453,"ly_ask":654627558,"ly_rpk":565600386,"ly_flights":248,"plf":87.7022,"plan":86.709,"ly":86.4003,"blf":80.6483,"yield":10.8689,"plan_yield":11.0673,"rev":62401034,"on":115,"otp":92.7419,"cab":{"J":79.5219,"S":93.6252,"Y":88.3492},"cab_plan":{"J":80.0,"S":92.25,"Y":87.2},"fz":10753,"fzlf":96.353,"pax_c":{"J":5522,"S":4876,"Y":43383},"hours":[[31,28],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[31,29],[0,0],[31,29],[31,29],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"daily":[1672,1888,1755,1852,1662,1594,1561,1695,1939,1803,2001,1785,1540,1611,1730,1865,1736,1848,1675,1577,1609,1726,1813,1731,1871,1722,1572,1616,1688,1848,1796],"months":[{"m":4,"lf":86.0426,"plan":86.819,"ly":84.8285},{"m":5,"lf":85.8097,"plan":86.279,"ly":84.1017},{"m":6,"lf":87.2028,"plan":86.749,"ly":85.9993},{"m":7,"lf":90.3459,"plan":89.449,"ly":88.7148},{"m":8,"lf":90.6248,"plan":89.719,"ly":89.0544},{"m":9,"lf":86.7953,"plan":86.299,"ly":85.472},{"m":10,"lf":87.7022,"plan":86.709,"ly":86.4003}]},"swp":{"routes":2,"deps":49,"flights":98,"pax":20883,"plan_pax":20617.0,"ly_pax":13384,"ask":344828796,"rpk":298429210,"ly_ask":227596668,"ly_rpk":198913008,"ly_flights":62,"plf":86.5442,"plan":85.3473,"ly":87.3972,"blf":81.0601,"yield":10.2115,"plan_yield":10.403,"rev":30474050,"on":40,"otp":81.6327,"cab":{"J":77.4417,"S":93.7318,"Y":86.7295},"cab_plan":{"J":77.5918,"S":91.7959,"Y":85.5429},"fz":4195,"fzlf":95.1247,"pax_c":{"J":2125,"S":1929,"Y":16829},"hours":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[18,15],[31,25],[0,0],[0,0],[0,0]],"daily":[817,475,842,909,414,759,420,819,490,874,970,452,770,423,823,470,848,880,441,779,401,806,474,834,913,438,783,418,850,466,825],"months":[{"m":4,"lf":87.4625,"plan":86.8993,"ly":85.3063},{"m":5,"lf":86.4308,"plan":86.2693,"ly":84.5909},{"m":6,"lf":84.4569,"plan":83.4419,"ly":84.6488},{"m":7,"lf":87.027,"plan":86.1881,"ly":87.1057},{"m":8,"lf":87.3322,"plan":86.7373,"ly":87.9396},{"m":9,"lf":85.1611,"plan":84.5219,"ly":86.2195},{"m":10,"lf":86.5442,"plan":85.3473,"ly":87.3972}]},"wasia":{"routes":2,"deps":48,"flights":96,"pax":18850,"plan_pax":19520.7,"ly_pax":17652,"ask":301828072,"rpk":239790296,"ly_ask":274128504,"ly_rpk":222441844,"ly_flights":88,"plf":79.446,"plan":82.2638,"ly":81.1451,"blf":82.2111,"yield":9.2315,"plan_yield":9.6541,"rev":22136324,"on":37,"otp":77.0833,"cab":{"J":62.686,"S":84.6726,"Y":81.3237},"cab_plan":{"J":68.0,"S":86.6458,"Y":83.8917},"fz":3904,"fzlf":90.3704,"pax_c":{"J":1685,"S":1707,"Y":15458},"hours":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[17,12],[0,0],[0,0],[31,25],[0,0],[0,0],[0,0]],"daily":[391,821,395,841,742,351,725,396,853,415,874,804,370,714,392,824,383,824,762,360,741,385,837,409,828,751,348,721,389,813,391],"months":[{"m":4,"lf":77.5125,"plan":81.9106,"ly":78.6283},{"m":5,"lf":78.2119,"plan":82.8907,"ly":79.799},{"m":6,"lf":80.3533,"plan":83.5506,"ly":81.962},{"m":7,"lf":81.1062,"plan":84.5307,"ly":83.2101},{"m":8,"lf":80.7618,"plan":84.0807,"ly":82.5123},{"m":9,"lf":78.5077,"plan":81.8406,"ly":80.3803},{"m":10,"lf":79.446,"plan":82.2638,"ly":81.1451}]}}};
+  const SCOPES = ['all', 'americas', 'europe', 'eastasia', 'swp', 'wasia'];
+  const REGIONS = SCOPES.slice(1);
+  const MONTHS = [4, 5, 6, 7, 8, 9, 10];
+  const BANK = [17, 20];       // 저녁 출발 몰림 17:00~20:59
+  const TARGET = DATA.otp_target;
+  const CABS = ['J', 'S', 'Y'];
+  const DOW_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], DOW_KO = ['일', '월', '화', '수', '목', '금', '토'];
+  const MON_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  /* ================= 문구 ================= */
+  const T = {
+    ko: {
+      locale: 'ko-KR', docTitle: 'Singapore Airlines 스타일 · 월간 운항 통계 샘플',
+      brand: '비즈니 에어', report: '월간 운항 통계', pdf: 'PDF로 내보내기', copy: '마크다운으로 복사', copied: '보고서를 마크다운으로 복사했습니다',
+      catName: 'Singapore Airlines 스타일', words: '프리미엄, 탑승권, 단아함',
+      tabsLabel: '노선 지역', scopes: { all: '전체 노선', americas: '미주', europe: '유럽', eastasia: '동아시아', swp: '남서태평양', wasia: '서아시아·아프리카' },
+      tabAside: ['2026년 10월', '계획·지난해 10월 대비'],
+      period: '2026년 10월 · 2026/27 회계연도',
+      headline: v => `${v.where ? v.where + ' 노선의 ' : ''}여객 수송량(RPK)은 지난해보다 **${v.rpk} ${v.up ? '늘었고' : '줄었고'}** ${v.askFlat ? '공급은 지난해와 같아' : `공급은 ${v.ask} ${v.askUp ? '늘어' : '줄어'}`}, 탑승률은 계획보다 **${v.pts} ${v.above ? '높은' : '낮은'} ${v.plf}**를 기록했습니다.`,
+      lede: v => `${!v.nb ? '모든 노선이 손익분기 탑승률을 넘었습니다.' : v.nb < v.n ? `${v.n}개 노선 중 ${v.names} ${v.nb}곳이 손익분기 탑승률에 못 미쳤습니다.` : v.n === 1 ? `${josa(v.names, '이가')} 손익분기 탑승률에 못 미쳤습니다.` : `${v.names} ${v.n === 2 ? '두' : v.n + '개'} 노선 모두 손익분기 탑승률에 못 미쳤습니다.`} 시카고 정시 출발률은 **${v.otp}**로 목표 ${v.target}${v.otpOk ? '를 넘었습니다' : '에 못 미쳤습니다'}. 2026년 10월 31일 기준 ${v.all ? `노선망은 5개 노선 지역 ${v.n}개 도시입니다` : `이 지역의 취항 도시는 ${v.n}곳입니다`}.`,
+      k: {
+        pax: '수송 여객', rpk: '유상 여객-km', ask: '공급 좌석-km', otp: '정시 출발', yld: '여객 수익률', lf: '탑승률',
+        be: '손익분기 탑승률', margin: '여유', vsPlan: '계획 대비', vsLy: '지난해 10월 대비', vsTarget: x => `목표 ${x} 대비`, onPlan: '계획대로',
+        from: '출발', to: '도착', flights: '운항 편수', seats: '공급 좌석', chicago: '시카고 오헤어',
+        ofDeps: (a, b) => `${b}편 중 ${a}편 정시`, rev: x => `여객 수입 ${x}`,
+        top: '월간 운항 통계', topR: '2026/27 회계연도 · 12개월 중 7번째', stub: '탑승률',
+        byDay: '날짜별 수송 여객', peak: v => `가장 붐빈 날 ${v.day} · ${v.n}명`,
+        tip: { pax: '수송 여객', flights: '운항 편수', share: '이달 여객 중 비중' }
+      },
+      bpNote: '주 1: 편수·여객·좌석-km는 양방향 합계이고, 정시 출발은 시카고(ORD)에서 떠난 편만 셉니다. 여객 수익률은 유상 여객-km당 여객 수입입니다.',
+      pts: '%p',
+      s1: { t: '탑승률: 객실과 올해', p: '어느 객실이 팔렸고, 올해는 계획대로 가고 있는지' },
+      f1: {
+        label: '그림 1 · 객실별 탑승률',
+        title: v => `${josa(v.hero, '은는')} 좌석의 ${v.heroLf}가 팔렸고, ${josa(v.low, '은는')} 한 편에 ${v.seats}석 중 ${v.empty}석이 비었습니다`,
+        sub: '10월 평균 1편의 객실별 판매 좌석, 247석 배치', keys: v => [`판매 · ${v}`, '판매 · 다른 객실', '빈 좌석', 'Forward zone'],
+        cab: { J: '비즈니스', S: '프리미엄 이코노미', Y: '이코노미' },
+        sold: v => `${v.n}석 중 **${v.s}석** 판매 · ${v.e}석 빔`, vsPlan: '계획 대비', fz: 'Forward zone',
+        tip: { lf: '탑승률', plan: '계획', sold: '석 판매(평균 1편)', empty: '석 빔(평균 1편)', pax: '이달 여객', fz: 'Forward zone 판매' },
+        note: '주 1: 평균 1편은 그 객실의 이달 여객을 운항 편수로 나눈 값입니다. Forward zone은 좌석 지정 요금을 받는 이코노미 앞 다섯 줄입니다. 13열은 쓰지 않습니다.',
+        aria: '평균 1편의 좌석 배치도. 좌우 화살표 키로 객실을 옮깁니다.'
+      },
+      f2: {
+        label: '그림 2 · 월별 탑승률',
+        title: v => v.above
+          ? (v.run === 7 ? `10월 탑승률은 계획보다 ${v.d} 높았고, 올해 모든 달이 계획을 넘었습니다` : v.run === 1 ? `10월 탑승률은 계획보다 ${v.d} 높아, 계획에 못 미친 ${v.prev}과 달랐습니다` : `10월 탑승률은 계획보다 ${v.d} 높아 ${v.run}달 연속 계획을 넘었습니다`)
+          : (v.run === 7 ? `10월 탑승률은 계획보다 ${v.d} 낮았고, 올해 모든 달이 계획에 못 미쳤습니다` : v.run === 1 ? `10월 탑승률은 계획보다 ${v.d} 낮아, 계획을 넘은 ${v.prev}과 달랐습니다` : `10월 탑승률은 계획보다 ${v.d} 낮아 ${v.run}달 연속 계획에 못 미쳤습니다`),
+        sub: '2026/27 회계연도 월별 여객 탑승률, 계획과 지난해', keys: ['실적', '계획', '지난해'],
+        note: '주 1: 회계연도는 4월 1일부터 3월 31일까지입니다. 계획은 회계연도를 시작하기 전에 정한 탑승률입니다.',
+        aria: '월별 탑승률, 실적·계획·지난해. 좌우 화살표 키로 달을 옮깁니다.', generic: 'Load Factor %'
+      },
+      s2: { t: '노선과 시카고 허브', p: '어느 노선이 손익분기를 넘었고, 시카고는 언제 늦는지' },
+      f3: {
+        label: '그림 3 · 손익분기 대비 노선',
+        title: v => v.nb === 0 ? `모든 노선이 손익분기 탑승률을 넘었고, ${josa(v.thin, '의')} 여유가 ${v.thinV}로 가장 작았습니다`
+          : v.nb === 1 ? `${josa(v.names[0], '이가')} 손익분기 탑승률보다 ${v.vals[0]} 낮았습니다`
+          : `${josa(joinKo(v.names), '이가')} 손익분기 탑승률보다 각각 ${v.vals.join(', ')} 낮았습니다`,
+        sub: '10월 노선별 탑승률에서 손익분기 탑승률을 뺀 값(%p), 낮은 순', keys: ['손익분기 미달', '손익분기 이상', '손익분기'],
+        cols: ['노선', '손익분기 대비', '탑승률', '손익분기'], be: '손익분기',
+        note: v => `주 1: 손익분기 탑승률은 좌석-km당 여객 원가를 여객 수익률로 나눈 값입니다. 이보다 낮으면 그 달 여객 원가를 벌지 못한 것입니다.${v.hasNew ? ' 오클랜드는 2026년 6월 2일 취항했습니다.' : ''} 막대는 −4%p에서 +14%p까지 그립니다.`,
+        tip: { lf: '탑승률', be: '손익분기', margin: '손익분기 대비', plan: '계획', ly: '지난해 10월', yld: '여객 수익률', flights: '운항 편수', new: '2026년 6월 취항, 지난해 없음' },
+        aria: '노선별 손익분기 대비 탑승률. 위아래 화살표 키로 노선을 옮깁니다.'
+      },
+      f4: {
+        label: '그림 4 · 시카고 시간대별 출발',
+        title: v => v.bank === 0 ? `모든 출발이 저녁 몰림(17:00~20:59) 밖이었고, ${v.otp}가 정시에 떠났습니다`
+          : v.rest === 0 ? `모든 출발이 17:00~20:59에 몰렸고, 정시 출발은 ${v.otp}로 목표 ${v.target}${v.otpOk ? '를 넘었습니다' : '에 못 미쳤습니다'}`
+          : `출발의 ${v.share}가 17:00~20:59에 몰렸고, 이 시간대 정시 출발은 ${v.otpBank}로 나머지 시간(${v.otpRest})${v.worse ? '보다 낮았습니다' : '보다 높았습니다'}`,
+        sub: '10월 시카고(ORD) 출발을 예정 시각별로, 정시와 지연', keys: ['정시', '지연', '저녁 몰림'], bank: '저녁 몰림',
+        unit: '편', bandLabel: x => `저녁 몰림 · 정시 ${x}`, note: v => `주 1: 정시는 예정 시각 15분 안에 출발한 편입니다. 목표는 ${v.target}입니다. 시각은 시카고 기준입니다.`,
+        tip: { deps: '출발', on: '정시', late: '지연', otp: '정시율', routes: '노선' },
+        aria: '시간대별 출발 편수와 정시율. 좌우 화살표 키로 시간을 옮깁니다.'
+      },
+      s3: { t: '운항 통계', p: '월간 보도자료의 순서대로, 모든 노선을' },
+      t1: {
+        label: '표 1 · 노선별 운항 통계',
+        title: v => v.n === 0 ? `모든 노선이 계획을 넘었고, ${josa(v.best, '이가')} ${v.bv}로 가장 많이 넘었습니다`
+          : v.n === 1 ? `${josa(v.worst, '만')} 계획에 못 미쳤습니다(${v.wv})`
+          : v.n === v.total ? `${v.total === 2 ? '두' : v.total + '개'} 노선 모두 계획에 못 미쳤고, ${josa(v.worst, '이가')} ${v.wv}로 가장 많이 못 미쳤습니다`
+          : `${v.total}개 노선 중 ${v.n}곳이 계획에 못 미쳤고, ${josa(v.worst, '이가')} ${v.wv}로 가장 많이 못 미쳤습니다`,
+        sub: '2026년 10월, 계획과 지난해 10월 대비',
+        cols: [['노선', ''], ['운항 편수', ''], ['수송 여객', '(천 명)'], ['유상 여객-km', '(백만)'], ['공급 좌석-km', '(백만)'], ['탑승률', '(%)'], ['계획 대비', '(%p)'], ['지난해 대비', '(%p)'], ['손익분기', '(%)'], ['수익률', '(센트/km)'], ['정시 출발', '(%)']],
+        sys: '전체 노선', nm: 'n.m.',
+        tip: { pax: '수송 여객', ly: '지난해 10월', share: x => `${x} 여객 중 비중`, lf: '탑승률', plan: '계획', be: '손익분기', yld: '여객 수익률', otp: '정시 출발', new: '2026년 6월 취항' },
+        note: '주 1: 노선 값은 지역과 전체 합계에 맞게 반올림했습니다. 주 2: n.m.은 비교할 수 없음을 뜻합니다(오클랜드는 2026년 6월 2일 취항).',
+        aria: '노선별 운항 통계. 위아래 화살표 키로 노선을 옮깁니다.'
+      },
+      s4: { t: '만드는 법', p: '명세 하나로, 어떤 도구에서든 같은 대시보드' },
+      build: {
+        p: '이 화면의 모든 그림은 DASHBOARD.md 하나를 따릅니다. 패키지를 프로젝트 폴더에 두면, 그 폴더를 읽는 에이전트는 같은 규칙으로 만들고 같은 목록으로 스스로 점검합니다. Tableau와 Power BI 파일은 같은 색과 서식을 그 도구로 옮깁니다.',
+        spec: 'DASHBOARD.md 읽기', cta: '우리 회사 것 의뢰하기 ↗',
+        steps: [['스타일을 프로젝트에 추가', '명령 한 줄이나 zip 하나로 프로젝트에 DASHBOARD.md가, .claude/skills에 dashboard-style 스킬이 Tableau·Power BI 파일과 함께 들어갑니다.'], ['대시보드를 요청', '코딩 에이전트는 스킬을 불러 명세대로 그림 계획을 세우고 그립니다. 같은 폴더를 읽는 BI 에이전트도 같은 명세를 따릅니다.'], ['공유 전에 점검', '스킬이 DASHBOARD.md의 점검 목록을 돌려 통과한 것과 고칠 것을 알려 줍니다. 언제든 검토만 따로 맡길 수도 있습니다.']],
+        pkg: '패키지', pkgSub: '프로젝트에 들어가는 파일',
+        get: '설치', getNote: '프로젝트 폴더에서 둘 중 하나를 실행합니다. 위 줄은 Node 18 이상, 아래 줄은 macOS·Linux 셸용입니다. 터미널이 없으면 zip을 프로젝트 폴더에 풉니다.', zip: 'zip 내려받기', cmdCopied: '설치 명령을 복사했습니다',
+        files: { 'your-project/': '', 'DASHBOARD.md': '명세: 토큰, 규칙, 점검 목록', '.claude/skills/': '', 'dashboard-style/': '에이전트 스킬', 'SKILL.md': '만들기 · 고치기 · 검토', 'tokens.css': '색·서체·간격', 'singapore-airlines.tps': 'Tableau 팔레트', 'powerbi-theme.json': 'Power BI 테마', 'prompt.md': '검증한 프롬프트' },
+        modes: ['명세 없이', 'DASHBOARD.md로'],
+        checksT: '점검 · DASHBOARD.md', checksOk: '6개 모두 통과', checksBad: '6개 중 0개 통과',
+        checks: [[1, '단위 %는 축 위에, 격자 없이 기준선 #a6b4cd, 10월 굵게'], [2, '비교를 먼저: 지난해 #c4c9d4, 계획은 점선 #868ba0'], [3, '주인공은 실적 탑승률: 청록 실선 #0096ae'], [4, '범례 대신 선 끝 라벨, 글자 #00788c'], [5, '제목은 결과를 말하고, 주석은 보도자료처럼 ‘주 1:’'], [5, '흰 카드 #ffffff에서 글자 대비 4.5:1 이상, 툴팁·키보드·표']],
+        run: '다시 실행', copied: '코드를 복사했습니다', lines: n => `${n}줄`, built: 'DASHBOARD.md로 그림', drawing: '그리는 중…', generated: '명세 없이 만든 첫 초안',
+        cap: '그림 2를 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 같은 그림의 Tableau·Power BI 설정을 봅니다. 위의 노선 지역 탭을 바꾸면 코드와 그림이 함께 바뀝니다.'
+      },
+      notes: {
+        t: '방법과 출처', p: '숫자를 어떻게 셌는지, 보도자료 끝의 주처럼',
+        items: [
+          ['탑승률', '유상 여객-km를 공급 좌석-km로 나눈 값입니다. 증감은 %p로 적습니다.'],
+          ['손익분기 탑승률', '좌석-km당 여객 원가를 여객 수익률로 나눈 값입니다. 탑승률이 이보다 낮으면 그 달 그 노선은 여객 원가를 벌지 못했습니다.'],
+          ['계획', '2026/27 회계연도를 시작하기 전에 노선과 달마다 정한 탑승률과 여객입니다. 회계연도는 4월 1일부터 3월 31일까지입니다.'],
+          ['노선 지역', '시카고에서 떠나는 노선을 도착지에 따라 다섯 지역으로 나눕니다: 미주, 유럽, 동아시아, 남서태평양, 서아시아·아프리카.'],
+          ['객실', '모든 노선이 247석 배치 하나로 운항합니다: 비즈니스(J) 28석, 프리미엄 이코노미(S) 21석, 이코노미(Y) 198석. Forward zone은 좌석 지정 요금을 받는 이코노미 앞 다섯 줄 45석입니다.'],
+          ['정시 출발', '시카고(ORD)에서 예정 시각 15분 안에 출발한 편입니다. 목표는 85%입니다.'],
+          ['날짜별 수송 여객', '그날 운항한 편의 양방향 여객입니다.'],
+          ['반올림', '표의 노선 값은 지역과 전체 합계에 맞게 반올림하고, 비율은 반올림하기 전에 계산합니다.']
+        ],
+        src: '출처: 출발 관리 시스템, 수입 회계, 2026/27 회계연도 노선 계획. 2026년 10월 31일 마감, 2026년 11월 4일 발행.'
+      },
+      md: { title: '비즈니 에어 · 월간 운항 통계 · 2026년 10월', kpis: '핵심 수치', figs: '그림과 표' },
+      note: '가상의 항공사와 가상 데이터로 구성한 샘플 화면입니다.',
+      notice: 'Singapore Airlines의 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 공개된 웹사이트(singaporeair.com)와 연차 보고서·좌석 배치도·탑승권 등 공개된 접점에서 보이는 디자인을 읽어 낸 참고용 스타일이며 로고·서체·사진·데이터는 포함하지 않습니다. 상표는 각 소유자의 것입니다.',
+      back: { post: '← 포스트로', catalog: '← 카탈로그로' }
+    },
+    en: {
+      locale: 'en-GB', docTitle: 'Singapore Airlines style · Monthly operating statistics sample',
+      brand: 'Vizney Air', report: 'Operating Statistics', pdf: 'Export PDF', copy: 'Copy as Markdown', copied: 'Report copied as Markdown',
+      catName: 'Singapore Airlines style', words: 'Premium, Boarding Pass, Courteous',
+      tabsLabel: 'Route region', scopes: { all: 'Systemwide', americas: 'The Americas', europe: 'Europe', eastasia: 'East Asia', swp: 'South West Pacific', wasia: 'West Asia and Africa' },
+      tabAside: ['October 2026', 'vs plan and October 2025'],
+      period: 'October 2026 · FY2026/27',
+      headline: v => `${v.where ? `In ${v.where.replace(/^The /, 'the ')}, traffic` : 'Traffic'} ${v.up ? 'rose' : 'fell'} **${v.rpk}** year-on-year on ${v.askFlat ? 'unchanged' : `${v.ask} ${v.askUp ? 'more' : 'less'}`} capacity, and the load factor came in at **${v.plf}**, **${v.pts} ${v.above ? 'above' : 'below'} plan**.`,
+      lede: v => `${!v.nb ? 'Every route flew above breakeven.' : v.nb < v.n ? `${v.nb} of ${v.n} routes flew below breakeven: ${v.names}.` : v.n === 1 ? `${v.names} flew below breakeven.` : `${v.n === 2 ? 'Both routes' : `All ${v.n} routes`} flew below breakeven: ${v.names}.`} **${v.otp}** of departures from Chicago left on time, ${v.otpOk ? 'meeting' : 'short of'} the ${v.target} target. As of 31 October 2026, ${v.all ? `the network covered ${v.n} destinations in 5 route regions` : `the region covered ${v.n} destination${v.n > 1 ? 's' : ''}`}.`,
+      k: {
+        pax: 'Passengers carried', rpk: 'Revenue passenger-km', ask: 'Available seat-km', otp: 'On-time departures', yld: 'Passenger yield', lf: 'Load factor',
+        be: 'Breakeven load factor', margin: 'margin', vsPlan: 'vs plan', vsLy: 'vs Oct 2025', vsTarget: x => `vs ${x} target`, onPlan: 'On plan',
+        from: 'From', to: 'To', flights: 'Flights', seats: 'Seats flown', chicago: 'Chicago O’Hare',
+        ofDeps: (a, b) => `${a} of ${b} left on time`, rev: x => `Revenue ${x}`,
+        top: 'Monthly operating statistics', topR: 'FY2026/27 · Month 7 of 12', stub: 'Load factor',
+        byDay: 'Passengers by day', peak: v => `Peak ${v.day} · ${v.n}`,
+        tip: { pax: 'passengers', flights: 'flights', share: 'of the month' }
+      },
+      bpNote: 'Note 1: Flights, passengers and seat-km count both directions; on-time departures count departures from Chicago (ORD) only. Passenger yield is passenger revenue per revenue passenger-km.',
+      pts: ' pts',
+      s1: { t: 'Load: cabins and the year', p: 'Which cabins sold, and whether the year is on plan' },
+      f1: {
+        label: 'Figure 1 · Cabin load',
+        title: v => `${v.hero} flew ${v.heroLf} full; ${v.low} left ${v.empty} of ${v.seats} seats empty on an average flight`,
+        sub: 'Seats sold on an average October flight, by cabin, on the 247-seat layout', keys: v => [`Sold · ${v}`, 'Sold · other cabins', 'Empty', 'Forward zone'],
+        cab: { J: 'Business', S: 'Premium Economy', Y: 'Economy' },
+        sold: v => `**${v.s}** of ${v.n} seats sold · ${v.e} empty`, vsPlan: 'vs plan', fz: 'Forward zone',
+        tip: { lf: 'load factor', plan: 'plan', sold: 'seats sold on an average flight', empty: 'seats empty on an average flight', pax: 'passengers this month', fz: 'forward zone sold' },
+        note: 'Note 1: An average flight is the month’s passengers in the cabin divided by the flights operated. The forward zone is the first five Economy rows, sold with a seat fee. Row 13 is not used.',
+        aria: 'Seat map of an average flight. Left and right arrow keys move between cabins.'
+      },
+      f2: {
+        label: 'Figure 2 · Load factor by month',
+        title: v => v.above
+          ? (v.run === 7 ? `October flew ${v.d} above plan; every month this year has beaten it` : v.run === 1 ? `October flew ${v.d} above plan, after ${v.prev} came in below it` : `October flew ${v.d} above plan, the ${ORD[v.run]} month in a row above it`)
+          : (v.run === 7 ? `October flew ${v.d} below plan; every month this year has missed it` : v.run === 1 ? `October flew ${v.d} below plan, after ${v.prev} beat it` : `October flew ${v.d} below plan, the ${ORD[v.run]} month in a row below it`),
+        sub: 'Passenger load factor by month, FY2026/27 to date, against plan and last year', keys: ['Actual', 'Plan', 'Last year'],
+        note: 'Note 1: The financial year runs from 1 April to 31 March. Plan is the load factor budgeted before the year began.',
+        aria: 'Load factor by month, actual, plan and last year. Left and right arrow keys move between months.', generic: 'Load Factor %'
+      },
+      s2: { t: 'Routes and the Chicago hub', p: 'Which routes cleared breakeven, and when Chicago runs late' },
+      f3: {
+        label: 'Figure 3 · Routes against breakeven',
+        title: v => v.nb === 0 ? `Every route cleared breakeven; ${v.thin} had the thinnest margin, ${v.thinV}`
+          : v.nb === 1 ? `${v.names[0]} was the only route below breakeven, by ${v.vals[0]}`
+          : `${joinEn(v.names)} flew below breakeven, by ${joinEn(v.vals)}`,
+        sub: 'Load factor minus breakeven load factor by route in October, in pts, lowest first', keys: ['Below breakeven', 'Above breakeven', 'Breakeven'],
+        cols: ['Route', 'Against breakeven', 'PLF', 'BLF'], be: 'Breakeven',
+        note: v => `Note 1: Breakeven load factor is passenger unit cost per seat-km divided by yield; below it, a route did not cover its passenger costs that month.${v.hasNew ? ' Auckland opened on 2 June 2026.' : ''} Bars run from −4 to +14 pts.`,
+        tip: { lf: 'load factor', be: 'breakeven', margin: 'against breakeven', plan: 'plan', ly: 'October 2025', yld: 'yield', flights: 'flights', new: 'Opened June 2026, no flights last year' },
+        aria: 'Load factor against breakeven by route. Up and down arrow keys move between routes.'
+      },
+      f4: {
+        label: 'Figure 4 · Departures from Chicago by hour',
+        title: v => v.bank === 0 ? `Every departure left outside the 17:00–20:59 bank, and ${v.otp} left on time`
+          : v.rest === 0 ? `Every departure left in the 17:00–20:59 bank; ${v.otp} left on time, ${v.otpOk ? 'meeting' : 'short of'} the ${v.target} target`
+          : `${v.share} of departures left between 17:00 and 20:59, and ${v.otpBank} of those left on time, against ${v.otpRest} the rest of the day`,
+        sub: 'Departures from ORD in October by scheduled hour, on time and late', keys: ['On time', 'Late', 'Evening bank'], bank: 'Evening bank',
+        unit: 'flights', bandLabel: x => `Evening bank · ${x} on time`, note: v => `Note 1: On time means pushed back within 15 minutes of schedule; the target is ${v.target}. Hours are Chicago time.`,
+        tip: { deps: 'departures', on: 'on time', late: 'late', otp: 'on-time rate', routes: 'Routes' },
+        aria: 'Departures and on-time rate by hour. Left and right arrow keys move between hours.'
+      },
+      s3: { t: 'Operating statistics', p: 'Every route, in the order of the monthly release' },
+      t1: {
+        label: 'Table 1 · Operating statistics by route',
+        title: v => v.n === 0 ? `Every route beat plan; ${v.best} beat it by the most, ${v.bv}`
+          : v.n === 1 ? `${v.worst} was the only route short of plan, by ${v.wv}`
+          : v.n === v.total ? `${v.total === 2 ? 'Both routes' : `All ${v.total} routes`} fell short of plan; ${v.worst} missed it by the most, ${v.wv}`
+          : `${v.n} of ${v.total} routes fell short of plan; ${v.worst} missed it by the most, ${v.wv}`,
+        sub: 'October 2026 against plan and October 2025',
+        cols: [['Route', ''], ['Flights', ''], ['Passengers', '(thousand)'], ['RPK', '(million)'], ['ASK', '(million)'], ['Load factor', '(%)'], ['vs plan', '(pts)'], ['vs Oct 2025', '(pts)'], ['Breakeven', '(%)'], ['Yield', '(¢/pkm)'], ['On time', '(%)']],
+        sys: 'Systemwide', nm: 'n.m.',
+        tip: { pax: 'passengers', ly: 'October 2025', share: x => `share of ${x}`, lf: 'load factor', plan: 'plan', be: 'breakeven', yld: 'yield', otp: 'on time', new: 'Opened June 2026' },
+        note: 'Note 1: Route figures are rounded so they add up to the region and systemwide totals. Note 2: n.m. means not meaningful (Auckland opened on 2 June 2026).',
+        aria: 'Operating statistics by route. Up and down arrow keys move between routes.'
+      },
+      s4: { t: 'How it’s built', p: 'One spec, the same dashboard in any tool' },
+      build: {
+        p: 'Every view on this page follows one DASHBOARD.md. Put the package in your project folder and any agent that reads the folder builds to the same rules and checks its work against the same list. The Tableau and Power BI files carry the same colors and formats into those tools.',
+        spec: 'Read DASHBOARD.md', cta: 'Get one for your company ↗',
+        steps: [['Add the style to your project', 'One command, or one zip, puts DASHBOARD.md in your project and the dashboard-style skill in .claude/skills, with the Tableau and Power BI files.'], ['Ask for the dashboard', 'Coding agents load the skill, plan the views from the spec and draw them. BI agents that read the same folder follow the same spec.'], ['Check before you share', 'The skill runs the checklist in DASHBOARD.md and reports what passed and what to fix. You can also ask it for a review on its own.']],
+        pkg: 'Package', pkgSub: 'what goes in your project',
+        get: 'Install', getNote: 'Run either one in your project folder: the first needs Node 18+, the second is a shell script for macOS and Linux. No terminal? Unzip the zip there instead.', zip: 'Download .zip', cmdCopied: 'Install command copied',
+        files: { 'your-project/': '', 'DASHBOARD.md': 'the spec: tokens, rules, checks', '.claude/skills/': '', 'dashboard-style/': 'the agent skill', 'SKILL.md': 'build · restyle · review', 'tokens.css': 'colors, type, spacing', 'singapore-airlines.tps': 'Tableau palettes', 'powerbi-theme.json': 'Power BI theme', 'prompt.md': 'tested prompts' },
+        modes: ['Without a spec', 'With DASHBOARD.md'],
+        checksT: 'Checks · DASHBOARD.md', checksOk: 'All 6 passed', checksBad: '0 of 6 passed',
+        checks: [[1, 'Unit % above the axis, no grid, base #a6b4cd, October in bold'], [2, 'Comparison first: last year #c4c9d4, plan dashed #868ba0'], [3, 'The subject is the actual load factor: solid #0096ae'], [4, 'End labels instead of a legend, text #00788c'], [5, 'Title states the finding; notes numbered like the release'], [5, 'Text at 4.5:1 or more on #ffffff; tooltip, keys and table']],
+        run: 'Run again', copied: 'Code copied', lines: n => `${n} lines`, built: 'Built from DASHBOARD.md', drawing: 'Drawing…', generated: 'A typical first draft without a spec',
+        cap: 'Figure 2, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the same figure as Tableau and Power BI settings. The route region tabs at the top change the code and the figure together.'
+      },
+      notes: {
+        t: 'Method and sources', p: 'How the numbers were counted, in the notes of the monthly release',
+        items: [
+          ['Load factor', 'Revenue passenger-km divided by available seat-km. Changes are in percentage points (pts).'],
+          ['Breakeven load factor', 'Passenger unit cost per seat-km divided by passenger yield. A route below it did not cover its passenger costs that month.'],
+          ['Plan', 'The load factor and passengers budgeted for each route and month before FY2026/27 began. The financial year runs from 1 April to 31 March.'],
+          ['Route region', 'Each route from Chicago belongs to one of five route regions by its destination: The Americas, Europe, East Asia, South West Pacific, and West Asia and Africa.'],
+          ['Cabins', 'Every route flies one 247-seat layout: Business (J) 28 seats, Premium Economy (S) 21, Economy (Y) 198. The forward zone is the first five Economy rows, 45 seats sold with a seat fee.'],
+          ['On time', 'Departures from Chicago (ORD) that pushed back within 15 minutes of schedule. The target is 85%.'],
+          ['Passengers by day', 'Passengers carried in both directions on the flights operated that day.'],
+          ['Rounding', 'Route figures in the table are rounded to add up to the region and systemwide totals; percentages are worked out before rounding.']
+        ],
+        src: 'Sources: departure control, revenue accounting and the FY2026/27 network plan. Month ended 31 October 2026; published 4 November 2026.'
+      },
+      md: { title: 'Vizney Air · Operating Statistics · October 2026', kpis: 'Key figures', figs: 'Figures and tables' },
+      note: 'A sample screen built around a fictional airline and fictional data.',
+      notice: 'Not an official Singapore Airlines design, and not affiliated with or endorsed by Singapore Airlines. A reference style read from the publicly visible design of singaporeair.com and its public touchpoints such as the annual report, seat maps and boarding passes; it carries no logo, typeface, photo or data of theirs. Trademarks belong to their owners.',
+      back: { post: '← Back to the post', catalog: '← Back to the catalog' }
+    }
+  };
+  const ORD = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh'];
+
+  const qs = new URLSearchParams(location.search);
+  const state = { lang: qs.get('lang') === 'ko' ? 'ko' : 'en', scope: SCOPES.includes(qs.get('region')) ? qs.get('region') : 'all', code: 'js', mode: 'with' };
+  const L = () => T[state.lang];
+  const KO = () => state.lang === 'ko';
+  const S = () => DATA.scopes[state.scope];
+  const pick = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
+  // 돌아가는 길: 블로그가 나가는 링크에 붙이는 ?ref=kr.vizney.com · www.vizney.com(없으면 referrer)로 포스트에서 왔는지 본다.
+  // 포스트는 화면 언어를 따른다(ko → kr.vizney.com, en → www.vizney.com). 슬러그는 style-<폴더 이름>.
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  const FROM_BLOG = (() => {
+    const hosts = ['kr.vizney.com', 'www.vizney.com', 'vizney.com'];
+    const host = v => { try { return new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v).hostname.toLowerCase(); } catch (e) { return ''; } };
+    return hosts.includes(host(qs.get('ref') || '')) || (!!document.referrer && hosts.includes(host(document.referrer)));
+  })();
+  const SLUG = location.pathname.split('/').filter(Boolean)[0] || 'singapore-airlines';
+
+  /* ================= 도우미 ================= */
+  const sum = a => a.reduce((s, x) => s + x, 0);
+  function setAttrs(e, a) {
+    if (!a) return;
+    for (const k in a) {
+      const v = a[k];
+      if (v == null || v === false) continue;
+      if (k === 'text') e.textContent = v;
+      else if (k === 'html') e.innerHTML = v;
+      else if (k === 'style') for (const p in v) { if (v[p] == null) continue; if (p.startsWith('--')) e.style.setProperty(p, v[p]); else e.style[p] = v[p]; }
+      else e.setAttribute(k, v);
+    }
+  }
+  function add(e, kids) { for (const k of kids.flat()) { if (k == null || k === false) continue; e.append(k instanceof Node ? k : document.createTextNode(String(k))); } }
+  function h(tag, attrs, ...kids) { const e = document.createElement(tag); setAttrs(e, attrs); add(e, kids); return e; }
+  function sv(tag, attrs, ...kids) { const e = document.createElementNS(SVGNS, tag); setAttrs(e, attrs); add(e, kids); return e; }
+  const animOK = a => a && !REDUCE;
+  const refade = (el, a) => { el.classList.remove('fade'); if (animOK(a)) { void el.offsetWidth; el.classList.add('fade'); } };
+  let measureCtx = null;
+  const textW = (txt, font) => { measureCtx = measureCtx || document.createElement('canvas').getContext('2d'); measureCtx.font = font; return measureCtx.measureText(txt).width; };
+  const fam = el => getComputedStyle(el).fontFamily;
+  // 한국어에서 숫자·%와 뒤따르는 조사가 다른 줄로 갈라지지 않게 잇는다(U+2060, 보이지 않음)
+  const glue = str => KO() ? String(str).replace(/([0-9%p])(\*\*)?(?=[가-힣])/g, (m, a, b) => a + (b || '') + '\u2060') : str;
+  function lastHangul(word) { const s = String(word).replace(/[^가-힣0-9]+$/g, ''); return s.slice(-1); }
+  function batchim(word) {
+    const ch = lastHangul(word);
+    if (/[0-9]/.test(ch)) return '013678'.includes(ch);
+    const c = ch.charCodeAt(0);
+    return c >= 0xAC00 && c <= 0xD7A3 ? (c - 0xAC00) % 28 !== 0 : false;
+  }
+  const josa = (w, pair) => {
+    if (pair === '만') return w + '만';
+    if (pair === '의') return w + '의';
+    return w + (batchim(w) ? pair[0] : pair[1]);
+  };
+  const joinKo = arr => arr.length < 2 ? (arr[0] || '') : arr.slice(0, -1).map((x, i) => i === arr.length - 2 ? josa(x, '과와') : x + ',').join(' ') + ' ' + arr[arr.length - 1];
+  const joinEn = arr => arr.length < 3 ? arr.join(' and ') : arr.slice(0, -1).join(', ') + ' and ' + arr[arr.length - 1];
+  const bold = str => String(str).split('**').map((p, i) => i % 2 ? h('b', { text: p }) : document.createTextNode(p));
+
+  /* 숫자: 한국어 만·억·명·%p·센트, 영어 K·M·pts·¢. 부호는 진짜 마이너스. 단위는 숫자보다 작게 */
+  const nf = (n, d = 0) => Number(n).toLocaleString(L().locale, { minimumFractionDigits: d, maximumFractionDigits: d });
+  const r1 = x => Math.round(x * 10) / 10;
+  const signed = (n, d = 1) => { const v = Number(Number(n).toFixed(d)); return (v > 0 ? '+' : v < 0 ? '−' : '') + nf(Math.abs(v), d); };
+  const pct = (v, d = 1) => nf(v, d) + '%';
+  const ptsTxt = (v, d = 1) => signed(v, d) + L().pts;
+  const ptsAbs = v => nf(Math.abs(v), 1) + L().pts;
+  const chg = (a, b) => (a / b - 1) * 100;
+  const paxShort = v => KO() ? `${nf(v / 1e4, 1)}만\u00a0명` : `${nf(v / 1e3, 1)}K`;
+  const kmShort = v => KO() ? `${nf(v / 1e8, 1)}억` : `${nf(v / 1e6, 1)}M`;
+  const cents = v => KO() ? `${nf(v, 1)}센트` : `${nf(v, 1)}¢`;
+  const usdM = v => KO() ? (v >= 1e8 ? `${nf(v / 1e8, 2)}억\u00a0달러` : `${nf(v / 1e4, 0)}만\u00a0달러`) : `$${nf(v / 1e6, 1)}M`;
+  const count = n => nf(n);
+  const unitNodes = (a, u) => [a, h('span', { class: 'u', text: u })];
+  const dt = d => new Date(2026, 9, d, 12);
+  const dayLong = d => KO() ? `10월 ${d}일(${DOW_KO[dt(d).getDay()]})` : `${DOW_EN[dt(d).getDay()]} ${d} Oct`;
+  const monShort = m => KO() ? `${m}월` : MON_EN[m - 1].slice(0, 3);
+  const monLong = m => KO() ? `2026년 ${m}월` : `${MON_EN[m - 1]} 2026`;
+  const hh = x => String(x).padStart(2, '0');
+  const hourRange = x => `${hh(x)}:00–${hh(x)}:59`.replace('–', KO() ? '~' : '–');
+  const city = code => { const r = DATA.routes.find(x => x.code === code); return KO() ? r.city[1] : r.city[0]; };
+  const routeName = code => `${city(code)} (${code})`;
+  function niceTicks(lo, hi, count) {
+    const span = hi - lo, raw = span / count, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    const step = [1, 2, 2.5, 5, 10].map(x => x * mag).find(x => x >= raw);
+    const out = [];
+    for (let v = Math.floor(lo / step) * step; v <= hi + step * .999; v += step) out.push(Number(v.toFixed(6)));
+    if (out[out.length - 1] < hi) out.push(Number((out[out.length - 1] + step).toFixed(6)));
+    return out;
+  }
+  // 정수로 반올림하면서 합계를 지킨다(나머지가 큰 순으로 1씩 더하거나, 모자라면 작은 순으로 뺀다)
+  function roundTo(vals, total) {
+    const fl = vals.map(Math.floor), order = vals.map((v, i) => [v - fl[i], i]).sort((a, b) => b[0] - a[0]);
+    let rest = total - sum(fl);
+    for (let k = 0; rest > 0; k++, rest--) fl[order[k % order.length][1]]++;
+    for (let k = 0; rest < 0; k++, rest++) fl[order[order.length - 1 - (k % order.length)][1]]--;
+    return fl;
+  }
+
+  /* ================= 아이콘(16px, 한 획 굵기) ================= */
+  const ICONS = {
+    cal: '<rect x="2.5" y="3.5" width="11" height="10" rx="1"/><path d="M2.5 6.8h11M5.5 2v3M10.5 2v3"/>',
+    download: '<path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/>',
+    copy: '<rect x="5.5" y="5.5" width="8" height="8" rx="1"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/>',
+    play: '<path d="M4.2 2.6v10.8a.6.6 0 0 0 .9.5l8.6-5.4a.6.6 0 0 0 0-1L5.1 2.1a.6.6 0 0 0-.9.5z" fill="currentColor" stroke="none"/>'
+  };
+  const icon = (name, cls = 'ico') => { const s = sv('svg', { class: cls, viewBox: '0 0 16 16', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }); s.innerHTML = ICONS[name]; return s; };
+  for (const el of $$('[data-icon]')) el.prepend(icon(el.dataset.icon));
+
+  function keySwatch(kind, color) {
+    const g = sv('svg', { viewBox: '0 0 18 12', 'aria-hidden': 'true' });
+    if (kind === 'line') g.append(sv('path', { d: 'M1 6h16', stroke: color, 'stroke-width': 2.5, 'stroke-linecap': 'round' }));
+    else if (kind === 'dash') g.append(sv('path', { d: 'M1 6h16', stroke: color, 'stroke-width': 2, 'stroke-dasharray': '4 3' }));
+    else if (kind === 'bar') g.append(sv('rect', { x: 2, y: 1, width: 14, height: 10, rx: 1.5, fill: color }));
+    else if (kind === 'seat') g.append(sv('rect', { x: 4, y: 1, width: 10, height: 10, rx: 2, fill: color }));
+    else if (kind === 'empty') g.append(sv('rect', { x: 4.5, y: 1.5, width: 9, height: 9, rx: 2, fill: '#ffffff', stroke: color }));
+    else if (kind === 'tick') g.append(sv('path', { d: 'M9 0v12', stroke: color, 'stroke-width': 2 }));
+    else if (kind === 'area') g.append(sv('rect', { x: 1.5, y: .5, width: 15, height: 11, fill: color, stroke: '#c8d6f1' }));
+    return g;
+  }
+  const keyItems = (ul, items) => ul.replaceChildren(...items.map(([kind, color, label]) => h('li', null, keySwatch(kind, color), label)));
+
+  /* ================= 툴팁: 카드 안에서 위 → 왼쪽 → 오른쪽 → 아래 순으로 자리를 찾는다 ================= */
+  function tipNodes(head, rows, sub) {
+    return [h('div', { class: 'tip-h', text: head }), sub ? h('div', { class: 'tip-s', text: sub }) : null].concat(rows.filter(Boolean).map(r => h('div', { class: 'tip-r' },
+      r.key ? h('i', { class: r.line ? ('ln' + (r.dash ? ' dash' : '')) : r.box ? 'bx' : null, style: { '--c': r.key } }) : null,
+      h('b', { class: r.bad ? 'bad' : null }, r.value), r.label ? h('span', { text: r.label }) : null)));
+  }
+  function placeTip(host, nodes, ax, ayTop, ayBottom) {
+    const tip = $(':scope > .tip', host);
+    tip.replaceChildren(...nodes.filter(Boolean));
+    const cw = host.clientWidth, ch = host.clientHeight, tw = tip.offsetWidth, th = tip.offsetHeight, gap = 12, mid = (ayTop + ayBottom) / 2;
+    const cx = l => Math.max(6, Math.min(cw - tw - 6, l)), cy = y => Math.max(6, Math.min(ch - th - 6, y));
+    const options = [
+      [cx(ax - tw / 2), ayTop - gap - th, ayTop - gap - th >= 6],
+      [ax - gap - tw, cy(mid - th / 2), ax - gap - tw >= 6],
+      [ax + gap, cy(mid - th / 2), ax + gap + tw <= cw - 6],
+      [cx(ax - tw / 2), ayBottom + gap, ayBottom + gap + th <= ch - 6]
+    ];
+    const [left, top] = options.find(o => o[2]) || options[1];
+    tip.style.left = Math.round(left) + 'px';
+    tip.style.top = Math.round(top) + 'px';
+    tip.classList.add('on');
+  }
+  const hideTip = host => { const tip = $(':scope > .tip', host); if (tip) tip.classList.remove('on'); };
+  const offsetIn = (host, el) => { const a = host.getBoundingClientRect(), b = el.getBoundingClientRect(); return { x: b.left - a.left, y: b.top - a.top, w: b.width, h: b.height }; };
+  function keyStep(e, cur, n) {
+    const k = e.key;
+    let i = null;
+    if (k === 'ArrowRight' || k === 'ArrowDown') i = cur + 1;
+    else if (k === 'ArrowLeft' || k === 'ArrowUp') i = cur - 1;
+    else if (k === 'Home') i = 0;
+    else if (k === 'End') i = n - 1;
+    else if (k === 'Escape') i = -1;
+    if (i === null) return null;
+    e.preventDefault();
+    return k === 'Escape' ? -1 : Math.max(0, Math.min(n - 1, i));
+  }
+  function srTable(caption, head, rows) {
+    return h('table', null, h('caption', { text: caption }),
+      h('thead', null, h('tr', null, head.map(x => h('th', { scope: 'col', text: x })))),
+      h('tbody', null, rows.map(r => h('tr', null, r.map((c, j) => h(j ? 'td' : 'th', j ? { text: c } : { scope: 'row', text: c }))))));
+  }
+  const say = msg => { $('#live').textContent = msg; };
+
+  /* ================= 범위 계산 ================= */
+  const routesIn = () => DATA.routes.filter(r => state.scope === 'all' || r.region === state.scope);
+  const plfOf = r => r.rpk / r.ask * 100;
+  const marginOf = r => plfOf(r) - r.blf;
+  function belowBE() { return routesIn().map(r => ({ r, m: marginOf(r) })).filter(x => Number(x.m.toFixed(1)) < 0).sort((a, b) => a.m - b.m); }
+
+  /* ================= 머리 ================= */
+  function renderChrome() {
+    const t = L();
+    $('#period').textContent = t.period;
+    $('#tabAside').replaceChildren(h('span', { text: t.tabAside[0] }), h('i', { 'aria-hidden': 'true' }), h('span', { text: t.tabAside[1] }));
+  }
+
+  /* ================= 결과 문장: 월간 운항 통계 보도자료의 첫 단락 ================= */
+  function renderHeadline(animate) {
+    const t = L(), s = S(), all = state.scope === 'all';
+    const rpkG = chg(s.rpk, s.ly_rpk), askG = chg(s.ask, s.ly_ask), d = s.plf - s.plan;
+    $('#headline').replaceChildren(...bold(glue(t.headline({ where: all ? '' : t.scopes[state.scope], rpk: pct(Math.abs(rpkG)), up: rpkG >= 0, ask: pct(Math.abs(askG)), askUp: askG >= 0, askFlat: Number(askG.toFixed(1)) === 0, plf: pct(s.plf), pts: ptsAbs(d), above: d >= 0 }))));
+    const below = belowBE(), names = below.map(x => city(x.r.code));
+    $('#lede').replaceChildren(...bold(glue(t.lede({ nb: below.length, n: s.routes, names: KO() ? joinKo(names) : joinEn(names), otp: pct(s.otp), target: pct(TARGET, 0), otpOk: s.otp >= TARGET, all }))));
+    refade($('#headline'), animate);
+  }
+
+  /* ================= 대표 장치 1: 탑승권 KPI ================= */
+  function deltaNodes(d, txt, vs, goodWhenUp = true, flatTxt) {
+    const shown = Number(d.toFixed(1));
+    if (shown === 0 && flatTxt) return [h('b', { class: 'flat', text: flatTxt })];
+    const cls = shown === 0 || goodWhenUp === null ? 'flat' : (shown > 0) === goodWhenUp ? null : 'bad';
+    return [h('b', { class: cls, text: (shown > 0 ? '▲ ' : shown < 0 ? '▼ ' : '') + txt }), ' ' + vs];
+  }
+  function passFields() {
+    const t = L().k, s = S();
+    const paxV = KO() ? unitNodes(nf(s.pax / 1e4, 1), '만 명') : unitNodes(nf(s.pax / 1e3, 1), 'K');
+    const km = v => KO() ? unitNodes(nf(v / 1e8, 1), '억') : unitNodes(nf(v / 1e6, 1), 'M');
+    const pl = s.plan_pax;
+    return [
+      { name: t.pax, v: paxV, aria: paxShort(s.pax), d1: deltaNodes(chg(s.pax, pl), signed(chg(s.pax, pl)) + '%', t.vsPlan), d2: deltaNodes(chg(s.pax, s.ly_pax), signed(chg(s.pax, s.ly_pax)) + '%', t.vsLy) },
+      { name: t.rpk, v: km(s.rpk), aria: kmShort(s.rpk), d1: deltaNodes(chg(s.rpk, s.rpk / s.plf * s.plan), signed(chg(s.rpk, s.rpk / s.plf * s.plan)) + '%', t.vsPlan), d2: deltaNodes(chg(s.rpk, s.ly_rpk), signed(chg(s.rpk, s.ly_rpk)) + '%', t.vsLy) },
+      { name: t.ask, v: km(s.ask), aria: kmShort(s.ask), d1: deltaNodes(0, '', '', true, t.onPlan), d2: deltaNodes(chg(s.ask, s.ly_ask), signed(chg(s.ask, s.ly_ask)) + '%', t.vsLy, null) },
+      { name: t.otp, v: unitNodes(nf(s.otp, 1), '%'), aria: pct(s.otp), d1: deltaNodes(s.otp - TARGET, ptsTxt(s.otp - TARGET), t.vsTarget(pct(TARGET, 0))), d2: [h('span', { text: t.ofDeps(nf(s.on), nf(s.deps)) })] },
+      { name: t.yld, v: KO() ? unitNodes(nf(s.yield, 1), '센트') : unitNodes(nf(s.yield, 1), '¢'), aria: cents(s.yield), d1: deltaNodes(chg(s.yield, s.plan_yield), signed(chg(s.yield, s.plan_yield)) + '%', t.vsPlan), d2: [h('span', { text: t.rev(usdM(s.rev)) })] }
+    ];
+  }
+  function renderPass(animate) {
+    const t = L(), k = t.k, s = S(), rs = routesIn(), dPlan = s.plf - s.plan, dLy = s.plf - s.ly, margin = s.plf - s.blf;
+    const chip = (d, txt) => { const v = Number(d.toFixed(1)); return h('span', { class: 'chip-s' + (v < 0 ? ' bad' : v === 0 ? ' flat' : '') }, h('b', { text: (v > 0 ? '▲ ' : v < 0 ? '▼ ' : '') + ptsTxt(d) }), ' ' + txt); };
+    const peakI = s.daily.indexOf(Math.max(...s.daily));
+    const main = h('div', { class: 'bp-main' },
+      h('div', { class: 'bp-top' }, h('span', { text: k.top }), h('span', { text: k.topR })),
+      h('div', { class: 'bp-route' },
+        h('div', { class: 'bp-ap' },
+          h('div', null, h('span', { class: 'bp-k', text: k.from }), h('span', { class: 'bp-code', text: 'ORD' }), h('span', { class: 'bp-city', text: k.chicago })),
+          h('span', { class: 'bp-arrow', 'aria-hidden': 'true' }),
+          h('div', { class: 'bp-dest' }, h('span', { class: 'bp-k', text: k.to }), h('span', { class: 'bp-code', text: t.scopes[state.scope] }), h('span', { class: 'bp-city', text: rs.map(r => r.code).join(' · ') }))),
+        h('div', { class: 'bp-mini' },
+          h('div', null, h('span', { class: 'bp-k', text: k.flights }), h('b', { text: nf(s.flights) })),
+          h('div', null, h('span', { class: 'bp-k', text: k.seats }), h('b', { text: nf(s.flights * 247) })))),
+      h('div', { class: 'bp-fields', role: 'list' }, passFields().map((f, i) => h('div', { class: 'bp-f' + (animOK(animate) ? ' fade' : ''), role: 'listitem', style: animOK(animate) ? { animationDelay: (i * 40) + 'ms' } : null },
+        h('span', { class: 'bp-k', text: f.name }),
+        h('p', { class: 'bp-v' }, h('span', { class: 'sr-only', text: f.aria }), h('span', { 'aria-hidden': 'true', style: { display: 'contents' } }, f.v)),
+        h('p', { class: 'bp-d' }, f.d1), h('p', { class: 'bp-d' }, f.d2)))),
+      h('div', { class: 'bp-bc' },
+        h('p', { class: 'bp-bch' }, h('span', { text: k.byDay }), h('span', { class: 'pk', text: k.peak({ day: dayLong(peakI + 1), n: nf(s.daily[peakI]) }) })),
+        h('div', { class: 'bp-plot', id: 'bpBars' })),
+      h('div', { class: 'tip', 'aria-hidden': 'true' }));
+    const stub = h('div', { class: 'bp-stub' },
+      h('div', { class: 'bp-stop' }, h('span', { text: k.stub }), h('span', { text: KO() ? '2026년 10월' : 'Oct 2026' })),
+      h('div', { class: 'bp-sb' },
+        h('p', { class: 'bp-sv' }, h('span', { class: 'sr-only', text: pct(s.plf) }), h('span', { 'aria-hidden': 'true', style: { display: 'contents' } }, unitNodes(nf(s.plf, 1), '%'))),
+        h('div', { class: 'chips' }, chip(dPlan, KO() ? `계획 ${pct(s.plan)} 대비` : `vs plan of ${pct(s.plan)}`), chip(dLy, KO() ? `지난해 10월 ${pct(s.ly)} 대비` : `vs ${pct(s.ly)} in Oct 2025`)),
+        h('div', { class: 'bp-be' }, h('span', { class: 'bp-k', text: k.be }), h('p', null, h('b', { text: pct(s.blf) }), h('span', { text: `${k.margin} ${ptsTxt(margin)}` })))));
+    $('#bp').replaceChildren(main, stub);
+    $('#bpNote').textContent = t.bpNote;
+    drawPassBars(animate);
+  }
+  // 바코드 자리 = 날짜별 수송 여객(하루에 막대 하나, 가장 붐빈 날만 청록). 막대는 0에서 시작한다
+  const BB = { i: null };
+  function drawPassBars(animate) {
+    const box = $('#bpBars');
+    if (!box) return;
+    const W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
+    if (!W || !H) return;
+    box._w = W; box._h = H;
+    const t = L(), s = S(), host = $('#bp .bp-main'), n = s.daily.length, LB = 14, Hb = H - LB;
+    const slot = W / n, bw = Math.max(2, Math.min(9, Math.round(slot * .56)));
+    const max = Math.max(...s.daily), peak = s.daily.indexOf(max);
+    const bx = i => Math.round(i * slot + (slot - bw) / 2), Y = v => Math.round(Hb - v / max * (Hb - 2));
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.k.byDay });
+    const hl = sv('rect', { y: 0, height: Hb, fill: 'rgba(0,38,107,.08)', style: { opacity: 0 } });
+    const g = sv('g', { 'shape-rendering': 'crispEdges' });
+    s.daily.forEach((v, i) => g.append(sv('rect', { x: bx(i), y: Y(v), width: bw, height: Hb - Y(v), fill: i === peak ? C.subject : C.comparison, class: animOK(animate) ? 'grow' : null, style: animOK(animate) ? { animationDelay: (i * 12) + 'ms' } : null })));
+    const labels = sv('g');
+    [1, 8, 15, 22, 29].forEach(d => labels.append(sv('text', { x: bx(d - 1) + bw / 2, y: H - 2, 'text-anchor': 'middle', class: 'bp-dl', text: KO() ? `${d}일` : `${d} Oct` })));
+    svg.append(hl, g, labels, sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+    const fl = d => sum(routesIn().filter(r => r.days.includes(d)).map(r => r.slots.length * 2));
+    const show = i => {
+      hl.style.opacity = i == null ? 0 : 1;
+      if (i == null) { hideTip(host); return; }
+      BB.i = i;
+      setAttrs(hl, { x: i * slot, width: slot });
+      const o = offsetIn(host, svg);
+      placeTip(host, tipNodes(dayLong(i + 1), [
+        { key: i === peak ? C.subject : C.comparison, value: nf(s.daily[i]), label: t.k.tip.pax },
+        { value: nf(fl(i + 1)), label: t.k.tip.flights },
+        { value: pct(s.daily[i] / s.pax * 100), label: t.k.tip.share }
+      ]), o.x + bx(i) + bw / 2, o.y + Y(s.daily[i]) - 4, o.y + Hb);
+    };
+    const idxAt = px => Math.max(0, Math.min(n - 1, Math.floor(px / slot)));
+    svg.addEventListener('pointermove', e => { const r = svg.getBoundingClientRect(); show(idxAt(e.clientX - r.left)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(null); });
+    svg.addEventListener('focus', () => show(BB.i == null ? peak : BB.i));
+    svg.addEventListener('blur', () => show(null));
+    svg.addEventListener('keydown', e => { const cur = BB.i == null ? peak : BB.i, i = keyStep(e, cur, n); if (i === null) return; if (i < 0) { show(null); return; } show(i); say(`${dayLong(i + 1)}: ${nf(s.daily[i])}`); });
+  }
+
+  /* ================= 대표 장치 2: 좌석 배치도(객실별 탑승률) =================
+     가로로 눕힌 247석 배치: 비즈니스 1-2-1(11~18열, 13열 없음), 프리미엄 이코노미 2-3-2(21~23열), 이코노미 3-3-3(31~52열).
+     평균 1편의 판매 좌석 수만큼 칸을 채운다(창가·통로부터, 이코노미는 Forward zone 다섯 줄을 따로).
+     카드가 좁으면(그림 칸 420px 미만) 두 줄로 놓는다: 비즈니스 · 프리미엄 이코노미 위, 이코노미 아래 */
+  const SM = (() => {
+    const slot = 16.4, cab = {
+      J: { rows: [11, 12, 14, 15, 16, 17, 18], pitch: 27, len: 22, size: 1.5, letters: ['A', 'D', 'F', 'K'], pos: [1.5, 4.75, 6.25, 9.5] },
+      S: { rows: [21, 22, 23], pitch: 22, len: 18, size: 1.12, letters: ['A', 'C', 'D', 'E', 'F', 'H', 'K'], pos: [.75, 2.25, 4, 5, 6, 8.75, 10.25] },
+      Y: { rows: Array.from({ length: 22 }, (_, i) => 31 + i), pitch: 16.6, len: 13.4, size: .86, letters: ['A', 'B', 'C', 'D', 'E', 'G', 'H', 'J', 'K'], pos: [.5, 1.5, 2.5, 4.5, 5.5, 6.5, 8.5, 9.5, 10.5] }
+    };
+    for (const c of CABS) cab[c].w = cab[c].rows.length * cab[c].pitch;
+    // 채우는 순서: 창가와 통로 쪽을 먼저, 가운데를 나중에(고정된 무작위 흔들림)
+    let seed = 7;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    for (const c of CABS) {
+      const o = cab[c], pr = { J: [0, 1, 1, 0], S: [0, 1, 1, 2, 1, 1, 0], Y: [0, 2, 1, 1, 2, 1, 1, 2, 0] }[c];
+      o.seats = [];
+      o.rows.forEach((row, ri) => o.letters.forEach((l, li) => o.seats.push({ row, l, ri, li, fz: c === 'Y' && ri < 5, w: pr[li] + rnd() * 1.6 + ri * .04 })));
+      o.order = o.seats.map((s, i) => i).sort((a, b) => o.seats[a].w - o.seats[b].w);
+    }
+    return { slot, cab, fzRows: 5, fzSeats: 45 };
+  })();
+  // 한 줄 배치: J · S · Y를 나란히(246 높이). 두 줄 배치: J · S 위(232), Y 아래
+  function smLayout(stack) {
+    const cab = SM.cab, pos = {}, LH = 232, gap = 26;
+    if (!stack) {
+      let x = 18;
+      for (const c of CABS) { pos[c] = { x, y: 0 }; x += cab[c].w + gap; }
+      return { pos, W: Math.round(x - gap + 8), H: 246 };
+    }
+    pos.J = { x: 18, y: 0 }; pos.S = { x: 18 + cab.J.w + gap, y: 0 }; pos.Y = { x: 18, y: LH };
+    return { pos, W: Math.round(Math.max(pos.S.x + cab.S.w, 18 + cab.Y.w) + 8), H: LH + 246 };
+  }
+  const F1 = { i: null, stack: null };
+  function cabinFacts() {
+    const s = S(), f = s.flights, out = {};
+    for (const c of CABS) {
+      const n = DATA.seats[c], sold = s.pax_c[c] / f;
+      out[c] = { c, n, lf: s.cab[c], plan: s.cab_plan[c], sold, soldR: Math.min(n, Math.round(sold)), pax: s.pax_c[c] };
+      out[c].empty = n - out[c].soldR;
+    }
+    out.Y.fzSold = Math.min(SM.fzSeats, Math.round(s.fz / f));
+    out.Y.fzlf = s.fzlf;
+    const byLf = CABS.slice().sort((a, b) => out[b].lf - out[a].lf);
+    return { cab: out, hero: byLf[0], low: byLf[byLf.length - 1] };
+  }
+  function renderSeatMap(animate) {
+    const t = L(), fc = cabinFacts(), hero = fc.hero, low = fc.low;
+    $('#f1Title').textContent = glue(t.f1.title({ hero: t.f1.cab[hero], heroLf: pct(fc.cab[hero].lf, 0), low: t.f1.cab[low], empty: fc.cab[low].empty, seats: fc.cab[low].n }));
+    refade($('#f1Title'), animate);
+    keyItems($('#f1Keys'), [['seat', C.subject, t.f1.keys(t.f1.cab[hero])[0]], ['seat', C.other, t.f1.keys()[1]], ['empty', C.empty, t.f1.keys()[2]], ['area', C.fz, t.f1.keys()[3]]]);
+    // 그림: 카드 폭에 따라 한 줄 또는 두 줄
+    const { slot, cab } = SM;
+    F1.stack = $('#f1Map').clientWidth > 0 && $('#f1Map').clientWidth < 420;
+    const lay = smLayout(F1.stack), W = lay.W, H = lay.H;
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.f1.aria });
+    // Forward zone 띠(이코노미 앞 다섯 줄)와 그 탑승률
+    const py = lay.pos.Y, yTop = py.y + 40;
+    svg.append(sv('rect', { x: py.x - 3, y: yTop - 4, width: SM.fzRows * cab.Y.pitch + 6, height: 11 * slot + 8, rx: 3, fill: C.fz }));
+    svg.append(sv('text', { x: py.x, y: py.y + 238, class: 'sm-fz', text: 'FORWARD ZONE ' + pct(fc.cab.Y.fzlf, 0) }));
+    const hls = {};
+    let k = 0;
+    for (const c of CABS) {
+      const o = cab[c], f = fc.cab[c], ox = lay.pos[c].x, oy = lay.pos[c].y, top = oy + 40, yC = p => top + p * slot;
+      // 객실 띠: 객실 색, 코드와 좌석 수(좌석 배치도의 'Business Class - J / 28 seats')
+      svg.append(sv('rect', { x: ox, y: oy, width: o.w, height: 18, rx: 2, fill: C.cab[c] }));
+      svg.append(sv('text', { x: ox + 7, y: oy + 12.5, class: 'sm-band', text: `${c} · ${f.n}` }));
+      // 줄 번호(위)와 좌석 글자(왼쪽)
+      o.rows.forEach((row, ri) => svg.append(sv('text', { x: ox + ri * o.pitch + o.pitch / 2, y: oy + 32, class: 'sm-rn', text: row })));
+      o.letters.forEach((l, li) => svg.append(sv('text', { x: ox - 9, y: yC(o.pos[li]) + 3, class: 'sm-ltr', text: l })));
+      // 채울 좌석: 이코노미는 Forward zone 먼저 따로
+      const filled = new Set();
+      if (c === 'Y') {
+        const fzIdx = o.order.filter(i => o.seats[i].fz), rest = o.order.filter(i => !o.seats[i].fz);
+        fzIdx.slice(0, f.fzSold).forEach(i => filled.add(i));
+        rest.slice(0, Math.max(0, f.soldR - f.fzSold)).forEach(i => filled.add(i));
+      } else o.order.slice(0, f.soldR).forEach(i => filled.add(i));
+      const g = sv('g');
+      o.seats.forEach((st, i) => {
+        const x = ox + st.ri * o.pitch + (o.pitch - o.len) / 2, hgt = o.size * slot - (c === 'Y' ? 2.6 : 3), y = yC(o.pos[st.li]) - hgt / 2;
+        const sold = filled.has(i);
+        g.append(sv('rect', { x, y, width: o.len, height: hgt, rx: c === 'J' ? 3 : 2, fill: sold ? (c === hero ? C.subject : C.other) : '#ffffff', stroke: sold ? 'none' : C.empty, 'stroke-width': 1,
+          class: sold && animOK(animate) ? 'pop' : null, style: sold && animOK(animate) ? { animationDelay: (k++ * 2) + 'ms' } : null }));
+      });
+      svg.append(g);
+      hls[c] = sv('rect', { x: ox - 5, y: top - 7, width: o.w + 10, height: 11 * slot + 14, rx: 5, class: 'sm-hl' });
+      svg.append(hls[c]);
+      svg.append(sv('rect', { x: ox - 5, y: oy, width: o.w + 10, height: 228, fill: 'transparent', 'data-c': c }));
+    }
+    $('#f1Map').replaceChildren(svg);
+    // 객실 줄: 객실 색 윗선 → 이름 · 코드 → 탑승률 → 판매 좌석 → 계획 대비
+    const strip = CABS.map((c, i) => {
+      const f = fc.cab[c], d = f.lf - f.plan, v = Number(d.toFixed(1));
+      return h('div', { class: 'sm-c', 'data-i': i, style: { '--c': C.cab[c] } },
+        h('p', { class: 'sm-n' }, h('b', { text: t.f1.cab[c] }), h('span', { text: c })),
+        h('p', { class: 'sm-v' }, nf(f.lf, 1), h('span', { class: 'u', text: '%' })),
+        h('p', { class: 'sm-s' }, bold(t.f1.sold({ s: f.soldR, n: f.n, e: f.empty }))),
+        h('p', { class: 'sm-s' }, h('span', { class: v > 0 ? 'good' : v < 0 ? 'bad' : 'flat', text: (v > 0 ? '▲ ' : v < 0 ? '▼ ' : '') + ptsTxt(d) }), ` ${t.f1.vsPlan}`));
+    });
+    $('#f1Strip').replaceChildren(...strip);
+    $('#f1Table').replaceChildren(srTable(t.f1.sub, [KO() ? '객실' : 'Cabin', KO() ? '탑승률' : 'Load factor', KO() ? '계획' : 'Plan', KO() ? '한 편 판매 좌석' : 'Seats sold a flight', KO() ? '좌석' : 'Seats'],
+      CABS.map(c => { const f = fc.cab[c]; return [`${t.f1.cab[c]} (${c})`, pct(f.lf), pct(f.plan), nf(f.sold, 1), String(f.n)]; }).concat([[t.f1.fz, pct(fc.cab.Y.fzlf), '—', nf(SM.fzSeats * fc.cab.Y.fzlf / 100, 1), String(SM.fzSeats)]])));
+    // 마우스·키보드: 객실 하나씩
+    const host = $('#f1'), cells = $$('.sm-c', host);
+    const show = i => {
+      CABS.forEach((c, j) => { hls[c].style.opacity = j === i ? 1 : 0; cells[j].classList.toggle('on', j === i); });
+      if (i == null || i < 0) { hideTip(host); return; }
+      F1.i = i;
+      const c = CABS[i], f = fc.cab[c], o = offsetIn(host, hls[c]);
+      placeTip(host, tipNodes(`${t.f1.cab[c]} · ${c}`, [
+        { key: c === hero ? C.subject : C.other, value: pct(f.lf), label: t.f1.tip.lf },
+        { value: pct(f.plan), label: t.f1.tip.plan },
+        { value: nf(f.sold, 1), label: t.f1.tip.sold },
+        { value: nf(f.n - f.sold, 1), label: t.f1.tip.empty },
+        { value: nf(f.pax), label: t.f1.tip.pax },
+        c === 'Y' ? { key: C.fz, value: pct(f.fzlf), label: t.f1.tip.fz } : null
+      ]), o.x + o.w / 2, o.y, o.y + o.h);
+    };
+    svg.addEventListener('pointermove', e => { const r = e.target.closest('[data-c]'); if (r) show(CABS.indexOf(r.dataset.c)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(null); });
+    svg.addEventListener('focus', () => show(F1.i == null ? CABS.indexOf(hero) : F1.i));
+    svg.addEventListener('blur', () => show(null));
+    svg.addEventListener('keydown', e => { const cur = F1.i == null ? CABS.indexOf(hero) : F1.i, i = keyStep(e, cur, 3); if (i === null) return; if (i < 0) { show(null); return; } show(i); const f = fc.cab[CABS[i]]; say(`${t.f1.cab[CABS[i]]}: ${pct(f.lf)}`); });
+    $('#f1Strip').onpointermove = e => { const el = e.target.closest('.sm-c'); if (el) show(Number(el.dataset.i)); };
+    $('#f1Strip').onpointerleave = e => { if (e.pointerType === 'mouse') show(null); };
+  }
+
+  /* ================= 선 그림(그림 2 · 만드는 법): 연차 보고서 문법. 단위는 축 위, 격자 없음, 10월 굵게, 비교를 먼저, 범례 대신 선 끝 라벨 ================= */
+  const TRD = { f2: 6, wb: 6 };
+  function monthFacts() {
+    const m = S().months, last = m[6], d = last.lf - last.plan, above = Number(d.toFixed(1)) >= 0;
+    let run = 0;
+    for (let i = 6; i >= 0; i--) { const di = Number((m[i].lf - m[i].plan).toFixed(1)); if ((di >= 0) === above) run++; else break; }
+    return { d: ptsAbs(d), above, run, prev: KO() ? `${m[5].m}월` : MON_EN[m[5].m - 1] };
+  }
+  function drawLines(boxSel, hostSel, opts) {
+    const box = $(boxSel), host = $(hostSel), W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
+    if (!W || !H) return;
+    box._w = W; box._h = H;
+    const t = L(), f = fam(box), m = S().months, n = 7, last = 6, without = opts.mode === 'without', key = opts.key;
+    const ser = [
+      { id: 'ly', vals: m.map(x => x.ly), color: C.ly, text: C.text2, name: t.f2.keys[2], w: 2 },
+      { id: 'plan', vals: m.map(x => x.plan), color: C.comparison, text: C.ink, name: t.f2.keys[1], dash: true, w: 2 },
+      { id: 'lf', vals: m.map(x => x.lf), color: C.subject, text: C.subjectText, name: t.f2.keys[0], subj: true, w: 2.5 }
+    ];
+    const layer = (step, ...kids) => sv('g', opts.layers ? { class: 'layer', 'data-step': step } : null, ...kids);
+    const all = ser.flatMap(x => x.vals).filter(v => v != null);
+    let yt, L0, R0, T0 = 26, B0 = 28;
+    if (without) {
+      yt = niceTicks(0, Math.max(...all) * 1.1, 4);
+      L0 = Math.ceil(Math.max(...yt.map(v => textW(String(v), `400 11px ${f}`)))) + 12; R0 = 12; B0 = 40; T0 = 34;
+    } else {
+      yt = niceTicks(Math.floor(Math.min(...all) - .8), Math.ceil(Math.max(...all) + .6), 4);
+      const ends = ser.map(x => `${x.name} ${pct(x.vals[last])}`);
+      L0 = Math.ceil(Math.max(...yt.map(v => textW(nf(v), `400 12px ${f}`)))) + 12;
+      R0 = Math.ceil(Math.max(...ends.map(e => textW(e, `700 12px ${f}`)))) + 18;
+    }
+    const y0 = yt[0], y1 = yt[yt.length - 1];
+    const X = i => L0 + 8 + i / (n - 1) * (W - L0 - R0 - 8), Y = v => H - B0 - (v - y0) / (y1 - y0) * (H - B0 - T0);
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.f2.aria });
+    const path = vals => vals.map((v, i) => v == null ? '' : ((i && vals[i - 1] != null ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(v).toFixed(1))).join('');
+    let subjPath = null;
+    if (without) {
+      // 흔한 첫 초안: 0부터 시작하는 축, 두 방향 격자, 모든 점에 표식, 원색 세 개, 위쪽 범례, 필드 이름 그대로
+      const g = sv('g');
+      for (const v of yt) { const y = Math.round(Y(v)) + .5; g.append(sv('line', { x1: L0, x2: W - R0, y1: y, y2: y, stroke: C.genericGrid })); g.append(sv('text', { x: L0 - 6, y, dy: '.35em', 'text-anchor': 'end', style: { fontSize: '11px' }, fill: '#6b7280', text: String(v) })); }
+      for (let i = 0; i < n; i++) { g.append(sv('line', { x1: X(i), x2: X(i), y1: T0, y2: H - B0, stroke: C.genericGrid })); g.append(sv('text', { x: X(i), y: H - B0 + 16, 'text-anchor': 'middle', style: { fontSize: '10px' }, fill: '#6b7280', text: `2026-${hh(m[i].m)}` })); }
+      [[ser[2].vals, C.generic[0]], [ser[1].vals, C.generic[1]], [ser[0].vals, C.generic[2]]].forEach(([vals, col]) => { g.append(sv('path', { d: path(vals), fill: 'none', stroke: col, 'stroke-width': 2 })); vals.forEach((v, i) => v != null && g.append(sv('circle', { cx: X(i), cy: Y(v), r: 3, fill: col }))); });
+      const lg = sv('g', { transform: `translate(${Math.max(L0, W - R0 - 330)},4)` });
+      lg.append(sv('rect', { x: 0, y: 0, width: 330, height: 22, rx: 4, fill: '#f3f4f6', stroke: C.genericGrid }));
+      [['load_factor_pct', C.generic[0], 10], ['plan_pct', C.generic[1], 130], ['last_year_pct', C.generic[2], 220]].forEach(([lab, col, x]) => { lg.append(sv('rect', { x, y: 7, width: 10, height: 8, fill: col })); lg.append(sv('text', { x: x + 15, y: 15, style: { fontSize: '11px' }, fill: '#111827', text: lab })); });
+      g.append(lg);
+      svg.append(g);
+    } else {
+      const frame = layer(1);
+      // 단위는 축 위(연차 보고서 '% ' · '$ million'), 격자 없이 기준선 하나
+      frame.append(sv('text', { x: L0 - 8, y: T0 - 12, 'text-anchor': 'end', class: 'ax-u', text: '%' }));
+      for (const v of yt) {
+        const y = Math.round(Y(v)) + .5;
+        frame.append(sv('line', { x1: L0 - 4, x2: L0, y1: y, y2: y, stroke: C.base, 'stroke-width': 1 }));
+        frame.append(sv('text', { x: L0 - 8, y, dy: '.35em', 'text-anchor': 'end', class: 'ax', text: nf(v) }));
+      }
+      frame.append(sv('line', { x1: L0, x2: L0, y1: T0 - 4, y2: H - B0, stroke: C.base, 'stroke-width': 1 }));
+      frame.append(sv('line', { x1: L0, x2: W - R0 + 6, y1: H - B0 + .5, y2: H - B0 + .5, stroke: C.base, 'stroke-width': 1 }));
+      m.forEach((x, i) => frame.append(sv('text', { x: X(i), y: H - 8, 'text-anchor': 'middle', class: 'ax', style: i === last ? { fill: C.ink, fontWeight: 700 } : null, text: monShort(x.m) })));
+      svg.append(frame);
+      ser.forEach((x, k) => {
+        const p = sv('path', { d: path(x.vals), fill: 'none', stroke: x.color, 'stroke-width': x.w, 'stroke-dasharray': x.dash ? '6 4' : null, 'stroke-linejoin': 'round', 'stroke-linecap': x.dash ? null : 'round', pathLength: x.subj && animOK(opts.animate) ? 1 : null, class: x.subj && animOK(opts.animate) ? 'draw' : null });
+        if (x.subj) subjPath = p;
+        svg.append(layer(x.subj ? 3 : 2, p, sv('circle', { cx: X(last), cy: Y(x.vals[last]), r: x.subj ? 4 : 3, fill: C.plot, stroke: x.color, 'stroke-width': 2.5 })));
+      });
+      // 선 끝 라벨: 이름(글자용 단계) + 값. 겹치면 15px씩 띄운다
+      const order = ser.map((x, k) => ({ k, y: Y(x.vals[last]) })).sort((a, b) => a.y - b.y);
+      for (let j = 1; j < order.length; j++) if (order[j].y - order[j - 1].y < 15) order[j].y = order[j - 1].y + 15;
+      const ys = []; order.forEach(o => { ys[o.k] = o.y; });
+      svg.append(layer(4, ...ser.map((x, k) => sv('text', { x: X(last) + 10, y: ys[k], dy: '.35em', style: { fontSize: '12px', fontWeight: 700 }, fill: x.text }, sv('tspan', { text: x.name + ' ' }), sv('tspan', { fill: C.ink, text: pct(x.vals[last]) })))));
+    }
+    const cross = sv('line', { y1: T0, y2: H - B0, stroke: C.comparison, 'stroke-dasharray': '2 3', style: { opacity: 0 } });
+    const dots = ser.map((x, k) => sv('circle', { r: x.subj ? 4.5 : 3.5, fill: C.plot, stroke: without ? C.generic[2 - k] : x.color, 'stroke-width': 2.5, style: { opacity: 0 } }));
+    svg.append(cross, ...dots, sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+    box._subj = subjPath;
+    const show = i => {
+      [cross, ...dots].forEach(e => { e.style.opacity = i == null ? 0 : 1; });
+      if (i == null) { hideTip(host); return; }
+      TRD[key] = i;
+      setAttrs(cross, { x1: X(i), x2: X(i) });
+      ser.forEach((x, k) => { if (x.vals[i] == null) dots[k].style.opacity = 0; else setAttrs(dots[k], { cx: X(i), cy: Y(x.vals[i]) }); });
+      const o = offsetIn(host, svg), yy = ser.filter(x => x.vals[i] != null).map(x => Y(x.vals[i]));
+      const d = m[i].lf - m[i].plan;
+      placeTip(host, tipNodes(monLong(m[i].m), [
+        ...ser.slice().reverse().map((x, k) => ({ key: without ? C.generic[k] : x.color, line: true, dash: !without && x.dash, value: x.vals[i] == null ? '—' : pct(x.vals[i]), label: x.name })),
+        { value: ptsTxt(d), label: KO() ? '계획 대비' : 'vs plan', bad: Number(d.toFixed(1)) < 0 }
+      ]), o.x + X(i), o.y + Math.min(...yy) - 6, o.y + Math.max(...yy) + 6);
+    };
+    const idxAt = px => Math.max(0, Math.min(last, Math.round((px - L0 - 8) / ((W - L0 - R0 - 8) / (n - 1)))));
+    svg.addEventListener('pointermove', e => {
+      const r = svg.getBoundingClientRect(), i = idxAt(e.clientX - r.left); show(i);
+      if (opts.layers && BENCH.built && !without) { const py = e.clientY - r.top, ds = ser.map(x => x.vals[i] == null ? 99 : Math.abs(py - Y(x.vals[i]))); const mn = Math.min(...ds); focusStep(mn < 14 ? (ds[2] === mn ? 3 : 2) : 0); }
+    });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(null); if (opts.layers) focusStep(0); });
+    svg.addEventListener('focus', () => show(TRD[key]));
+    svg.addEventListener('blur', () => show(null));
+    svg.addEventListener('keydown', e => { const i = keyStep(e, TRD[key], n); if (i === null) return; if (i < 0) { show(null); return; } show(i); say(`${monLong(m[i].m)}: ` + ser.slice().reverse().map(x => `${x.name} ${x.vals[i] == null ? '—' : pct(x.vals[i])}`).join(', ')); });
+    if (opts.layers && BENCH.built) $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+  }
+  function renderMonths(animate) {
+    const t = L(), m = S().months;
+    $('#f2Title').textContent = glue(t.f2.title(monthFacts()));
+    refade($('#f2Title'), animate);
+    keyItems($('#f2Keys'), [['line', C.subject, t.f2.keys[0]], ['dash', C.comparison, t.f2.keys[1]], ['line', C.ly, t.f2.keys[2]]]);
+    $('#f2Table').replaceChildren(srTable(t.f2.sub, [KO() ? '달' : 'Month', ...t.f2.keys, KO() ? '계획 대비' : 'vs plan'], m.map(x => [monLong(x.m), pct(x.lf), pct(x.plan), x.ly == null ? '—' : pct(x.ly), ptsTxt(x.lf - x.plan)])));
+    drawLines('#f2Plot', '#f2', { key: 'f2', animate });
+  }
+
+  /* ================= 그림 3: 손익분기 대비 노선(예외 먼저). 0선 = 손익분기 ================= */
+  const F3 = { i: 0 }, MG = [-4, 14];
+  const mgX = v => (Math.max(MG[0], Math.min(MG[1], v)) - MG[0]) / (MG[1] - MG[0]) * 100;
+  function routeRows() { return routesIn().map(r => ({ r, m: marginOf(r), lf: plfOf(r) })).sort((a, b) => a.m - b.m); }
+  function renderRoutes(animate) {
+    const t = L(), rows = routeRows(), below = rows.filter(x => Number(x.m.toFixed(1)) < 0), thin = rows.find(x => Number(x.m.toFixed(1)) >= 0) || rows[0];
+    $('#f3Title').textContent = glue(t.f3.title({ nb: below.length, names: below.map(x => city(x.r.code)), vals: below.map(x => ptsAbs(x.m)), thin: city(thin.r.code), thinV: ptsAbs(thin.m) }));
+    refade($('#f3Title'), animate);
+    keyItems($('#f3Keys'), [['bar', C.bad, t.f3.keys[0]], ['bar', C.other, t.f3.keys[1]], ['tick', C.ink, t.f3.keys[2]]]);
+    $('#f3Note').textContent = t.f3.note({ hasNew: rows.some(x => x.r.launched) });
+    const head = h('div', { class: 'rt-h', 'aria-hidden': 'true' },
+      h('span', { text: t.f3.cols[0] }),
+      h('span', { class: 'rt-bar' }, h('span', { class: 'rt-trk' }, [-4, 0, 4, 8, 12].map(v => h('em', { class: v === 0 ? 'z' : null, style: { left: mgX(v) + '%' }, text: v === 0 ? '0' : signed(v, 0) })))),
+      h('span', { class: 'r', text: t.f3.cols[2] }), h('span', { class: 'r be', text: t.f3.cols[3] }));
+    const body = h('div', { class: 'rt-body' }, rows.map((x, i) => {
+      const neg = Number(x.m.toFixed(1)) < 0, a = mgX(Math.min(0, x.m)), b = mgX(Math.max(0, x.m));
+      return h('div', { class: 'rt-r' + (neg ? ' neg' : '') + (animOK(animate) ? ' fade' : ''), 'data-i': i, style: animOK(animate) ? { animationDelay: (i * 18) + 'ms' } : null },
+        h('span', { class: 'rt-nm' }, h('b', { text: city(x.r.code) }), h('span', { text: x.r.code })),
+        h('span', { class: 'rt-bar', 'aria-hidden': 'true' }, h('span', { class: 'rt-trk' },
+          h('i', { class: animOK(animate) ? 'growx' : null, style: { left: a + '%', width: Math.max(.6, b - a) + '%', transformOrigin: neg ? 'right' : 'left' } }),
+          h('span', { class: 'v', style: neg ? { right: (100 - a) + '%' } : { left: b + '%' } }, signed(x.m), h('span', { class: 'pu', text: L().pts })))),
+        h('span', { class: 'rt-lf', text: pct(x.lf) }),
+        h('span', { class: 'rt-be', text: pct(x.r.blf) }));
+    }));
+    const list = $('#f3List');
+    list.style.setProperty('--x0', mgX(0) + '%');
+    list.replaceChildren(head, body);
+    list.setAttribute('aria-label', t.f3.aria);
+    $('#f3Table').replaceChildren(srTable(t.f3.sub, [t.f3.cols[0], t.f3.cols[1], t.f3.cols[2], t.f3.cols[3]], rows.map(x => [routeName(x.r.code), ptsTxt(x.m), pct(x.lf), pct(x.r.blf)])));
+    F3.i = Math.min(F3.i, rows.length - 1);
+  }
+  function showRoute(i) {
+    const host = $('#f3'), items = $$('.rt-r', host);
+    items.forEach((el, k) => el.classList.toggle('on', k === i));
+    if (i == null || i < 0) { hideTip(host); return; }
+    F3.i = i;
+    const t = L(), x = routeRows()[i], r = x.r, o = offsetIn(host, items[i]);
+    placeTip(host, tipNodes(`${routeName(r.code)} · ${t.scopes[r.region]}`, [
+      { key: Number(x.m.toFixed(1)) < 0 ? C.bad : C.other, value: pct(x.lf), label: t.f3.tip.lf },
+      { value: pct(r.blf), label: t.f3.tip.be },
+      { value: ptsTxt(x.m), label: t.f3.tip.margin, bad: Number(x.m.toFixed(1)) < 0 },
+      { value: pct(r.plan), label: t.f3.tip.plan },
+      r.ly != null ? { value: pct(r.ly), label: t.f3.tip.ly } : { value: '—', label: t.f3.tip.new },
+      { value: cents(r.yield), label: t.f3.tip.yld },
+      { value: nf(r.flights), label: t.f3.tip.flights }
+    ]), o.x + o.w * .5, o.y, o.y + o.h);
+  }
+  (() => {
+    const list = $('#f3List');
+    list.addEventListener('pointermove', e => { const el = e.target.closest('.rt-r'); if (el) showRoute(Number(el.dataset.i)); });
+    list.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== list) showRoute(null); });
+    list.addEventListener('focus', () => showRoute(F3.i));
+    list.addEventListener('blur', () => showRoute(null));
+    list.addEventListener('keydown', e => { const n = $$('.rt-r', list).length, i = keyStep(e, F3.i, n); if (i === null) return; if (i < 0) { showRoute(null); return; } showRoute(i); const x = routeRows()[i]; say(`${routeName(x.r.code)}: ${ptsTxt(x.m)}`); });
+  })();
+
+  /* ================= 그림 4: 시카고 시간대별 출발(정시 회색 + 지연 빨강, 위에 정시율) ================= */
+  const F4 = { i: null };
+  function bankFacts() {
+    const hr = S().hours, inB = x => x >= BANK[0] && x <= BANK[1];
+    const b = hr.reduce((a, v, x) => inB(x) ? [a[0] + v[0], a[1] + v[1]] : a, [0, 0]), r = hr.reduce((a, v, x) => !inB(x) ? [a[0] + v[0], a[1] + v[1]] : a, [0, 0]);
+    const s = S();
+    return { bank: b[0], rest: r[0], share: pct(b[0] / s.deps * 100, 0), otpBank: pct(b[0] ? b[1] / b[0] * 100 : 0, 0), otpRest: pct(r[0] ? r[1] / r[0] * 100 : 0, 0), worse: b[0] && r[0] ? b[1] / b[0] < r[1] / r[0] : false, otp: pct(s.otp, 0), otpOk: s.otp >= TARGET, target: pct(TARGET, 0) };
+  }
+  const routesAt = x => routesIn().filter(r => r.slots.some(s => +s.t.slice(0, 2) === x)).map(r => r.code);
+  function renderBanks(animate) {
+    const t = L();
+    $('#f4Title').textContent = glue(t.f4.title(bankFacts()));
+    refade($('#f4Title'), animate);
+    keyItems($('#f4Keys'), [['bar', C.other, t.f4.keys[0]], ['bar', C.bad, t.f4.keys[1]], ['area', C.band, t.f4.keys[2]]]);
+    $('#f4Note').textContent = t.f4.note({ target: pct(TARGET, 0) });
+    const hr = S().hours;
+    $('#f4Table').replaceChildren(srTable(t.f4.sub, [KO() ? '시각' : 'Hour', t.f4.tip.deps, t.f4.tip.on, t.f4.tip.late, t.f4.tip.otp], hr.map((v, x) => [v, x]).filter(([v]) => v[0]).map(([v, x]) => [hourRange(x), nf(v[0]), nf(v[1]), nf(v[0] - v[1]), pct(v[1] / v[0] * 100, 0)])));
+    drawBanks(animate);
+  }
+  function drawBanks(animate) {
+    const box = $('#f4Plot'), host = $('#f4'), W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
+    if (!W || !H) return;
+    box._w = W; box._h = H;
+    const t = L(), hr = S().hours, f = fam(box), max = Math.max(...hr.map(v => v[0]));
+    const yt = niceTicks(0, max, 4);
+    const L0 = Math.ceil(Math.max(...yt.map(v => textW(nf(v), `400 12px ${f}`)))) + 12, R0 = 4, T0 = 34, B0 = 26;
+    const band = (W - L0 - R0) / 24, bw = Math.max(6, Math.min(26, band * .7));
+    const X = x => L0 + band * x + (band - bw) / 2, Y = v => H - B0 - v / yt[yt.length - 1] * (H - B0 - T0);
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.f4.aria });
+    // 저녁 몰림(17:00~20:59) 띠와 이름
+    const bx0 = L0 + band * BANK[0], bx1 = L0 + band * (BANK[1] + 1);
+    svg.append(sv('rect', { x: bx0, y: T0 - 22, width: bx1 - bx0, height: H - B0 - T0 + 22, class: 'bk-band' }));
+    const bf = bankFacts(), blab = bf.bank ? t.f4.bandLabel(bf.otpBank) : t.f4.bank, btxt = KO() ? blab : blab.toUpperCase();
+    const blw = textW(btxt, `700 ${KO() ? 11.5 : 10.5}px ${f}`) + (KO() ? 0 : btxt.length * 1.05);
+    svg.append(sv('text', { x: Math.max(L0 + 4, Math.min(bx0 + 6, W - R0 - blw)), y: T0 - 9, class: 'bk-bl', text: btxt }));
+    svg.append(sv('text', { x: 0, y: T0 - 9, class: 'ax-u', text: t.f4.unit }));
+    for (const v of yt) { const y = Math.round(Y(v)) + .5; svg.append(sv('line', { x1: L0 - 4, x2: L0, y1: y, y2: y, stroke: C.base }), sv('text', { x: L0 - 8, y, dy: '.35em', 'text-anchor': 'end', class: 'ax', text: nf(v) })); }
+    svg.append(sv('line', { x1: L0, x2: W - R0, y1: Y(0) + .5, y2: Y(0) + .5, stroke: C.base }));
+    const bars = sv('g');
+    hr.forEach((v, x) => {
+      if (!v[0]) return;
+      const on = v[1], late = v[0] - v[1], yOn = Y(on), yTot = Y(v[0]);
+      bars.append(sv('rect', { x: X(x), y: yOn, width: bw, height: Y(0) - yOn, fill: C.other, class: animOK(animate) ? 'grow' : null }));
+      if (late) bars.append(sv('rect', { x: X(x), y: yTot, width: bw, height: Math.max(1, yOn - yTot - 2), fill: C.bad, class: animOK(animate) ? 'grow' : null }));
+    });
+    svg.append(bars);
+    [0, 3, 6, 9, 12, 15, 18, 21].forEach(x => svg.append(sv('text', { x: L0 + band * x + band / 2, y: H - 8, 'text-anchor': 'middle', class: 'ax', style: x >= BANK[0] && x <= BANK[1] ? { fill: C.ink, fontWeight: 700 } : null, text: hh(x) })));
+    const hl = sv('rect', { y: T0 - 6, height: H - B0 - T0 + 6, fill: 'rgba(0,38,107,.07)', style: { opacity: 0 } });
+    svg.insertBefore(hl, bars);
+    svg.append(sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    box.replaceChildren(svg);
+    const hrs = hr.map((v, x) => [v, x]).filter(([v]) => v[0]).map(([, x]) => x);
+    const show = k => {
+      hl.style.opacity = k == null ? 0 : 1;
+      if (k == null) { hideTip(host); return; }
+      F4.i = k;
+      const x = hrs[k], v = hr[x];
+      setAttrs(hl, { x: L0 + band * x, width: band });
+      const o = offsetIn(host, svg);
+      placeTip(host, tipNodes(hourRange(x), [
+        { value: nf(v[0]), label: t.f4.tip.deps },
+        { key: C.other, value: nf(v[1]), label: t.f4.tip.on },
+        { key: C.bad, value: nf(v[0] - v[1]), label: t.f4.tip.late },
+        { value: pct(v[1] / v[0] * 100), label: t.f4.tip.otp, bad: v[1] / v[0] * 100 < TARGET }
+      ], `${t.f4.tip.routes}: ${routesAt(x).join(' · ')}`), o.x + X(x) + bw / 2, o.y + Y(v[0]) - 4, o.y + Y(0));
+    };
+    const idxAt = px => { const x = Math.floor((px - L0) / band); let best = 0, bd = Infinity; hrs.forEach((hx, k) => { const d = Math.abs(hx - x); if (d < bd) { bd = d; best = k; } }); return best; };
+    svg.addEventListener('pointermove', e => { const r = svg.getBoundingClientRect(); show(idxAt(e.clientX - r.left)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(null); });
+    svg.addEventListener('focus', () => show(F4.i == null || F4.i >= hrs.length ? 0 : F4.i));
+    svg.addEventListener('blur', () => show(null));
+    svg.addEventListener('keydown', e => { const cur = F4.i == null || F4.i >= hrs.length ? 0 : F4.i, k = keyStep(e, cur, hrs.length); if (k === null) return; if (k < 0) { show(null); return; } show(k); const v = hr[hrs[k]]; say(`${hourRange(hrs[k])}: ${nf(v[0])}, ${pct(v[1] / v[0] * 100, 0)}`); });
+  }
+
+  /* ================= 대표 장치 3: 운항 통계표 =================
+     노선 지역 그룹 줄(연파랑 띠, 지역 합계) → 노선 줄 → 전체 노선 줄. 여객(천 명)과 RPK·ASK(백만)는 0.1 단위로,
+     줄을 더하면 그룹·전체 합계와 맞게 나머지가 큰 줄부터 조정한다. 증감은 부호 칸을 따로 둔다 */
+  function statsRows() {
+    const regs = state.scope === 'all' ? REGIONS : [state.scope], unitP = 100, unitK = 1e5;
+    const fit = (vals, total) => roundTo(vals, total);
+    const all = DATA.scopes[state.scope];
+    const totP = Math.round(all.pax / unitP), totR = Math.round(all.rpk / unitK), totA = Math.round(all.ask / unitK);
+    const regP = fit(regs.map(g => DATA.scopes[g].pax / unitP), totP), regR = fit(regs.map(g => DATA.scopes[g].rpk / unitK), totR), regA = fit(regs.map(g => DATA.scopes[g].ask / unitK), totA);
+    const groups = regs.map((g, gi) => {
+      const rs = DATA.routes.filter(r => r.region === g);
+      const p = fit(rs.map(r => r.pax / unitP), regP[gi]), rr = fit(rs.map(r => r.rpk / unitK), regR[gi]), aa = fit(rs.map(r => r.ask / unitK), regA[gi]);
+      return { g, s: DATA.scopes[g], p: regP[gi], rr: regR[gi], aa: regA[gi], routes: rs.map((r, k) => ({ r, p: p[k], rr: rr[k], aa: aa[k] })) };
+    });
+    return { groups, tot: { s: all, p: totP, rr: totR, aa: totA } };
+  }
+  const T1 = { i: 0 };
+  function renderTable(animate) {
+    const t = L(), st = statsRows(), flat = st.groups.flatMap(g => g.routes);
+    const miss = flat.filter(x => Number((plfOf(x.r) - x.r.plan).toFixed(1)) < 0).sort((a, b) => (plfOf(a.r) - a.r.plan) - (plfOf(b.r) - b.r.plan));
+    const best = flat.slice().sort((a, b) => (plfOf(b.r) - b.r.plan) - (plfOf(a.r) - a.r.plan))[0];
+    $('#t1Title').textContent = glue(t.t1.title({ n: miss.length, total: flat.length, worst: miss.length ? city(miss[0].r.code) : '', wv: miss.length ? ptsAbs(plfOf(miss[0].r) - miss[0].r.plan) : '', best: city(best.r.code), bv: ptsAbs(plfOf(best.r) - best.r.plan) }));
+    refade($('#t1Title'), animate);
+    const maxP = Math.max(...flat.map(x => x.p));
+    const chgCell = (d, cls) => { if (d == null) return h('td', { class: cls + ' nm', text: t.t1.nm }); const v = Number(d.toFixed(1)); return h('td', { class: cls + (v < 0 ? ' neg' : '') }, h('span', { class: 'chg' }, h('span', { class: 's', text: v > 0 ? '+' : v < 0 ? '−' : '' }), h('span', { text: nf(Math.abs(v), 1) }))); };
+    const cells = (o, isRoute) => {
+      const s = o.s || o.r, lf = isRoute ? plfOf(o.r) : s.plf, plan = s.plan, ly = isRoute ? o.r.ly : s.ly;
+      const yld = s.yield, be = s.blf, otp = isRoute ? o.r.on / o.r.deps * 100 : s.otp;
+      return [
+        h('td', { class: 'c-fl', text: nf(isRoute ? o.r.flights : s.flights) }),
+        h('td', { class: 'c-pax' }, isRoute ? h('span', { class: 'pax' }, h('i', { class: animOK(animate) ? 'growx' : null, style: { width: (o.p / maxP * 100).toFixed(1) + '%' } }), h('span', { text: nf(o.p / 10, 1) })) : nf(o.p / 10, 1)),
+        h('td', { class: 'c-rpk', text: nf(o.rr / 10, 1) }),
+        h('td', { class: 'c-ask', text: nf(o.aa / 10, 1) }),
+        h('td', { class: 'c-lf lf', text: nf(lf, 1) }),
+        chgCell(lf - plan, 'c-pl'),
+        chgCell(ly == null ? null : lf - ly, 'c-ly'),
+        h('td', { class: 'c-be', text: nf(be, 1) }),
+        h('td', { class: 'c-yld', text: nf(yld, 1) }),
+        h('td', { class: 'c-otp' + (otp < TARGET ? ' neg' : ''), text: nf(otp, 1) })
+      ];
+    };
+    const body = [];
+    let i = 0;
+    for (const g of st.groups) {
+      body.push(h('tr', { class: 'os-grp' }, h('th', { scope: 'rowgroup', text: t.scopes[g.g] }), cells(g, false)));
+      for (const x of g.routes) body.push(h('tr', { 'data-i': i++ }, h('th', { scope: 'row' }, city(x.r.code), h('span', { text: x.r.code })), cells(x, true)));
+    }
+    if (state.scope === 'all') body.push(h('tr', { class: 'os-tot' }, h('th', { scope: 'row', text: t.t1.sys }), cells(st.tot, false)));
+    const ccls = ['c-rt', 'c-fl', 'c-pax', 'c-rpk', 'c-ask', 'c-lf', 'c-pl', 'c-ly', 'c-be', 'c-yld', 'c-otp'];
+    const table = h('table', { class: 'os', tabindex: 0, 'aria-label': t.t1.aria }, h('caption', { class: 'sr-only', text: t.t1.sub }),
+      h('thead', null, h('tr', null, t.t1.cols.map(([a, u], k) => h('th', { scope: 'col', class: ccls[k] }, a, u ? h('small', { text: u }) : null)))),
+      h('tbody', null, body));
+    $('#t1Body').replaceChildren(table);
+    T1.i = Math.min(T1.i, flat.length - 1);
+    wireTable(table, flat, st);
+  }
+  function wireTable(table, flat, st) {
+    const host = $('#t1'), t = L(), rowsEl = $$('tbody tr[data-i]', table), tot = st.tot.s;
+    const show = i => {
+      rowsEl.forEach((r, k) => r.classList.toggle('on', k === i));
+      if (i == null || i < 0) { hideTip(host); return; }
+      T1.i = i;
+      const x = flat[i], r = x.r, g = DATA.scopes[r.region], lf = plfOf(r), o = offsetIn(host, rowsEl[i]);
+      placeTip(host, tipNodes(`${routeName(r.code)} · ${t.scopes[r.region]}`, [
+        { value: nf(r.pax), label: t.t1.tip.pax },
+        r.ly != null ? { value: nf(r.ly_pax), label: t.t1.tip.ly } : { value: '—', label: t.t1.tip.new },
+        { value: pct(r.pax / g.pax * 100), label: t.t1.tip.share(t.scopes[r.region]) },
+        { value: `${pct(lf)} · ${t.t1.tip.plan} ${pct(r.plan)}`, label: t.t1.tip.lf },
+        { value: `${pct(r.blf)} · ${ptsTxt(lf - r.blf)}`, label: t.t1.tip.be, bad: lf < r.blf },
+        { value: `${cents(r.yield)} · ${t.t1.tip.plan} ${cents(r.plan_yield)}`, label: t.t1.tip.yld },
+        { value: `${pct(r.on / r.deps * 100)} · ${nf(r.on)}/${nf(r.deps)}`, label: t.t1.tip.otp, bad: r.on / r.deps * 100 < TARGET }
+      ]), o.x + Math.min(o.w * .45, 420), o.y, o.y + o.h);
+    };
+    table.addEventListener('pointermove', e => { const tr = e.target.closest('tr[data-i]'); if (tr) show(Number(tr.dataset.i)); else if (e.pointerType === 'mouse') show(null); });
+    table.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== table) show(null); });
+    table.addEventListener('focus', () => show(T1.i));
+    table.addEventListener('blur', () => show(null));
+    table.addEventListener('keydown', e => { const i = keyStep(e, T1.i, flat.length); if (i === null) return; if (i < 0) { show(null); return; } show(i); const x = flat[i]; say(`${routeName(x.r.code)}: ${pct(plfOf(x.r))}, ${ptsTxt(plfOf(x.r) - x.r.plan)}`); });
+  }
+
+  /* ================= 만드는 법: 프로젝트 폴더 · 그림 2와 점검 · 코드 ================= */
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-2.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  function codeLines(kind) {
+    const ko = KO(), region = state.scope, ttl = L().f2.title(monthFacts()), note = L().f2.note;
+    const c = ko ? { head: '그림 2 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 노선 지역 탭', s1: '1 · 틀: 단위는 축 위, 격자 없이 기준선, 10월 굵게', s2: '2 · 비교를 먼저: 지난해, 계획은 점선', s3: '3 · 주인공: 실적 탑승률, 청록 실선', s4: '4 · 범례 대신 선 끝에 라벨', s5: '5 · 제목은 결과를 말하고, 주석은 ‘주 1:’', once: '처음 한 번: singapore-airlines.tps를 Preferences.tps에' }
+      : { head: 'Figure 2 · drawn by an agent from DASHBOARD.md', filter: 'the route region tabs above', s1: '1 · frame: unit above the axis, no grid, October in bold', s2: '2 · comparison first: last year, plan dashed', s3: '3 · the subject: actual load factor, solid teal', s4: '4 · label the line ends instead of a legend', s5: '5 · the title states the finding; notes numbered', once: 'once: paste singapore-airlines.tps into Preferences.tps' };
+    const q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(14) + v;
+    const J = {
+      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '월간 운항 통계 대시보드를 만들어 줘. 보도자료처럼 결과를 말하는 머리 문장, 탑승권 모양의 KPI(남색 쪽지에 탑승률, 바코드 자리에 날짜별 여객), 객실별 탑승률을 보여 주는 좌석 배치도, 월별 탑승률과 계획, 손익분기 대비 노선 순위, 시카고 시간대별 출발, 그리고 노선별 운항 통계표로, 노선 지역 탭 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 2부터 monthly.csv의 region "${region}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
+        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build our monthly operating statistics: a headline that states the result like the monthly release, KPIs set as a boarding pass (load factor on the navy stub, passengers by day where the barcode sits), cabin load as a seat map, load factor by month against plan, routes against breakeven, departures from Chicago by hour, and the operating statistics table, with one route region tab bar for every view.'], [0, ''], [0, `Start with Figure 2 from monthly.csv for region "${region}".`], [0, 'Before you finish, run the checks in DASHBOARD.md and list what passed and what to fix.']],
+      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 머리 · singaporeair.com 구조'], [0, kv('머리', '회사 눈썹과 보고서 이름, 남색 제목 서체')], [0, kv('탭 띠', '노선 지역 필터, 흰 활성 탭은 왼쪽 위 16px')], [0, kv('위젯 판', '결과 문장(주황 3px 막대)과 첫 단락')], [0, ''], [0, '# 이번 달 · 탑승권'], [0, kv('KPI', '탑승권 필드 다섯과 남색 쪽지(탑승률)')], [0, kv('바코드 자리', '날짜별 수송 여객, 가장 붐빈 날 청록')], [0, ''], [0, '# 탑승률: 객실과 올해 · 그림 2개'], [0, kv('그림 1', '좌석 배치도 · 객실 색 띠, J·S·Y, Forward zone')], [0, kv('그림 2', '월별 탑승률 · 실적 청록, 계획 점선, 지난해')], [0, ''], [0, '# 노선과 시카고 허브 · 그림 2개'], [0, kv('그림 3', '손익분기 대비 노선 · 미달은 빨강, 낮은 순')], [0, kv('그림 4', '시간대별 출발 · 정시 회색, 지연 빨강')], [0, ''], [0, '# 운항 통계 · 표 1개'], [0, kv('표 1', '남색 머리 띠, 지역 띠, 부호 칸, n.m.')], [0, ''], [0, '# 노선 지역 탭 하나를 모든 그림에, 한 화면 묶음은 7개 이하']]
+        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Header · the singaporeair.com structure'], [0, kv('Head', 'company eyebrow, report name in navy display')], [0, kv('Tab bar', 'route region filter, white tab, 16px top-left')], [0, kv('Widget', 'headline with a 3px orange bar, the lead')], [0, ''], [0, '# This month · the boarding pass'], [0, kv('KPI', 'five pass fields and the navy stub (load)')], [0, kv('Barcode', 'passengers by day, the peak day in teal')], [0, ''], [0, '# Load: cabins and the year · 2 figures'], [0, kv('Figure 1', 'seat map · cabin bands, J·S·Y, forward zone')], [0, kv('Figure 2', 'load factor by month · teal, plan dashed')], [0, ''], [0, '# Routes and the Chicago hub · 2 figures'], [0, kv('Figure 3', 'routes against breakeven · below in red')], [0, kv('Figure 4', 'departures by hour · on time gray, late red')], [0, ''], [0, '# Operating statistics · 1 table'], [0, kv('Table 1', 'navy head band, region bands, sign column')], [0, ''], [0, '# One route region filter for every view; at most 7 per screen']],
+      js: [
+        [0, `// ${c.head}`], [0, 'import { tokens, fmt, plot, load } from "./dashboard.js";'],
+        [0, `const region = ${q(region)};${' '.repeat(Math.max(1, 14 - region.length))}// ${c.filter}`], [0, 'const rows = await load("monthly.csv", { region });'], [0, ''],
+        [1, `// ${c.s1}`], [1, 'const fig = plot("#figure-2", { surface: tokens.colors.paper,'], [1, '  grid: false, unit: { text: "%", at: "axis-top" },'], [1, '  base: tokens.colors.greyBlue,            // #a6b4cd'], [1, '  x: { bold: "last" }, y: { ticks: 4 } });'], [1, ''],
+        [2, `// ${c.s2}`], [2, 'fig.line(rows, { y: "last_year_pct", stroke: tokens.data.lastYear });   // #c4c9d4'], [2, 'fig.line(rows, { y: "plan_pct", dash: [6, 4],'], [2, '  stroke: tokens.data.comparison });        // #868ba0'], [2, ''],
+        [3, `// ${c.s3}`], [3, 'fig.line(rows, { y: "load_factor_pct",'], [3, '  marker: "last", width: 2.5,'], [3, '  stroke: tokens.data.subject });           // #0096ae'], [3, ''],
+        [4, `// ${c.s4}`], [4, 'fig.endLabels({ name: true, value: fmt.pct,'], [4, '  color: tokens.data.subjectText });        // #00788c'], [4, ''],
+        [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.note(${q(note)});`]
+      ],
+      tab: ko ? [
+        [0, '# Tableau · 그림 2 · Singapore Airlines 스타일'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('워크시트 음영', '#ffffff')], [1, kv('격자선', '없음, 축 선 #a6b4cd')], [1, kv('축 제목', '숨기고 “%”를 축 위 텍스트로')], [1, ''],
+        [2, '# 2 · 비교: last_year_pct, plan_pct'], [2, kv('색상', '#c4c9d4 · #868ba0')], [2, kv('선 패턴', '계획은 파선')], [2, ''],
+        [3, '# 3 · 주인공: load_factor_pct'], [3, kv('색상', '#0096ae')], [3, kv('크기', '3단계, 마지막 점에만 마커')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('마크 레이블', '선 끝, 글자 #00788c')], [4, kv('범례', '숨기기')], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('캡션', q(note))]
+      ] : [
+        [0, '# Tableau · Figure 2 · Singapore Airlines style'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('Shading', '#ffffff')], [1, kv('Grid lines', 'none; axis rulers #a6b4cd')], [1, kv('Axis title', 'hide; put “%” above the axis')], [1, ''],
+        [2, '# 2 · comparison: last_year_pct, plan_pct'], [2, kv('Color', '#c4c9d4 · #868ba0')], [2, kv('Line pattern', 'dashed for plan')], [2, ''],
+        [3, '# 3 · subject: load_factor_pct'], [3, kv('Color', '#0096ae')], [3, kv('Size', '3rd step, marker on last point')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('Mark labels', 'line ends, text #00788c')], [4, kv('Legend', 'hide')], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Caption', q(note))]
+      ],
+      pbi: [
+        [0, ko ? '// Power BI · 그림 2 · Singapore Airlines 스타일' : '// Power BI · Figure 2 · Singapore Airlines style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
+        [1, `// ${c.s1}`], [1, '"valueAxis": { "gridlineShow": false, "axisLineColor": "#a6b4cd" },'], [1, '"plotArea": { "color": "#ffffff" },'], [1, ''],
+        [2, ko ? '// 2 · 비교: last_year_pct, plan_pct' : '// 2 · comparison: last_year_pct, plan_pct'], [2, ko ? '선 → last_year → #c4c9d4 · plan → #868ba0, 파선' : 'Lines → last_year → #c4c9d4 · plan → #868ba0, dashed'], [2, ''],
+        [3, ko ? '// 3 · 주인공: load_factor_pct' : '// 3 · subject: load_factor_pct'], [3, ko ? '선 → load_factor → 색 #0096ae, 너비 3' : 'Lines → load_factor → #0096ae, width 3'], [3, ''],
+        [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 마지막 점 · 범례 → 끔' : 'Data labels → last point · Legend → off'], [4, ''],
+        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(note)}`]
+      ]
+    };
+    return J[kind];
+  }
+  const KW = { js: 'import|from|const|let|await|async|return|new|true|false' };
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const hexify = s => s.replace(/#[0-9a-fA-F]{6}\b/g, m => `<span class="tk-hex" style="--sw:${m}">${m}</span>`);
+  function commentAt(text, kind) {
+    let q = null;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (q) { if (ch === '\\') { i++; continue; } if (ch === q) q = null; continue; }
+      if (ch === '"' || ch === "'" || ch === '`') { q = ch; continue; }
+      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
+      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+    }
+    return -1;
+  }
+  function highlight(text, kind) {
+    if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
+    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? hexify(esc(m[2])) : highlightCode(m[2], kind)}`; }
+    return highlightCode(text, kind);
+  }
+  function highlightCode(text, kind) {
+    const ci = commentAt(text, kind), code = ci < 0 ? text : text.slice(0, ci), comment = ci < 0 ? '' : text.slice(ci), kw = KW[kind];
+    const re = new RegExp('("(?:[^"\\\\]|\\\\.)*"|\'(?:[^\'\\\\]|\\\\.)*\')|(#[0-9a-fA-F]{6}\\b)|(\\b\\d+(?:\\.\\d+)?\\b)' + (kw ? `|\\b(${kw})\\b` : '|(?!x)x()') + '|([A-Za-z_][\\w.]*)(?=\\s*\\()|(\\b[A-Za-z_]\\w*)(?=\\s*:(?!:))', 'g');
+    let out = '', last = 0, m;
+    while ((m = re.exec(code))) {
+      out += esc(code.slice(last, m.index));
+      const [all, str, hex, num, k, fn, prop] = m;
+      if (str) out += /^\s*:/.test(code.slice(m.index + all.length)) ? `<span class="tk-p">${esc(str)}</span>` : `<span class="tk-s">${hexify(esc(str))}</span>`;
+      else if (hex) out += hexify(hex);
+      else if (num) out += `<span class="tk-n">${num}</span>`;
+      else if (k) out += `<span class="tk-k">${k}</span>`;
+      else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
+      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else out += esc(all);
+      last = m.index + all.length;
+    }
+    out += esc(code.slice(last));
+    if (comment) out += `<span class="tk-c">${hexify(esc(comment))}</span>`;
+    return out;
+  }
+  function renderBuildStatic() {
+    const t = L();
+    $('#steps').replaceChildren(...t.build.steps.map(([b, p], i) => h('li', null, h('span', { class: 'sn', 'aria-hidden': 'true', text: '0' + (i + 1) }), h('b', { text: b }), h('p', { text: p }))));
+    const fileIcon = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.2, 'aria-hidden': 'true' }, sv('path', { d: 'M3.5 1.5h4.6L11 4.4v7.1a1 1 0 0 1-1 1H3.5a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1z' }), sv('path', { d: 'M8 1.5v3h3' }));
+    const dirIcon = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.2, 'aria-hidden': 'true' }, sv('path', { d: 'M1.5 3.5a1 1 0 0 1 1-1h3l1.2 1.4h4.8a1 1 0 0 1 1 1v6.1a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1z' }));
+    const item = (name, href, opt = {}) => {
+      const inner = [opt.dir ? dirIcon() : fileIcon(), h('div', null, h('b', { text: name }), t.build.files[name] ? h('span', { text: t.build.files[name] }) : null)];
+      const el = href ? h('a', { href, target: opt.dl ? null : '_blank', rel: opt.dl ? null : 'noopener', download: opt.dl ? name : null }, inner) : h('div', { class: 'fi' }, inner);
+      return h('li', { class: [opt.cls, opt.root ? 'root' : null].filter(Boolean).join(' ') || null }, el);
+    };
+    $('#tree').replaceChildren(
+      item('your-project/', null, { dir: 1, root: 1 }),
+      item('DASHBOARD.md', 'DASHBOARD.html', { cls: 'in' }),
+      item('.claude/skills/', null, { dir: 1, cls: 'in' }), item('dashboard-style/', null, { dir: 1, cls: 'in2' }),
+      item('SKILL.md', 'skill/SKILL.html', { cls: 'in3' }), item('tokens.css', 'tokens.css', { cls: 'in3' }),
+      item('singapore-airlines.tps', 'singapore-airlines.tps', { cls: 'in3', dl: 1 }), item('powerbi-theme.json', 'powerbi-theme.json', { cls: 'in3', dl: 1 }),
+      item('prompt.md', 'prompt.html', { cls: 'in3' }));
+    $('#modeSeg').replaceChildren(...t.build.modes.map((x, i) => {
+      const k = i ? 'with' : 'without';
+      const b = h('button', { type: 'button', role: 'tab', 'aria-selected': state.mode === k ? 'true' : 'false', tabindex: state.mode === k ? 0 : -1, text: x });
+      b.addEventListener('click', () => setMode(k));
+      return b;
+    }));
+    $('#modeSeg').setAttribute('aria-label', KO() ? '비교' : 'Compare');
+  }
+  const BENCH = { built: true, playing: false, token: 0 };
+  function setMode(k) {
+    if (state.mode === k) return;
+    if (BENCH.playing) finishBench();
+    state.mode = k; renderBuildStatic(); renderBench();
+  }
+  function setCode(k) {
+    if (state.code === k) return;
+    if (BENCH.playing) finishBench();
+    state.code = k; renderCodeTabs(); renderCode();
+  }
+  function renderCodeTabs() {
+    $('#ctabs').replaceChildren(...CODE_TABS.map(([k, label]) => {
+      const b = h('button', { type: 'button', class: 'ctab', role: 'tab', 'aria-selected': state.code === k ? 'true' : 'false', tabindex: state.code === k ? 0 : -1, text: label || (KO() ? '프롬프트' : 'Prompt') });
+      b.addEventListener('click', () => setCode(k));
+      return b;
+    }));
+  }
+  function renderCode() {
+    const lines = codeLines(state.code), pre = $('#code');
+    pre.classList.toggle('wrap', state.code === 'prompt');
+    pre.replaceChildren(...lines.map(([step, text]) => {
+      const ln = h('span', { class: 'ln' + (BENCH.built ? ' shown' : ''), 'data-step': step, html: highlight(text, state.code) || ' ' });
+      if (step) { ln.addEventListener('mouseenter', () => focusStep(step)); ln.addEventListener('mouseleave', () => focusStep(0)); }
+      return ln;
+    }));
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), BENCH.built ? L().build.built : L().build.drawing);
+    $('#cstatR').textContent = L().build.lines(lines.length);
+  }
+  function focusStep(step) {
+    const win = $('#win'), on = step > 0 && BENCH.built && state.mode === 'with';
+    $$('.code .ln', win).forEach(ln => ln.classList.toggle('hl', step > 0 && Number(ln.dataset.step) === step));
+    win.classList.toggle('focus-step', on);
+    $$('.layer', win).forEach(el => el.classList.toggle('focus', Number(el.dataset.step) === step));
+  }
+  function renderBench() {
+    const t = L(), without = state.mode === 'without';
+    $('#wbScope').textContent = `region = ${state.scope}`;
+    $('#wbTitle').textContent = glue(without ? t.f2.generic : t.f2.title(monthFacts()));
+    $('#wbNote').textContent = without ? t.build.generated : t.f2.note;
+    const ok = $('#checksOk'); ok.textContent = without ? t.build.checksBad : t.build.checksOk; ok.classList.toggle('bad', without);
+    const ic = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' },
+      sv('circle', { cx: 7, cy: 7, r: 6.2, 'stroke-width': 1.2 }), sv('path', { d: without ? 'M4.8 4.8l4.4 4.4M9.2 4.8l-4.4 4.4' : 'M4.3 7.2 6.2 9l3.5-3.8' }));
+    $('#checks').replaceChildren(...t.build.checks.map(([step, txt]) => h('li', { class: 'layer' + (without ? ' no' : ''), 'data-step': step }, ic(),
+      h('span', null, txt.split(/(#[0-9a-f]{6})/).map(part => /^#[0-9a-f]{6}$/.test(part) ? h('code', { class: 'tk-hex', style: { '--sw': part }, text: part }) : part)))));
+    $('#win').classList.toggle('without', without);
+    renderCodeTabs(); renderCode();
+    drawLines('#wbPlot', '.figpane', { key: 'wb', layers: true, mode: state.mode });
+    if (BENCH.playing) playBench();   // 치는 중에 필터나 언어가 바뀌면 새 값으로 다시 친다
+  }
+  function flashScope() {
+    const lines = $$('.code .ln').filter(ln => ln.dataset.step === '0' && /region/.test(ln.textContent));
+    lines.forEach(ln => ln.classList.add('hl'));
+    setTimeout(() => lines.forEach(ln => ln.classList.remove('hl')), 1400);
+  }
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  async function playBench() {
+    const win = $('#win'), pre = $('#code'), token = ++BENCH.token;
+    if (REDUCE) { finishBench(); return; }
+    if (state.mode !== 'with') { state.mode = 'with'; renderBuildStatic(); }
+    BENCH.built = false; BENCH.playing = false;
+    win.classList.add('building');
+    renderBench();
+    BENCH.playing = true;
+    pre.scrollTop = 0;
+    $$('.layer', win).forEach(el => el.classList.remove('on'));
+    const lines = $$('.code .ln', win);
+    let prevStep = 0;
+    for (const ln of lines) {
+      if (token !== BENCH.token) return;
+      const step = Number(ln.dataset.step);
+      if (step !== prevStep && prevStep > 0) { revealStep(prevStep); await sleep(380); if (token !== BENCH.token) return; }
+      prevStep = step;
+      lines.forEach(x => x.classList.remove('caret'));
+      ln.classList.add('shown', 'caret');
+      const bottom = ln.offsetTop + ln.offsetHeight + 12;
+      if (bottom > pre.scrollTop + pre.clientHeight) pre.scrollTop = bottom - pre.clientHeight;
+      await sleep(ln.textContent.trim() ? 55 : 20);
+    }
+    if (token !== BENCH.token) return;
+    revealStep(prevStep);
+    await sleep(500);
+    if (token !== BENCH.token) return;
+    lines.forEach(x => x.classList.remove('caret'));
+    BENCH.built = true; BENCH.playing = false;
+    win.classList.remove('building');
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), L().build.built);
+  }
+  function finishBench() {
+    BENCH.token++; BENCH.playing = false; BENCH.built = true;
+    $('#win').classList.remove('building');
+    renderCode();
+    $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+  }
+  function revealStep(step) {
+    $$(`.layer[data-step="${step}"]`, $('#win')).forEach(el => el.classList.add('on'));
+    if (step === 3 && !REDUCE) { const p = $('#wbPlot')._subj; if (p) { p.setAttribute('pathLength', 1); p.classList.remove('draw'); void p.getBoundingClientRect(); p.classList.add('draw'); } }
+  }
+  $('#btnRun').addEventListener('click', () => playBench());
+  $$('.btnCmd').forEach(b => b.addEventListener('click', async () => { await copyText(b.previousElementSibling.textContent); toast(L().build.cmdCopied); }));
+  const cmdFade = () => $$('.cmd code').forEach(c => {
+    const ov = c.scrollWidth > c.clientWidth + 1;
+    c.classList.toggle('more-r', ov && c.scrollLeft + c.clientWidth < c.scrollWidth - 2);
+    if (ov) c.setAttribute('tabindex', '0'); else c.removeAttribute('tabindex');
+  });
+  $$('.cmd code').forEach(c => c.addEventListener('scroll', cmdFade, { passive: true }));
+  addEventListener('resize', cmdFade);
+  if (document.fonts) document.fonts.ready.then(cmdFade);
+  cmdFade();
+  $('#btnCopyCode').addEventListener('click', async () => { await copyText(codeLines(state.code).map(l => l[1]).join('\n')); toast(L().build.copied); });
+
+  /* ================= 방법과 출처 ================= */
+  function renderTerms() {
+    const t = L();
+    $('#terms').replaceChildren(...t.notes.items.map(([k, v]) => h('p', null, h('b', { text: k + ': ' }), v)), h('p', { class: 'src', text: t.notes.src }));
+  }
+
+  /* ================= 마크다운으로 복사 · PDF ================= */
+  function toMarkdown() {
+    const t = L(), s = S(), lines = [];
+    lines.push(`# ${t.md.title}`, '', `**${$('#headline').textContent}**`, '', `> ${$('#lede').textContent}`, '', `## ${t.md.kpis} · ${t.scopes[state.scope]}`, '');
+    lines.push(`- ${t.k.lf}: ${pct(s.plf)} (${t.k.vsPlan} ${ptsTxt(s.plf - s.plan)}; ${t.k.vsLy} ${ptsTxt(s.plf - s.ly)}; ${t.k.be} ${pct(s.blf)})`);
+    passFields().forEach(f => lines.push(`- ${f.name}: ${f.aria} (${h('span', null, f.d1).textContent.trim()}; ${h('span', null, f.d2).textContent.trim()})`));
+    lines.push('', t.bpNote, '', `## ${t.md.figs}`, '');
+    ['#f1', '#f2', '#f3', '#f4', '#t1'].forEach(id => {
+      const card = $(id), label = $('.fl', card).textContent, ttl = $('.ct', card).textContent;
+      lines.push(`### ${label}`, '', `**${ttl}**`, '');
+      if (id === '#f1') { const fc = cabinFacts(); CABS.forEach(c => { const f = fc.cab[c]; lines.push(`- ${t.f1.cab[c]} (${c}): ${pct(f.lf)} · ${t.f1.sold({ s: f.soldR, n: f.n, e: f.empty }).replace(/\*\*/g, '')} · ${t.f1.vsPlan} ${ptsTxt(f.lf - f.plan)}`); }); lines.push(`- ${t.f1.fz}: ${pct(fc.cab.Y.fzlf)}`, ''); }
+      if (id === '#f2') { S().months.forEach(x => lines.push(`- ${monLong(x.m)}: ${pct(x.lf)} (${t.f2.keys[1]} ${pct(x.plan)}, ${t.f2.keys[2]} ${x.ly == null ? '—' : pct(x.ly)})`)); lines.push(''); }
+      if (id === '#f3') { routeRows().forEach(x => lines.push(`- ${routeName(x.r.code)}: ${ptsTxt(x.m)} (${t.f3.cols[2]} ${pct(x.lf)}, ${t.f3.cols[3]} ${pct(x.r.blf)})`)); lines.push(''); }
+      if (id === '#f4') { S().hours.forEach((v, x) => { if (v[0]) lines.push(`- ${hourRange(x)}: ${nf(v[0])} ${t.f4.tip.deps}, ${pct(v[1] / v[0] * 100, 0)} ${t.f4.tip.on}`); }); lines.push(''); }
+      if (id === '#t1') {
+        const st = statsRows(), cols = t.t1.cols.map(([a, u]) => u ? `${a} ${u}` : a);
+        lines.push(`| ${cols.join(' | ')} |`, '|---|' + cols.slice(1).map(() => '---:').join('|') + '|');
+        const row = (name, o, isRoute) => { const s2 = o.s || o.r, lf = isRoute ? plfOf(o.r) : s2.plf, ly = isRoute ? o.r.ly : s2.ly, otp = isRoute ? o.r.on / o.r.deps * 100 : s2.otp; return `| ${name} | ${nf(isRoute ? o.r.flights : s2.flights)} | ${nf(o.p / 10, 1)} | ${nf(o.rr / 10, 1)} | ${nf(o.aa / 10, 1)} | ${nf(lf, 1)} | ${signed(lf - s2.plan)} | ${ly == null ? t.t1.nm : signed(lf - ly)} | ${nf(s2.blf, 1)} | ${nf(s2.yield, 1)} | ${nf(otp, 1)} |`; };
+        st.groups.forEach(g => { lines.push(row(`**${t.scopes[g.g]}**`, g, false)); g.routes.forEach(x => lines.push(row(routeName(x.r.code), x, true))); });
+        if (state.scope === 'all') lines.push(row(`**${t.t1.sys}**`, st.tot, false));
+        lines.push('');
+      }
+      const note = $('.cf', card).textContent;
+      if (note) lines.push(note, '');
+    });
+    lines.push(`## ${t.notes.t}`, '');
+    t.notes.items.forEach(([q, a]) => lines.push(`**${q}:** ${a}`, ''));
+    lines.push(t.notes.src, '', t.note, t.notice, '');
+    return lines.join('\n').replace(/\u2060/g, '');
+  }
+  async function copyText(txt) {
+    try { await navigator.clipboard.writeText(txt); } catch (e) { const ta = h('textarea', { class: 'sr-only', text: txt }); document.body.append(ta); ta.select(); try { document.execCommand('copy'); } catch (_) {} ta.remove(); }
+  }
+  let toastTimer = null;
+  function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('on'), 2200); }
+  $('#btnMd').addEventListener('click', async () => { await copyText(toMarkdown()); toast(L().copied); });
+  $('#btnPdf').addEventListener('click', () => window.print());
+
+  /* ================= 필터: 예약 위젯의 탭 띠 ================= */
+  const tabsEl = $('#tabs');
+  for (const k of SCOPES) { const b = h('button', { type: 'button', id: 'tab-' + k, role: 'tab', 'aria-controls': 'panel', 'data-k': k }); b.addEventListener('click', () => select(k)); tabsEl.append(b); }
+  const arrowNav = (el, keys, cur, go) => el.addEventListener('keydown', e => {
+    const idx = keys.indexOf(cur()), next = { ArrowRight: idx + 1, ArrowLeft: idx - 1, Home: 0, End: keys.length - 1 }[e.key];
+    if (next == null) return;
+    e.preventDefault(); go(keys[(next + keys.length) % keys.length]);
+  });
+  arrowNav(tabsEl, SCOPES, () => state.scope, k => { select(k); $('#tab-' + k).focus(); });
+  arrowNav($('#ctabs'), CODE_TABS.map(x => x[0]), () => state.code, k => { setCode(k); $$('.ctab')[CODE_TABS.findIndex(x => x[0] === k)].focus(); });
+  arrowNav($('#modeSeg'), ['without', 'with'], () => state.mode, k => { setMode(k); $$('#modeSeg button')[k === 'with' ? 1 : 0].focus(); });
+  // 탭이 띠보다 길면(좁은 화면) 가로로 밀어 보고, 가려진 쪽 끝을 흐리게 한다
+  const tabFade = () => {
+    const ov = tabsEl.scrollWidth > tabsEl.clientWidth + 1;
+    tabsEl.classList.toggle('more-r', ov && tabsEl.scrollLeft + tabsEl.clientWidth < tabsEl.scrollWidth - 2);
+    tabsEl.classList.toggle('more-l', ov && tabsEl.scrollLeft > 2);
+  };
+  tabsEl.addEventListener('scroll', tabFade, { passive: true });
+  addEventListener('resize', tabFade);
+  function syncTabs() {
+    const t = L();
+    for (const b of $$('button', tabsEl)) {
+      const on = b.dataset.k === state.scope;
+      b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1;
+      b.replaceChildren(h('span', { text: t.scopes[b.dataset.k] }), h('span', { class: 'n', text: String(DATA.scopes[b.dataset.k].routes) }));
+    }
+    $('#panel').setAttribute('aria-labelledby', 'tab-' + state.scope);
+    tabFade();
+  }
+
+  /* ================= 언어와 그리기 ================= */
+  function applyLang() {
+    const t = L();
+    document.documentElement.lang = state.lang;
+    document.title = t.docTitle;
+    for (const el of $$('[data-i18n]')) { const val = pick(t, el.dataset.i18n); if (typeof val === 'string') el.textContent = val; }
+    tabsEl.setAttribute('aria-label', t.tabsLabel);
+    for (const b of $$('#langSeg button')) b.setAttribute('aria-pressed', b.dataset.lang === state.lang ? 'true' : 'false');
+    $('#ctaLink').href = BLOG[state.lang] + 'contact-us/';
+    const md = $('#btnMd'); md.setAttribute('aria-label', t.copy); md.title = t.copy;
+    const cc = $('#btnCopyCode'); cc.setAttribute('aria-label', KO() ? '코드 복사' : 'Copy code'); cc.title = cc.getAttribute('aria-label');
+    $$('.btnCmd').forEach(cm => { cm.setAttribute('aria-label', KO() ? '설치 명령 복사' : 'Copy install command'); cm.title = cm.getAttribute('aria-label'); });
+    $('.foot .ser').href = 'https://styles.vizney.com/?lang=' + state.lang;
+    const back = $('#backLink');
+    back.textContent = FROM_BLOG ? t.back.post : t.back.catalog;
+    back.href = FROM_BLOG ? BLOG[state.lang] + 'style-' + SLUG + '/' : 'https://styles.vizney.com/?lang=' + state.lang;
+    syncTabs(); renderBuildStatic(); renderTerms();
+  }
+  function renderAll(animate) {
+    renderChrome(); renderHeadline(animate); renderPass(animate); renderSeatMap(animate); renderMonths(animate);
+    renderRoutes(animate); renderBanks(animate); renderTable(animate); renderBench();
+  }
+  function keepInUrl() {
+    try {
+      const u = new URL(location.href);
+      u.searchParams.set('lang', state.lang);
+      if (state.scope === 'all') u.searchParams.delete('region'); else u.searchParams.set('region', state.scope);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* 주소를 못 바꾸는 환경에서는 화면만 바뀐다 */ }
+  }
+  function select(k) {
+    if (k === state.scope) return;
+    state.scope = k;
+    syncTabs(); renderAll(true); keepInUrl();
+    if (BENCH.built) flashScope();
+  }
+  for (const b of $$('#langSeg button')) b.addEventListener('click', () => { if (b.dataset.lang === state.lang) return; state.lang = b.dataset.lang; applyLang(); renderAll(false); keepInUrl(); });
+
+  applyLang();
+  renderAll(true);
+  // 만드는 법: 처음 화면에 들어올 때 한 번, 코드를 한 줄씩 치며 그림 2를 다시 그린다
+  if (!REDUCE && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); playBench(); } }, { threshold: .35 });
+    io.observe($('#win'));
+  }
+  const redraws = [['#f2Plot', () => drawLines('#f2Plot', '#f2', { key: 'f2' })], ['#f4Plot', () => drawBanks(false)], ['#wbPlot', () => drawLines('#wbPlot', '.figpane', { key: 'wb', layers: true, mode: state.mode })]];
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(entries => {
+      for (const en of entries) {
+        const r = redraws.find(x => $(x[0]) === en.target);
+        if (!r) continue;
+        const el = en.target;
+        if (Math.round(el.clientWidth) !== el._w || Math.round(el.clientHeight) !== el._h) r[1]();
+      }
+    });
+    redraws.forEach(([sel]) => ro.observe($(sel)));
+    new ResizeObserver(() => { const w = $('#f1Map').clientWidth; if (w && (w < 420) !== F1.stack) renderSeatMap(false); }).observe($('#f1Map'));
+    // 탑승권은 지역을 바꿀 때마다 다시 만들므로, 늘 있는 #bp를 지켜보다가 바코드 칸의 크기가 바뀌면 다시 그린다
+    new ResizeObserver(() => { const b = $('#bpBars'); if (b && (Math.round(b.clientWidth) !== b._w || Math.round(b.clientHeight) !== b._h)) drawPassBars(false); }).observe($('#bp'));
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { redraws.forEach(r => r[1]()); drawPassBars(false); });
+})();
+</script>
+</body>
+</html>
