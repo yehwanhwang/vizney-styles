@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Shell style — DASHBOARD.md · Vizney Styles</title>
+<link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=87d56bfcbc" as="font" type="font/woff" crossorigin>
+<!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site's Markdown pages (prompt.md, skill/SKILL.md: _config.yml defaults) and, through tools/package.py, <name>/DASHBOARD.html. Header, tabs and footer are the site's (index.html / 404.html). -->
+<style>
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=87d56bfcbc) format('woff')}
+:root{
+  /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
+     The blog's Vizney header (scrolls away) and the site's sticky tabs under it; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
+     styles with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
+     built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
+     Single light theme on purpose, like Blocks and the style screens. */
+  color-scheme: light;
+  --page:#ffffff;
+  --soft:#f4f5f7;
+  --tile:#f6f7f9;
+  --ink:#1b1b1b;
+  --ink-2:#4a4a4a;
+  --muted:#616771;
+  --line:#e6e8ec;
+  --line-2:#eceef2;
+  --rule:#cfd2d8;
+  --btn-line:#e3e5ea;
+  --ink-hover:#3a3a3a;
+  /* Top bar: the blog's (kr.vizney.com · www.vizney.com) black header, so moving between the two reads as one site. */
+  --top-bg:#1b1b1b;
+  --top-ink:#ffffff;
+  --top-ink-2:rgba(255,255,255,.78);
+  --top-line:rgba(255,255,255,.22);
+  --top-soft:rgba(255,255,255,.10);
+  --top-rule:hsla(0,0%,100%,.15);
+  /* The one UI accent: the yellow of the blog's post images (#ffcc00). Buttons, active states, focus. Never a data color. */
+  --accent:#ffcc00;
+  --accent-hover:#f2c200;
+  --accent-ink:#1b1b1b;
+  --yellow:#ffcc00;
+  --pink:#ff2d55;
+  --font:'VZ Sans','Spoqa Han Sans Neo','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono','VZ Sans',monospace;
+  --shadow:0 12px 32px -12px rgba(17,24,39,.28);
+  --shadow-sm:0 1px 2px rgba(17,24,39,.12);
+  --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
+
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.7 var(--font);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--top-bg)}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{text-decoration-color:var(--ink)}
+/* Focus: the accent yellow as a halo around an ink ring, so it shows on white (yellow alone is 1.6:1 there) and on the black bar. */
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--accent);border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;white-space:nowrap}
+svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--page);font-size:14px;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}
+
+/* ---------- Vizney header (the common header of the blog, Vizney Blocks and Vizney Styles) ----------
+   Copied from the blog (kr.vizney.com · www.vizney.com): Ghost Casper, stacked navigation, with the blog's code injection
+   (black bar, Spoqa Han Sans Neo, globe language switch). 768px and up: two rows, wordmark centred over the menu.
+   767px and down: one row, wordmark left, globe · search · burger right, the menu as a full-screen sheet.
+   Not sticky: it scrolls away like the blog's. The site's own tabs stick below it. */
+.gh{position:relative;padding:0 max(4vmin, 20px);background:var(--top-bg);color:var(--top-ink);font-size:16px;line-height:1.3}
+.gh a{color:inherit;text-decoration:none}
+.gh-in{display:grid;grid-template-columns:1fr auto 1fr;grid-auto-flow:dense;column-gap:40px;align-items:center;max-width:1200px;margin:0 auto}
+.gh-brand{grid-row-start:1;grid-column-start:2;position:relative;display:flex;align-items:center;height:80px}
+.gh-logo{display:block}
+.gh-logo img{display:block;width:auto;max-height:40px}
+.gh-menu{grid-row-start:2;grid-column:1 / 4;display:flex;justify-content:center;align-items:center;height:56px;margin:0 48px;font-weight:500}
+.gh-menu::before{content:"";position:absolute;top:80px;left:0;width:100%;height:1px;background-color:var(--top-rule)}
+.gh-nav{display:inline-flex;flex-wrap:wrap;align-items:center;gap:32px;margin:0;padding:0;list-style:none}
+.gh-nav li{margin:0;padding:0}
+.gh-nav a{display:inline-flex;align-items:center;line-height:1.7}
+.gh-nav a:hover{opacity:.9}
+/* Where you are: only this site's item, underlined. */
+.gh-nav a[aria-current]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.gh-actions{grid-row-start:1;grid-column:1 / 4;display:flex;justify-content:flex-start;align-items:center;gap:8px}
+.gh-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;padding:0}
+.gh-icon svg{display:block}
+.gh-globe{opacity:.9;transition:opacity .2s ease}
+.gh-globe:hover{opacity:1}
+.gh-search:hover{opacity:.9}
+.gh-actions .gh-globe{margin-right:-4px}
+.gh-brand .gh-icon{display:none}
+/* The blog's overflow menu: items that do not fit on one line go under '…' (Casper's dropdown). */
+.gh-more{position:relative;display:inline-flex}
+.gh-more__toggle{position:relative;width:30px;height:30px;margin:0 -6px;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}
+.gh-more__toggle svg{display:block;width:24px;height:24px;margin:auto}
+.gh-dropdown{position:absolute;top:100%;right:-16px;z-index:90;width:200px;margin:24px 0 0;padding:12px 0;list-style:none;text-align:left;background:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 7px 20px -5px rgba(0,0,0,.15);opacity:0;visibility:hidden;transform:translate3d(0,6px,0);transition:opacity .3s,transform .2s}
+.gh-more.is-open .gh-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.gh-dropdown a{display:block;padding:6px 20px;color:#15171a;line-height:1.7}
+.gh-burger{position:relative;display:none;flex-shrink:0;width:30px;height:30px;margin-right:-3px;padding:0;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
+.gh-burger::before,.gh-burger::after{content:"";position:absolute;left:3px;width:24px;height:1px;background:#fff;transition:all .2s cubic-bezier(.04,.04,.12,.96) .1008s}
+.gh-burger::before{top:11px}
+.gh-burger::after{bottom:11px}
+.gh-open .gh-burger::before{top:15px;transform:rotate(45deg)}
+.gh-open .gh-burger::after{bottom:14px;transform:rotate(-45deg)}
+.gh :focus-visible{outline-color:var(--accent);box-shadow:none}
+.gh-dropdown :focus-visible{outline-color:var(--ink)}
+@media (max-width:767px){
+  .gh{height:64px}
+  .gh-in{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;gap:48px;height:100%}
+  .gh-brand{grid-column-start:1;width:100%;height:64px;flex-wrap:nowrap}
+  .gh-logo{margin-right:auto;flex-shrink:1}
+  .gh-brand .gh-icon{display:inline-flex}
+  .gh-brand .gh-globe{margin-right:8px}
+  .gh-brand .gh-search{margin-left:-6px;margin-right:8px}
+  .gh-burger{display:block}
+  .gh-menu,.gh-actions{grid-row-start:auto;grid-column:auto}
+  .gh-actions{display:none}
+  .gh-menu{position:fixed;justify-content:center;margin:0;visibility:hidden;opacity:0}
+  .gh-menu::before{content:none}
+  .gh-nav{gap:16px;line-height:1.4}
+  .gh-nav a{font-size:26px;font-weight:600}
+  .gh-nav li{opacity:0;transform:translateY(-4px)}
+  .gh-open .gh{position:fixed;inset:0;z-index:3999999;height:100%;overflow-y:auto;overscroll-behavior-y:contain}
+  .gh-open .gh-menu{position:static;visibility:visible;opacity:1}
+  .gh-open .gh-nav{display:flex;flex-direction:column}
+  .gh-open .gh-nav li{opacity:1;transform:translateY(0);transition:transform .2s,opacity .2s}
+  /* The blog keeps a footer row here for 'Sign in'; this site has no members, so the row stays empty to keep the menu where the blog's is. */
+  .gh-open .gh-actions{display:block;height:calc(max(4vmin, 20px) + max(4vmin, 28px) + 21px)}
+  .gh-open .gh-actions > *{display:none}
+}
+
+/* ---------- the site's tabs, under the Vizney header ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;padding:0 max(4vmin, 20px);background:var(--page);box-shadow:inset 0 -1px var(--line)}
+.tabs-in{display:flex;align-items:stretch;gap:28px;max-width:1200px;height:48px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs-in::-webkit-scrollbar{display:none}
+.tabs a{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;padding-top:2px;border-bottom:2px solid transparent;font-size:15px;font-weight:500;line-height:1;white-space:nowrap;color:var(--ink-2);text-decoration:none}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs .tabs__name{font-weight:700;color:var(--ink)}
+.tabs .tabs__git{margin-left:auto}
+.tabs :focus-visible{outline-offset:-2px;box-shadow:none}
+
+/* ---------- footer (as on Vizney Blocks) ---------- */
+.foot{margin-top:120px;border-top:1px solid var(--line-2)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
+.foot-in nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot-in a{color:var(--ink-2);text-decoration-color:currentColor;text-decoration-thickness:auto;text-underline-offset:auto}
+
+/* ---------- the spec (DASHBOARD.md rendered by GitHub Pages) ---------- */
+.doc{max-width:880px;margin:0 auto;padding:56px max(4vmin, 20px) 0;font-size:16px;line-height:1.75}
+.doc h1{font-size:clamp(30px, 4vw, 40px);line-height:1.2;font-weight:700;letter-spacing:-.025em}
+.doc h2{margin-top:64px;padding-top:28px;border-top:1px solid var(--line);font-size:26px;line-height:1.3;font-weight:700;letter-spacing:-.02em}
+.doc h3{margin-top:36px;font-size:19px;line-height:1.4;font-weight:700}
+.doc h4{margin-top:28px;font-size:16px;font-weight:700}
+.doc p,.doc ul,.doc ol,.doc pre,.doc blockquote,.doc table,.doc .highlighter-rouge{margin-top:16px}
+.doc .highlighter-rouge pre{margin-top:0}
+.doc ul{padding-left:22px;list-style:disc}
+.doc ol{padding-left:24px;list-style:decimal}
+.doc li + li{margin-top:6px}
+.doc li > ul,.doc li > ol{margin-top:6px}
+.doc strong{font-weight:700}
+.doc hr{margin:40px 0;border:0;border-top:1px solid var(--line)}
+.doc blockquote{padding-left:16px;border-left:3px solid var(--line);color:var(--ink-2)}
+.doc code{padding:.12em .36em;border-radius:5px;background:var(--soft);white-space:normal;overflow-wrap:anywhere}
+.doc pre{padding:16px 18px;border-radius:12px;background:var(--soft);overflow-x:auto;font-size:13.5px;line-height:1.6}
+.doc pre code{padding:0;background:none;font-size:inherit;white-space:pre;overflow-wrap:normal}
+.doc table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:14px;line-height:1.55}
+.doc th,.doc td{padding:9px 14px 9px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.doc th{font-weight:700;border-bottom-color:var(--rule);white-space:nowrap}
+.doc img{max-width:100%;height:auto}
+@media (max-width:720px){
+  .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  .doc{padding-top:36px;font-size:15px}
+  .doc h2{margin-top:48px;font-size:22px}
+  .foot-in nav{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body data-page="spec">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="gh" id="top">
+  <div class="gh-in">
+    <div class="gh-brand">
+      <a class="gh-logo" href="https://www.vizney.com/" data-href="v:home"><img src="/assets/brand/vizney-wordmark-white.png" width="106" height="40" alt="Vizney"></a>
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+      <button class="gh-burger" type="button" aria-label="Main Menu" aria-expanded="false" aria-controls="ghMenu" data-i18n-aria="ghMenu"></button>
+    </div>
+    <nav class="gh-menu" id="ghMenu" aria-label="Vizney">
+      <ul class="gh-nav">
+        <li><a href="https://www.vizney.com/chart-guide/" data-href="v:chart-guide">Chart Guide</a></li>
+        <li><a href="https://blocks.vizney.com/" data-href="v:blocks">Blocks</a></li>
+        <li><a href="https://styles.vizney.com/" data-href="v:styles" aria-current="page">Styles</a></li>
+        <li><a href="https://www.vizney.com/tips/" data-href="v:tips">Tips &amp; Tricks</a></li>
+        <li><a href="https://www.vizney.com/kb/" data-href="v:kb">Knowledge Base</a></li>
+        <li><a href="https://www.vizney.com/about/" data-href="v:about">About</a></li>
+        <li><a href="https://www.vizney.com/contact-us/" data-href="v:contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="gh-actions">
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Vizney Styles" data-i18n-aria="tabsAria">
+  <div class="tabs-in">
+    <a class="tabs__name" href="/" data-href="home" data-tab="top">Vizney Styles</a>
+    <a href="/#styles" data-href="home:styles" data-tab="styles" data-i18n="navStyles">Catalog</a>
+    <a href="/#custom" data-href="home:custom" data-tab="custom" data-i18n="navCustom">Your company</a>
+    <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true">↗</span></a>
+    <a class="tabs__git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="main" class="doc">
+<h1 id="shell-style--dashboardmd">Shell style — DASHBOARD.md</h1>
+<p><strong>Energy, Forecourt, Confident</strong> · 에너지, 포코트, 당당함</p>
+<p>A dashboard design spec read from the public design of shell.com and shell.us, Shell's quarterly results presentations and annual report, and the place most people meet the company: the forecourt, with its price sign, canopy band and gray base band. Shell publishes its numbers on slides — a kicker, a yellow rule, red chart titles, compare boxes, earnings bridges with gray totals — and on the forecourt it shows them on a white sign with a yellow head and a dark price zone. This spec turns those into dashboard parts — the price sign as a pillar of key figures, the results deck's compare boxes and key price markers, its earnings bridge, ruled exception lists, and a schematic corridor map with the sites as small price-sign pins — and adds what a website spec leaves out and a dashboard needs: validated data colors, card anatomy, chart rules, number and date formats in English and Korean, density, filters, accessibility, and settings for Tableau, Power BI and the web. Add it to a project with one command (or the zip on the sample page), or hand it to whoever builds your dashboards. The live sample was built from it.</p>
+<pre><code>npx @vizney/styles@latest add shell
+# or, without Node:
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- shell
+</code></pre>
+<p>That puts <code>DASHBOARD.md</code> in the project root and the <code>dashboard-style</code> agent skill (build, restyle, review) in <code>.claude/skills/dashboard-style/</code>, together with <code>tokens.css</code>, <code>tokens.json</code>, <code>shell.tps</code>, <code>powerbi-theme.json</code> and <code>prompt.md</code>. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow <code>DASHBOARD.md</code>.</p>
+<ul>
+<li>Live sample: https://styles.vizney.com/shell/?lang=en (Korean <code>?lang=ko</code>; one corridor <code>&amp;corridor=i5</code>)</li>
+<li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/shell/DASHBOARD.md</li>
+<li>Package: <a href="shell-dashboard-style.zip">shell-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
+<li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="shell.tps">shell.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="bridge.csv">bridge.csv</a> (the data behind the sample's Figure 2)</li>
+<li>Catalog: VIZNEY STYLES · 06 · https://styles.vizney.com (Vizney Styles is a line of <a href="https://www.vizney.com">Vizney</a>)</li>
+</ul>
+<p>Not an official Shell design, and not affiliated with or endorsed by Shell. A reference style read from the publicly visible design of shell.com and shell.us and its public touchpoints such as forecourts and reports; it carries no logo, typeface, photo or data of theirs. The sample's company, Vizney Energy, and all its numbers are fictional. Trademarks belong to their owners.</p>
+<h2 id="visual-theme--atmosphere">Visual Theme &amp; Atmosphere</h2>
+<p>A forecourt that reports like a results slide. The page is white and flat. The header is a white canopy band — <code>Vizney Energy |</code> in red with the period in ink, the way Shell's slides end in <code>Shell plc |</code> — over a 6px red bar across the page, the canopy's red band; under it the corridor menu, set like shell.com's navigation with a 4px yellow underline on the selected item. Every section opens like a slide: a small kicker with the section number in red, the heading in ink, a 2px Shell-yellow rule across the width.</p>
+<p>Three devices carry the report, and each is built to be read before it is admired. The <strong>price sign</strong> is the key figure: a white cabinet with a yellow head that holds the one big number (the main grade against the street), a 5px red bar, a dark price zone with one row per grade and the posted price to a tenth of a cent, and a gray base band with the site count and the posting time. The <strong>key price markers</strong> of the results deck become Figure 1: three small multiples with red chart titles, the subject line in red, the comparison in gray, the current week shaded, and compare boxes under each plot. The <strong>earnings bridge</strong> is Figure 2: plan to actual in lever steps, gray totals cut at a break, green increases, red decreases, negatives in parentheses. Around them sit ruled exception lists (sites, tanks, charge points), busy hours as bars, a schematic corridor operations map whose sites are small price-sign pins, and a results table from the annual report, collapsed to corridor totals.</p>
+<p>Confident and plain: no shadows, no rounded cards, no gradients, no photos. Yellow and red belong to the frame — the rules, the sign's head, the canopy bar, the chart titles — and the data speaks in one red for the subject and gray for the rest, as Shell's own charts do. Every number answers a question someone acts on: price against the street, margin and volume against plan, which sites missed it and why, when to staff, which tank to fill, which charger to fix.</p>
+<p>Measured in a browser on November 4, 2026 (shell.com and shell.us signed out, shell.co.kr for the Korean face; the third quarter 2026 results presentation of October 29, 2026; Annual Report 2025; the retail visual identity drawings): shell.com's body is white, headings <code>#404040</code>, secondary text <code>#595959</code>; primary buttons are 48px high with an 8px radius and 14px bold text, yellow <code>#ffc800</code> with dark text or dark <code>#4a4a4a</code> with yellow text; navigation items are 14px with a 4px yellow underline under the current item; tooltips and inputs have a 4px radius; there are no card shadows. The results slides put a kicker above each title and a 2pt yellow rule under it, set chart titles in bold red with the unit, put key figures in compare boxes <code>#f7f7f7</code> with a yellow bottom rule (<code>Q3 2026 vs Q2 2026</code>), shade the current period <code>#f2f2f2</code>, draw earnings bridges with gray totals, green increases, red decreases and negatives in parentheses, and end in a red footer line. The annual report marks non-GAAP measures with <code>[A]</code>, writes <code>(2024: x)</code> after a figure and puts units in parentheses after the measure. The forecourt's prime sign is white with a yellow head and a dark price zone of grades, under a canopy with a red band, over a 12-inch Shell Gray base band; Fuel Rewards copy says <code>¢/gal</code> and <code>main grade</code>. shell.co.kr declares the Shell face and falls back to Arial and system fonts — no Hangul web font. Photos and drawings were looked at only.</p>
+<h2 id="color-palette--roles">Color Palette &amp; Roles</h2>
+<p>Surfaces and text are shell.com's grays; yellow and red frame the page; the price zone is the sign's.</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas · panel · plot</td>
+<td><code>#ffffff</code></td>
+<td>page background, figure panels, the sign's cabinet; a chart sits on its panel</td>
+</tr>
+<tr>
+<td>soft</td>
+<td><code>#f7f7f7</code></td>
+<td>compare boxes (the KPIs, Figure 1's boxes, the build steps), the corridor map's bands, the footer</td>
+</tr>
+<tr>
+<td>band</td>
+<td><code>#f2f2f2</code></td>
+<td>the current week (Figure 1's column, Table 1's week 44 columns), the note band under every figure, hovered rows</td>
+</tr>
+<tr>
+<td>line · hair</td>
+<td><code>#e4e4e4</code></td>
+<td>panel edges and chart gridlines</td>
+</tr>
+<tr>
+<td>rule</td>
+<td><code>#d9d9d9</code></td>
+<td>row rules in lists and tables, the sign's edge, the tooltip border, toggles</td>
+</tr>
+<tr>
+<td>edge</td>
+<td><code>#bfbfbf</code></td>
+<td>dashed thresholds (−3% of plan, 2 days of supply, 97% uptime)</td>
+</tr>
+<tr>
+<td>ink</td>
+<td><code>#404040</code></td>
+<td>titles, key figures, table values (10.4:1)</td>
+</tr>
+<tr>
+<td>body</td>
+<td><code>#4a4a4a</code></td>
+<td>running text; the dark button (shell.com)</td>
+</tr>
+<tr>
+<td>text-2</td>
+<td><code>#595959</code></td>
+<td>kickers, subtitles, notes (7.0:1)</td>
+</tr>
+<tr>
+<td>muted</td>
+<td><code>#707070</code></td>
+<td>figure labels, axis ticks, units, <code>(Wk 43: x)</code> (4.95:1)</td>
+</tr>
+<tr>
+<td>yellow</td>
+<td><code>#fbce07</code></td>
+<td>Shell yellow: the 2px rule under every heading, the compare boxes' bottom rule, the sign's head, the footer rule. Never data</td>
+</tr>
+<tr>
+<td>yellow-ui · hover</td>
+<td><code>#ffc800</code> · <code>#e6b400</code></td>
+<td>buttons, the menu underline, the map pins' heads, the selected site · button hover</td>
+</tr>
+<tr>
+<td>red</td>
+<td><code>#dd1d21</code></td>
+<td>Shell red: the canopy bar, chart titles, section numbers, the company name, <code>[A]</code> markers. Never data</td>
+</tr>
+<tr>
+<td>zone · zone-2 · zone-muted</td>
+<td><code>#262626</code> · <code>#3a3a3a</code> · <code>#bdbdbd</code></td>
+<td>the sign's price zone · rules between grades and the hovered grade · grade names and small figures (8.1:1)</td>
+</tr>
+<tr>
+<td>gray-band</td>
+<td><code>#595959</code></td>
+<td>the sign's base band with white text (7.0:1)</td>
+</tr>
+</tbody>
+</table>
+<p>Rules:
+- Panels are white with a 1px <code>#e4e4e4</code> edge; no radius on panels, boxes or the sign; 8px on buttons and toggles, 4px on the tooltip; no shadows except the tooltip and the toast.
+- Yellow is a rule or a head, never a fill behind running text and never data. Red is the frame (the canopy bar, chart titles, numbers of sections), never a series; the data's red is its own step <code>#e03a35</code>.
+- The price zone <code>#262626</code> belongs to the sign and to the map's pins; never fill a panel with it.</p>
+<h2 id="data-colors">Data Colors</h2>
+<p>Shell's results charts put the subject in red and everything else in gray, so this style does the same: red is the subject, gray the rest, with Shell's blue and yellow as data steps for a rare second and third series. Every value passed an OKLab validator (color-vision-deficiency separation, normal-vision separation, contrast) on the panel <code>#ffffff</code> and the compare boxes <code>#f7f7f7</code>. Use them exactly; do not generate tints.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Mark</th>
+<th>Label text</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subject</td>
+<td><code>#e03a35</code></td>
+<td><code>#c4161c</code></td>
+<td>what the title names: the posted price, actual margin and volume, the sites more than 3% below plan, the busiest hours, the tanks and charge points past their threshold</td>
+</tr>
+<tr>
+<td>Second series</td>
+<td><code>#2f6aae</code></td>
+<td><code>#2f6aae</code></td>
+<td>a second measure beside the subject, rare</td>
+</tr>
+<tr>
+<td>Third series</td>
+<td><code>#b08500</code></td>
+<td><code>#8a6800</code></td>
+<td>only on lines and bars with direct labels, never next to red</td>
+</tr>
+<tr>
+<td>Other</td>
+<td><code>#a3a3a3</code></td>
+<td>text-2</td>
+<td>everything else: rows inside the threshold, other hours</td>
+</tr>
+<tr>
+<td>Comparison</td>
+<td><code>#7b7b7b</code>, solid 2px for a second measure (laid-in cost), dashed 2px (5 on, 4 off) for plan</td>
+<td>ink</td>
+<td>always labeled at its end</td>
+</tr>
+<tr>
+<td>Bridge</td>
+<td>totals <code>#818181</code>, increase <code>#008443</code>, decrease <code>#e03a35</code></td>
+<td>ink</td>
+<td>Figure 2</td>
+</tr>
+<tr>
+<td>Thresholds and lines</td>
+<td>zero <code>#404040</code>, threshold <code>#bfbfbf</code> dashed, baseline <code>#9a9a9a</code>, grid <code>#e4e4e4</code>, current week <code>#f2f2f2</code></td>
+<td>—</td>
+<td></td>
+</tr>
+<tr>
+<td>Sequential</td>
+<td><code>#96b6e4</code> <code>#709ad6</code> <code>#4c7ec3</code> <code>#3063a9</code> <code>#1e4a85</code></td>
+<td>ink on the two lightest, white on the rest</td>
+<td>color by value; blue, so magnitude never reads as bad</td>
+</tr>
+<tr>
+<td>Diverging</td>
+<td><code>#b32322</code> <code>#dd574e</code> <code>#ea988f</code> · <code>#e4e4e4</code> · <code>#93b3e1</code> <code>#5a87c8</code> <code>#2d5da0</code></td>
+<td>each arm's darkest</td>
+<td>above and below a midpoint</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>good <code>#007a3d</code>, bad <code>#c4161c</code>, neutral <code>#7b7b7b</code></td>
+<td>—</td>
+<td>change text and status words only</td>
+</tr>
+</tbody>
+</table>
+<p>Validation (from <code>tokens.json</code>, light mode, on <code>#ffffff</code> and <code>#f7f7f7</code>):
+- Red <code>#e03a35</code> sits one step lighter than the brand red <code>#dd1d21</code>, which stays on titles and the canopy bar. Adjacent order red → blue → ochre → gray: lightness inside 0.43–0.77, chroma ≥ 0.10, CVD ΔE 18.5 (protan, red↔blue), normal vision 28.1, contrast ≥ 3:1 on both surfaces; with Other last, the worst adjacent pair is ochre↔gray at 14.7 (CVD) and 15.1 (normal). Across all pairs red↔ochre is 4.0 (deutan), so three series only on lines and bars with direct labels, and scatter plots and maps use red and blue only.
+- Other <code>#a3a3a3</code> is neutral by design (the lightness band and chroma floor do not apply). At 2.52:1 it always has a second cue: value labels, the grid and tooltips, a table view.
+- Comparison <code>#7b7b7b</code> against red: CVD 11.1 (protan), normal 20.4, 4.23:1 on white.
+- Bridge: increase↔decrease is CVD 7.6 (protan), inside the 6–8 floor band, so the bridge always carries its second encoding: direction from the running total, parentheses on negatives and a value on every bar.
+- The sequential ramp is one blue hue, monotone, every gap ≥ 0.06, the light end 2.08:1. The diverging arms pass the ordinal checks (light ends 2.24 and 2.15:1); the poles are 19.6 (CVD) and 27.4 (normal) apart; the midpoint is the grid gray.
+- Text: red labels <code>#c4161c</code> 6.04:1 (5.39:1 on the <code>#f2f2f2</code> column), ochre labels <code>#8a6800</code> 5.17:1, good <code>#007a3d</code> 5.45:1 (5.09:1 on <code>#f7f7f7</code>), bad 6.04:1 (5.63:1). Good↔bad is 5.1 under deuteranopia, so status is never color alone.</p>
+<p>Rules:
+- Red only for what the title names; the rest gray. A card that is mostly red has highlighted nothing.
+- A red mark means the subject or a shortfall, never both in one view: where red marks the rows past a threshold (Figures 3, 5, 6), the subject is those rows.
+- Status is never color alone: <code>▲</code> / <code>▼</code>, the sign or parentheses and words (<code>below plan</code>) always come with it.
+- Never the brand red <code>#dd1d21</code> or Shell yellow on data.</p>
+<h2 id="typography-rules">Typography Rules</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>English</th>
+<th>Korean</th>
+<th>Weights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sans (everything)</td>
+<td>Jost</td>
+<td>Pretendard</td>
+<td>300–800</td>
+</tr>
+<tr>
+<td>Mono (code in How it's built only)</td>
+<td>Roboto Mono</td>
+<td>Roboto Mono, then Pretendard for Hangul</td>
+<td>400, 500</td>
+</tr>
+</tbody>
+</table>
+<p>Jost, a geometric sans after Futura, stands in for the Shell typeface, which is not open; its round O and single-storey figures read close to the forecourt's numerals, and its tabular figures keep columns aligned. shell.co.kr loads no Hangul web font, so Korean uses Pretendard. Numbers on the screen stay in the sans with tabular figures; there is no serif.</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Size / weight</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Company line · report name</td>
+<td>13.5px: <code>Vizney Energy</code> red 500, <code>|</code> red 300, the period in body · 28px / 700, line-height 1.15 (Korean 26px)</td>
+<td><code>Vizney Energy | Wk 44 · 26 Oct – 1 Nov 2026</code></td>
+</tr>
+<tr>
+<td>Kicker</td>
+<td>14px / 400 text-2</td>
+<td><code>Mobility results · Week 44</code>; in sections the number in red 500</td>
+</tr>
+<tr>
+<td>Headline</td>
+<td><code>clamp(24px, 2.05vw, 29px)</code> / 600, line-height 1.26</td>
+<td>the finding in one sentence; figures in it at 700 in ink (red stays for titles and data)</td>
+</tr>
+<tr>
+<td>Lede</td>
+<td>15.5px / 400, line-height 1.5</td>
+<td></td>
+</tr>
+<tr>
+<td>Section heading</td>
+<td>24px / 700 ink, then a 2px <code>#fbce07</code> rule 12px below</td>
+<td></td>
+</tr>
+<tr>
+<td>Sign label · big number</td>
+<td>12px / 700 caps, 0.08em · 26px / 500 tabular</td>
+<td><code>POSTED PRICE · WK 44</code>, <code>Main grade vs the street +0.2¢</code></td>
+</tr>
+<tr>
+<td>Sign grade · price · margin</td>
+<td>12px / 600 caps <code>#bdbdbd</code> · 42px / 500 white, the tenth of a cent at 0.42em superscript, the unit 12px · 17px / 500 white over <code>margin</code> 12.5px</td>
+<td>38px under 1360px, 32px on the horizontal board</td>
+</tr>
+<tr>
+<td>KPI (compare box)</td>
+<td>measure 13px with the unit in parentheses · figure 38px / 500, −0.015em · change 13px / 600 status · <code>(Wk 43: x)</code> 12.5px muted</td>
+<td>four rows on a subgrid</td>
+</tr>
+<tr>
+<td>Figure label</td>
+<td>12px / 600 caps, 0.07em, muted</td>
+<td><code>FIGURE 1 · PRICE MARKERS</code> (Korean 13px, no caps: <code>그림 1 · 시세</code>)</td>
+</tr>
+<tr>
+<td>Card title</td>
+<td>18.5px / 600, line-height 1.32, <code>text-wrap: balance</code></td>
+<td>the finding</td>
+</tr>
+<tr>
+<td>Chart title</td>
+<td>14px / 700 red <code>#dd1d21</code>, the unit after it 13px muted</td>
+<td>the results deck's red chart titles</td>
+</tr>
+<tr>
+<td>Key · labels</td>
+<td>12.5px / 500</td>
+<td></td>
+</tr>
+<tr>
+<td>Note band</td>
+<td>12px on 17px text-2 on <code>#f2f2f2</code></td>
+<td>starts with <code>Note:</code> / <code>주:</code> where it is a note; <code>[A]</code> notes start with the marker</td>
+</tr>
+<tr>
+<td>Axis ticks · value labels</td>
+<td>12px muted · 12.5px / 600 ink</td>
+<td></td>
+</tr>
+<tr>
+<td>Body</td>
+<td>14px / 400, line-height 1.5</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Korean breaks between words (<code>word-break: keep-all</code>), and a number stays on the line with the particle after it.</p>
+<h2 id="numbers-dates--units">Numbers, Dates &amp; Units</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>English</th>
+<th>Korean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pump price</td>
+<td><code>$3.55⁶/gal</code> (the tenth of a cent as a superscript, as on the sign)</td>
+<td><code>3.55⁶달러/갤런</code></td>
+</tr>
+<tr>
+<td>Price in text · tables</td>
+<td><code>$3.556</code>, <code>$0.606/kWh</code></td>
+<td><code>3.556달러</code>, <code>0.606달러/kWh</code></td>
+</tr>
+<tr>
+<td>Price differences · margin</td>
+<td><code>+5.7¢</code>, <code>46.0¢ a gallon</code>, <code>¢/gal</code></td>
+<td><code>+5.7센트</code>, <code>갤런당 46.0센트</code></td>
+</tr>
+<tr>
+<td>Volume</td>
+<td><code>1.48</code> (million gal) in KPIs, <code>1,482</code> thousand gal in charts, <code>60.9</code> K gal in lists</td>
+<td><code>148.2</code>(만 갤런), <code>148만 2천 갤런</code>; lists <code>천 갤런</code></td>
+</tr>
+<tr>
+<td>Money</td>
+<td><code>$1.12</code> million in KPIs, <code>$2.5K</code> in sentences, <code>1,099.5</code> ($ thousand) in the bridge</td>
+<td><code>112.3</code>(만 달러), <code>2,500달러</code>, <code>1,099.5</code>(천 달러)</td>
+</tr>
+<tr>
+<td>Energy</td>
+<td><code>175</code> MWh</td>
+<td><code>175</code> MWh</td>
+</tr>
+<tr>
+<td>Rates · points</td>
+<td><code>14.2%</code>, <code>−0.8 pts</code>, <code>71.4%</code> uptime</td>
+<td><code>14.2%</code>, <code>−0.8%p</code></td>
+</tr>
+<tr>
+<td>Change against plan</td>
+<td><code>▼ 1.2% below plan</code>, <code>▲ 1.0¢ above plan</code>, <code>▼ 0.8 pts below the 15% target</code></td>
+<td><code>▼ 계획보다 1.2% 적음</code>, <code>▲ 계획보다 1.0센트 높음</code>, <code>▼ 목표 15%보다 0.8%p 낮음</code></td>
+</tr>
+<tr>
+<td>Last period</td>
+<td><code>(Wk 43: 1.49)</code>, after the change</td>
+<td><code>(43주: 148.9)</code></td>
+</tr>
+<tr>
+<td>Negatives in tables and bridges</td>
+<td><code>(9.0)</code>, <code>(3.0)</code></td>
+<td>the same</td>
+</tr>
+<tr>
+<td>Dates and weeks</td>
+<td><code>Wk 44 · 26 Oct – 1 Nov 2026</code>, <code>Wk 32</code> on axes, <code>6 am Mon 2 Nov</code>, <code>Tue 3 Nov</code></td>
+<td><code>44주 · 2026년 10월 26일~11월 1일</code>, <code>32주</code>, <code>11/2(월) 오전 6시</code>, <code>11/3(화)</code></td>
+</tr>
+<tr>
+<td>Hours</td>
+<td><code>4–7 pm</code>, <code>12 am</code>, <code>6 pm</code> on axes</td>
+<td><code>16~19시</code>, <code>0시</code>, <code>18시</code></td>
+</tr>
+<tr>
+<td>Sites · equipment</td>
+<td><code>I-5 Exit 188</code>, <code>CP-3</code>, <code>Station A</code></td>
+<td><code>I-5 188번 출구</code>, <code>CP-3</code>, <code>경쟁 주유소 A</code></td>
+</tr>
+<tr>
+<td>Distance</td>
+<td><code>0.8 mi</code>, <code>100 mi</code></td>
+<td><code>0.8마일</code>, <code>100마일</code></td>
+</tr>
+<tr>
+<td>Missing</td>
+<td><code>—</code> (no charge points)</td>
+<td><code>—</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Money is in the company's currency; the sample's company is American, so US dollars and gallons. Sites are named by interstate and exit; the exits, prices and competitors are made up.</li>
+<li>Signs use the true minus (<code>−</code>, U+2212); one decimal for change, a tenth of a cent for pump prices.</li>
+<li>Change colors follow whether the move is good for that metric (a price above the street on a site that missed plan is bad).</li>
+<li>Units go in parentheses after the measure (<code>Fuel margin (¢/gal)</code>), as in the annual report, so the figure stands alone.</li>
+<li>A table that is rounded still adds up: round each line, then hand the leftover units to the lines with the largest remainders (sites to corridors, corridors to the total; the bridge's steps to the actual). The exact value is in the tooltip.</li>
+<li>Weeks run Monday to Sunday; prices are posted at 6 am and the report is published 6 am Monday.</li>
+</ul>
+<h2 id="layout-principles">Layout Principles</h2>
+<p>One column on a white page, at most 1400px wide, 32px side padding (24px up to 1359px, 16px below 640px), a 16px gap, 44px above each section. No sidebar, no logo, no photo.</p>
+<ol>
+<li><strong>Canopy band</strong> (white, 80px): <code>Vizney Energy |</code> and the period; the report name; on the right EN/KO, <code>Export PDF</code> (dark) and <code>Copy as Markdown</code> (yellow).</li>
+<li><strong>Red bar</strong> (<code>#dd1d21</code>, 6px) across the page.</li>
+<li><strong>Corridor menu</strong> (52px, 1px <code>#e4e4e4</code> below): <code>All corridors (24) · I-5 (8) · I-10 (8) · I-95 (8)</code>, the selected one 700 with a 4px <code>#ffc800</code> underline; <code>Against plan and week 43</code> on the right. It is the filter: it scopes every card, and the URL keeps it (<code>?corridor=i5</code>).</li>
+<li><strong>This week</strong> (from 1200px): the price sign as a pillar on the left (304px, 272px under 1360px); on the right the kicker, the finding headline, the lede, a yellow rule, five compare-box KPIs on a subgrid and Figure 1 (three price markers). The two columns end on one line: the sign's grade rows and Figure 1's plots take the extra height.</li>
+<li><strong>02 Against plan:</strong> Figure 2 the gross margin bridge (5 of 12 columns) · Figure 3 sites against plan (7 of 12).</li>
+<li><strong>03 Forecourt operations:</strong> Figure 4 busy hours · Figure 5 tanks · Figure 6 charge points, a row of three.</li>
+<li><strong>04 Sites:</strong> Figure 7 the corridor operations map across the page (the map and, beside it, the selected site zoomed to its 2-mile street with what to do), then Table 1 results by site, collapsed to corridor totals.</li>
+<li><strong>05 How it's built:</strong> an intro with two buttons, three compare-box steps, the workbench window.</li>
+<li><strong>06 Method and sources:</strong> footnotes in two columns, <code>[A]</code> in red.</li>
+<li><strong>Footer</strong> (<code>#f7f7f7</code> over a 2px yellow rule): the catalog line, the sample note, the notice and the way back.</li>
+</ol>
+<p>At most seven views in a section, and every view a standard form an agent or a BI tool can rebuild. Density: at 1440 × 810 the frame, the price sign, the headline, the five KPIs and the top of Figure 1 are on the first screen. Reading order follows the list; never lead with a chart.</p>
+<h2 id="component-stylings">Component Stylings</h2>
+<ul>
+<li><strong>Panel</strong> (every figure and table): white, 1px <code>#e4e4e4</code>, no radius, no shadow, 16px 20px 0. Head: figure label → finding title → a 2px <code>#fbce07</code> rule → red chart title with the unit → keys; then the plot; then the note band (<code>#f2f2f2</code>, 8px 20px 9px, bleeding to the panel's edges). Never a card inside a card.</li>
+<li><strong>Section head</strong>: the kicker (<code>02</code> in red 500, then <code>Against plan</code> in 14px text-2), the heading 24px / 700 ink, a 2px yellow rule across the width.</li>
+<li><strong>Price sign</strong> (the KPI pillar): a white cabinet with a 1px <code>#d9d9d9</code> edge. The head on <code>#fbce07</code>, 14px 16px 13px: <code>POSTED PRICE · WK 44</code> (12px / 700 caps), <code>Average across sites, vs week 43</code> (13px), then above a 1px rule the one big number: <code>Main grade vs the street</code> and <code>+0.2¢</code> (26px / 500). A 5px <code>#dd1d21</code> bar. The price zone on <code>#262626</code>, one row per grade (Regular, Mid-grade, Premium, Diesel, EV fast charge), at least 74px each, 1px <code>#3a3a3a</code> between: the grade (12px / 600 caps <code>#bdbdbd</code>) and the change against last week at the top right (12.5px <code>#bdbdbd</code>); the posted price (42px / 500 white, <code>$3.55⁶</code>, the unit <code>/gal</code> 12px); the margin at the right (17px / 500 white over <code>margin</code>). The base band on <code>#595959</code> (12.5px white): <code>Volume-weighted across 24 sites · posted 6 am Sun 1 Nov</code>. Rows hover to <code>#3a3a3a</code> and step with the arrow keys. From 1199px down the sign lies down as a horizontal price board under the headline: the yellow head on the left, the five grades side by side with a 5px red edge, the base band under them.</li>
+<li><strong>Compare box</strong> (KPI): <code>#f7f7f7</code>, a 2px <code>#fbce07</code> bottom rule, 12px 14px 11px; four rows on a subgrid so the figures line up: the measure with its unit in parentheses (<code>Fuel volume (million gal)</code>), the figure (38px / 500), the change against plan or target (<code>▼ 1.2% below plan</code>, 13px / 600 in good or bad), then <code>(Wk 43: 1.49)</code> in muted.</li>
+<li><strong>Price markers</strong> (Figure 1): three small multiples side by side. Each: the red chart title and the unit line (<code>Main grade price</code> · <code>$ a gallon, 13 weeks</code>), a key, the plot (the subject in red 2.5px, the comparison 2px gray — solid for laid-in cost, dashed for plan — gridlines on rows, the current week as a <code>#f2f2f2</code> column that holds both end labels), then two compare boxes under it (<code>#f7f7f7</code>, a 1.5px yellow bottom rule): <code>Posted · Wk 44 · $3.556 · vs Wk 43 −3.5¢</code>.</li>
+<li><strong>Bridge</strong> (Figure 2): bars for <code>Plan · Volume · Margin · Mix · Shop · EV · Actual</code>; totals <code>#818181</code> cut at a white double break near the axis floor (the axis starts at 1,080, and the note says so); steps float from the running total, increases <code>#008443</code>, decreases <code>#e03a35</code>; dotted 1px connectors at the running total; values above or below the bars in ink, negatives in parentheses; the step names under the axis on two lines when needed; rounded to $0.1K so the steps add up.</li>
+<li><strong>Exception list</strong> (Figures 3, 5, 6): ruled rows (1px <code>#d9d9d9</code>, 30px) under a header line in ink (11.5px / 600 caps muted). Name (the site in 600, the grade or charge point in text-2), a bar from a zero line (1px ink) with a dashed <code>#bfbfbf</code> threshold, the value at the bar end, then one or two columns (<code>K gal</code>, <code>vs street</code>; <code>Delivery</code>; <code>Uptime</code>, <code>Lost</code>). Rows past the threshold are red <code>#e03a35</code> with the value in <code>#c4161c</code> / 700; the rest <code>#a3a3a3</code>. Figure 3 numbers the rows (<code>1</code>–<code>8</code>); Figure 5 writes <code>Not booked</code> in bad; Figure 6 draws hours down of 168 with the target <code>97% (5 h down)</code>.</li>
+<li><strong>Busy hours</strong> (Figure 4): 24 bars, the busiest three hours red and labeled, the rest <code>#a3a3a3</code>, ticks every 6 hours, a note that says what to do with the quiet hours.</li>
+<li><strong>Corridor operations map</strong> (Figure 7): one schematic interstate per corridor in its own <code>#f7f7f7</code> band (a white 6px road over an 11px <code>#cfcfcf</code> casing; the bends are invented, the distance along the road follows the exit numbers, which are mile markers, with a small mark every 100 mi). Each site is a small price-sign pin on a stem, alternately above and below the road: a <code>#ffc800</code> head with the exit number (11px / 700) and a body with the change against plan (12px / 700 white) on <code>#262626</code>, or <code>#c4161c</code> when more than 3% below plan. Problems hang beside the pin as 8px red badges with white glyphs — a drop for a tank under 2 days with no delivery booked, a bolt for a charge point under 97% — and a site with two problems at once gets a pale red halo with a <code>#e03a35</code> ring on the road. The corridor name (18px / 700), its site count and its change against plan sit at the left. A click or the arrow keys select a site (a 3px <code>#ffc800</code> outline); the most urgent site (most problems, then the largest shortfall) is selected first.</li>
+<li><strong>Zoom</strong> (beside the map, 400px; below it under 1200px): <code>ZOOMED IN · 2-MILE RADIUS</code> (12px / 600 caps muted), the site (21px / 700), <code>−6.5% vs plan · +5.7¢ vs the street</code>. A schematic interchange on <code>#f7f7f7</code>: the highway, a cross road and four ramps in the map's road style, a dashed <code>#bfbfbf</code> circle of 2 miles (the radius that defines the street price) and a 1-mile scale bar. Our posted main-grade price stands on a pin (<code>POSTED</code> on yellow, the price on <code>#262626</code> or red); each competitor is a white dot with a gray ring and a tag (<code>$4.49⁹</code>, <code>B · 1.3 mi</code>) joined by a 1px leader; a competitor that opened or cut its price in week 41 gets a red ring and a red head (<code>NEW · WK 41</code>, <code>CUT · WK 41</code>). Pins, tags and place names take free spots and never cover a dot or each other; a place name with no room is dropped. Under the map, <code>What to do</code>: one line per problem with a red badge — <code>Review the posted price</code>, <code>Book a delivery</code>, <code>Send a technician</code> — each with the numbers behind it (<code>Fuel volume is 6.5% below plan, and the posted $4.529 is 5.7¢ above the street. Station A, 0.8 mi away, opened in week 41 at $4.399.</code>); a calm site says <code>No alerts this week</code>. Then four figures: Volume, Margin, vs street, Uptime.</li>
+<li><strong>Results table</strong> (Table 1), from the annual report's tables: group heads with the unit on a second line (<code>Fuel volume</code> / <code>thousand gal</code>), the week 44 columns shaded <code>#f2f2f2</code>, corridor rows in bold with a chevron that opens their sites (furthest below plan first), <code>Show all sites</code> / <code>Hide sites</code> above the table, a total row over a 1.5px ink rule, negatives in parentheses and red when they are shortfalls, <code>—</code> for sites without chargers, a small gray bar beside each site's volume. The all-corridors view starts collapsed; a single corridor starts open.</li>
+<li><strong>Buttons</strong> (measured): 40px, 8px radius, 14px / 600, 0 14px. Yellow <code>#ffc800</code> with ink text (hover <code>#e6b400</code>); dark <code>#4a4a4a</code> with yellow text (hover <code>#404040</code>); outlined white with a 1px <code>#4a4a4a</code> border. Small: 32px, 6px radius, 13px.</li>
+<li><strong>Corridor menu</strong>: 15px / 500 items padded 4px 10px, the selected one 700 ink with a 4px <code>#ffc800</code> underline, the count after it 13px muted, hover <code>rgba(74,74,74,.06)</code>; <code>role="tablist"</code>, arrow keys move. The EN/KO toggle is a 40px box with a 1px <code>#d9d9d9</code> edge and 8px radius, two 32px cells, the selected one <code>#4a4a4a</code> with yellow text.</li>
+<li><strong>Tooltip</strong>: white, 1px <code>#d9d9d9</code>, 4px radius, shadow <code>0 2px 10px rgba(0,0,0,.14)</code>; a 13px / 700 head, an optional 12px muted line, then rows of key (a 9px square or a 14px line, dashed for plan), value 600 ink and label text-2. It takes the first side that fits inside its panel.</li>
+<li><strong>Workbench window</strong>: 1px <code>#e4e4e4</code>, white. A package panel on <code>#f7f7f7</code> (file tree in mono, install commands with copy buttons, <code>Download .zip</code>), the figure pane (the <code>Without a spec / With DASHBOARD.md</code> toggle, a chip <code>corridor = all</code>, Figure 2, then <strong>Checks · DASHBOARD.md</strong>), and the code pane (tabs <code>Prompt · plan.md · figure-2.js · Tableau · Power BI</code> with a 4px yellow underline, <code>Run again</code>, line-numbered code, a red caret while typing). Syntax: comment <code>#707070</code>, string <code>#007a3d</code>, number <code>#9c5b00</code>, keyword <code>#2f6aae</code>, function <code>#c4161c</code>, property <code>#404040</code>, the highlighted line <code>#fff4c2</code>.</li>
+<li><strong>Footnotes</strong> (Method and sources): two columns 40px apart, 12.5px, line-height 1.65; terms bold; <code>[A]</code> in red before the defined measure.</li>
+<li><strong>Footer</strong>: <code>#f7f7f7</code> over a 2px <code>#fbce07</code> rule, 13px text-2; the catalog line in 600 ink, the series in 12px / 700 with 0.08em tracking; the way back underlined in yellow.</li>
+</ul>
+<h2 id="charts">Charts</h2>
+<ul>
+<li><strong>Choose by the question.</strong> Shell shows its numbers on the sign and on results slides; start with those parts and draw a chart only where they cannot answer.</li>
+<li>How did the week do → the finding headline, the price sign (posted price by grade, the main grade against the street) and five compare boxes, each against plan or target with last week in parentheses.</li>
+<li>What moved prices and margin → key price markers: three small lines with the subject red and the comparison gray, both ends labeled in the shaded current week (Figure 1).</li>
+<li>Why profit differs from plan → the bridge, plan to actual by lever (Figure 2).</li>
+<li>Which sites missed plan, and why → a ranked exception list with the threshold and the price against the street beside it (Figure 3).</li>
+<li>When to staff and when to deliver → busy hours, the busiest three red (Figure 4).</li>
+<li>Which tank to fill, which charger to fix → exception lists against 2 days of supply and 97% uptime (Figures 5, 6).</li>
+<li>Where the problems sit, and what to do at one site → the corridor operations map with a zoom on the selected site (Figure 7).</li>
+<li>The detail by site → the results table, collapsed to corridor totals (Table 1).</li>
+<li><strong>Titles.</strong> The card title is the finding (<code>5 sites missed fuel plan by more than 3%, all priced 3.5–6.0¢ above the street</code>; <code>3 sites carry two problems at once: I-5 Exit 76, I-5 Exit 188 and I-95 Exit 41</code>), recomputed when the filter changes. The red chart title names the measure and the unit; the note band explains the method.</li>
+<li><strong>Marks.</strong> Lines 2.5px for the subject and 2px for the comparison, with a hollow end marker. Bars square-ended, list bars 10px, bridge bars up to 44px with 2px gaps. Map pins 46 × 36px.</li>
+<li><strong>Axes.</strong> <code>#e4e4e4</code> gridlines on rows only, no vertical axis line; ticks 12px muted, four to six nice ticks (steps of 1, 2, 5 or 10); weeks <code>Wk 32</code>, the current week shaded <code>#f2f2f2</code>. A cut axis gets white double break marks and a sentence in the note.</li>
+<li><strong>Labels.</strong> Line ends carry the value in the series' text step inside the shaded column; values on bars 12.5px / 600 in ink, negatives in parentheses. The tooltip adds detail; it is never the only copy of a number.</li>
+<li><strong>Keys</strong> as one row under the chart title (a 14 × 10 square, a line, a dashed line, a tick, a badge).</li>
+<li><strong>Rounding.</strong> Tables and bridges round to a readable unit and still add up; the exact value is in the tooltip.</li>
+<li><strong>One axis.</strong> Never a dual axis.</li>
+<li><strong>Never:</strong> pie, donut, 3D, gauges, gradients on data, smoothed lines, the brand red or Shell yellow on data, a real map, terrain, city names or route shields, photos or logos, decoration that carries no number.</li>
+<li>Every chart, list and the map have a tooltip, keyboard control and a screen-reader table.</li>
+</ul>
+<h2 id="depth--elevation">Depth &amp; Elevation</h2>
+<p>Flat and white. Panels are set apart by a 1px <code>#e4e4e4</code> edge, compare boxes by <code>#f7f7f7</code> and a yellow rule, never by shadows, and never lift on hover. Only the tooltip and the toast have a shadow. The price sign's depth is its three zones — yellow head, dark price zone, gray base band — not a bevel or a glow.</p>
+<h2 id="interaction--motion">Interaction &amp; Motion</h2>
+<ul>
+<li><strong>Filter</strong>: the corridor menu scopes everything. Changing it rewrites the headline, the lede, the sign, the KPIs, every title and note, redraws every view, shows one corridor on the map (and moves the zoom to its most urgent site), and opens that corridor in Table 1. The URL keeps the corridor.</li>
+<li><strong>Hover</strong> shows a crosshair and hollow dots on lines, a <code>#f2f2f2</code> band behind a bar, a row or an hour, <code>#3a3a3a</code> behind a grade in the sign, and the tooltip; a tap picks on touch screens.</li>
+<li><strong>Map</strong>: hovering a pin shows its tooltip; a click selects it and redraws the zoom; arrow keys step through the sites in exit order, Home and End jump, Esc clears the tooltip; focus stays on the map while it redraws.</li>
+<li><strong>Keyboard</strong>: every chart, list, the sign, the map and the table are focusable; arrow keys step, Home and End jump, Esc clears, and a live region reads the value. Menus move with arrow keys.</li>
+<li><strong>Workbench</strong>: the first time it scrolls into view, the code types itself (55ms a line, 380ms between steps) and each step draws its layer of Figure 2 (frame → totals → steps → values → title and note) and ticks its checks. Hovering a line of code spotlights its layer. <code>Without a spec</code> shows a typical first draft and fails all six checks. Changing the corridor rewrites the <code>corridor</code> value and flashes that line.</li>
+<li><code>Copy as Markdown</code> copies the whole report (the sign, the KPIs, every figure's rows, the map's sites and problems, the table and the notes) with a toast; <code>Export PDF</code> prints the page.</li>
+<li>Motion: lines draw in 0.7s; bars grow in 0.45s, one after another; pins and rows fade in 0.3s; buttons change in 0.15s; <code>cubic-bezier(.4,0,.2,1)</code>. <code>prefers-reduced-motion</code> turns all motion off and shows the workbench finished.</li>
+</ul>
+<h2 id="accessibility">Accessibility</h2>
+<ul>
+<li>Text ≥ 4.5:1: ink 10.4:1, text-2 7.0:1 and muted 4.95:1 on white; red labels 6.04:1, ochre 5.17:1, good 5.45:1, bad 6.04:1; white on <code>#262626</code> 15.1:1, <code>#bdbdbd</code> on <code>#262626</code> 8.1:1, ink on <code>#fbce07</code> 6.9:1, white on <code>#595959</code> 7.0:1.</li>
+<li>Marks below 3:1 (Other <code>#a3a3a3</code> at 2.52:1, the current-week band) always have a second cue: a value label, the grid, a table.</li>
+<li>Identity is never color alone: values at line ends, <code>▲</code> / <code>▼</code> and words on every change, parentheses on negatives, glyphs inside the map's badges, the halo's ring, dashes for plan.</li>
+<li>Focus ring 2px <code>#404040</code> with a 2px offset.</li>
+<li>Real tables with <code>scope</code> (Table 1 is a table; its toggles are buttons with <code>aria-expanded</code>); every chart and the map have a hidden data table and an <code>aria-label</code> that says what they show and how to move.</li>
+</ul>
+<h2 id="responsive-behavior">Responsive Behavior</h2>
+<p>Each step keeps what the wider steps changed.</p>
+<ul>
+<li>≥ 1360: as laid out above.</li>
+<li>1200–1359: 24px padding; the sign 272px with 38px prices; compare boxes 11px 12px 10px.</li>
+<li>1024–1199: the sign lies down as a horizontal price board under the headline (the yellow head on the left, five grades side by side with a 5px red edge, the base band under them), then the KPIs and Figure 1 across. Figure 4 runs across above Figures 5 and 6. Figure 7's zoom moves under the map and splits into the map on the left and what to do on the right; the map's bands are 158px each.</li>
+<li>900–1023: Figures 2 and 3 stack; the board's prices 30px; the workbench and the footnotes in one column.</li>
+<li>640–899: the header wraps; <code>Export PDF</code> and the menu's right-hand line hide; KPIs and the board's grades in a 3 + 2 grid; Figure 1's markers one per row; Figures 4–6 one per row; Table 1 drops the week 43 columns (under 900px of table width).</li>
+<li>&lt; 640: 16px padding; KPIs 2 × 2 with the fifth across (figures 28px); the board's grades 2 × 2 with the fifth across (28px); Figure 7 becomes a route list in exit order (station, exit, badges, a bar from the plan line, the value, a halo on two-problem sites) and a row selects; the zoom stacks head, map and what to do; Table 1 keeps volume, against plan, margin and uptime.</li>
+<li>Embedded in a post (<code>?embed=1</code>): the footer hides and the page reports its height to the host page.</li>
+</ul>
+<h2 id="tool-mapping">Tool Mapping</h2>
+<p><strong>Web and coding agents.</strong> Load <code>tokens.css</code> (installed in <code>.claude/skills/dashboard-style/</code>; or copy the <code>colors</code> block from the front matter) and these fonts (the second for Korean).</p>
+<!--email_off-->
+
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&amp;family=Roboto+Mono:wght@400;500&amp;display=swap&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css&quot;&gt;
+</code></pre>
+<!--/email_off-->
+
+<p>The sign is a flex column (head, red bar, a grid of grade rows that grows to fill, base band); prices are spans with the tenth of a cent in a <code>&lt;sup&gt;</code> at 0.42em. Compare boxes use <code>grid-template-rows: subgrid</code> so the figures line up. The map is one SVG: each road a Catmull-Rom curve through seven points with sites placed by arc length; the zoom places our pin, then the competitor tags, then place names in the first free spot from a list of candidates. Give a device's parts a prefix (<code>ps-</code>, <code>mp-</code>, <code>mz-</code>) so shared classes never leak into them.</p>
+<p><strong>Tableau.</strong> Paste the <code>&lt;color-palette&gt;</code> elements of <code>shell.tps</code> into <code>My Tableau Repository/Preferences.tps</code> and restart Tableau Desktop. The categorical palette runs red, blue, ochre and Other; assign the subject first.
+- Dashboard background <code>#ffffff</code>. The header as a text object (<code>Vizney Energy |</code> in red); a 6px blank object filled <code>#dd1d21</code> across; the corridor filter as a single-value list; section heads as text objects with a 2px <code>#fbce07</code> blank object under them.
+- Each sheet in a container with a 1px <code>#e4e4e4</code> border and 16/20px inner padding; the finding as the sheet title, the red chart title (<code>#dd1d21</code>, bold) as a subtitle line; the note in a text object on <code>#f2f2f2</code>.
+- Price sign: a container with a <code>#fbce07</code> text object on top (the big number), a 5px red blank, a text table on a <code>#262626</code> sheet (white text, the price at 28pt; Tableau cannot raise the tenth of a cent, so write <code>$3.556</code>) and a <code>#595959</code> text object at the foot.
+- Compare boxes: text sheets on <code>#f7f7f7</code> with a 2px yellow blank object under each; the change in <code>#007a3d</code> or <code>#c4161c</code> with ▲ or ▼; <code>(Wk 43: x)</code> in a small line.
+- Price markers: three line sheets with a reference band on the last week (<code>#f2f2f2</code>); plan dashed.
+- Bridge: Gantt bars on <code>RUNNING_SUM(SUM([usd]))</code> with size <code>−SUM([usd])</code>, Color by kind (<code>#818181</code>, <code>#008443</code>, <code>#e03a35</code>); fix the axis start at the break and say so in the caption. Number format <code>#,##0.0;(#,##0.0)</code>.
+- Exception lists: bars sorted by value with a reference line at the threshold (dashed <code>#bfbfbf</code>) and Color by <code>past threshold</code> (<code>#e03a35</code> / <code>#a3a3a3</code>); extra columns as Measure Names text.
+- Corridor map: a dual-mark sheet on a scaffold of road points (X, Y from the curve) with the sites as shapes at their exit's position, labels for the exit and the change, and a second sheet for the selected site's zoom driven by a parameter action; or, simpler, the route list (sites in exit order, a bar from the plan line, badges as shapes).
+- Results table: a text table with the current week columns shaded by a calculated <code>#f2f2f2</code> band, corridors as a hierarchy that drills down to sites, negatives as <code>(0.0)</code>.
+- Formats: <code>"$"#,##0.000</code> (pump prices) · <code>0.0"¢"</code> · <code>#,##0.0</code> · <code>0.0%</code> · <code>+0.0" pts";−0.0" pts"</code>; Korean workbooks <code>#,##0.000"달러"</code>, <code>0.0"센트"</code> and <code>+0.0"%p";−0.0"%p"</code>. Fonts: Tableau Book unless Jost is installed on every viewing machine and on the server.</p>
+<p><strong>Power BI.</strong> View → Themes → Browse for themes → <code>powerbi-theme.json</code>. It sets the data colors (red, blue, ochre, then Other), the white page, white visuals with a 1px <code>#e4e4e4</code> border and no radius, axis and gridline colors and text classes. Install Jost on authoring and viewing machines or accept Segoe UI.
+- Title each visual with the finding; put the red chart title in the subtitle and the method in a text box on <code>#f2f2f2</code> that starts with <code>Note:</code>.
+- Price sign: a yellow card for the big number over a table visual with a <code>#262626</code> background and white text; a shape <code>#dd1d21</code> between them.
+- Compare boxes: card visuals on <code>#f7f7f7</code> with a yellow bottom border, the change as a measure with conditional formatting in <code>#007a3d</code> / <code>#c4161c</code>, always with a sign.
+- Bridge: the waterfall visual with sentiment colors increase <code>#008443</code>, decrease <code>#e03a35</code>, total <code>#818181</code>; data labels in thousands with one decimal, negatives in parentheses.
+- Exception lists: bar charts with a constant line at the threshold and conditional colors; the map as the route list or a shape map of the schematic roads, with a drillthrough page as the zoom.</p>
+<p><strong>Chart libraries (D3, Observable Plot, Vega-Lite, matplotlib, Datawrapper).</strong> Subject <code>#e03a35</code> (labels <code>#c4161c</code>), second <code>#2f6aae</code>, third <code>#b08500</code> (<code>#8a6800</code>), Other <code>#a3a3a3</code>, comparison <code>#7b7b7b</code> (dashed <code>5 4</code> for plan), bridge totals <code>#818181</code>, increase <code>#008443</code>, gridlines <code>#e4e4e4</code> on rows only, the current week <code>#f2f2f2</code>, ticks <code>#707070</code> at 12px, plot background <code>#ffffff</code>, square bar ends. The sample's Figure 2 in five forms is in the workbench of the live sample; <code>bridge.csv</code> is its data.</p>
+<h2 id="dos-and-donts">Do's and Don'ts</h2>
+<ul>
+<li>Do open with the finding sentence, the price sign and five compare boxes against plan with last week in parentheses. Don't lead with a chart or a dozen KPI tiles.</li>
+<li>Do make every device readable first: write pump prices to a tenth of a cent but round everything else to a readable unit that adds up, put a bar beside every size that is compared, and turn the sign's parts into data (the head carries the main grade against the street, the base band the site count and posting time). Don't keep a device that reads worse than a plain bar or table.</li>
+<li>Do compare against plan as well as last week, rank the shortfalls with their likely cause beside them, and say what to do (staff, fill, fix, reprice). Don't report change alone.</li>
+<li>Do frame the page with the canopy's red bar and the slides' yellow rules, red chart titles and compare boxes. Don't add shadows, gradients, rounded cards or photos.</li>
+<li>Do keep red for what the title names and everything else gray; let the bridge carry green and red with parentheses. Don't put the brand red or Shell yellow on data.</li>
+<li>Do draw the corridor map as a schematic: invented bends, distances from the exit numbers, no terrain or city names, and say so in the note. Don't use a real map, a route shield or a real station.</li>
+<li>Do end panels in one row on one line. Don't stretch a chart to an odd height to get there; change the layout instead.</li>
+<li>Do title each panel with its finding and explain the method in the note band and the footnotes (<code>[A]</code>). Don't title a chart with its measure alone.</li>
+<li>Do write money, units and dates the Shell way (<code>$3.55⁶/gal</code>, <code>¢/gal</code>, <code>main grade</code>, <code>(Wk 43: x)</code>). Don't use the pecten, the Shell typeface, a real site or a real price.</li>
+<li>Do keep at most seven views in a section. Don't add a card only to show a token.</li>
+</ul>
+<h2 id="agent-prompt-guide">Agent Prompt Guide</h2>
+<p>Install the style (<code>npx @vizney/styles@latest add shell</code>, <code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- shell</code>, or unzip the package in the project root). Agents that read skills load <code>dashboard-style</code> on their own and work in one of three modes: <strong>Build</strong> (plan the views, then draw them to this file), <strong>Restyle</strong> (move an existing screen onto this file without changing its data) and <strong>Review</strong> (a table of rule, finding, severity and fix). For an agent without skills, start the prompt with <code>Read DASHBOARD.md and follow it exactly.</code> For example:</p>
+<pre><code>Read DASHBOARD.md and follow it exactly. Build our weekly mobility report as one self-contained HTML file with
+fictional data, in English and Korean (?lang=en|ko, English by default), on the white page the spec describes.
+Top: a white canopy band with &quot;Vizney Energy |&quot; in red, the period and the report name, the EN/KO toggle, a dark
+Export PDF and a yellow Copy as Markdown; a 6px red bar; the corridor menu as the filter for every view, kept in the URL.
+This week: the price sign as a pillar (yellow head with the main grade against the street, a red bar, a dark price zone
+with one row per grade and the posted price to a tenth of a cent, a gray base band), then the finding headline, a lede,
+a yellow rule, five compare boxes against plan with &quot;(Wk 43: x)&quot;, and three key price markers. Both columns end on one line.
+Against plan: the gross margin bridge (gray totals cut at a break, green and red steps, negatives in parentheses) and
+the sites against plan as a ranked exception list with the price against the street beside it.
+Forecourt operations: busy hours, tanks under 2 days of supply, charge points under 97% uptime.
+Sites: a schematic corridor map with the sites as small price-sign pins and alert badges, a zoom on the selected site's
+2-mile street with competitors' prices and what to do; then the results table collapsed to corridor totals.
+Every view on the same panel: figure label, finding title, yellow rule, red chart title with the unit, keys, view,
+note band. At most seven views per section. Use only the values in Data Colors, the formats in Numbers, Dates &amp; Units
+and the components in Component Stylings. Every chart, list and the map need a tooltip, keyboard control and a
+screen-reader table.
+</code></pre>
+<p>Before it is done, the agent checks:
+- [ ] The headline is the finding; the price sign shows every grade to a tenth of a cent with its change and margin; the five compare boxes carry a signed change against plan or target in good (<code>#007a3d</code>) or bad (<code>#c4161c</code>) and last week in parentheses.
+- [ ] Every view sits on a white panel (1px <code>#e4e4e4</code>) with a yellow rule under the title, a red chart title with the unit and a note band; every card title states a finding.
+- [ ] Red <code>#e03a35</code> only for what each title names and the rest gray; the bridge in gray, green and red with parentheses; no <code>#dd1d21</code> or yellow on data.
+- [ ] Plan appears where it matters (the KPIs, Figure 1, the bridge, the sites, the table), and the shortfalls are ranked and named with their likely cause and the action.
+- [ ] The map is schematic and says so; pins, tags and labels never overlap; the zoom's numbers match the table.
+- [ ] Gridlines on rows only; line ends labeled; no dual axis, pie, donut, gauge, gradient or photo.
+- [ ] Numbers, dates, hours and money follow the formats in both languages; tables and bridges add up.
+- [ ] Panels side by side end on one line at 1440, 1280 and 1024px without a stretched chart; nothing breaks at 390px.
+- [ ] Text ≥ 4.5:1; marks below 3:1 have a second cue; every view has a tooltip, keyboard control and a data table; the filter changes every card.</p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Vizney Styles · © 2026 <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener">Vizney</a></span>
+    <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
+    <nav aria-label="Footer" data-i18n-aria="footAria">
+      <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>
+      <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="navContact">Contact</a>
+      <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
+      <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  // The site's header, tabs and footer around a spec page. The spec itself is English; ?lang=ko switches the
+  // chrome (labels and Vizney links) like the other site pages. Same code as index.html / 404.html.
+  var STR = { "ko": {"skip": "본문으로 건너뛰기", "navStyles": "카탈로그", "navCustom": "우리 회사", "navRequest": "브랜드 요청", "navContact": "문의", "globeTitle": "Switch to English", "ghSearch": "Vizney 검색", "ghMenu": "메뉴", "ghMore": "더 보기", "tabsAria": "Vizney Styles 메뉴", "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)", "footAria": "바닥글", "footBlog": "블로그"}, "en": {"skip": "Skip to content", "navStyles": "Catalog", "navCustom": "Your company", "navRequest": "Request a brand", "navContact": "Contact", "globeTitle": "한글로 보기", "ghSearch": "Search Vizney", "ghMenu": "Main Menu", "ghMore": "More", "tabsAria": "Vizney Styles menu", "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)", "footAria": "Footer", "footBlog": "Blog"} };
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
+  const state = { lang: params.get('lang') === 'ko' ? 'ko' : 'en' };
+  const S = () => STR[state.lang];
+  const PAGE = 'spec';
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  // The Vizney header's menu, as on the blog (the same addresses on Vizney Blocks). Labels are English in both languages.
+  const VZ = {
+    ko: { home: 'https://kr.vizney.com/', 'chart-guide': 'https://kr.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/ko/', styles: 'https://styles.vizney.com/?lang=ko', tips: 'https://kr.vizney.com/tips/', kb: 'https://kr.vizney.com/kb/', about: 'https://kr.vizney.com/about/', contact: 'https://kr.vizney.com/contact-us/', search: 'https://kr.vizney.com/#/search' },
+    en: { home: 'https://www.vizney.com/', 'chart-guide': 'https://www.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/', styles: 'https://styles.vizney.com/', tips: 'https://www.vizney.com/tips/', kb: 'https://www.vizney.com/kb/', about: 'https://www.vizney.com/about/', contact: 'https://www.vizney.com/contact-us/', search: 'https://www.vizney.com/#/search' }
+  };
+  function href(key) {
+    const L = state.lang;
+    const [kind, name] = key.split(':');
+    if (kind === 'home') return '/' + (L === 'ko' ? '?lang=ko' : '') + (name ? '#' + name : '');
+    if (kind === 'contact') return BLOG[L] + 'contact-us/';
+    if (kind === 'blog') return BLOG[L];
+    if (kind === 'v') return VZ[L][name];
+    if (kind === 'lang') {
+      try {
+        const u = new URL(location.href);
+        if (L === 'en') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+        return u.pathname + u.search + u.hash;
+      } catch (e) { return L === 'en' ? '?lang=ko' : '?'; }
+    }
+    return '#';
+  }
+  function applyLang() {
+    const s = S();
+    $$('[data-i18n]').forEach(el => { const v = s[el.dataset.i18n]; if (v != null) el.textContent = v; });
+    $$('[data-i18n-aria]').forEach(el => { const v = s[el.dataset.i18nAria]; if (v != null) el.setAttribute('aria-label', v); });
+    $$('[data-href]').forEach(a => { a.href = href(a.dataset.href); });
+    applyHeader();
+  }
+  function setLang(L) {
+    if (L === state.lang) return;
+    state.lang = L;
+    applyLang();
+    try {
+      const u = new URL(location.href);
+      if (L === 'ko') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* the page still switches */ }
+  }
+  /* ---------- Vizney header: menu overflow, burger, globe; the site's tabs ---------- */
+  const PHONE = window.matchMedia('(max-width:767px)');
+  const ghMenu = $('.gh-menu'), ghNav = $('.gh-nav');
+  const GH_ITEMS = $$('li', ghNav);
+  const MORE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM13.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM5.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0z"/></svg>';
+  let ghMoreEl = null;
+
+  function closeMore() {
+    if (!ghMoreEl || !ghMoreEl.classList.contains('is-open')) return;
+    ghMoreEl.classList.remove('is-open');
+    $('.gh-more__toggle', ghMoreEl).setAttribute('aria-expanded', 'false');
+  }
+  // As on the blog (Casper): items that do not fit one line move, from the end, under a '…' toggle.
+  function layoutMenu() {
+    ghMoreEl = null;
+    ghNav.replaceChildren(...GH_ITEMS);
+    GH_ITEMS.forEach((li, i) => { li.style.transitionDelay = PHONE.matches ? (0.03 * (i + 1)) + 's' : ''; });
+    if (PHONE.matches) return;
+    const sub = [];
+    while (ghNav.offsetWidth + 64 > ghMenu.offsetWidth && ghNav.lastElementChild) {
+      sub.unshift(ghNav.lastElementChild);
+      ghNav.lastElementChild.remove();
+    }
+    if (!sub.length) return;
+    const li = document.createElement('li');
+    li.className = 'gh-more';
+    li.innerHTML = '<button class="gh-more__toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="' + esc(S().ghMore) + '">' + MORE_SVG + '</button><ul class="gh-dropdown"></ul>';
+    $('.gh-dropdown', li).append(...sub);
+    ghNav.append(li);
+    ghMoreEl = li;
+  }
+  document.addEventListener('click', e => {
+    if (!ghMoreEl) return;
+    const toggle = $('.gh-more__toggle', ghMoreEl);
+    if (ghMoreEl.classList.contains('is-open')) closeMore();
+    else if (toggle.contains(e.target)) { ghMoreEl.classList.add('is-open'); toggle.setAttribute('aria-expanded', 'true'); }
+  });
+
+  const burger = $('.gh-burger');
+  function setMenuOpen(open) {
+    document.body.classList.toggle('gh-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', () => setMenuOpen(!document.body.classList.contains('gh-open')));
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (ghMoreEl && ghMoreEl.classList.contains('is-open')) { closeMore(); $('.gh-more__toggle', ghMoreEl).focus(); }
+    else if (document.body.classList.contains('gh-open')) { setMenuOpen(false); burger.focus(); }
+  });
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (!PHONE.matches) setMenuOpen(false); layoutMenu(); }, 1);
+  });
+
+  // The globe opens this page in the other language; here it switches in place, keeping the address right.
+  $$('.gh-globe').forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    setLang(state.lang === 'ko' ? 'en' : 'ko');
+  }));
+
+  // Tabs: on the home page the tab follows the section in view; elsewhere none is current.
+  const TAB_SECTIONS = PAGE === 'home' ? ['custom', 'styles'].map(id => [id, document.getElementById(id)]) : [];
+  function markTab() {
+    if (PAGE !== 'home') return;
+    const line = $('.tabs').getBoundingClientRect().bottom + 8;
+    let cur = 'top';
+    for (const [id, el] of TAB_SECTIONS) {
+      const sec = el && (el.closest('section') || el);
+      if (sec && sec.getBoundingClientRect().top <= line) { cur = id; break; }
+    }
+    $$('.tabs [data-tab]').forEach(a => { if (a.dataset.tab === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+  }
+  let tabFrame = 0;
+  window.addEventListener('scroll', () => { if (!tabFrame) tabFrame = requestAnimationFrame(() => { tabFrame = 0; markTab(); }); }, { passive: true });
+  markTab();
+
+  function applyHeader() {
+    const s = S();
+    $$('.gh-globe').forEach(a => { a.title = s.globeTitle; a.setAttribute('aria-label', s.globeTitle); });
+    $$('.gh-search').forEach(a => { a.title = s.ghSearch; });
+    layoutMenu();
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutMenu);
+  window.addEventListener('load', layoutMenu);
+  applyLang();
+})();
+</script>
+</body>
+</html>

@@ -31,6 +31,14 @@
       "words": "Warehouse, Receipt, No-Frills",
       "words_ko": "창고형, 영수증, 꾸밈없음",
       "sample": "https://styles.vizney.com/costco/"
+    },
+    {
+      "number": 6,
+      "slug": "shell",
+      "name": "Shell style",
+      "words": "Energy, Forecourt, Confident",
+      "words_ko": "에너지, 포코트, 당당함",
+      "sample": "https://styles.vizney.com/shell/"
     }
   ]
 }

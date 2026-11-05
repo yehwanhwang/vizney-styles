@@ -1374,7 +1374,7 @@
   /* ================= 대표 장치 1: 가격 기둥(프라임 사인) =================
      노랑 머리칸 = 기본 등급의 시세 대비 → 빨간 막대 → 어두운 가격 칸(등급 다섯 줄, 0.1센트 위첨자, 43주 대비, 마진) → 회색 바닥 띠 */
   const SIGN = { i: 0 };
-  const signUnit = g => (KO() ? '달러' : '') + (g === 'ev' ? L().ps.uKwh : L().ps.uGal);
+  const signUnit = g => (KO() ? '달러' : '') + (g === 'ev' ? L().ps.uKwh : L().ps.uGal), perUnit = g => g === 'ev' ? L().ps.uKwh : L().ps.uGal;
   function renderSign(animate) {
     const t = L().ps, s = S(), rows = s.sign, main = rows[0], fuelVol = sum(rows.filter(x => x.g !== 'ev').map(x => x.vol));
     $('#psSub').textContent = t.sub;
@@ -1384,15 +1384,15 @@
     zone.replaceChildren(...rows.map((r, i) => {
       const d = centsDiff(r.p, r.p43), [a, b] = gasParts(r.p);
       return h('div', { class: 'ps-row' + (animOK(animate) ? ' fade' : ''), role: 'listitem', 'data-i': i, style: animOK(animate) ? { animationDelay: (i * 40) + 'ms' } : null,
-        'data-say': `${grade(r.g)} ${gasText(r.p)}${signUnit(r.g)}, ${t.tip.d} ${centsS(d)}, ${t.tip.m} ${cents(r.m)}` },
+        'data-say': `${grade(r.g)} ${gasText(r.p)}${perUnit(r.g)}, ${t.tip.d} ${centsS(d)}, ${t.tip.m} ${cents(r.m)}` },
         h('span', { class: 'ps-g', text: grade(r.g) }),
         h('span', { class: 'ps-d', text: centsS(d) }),
-        h('span', { class: 'ps-p' }, h('span', { class: 'sr-only', text: gasText(r.p) + signUnit(r.g) }),
+        h('span', { class: 'ps-p' }, h('span', { class: 'sr-only', text: gasText(r.p) + perUnit(r.g) }),
           h('span', { 'aria-hidden': 'true', style: { display: 'contents' } }, KO() ? a : '$' + a, h('sup', { text: b }), h('span', { class: 'u', text: signUnit(r.g) }))),
         h('span', { class: 'ps-m' }, h('b', { text: cents(r.m) }), t.margin));
     }));
     $('#psFt').replaceChildren(...bold(t.ft({ n: s.sites })));
-    $('#psTable').replaceChildren(srTable(t.k, [KO() ? '등급' : 'Grade', t.tip.p44, t.tip.p43, t.tip.m, t.tip.st], rows.map(r => [grade(r.g), gasText(r.p) + signUnit(r.g), gasText(r.p43), cents(r.m), centsS(r.st)])));
+    $('#psTable').replaceChildren(srTable(t.k, [KO() ? '등급' : 'Grade', t.tip.p44, t.tip.p43, t.tip.m, t.tip.st], rows.map(r => [grade(r.g), gasText(r.p) + perUnit(r.g), gasText(r.p43), cents(r.m), centsS(r.st)])));
     const host = $('#ps');
     wireRows(host, zone, '.ps-row', SIGN, (i, row) => {
       const r = rows[i], o = offsetIn(host, row);
@@ -2513,7 +2513,7 @@
     lines.push(`# ${t.md.title}`, '', `**${$('#headline').textContent}**`, '', `> ${$('#lede').textContent}`, '', `## ${t.md.kpis} · ${t.scopes[state.scope]}`, '');
     kpiData().forEach(k => lines.push(`- ${k.n[0]} (${k.n[1]}): ${k.v} — ${k.d} ${t.k.prior(k.p)}`));
     lines.push('', `### ${t.md.sign} · ${t.ps.k}`, '', `| ${KO() ? '등급' : 'Grade'} | ${t.ps.tip.p44} | ${t.ps.tip.d} | ${t.ps.tip.m} |`, '|---|---:|---:|---:|');
-    s.sign.forEach(r => lines.push(`| ${grade(r.g)} | ${gasText(r.p)}${signUnit(r.g)} | ${centsS((r.p - r.p43) * 100)} | ${cents(r.m)} |`));
+    s.sign.forEach(r => lines.push(`| ${grade(r.g)} | ${gasText(r.p)}${r.g === 'ev' ? L().ps.uKwh : L().ps.uGal} | ${centsS((r.p - r.p43) * 100)} | ${cents(r.m)} |`));
     lines.push('', `${t.ps.pos}: ${centsS(s.sign[0].st)}`, '', `## ${t.md.figs}`, '');
     ['#f1', '#f2', '#f3', '#f4', '#f5', '#f6', '#f7', '#t1'].forEach(id => {
       const card = $(id), label = $('.fl', card).textContent, ttl = $('.ct', card).textContent;
