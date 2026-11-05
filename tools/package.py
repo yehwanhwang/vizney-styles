@@ -60,6 +60,8 @@ def css_tokens(t):
     lines.append(f"  --font-sans:'{ty['sans']['en']}',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;")
     if 'serif' in ty:   # a style without a serif leaves it out
         lines.append(f"  --font-serif:'{ty['serif']['en']}',Georgia,'Times New Roman',serif;")
+    if 'display' in ty:   # a sans display face for headings and big values, when the style has one
+        lines.append(f"  --font-display:'{ty['display']['en']}',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;")
     lines.append(f"  --font-mono:'{ty['mono']['family']}',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;")
     for k, v in t['radius'].items():
         lines.append(f"  --radius-{k}:{v};")
@@ -71,6 +73,8 @@ def css_tokens(t):
             lines.append(f"  --code-{k}:{c};")
     lines.append("}")
     ko_serif = f";--font-serif:'{ty['serif']['ko']}','AppleMyungjo','Batang',serif" if 'serif' in ty else ''
+    if 'display' in ty:
+        ko_serif += f";--font-display:'{ty['display']['ko']}',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif"
     lines.append(f"html[lang=\"ko\"]{{--font-sans:'{ty['sans']['ko']}',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif"
                  f"{ko_serif}}}")
     return "\n".join(lines) + "\n"
@@ -190,6 +194,8 @@ def front_matter(t):
     if 'serif' in ty:
         out.append(f"  serif: {{ en: \"{ty['serif']['en']}\", ko: \"{ty['serif']['ko']}\" }}")
     out.append(f"  sans: {{ en: \"{ty['sans']['en']}\", ko: \"{ty['sans']['ko']}\" }}")
+    if 'display' in ty:
+        out.append(f"  display: {{ en: \"{ty['display']['en']}\", ko: \"{ty['display']['ko']}\" }}")
     out.append(f"  mono: \"{ty['mono']['family']}\"")
     out.append("radius: {" + ", ".join(f"{k}: \"{v}\"" for k, v in t['radius'].items()) + "}")
     out.append("spacing: {" + ", ".join(f"{k}: \"{v}\"" for k, v in t['spacing'].items()) + "}")

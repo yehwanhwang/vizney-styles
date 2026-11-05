@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Singapore Airlines style — DASHBOARD.md · Vizney Styles</title>
+<link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=87d56bfcbc" as="font" type="font/woff" crossorigin>
+<!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site's Markdown pages (prompt.md, skill/SKILL.md: _config.yml defaults) and, through tools/package.py, <name>/DASHBOARD.html. Header, tabs and footer are the site's (index.html / 404.html). -->
+<style>
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=87d56bfcbc) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=87d56bfcbc) format('woff')}
+:root{
+  /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
+     The blog's Vizney header (scrolls away) and the site's sticky tabs under it; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
+     styles with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
+     built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
+     Single light theme on purpose, like Blocks and the style screens. */
+  color-scheme: light;
+  --page:#ffffff;
+  --soft:#f4f5f7;
+  --tile:#f6f7f9;
+  --ink:#1b1b1b;
+  --ink-2:#4a4a4a;
+  --muted:#616771;
+  --line:#e6e8ec;
+  --line-2:#eceef2;
+  --rule:#cfd2d8;
+  --btn-line:#e3e5ea;
+  --ink-hover:#3a3a3a;
+  /* Top bar: the blog's (kr.vizney.com · www.vizney.com) black header, so moving between the two reads as one site. */
+  --top-bg:#1b1b1b;
+  --top-ink:#ffffff;
+  --top-ink-2:rgba(255,255,255,.78);
+  --top-line:rgba(255,255,255,.22);
+  --top-soft:rgba(255,255,255,.10);
+  --top-rule:hsla(0,0%,100%,.15);
+  /* The one UI accent: the yellow of the blog's post images (#ffcc00). Buttons, active states, focus. Never a data color. */
+  --accent:#ffcc00;
+  --accent-hover:#f2c200;
+  --accent-ink:#1b1b1b;
+  --yellow:#ffcc00;
+  --pink:#ff2d55;
+  --font:'VZ Sans','Spoqa Han Sans Neo','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono','VZ Sans',monospace;
+  --shadow:0 12px 32px -12px rgba(17,24,39,.28);
+  --shadow-sm:0 1px 2px rgba(17,24,39,.12);
+  --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
+
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.7 var(--font);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--top-bg)}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{text-decoration-color:var(--ink)}
+/* Focus: the accent yellow as a halo around an ink ring, so it shows on white (yellow alone is 1.6:1 there) and on the black bar. */
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--accent);border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;white-space:nowrap}
+svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--page);font-size:14px;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}
+
+/* ---------- Vizney header (the common header of the blog, Vizney Blocks and Vizney Styles) ----------
+   Copied from the blog (kr.vizney.com · www.vizney.com): Ghost Casper, stacked navigation, with the blog's code injection
+   (black bar, Spoqa Han Sans Neo, globe language switch). 768px and up: two rows, wordmark centred over the menu.
+   767px and down: one row, wordmark left, globe · search · burger right, the menu as a full-screen sheet.
+   Not sticky: it scrolls away like the blog's. The site's own tabs stick below it. */
+.gh{position:relative;padding:0 max(4vmin, 20px);background:var(--top-bg);color:var(--top-ink);font-size:16px;line-height:1.3}
+.gh a{color:inherit;text-decoration:none}
+.gh-in{display:grid;grid-template-columns:1fr auto 1fr;grid-auto-flow:dense;column-gap:40px;align-items:center;max-width:1200px;margin:0 auto}
+.gh-brand{grid-row-start:1;grid-column-start:2;position:relative;display:flex;align-items:center;height:80px}
+.gh-logo{display:block}
+.gh-logo img{display:block;width:auto;max-height:40px}
+.gh-menu{grid-row-start:2;grid-column:1 / 4;display:flex;justify-content:center;align-items:center;height:56px;margin:0 48px;font-weight:500}
+.gh-menu::before{content:"";position:absolute;top:80px;left:0;width:100%;height:1px;background-color:var(--top-rule)}
+.gh-nav{display:inline-flex;flex-wrap:wrap;align-items:center;gap:32px;margin:0;padding:0;list-style:none}
+.gh-nav li{margin:0;padding:0}
+.gh-nav a{display:inline-flex;align-items:center;line-height:1.7}
+.gh-nav a:hover{opacity:.9}
+/* Where you are: only this site's item, underlined. */
+.gh-nav a[aria-current]{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.gh-actions{grid-row-start:1;grid-column:1 / 4;display:flex;justify-content:flex-start;align-items:center;gap:8px}
+.gh-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;padding:0}
+.gh-icon svg{display:block}
+.gh-globe{opacity:.9;transition:opacity .2s ease}
+.gh-globe:hover{opacity:1}
+.gh-search:hover{opacity:.9}
+.gh-actions .gh-globe{margin-right:-4px}
+.gh-brand .gh-icon{display:none}
+/* The blog's overflow menu: items that do not fit on one line go under '…' (Casper's dropdown). */
+.gh-more{position:relative;display:inline-flex}
+.gh-more__toggle{position:relative;width:30px;height:30px;margin:0 -6px;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}
+.gh-more__toggle svg{display:block;width:24px;height:24px;margin:auto}
+.gh-dropdown{position:absolute;top:100%;right:-16px;z-index:90;width:200px;margin:24px 0 0;padding:12px 0;list-style:none;text-align:left;background:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 7px 20px -5px rgba(0,0,0,.15);opacity:0;visibility:hidden;transform:translate3d(0,6px,0);transition:opacity .3s,transform .2s}
+.gh-more.is-open .gh-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.gh-dropdown a{display:block;padding:6px 20px;color:#15171a;line-height:1.7}
+.gh-burger{position:relative;display:none;flex-shrink:0;width:30px;height:30px;margin-right:-3px;padding:0;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
+.gh-burger::before,.gh-burger::after{content:"";position:absolute;left:3px;width:24px;height:1px;background:#fff;transition:all .2s cubic-bezier(.04,.04,.12,.96) .1008s}
+.gh-burger::before{top:11px}
+.gh-burger::after{bottom:11px}
+.gh-open .gh-burger::before{top:15px;transform:rotate(45deg)}
+.gh-open .gh-burger::after{bottom:14px;transform:rotate(-45deg)}
+.gh :focus-visible{outline-color:var(--accent);box-shadow:none}
+.gh-dropdown :focus-visible{outline-color:var(--ink)}
+@media (max-width:767px){
+  .gh{height:64px}
+  .gh-in{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;gap:48px;height:100%}
+  .gh-brand{grid-column-start:1;width:100%;height:64px;flex-wrap:nowrap}
+  .gh-logo{margin-right:auto;flex-shrink:1}
+  .gh-brand .gh-icon{display:inline-flex}
+  .gh-brand .gh-globe{margin-right:8px}
+  .gh-brand .gh-search{margin-left:-6px;margin-right:8px}
+  .gh-burger{display:block}
+  .gh-menu,.gh-actions{grid-row-start:auto;grid-column:auto}
+  .gh-actions{display:none}
+  .gh-menu{position:fixed;justify-content:center;margin:0;visibility:hidden;opacity:0}
+  .gh-menu::before{content:none}
+  .gh-nav{gap:16px;line-height:1.4}
+  .gh-nav a{font-size:26px;font-weight:600}
+  .gh-nav li{opacity:0;transform:translateY(-4px)}
+  .gh-open .gh{position:fixed;inset:0;z-index:3999999;height:100%;overflow-y:auto;overscroll-behavior-y:contain}
+  .gh-open .gh-menu{position:static;visibility:visible;opacity:1}
+  .gh-open .gh-nav{display:flex;flex-direction:column}
+  .gh-open .gh-nav li{opacity:1;transform:translateY(0);transition:transform .2s,opacity .2s}
+  /* The blog keeps a footer row here for 'Sign in'; this site has no members, so the row stays empty to keep the menu where the blog's is. */
+  .gh-open .gh-actions{display:block;height:calc(max(4vmin, 20px) + max(4vmin, 28px) + 21px)}
+  .gh-open .gh-actions > *{display:none}
+}
+
+/* ---------- the site's tabs, under the Vizney header ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;padding:0 max(4vmin, 20px);background:var(--page);box-shadow:inset 0 -1px var(--line)}
+.tabs-in{display:flex;align-items:stretch;gap:28px;max-width:1200px;height:48px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs-in::-webkit-scrollbar{display:none}
+.tabs a{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;padding-top:2px;border-bottom:2px solid transparent;font-size:15px;font-weight:500;line-height:1;white-space:nowrap;color:var(--ink-2);text-decoration:none}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs .tabs__name{font-weight:700;color:var(--ink)}
+.tabs .tabs__git{margin-left:auto}
+.tabs :focus-visible{outline-offset:-2px;box-shadow:none}
+
+/* ---------- footer (as on Vizney Blocks) ---------- */
+.foot{margin-top:120px;border-top:1px solid var(--line-2)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
+.foot-in nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot-in a{color:var(--ink-2);text-decoration-color:currentColor;text-decoration-thickness:auto;text-underline-offset:auto}
+
+/* ---------- the spec (DASHBOARD.md rendered by GitHub Pages) ---------- */
+.doc{max-width:880px;margin:0 auto;padding:56px max(4vmin, 20px) 0;font-size:16px;line-height:1.75}
+.doc h1{font-size:clamp(30px, 4vw, 40px);line-height:1.2;font-weight:700;letter-spacing:-.025em}
+.doc h2{margin-top:64px;padding-top:28px;border-top:1px solid var(--line);font-size:26px;line-height:1.3;font-weight:700;letter-spacing:-.02em}
+.doc h3{margin-top:36px;font-size:19px;line-height:1.4;font-weight:700}
+.doc h4{margin-top:28px;font-size:16px;font-weight:700}
+.doc p,.doc ul,.doc ol,.doc pre,.doc blockquote,.doc table,.doc .highlighter-rouge{margin-top:16px}
+.doc .highlighter-rouge pre{margin-top:0}
+.doc ul{padding-left:22px;list-style:disc}
+.doc ol{padding-left:24px;list-style:decimal}
+.doc li + li{margin-top:6px}
+.doc li > ul,.doc li > ol{margin-top:6px}
+.doc strong{font-weight:700}
+.doc hr{margin:40px 0;border:0;border-top:1px solid var(--line)}
+.doc blockquote{padding-left:16px;border-left:3px solid var(--line);color:var(--ink-2)}
+.doc code{padding:.12em .36em;border-radius:5px;background:var(--soft);white-space:normal;overflow-wrap:anywhere}
+.doc pre{padding:16px 18px;border-radius:12px;background:var(--soft);overflow-x:auto;font-size:13.5px;line-height:1.6}
+.doc pre code{padding:0;background:none;font-size:inherit;white-space:pre;overflow-wrap:normal}
+.doc table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:14px;line-height:1.55}
+.doc th,.doc td{padding:9px 14px 9px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.doc th{font-weight:700;border-bottom-color:var(--rule);white-space:nowrap}
+.doc img{max-width:100%;height:auto}
+@media (max-width:720px){
+  .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  .doc{padding-top:36px;font-size:15px}
+  .doc h2{margin-top:48px;font-size:22px}
+  .foot-in nav{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body data-page="spec">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="gh" id="top">
+  <div class="gh-in">
+    <div class="gh-brand">
+      <a class="gh-logo" href="https://www.vizney.com/" data-href="v:home"><img src="/assets/brand/vizney-wordmark-white.png" width="106" height="40" alt="Vizney"></a>
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+      <button class="gh-burger" type="button" aria-label="Main Menu" aria-expanded="false" aria-controls="ghMenu" data-i18n-aria="ghMenu"></button>
+    </div>
+    <nav class="gh-menu" id="ghMenu" aria-label="Vizney">
+      <ul class="gh-nav">
+        <li><a href="https://www.vizney.com/chart-guide/" data-href="v:chart-guide">Chart Guide</a></li>
+        <li><a href="https://blocks.vizney.com/" data-href="v:blocks">Blocks</a></li>
+        <li><a href="https://styles.vizney.com/" data-href="v:styles" aria-current="page">Styles</a></li>
+        <li><a href="https://www.vizney.com/tips/" data-href="v:tips">Tips &amp; Tricks</a></li>
+        <li><a href="https://www.vizney.com/kb/" data-href="v:kb">Knowledge Base</a></li>
+        <li><a href="https://www.vizney.com/about/" data-href="v:about">About</a></li>
+        <li><a href="https://www.vizney.com/contact-us/" data-href="v:contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="gh-actions">
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Vizney Styles" data-i18n-aria="tabsAria">
+  <div class="tabs-in">
+    <a class="tabs__name" href="/" data-href="home" data-tab="top">Vizney Styles</a>
+    <a href="/#styles" data-href="home:styles" data-tab="styles" data-i18n="navStyles">Catalog</a>
+    <a href="/#custom" data-href="home:custom" data-tab="custom" data-i18n="navCustom">Your company</a>
+    <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true">↗</span></a>
+    <a class="tabs__git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="main" class="doc">
+<h1 id="singapore-airlines-style--dashboardmd">Singapore Airlines style — DASHBOARD.md</h1>
+<p><strong>Premium, Boarding Pass, Courteous</strong> · 프리미엄, 탑승권, 단아함</p>
+<p>A dashboard design spec read from the public design of singaporeair.com, its monthly operating statistics and annual report, and the places passengers meet the airline: the boarding pass, the seat map and the booking widget. Singapore Airlines reports its month as a short release and a table of operating statistics, and draws its annual-report charts in thin teal with the unit above the axis. This spec turns those into dashboard parts — the boarding pass as the key figures, the seat map as cabin load, the release and its table as the headline and the detail — under singaporeair.com's navy tab bar, white panels and orange hairlines.</p>
+<pre><code>npx @vizney/styles@latest add singapore-airlines
+# or, without Node:
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- singapore-airlines
+</code></pre>
+<p>That puts <code>DASHBOARD.md</code> in the project root and the <code>dashboard-style</code> agent skill (build, restyle, review) in <code>.claude/skills/dashboard-style/</code>, together with <code>tokens.css</code>, <code>tokens.json</code>, <code>singapore-airlines.tps</code>, <code>powerbi-theme.json</code> and <code>prompt.md</code>. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow <code>DASHBOARD.md</code>.</p>
+<ul>
+<li>Live sample: https://styles.vizney.com/singapore-airlines/?lang=en (Korean <code>?lang=ko</code>; one route region <code>&amp;region=europe</code>)</li>
+<li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/singapore-airlines/DASHBOARD.md</li>
+<li>Package: <a href="singapore-airlines-dashboard-style.zip">singapore-airlines-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
+<li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="singapore-airlines.tps">singapore-airlines.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="monthly.csv">monthly.csv</a> (the data behind the load factor by month)</li>
+<li>Catalog: VIZNEY STYLES · 05 · https://styles.vizney.com (Vizney Styles is a line of <a href="https://www.vizney.com">Vizney</a>)</li>
+</ul>
+<p>Not an official Singapore Airlines design, and not affiliated with or endorsed by Singapore Airlines. A reference style read from the publicly visible design of singaporeair.com and its public touchpoints such as the annual report, monthly operating statistics, seat maps and the app's boarding pass; it carries no logo, typeface, photo or data of theirs. The sample's company, Vizney Air, and all its numbers are fictional. Trademarks belong to their owners.</p>
+<h2 id="visual-theme--atmosphere">Visual Theme &amp; Atmosphere</h2>
+<p>A courteous airline that reports its month on a boarding pass. The page is <code>#fafafa</code> under a white header; the route-region filter is singaporeair.com's booking-widget tab bar in navy <code>#00266b</code>, the chosen tab white with only its top-left corner rounded 16px, joined to a white panel whose bottom corners round 16px. The panel opens like the monthly release — <code>Traffic rose 10.9% year-on-year on 9.7% more capacity, and the load factor came in at 86.5%, 0.8 pts above plan.</code> — beside a 3px orange hairline, then a lead paragraph and the boarding pass.</p>
+<p>Three devices carry the report, each built to be read before it is admired. The <strong>boarding pass</strong> is the key-figure row: a navy band, FROM ORD → TO the route region, five fields, and the navy stub with the load factor where the seat number sits; the barcode's place holds passengers by day against the daily average. The <strong>seat map</strong> is cabin load: one 247-seat layout on its side, cabin bands in the cabin colours, seats sold on an average flight. The <strong>operating statistics table</strong> is the detail, in the annual report's order: a navy head, route-region bands, a separate sign column, <code>n.m.</code>, Systemwide under a navy rule. Everything else is quiet: thin teal, gray, white space, the unit above the axis.</p>
+<p>Restraint is the tone: no shadows on cards, no gradients, no photos, no ornaments. Navy frames, orange is a hairline, teal is the one data colour, red only says that something fell short. Every number answers a decision: against plan and last year, routes ranked by their margin over breakeven, capacity added this year on a route map, the hub's evening bank where departures run late.</p>
+<p>Measured in a browser on November 4, 2026 (singaporeair.com/en_UK/sg/home and /ko_KR/kr/home, the KrisFlyer pages, the investor pages, the annual report and seat map PDFs): <code>--brand-siaBlue #00266b</code>, <code>--brand-siaOrange #ff9f00</code> (also <code>--color-background-hairline</code>), <code>--brand-siaGold #946e31</code>; grays nightBlack <code>#222</code>, extraDarkGrey <code>#666</code>, darkGrey <code>#afafaf</code>, mediumGrey <code>#999</code>, lightGrey <code>#ddd</code>, extraLightGrey <code>#fafafa</code>; lightBlue <code>#e5e9f0</code>, brightLightBlue <code>#edf4ff</code>, greyBlue <code>#a6b4cd</code>, linkBlue <code>#0045c5</code>, stroke <code>#c8d6f1</code>; alerts success <code>#03760b</code> on <code>#cdf0cf</code>, error <code>#df0000</code> on <code>#fff1f0</code>, warning <code>#ba5400</code> on <code>#fff5e5</code>; cabin colours business <code>#12447d</code>, premium economy <code>#4f635f</code>, economy <code>#084935</code> (the 'standard' steps); spacing 0 2 4 6 8 12 16 20 24 32 40 48 64 80; buttons 4px radius, pills 40px; titles with a 3px <code>#ff9f00</code> left border and 15px padding; h2 24px / 400 navy.</p>
+<h2 id="color-palette--roles">Color Palette &amp; Roles</h2>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td><code>#fafafa</code></td>
+<td>page background (extraLightGrey)</td>
+</tr>
+<tr>
+<td>paper · plot</td>
+<td><code>#ffffff</code></td>
+<td>cards, the widget panel, the boarding pass, the table; charts sit on their card</td>
+</tr>
+<tr>
+<td>navy · navy-700</td>
+<td><code>#00266b</code> · <code>#001a4f</code></td>
+<td>headings, the tab bar, the pass band and stub, the table head, primary buttons, focus · hover and the stub's top band</td>
+</tr>
+<tr>
+<td>tint · tint-2</td>
+<td><code>#e5e9f0</code> · <code>#edf4ff</code></td>
+<td>table group rows, card borders and rules, land on the route map · hover rows, the evening-bank band, highlighted code</td>
+</tr>
+<tr>
+<td>grey-blue · edge</td>
+<td><code>#a6b4cd</code> · <code>#c8d6f1</code></td>
+<td>axis lines and ticks, empty seat outlines · the pass and tooltip frames, outlined controls</td>
+</tr>
+<tr>
+<td>hair</td>
+<td><code>#dddddd</code></td>
+<td>neutral fills, the diverging midpoint</td>
+</tr>
+<tr>
+<td>orange</td>
+<td><code>#ff9f00</code></td>
+<td>the hairline: 3px title bars, header separators, the active code tab. Never data, never text on white (2.06:1)</td>
+</tr>
+<tr>
+<td>gold</td>
+<td><code>#946e31</code></td>
+<td>figure labels and step numbers (4.63:1)</td>
+</tr>
+<tr>
+<td>ink · text-2 · faint</td>
+<td><code>#222222</code> · <code>#666666</code> · <code>#999999</code></td>
+<td>body and values (15.9:1) · secondary text, axes, notes (5.74:1) · line numbers only</td>
+</tr>
+<tr>
+<td>link</td>
+<td><code>#0045c5</code></td>
+<td>links</td>
+</tr>
+<tr>
+<td>cab-j · cab-s · cab-y</td>
+<td><code>#12447d</code> · <code>#4f635f</code> · <code>#084935</code></td>
+<td>cabin bands on the seat map, always with the code and seat count in white; a frame, not data</td>
+</tr>
+<tr>
+<td>fz</td>
+<td><code>#e2eee8</code></td>
+<td>the forward-zone band behind the first five Economy rows</td>
+</tr>
+<tr>
+<td>good · bad (with backgrounds)</td>
+<td><code>#03760b</code> on <code>#cdf0cf</code> · <code>#dc0202</code> on <code>#fff1f0</code></td>
+<td>the site's alert chips; change text</td>
+</tr>
+<tr>
+<td>warn</td>
+<td><code>#ba5400</code></td>
+<td>numbers in code only</td>
+</tr>
+</tbody>
+</table>
+<p>Rules:
+- Cards are white with a 1px <code>#e5e9f0</code> border and a 4px radius; the boarding pass has a 1px <code>#c8d6f1</code> frame and 8px; no shadows except the tooltip and the toast.
+- Navy is the frame (tab bar, pass band and stub, table head, buttons); it is never a data colour.
+- Orange <code>#ff9f00</code> is a hairline only: 3px left bars on the headline and section titles, 1px × 8px separators in the header, the 3px underline of the active code tab.
+- Cabin colours band the seat map only.</p>
+<h2 id="data-colors">Data Colors</h2>
+<p>The annual report draws its charts in teal with deep blue and bronze as second and third series and a cool gray for comparisons, so the data colours come from there. Teal is the subject everywhere; everything else is gray; red only says that something fell short. Every value passed an OKLab validator (colour-vision-deficiency separation, normal-vision separation, contrast) on the card <code>#ffffff</code>; the stub's chart was checked on navy. Use them exactly; do not generate tints.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Mark</th>
+<th>Label text</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subject</td>
+<td><code>#0096ae</code></td>
+<td><code>#00788c</code></td>
+<td>what the title names: the actual load factor, the cabin the title names, the busiest day, routes with more departures than last year</td>
+</tr>
+<tr>
+<td>Second · third category</td>
+<td><code>#005584</code> · <code>#c3892a</code></td>
+<td><code>#005584</code> · <code>#946e31</code></td>
+<td>a second or third series beside teal (not used in the sample)</td>
+</tr>
+<tr>
+<td>Other</td>
+<td><code>#afafaf</code></td>
+<td>text-2</td>
+<td>everything else: other cabins, routes above breakeven, routes with the same schedule, on-time departures</td>
+</tr>
+<tr>
+<td>Comparison (plan)</td>
+<td><code>#868ba0</code>, dashed 2px (6 on, 4 off)</td>
+<td>ink</td>
+<td>plan; the bars of ordinary days in the daily strip</td>
+</tr>
+<tr>
+<td>Last year</td>
+<td><code>#c4c9d4</code>, solid 2px</td>
+<td>text-2</td>
+<td>last year's line; days below the daily average</td>
+</tr>
+<tr>
+<td>Below breakeven · late</td>
+<td><code>#dc0202</code></td>
+<td><code>#dc0202</code></td>
+<td>routes below breakeven, late departures, values short of plan or target</td>
+</tr>
+<tr>
+<td>Breakeven · average</td>
+<td><code>#222222</code> 1px</td>
+<td>ink</td>
+<td>the zero line of the route board, the daily average line</td>
+</tr>
+<tr>
+<td>Empty seat</td>
+<td>white, 1px <code>#a6b4cd</code></td>
+<td>—</td>
+<td>seats not sold on an average flight</td>
+</tr>
+<tr>
+<td>Land · other regions</td>
+<td><code>#e5e9f0</code> · <code>#dfe3ea</code></td>
+<td>—</td>
+<td>the route map's base; routes outside the chosen tab</td>
+</tr>
+<tr>
+<td>Stub (on navy)</td>
+<td>actual <code>#1aa5bd</code>, plan <code>#c3cbdb</code> dashed</td>
+<td>white</td>
+<td>the year by month on the stub</td>
+</tr>
+<tr>
+<td>Sequential</td>
+<td><code>#74bfcc</code> <code>#34a3b8</code> <code>#00869e</code> <code>#00677b</code> <code>#004a59</code></td>
+<td>ink on the two lightest, white on the rest</td>
+<td>colour by value</td>
+</tr>
+<tr>
+<td>Diverging</td>
+<td><code>#8a5a14</code> <code>#b57e27</code> <code>#d9ab62</code> · <code>#dddddd</code> · <code>#74bfcc</code> <code>#1f9bb2</code> <code>#006a7f</code></td>
+<td>each arm's darkest</td>
+<td>below and above a midpoint</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>good <code>#03760b</code>, bad <code>#dc0202</code>, neutral <code>#868ba0</code></td>
+<td>—</td>
+<td>change text and chips only</td>
+</tr>
+</tbody>
+</table>
+<p>Validation (from <code>tokens.json</code>):
+- Teal <code>#0096ae</code>, deep blue <code>#005584</code>, bronze <code>#c3892a</code> (all pairs): lightness inside 0.43–0.77, chroma ≥ 0.1, CVD ΔE 17.3 (bronze–teal, protan), normal vision 19.5 (deep blue–teal), contrast 3.52, 7.98 and 3.03:1. Text steps: teal <code>#00788c</code> 5.17:1, bronze <code>#946e31</code> 4.63:1.
+- Other <code>#afafaf</code> (2.19:1) is neutral by design; it always has a second cue: value labels, a 2px gap, a table. Plan <code>#868ba0</code> 3.38:1 is always dashed and labelled at its end; last year <code>#c4c9d4</code> sits behind both, labelled in <code>#666666</code>.
+- The cabin colours fail as data (lightness under 0.43, chroma under 0.1), so they only band the seat map.
+- Status: good <code>#03760b</code> 5.83:1 and bad <code>#dc0202</code> 5.18:1; between them CVD 8.9 (protan), normal 33.9. Status is never colour alone: arrows, signs and the words <code>vs plan</code>, <code>below breakeven</code> carry it too.
+- On the navy stub (<code>--mode dark --surface #00266b</code>): actual <code>#1aa5bd</code> sits inside the dark lightness band with chroma ≥ 0.1 and 4.81:1; plan <code>#c3cbdb</code> is a neutral reference; between them CVD 14.3, normal 20.2.
+- Route map: teal and gray on land <code>#e5e9f0</code> are 2.89 and 1.80:1, so every route also carries width, a dot and, for subject routes, a label.
+- The sequential ramp is one hue (spread 8°), monotone, every gap ≥ 0.06, the light end 2.09:1. The diverging arms pass the ordinal checks (light ends 2.11 and 2.09:1); poles CVD 14.4, normal 18.3; the midpoint is lightGrey.</p>
+<p>Rules:
+- Teal only for what the title names; the rest gray. A card that is mostly teal has highlighted nothing.
+- Never navy <code>#00266b</code>, orange <code>#ff9f00</code> or a cabin colour on data.
+- Red is a status, not a series: below breakeven, late, short of plan or target.</p>
+<h2 id="typography-rules">Typography Rules</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>English</th>
+<th>Korean</th>
+<th>Weights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sans (body, labels, tables)</td>
+<td>Figtree</td>
+<td>Pretendard</td>
+<td>400, 500, 600, 700</td>
+</tr>
+<tr>
+<td>Display (headings, airport codes, big values)</td>
+<td>Source Sans 3</td>
+<td>Pretendard</td>
+<td>400, 600, 700</td>
+</tr>
+<tr>
+<td>Mono (airport and route codes, code)</td>
+<td>Source Code Pro</td>
+<td>Source Code Pro, Hangul falls back to Pretendard</td>
+<td>400, 500</td>
+</tr>
+</tbody>
+</table>
+<p>Figtree stands in for Proxima Nova, the site's text face: in the same 20px string Proxima runs 437.5px with a 0.714 x/cap ratio, Figtree 447.7px with 0.714. Source Sans 3 stands in for the site's own heading face, a humanist sans with a binocular g (424.7px against 439.1px in the same 24px string). singaporeair.com/ko_KR loads no Hangul web font, so Korean uses Pretendard throughout.</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Size / weight</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headline</td>
+<td>display <code>clamp(23px, 2.05vw, 29px)</code> / 400, line-height 1.3, navy</td>
+<td>the release sentence; the numbers 600; a 3px orange bar 15px to the left; Korean 400 on 1.42 with 700 numbers</td>
+</tr>
+<tr>
+<td>Lede</td>
+<td>15px / 400, line-height 1.55, text-2</td>
+<td>figures 600 ink</td>
+</tr>
+<tr>
+<td>Report name · eyebrow</td>
+<td>display 30px / 400 navy · 11px / 600 caps 0.14em text-2</td>
+<td>Korean 27px / 500 · 13px</td>
+</tr>
+<tr>
+<td>Tabs</td>
+<td>12px / 600 caps 0.125em white; the chosen tab 700 navy on white</td>
+<td>Korean 14px, no caps</td>
+</tr>
+<tr>
+<td>Pass band · field label</td>
+<td>11px / 600 caps 0.14em white · 11px / 600 caps 0.12em text-2</td>
+<td>Korean 12.5px · 12px, no caps</td>
+</tr>
+<tr>
+<td>Airport code</td>
+<td>display 32px / 600 navy</td>
+<td><code>ORD</code>, <code>Systemwide</code> (Korean 28px)</td>
+</tr>
+<tr>
+<td>Pass value · stub value</td>
+<td>display 34px / 600 · 52px / 600 white</td>
+<td>units 15px / 20px at text-2 or 80% white (Korean 30px / 46px, 700)</td>
+</tr>
+<tr>
+<td>Section title</td>
+<td>display 24px / 400 navy with a 3px orange bar</td>
+<td>Korean 22px / 600</td>
+</tr>
+<tr>
+<td>Figure label</td>
+<td>11px / 700 caps 0.14em gold</td>
+<td><code>FIGURE 2 · ROUTES FROM CHICAGO</code> (Korean 12.5px: <code>그림 2 · 시카고 출발 노선</code>)</td>
+</tr>
+<tr>
+<td>Card title · subtitle</td>
+<td>display 20px / 600 navy, <code>text-wrap: balance</code> · 14px on 20px text-2</td>
+<td>Korean 18.5px / 700 on 1.42</td>
+</tr>
+<tr>
+<td>Table</td>
+<td>13.5px tabular; head 11px / 600 caps white on navy, units in parentheses 10.5px</td>
+<td></td>
+</tr>
+<tr>
+<td>Note · axis</td>
+<td>12px on 18px text-2 · 12px text-2, the unit 11px / 700 ink above the axis</td>
+<td>notes start <code>Note 1:</code> / <code>주 1:</code></td>
+</tr>
+</tbody>
+</table>
+<p>Korean breaks between words (<code>word-break: keep-all</code>), and a number stays on the line with the particle after it.</p>
+<h2 id="numbers-dates--units">Numbers, Dates &amp; Units</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>English</th>
+<th>Korean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Passengers</td>
+<td><code>210.6K</code>, table <code>(thousand)</code> with one decimal</td>
+<td><code>21.1만 명</code>, table <code>(천 명)</code></td>
+</tr>
+<tr>
+<td>Seat-km</td>
+<td><code>1,793.8M</code> RPK, <code>2,073.3M</code> ASK</td>
+<td><code>17.9억</code></td>
+</tr>
+<tr>
+<td>Load factor · change</td>
+<td><code>86.5%</code> · <code>+0.8 pts</code>, <code>▲ +1.0 pts vs 85.6% in Oct 2025</code></td>
+<td><code>86.5%</code> · <code>+0.8%p</code>, <code>▲ +1.0%p 지난해 10월 85.6% 대비</code></td>
+</tr>
+<tr>
+<td>Yield · revenue</td>
+<td><code>11.1¢</code>, <code>Revenue $199.9M</code></td>
+<td><code>11.1센트</code>, <code>여객 수입 2.00억 달러</code> (under 1억: <code>3,047만 달러</code>)</td>
+</tr>
+<tr>
+<td>Growth</td>
+<td><code>+9.5% vs Oct 2025</code>, <code>On plan</code></td>
+<td><code>+9.5% 지난해 10월 대비</code>, <code>계획대로</code></td>
+</tr>
+<tr>
+<td>Table changes</td>
+<td>a separate sign column: <code>+ 2.3</code>, <code>− 3.2</code>; <code>n.m.</code> where there is no last year</td>
+<td>the same</td>
+</tr>
+<tr>
+<td>Departures</td>
+<td><code>7 a week</code>, <code>5→7/wk</code>, <code>new · 4/wk</code></td>
+<td><code>주 7편</code>, <code>주 5→7편</code>, <code>신규 · 주 4편</code></td>
+</tr>
+<tr>
+<td>Dates</td>
+<td><code>31 October 2026</code>, <code>Sun 11 Oct</code>, <code>FY2026/27 · Month 7 of 12</code>, months <code>Apr … Oct</code></td>
+<td><code>2026년 10월 31일</code>, <code>10월 11일(일)</code>, <code>2026/27 회계연도 · 12개월 중 7번째</code>, <code>4월 … 10월</code></td>
+</tr>
+<tr>
+<td>Times</td>
+<td>24-hour, <code>17:00–20:59</code>, hours <code>00 03 … 21</code></td>
+<td><code>17:00~20:59</code></td>
+</tr>
+<tr>
+<td>Codes</td>
+<td>IATA airport codes in mono (<code>MEX · GRU · LIM</code>), cabins <code>J · S · Y</code></td>
+<td>the same</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Money is in the company's currency; the sample's airline is American, so US dollars. Routes, schedules and seat counts in the sample are made up and are not the airline's.</li>
+<li>True minus (<code>−</code>); one decimal for rates and change; <code>pts</code> / <code>%p</code> for load factor changes.</li>
+<li>Change colour follows whether the move is good for that metric; capacity change is neutral gray.</li>
+<li>Units are smaller than the digits. A rounded table still adds up: round each route, then give the leftover units to the largest remainders, so routes add to their region and regions to Systemwide; say so in the note.</li>
+<li>The financial year runs from 1 April to 31 March.</li>
+</ul>
+<h2 id="layout-principles">Layout Principles</h2>
+<p>One column, at most 1400px wide, 32px side padding (24px up to 1359px, 16px below 640px), a 16px gap, 44px above each section title.</p>
+<ol>
+<li><strong>Header</strong> (white, 84px): the company eyebrow and the report name; on the right the period with a calendar icon, the EN/KO pill (40px radius), an outlined <code>Export PDF</code> and a navy <code>Copy as Markdown</code>.</li>
+<li><strong>Tab bar</strong> (navy, 56px): <code>Systemwide 14 · The Americas 3 · Europe 4 · East Asia 3 · South West Pacific 2 · West Asia and Africa 2</code>; the chosen tab white with a 16px top-left corner; <code>October 2026 | vs plan and October 2025</code> on the right behind an orange separator (from 1360px). It is the filter for every view; the URL keeps it (<code>?region=europe</code>).</li>
+<li><strong>The widget panel</strong> (white, joined to the chosen tab, bottom corners 16px): the headline with its orange bar, the lead, the boarding pass, <code>Note 1</code>.</li>
+<li><strong>Seats: cabins and the network</strong>: Figure 1 the seat map · Figure 2 the route map.</li>
+<li><strong>Routes and the Chicago hub</strong>: Figure 3 routes against breakeven · Figure 4 departures by hour.</li>
+<li><strong>Operating statistics</strong>: Table 1, full width.</li>
+<li><strong>How it's built</strong> and <strong>Method and sources</strong> (notes in two columns, numbered like the release).</li>
+<li><strong>Footer</strong>: the catalog line, the sample note, the notice and the way back.</li>
+</ol>
+<p>Cards side by side end on one line: the card without a fixed shape takes the extra height (the route map's area, Figure 4's plot), and the route board's rows stretch from 25 to 44px. Density: at 1440 × 810 the tab bar, the headline, the lead and the whole boarding pass are on the first screen. At most seven views per section; never lead with a chart.</p>
+<h2 id="component-stylings">Component Stylings</h2>
+<ul>
+<li><strong>Card</strong>: white, 1px <code>#e5e9f0</code>, 4px radius, 18px 22px 16px. Head: figure label (gold caps) → finding title (navy display) → subtitle → keys; body; <code>Note 1:</code> 12px text-2.</li>
+<li><strong>Section title</strong>: display 24px / 400 navy with a 3px <code>#ff9f00</code> left border and 15px padding; the question it answers on the right in 14px text-2.</li>
+<li><strong>Boarding pass</strong> (key figures): white, 1px <code>#c8d6f1</code>, 8px radius; a 270px navy stub on the right (240px up to 1359px; below it under 1024px).</li>
+<li>Band (38px navy): <code>MONTHLY OPERATING STATISTICS</code> · <code>FY2026/27 · MONTH 7 OF 12</code>.</li>
+<li>Route line, one grid: row 1 the labels <code>FROM</code> · <code>TO</code> · <code>FLIGHTS</code> · <code>SEATS FLOWN</code> on one line; row 2 <code>ORD</code>, the arrow (a 2px <code>#a6b4cd</code> line centred on the capital height), the route region, and the two values on one baseline; row 3 <code>Chicago O'Hare</code> and the destination codes in mono 11.5px, starting on one line.</li>
+<li>Five fields on a subgrid (label → value → change vs plan or target → change vs last year or a fact): passengers carried, RPK, ASK (<code>On plan</code>, change vs last year neutral), on-time departures (vs the 85% target, <code>413 of 491 left on time</code>), passenger yield (vs plan, revenue).</li>
+<li>Daily strip where the barcode sits: passengers by day against the daily average — a 1px ink average line, bars up on busier days (<code>#868ba0</code>) and down on quieter ones (<code>#c4c9d4</code>), the busiest day teal, a <code>+25%</code> / <code>Avg</code> / <code>−15%</code> scale, weekday letters with weekends bold, dates under Mondays; the header names the average and the peak (<code>Peak Sun 11 Oct · 8,346 (+23%)</code>).</li>
+<li>Stub: <code>LOAD FACTOR · OCT 2026</code>, the load factor at 52px, chips vs plan and vs last year, <code>FY2026/27 BY MONTH</code> with <code>5 of 7 months above plan</code> and a small line (actual <code>#1aa5bd</code>, filled dots above plan, hollow below; plan dashed <code>#c3cbdb</code>), and at the bottom the breakeven load factor with its margin as a chip.</li>
+<li><strong>Seat map</strong> (Figure 1): the 247-seat layout on its side — Business 1-2-1 rows 11–18 (no 13), Premium Economy 2-3-2 rows 21–23, Economy 3-3-3 rows 31–52 — cabin bands <code>J · 28</code> in the cabin colours, row numbers above, letters at the left (<code>A B C · D E G · H J K</code>), the forward zone as a <code>#e2eee8</code> band with its load factor. Seats sold on an average flight fill window and aisle first: the cabin the title names teal, the others gray, empty seats white with a <code>#a6b4cd</code> edge. Below, a strip of three cabins (cabin-colour top rule → name and code → load factor → <code>21 of 28 seats sold · 7 empty</code> → vs plan). No fuselage, windows or seat icons. Under 420px wide the map stacks J and S above Y.</li>
+<li><strong>Route map</strong> (Figure 2): great-circle lines from the hub on a Natural Earth projection centred on the Americas (cut at 99°E), land <code>#e5e9f0</code> only. Width 0.6 + 0.24px per weekly departure; teal for routes with more departures than last year, labelled with the change (<code>DUB · 5→7/wk</code>, <code>AKL · new · 4/wk</code>), gray for the same schedule, <code>#dfe3ea</code> for other regions when a tab is chosen. The hub is a 4.5px navy dot with a white ring and an <code>ORD</code> label. Labels (11px, white halo) are placed so they never overlap; codes that do not fit are grouped by region on one line (<code>LHR · CDG · FRA</code>).</li>
+<li><strong>Route board</strong> (Figure 3): one row per route, lowest margin first: city and mono code, a 12px bar from the breakeven line (1px ink) on a fixed −4 to +14 pts scale, red with its value on the left below breakeven, gray above, then <code>PLF</code> and <code>BLF</code> columns.</li>
+<li><strong>Hub bars</strong> (Figure 4): one bar per scheduled hour, on time gray and late red on top with a 2px gap; the evening bank 17:00–20:59 as a <code>#edf4ff</code> band labelled <code>EVENING BANK · 77% ON TIME</code>; <code>flights</code> above the axis.</li>
+<li><strong>Operating statistics table</strong> (Table 1): a navy head with white caps and units in parentheses; route-region group rows on <code>#e5e9f0</code> (navy bold, subtotals); routes with the mono code; a passengers bar; changes in a sign column; bad values red with their sign (group rows too); <code>n.m.</code>; the Systemwide row bold under a 2px navy rule; <code>#edf4ff</code> hover and a tooltip on every row.</li>
+<li><strong>Buttons</strong> (measured): 40px (48 on the site), 4px radius, 12px / 600 caps 0.12em; navy <code>#00266b</code> with white (hover <code>#001a4f</code>); outlined white with a navy border (hover <code>#edf4ff</code>). The EN/KO pill and the build section's segment are 40px-radius pills with the chosen one navy.</li>
+<li><strong>Chips</strong>: 4px radius, 12.5px / 500 with the change in 700: success <code>#03760b</code> on <code>#cdf0cf</code>, error <code>#dc0202</code> on <code>#fff1f0</code>, flat navy on <code>#e5e9f0</code>.</li>
+<li><strong>Tooltip</strong>: white, 1px <code>#c8d6f1</code>, 4px radius, a navy shadow <code>0 4px 12px rgba(0,38,107,.14)</code>; a 13px / 700 navy head, rows of key, value 700 and label text-2. It takes the first side that fits inside its card: above, left, right, below.</li>
+<li><strong>Workbench</strong>: a window with a 1px <code>#c8d6f1</code> frame and 8px radius — the package panel on <code>#fafafa</code>, the figure pane with the <code>Without a spec / With DASHBOARD.md</code> pill, and the code pane with tabs underlined in 3px orange.</li>
+</ul>
+<h2 id="charts">Charts</h2>
+<ul>
+<li><strong>Choose by the question.</strong></li>
+<li>How did the month go → the release sentence and the boarding pass, each field with plan and last year.</li>
+<li>Which cabin sold → the seat map with the cabin strip (Figure 1).</li>
+<li>Where the capacity went → the route map, added routes teal (Figure 2).</li>
+<li>Which routes lost money → the route board against breakeven, lowest first (Figure 3).</li>
+<li>When the hub runs late → bars by scheduled hour, on time and late, the bank shaded (Figure 4).</li>
+<li>Is the year on plan → actual against plan by month (the stub; full size in the build section).</li>
+<li>Which days were busy → bars around the daily average (the pass strip).</li>
+<li>Every route in detail → the operating statistics table.</li>
+<li><strong>Titles.</strong> The finding, recomputed when the tab changes (<code>Capacity grew 9.7% with a new Auckland route and more flights to Lima, Dublin and Johannesburg</code>; <code>Delhi and Johannesburg flew below breakeven, by 3.0 pts and 2.4 pts</code>). The subtitle names the measure; the note starts <code>Note 1:</code>.</li>
+<li><strong>Axes</strong> (the annual report's): the unit above the axis (<code>%</code>, <code>flights</code>), no gridlines, a <code>#a6b4cd</code> base line and ticks, the latest period bold.</li>
+<li><strong>Marks.</strong> Subject lines 2.5px, comparisons 2px with a hollow end marker; bars square-ended with 2px gaps between stacked parts.</li>
+<li><strong>Labels.</strong> Line ends carry <code>Name value</code> instead of a legend; keys only where labels cannot work.</li>
+<li><strong>Never:</strong> pie, donut, gauges, 3D, gradients on data, a dual axis, smoothed lines, navy or orange on data, photos, aircraft drawings or logos.</li>
+<li>Every chart and list has a tooltip, keyboard control and a screen-reader table.</li>
+</ul>
+<h2 id="depth--elevation">Depth &amp; Elevation</h2>
+<p>Flat. Cards and the pass are set apart by 1px borders, never by shadows. The widget panel joins the chosen tab without a seam. Shadows exist only on the tooltip and the toast (<code>0 4px 12px rgba(0,38,107,.14)</code>).</p>
+<h2 id="interaction--motion">Interaction &amp; Motion</h2>
+<ul>
+<li><strong>Filter</strong>: the tab bar scopes everything — the headline, the lead, the pass and stub, every title, key and note, the map's emphasis and the table. The URL keeps the region.</li>
+<li><strong>Hover</strong>: a band behind a day, month or hour; the cabin outlined on the seat map; the nearest route on the map (others dim to 28%); <code>#edf4ff</code> behind a route row; tooltips everywhere.</li>
+<li><strong>Keyboard</strong>: every chart, the board and the table are focusable; arrow keys step, Home and End jump, Esc clears, and a live region reads the value. Tabs move with arrow keys.</li>
+<li><strong>Workbench</strong>: on first view the code types itself (55ms a line, 380ms between steps) and each step draws its layer of the load factor by month.</li>
+<li>Motion: lines and routes draw in 0.7s, bars grow in 0.45s, seats pop in 0.35s, rows fade in 0.3s; <code>cubic-bezier(.4,0,.2,1)</code>. <code>prefers-reduced-motion</code> turns it all off.</li>
+</ul>
+<h2 id="accessibility">Accessibility</h2>
+<ul>
+<li>Text ≥ 4.5:1: ink 15.9:1, text-2 5.74:1, teal labels 5.17:1, gold 4.63:1, good 5.83:1, bad 5.18:1, chips 4.71:1; white on navy 14.1:1.</li>
+<li>Marks under 3:1 (Other <code>#afafaf</code>, last year, land, the faded routes) always have a second cue: a label, width, a dot, a gap or a table.</li>
+<li>Identity is never colour alone: names at line ends, <code>▲</code>/<code>▼</code> and signs on every change, <code>below breakeven</code> and <code>late</code> in words.</li>
+<li>Focus 2px navy with a 2px offset (orange inside the navy bars).</li>
+<li>Real tables with <code>scope</code>; every chart has a hidden data table and an <code>aria-label</code> that says how to move.</li>
+</ul>
+<h2 id="responsive-behavior">Responsive Behavior</h2>
+<ul>
+<li>≥ 1360: as laid out above.</li>
+<li>1024–1359: 24px padding; the stub 240px; pass values 30px, the stub 44px; the right part of the tab bar hides.</li>
+<li>1024–1199: tabs 14px padding; the route board drops <code>BLF</code>.</li>
+<li>900–1023: one column; the stub moves under the pass with its year by month across; the route map keeps a 2.17:1 box; the table drops ASK and breakeven.</li>
+<li>640–899: the header wraps; <code>Export PDF</code> hides; the pass fields 3 + 2; the table drops RPK and yield.</li>
+<li>&lt; 640: 16px padding; the pass fields 2 + 2 + 1; the route line moves the flights and seats under FROM and TO; the daily strip keeps dates only; the seat map stacks; the table keeps route, passengers, load factor and vs plan.</li>
+<li>Embedded in a post (<code>?embed=1</code>): the footer hides and the page reports its height to the host page.</li>
+</ul>
+<h2 id="tool-mapping">Tool Mapping</h2>
+<p><strong>Web and coding agents.</strong> Load <code>tokens.css</code> and these fonts (the second for Korean).</p>
+<!--email_off-->
+
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&amp;family=Source+Sans+3:wght@400;600;700&amp;family=Source+Code+Pro:wght@400;500&amp;display=swap&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css&quot;&gt;
+</code></pre>
+<!--/email_off-->
+
+<p>The route map needs a base map: Natural Earth 1:110m land (public domain), projected once (d3-geo <code>geoNaturalEarth1().rotate([81, 0])</code> gives the same view) and drawn with great-circle lines. Give device parts a prefix (<code>bp-</code>, <code>sm-</code>, <code>mp-</code>, <code>rt-</code>, <code>os-</code>) so shared classes never leak into them.</p>
+<p><strong>Tableau.</strong> Paste the <code>&lt;color-palette&gt;</code> elements of <code>singapore-airlines.tps</code> into <code>My Tableau Repository/Preferences.tps</code> and restart Tableau Desktop; assign the subject first so it takes teal.
+- Dashboard background <code>#fafafa</code>; the region filter as a single-value list in a <code>#00266b</code> container with white text; section titles as text objects with a 3px <code>#ff9f00</code> left border (a thin orange container beside the text).
+- Boarding pass: a horizontal container with a <code>#c8d6f1</code> border: text sheets for the five fields (label 9pt caps <code>#666666</code>, value 24–28pt, changes in <code>#03760b</code> / <code>#dc0202</code> with ▲ ▼) and a navy container for the stub (white text, the load factor 36pt). The daily strip: bars of passengers minus the daily average by day, a zero line in <code>#222222</code>.
+- Seat map: a scaffold of 247 rows (cabin, row, letter, x, y) as square marks, coloured by sold / empty and cabin; or a bar of load factor by cabin if the seat map is not needed.
+- Route map: <code>MAKEPOINT</code> for the hub and destinations and <code>MAKELINE</code> for routes (Tableau draws them as great circles), size by departures a week, colour by <code>more than last year</code>, a light map layer or <code>#e5e9f0</code> washout.
+- Route board: bars of load factor minus breakeven, sorted ascending, a reference line at 0, colour by <code>&lt; 0</code> (<code>#dc0202</code> / <code>#afafaf</code>).
+- No gridlines; axis rulers <code>#a6b4cd</code>; tooltips white with a <code>#c8d6f1</code> border. Formats <code>#,##0.0,"K"</code> · <code>#,##0.0,,"M"</code> · <code>0.0%</code> · <code>+0.0" pts";−0.0" pts"</code>; Korean <code>+0.0"%p";−0.0"%p"</code>. Fonts: Tableau Book unless Figtree is installed on every viewing machine and the server.</p>
+<p><strong>Power BI.</strong> View → Themes → Browse for themes → <code>powerbi-theme.json</code> (teal, deep blue, bronze, then gray; white visuals with a 1px <code>#e5e9f0</code> border, 4px radius).
+- The pass as cards in a shape with a <code>#c8d6f1</code> border; the stub as a navy shape with white text; changes as measures with conditional colours <code>#03760b</code> / <code>#dc0202</code>, always with a sign.
+- Route map: Power BI's standard visuals cannot draw route lines; use the Azure Maps visual's path layer (preview) or a flow-map custom visual, or show the same content as a bar of departures a week against last year.
+- Seat map: a matrix of rows × seat letters with conditional background colours.
+- Gridlines off, axis lines <code>#a6b4cd</code>, data labels at line ends, legends off when labels name the series.</p>
+<p><strong>Chart libraries.</strong> Subject <code>#0096ae</code> (labels <code>#00788c</code>), Other <code>#afafaf</code>, plan <code>#868ba0</code> dashed <code>6 4</code>, last year <code>#c4c9d4</code>, bad <code>#dc0202</code>, base line <code>#a6b4cd</code>, ticks <code>#666666</code> 12px, no gridlines, the unit above the axis. The load factor by month in five forms is in the workbench of the live sample; <code>monthly.csv</code> is its data.</p>
+<h2 id="dos-and-donts">Do's and Don'ts</h2>
+<ul>
+<li>Do open with the release sentence and the boarding pass, every field with plan and last year. Don't lead with a chart or a row of anonymous KPI tiles.</li>
+<li>Do keep the devices readable: rounded units that add up, bars beside sizes, the daily strip around the average, labels on the routes that changed. Don't keep a device that reads worse than a plain bar or table.</li>
+<li>Do compare against plan, target and breakeven, rank the routes by margin, and show where capacity went. Don't report growth alone.</li>
+<li>Do frame the page with the navy tab bar, the white panel and orange hairlines. Don't fill cards with navy, add shadows or gradients, or put orange on data.</li>
+<li>Do keep teal for what the title names and everything else gray; red only for what fell short. Don't use the cabin colours as series.</li>
+<li>Do end side-by-side cards on one line by giving the extra height to a flexible part. Don't stretch a chart to an odd shape.</li>
+<li>Do write numbers the airline's way (<code>pts</code>, <code>n.m.</code>, a sign column, <code>FY2026/27</code>, IATA codes). Don't use the airline's real routes, seat counts, logo, typeface, the batik motif or aircraft pictures.</li>
+</ul>
+<h2 id="agent-prompt-guide">Agent Prompt Guide</h2>
+<p>Install the style (<code>npx @vizney/styles@latest add singapore-airlines</code>, <code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- singapore-airlines</code>, or unzip the package in the project root). Agents that read skills load <code>dashboard-style</code> on their own and work in one of three modes: <strong>Build</strong>, <strong>Restyle</strong> and <strong>Review</strong>. For an agent without skills, start the prompt with <code>Read DASHBOARD.md and follow it exactly.</code> For example:</p>
+<pre><code>Read DASHBOARD.md and follow it exactly. Build our monthly operating statistics as one self-contained HTML file with
+fictional data, in English and Korean (?lang=en|ko, English by default), on the #fafafa page the spec describes.
+Top: a white header with the report name, the period, the EN/KO pill, an outlined Export PDF and a navy Copy as Markdown;
+the navy tab bar of route regions as the filter for every view, kept in the URL; the chosen tab joined to a white panel.
+In the panel: the release sentence with a 3px orange bar, a lead, and the boarding pass (FROM → TO line, five fields with
+plan and last year, passengers by day around the daily average where the barcode sits, a navy stub with the load factor,
+the year by month and the breakeven margin).
+Then: cabin load as a seat map and the route map (added routes teal); routes against breakeven (lowest first, below in
+red) and departures by hour (late in red, the bank shaded); the operating statistics table (navy head, region bands,
+sign column, n.m., Systemwide).
+Every view on the same white card: figure label, finding title, subtitle, keys, view, &quot;Note 1:&quot;. At most seven views per
+section. Every chart and list needs a tooltip, keyboard control and a screen-reader table.
+</code></pre>
+<p>Before it is done, the agent checks:
+- [ ] The headline is the release sentence; every pass field shows plan (or target) and last year with signed, good/bad-coloured changes; capacity change is neutral.
+- [ ] Every view sits on a white card (1px <code>#e5e9f0</code>, 4px) with a finding title and a <code>Note 1:</code> note; navy only on frames, orange only as hairlines.
+- [ ] Teal <code>#0096ae</code> only for what each title names, the rest gray; red <code>#dc0202</code> only for what fell short; no cabin colours, navy or orange on data.
+- [ ] The devices read at a glance: the daily strip around its average, the seat map with its cabin strip, the route map with labels on the routes that changed, a table that adds up.
+- [ ] Plan, target and breakeven appear where they matter, and the exceptions are ranked and named.
+- [ ] No gridlines; units above the axis; line ends labelled; no dual axis, pie, donut, gauge or photo.
+- [ ] Numbers, dates and units follow the formats in both languages.
+- [ ] Cards side by side end on one line at 1440, 1280 and 1024px; nothing breaks at 390px.
+- [ ] Text ≥ 4.5:1; light marks have a second cue; every view has a tooltip, keyboard control and a data table; the tab changes every card.</p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Vizney Styles · © 2026 <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener">Vizney</a></span>
+    <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
+    <nav aria-label="Footer" data-i18n-aria="footAria">
+      <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>
+      <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="navContact">Contact</a>
+      <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
+      <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  // The site's header, tabs and footer around a spec page. The spec itself is English; ?lang=ko switches the
+  // chrome (labels and Vizney links) like the other site pages. Same code as index.html / 404.html.
+  var STR = { "ko": {"skip": "본문으로 건너뛰기", "navStyles": "카탈로그", "navCustom": "우리 회사", "navRequest": "브랜드 요청", "navContact": "문의", "globeTitle": "Switch to English", "ghSearch": "Vizney 검색", "ghMenu": "메뉴", "ghMore": "더 보기", "tabsAria": "Vizney Styles 메뉴", "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)", "footAria": "바닥글", "footBlog": "블로그"}, "en": {"skip": "Skip to content", "navStyles": "Catalog", "navCustom": "Your company", "navRequest": "Request a brand", "navContact": "Contact", "globeTitle": "한글로 보기", "ghSearch": "Search Vizney", "ghMenu": "Main Menu", "ghMore": "More", "tabsAria": "Vizney Styles menu", "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)", "footAria": "Footer", "footBlog": "Blog"} };
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
+  const state = { lang: params.get('lang') === 'ko' ? 'ko' : 'en' };
+  const S = () => STR[state.lang];
+  const PAGE = 'spec';
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  // The Vizney header's menu, as on the blog (the same addresses on Vizney Blocks). Labels are English in both languages.
+  const VZ = {
+    ko: { home: 'https://kr.vizney.com/', 'chart-guide': 'https://kr.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/ko/', styles: 'https://styles.vizney.com/?lang=ko', tips: 'https://kr.vizney.com/tips/', kb: 'https://kr.vizney.com/kb/', about: 'https://kr.vizney.com/about/', contact: 'https://kr.vizney.com/contact-us/', search: 'https://kr.vizney.com/#/search' },
+    en: { home: 'https://www.vizney.com/', 'chart-guide': 'https://www.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/', styles: 'https://styles.vizney.com/', tips: 'https://www.vizney.com/tips/', kb: 'https://www.vizney.com/kb/', about: 'https://www.vizney.com/about/', contact: 'https://www.vizney.com/contact-us/', search: 'https://www.vizney.com/#/search' }
+  };
+  function href(key) {
+    const L = state.lang;
+    const [kind, name] = key.split(':');
+    if (kind === 'home') return '/' + (L === 'ko' ? '?lang=ko' : '') + (name ? '#' + name : '');
+    if (kind === 'contact') return BLOG[L] + 'contact-us/';
+    if (kind === 'blog') return BLOG[L];
+    if (kind === 'v') return VZ[L][name];
+    if (kind === 'lang') {
+      try {
+        const u = new URL(location.href);
+        if (L === 'en') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+        return u.pathname + u.search + u.hash;
+      } catch (e) { return L === 'en' ? '?lang=ko' : '?'; }
+    }
+    return '#';
+  }
+  function applyLang() {
+    const s = S();
+    $$('[data-i18n]').forEach(el => { const v = s[el.dataset.i18n]; if (v != null) el.textContent = v; });
+    $$('[data-i18n-aria]').forEach(el => { const v = s[el.dataset.i18nAria]; if (v != null) el.setAttribute('aria-label', v); });
+    $$('[data-href]').forEach(a => { a.href = href(a.dataset.href); });
+    applyHeader();
+  }
+  function setLang(L) {
+    if (L === state.lang) return;
+    state.lang = L;
+    applyLang();
+    try {
+      const u = new URL(location.href);
+      if (L === 'ko') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* the page still switches */ }
+  }
+  /* ---------- Vizney header: menu overflow, burger, globe; the site's tabs ---------- */
+  const PHONE = window.matchMedia('(max-width:767px)');
+  const ghMenu = $('.gh-menu'), ghNav = $('.gh-nav');
+  const GH_ITEMS = $$('li', ghNav);
+  const MORE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM13.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM5.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0z"/></svg>';
+  let ghMoreEl = null;
+
+  function closeMore() {
+    if (!ghMoreEl || !ghMoreEl.classList.contains('is-open')) return;
+    ghMoreEl.classList.remove('is-open');
+    $('.gh-more__toggle', ghMoreEl).setAttribute('aria-expanded', 'false');
+  }
+  // As on the blog (Casper): items that do not fit one line move, from the end, under a '…' toggle.
+  function layoutMenu() {
+    ghMoreEl = null;
+    ghNav.replaceChildren(...GH_ITEMS);
+    GH_ITEMS.forEach((li, i) => { li.style.transitionDelay = PHONE.matches ? (0.03 * (i + 1)) + 's' : ''; });
+    if (PHONE.matches) return;
+    const sub = [];
+    while (ghNav.offsetWidth + 64 > ghMenu.offsetWidth && ghNav.lastElementChild) {
+      sub.unshift(ghNav.lastElementChild);
+      ghNav.lastElementChild.remove();
+    }
+    if (!sub.length) return;
+    const li = document.createElement('li');
+    li.className = 'gh-more';
+    li.innerHTML = '<button class="gh-more__toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="' + esc(S().ghMore) + '">' + MORE_SVG + '</button><ul class="gh-dropdown"></ul>';
+    $('.gh-dropdown', li).append(...sub);
+    ghNav.append(li);
+    ghMoreEl = li;
+  }
+  document.addEventListener('click', e => {
+    if (!ghMoreEl) return;
+    const toggle = $('.gh-more__toggle', ghMoreEl);
+    if (ghMoreEl.classList.contains('is-open')) closeMore();
+    else if (toggle.contains(e.target)) { ghMoreEl.classList.add('is-open'); toggle.setAttribute('aria-expanded', 'true'); }
+  });
+
+  const burger = $('.gh-burger');
+  function setMenuOpen(open) {
+    document.body.classList.toggle('gh-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', () => setMenuOpen(!document.body.classList.contains('gh-open')));
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (ghMoreEl && ghMoreEl.classList.contains('is-open')) { closeMore(); $('.gh-more__toggle', ghMoreEl).focus(); }
+    else if (document.body.classList.contains('gh-open')) { setMenuOpen(false); burger.focus(); }
+  });
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (!PHONE.matches) setMenuOpen(false); layoutMenu(); }, 1);
+  });
+
+  // The globe opens this page in the other language; here it switches in place, keeping the address right.
+  $$('.gh-globe').forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    setLang(state.lang === 'ko' ? 'en' : 'ko');
+  }));
+
+  // Tabs: on the home page the tab follows the section in view; elsewhere none is current.
+  const TAB_SECTIONS = PAGE === 'home' ? ['custom', 'styles'].map(id => [id, document.getElementById(id)]) : [];
+  function markTab() {
+    if (PAGE !== 'home') return;
+    const line = $('.tabs').getBoundingClientRect().bottom + 8;
+    let cur = 'top';
+    for (const [id, el] of TAB_SECTIONS) {
+      const sec = el && (el.closest('section') || el);
+      if (sec && sec.getBoundingClientRect().top <= line) { cur = id; break; }
+    }
+    $$('.tabs [data-tab]').forEach(a => { if (a.dataset.tab === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+  }
+  let tabFrame = 0;
+  window.addEventListener('scroll', () => { if (!tabFrame) tabFrame = requestAnimationFrame(() => { tabFrame = 0; markTab(); }); }, { passive: true });
+  markTab();
+
+  function applyHeader() {
+    const s = S();
+    $$('.gh-globe').forEach(a => { a.title = s.globeTitle; a.setAttribute('aria-label', s.globeTitle); });
+    $$('.gh-search').forEach(a => { a.title = s.ghSearch; });
+    layoutMenu();
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutMenu);
+  window.addEventListener('load', layoutMenu);
+  applyLang();
+})();
+</script>
+</body>
+</html>
