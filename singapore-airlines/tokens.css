@@ -1,0 +1,97 @@
+/* Singapore Airlines style — Premium, Boarding Pass, Courteous · VIZNEY STYLES · 05
+   Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
+:root{
+  --canvas:#fafafa; /* page background (singaporeair.com extraLightGrey, --color-background-page) */
+  --paper:#ffffff; /* cards, the widget panel, the boarding pass, the table */
+  --plot:#ffffff; /* chart surface */
+  --navy:#00266b; /* siaBlue: headings, the tab bar, pass band and stub, table head, primary buttons, focus */
+  --navy-700:#001a4f; /* button hover and the stub's top band */
+  --tint:#e5e9f0; /* lightBlue: table group rows, card borders and rules, land on the route map */
+  --tint-2:#edf4ff; /* brightLightBlue: hover rows, the evening-bank band, highlighted code lines */
+  --grey-blue:#a6b4cd; /* greyBlue: axis lines and ticks, empty seat outlines */
+  --rule:#e5e9f0; /* card borders and row rules */
+  --edge:#c8d6f1; /* stroke-default-line: the boarding pass and tooltip frames, outlined controls */
+  --hair:#dddddd; /* lightGrey: neutral fills, the diverging midpoint */
+  --orange:#ff9f00; /* siaOrange hairline: 3px title bars, separators, the active code tab; never data, never text on white */
+  --gold:#946e31; /* siaGold: figure labels and step numbers, the bronze series' text step (4.63:1) */
+  --ink:#222222; /* nightBlack: body text, values, the breakeven rule */
+  --body:#222222; /* body text */
+  --text-2:#666666; /* extraDarkGrey: secondary text, axis labels, notes (5.74:1) */
+  --muted:#666666; /* muted labels */
+  --faint:#999999; /* mediumGrey: line numbers only, never text that carries data */
+  --link:#0045c5; /* linkBlue: links */
+  --cab-j:#12447d; /* Business cabin band (cabin-business-standard); a frame colour, not data */
+  --cab-s:#4f635f; /* Premium Economy cabin band (cabin-premiumEconomy-standard) */
+  --cab-y:#084935; /* Economy cabin band and the forward-zone label (cabin-economy-standard) */
+  --fz:#e2eee8; /* forward zone band behind the first five Economy rows */
+  --good-bg:#cdf0cf; /* success chip background (text #03760b, 4.71:1) */
+  --bad-bg:#fff1f0; /* error chip background (text #dc0202, 4.71:1) */
+  --warn:#ba5400; /* darkOrange: numbers in code (4.82:1) */
+  --warn-bg:#fff5e5; /* lightOrange: warning backgrounds */
+  --cat-1:#0096ae; /* teal · the subject */
+  --cat-1-text:#00788c; /* teal · the subject for labels and text */
+  --cat-2:#005584; /* deep blue · a second series */
+  --cat-2-text:#005584; /* deep blue · a second series for labels and text */
+  --cat-3:#c3892a; /* bronze · a third series */
+  --cat-3-text:#946e31; /* bronze · a third series for labels and text */
+  --cat-other:#afafaf;
+  --comparison:#868ba0;
+  --mark-last-year:#c4c9d4;
+  --mark-baseline:#a6b4cd;
+  --mark-breakeven:#222222;
+  --mark-barcode:#868ba0;
+  --mark-late:#dc0202;
+  --mark-empty-seat:#a6b4cd;
+  --mark-forward-zone:#e2eee8;
+  --mark-bank:#edf4ff;
+  --mark-hover:#edf4ff;
+  --mark-average:#222222;
+  --mark-below-average:#c4c9d4;
+  --mark-land:#e5e9f0;
+  --mark-other-region:#dfe3ea;
+  --mark-stub-actual:#1aa5bd;
+  --mark-stub-plan:#c3cbdb;
+  --seq-1:#74bfcc;
+  --seq-2:#34a3b8;
+  --seq-3:#00869e;
+  --seq-4:#00677b;
+  --seq-5:#004a59;
+  --div-1:#8a5a14;
+  --div-2:#b57e27;
+  --div-3:#d9ab62;
+  --div-4:#dddddd;
+  --div-5:#74bfcc;
+  --div-6:#1f9bb2;
+  --div-7:#006a7f;
+  --font-sans:'Figtree',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-display:'Source Sans 3',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'Source Code Pro',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-card:4px;
+  --radius-pass:8px;
+  --radius-widget:0 0 16px 16px;
+  --radius-tab:16px 0 0 0;
+  --radius-button:4px;
+  --radius-pill:40px;
+  --radius-chip:4px;
+  --radius-tooltip:4px;
+  --radius-bar:0;
+  --space-page:32px;
+  --space-gap:16px;
+  --space-section:44px;
+  --space-card:18px 22px 16px;
+  --space-widget:24px 28px 22px;
+  --space-field:12px 16px 14px;
+  --space-footer:24px 32px 36px;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --code-background:#ffffff;
+  --code-comment:#666666;
+  --code-string:#03760b;
+  --code-number:#ba5400;
+  --code-keyword:#00266b;
+  --code-function:#946e31;
+  --code-property:#222222;
+  --code-line-number:#999999;
+  --code-highlight:#edf4ff;
+  --code-caret:#00266b;
+}
+html[lang="ko"]{--font-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--font-display:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
