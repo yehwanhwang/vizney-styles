@@ -223,8 +223,8 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
 
 - 관리 화면: 한국어 vizney-kr.ghost.io/ghost(공개 kr.vizney.com), 영어 vizney.ghost.io/ghost(공개 www.vizney.com). 연결된 컴퓨터의 내장 브라우저(쓸 수 없으면 Claude in Chrome)에 로그인되어 있다. 로그인 화면이 나오면 멈추고 사용자에게 알린다.
 - 본문은 카드 세 개로 넣는다: 마크다운 카드(소개·샘플) → HTML 카드(임베드 코드 그대로) → 마크다운 카드(Design부터 고지까지). 관리 화면 탭에서 Admin API(`/ghost/api/admin/posts/`, 헤더 `Accept-Version: v5.0`, 로그인 세션 사용)로 `lexical`과 필드(`feature_image`, `feature_image_alt`, `custom_excerpt`, `meta_description`, `codeinjection_head`)를 함께 저장한다. 새 포스트는 초안으로 만들고, 저장 전에 같은 사이트의 `style-anthropic`을 읽어 필드를 하나씩 비교한다. 고칠 때는 같은 포스트를 읽어 `updated_at`을 넣고 PUT한다. 제목·슬러그·태그·발행일은 건드리지 않는다.
-- 순서: 두 포스트의 현재 상태를 읽어 보여 준다 → 한국어부터 초안으로 저장하고 사용자 확인 → 발행은 사용자가 관리 화면에서 직접 누른다(이 환경의 권한 검사가 공개 발행을 막는다. 편집 화면을 열어 두고 Publish → Publish post, right now를 안내한다) → 공개 페이지 확인 → 영어도 같은 순서.
-- 공개 페이지 확인: iframe이 embed-host.js로 내용 높이에 맞게 늘어나는지(브라우저 창이 숨겨져 있으면 지연 로딩이 늦으니 iframe을 화면에 띄우고 기다린다), 본문 링크가 모두 열리는지, 대표 이미지·`description`·`og:image`·`twitter:image`가 새 값인지, 예전 샘플 문구가 남지 않았는지.
+- 순서: 두 포스트의 현재 상태를 읽어 보여 준다 → 한국어·영어 초안을 저장하고 편집 화면 주소와 함께 사용자에게 확인받는다 → 사용자가 발행을 지시하면(예: "style-<name> 한국어·영어 포스트를 지금 발행해 줘") Claude가 같은 Admin API로 발행한다(같은 포스트를 읽어 `updated_at`을 넣고 `status: "published"`로 PUT. `newsletter` 인자는 넣지 않아 메일은 보내지 않는다) → 공개 페이지 확인. 발행은 사용자의 명시적 지시가 있을 때만 하고, 초안 저장만 요청받았으면 발행하지 않는다. 자동 승인 검사가 발행을 막으면 우회하지 않고 멈춘 뒤, 편집 화면에서 Publish → Publish post, right now를 누르도록 안내한다.
+- 공개 페이지 확인: iframe이 embed-host.js로 내용 높이에 맞게 늘어나는지(브라우저 창이 숨겨져 있으면 화면 폭이 0으로 잡혀 iframe이 20,000px 안팎으로 잘못 늘어나고 지연 로딩도 늦다. 내장 브라우저의 `resize_window`로 1440×900을 흉내 내고 iframe을 화면에 띄운 뒤 기다리며, 확인이 끝나면 되돌린다), 본문 링크가 모두 열리는지, 대표 이미지·`description`·`og:image`·`twitter:image`가 새 값인지, 예전 샘플 문구가 남지 않았는지.
 - 홈 카드 테두리: 커버의 밝은 바탕이 블로그 흰 바탕과 섞이므로 두 사이트의 Code injection(Site header) 끝에 아래 규칙이 있다. 지우지 않는다. 새 스타일 포스트도 태그 `styles`만 달면 그대로 적용된다.
 
   ```html
