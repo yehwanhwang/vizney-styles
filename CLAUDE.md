@@ -52,7 +52,7 @@
 9. **커버:** `python3 tools/shots.py <name>`으로 `cover-en.png`, `cover-ko.png`(1440×810, 2배)를 만든다. 홈 카드, 포스트 대표 이미지, 링크 미리보기에 쓴다. 커버의 바탕은 그 브랜드의 룩(샘플 화면) 그대로이고, 하단 가운데에 'Vizney' 워드마크만 넣는다: 페이지 바탕색의 띠(84px, 위로 40px 페이드)에 워드마크를 그 화면 `<h1>`의 색으로 칠한다. 캡처에서만 더하는 띠이며 샘플 화면에는 마크를 넣지 않는다.
 10. **README와 홈:** README의 Catalog 표에 행을 추가하고, 홈(`index.html`)에 카드를 넣고 첫 화면 오른쪽 샘플을 새 스타일로 바꾼다(아래 '홈 페이지').
 11. **배포:** 최신 `main`을 받은 뒤 작업 브랜치를 만든다(다른 작업이 생성 파일을 바꿨을 수 있으니 머지 전에 `package.py`를 다시 돌린다) → 커밋 → PR → 머지. GitHub Actions의 'pages build and deployment'가 성공했는지로 배포를 확인한다. `main`에 올라간 것은 바로 공개된다. 이 환경에서 `gh pr create`(GraphQL)가 막히면 REST로 연다(`gh api repos/yehwanhwang/vizney-styles/pulls -f title=… -f head=<브랜치> -f base=main -F body=@<파일>`, 머지는 `gh api -X PUT …/pulls/<번호>/merge -f merge_method=merge`).
-12. **포스트 초안:** 아래 '포스트 형식'으로 한국어·영어 전문과 SNS 캡션을 대화창에 바로 준다(Claude Docs는 쓰지 않는다).
+12. **포스트 초안:** 아래 '포스트 형식'으로 한국어·영어 전문과 영어 SNS 캡션을 대화창에 바로 준다(Claude Docs는 쓰지 않는다).
 
 번호는 공개 순서대로 하나로 매긴다(01 Anthropic). 요청은 GitHub 이슈 템플릿(`.github/ISSUE_TEMPLATE/request.yml`)으로 받고 👍 투표 순으로 고른다. 브랜드는 IT·소프트웨어 기업이 아니라 현실에서 자주 만나지만 웹에서는 접하기 어려운 기업(제조, 에너지, 유통, 운송, 중공업 등)에서 고른다. getdesign.md나 awesome-design-md에 이미 있는 기업, 대표색 말고는 떠오르는 장치가 없는 기업은 고르지 않는다. BI 벤더(Tableau, Microsoft, Google, Qlik 등)와 그 계열사의 스타일은 만들지 않는다. 해당 기업이 요청하면 폴더와 포스트를 내린다.
 
@@ -199,7 +199,7 @@ Materials 시리즈는 없다. 모든 스타일은 기업 이름을 쓰므로 �
   7. 고지 한 단락(위 '고지' 문구 + "샘플의 회사(비즈니 로지스틱스)와 숫자는 모두 가상입니다." · "The sample's company, Vizney Logistics, and all its numbers are fictional.").
 - 태그 Styles, Gallery 순서(첫 태그 `styles`. 홈 카드 테두리 CSS가 이 슬러그를 쓴다), 추천 글(featured)로 둔다. 슬러그 `style-<name>`. 대표 이미지는 Ghost에 올리지 않고 `https://styles.vizney.com/<name>/cover-ko.png` · `cover-en.png` 주소를 그대로 넣는다. 대표 이미지는 목록 카드와 링크 미리보기에만 쓰고 포스트 본문 위에는 보이지 않게, 포스트의 Code injection(Post header, `codeinjection_head`)에 `<style>\n.article-image { display: none; }\n</style>`를 넣는다.
 - 문장은 이미 발행된 스타일 포스트(`style-anthropic`)의 틀을 따른다: 소개 "…인 대시보드 스타일입니다. <사이트>의 실제 CSS 토큰을 읽고, …을 하나의 카드와 차트 문법으로 옮겼습니다." · 샘플 "아래 샘플은 <회사>의 가상 <보고>입니다. 위쪽 지역 필터를 바꾸면 모든 카드가 함께 바뀝니다." · Design 불릿은 굵은 머리말(**색:** · **한 카드:** · **글자와 숫자:**) · DASHBOARD.md 문장 "DASHBOARD.md와 에이전트 스킬, Tableau 팔레트, Power BI 테마를 프로젝트 폴더에 한 줄로 넣습니다." · 문의 줄 "우리 회사 웹사이트로 같은 패키지를 비공개로 만들어 드립니다. [제작 문의](…) · 다음에 만들 브랜드는 [GitHub에서 요청](…)하고 👍로 투표해 주세요." · 메타 설명 "<Name> 대시보드 스타일 — <세 단어>. …로 짠 라이브 샘플, DASHBOARD.md와 에이전트 스킬, Tableau·Power BI 파일을 npx 명령 한 줄로 프로젝트에 넣습니다." 영어도 같은 포스트의 영어판을 따른다.
-- SNS 캡션(링크드인 중심, 발행자 Vizney): 첫 줄 `Vizney Styles · <브랜드>`, 스타일 한 문장, 라이브 샘플 링크, 고지 한 줄, 세 단어 해시태그와 #Vizney #VizneyStyles #DashboardDesign · #대시보드디자인.
+- SNS 캡션(링크드인 중심, 발행자 Vizney): Vizney 링크드인 회사 페이지는 영어로만 올리므로 캡션은 영어 하나만 쓴다(한국어 캡션은 만들지 않는다). 이미 예약된 글과 같은 틀이다: 첫 줄 `Vizney Styles · <브랜드>`, 생김새를 말하는 한 문장, 무엇으로 짰는지와 샘플을 말하는 한 단락, `Live sample:`(영어 샘플 주소) · `Add it to a project: npx @vizney/styles@latest add <name>` · `Read more:`(영어 포스트 주소) 세 줄, 고지 한 줄, 영어 세 단어 해시태그와 #Vizney #VizneyStyles #DashboardDesign.
 - 링크드인 예약(사용자가 요청할 때): Vizney 회사 페이지 관리 화면(`https://www.linkedin.com/company/112438814/admin/`)의 글쓰기 창에서 '업데이트 예약'(시계) → '모든 예약된 업데이트 보기'로 기존 예약을 먼저 읽고, 같은 날을 피해 날짜·시간을 정한다. 날짜는 달력에서 눌러야, 시간은 입력 뒤 제안 항목을 눌러야 확정된다. 예약 뒤 목록에서 날짜·시간·본문을 다시 읽어 확인한다. 포스트 문구를 고치면 예약된 본문도 같이 고친다.
 - Tableau를 대체하는 이야기로 읽힐 표현은 쓰지 않는다. Tableau 적용 파일은 Tableau를 더 잘 쓰게 하는 것이다.
 
