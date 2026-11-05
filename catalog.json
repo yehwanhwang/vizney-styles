@@ -39,6 +39,14 @@
       "words": "Premium, Boarding Pass, Courteous",
       "words_ko": "프리미엄, 탑승권, 단아함",
       "sample": "https://styles.vizney.com/singapore-airlines/"
+    },
+    {
+      "number": 6,
+      "slug": "shell",
+      "name": "Shell style",
+      "words": "Energy, Forecourt, Confident",
+      "words_ko": "에너지, 포코트, 당당함",
+      "sample": "https://styles.vizney.com/shell/"
     }
   ]
 }

@@ -1,0 +1,83 @@
+/* Shell style — Energy, Forecourt, Confident · VIZNEY STYLES · 06
+   Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
+:root{
+  --canvas:#ffffff; /* page background (shell.com body is white) */
+  --panel:#ffffff; /* figure panels and the price sign cabinet */
+  --plot:#ffffff; /* chart background: the panel itself */
+  --soft:#f7f7f7; /* compare boxes (KPIs, Figure 1 boxes, the build steps) and the footer, as on the results deck */
+  --band:#f2f2f2; /* the current week: the column in Figure 1, the week 44 columns in Table 1, the note band under each figure, hovered rows */
+  --line:#e4e4e4; /* panel edges and chart gridlines */
+  --hair:#e4e4e4; /* gridlines in BI tools (same as line) */
+  --rule:#d9d9d9; /* row rules in lists and tables, the sign's edge, the tooltip border, toggles */
+  --edge:#bfbfbf; /* dashed thresholds (−3% of plan, 2 days of supply, 97% uptime) */
+  --ink:#404040; /* titles, key figures, table values (10.4:1) */
+  --body:#4a4a4a; /* running text; the dark button with yellow text (shell.com) */
+  --text-2:#595959; /* kickers, subtitles, notes (7.0:1) */
+  --muted:#707070; /* figure labels, axis ticks, units, '(Wk 43: x)' (4.95:1) */
+  --yellow:#fbce07; /* Shell yellow: the 2px rule under every heading, the compare boxes' bottom rule, the head of the price sign, the footer rule. Never data */
+  --yellow-ui:#ffc800; /* buttons and the selected menu underline (shell.com's button yellow) */
+  --yellow-hover:#e6b400; /* button hover */
+  --red:#dd1d21; /* Shell red: the canopy bar under the header, chart titles, section numbers, the company name, footnote markers. Never data */
+  --zone:#262626; /* the price zone of the sign */
+  --zone-2:#3a3a3a; /* rules between grades in the price zone; the hovered grade */
+  --zone-muted:#bdbdbd; /* grade names and small figures in the price zone (8.1:1 on #262626) */
+  --gray-band:#595959; /* the sign's base band with white text (7.0:1) */
+  --cat-1:#e03a35; /* red · the subject */
+  --cat-1-text:#c4161c; /* red · the subject for labels and text */
+  --cat-2:#2f6aae; /* blue · a second series */
+  --cat-2-text:#2f6aae; /* blue · a second series for labels and text */
+  --cat-3:#b08500; /* ochre · a third series, only with direct labels */
+  --cat-3-text:#8a6800; /* ochre · a third series, only with direct labels for labels and text */
+  --cat-other:#a3a3a3;
+  --comparison:#7b7b7b;
+  --mark-grid:#e4e4e4;
+  --mark-baseline:#9a9a9a;
+  --mark-zero:#404040;
+  --mark-threshold:#bfbfbf;
+  --mark-current:#f2f2f2;
+  --mark-total:#818181;
+  --mark-up:#008443;
+  --mark-down:#e03a35;
+  --mark-hover:#f2f2f2;
+  --seq-1:#96b6e4;
+  --seq-2:#709ad6;
+  --seq-3:#4c7ec3;
+  --seq-4:#3063a9;
+  --seq-5:#1e4a85;
+  --div-1:#b32322;
+  --div-2:#dd574e;
+  --div-3:#ea988f;
+  --div-4:#e4e4e4;
+  --div-5:#93b3e1;
+  --div-6:#5a87c8;
+  --div-7:#2d5da0;
+  --font-sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-card:0;
+  --radius-sign:0;
+  --radius-box:0;
+  --radius-button:8px;
+  --radius-toggle:8px;
+  --radius-tooltip:4px;
+  --radius-bar:0;
+  --space-page:32px;
+  --space-gap:16px;
+  --space-section:44px;
+  --space-card:16px 20px 0;
+  --space-note:8px 20px 9px;
+  --space-kpi:12px 14px 11px;
+  --space-signRow:9px 16px 10px;
+  --space-footer:22px 32px 34px;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --code-background:#ffffff;
+  --code-comment:#707070;
+  --code-string:#007a3d;
+  --code-number:#9c5b00;
+  --code-keyword:#2f6aae;
+  --code-function:#c4161c;
+  --code-property:#404040;
+  --code-line-number:#9a9a9a;
+  --code-highlight:#fff4c2;
+  --code-caret:#dd1d21;
+}
+html[lang="ko"]{--font-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
