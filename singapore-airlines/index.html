@@ -122,20 +122,28 @@
   .bp-top,.bp-stop{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:38px;padding:0 20px;background:var(--navy);color:#fff;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
   html[lang="ko"] .bp-top,html[lang="ko"] .bp-stop{letter-spacing:.02em;text-transform:none;font-size:12.5px}
   .bp-top span:last-child{opacity:.8}
-  .bp-route{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px 28px;padding:14px 20px 12px;border-bottom:1px solid var(--rule)}
+  /* 출발 → 도착 줄: 탑승권처럼 한 격자. 1행 라벨(FROM · TO · FLIGHTS · SEATS FLOWN)이 한 줄, 2행 공항 코드와 값이 한 기준선, 3행 도시와 노선 코드가 한 윗선 */
+  .bp-route{display:grid;grid-template-columns:auto 44px minmax(0,1fr) auto auto;align-items:baseline;column-gap:14px;row-gap:2px;padding:14px 20px 12px;border-bottom:1px solid var(--rule)}
+  .bp-g-fk{grid-area:1/1} .bp-g-fc{grid-area:2/1} .bp-g-fs{grid-area:3/1}
+  .bp-g-ar{grid-area:2/2}
+  .bp-g-tk{grid-area:1/3} .bp-g-tc{grid-area:2/3} .bp-g-ts{grid-area:3/3}
+  .bp-g-k1{grid-area:1/4;margin-left:14px} .bp-g-v1{grid-area:2/4;margin-left:14px}
+  .bp-g-k2{grid-area:1/5} .bp-g-v2{grid-area:2/5}
+  .bp-g-fs,.bp-g-ts{align-self:start}
   .bp-k{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);white-space:nowrap}
   .bp-fields .bp-k{white-space:normal;line-height:1.35}
   html[lang="ko"] .bp-k{letter-spacing:0;text-transform:none;font-size:12px}
-  .bp-ap{display:flex;align-items:flex-end;gap:14px;min-width:0}
-  .bp-code{display:block;font-family:var(--display);font-size:32px;font-weight:600;line-height:1.05;color:var(--navy);letter-spacing:.01em;white-space:nowrap}
+    .bp-code{display:block;font-family:var(--display);font-size:32px;font-weight:600;line-height:1.05;color:var(--navy);letter-spacing:.01em;white-space:nowrap}
   html[lang="ko"] .bp-code{font-size:28px;letter-spacing:-.01em}
   .bp-city{display:block;margin-top:2px;font-size:13px;color:var(--text-2);white-space:nowrap}
-  .bp-arrow{flex:none;align-self:center;width:44px;height:2px;margin-top:14px;background:var(--grey-blue);position:relative}
-  .bp-arrow::after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left:7px solid var(--grey-blue);border-right:0}
-  .bp-dest{flex:1 1 auto;min-width:0}
-  .bp-dest .bp-city{white-space:normal;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;line-height:1.5}
-  .bp-mini{display:flex;gap:24px}
-  .bp-mini b{display:block;margin-top:2px;font-family:var(--display);font-size:20px;font-weight:600;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  /* 화살표: 코드와 같은 글자 크기의 상자(대문자 높이 .66em)를 기준선에 앉혀, 선이 대문자 가운데에 온다 */
+  .bp-arrow{position:relative;display:block;width:44px;height:.66em;font-size:32px}
+  html[lang="ko"] .bp-arrow{font-size:28px}
+  .bp-arrow::before{content:"";position:absolute;left:0;right:6px;top:50%;height:2px;margin-top:-1px;background:var(--grey-blue)}
+  .bp-arrow::after{content:"";position:absolute;right:0;top:50%;margin-top:-5px;border:5px solid transparent;border-left:7px solid var(--grey-blue);border-right:0}
+  .bp-g-tc{white-space:normal}
+  .bp-codes{display:block;margin-top:2px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;line-height:1.5;color:var(--text-2)}
+  .bp-mv{display:block;font-family:var(--display);font-size:20px;font-weight:600;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
   .bp-fields{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:auto auto auto auto}
   .bp-f{grid-row:span 4;display:grid;grid-template-rows:subgrid;min-width:0;padding:12px 16px 14px;border-left:1px solid var(--rule)}
   .bp-f:first-child{border-left:0;padding-left:20px}
@@ -149,12 +157,15 @@
   .bp-d b.bad{color:var(--bad)} .bp-d b.flat{color:var(--text-2)}
   /* 바코드 자리: 날짜별 수송 여객. 하루에 막대 하나, 가장 붐빈 날만 청록. 남는 높이를 받는다(최대 96px) */
   .bp-bc{display:flex;flex-direction:column;flex:1 1 auto;padding:10px 20px 10px;border-top:1px solid var(--rule)}
-  .bp-bch{display:flex;justify-content:space-between;gap:12px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+  .bp-bch{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
   html[lang="ko"] .bp-bch{letter-spacing:0;text-transform:none;font-size:12px}
   .bp-bch .pk{color:var(--ink);font-weight:600}
-  .bp-plot{position:relative;flex:1 1 auto;min-height:64px;max-height:96px;margin-top:6px}
+  .bp-plot{position:relative;flex:1 1 auto;min-height:110px;max-height:140px;margin-top:6px}
   .bp-plot > svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;outline-offset:3px}
   .bp-dl{font-size:10.5px;fill:var(--text-2);font-variant-numeric:tabular-nums}
+  .bp-dl.z{font-weight:700;fill:var(--ink)}
+  .bp-wd{font-size:10.5px;font-weight:500;fill:var(--text-2)}
+  .bp-wd.we{font-weight:700;fill:var(--ink)}
   /* 남색 쪽지: 탑승률. 증감은 사이트 알림의 칩(성공 #03760b on #cdf0cf, 오류 #df0000 on #fff1f0) */
   .bp-stub{display:flex;flex-direction:column;min-width:0;background:var(--navy);color:#fff;border-left:1px solid var(--navy)}
   .bp-stop{background:var(--navy-700)}
@@ -170,7 +181,7 @@
   .bp-be{margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.22)}
   .bp-be .bp-k{color:rgba(255,255,255,.75)}
   .bp-be p{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:4px;font-size:13px;color:rgba(255,255,255,.85)}
-  .bp-be b{font-family:var(--display);font-size:20px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
+  .bp-be p > b{font-family:var(--display);font-size:20px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
   .fn{margin-top:12px;padding-left:2px;font-size:12px;line-height:1.5;color:var(--text-2)}
 
   /* ---------- 절 제목: 사이트 h2(Sigvar 24px 남색 400) + 왼쪽 3px 주황 막대 ---------- */
@@ -414,6 +425,7 @@
   .fade{animation:fade .3s ease both}
   @keyframes fade{from{opacity:0}}
   .grow{transform-box:fill-box;transform-origin:bottom;animation:grow .45s var(--ease) both}
+  .grow-d{transform-box:fill-box;transform-origin:top;animation:grow .45s var(--ease) both}
   @keyframes grow{from{transform:scaleY(0)}}
   .growx{transform-origin:left;animation:growx .5s var(--ease) both}
   @keyframes growx{from{transform:scaleX(0)}}
@@ -452,7 +464,6 @@
   }
   @media (max-width:1199px){
     .tabs button{padding:0 14px}
-    .bp-mini{gap:18px}
     .rt{--cols:minmax(9em,1.1fr) minmax(0,2fr) 4.2em}
     .rt-be,.rt-h .be{display:none}
     .os{font-size:13px}
@@ -501,13 +512,13 @@
     .widget{padding:18px 16px 16px;border-radius:0 0 12px 12px}
     .headline{font-size:21px;padding-left:12px}
     .lede{font-size:14.5px;padding-left:15px}
-    .bp-route{padding:12px 14px 10px;gap:8px 18px}
+    .bp-route{padding:12px 14px 10px;column-gap:12px}
     .bp-code{font-size:26px}
-    .bp-dest{flex:1 1 auto}
-    .bp-dest .bp-code{white-space:normal;font-size:22px;line-height:1.15}
-    .bp-arrow{width:28px}
-    .bp-route{grid-template-columns:minmax(0,1fr)}
-    .bp-mini{gap:18px}
+    .bp-g-tc{font-size:22px;line-height:1.15}
+    .bp-arrow,html[lang="ko"] .bp-arrow{width:28px;font-size:26px}
+    .bp-route{grid-template-columns:auto 28px minmax(0,1fr)}
+    .bp-g-k1{grid-area:4/1;margin:10px 0 0} .bp-g-v1{grid-area:5/1;margin-left:0}
+    .bp-g-k2{grid-area:4/3;margin-top:10px} .bp-g-v2{grid-area:5/3}
     .bp-fields{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,auto auto auto auto)}
     .bp-f,.bp-f:first-child{padding:10px 12px 12px}
     .bp-f:nth-child(4){border-left:1px solid var(--rule);padding-left:12px}
@@ -757,13 +768,13 @@
       headline: v => `${v.where ? v.where + ' 노선의 ' : ''}여객 수송량(RPK)은 지난해보다 **${v.rpk} ${v.up ? '늘었고' : '줄었고'}** ${v.askFlat ? '공급은 지난해와 같아' : `공급은 ${v.ask} ${v.askUp ? '늘어' : '줄어'}`}, 탑승률은 계획보다 **${v.pts} ${v.above ? '높은' : '낮은'} ${v.plf}**를 기록했습니다.`,
       lede: v => `${!v.nb ? '모든 노선이 손익분기 탑승률을 넘었습니다.' : v.nb < v.n ? `${v.n}개 노선 중 ${v.names} ${v.nb}곳이 손익분기 탑승률에 못 미쳤습니다.` : v.n === 1 ? `${josa(v.names, '이가')} 손익분기 탑승률에 못 미쳤습니다.` : `${v.names} ${v.n === 2 ? '두' : v.n + '개'} 노선 모두 손익분기 탑승률에 못 미쳤습니다.`} 시카고 정시 출발률은 **${v.otp}**로 목표 ${v.target}${v.otpOk ? '를 넘었습니다' : '에 못 미쳤습니다'}. 2026년 10월 31일 기준 ${v.all ? `노선망은 5개 노선 지역 ${v.n}개 도시입니다` : `이 지역의 취항 도시는 ${v.n}곳입니다`}.`,
       k: {
-        pax: '수송 여객', rpk: '유상 여객-km', ask: '공급 좌석-km', otp: '정시 출발', yld: '여객 수익률', lf: '탑승률',
+        pax: '수송 여객', rpk: '유상 여객\u2011km', ask: '공급 좌석\u2011km', otp: '정시 출발', yld: '여객 수익률', lf: '탑승률',
         be: '손익분기 탑승률', margin: '여유', vsPlan: '계획 대비', vsLy: '지난해 10월 대비', vsTarget: x => `목표 ${x} 대비`, onPlan: '계획대로',
         from: '출발', to: '도착', flights: '운항 편수', seats: '공급 좌석', chicago: '시카고 오헤어',
         ofDeps: (a, b) => `${b}편 중 ${a}편 정시`, rev: x => `여객 수입 ${x}`,
         top: '월간 운항 통계', topR: '2026/27 회계연도 · 12개월 중 7번째', stub: '탑승률',
-        byDay: '날짜별 수송 여객', peak: v => `가장 붐빈 날 ${v.day} · ${v.n}명`,
-        tip: { pax: '수송 여객', flights: '운항 편수', share: '이달 여객 중 비중' }
+        byDay: x => `날짜별 수송 여객 · 하루 평균 ${x}명 대비`, peak: v => `가장 붐빈 날 ${v.day} · ${v.n}명(${v.d})`, avg: '평균', day: '날짜', vsAvg: '하루 평균 대비',
+        tip: { pax: '수송 여객', vsAvg: '하루 평균 대비', flights: '운항 편수', share: '이달 여객 중 비중' }
       },
       bpNote: '주 1: 편수·여객·좌석-km는 양방향 합계이고, 정시 출발은 시카고(ORD)에서 떠난 편만 셉니다. 여객 수익률은 유상 여객-km당 여객 수입입니다.',
       pts: '%p',
@@ -846,7 +857,7 @@
           ['노선 지역', '시카고에서 떠나는 노선을 도착지에 따라 다섯 지역으로 나눕니다: 미주, 유럽, 동아시아, 남서태평양, 서아시아·아프리카.'],
           ['객실', '모든 노선이 247석 배치 하나로 운항합니다: 비즈니스(J) 28석, 프리미엄 이코노미(S) 21석, 이코노미(Y) 198석. Forward zone은 좌석 지정 요금을 받는 이코노미 앞 다섯 줄 45석입니다.'],
           ['정시 출발', '시카고(ORD)에서 예정 시각 15분 안에 출발한 편입니다. 목표는 85%입니다.'],
-          ['날짜별 수송 여객', '그날 운항한 편의 양방향 여객입니다.'],
+          ['날짜별 수송 여객', '그날 운항한 편의 양방향 여객입니다. 막대는 하루 평균(이달 여객을 31로 나눈 값)보다 많은 날은 위로, 적은 날은 아래로 그립니다.'],
           ['반올림', '표의 노선 값은 지역과 전체 합계에 맞게 반올림하고, 비율은 반올림하기 전에 계산합니다.']
         ],
         src: '출처: 출발 관리 시스템, 수입 회계, 2026/27 회계연도 노선 계획. 2026년 10월 31일 마감, 2026년 11월 4일 발행.'
@@ -866,13 +877,13 @@
       headline: v => `${v.where ? `In ${v.where.replace(/^The /, 'the ')}, traffic` : 'Traffic'} ${v.up ? 'rose' : 'fell'} **${v.rpk}** year-on-year on ${v.askFlat ? 'unchanged' : `${v.ask} ${v.askUp ? 'more' : 'less'}`} capacity, and the load factor came in at **${v.plf}**, **${v.pts} ${v.above ? 'above' : 'below'} plan**.`,
       lede: v => `${!v.nb ? 'Every route flew above breakeven.' : v.nb < v.n ? `${v.nb} of ${v.n} routes flew below breakeven: ${v.names}.` : v.n === 1 ? `${v.names} flew below breakeven.` : `${v.n === 2 ? 'Both routes' : `All ${v.n} routes`} flew below breakeven: ${v.names}.`} **${v.otp}** of departures from Chicago left on time, ${v.otpOk ? 'meeting' : 'short of'} the ${v.target} target. As of 31 October 2026, ${v.all ? `the network covered ${v.n} destinations in 5 route regions` : `the region covered ${v.n} destination${v.n > 1 ? 's' : ''}`}.`,
       k: {
-        pax: 'Passengers carried', rpk: 'Revenue passenger-km', ask: 'Available seat-km', otp: 'On-time departures', yld: 'Passenger yield', lf: 'Load factor',
+        pax: 'Passengers carried', rpk: 'Revenue passenger\u2011km', ask: 'Available seat\u2011km', otp: 'On-time departures', yld: 'Passenger yield', lf: 'Load factor',
         be: 'Breakeven load factor', margin: 'margin', vsPlan: 'vs plan', vsLy: 'vs Oct 2025', vsTarget: x => `vs ${x} target`, onPlan: 'On plan',
         from: 'From', to: 'To', flights: 'Flights', seats: 'Seats flown', chicago: 'Chicago O’Hare',
         ofDeps: (a, b) => `${a} of ${b} left on time`, rev: x => `Revenue ${x}`,
         top: 'Monthly operating statistics', topR: 'FY2026/27 · Month 7 of 12', stub: 'Load factor',
-        byDay: 'Passengers by day', peak: v => `Peak ${v.day} · ${v.n}`,
-        tip: { pax: 'passengers', flights: 'flights', share: 'of the month' }
+        byDay: x => `Passengers by day · against the daily average of ${x}`, peak: v => `Peak ${v.day} · ${v.n} (${v.d})`, avg: 'Avg', day: 'Day', vsAvg: 'vs the daily average',
+        tip: { pax: 'passengers', vsAvg: 'vs the daily average', flights: 'flights', share: 'of the month' }
       },
       bpNote: 'Note 1: Flights, passengers and seat-km count both directions; on-time departures count departures from Chicago (ORD) only. Passenger yield is passenger revenue per revenue passenger-km.',
       pts: ' pts',
@@ -955,7 +966,7 @@
           ['Route region', 'Each route from Chicago belongs to one of five route regions by its destination: The Americas, Europe, East Asia, South West Pacific, and West Asia and Africa.'],
           ['Cabins', 'Every route flies one 247-seat layout: Business (J) 28 seats, Premium Economy (S) 21, Economy (Y) 198. The forward zone is the first five Economy rows, 45 seats sold with a seat fee.'],
           ['On time', 'Departures from Chicago (ORD) that pushed back within 15 minutes of schedule. The target is 85%.'],
-          ['Passengers by day', 'Passengers carried in both directions on the flights operated that day.'],
+          ['Passengers by day', 'Passengers carried in both directions on the flights operated that day. Bars rise above the daily average (the month’s passengers divided by 31) on busier days and drop below it on quieter ones.'],
           ['Rounding', 'Route figures in the table are rounded to add up to the region and systemwide totals; percentages are worked out before rounding.']
         ],
         src: 'Sources: departure control, revenue accounting and the FY2026/27 network plan. Month ended 31 October 2026; published 4 November 2026.'
@@ -1174,74 +1185,100 @@
   function renderPass(animate) {
     const t = L(), k = t.k, s = S(), rs = routesIn(), dPlan = s.plf - s.plan, dLy = s.plf - s.ly, margin = s.plf - s.blf;
     const chip = (d, txt) => { const v = Number(d.toFixed(1)); return h('span', { class: 'chip-s' + (v < 0 ? ' bad' : v === 0 ? ' flat' : '') }, h('b', { text: (v > 0 ? '▲ ' : v < 0 ? '▼ ' : '') + ptsTxt(d) }), ' ' + txt); };
-    const peakI = s.daily.indexOf(Math.max(...s.daily));
+    const peakI = s.daily.indexOf(Math.max(...s.daily)), avgDay = s.pax / s.daily.length;
     const main = h('div', { class: 'bp-main' },
       h('div', { class: 'bp-top' }, h('span', { text: k.top }), h('span', { text: k.topR })),
       h('div', { class: 'bp-route' },
-        h('div', { class: 'bp-ap' },
-          h('div', null, h('span', { class: 'bp-k', text: k.from }), h('span', { class: 'bp-code', text: 'ORD' }), h('span', { class: 'bp-city', text: k.chicago })),
-          h('span', { class: 'bp-arrow', 'aria-hidden': 'true' }),
-          h('div', { class: 'bp-dest' }, h('span', { class: 'bp-k', text: k.to }), h('span', { class: 'bp-code', text: t.scopes[state.scope] }), h('span', { class: 'bp-city', text: rs.map(r => r.code).join(' · ') }))),
-        h('div', { class: 'bp-mini' },
-          h('div', null, h('span', { class: 'bp-k', text: k.flights }), h('b', { text: nf(s.flights) })),
-          h('div', null, h('span', { class: 'bp-k', text: k.seats }), h('b', { text: nf(s.flights * 247) })))),
+        h('span', { class: 'bp-k bp-g-fk', text: k.from }),
+        h('span', { class: 'bp-code bp-g-fc', text: 'ORD' }),
+        h('span', { class: 'bp-city bp-g-fs', text: k.chicago }),
+        h('span', { class: 'bp-arrow bp-g-ar', 'aria-hidden': 'true' }),
+        h('span', { class: 'bp-k bp-g-tk', text: k.to }),
+        h('span', { class: 'bp-code bp-g-tc', text: t.scopes[state.scope] }),
+        h('span', { class: 'bp-codes bp-g-ts', text: rs.map(r => r.code).join(' · ') }),
+        h('span', { class: 'bp-k bp-g-k1', text: k.flights }), h('b', { class: 'bp-mv bp-g-v1', text: nf(s.flights) }),
+        h('span', { class: 'bp-k bp-g-k2', text: k.seats }), h('b', { class: 'bp-mv bp-g-v2', text: nf(s.flights * 247) })),
       h('div', { class: 'bp-fields', role: 'list' }, passFields().map((f, i) => h('div', { class: 'bp-f' + (animOK(animate) ? ' fade' : ''), role: 'listitem', style: animOK(animate) ? { animationDelay: (i * 40) + 'ms' } : null },
         h('span', { class: 'bp-k', text: f.name }),
         h('p', { class: 'bp-v' }, h('span', { class: 'sr-only', text: f.aria }), h('span', { 'aria-hidden': 'true', style: { display: 'contents' } }, f.v)),
         h('p', { class: 'bp-d' }, f.d1), h('p', { class: 'bp-d' }, f.d2)))),
       h('div', { class: 'bp-bc' },
-        h('p', { class: 'bp-bch' }, h('span', { text: k.byDay }), h('span', { class: 'pk', text: k.peak({ day: dayLong(peakI + 1), n: nf(s.daily[peakI]) }) })),
-        h('div', { class: 'bp-plot', id: 'bpBars' })),
+        h('p', { class: 'bp-bch' }, h('span', { text: k.byDay(nf(Math.round(avgDay))) }), h('span', { class: 'pk', text: k.peak({ day: dayLong(peakI + 1), n: nf(s.daily[peakI]), d: signed((s.daily[peakI] / avgDay - 1) * 100, 0) + '%' }) })),
+        h('div', { class: 'bp-plot', id: 'bpBars' }),
+        h('div', { class: 'sr-only' }, srTable(k.byDay(nf(Math.round(avgDay))), [k.day, k.tip.pax, k.vsAvg], s.daily.map((v, i) => [dayLong(i + 1), nf(v), signed((v / avgDay - 1) * 100) + '%'])))),
       h('div', { class: 'tip', 'aria-hidden': 'true' }));
     const stub = h('div', { class: 'bp-stub' },
       h('div', { class: 'bp-stop' }, h('span', { text: k.stub }), h('span', { text: KO() ? '2026년 10월' : 'Oct 2026' })),
       h('div', { class: 'bp-sb' },
         h('p', { class: 'bp-sv' }, h('span', { class: 'sr-only', text: pct(s.plf) }), h('span', { 'aria-hidden': 'true', style: { display: 'contents' } }, unitNodes(nf(s.plf, 1), '%'))),
         h('div', { class: 'chips' }, chip(dPlan, KO() ? `계획 ${pct(s.plan)} 대비` : `vs plan of ${pct(s.plan)}`), chip(dLy, KO() ? `지난해 10월 ${pct(s.ly)} 대비` : `vs ${pct(s.ly)} in Oct 2025`)),
-        h('div', { class: 'bp-be' }, h('span', { class: 'bp-k', text: k.be }), h('p', null, h('b', { text: pct(s.blf) }), h('span', { text: `${k.margin} ${ptsTxt(margin)}` })))));
+        h('div', { class: 'bp-be' }, h('span', { class: 'bp-k', text: k.be }), h('p', null, h('b', { text: pct(s.blf) }), chip(margin, k.margin)))));
     $('#bp').replaceChildren(main, stub);
     $('#bpNote').textContent = t.bpNote;
     drawPassBars(animate);
   }
-  // 바코드 자리 = 날짜별 수송 여객(하루에 막대 하나, 가장 붐빈 날만 청록). 막대는 0에서 시작한다
+  // 바코드 자리 = 날짜별 수송 여객. 하루 평균(이달 여객 ÷ 31)을 가로선으로 두고, 평균보다 많은 날은 위로, 적은 날은 아래로.
+  // 가장 붐빈 날만 청록, 평균보다 많은 날은 짙은 회색, 적은 날은 옅은 회색. 아래에 요일 글자(주말은 굵게)와 월요일·1일의 날짜
   const BB = { i: null };
+  const WD = { en: ['S', 'M', 'T', 'W', 'T', 'F', 'S'], ko: ['일', '월', '화', '수', '목', '금', '토'] };
   function drawPassBars(animate) {
     const box = $('#bpBars');
     if (!box) return;
     const W = Math.round(box.clientWidth), H = Math.round(box.clientHeight);
     if (!W || !H) return;
     box._w = W; box._h = H;
-    const t = L(), s = S(), host = $('#bp .bp-main'), n = s.daily.length, LB = 14, Hb = H - LB;
-    const slot = W / n, bw = Math.max(2, Math.min(9, Math.round(slot * .56)));
-    const max = Math.max(...s.daily), peak = s.daily.indexOf(max);
-    const bx = i => Math.round(i * slot + (slot - bw) / 2), Y = v => Math.round(Hb - v / max * (Hb - 2));
-    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.k.byDay });
+    const t = L(), s = S(), host = $('#bp .bp-main'), n = s.daily.length, f = fam(box);
+    const avg = s.pax / n, dev = s.daily.map(v => (v / avg - 1) * 100);
+    const top = Math.max(5, Math.ceil(Math.max(...dev) / 5) * 5), bot = Math.min(-5, Math.floor(Math.min(...dev) / 5) * 5);
+    const lab = v => v === 0 ? t.k.avg : signed(v, 0) + '%';
+    const G = Math.ceil(Math.max(...[top, 0, bot].map(v => textW(lab(v), `700 10.5px ${f}`)))) + 10;
+    const slot = (W - G) / n, showWd = slot >= 13;
+    const LB = showWd ? 28 : 15, Hb = H - LB;
+    const bw = Math.max(2, Math.min(12, Math.round(slot * .6)));
+    const Y = v => 3 + (top - v) / (top - bot) * (Hb - 6);
+    const bx = i => Math.round(G + i * slot + (slot - bw) / 2);
+    const peak = s.daily.indexOf(Math.max(...s.daily));
+    const fill = i => i === peak ? C.subject : dev[i] >= 0 ? C.comparison : C.ly;
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img', tabindex: 0, 'aria-label': t.k.byDay(nf(Math.round(avg))) });
     const hl = sv('rect', { y: 0, height: Hb, fill: 'rgba(0,38,107,.08)', style: { opacity: 0 } });
+    const scale = sv('g');
+    [top, 0, bot].forEach(v => scale.append(sv('text', { x: G - 8, y: Y(v), dy: '.35em', 'text-anchor': 'end', class: 'bp-dl' + (v === 0 ? ' z' : ''), text: lab(v) })));
     const g = sv('g', { 'shape-rendering': 'crispEdges' });
-    s.daily.forEach((v, i) => g.append(sv('rect', { x: bx(i), y: Y(v), width: bw, height: Hb - Y(v), fill: i === peak ? C.subject : C.comparison, class: animOK(animate) ? 'grow' : null, style: animOK(animate) ? { animationDelay: (i * 12) + 'ms' } : null })));
+    dev.forEach((d, i) => {
+      const y1 = Math.round(Y(Math.max(0, d))), y2 = Math.round(Y(Math.min(0, d)));
+      g.append(sv('rect', { x: bx(i), y: y1, width: bw, height: Math.max(1, y2 - y1), fill: fill(i),
+        class: animOK(animate) ? (d >= 0 ? 'grow' : 'grow-d') : null, style: animOK(animate) ? { animationDelay: (i * 12) + 'ms' } : null }));
+    });
+    const zero = Math.round(Y(0)) + .5;
+    const base = sv('line', { x1: G - 3, x2: W, y1: zero, y2: zero, stroke: C.ink, 'stroke-width': 1 });
     const labels = sv('g');
-    [1, 8, 15, 22, 29].forEach(d => labels.append(sv('text', { x: bx(d - 1) + bw / 2, y: H - 2, 'text-anchor': 'middle', class: 'bp-dl', text: KO() ? `${d}일` : `${d} Oct` })));
-    svg.append(hl, g, labels, sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
+    for (let i = 0; i < n; i++) {
+      const wd = dt(i + 1).getDay(), cx = bx(i) + bw / 2;
+      if (showWd) labels.append(sv('text', { x: cx, y: Hb + 12, 'text-anchor': 'middle', class: 'bp-wd' + (wd === 0 || wd === 6 ? ' we' : ''), text: WD[state.lang][wd] }));
+      if (i === 0 || wd === 1) labels.append(sv('text', { x: cx, y: H - 2, 'text-anchor': 'middle', class: 'bp-dl', text: KO() ? `${i + 1}일` : String(i + 1) }));
+    }
+    svg.append(hl, scale, g, base, labels, sv('rect', { x: 0, y: 0, width: W, height: H, fill: 'transparent' }));
     box.replaceChildren(svg);
     const fl = d => sum(routesIn().filter(r => r.days.includes(d)).map(r => r.slots.length * 2));
     const show = i => {
       hl.style.opacity = i == null ? 0 : 1;
       if (i == null) { hideTip(host); return; }
       BB.i = i;
-      setAttrs(hl, { x: i * slot, width: slot });
+      setAttrs(hl, { x: G + i * slot, width: slot });
       const o = offsetIn(host, svg);
       placeTip(host, tipNodes(dayLong(i + 1), [
-        { key: i === peak ? C.subject : C.comparison, value: nf(s.daily[i]), label: t.k.tip.pax },
+        { key: fill(i), value: nf(s.daily[i]), label: t.k.tip.pax },
+        { value: signed(dev[i]) + '%', label: t.k.tip.vsAvg },
         { value: nf(fl(i + 1)), label: t.k.tip.flights },
         { value: pct(s.daily[i] / s.pax * 100), label: t.k.tip.share }
-      ]), o.x + bx(i) + bw / 2, o.y + Y(s.daily[i]) - 4, o.y + Hb);
+      ]), o.x + bx(i) + bw / 2, o.y + Y(Math.max(0, dev[i])) - 4, o.y + Y(Math.min(0, dev[i])) + 4);
     };
-    const idxAt = px => Math.max(0, Math.min(n - 1, Math.floor(px / slot)));
+    const idxAt = px => Math.max(0, Math.min(n - 1, Math.floor((px - G) / slot)));
     svg.addEventListener('pointermove', e => { const r = svg.getBoundingClientRect(); show(idxAt(e.clientX - r.left)); });
     svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== svg) show(null); });
     svg.addEventListener('focus', () => show(BB.i == null ? peak : BB.i));
     svg.addEventListener('blur', () => show(null));
-    svg.addEventListener('keydown', e => { const cur = BB.i == null ? peak : BB.i, i = keyStep(e, cur, n); if (i === null) return; if (i < 0) { show(null); return; } show(i); say(`${dayLong(i + 1)}: ${nf(s.daily[i])}`); });
+    svg.addEventListener('keydown', e => { const cur = BB.i == null ? peak : BB.i, i = keyStep(e, cur, n); if (i === null) return; if (i < 0) { show(null); return; } show(i); say(`${dayLong(i + 1)}: ${nf(s.daily[i])}, ${signed(dev[i])}%`); });
   }
 
   /* ================= 대표 장치 2: 좌석 배치도(객실별 탑승률) =================
