@@ -1,0 +1,2100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>West Fraser style · Lumber operations weekly sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600;1,700&family=Roboto+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="/lib/embed.js" defer></script>
+<style>
+  /* West Fraser style (VIZNEY STYLES · 07) — Earthy, Outlook, Steady · 어스 톤, 전망표, 차분함
+     westfraser.com(2026-11-07 실측), 3분기 IR 슬라이드(2026-11), 3분기 MD&A, 연차보고서 2025, 지속가능성 보고서 2025에서 읽어 낸 참고용 스타일.
+     공식 디자인이 아니며 로고·서체·사진·데이터는 쓰지 않는다. 가상 사업부 Vizney Timber(캐나다 SPF 4곳 + 미국 남부 SYP 4곳 제재소)의 주간 운영 보고.
+     대표 장치 셋: IR의 'Outlook' 표(계획 범위 · 원가 화살표) → 첫 화면 KPI, 슬라이드 바닥의 남색 결론 띠 → 절마다 결과 문장,
+     'Continuous Portfolio Optimization'의 증감 장부(+초록 / −주황) → 가동 일정. 표는 IR 표처럼 세이지 머리줄, 오른쪽으로 짙어지는 칸, 모래색 Comments 머리.
+     그림은 연차보고서 문법: 지난 주는 회색, 이번 주만 초록, 제목 아래 단위. 큰 숫자는 가는 굵기. 모서리는 네모(슬라이드), 그림자 없음.
+     조작 부품(필터 · 언어)은 westfraser.com 메뉴처럼 8px 모서리의 연초록 알약. */
+  :root{
+    --canvas:#ffffff; --body:#f2f2f2; --panel:#ffffff; --line:#e6e6e6; --rule:#d9d9d9; --edge:#bfbfbf;
+    --ink:#333333; --text:#595959; --muted:#666666;
+    --green:#007e3a; --green-600:#00642e; --green-100:#e5f2eb; --green-150:#d9ece2;
+    --sage:#749370; --sage-hd:#5d7b59; --sage-50:#f0f5ef; --sage-300:#b9cfb6;
+    --sand:#a8936a; --sand-hd:#836f47; --tile:#8d7b58; --sand-100:#f3f0e9;
+    --navy:#39527f;
+    --t0:#e6e7e6; --t1:#dbdeda; --t2:#d2d8d1; --t3:#c9d2c8; --t4:#b8c6b7;
+    --hero:#418d50; --hero-text:#2d723c; --sky:#3797c6; --plum:#8c5087; --other:#b5c1b7; --comparison:#595959;
+    --bad:#c06228; --bad-mark:#a75016; --bad-text:#a75016; --bad-tint:#853900; --bad-100:#ffede1;
+    --good:#00642e; --good-tint:#195c2e;
+    --font:'Open Sans',Arial,sans-serif;
+    --mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.4,0,.2,1);
+    --page:32px; --gap:16px; --sec:44px;
+  }
+  /* 한국어: westfraser.com에는 한국어 페이지가 없다. 규칙대로 Pretendard 한 벌(기울임 없이) */
+  html[lang="ko"]{
+    --font:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    --mono:'Roboto Mono','Pretendard Variable','Pretendard',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  html{background:var(--canvas)}
+  body{background:var(--canvas);color:var(--text);font-family:var(--font);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  html[lang="ko"] body{word-break:keep-all}
+  p,h1,h2,h3,h4,ul,ol,figure,table{margin:0}
+  button{font:inherit;color:inherit}
+  a{color:var(--ink)}
+  :focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .ico{width:16px;height:16px;flex:none}
+  .wrap{max-width:1400px;margin:0 auto;padding:0 var(--page)}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* ---------- 머리: 슬라이드 제목처럼 초록 굵은 제목, 오른쪽에 westfraser.com 머리의 시세 표시(여기서는 목재 가격) ---------- */
+  .head{background:var(--canvas);border-bottom:1px solid #eeeeee}
+  .head .wrap{display:flex;align-items:center;gap:20px 28px;min-height:76px;padding-top:10px;padding-bottom:10px}
+  .brand{min-width:0}
+  .brand-e{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 8px;font-size:13.5px;line-height:1.4;color:var(--text)}
+  .brand-e .co{color:var(--ink);font-weight:600}
+  .brand-e .dot{color:var(--edge)}
+  .brand h1{margin-top:2px;font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.005em;color:var(--green);white-space:nowrap}
+  html[lang="ko"] .brand h1{font-size:26px;letter-spacing:-.02em}
+  .tick{margin-left:auto;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:flex-end;gap:2px 16px;font-size:14px;color:var(--text)}
+  .tick .tk{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap}
+  .tick .tk b{font-weight:600;color:var(--ink)}
+  .tick .tk .v{color:var(--ink);font-variant-numeric:tabular-nums}
+  .tick .tk .d{font-size:12.5px;font-variant-numeric:tabular-nums}
+  .tick .tk .d.bad{color:var(--bad-text)} .tick .tk .d.good{color:var(--good)}
+  .tick .tu{flex-basis:100%;text-align:right;font-size:12px;color:var(--muted)}
+  .tools{display:flex;align-items:center;gap:10px}
+  /* 언어: westfraser.com 메뉴의 알약(8px, 연초록 바탕 #e5f2eb + 초록 #00642e 글자) */
+  .lang{display:inline-flex;gap:2px;padding:0}
+  .lang button{min-width:42px;height:36px;padding:0 10px;border:0;border-radius:8px;background:none;font-size:15px;font-weight:600;color:var(--text);cursor:pointer}
+  .lang button:hover{background:#f4f4f4}
+  .lang button[aria-pressed="true"]{background:var(--green-100);color:var(--green-600)}
+
+  /* ---------- 필터 = westfraser.com 메뉴(16px 굵게, 고른 항목은 연초록 알약). 수종과 지역 ---------- */
+  .nav{background:var(--canvas);border-bottom:1px solid #eeeeee}
+  .nav .wrap{display:flex;align-items:center;gap:12px;min-height:54px}
+  .tabs{display:flex;gap:4px;flex-wrap:wrap}
+  .tabs button{display:inline-flex;align-items:baseline;gap:6px;height:38px;padding:8px 16px;border:0;border-radius:8px;background:none;font-size:15.5px;font-weight:600;line-height:22px;color:var(--text);cursor:pointer;white-space:nowrap}
+  .tabs button:hover{background:#f4f4f4}
+  .tabs button[aria-selected="true"]{background:var(--green-100);color:var(--green-600)}
+  .tabs .n{font-weight:400;font-size:14px;opacity:.85}
+  .nav-aside{margin-left:auto;font-size:13px;color:var(--muted);white-space:nowrap}
+
+  /* ---------- 절 = IR 슬라이드 한 장: 흰 제목 줄 → 회색 #f2f2f2 몸 → 남색 결론 띠(왼쪽 모래색 칸에 절 번호) → 각주 ---------- */
+  .slide{margin-top:var(--sec);scroll-margin-top:12px}
+  .slide:first-child{margin-top:18px}
+  .sl-h{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 14px;padding:0 0 12px}
+  .sl-t{font-size:24px;font-weight:700;line-height:1.25;color:var(--green)}
+  html[lang="ko"] .sl-t{font-size:23px;letter-spacing:-.01em}
+  .sl-k{font-size:13px;color:var(--muted)}
+  .sl-b{display:grid;gap:var(--gap);padding:var(--gap);background:var(--body)}
+  .sl-b.two{grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);align-items:stretch}
+  .sl-b.two-b{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:stretch}
+  .sl-b.two-c{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+  .sl-n{margin-top:8px;font-size:12px;line-height:1.55;color:var(--muted)}
+  .sl-n sup,.tw-t sup{font-size:.7em;line-height:0}
+
+  /* 대표 장치 2: 결론 띠. IR 슬라이드 바닥의 남색 #39527f 띠(굵은 기울임 흰 글자) + 왼쪽 모래색 칸(띠보다 높게 솟는다) */
+  .tw{display:grid;grid-template-columns:64px minmax(0,1fr);align-items:end}
+  .tw-n{display:flex;align-items:center;justify-content:center;height:64px;background:var(--tile);color:#fff;font-size:22px;font-weight:700;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+  .tw-t{display:flex;align-items:center;justify-content:center;min-height:52px;padding:10px 24px;background:var(--navy);color:#fff;font-size:18px;font-weight:700;font-style:italic;line-height:1.3;text-align:center;text-wrap:balance}
+  html[lang="ko"] .tw-t{font-style:normal;font-size:17px;letter-spacing:-.01em}
+  .tw-t b{font-weight:700}
+
+  /* ---------- 표 = IR 표: 세이지 머리줄(흰 굵은 글자), Comments 머리는 모래색, 칸은 오른쪽으로 갈수록 짙어진다, 칸 사이 흰 틈 2px ---------- */
+  .wt{width:100%;border-collapse:separate;border-spacing:2px;font-variant-numeric:tabular-nums;background:var(--canvas)}
+  .wt th,.wt td{padding:7px 12px;font-size:13.5px;line-height:1.35;color:var(--ink);text-align:right;vertical-align:middle}
+  .wt thead th{background:var(--sage-hd);color:#fff;font-weight:700;font-size:13px;line-height:1.3;white-space:nowrap}
+  .wt thead th.lab{text-align:left;font-style:italic;font-weight:600}
+  html[lang="ko"] .wt thead th.lab{font-style:normal}
+  .wt thead th.cm{background:var(--sand-hd);text-align:left}
+  .wt thead tr.grp th{font-size:12px;font-weight:600;padding:5px 12px;text-align:center}
+  .wt .lab{text-align:left}
+  .wt .c0{background:var(--t0)} .wt .c1{background:var(--t1)} .wt .c2{background:var(--t2)} .wt .c3{background:var(--t3)} .wt .c4{background:var(--t4)}
+  .wt td.cm{background:var(--panel);text-align:left;color:var(--ink);font-size:13px}
+  .wt .bad{color:var(--bad-tint)} .wt .good{color:var(--good-tint)}
+  .wt td.cm .bad{color:var(--bad-text)}
+  .wt tbody tr{cursor:default}
+  .wt tbody tr.on td,.wt tbody tr.on th{box-shadow:inset 0 0 0 999px rgba(0,0,0,.045)}
+  .wt tbody tr.on td.cm{box-shadow:inset 0 0 0 999px rgba(0,0,0,.03)}
+
+  /* 대표 장치 1: Outlook 표(IR '2026 Outlook' · 'Q3-26 versus Q2-26'). 이번 주 열의 숫자는 연차보고서처럼 가는 굵기로 크게 */
+  .ot{position:relative;display:flex;flex-direction:column;min-width:0}
+  .ot .wt{flex:1}
+  .ot-t th.lab .u{font-weight:400}
+  .ot-t tbody th{font-weight:600;text-align:left}
+  .ot-t tbody th .u{display:block;font-size:12px;font-weight:400;color:var(--text);margin-top:1px}
+  html[lang="ko"] .ot-t tbody th .u{font-size:12px}
+  .ot-t td.c1{font-size:25px;font-weight:300;line-height:1.1;color:#1a1a1a;letter-spacing:-.01em;padding-top:6px;padding-bottom:6px}
+  .ot-t td.c1 small{font-size:13px;font-weight:400;margin-left:1px;color:var(--text)}
+  .ot-t td.c4{font-weight:600;white-space:nowrap}
+  .ot-t tr.kp th,.ot-t tr.kp td{height:50px}
+  .ot-t tr.cs th,.ot-t tr.cs td{height:36px}
+  .ot-t tr.cs td.c1{font-size:19px}
+  /* 원가는 IR Outlook의 'Costs'처럼 묶음 줄 아래에 들여 쓴다 */
+  .ot-t tr.cgh th,.ot-t tr.cgh td{height:30px;padding-top:4px;padding-bottom:4px;font-size:13px;line-height:1.2}
+  .ot-t tr.kp th{white-space:nowrap}
+  .ot-t th.cg{text-align:left;font-weight:600}
+  .ot-t th.cg .u{display:inline;font-size:12px;font-weight:400;color:var(--text);margin-left:6px}
+  .ot-t tr.cs th.sub{font-weight:400;padding-left:24px}
+  .ot-t td.c2{padding-top:6px;padding-bottom:6px}
+  .ot-r{display:block;font-size:13px;white-space:nowrap}
+  .ot-rr{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:3px}
+  .ot-rr .st{font-size:11.5px;line-height:1.2;color:var(--text);white-space:nowrap}
+  .ot-rr .st.bad{color:var(--bad-tint)}
+  /* 계획 범위 막대: 범위는 세이지 띠, 이번 주는 3px 눈금(범위 밖 나쁜 쪽이면 녹슨 주황) — IR의 'Forecast Range' 띠를 칸 안에 */
+  .ot-rb{position:relative;display:block;flex:none;width:64px;height:12px}
+  .ot-rb i{position:absolute;top:2px;bottom:2px;background:var(--sage-300);box-shadow:inset 0 0 0 1px var(--sage)}
+  .ot-rb b{position:absolute;top:0;bottom:0;width:3px;margin-left:-1.5px;background:var(--ink)}
+  .ot-rb b.bad{background:var(--bad-mark)}
+  .ot-ch{display:inline-flex;align-items:center;gap:6px;justify-content:flex-end;white-space:nowrap}
+  .ot-ch svg{width:18px;height:14px;flex:none}
+
+  /* ---------- 카드: 흰 판(그림자 없음). 그림 번호 → 결과를 말하는 제목 → IR식 차트 제목(단위) → 범례 → 그림 → 주 ---------- */
+  .panel{position:relative;display:flex;flex-direction:column;min-width:0;background:var(--panel);padding:16px 18px 14px}
+  .fl{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green)}
+  html[lang="ko"] .fl{letter-spacing:.02em}
+  .ct{margin-top:4px;font-size:17px;font-weight:600;line-height:1.35;color:var(--ink);text-wrap:balance}
+  html[lang="ko"] .ct{font-size:16.5px;letter-spacing:-.01em}
+  .cht{margin-top:10px;font-size:13px;font-weight:700;color:var(--ink)}
+  .cht span{font-weight:400;color:var(--text)}
+  .keys{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin:6px 0 0;padding:0;list-style:none}
+  .keys li{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text);white-space:nowrap}
+  .keys svg{width:18px;height:12px;flex:none;overflow:visible}
+  .cb{position:relative;flex:1 1 auto;display:flex;flex-direction:column;min-width:0;margin-top:8px}
+  .plot{position:relative;flex:1 1 auto;min-height:0}
+  .plot > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .plot:focus-visible{outline-offset:4px}
+  .cf{margin-top:10px;font-size:12px;line-height:1.55;color:var(--muted)}
+  .ax{font-size:11.5px;fill:var(--text);font-family:var(--font);font-variant-numeric:tabular-nums}
+  .lb{font-size:12.5px;fill:var(--ink);font-family:var(--font);font-variant-numeric:tabular-nums}
+  .lb.b{font-weight:600}
+  .lb.bad{fill:var(--bad-text)}
+  .lb.m{fill:var(--text)}
+  .nm{font-size:13px;fill:var(--ink);font-family:var(--font)}
+  .nm .st{fill:var(--text);font-size:12px}
+  .hit{fill:transparent;cursor:default}
+  .row-on{fill:rgba(0,0,0,.045)}
+
+  /* 그림 1의 높이는 왼쪽 Outlook 표를 따른다(아래 끝을 맞춘다) */
+  #f1 .cb{min-height:260px}
+  /* 그림 2: 점 표(공장 × 회수율 · 등급). 높이는 공장 수로 정한다 */
+  /* 그림 3 · 5: 연차보고서식 작은 그림 여러 개(13주 막대, 이번 주만 초록) */
+  .sm{display:grid;grid-template-columns:repeat(var(--n,2),minmax(0,1fr));gap:0 22px;flex:1 1 auto;min-height:0}
+  .sm-c{display:flex;flex-direction:column;min-width:0}
+  .sm-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
+  .sm-h span{font-weight:400;color:var(--text);font-size:12.5px;white-space:nowrap}
+  .sm-c .plot{min-height:210px;margin-top:4px}
+
+  /* 표 1: 공장별 실적(IR 표). 수종 줄은 소계, 굵게 */
+  .mt-wrap{overflow-x:auto}
+  .mt-t tbody tr.grp th,.mt-t tbody tr.grp td{font-weight:700}
+  .mt-t tbody tr.tot th,.mt-t tbody tr.tot td{font-weight:700;border-top:0}
+  .mt-t tbody tr.mill th{font-weight:400;padding-left:22px}
+  .mt-t tbody th .st{color:var(--text);font-size:12px;margin-left:4px}
+  .mt-t td.vp{white-space:nowrap}
+  .mt-vp{display:inline-flex;align-items:center;gap:8px;justify-content:flex-end}
+  .mt-vp svg{width:58px;height:12px;flex:none;overflow:visible}
+  .mt-t .flag{font-size:9px;margin-right:3px;vertical-align:1px}
+
+  /* 대표 장치 3: 증감 장부(IR 'Continuous Portfolio Optimization'). 늘리는 일정은 초록, 줄이는 일정은 녹슨 주황, 값이 먼저 */
+  .lg-t td.ent{text-align:left;vertical-align:top}
+  .lg-t th.lab{vertical-align:top}
+  .lg-t tbody th{white-space:nowrap}
+  .lg-t tbody th .dt{display:block;font-size:12px;font-weight:400;color:var(--text);margin-top:1px}
+  .lg-e{display:block;font-size:13px;line-height:1.4}
+  .lg-e + .lg-e{margin-top:4px}
+  .lg-e b{font-weight:700;margin-right:5px;font-variant-numeric:tabular-nums}
+  .lg-e .ml{font-weight:600;color:var(--ink)}
+  .lg-e .wh{color:var(--ink)}
+  .lg-t td.net{font-weight:700;vertical-align:top}
+  .lg-t tr.tot th,.lg-t tr.tot td{font-weight:700;vertical-align:middle}
+  .lg-none{color:var(--text)}
+
+  /* 그림 4: 원가 증감표(MD&A의 variance 표). 단계마다 이유 한 마디 */
+  .vt-t td.why{background:var(--panel);text-align:left;font-size:13px;color:var(--ink)}
+  .vt-t tr.tot th,.vt-t tr.tot td{font-weight:700}
+  .vt-bar{display:inline-flex;align-items:center;gap:8px;justify-content:flex-end}
+  .vt-bar svg{width:96px;height:12px;flex:none;overflow:visible}
+
+  /* ---------- 만드는 법 ---------- */
+  .sec{margin-top:var(--sec);scroll-margin-top:12px}
+  .sec .sl-h{padding-bottom:8px}
+  .build-intro{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px 40px;align-items:end;margin-top:4px}
+  .build-intro p{max-width:46em;font-size:15px;line-height:1.55;color:var(--text)}
+  .build-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+  /* 단추: westfraser.com 알약(모서리 100px, 높이 34px). 채움 초록 #007e3a 또는 초록 테두리 */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 20px;border-radius:100px;border:1px solid var(--green);font-size:15px;font-weight:400;letter-spacing:.025em;line-height:1;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .15s var(--ease),color .15s var(--ease)}
+  .btn-green{background:var(--green);color:#fff}
+  .btn-green:hover{background:var(--green-600);border-color:var(--green-600)}
+  .btn-line{background:#fff;color:var(--green)}
+  .btn-line:hover{background:var(--green-100)}
+  .btn-sm{height:32px;padding:0 16px;font-size:14px;gap:6px}
+  .btn-icon{width:32px;padding:0}
+  .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0 0;padding:0;list-style:none}
+  .steps li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;padding:14px 16px 16px;background:var(--body)}
+  .steps .sn{grid-row:span 2;font-size:15px;font-weight:700;line-height:22px;color:var(--green)}
+  .steps b{font-size:16px;font-weight:600;line-height:1.35;color:var(--ink)}
+  .steps p{margin-top:4px;font-size:14px;line-height:1.5;color:var(--text)}
+  .win{position:relative;display:grid;grid-template-columns:240px minmax(0,1fr) minmax(0,1.05fr);margin-top:var(--gap);border:1px solid var(--line);background:var(--panel)}
+  .side{padding:16px 12px 14px;background:var(--body);border-right:1px solid var(--line);font-size:14px}
+  .side-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 6px 10px}
+  .side-h b{font-size:14px;font-weight:700;color:var(--ink)}
+  .side-h span{font-size:12px;color:var(--muted)}
+  .tree{list-style:none;margin:0;padding:0}
+  .tree li{display:block}
+  .tree a,.tree .fi{display:grid;grid-template-columns:16px minmax(0,1fr);column-gap:8px;padding:4px 6px;border-radius:4px;text-decoration:none;color:inherit}
+  .tree a:hover{background:#e8e8e8}
+  .tree svg{width:14px;height:14px;margin-top:3px;color:var(--muted)}
+  .tree b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tree a b{text-decoration:underline;text-decoration-color:var(--sage);text-decoration-thickness:2px;text-underline-offset:3px}
+  .tree span{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
+  .tree .root b{font-weight:400;color:var(--text)}
+  .tree .in{padding-left:14px} .tree .in2{padding-left:28px} .tree .in3{padding-left:42px}
+  .get{margin-top:12px;padding:12px 6px 0;border-top:1px solid var(--line)}
+  .get-h{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px}
+  .cmds{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;min-width:0}
+  .cmd{display:flex;align-items:center;gap:6px;padding:6px 6px 6px 10px;border:1px solid var(--line);border-radius:6px;background:#fff}
+  .cmd code{flex:1;min-width:0;font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--ink);white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+  .cmd code::-webkit-scrollbar{display:none}
+  .cmd code.more-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
+  .cmd button{flex:none;width:22px;height:22px;display:grid;place-items:center;border:0;border-radius:4px;background:none;color:var(--text);cursor:pointer}
+  .cmd button:hover{background:var(--body);color:var(--ink)}
+  .cmd button svg{width:13px;height:13px}
+  .get-note{margin:6px 0 10px;font-size:12px;line-height:1.45;color:var(--muted)}
+  .figpane{position:relative;display:flex;flex-direction:column;min-width:0;padding:16px 20px 18px;border-right:1px solid var(--line)}
+  .figbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .modes{display:inline-flex;gap:2px}
+  .modes button{height:30px;padding:0 12px;border:0;border-radius:8px;background:none;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;white-space:nowrap}
+  .modes button[aria-selected="true"]{background:var(--green-100);color:var(--green-600)}
+  .chip{display:inline-flex;align-items:center;height:22px;padding:0 10px;border:1px solid var(--green);border-radius:100px;background:var(--green-100);font-family:var(--mono);font-size:11.5px;color:var(--green-600);white-space:nowrap}
+  .wb-l{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green)}
+  .wb-t{margin-top:4px;font-size:16px;font-weight:600;line-height:1.4;color:var(--ink)}
+  #wbRt{margin:8px 0 6px;min-height:20px}
+  .wb-n{margin-top:8px;font-size:12px;color:var(--muted)}
+  #wbPlot{flex:1;min-height:270px;margin-bottom:6px}
+  .checks{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+  .checks-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;font-size:13px;font-weight:700;color:var(--ink)}
+  .checks-h .ok{font-weight:600;color:var(--good)}
+  .checks-h .ok.bad{color:var(--bad-text)}
+  .checks ul{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+  .checks li{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.45;color:var(--text)}
+  .checks li svg{width:14px;height:14px;flex:none;margin-top:2px;color:var(--good)}
+  .checks li.no svg{color:var(--bad-text)}
+  .checks code{font-family:var(--mono);font-size:12px;color:var(--ink);white-space:nowrap}
+  .codepane{display:flex;flex-direction:column;min-width:0;background:#fff;contain:size}
+  .cbar{display:flex;align-items:center;gap:10px;height:48px;padding:0 12px 0 16px;border-bottom:1px solid var(--line);background:var(--body)}
+  .ctabs{flex:1;min-width:0;align-self:stretch;display:flex;gap:18px;overflow-x:auto;scrollbar-width:none}
+  .ctabs::-webkit-scrollbar{display:none}
+  .cbtns{flex:none;display:flex;gap:6px}
+  .ctab{flex:none;display:flex;align-items:center;border:0;border-bottom:3px solid transparent;border-top:3px solid transparent;background:none;padding:0;font-size:14px;color:var(--text);cursor:pointer;white-space:nowrap}
+  .ctab[aria-selected="true"]{border-bottom-color:var(--green);color:var(--ink);font-weight:600}
+  .code{position:relative;flex:1;margin:0;padding:10px 0;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.62;color:var(--ink);counter-reset:ln;tab-size:2;scrollbar-width:thin;scrollbar-color:#cccccc transparent}
+  .code .ln{display:block;position:relative;min-height:1.62em;padding:0 16px 0 46px;white-space:pre;transition:background-color .2s ease}
+  .code.wrap .ln{white-space:pre-wrap}
+  .code .ln::before{counter-increment:ln;content:counter(ln);position:absolute;left:0;width:30px;text-align:right;color:#9a9a9a}
+  .code .ln.hl{background:var(--green-100)}
+  .building .code .ln:not(.shown){visibility:hidden}
+  .code .caret::after{content:"";display:inline-block;width:7px;height:1.2em;margin-left:1px;vertical-align:-.22em;background:var(--green);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  /* 코드 색: 화면의 글자용 단계, 흰 바탕에서 모두 4.5:1 이상 */
+  .tk-c{color:var(--muted)} .tk-s{color:var(--hero-text)} .tk-n{color:var(--bad-text)} .tk-k{color:var(--navy)} .tk-f{color:#7a3f6f} .tk-p{color:var(--ink);font-weight:500}
+  .code .kv{display:inline-block;min-width:14ch;color:var(--text)}
+  .tk-hex::before{content:"";display:inline-block;width:.78em;height:.78em;margin-right:4px;border-radius:1px;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(0,0,0,.2);vertical-align:-.04em}
+  .cstat{display:flex;justify-content:space-between;gap:12px;padding:8px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+  .cstat .dot{display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--green);vertical-align:1px}
+  .layer{transition:opacity .3s ease}
+  .building .layer:not(.on){opacity:0}
+  .focus-step .layer:not(.focus){opacity:.18}
+  .focus-step .layer[data-step="1"]:not(.focus){opacity:.5}
+  .build-cap{margin-top:12px;max-width:62em;font-size:13px;line-height:1.5;color:var(--muted)}
+
+  /* ---------- 방법과 출처 ---------- */
+  .terms{margin-top:6px;columns:2 380px;column-gap:40px}
+  .terms p{break-inside:avoid;margin:0 0 10px;font-size:12.5px;line-height:1.65;color:var(--text)}
+  .terms p b{font-weight:600;color:var(--ink)}
+  .terms p.src{color:var(--text)}
+
+  /* ---------- 툴팁: 흰 바탕 + 1px 회색 테두리, 모서리 8px(westfraser.com의 작은 모서리), 옅은 그림자(--shadow-base) ---------- */
+  .tip{position:absolute;z-index:8;left:0;top:0;pointer-events:none;min-width:160px;font-family:var(--font);background:#fff;color:var(--text);border:1px solid var(--rule);border-radius:8px;padding:9px 12px 10px;box-shadow:0 2px 16px rgba(38,38,38,.12);white-space:nowrap;opacity:0;transition:opacity .15s var(--ease)}
+  .tip.on{opacity:1}
+  .tip-h{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
+  .tip-s{font-size:12px;color:var(--muted);margin:-2px 0 4px;white-space:normal;max-width:260px}
+  .tip-r{display:flex;align-items:center;gap:7px;font-size:13px;line-height:1.5}
+  .tip-r i{width:9px;height:9px;flex:none;background:var(--c)}
+  .tip-r i.ln{width:14px;height:0;background:none;border-top:2px solid var(--c)}
+  .tip-r i.ln.dash{border-top-style:dashed}
+  .tip-r b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+  .tip-r span{color:var(--text)}
+
+  /* ---------- 바닥 ---------- */
+  .foot{margin-top:56px;background:var(--body);border-top:3px solid var(--green);color:var(--text);font-size:13px;line-height:1.65}
+  .foot .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 40px;padding-top:22px;padding-bottom:34px}
+  .foot .back{flex:none;font-weight:600;color:var(--green);white-space:nowrap;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+  .foot p{max-width:100ch}
+  .foot p + p{margin-top:6px}
+  .foot .cat{font-weight:600;color:var(--ink)}
+  .foot .cat a{color:inherit;text-underline-offset:3px;text-decoration-color:var(--edge)}
+  .foot .cat a:hover{text-decoration-color:var(--ink)}
+  .foot .cat .ser{font-size:12px;font-weight:700;letter-spacing:.08em;margin-right:10px}
+  .foot .cat .w{font-weight:400;color:var(--text)}
+  .toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,8px);padding:10px 18px;border-radius:100px;background:var(--green);color:#fff;font-size:14px;font-weight:600;box-shadow:0 4px 8px rgba(0,126,58,.18);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease)}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  /* ---------- 움직임 ---------- */
+  .fade{animation:fade .3s ease both}
+  @keyframes fade{from{opacity:0}}
+  .grow{transform-box:fill-box;transform-origin:bottom;animation:grow .45s var(--ease) both}
+  @keyframes grow{from{transform:scaleY(0)}}
+  .growx{transform-box:fill-box;transform-origin:left;animation:growx .5s var(--ease) both}
+  @keyframes growx{from{transform:scaleX(0)}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+  /* ---------- 임베드(?embed=1 · lib/embed.js): 포스트가 고지를 싣는다 ---------- */
+  html.vz-embed .foot{display:none}
+  html.vz-embed .page{padding-bottom:24px}
+  @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.lang,.cbtns,.build-cta,.foot .back{display:none}.building .code .ln{visibility:visible!important}.building .layer{opacity:1!important}.panel,.slide{break-inside:avoid}}
+
+  /* ---------- 반응형 ---------- */
+  @media (max-width:1359px){
+    :root{--page:24px;--gap:14px}
+    .panel{padding:15px 16px 13px}
+    .wt th,.wt td{padding:7px 10px}
+    .win{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    .side{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--line)}
+    .tree{display:flex;flex-wrap:wrap;gap:2px 10px}
+    .tree span,.tree .root{display:none}
+    .tree .in,.tree .in2,.tree .in3{padding-left:6px}
+    .get{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 12px}
+    .get-h{grid-column:1/-1;margin:0}
+    .cmds{grid-row:2;grid-column:1}
+    .get .btn{grid-row:2;grid-column:2}
+    .get-note{grid-row:3;grid-column:1/-1;margin:0}
+  }
+  /* 1279px 이하: Outlook 표가 폭 전체를 쓰고 그림 1은 표 아래로 내려간다(Commentary가 두 줄을 넘지 않게) */
+  @media (max-width:1279px){
+    /* 재고 그림이 장부 높이에 맞춰 지나치게 길어지지 않게, 03도 쌓는다 */
+    .sl-b.two,.sl-b.two-b,#s3 .sl-b{grid-template-columns:minmax(0,1fr)}
+    #f1 .cb{min-height:0}
+  }
+  @media (max-width:1199px){
+    .code{font-size:12px}
+    .code .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+    .tick .tu{display:none}
+  }
+  @media (max-width:1023px){
+    .sl-b.two-c{grid-template-columns:minmax(0,1fr)}
+    .build-intro{grid-template-columns:minmax(0,1fr);align-items:start}
+    .build-cta{justify-content:flex-start}
+    .win{grid-template-columns:minmax(0,1fr)}
+    .figpane{border-right:0;border-bottom:1px solid var(--line)}
+    .codepane{contain:none}
+    .code{max-height:520px}
+    .terms{columns:1}
+    .mt-t .h-w43,.mt-t .h-inv{display:none}
+  }
+  @media (max-width:899px){
+    .head .wrap{flex-wrap:wrap;min-height:0}
+    .tick{margin-left:0;justify-content:flex-start;order:3;flex-basis:100%}
+    .tools{margin-left:auto}
+    .nav-aside{display:none}
+    .ot-t .h-w43,.ot-t .h-cm{display:none}
+    .mt-t .h-cm{display:none}
+    .lg-t .h-net{display:none}
+    .vt-t .h-why{display:none}
+    .steps{grid-template-columns:minmax(0,1fr)}
+    .code{max-height:440px}
+  }
+  @media (max-width:639px){
+    :root{--page:16px;--gap:12px;--sec:34px}
+    .brand h1{font-size:23px;white-space:normal}
+    html[lang="ko"] .brand h1{font-size:22px}
+    .tabs button{font-size:14px;padding:8px 10px;height:36px}
+    .tabs .n{display:none}
+    .sl-t{font-size:20px}
+    html[lang="ko"] .sl-t{font-size:20px}
+    .sl-b{padding:10px}
+    .tw{grid-template-columns:48px minmax(0,1fr)}
+    .tw-n{height:52px;font-size:17px}
+    .tw-t{min-height:44px;font-size:15px;padding:8px 14px}
+    html[lang="ko"] .tw-t{font-size:14.5px}
+    .wt th,.wt td{padding:6px 6px;font-size:12.5px}
+    .wt thead th{font-size:12px;white-space:normal}
+    .ot-t td.c1{font-size:20px}
+    .ot-t tr.cs td.c1{font-size:16px}
+    .ot-t tr.kp th,.ot-t tr.kp td{height:46px}
+    .ot-t .h-c4 .ot-ch svg{display:none}
+    .ot-rr{flex-wrap:wrap;gap:2px 6px}
+    .ot-t tr.kp th{white-space:normal}
+    .ot-rb{width:48px}
+    .ot-t tr.cs th.sub{padding-left:14px}
+    .ot-t tbody th .u{font-size:11.5px}
+    .mt-t .h-plan,.mt-t .h-lrf,.mt-t .h-grade{display:none}
+    .mt-vp svg{width:40px}
+    .vt-bar svg{width:56px}
+    .panel{padding:14px 12px 12px}
+    .ct{font-size:16px}
+    .sm{grid-template-columns:minmax(0,1fr);gap:16px}
+    .get{display:block}
+    .get-h{margin-bottom:6px}
+    .get-note{margin:6px 0 10px}
+    .get .btn{width:100%}
+    .cbar{flex-wrap:wrap;height:auto;padding:0 12px 10px 16px}
+    .ctabs{flex:1 0 100%;height:44px}
+    .cbtns{margin-left:auto}
+    .foot .wrap{flex-direction:column;align-items:flex-start}
+  }
+  /* 아주 좁은 폭(임베드 350px 등): Outlook 표는 변화 열을 빼고 이번 주와 계획 범위만 */
+  @media (max-width:479px){
+    .ot-t .h-c4{display:none}
+    .lg-t tbody th{white-space:normal}
+    .build-cta .btn{white-space:normal;height:auto;min-height:36px;padding-top:7px;padding-bottom:7px;text-align:center;line-height:1.3}
+  }
+</style>
+</head>
+<body>
+<header class="head"><div class="wrap">
+  <div class="brand"><p class="brand-e"><span class="co" data-i18n="brand"></span><span class="dot" aria-hidden="true">·</span><span id="period"></span></p><h1 data-i18n="report"></h1></div>
+  <div class="tick" id="tick" aria-live="off"></div>
+  <div class="tools">
+    <div class="lang" id="langSeg" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+    </div>
+  </div>
+</div></header>
+<nav class="nav" id="navBar"><div class="wrap">
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <span class="nav-aside" data-i18n="navAside"></span>
+</div></nav>
+
+<main class="page wrap" id="panel" role="tabpanel">
+  <!-- 01 · 첫 화면: Outlook 표 | 그림 1 → 결론 띠 -->
+  <section class="slide" id="s1" aria-labelledby="s1T">
+    <div class="sl-h"><h2 class="sl-t" id="s1T"></h2><p class="sl-k" id="s1K"></p></div>
+    <div class="sl-b two">
+      <figure class="ot" id="ot">
+        <figcaption class="sr-only" id="otCap"></figcaption>
+        <table class="wt ot-t" id="otT"></table>
+        <div class="tip" aria-hidden="true"></div>
+      </figure>
+      <figure class="panel" id="f1">
+        <span class="fl" data-i18n="f1.label"></span>
+        <h3 class="ct" id="f1Title"></h3>
+        <p class="cht" id="f1Cht"></p>
+        <ul class="keys" id="f1Keys" aria-hidden="true"></ul>
+        <div class="cb"><div class="plot" id="f1Plot" tabindex="0" role="group"></div></div>
+        <figcaption class="cf" data-i18n="f1.note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f1Table"></div>
+      </figure>
+    </div>
+    <div class="tw"><span class="tw-n" aria-hidden="true">01</span><p class="tw-t" id="tw1"></p></div>
+    <p class="sl-n" id="n1"></p>
+  </section>
+
+  <!-- 02 · 공장: 표 1 | 그림 2 → 결론 띠 -->
+  <section class="slide" id="s2" aria-labelledby="s2T">
+    <div class="sl-h"><h2 class="sl-t" id="s2T" data-i18n="s2.t"></h2><p class="sl-k" data-i18n="s2.k"></p></div>
+    <div class="sl-b">
+      <figure class="panel" id="t1">
+        <span class="fl" data-i18n="t1.label"></span>
+        <h3 class="ct" id="t1Title"></h3>
+        <p class="cht" id="t1Cht"></p>
+        <div class="cb"><div class="mt-wrap" id="t1Wrap"></div></div>
+        <figcaption class="cf" data-i18n="t1.note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+      </figure>
+      <figure class="panel" id="f2">
+        <span class="fl" data-i18n="f2.label"></span>
+        <h3 class="ct" id="f2Title"></h3>
+        <p class="cht" id="f2Cht"></p>
+        <ul class="keys" id="f2Keys" aria-hidden="true"></ul>
+        <div class="cb"><div class="plot" id="f2Plot" tabindex="0" role="group"></div></div>
+        <figcaption class="cf" id="f2Note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f2Table"></div>
+      </figure>
+    </div>
+    <div class="tw"><span class="tw-n" aria-hidden="true">02</span><p class="tw-t" id="tw2"></p></div>
+  </section>
+
+  <!-- 03 · 수요에 맞춘 가동: 그림 3 | 표 2(증감 장부) → 결론 띠 -->
+  <section class="slide" id="s3" aria-labelledby="s3T">
+    <div class="sl-h"><h2 class="sl-t" id="s3T" data-i18n="s3.t"></h2><p class="sl-k" data-i18n="s3.k"></p></div>
+    <div class="sl-b two-c">
+      <figure class="panel" id="f3">
+        <span class="fl" data-i18n="f3.label"></span>
+        <h3 class="ct" id="f3Title"></h3>
+        <p class="cht" id="f3Cht"></p>
+        <ul class="keys" id="f3Keys" aria-hidden="true"></ul>
+        <div class="cb"><div class="sm" id="f3Sm"></div></div>
+        <figcaption class="cf" id="f3Note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f3Table"></div>
+      </figure>
+      <figure class="panel" id="t2">
+        <span class="fl" data-i18n="t2.label"></span>
+        <h3 class="ct" id="t2Title"></h3>
+        <p class="cht" id="t2Cht"></p>
+        <div class="cb"><div class="mt-wrap" id="t2Wrap"></div></div>
+        <figcaption class="cf" data-i18n="t2.note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+      </figure>
+    </div>
+    <div class="tw"><span class="tw-n" aria-hidden="true">03</span><p class="tw-t" id="tw3"></p></div>
+  </section>
+
+  <!-- 04 · 원가: 그림 4(증감표) | 그림 5 → 결론 띠 -->
+  <section class="slide" id="s4" aria-labelledby="s4T">
+    <div class="sl-h"><h2 class="sl-t" id="s4T" data-i18n="s4.t"></h2><p class="sl-k" data-i18n="s4.k"></p></div>
+    <div class="sl-b two-c">
+      <figure class="panel" id="f4">
+        <span class="fl" data-i18n="f4.label"></span>
+        <h3 class="ct" id="f4Title"></h3>
+        <p class="cht" id="f4Cht"></p>
+        <div class="cb"><div id="f4Wrap"></div></div>
+        <figcaption class="cf" data-i18n="f4.note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+      </figure>
+      <figure class="panel" id="f5">
+        <span class="fl" data-i18n="f5.label"></span>
+        <h3 class="ct" id="f5Title"></h3>
+        <p class="cht" id="f5Cht"></p>
+        <ul class="keys" id="f5Keys" aria-hidden="true"></ul>
+        <div class="cb"><div class="sm" id="f5Sm"></div></div>
+        <figcaption class="cf" id="f5Note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f5Table"></div>
+      </figure>
+    </div>
+    <div class="tw"><span class="tw-n" aria-hidden="true">04</span><p class="tw-t" id="tw4"></p></div>
+  </section>
+
+  <!-- 05 · 만드는 법 -->
+  <section class="sec" id="s5" aria-labelledby="s5T">
+    <div class="sl-h"><h2 class="sl-t" id="s5T" data-i18n="s5.t"></h2><p class="sl-k" data-i18n="s5.k"></p></div>
+    <div class="build-intro">
+      <p data-i18n="build.p"></p>
+      <div class="build-cta"><a class="btn btn-line" href="DASHBOARD.html" target="_blank" rel="noopener" data-i18n="build.spec"></a><a class="btn btn-green" id="ctaLink" href="https://www.vizney.com/contact-us/" target="_blank" rel="noopener" data-i18n="build.cta"></a></div>
+    </div>
+    <ol class="steps" id="steps"></ol>
+    <div class="win" id="win">
+      <aside class="side" aria-label="Package">
+        <div class="side-h"><b data-i18n="build.pkg"></b><span data-i18n="build.pkgSub"></span></div>
+        <ul class="tree" id="tree"></ul>
+        <div class="get">
+          <p class="get-h" data-i18n="build.get"></p>
+          <div class="cmds">
+            <div class="cmd"><code>npx @vizney/styles@latest add west-fraser</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+            <div class="cmd"><code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- west-fraser</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+          </div>
+          <p class="get-note" data-i18n="build.getNote"></p>
+          <a class="btn btn-sm btn-line" href="west-fraser-dashboard-style.zip" download data-i18n="build.zip"></a>
+        </div>
+      </aside>
+      <div class="figpane">
+        <div class="figbar"><div class="modes" id="modeSeg" role="tablist"></div><span class="chip" id="wbScope"></span></div>
+        <span class="wb-l layer" data-step="5" data-i18n="f1.label"></span>
+        <p class="wb-t layer" data-step="5" id="wbTitle"></p>
+        <p class="cht layer" data-step="5" id="wbRt"></p>
+        <div class="plot" id="wbPlot"></div>
+        <p class="wb-n layer" data-step="5" id="wbNote"></p>
+        <div class="checks">
+          <p class="checks-h"><span data-i18n="build.checksT"></span><span class="ok layer" data-step="5" id="checksOk"></span></p>
+          <ul id="checks"></ul>
+        </div>
+        <div class="tip" aria-hidden="true"></div>
+      </div>
+      <div class="codepane">
+        <div class="cbar">
+          <div class="ctabs" id="ctabs" role="tablist" aria-label="Code"></div>
+          <div class="cbtns">
+            <button type="button" class="btn btn-sm btn-line btn-icon" id="btnCopyCode" data-icon="copy"></button>
+            <button type="button" class="btn btn-sm btn-green" id="btnRun" data-icon="play"><span data-i18n="build.run"></span></button>
+          </div>
+        </div>
+        <pre class="code" id="code" tabindex="0" aria-label="Code"></pre>
+        <div class="cstat"><span id="cstatL"></span><span id="cstatR"></span></div>
+      </div>
+    </div>
+    <p class="build-cap" data-i18n="build.cap"></p>
+  </section>
+
+  <!-- 06 · 방법과 출처 -->
+  <section class="sec" id="notes" aria-labelledby="s6T">
+    <div class="sl-h"><h2 class="sl-t" id="s6T" data-i18n="notes.t"></h2><p class="sl-k" data-i18n="notes.k"></p></div>
+    <div class="terms" id="terms"></div>
+  </section>
+  <p class="sr-only" id="live" aria-live="polite"></p>
+  <div class="toast" id="toast" role="status"></div>
+</main>
+<footer class="foot"><div class="wrap">
+  <div>
+  <p class="cat"><a class="ser" href="https://styles.vizney.com/">VIZNEY STYLES · 07</a> <a href="https://styles.vizney.com/west-fraser/DASHBOARD.html" data-i18n="catName"></a> <span class="w" data-i18n="words"></span></p>
+  <p data-i18n="note"></p>
+  <p data-i18n="notice"></p>
+  </div>
+  <a class="back" id="backLink" href="https://styles.vizney.com/">← Back to the catalog</a>
+</div></footer>
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 데이터 색: West Fraser가 차트에 쓰는 색상군(IR의 세이지·흙주황·하늘색·자주, 연차보고서의 '회색 + 올해만 초록')에서.
+     주인공은 초록 #418d50(UI 초록 #007e3a에서 한 단계 밝고 세이지 쪽, 글자 #2d723c). 범주 순서 초록 → 하늘색 #3797c6 → 자두색 #8c5087 → 기타 warm-grey #b5c1b7.
+     계획 미달·나쁨은 WF처럼 빨강 대신 흙주황 #c06228(글자 #a75016, 표의 회녹색 칸 위 글자 #853900). 계획선은 #595959.
+     validate_palette.js(OKLab), 흰 판 #ffffff 기준: 범주 모든 쌍 색각 ΔE 최저 12.0, 일반 시각 17.0, 대비 3.28:1 이상. */
+  const C = {
+    hero: '#418d50', heroText: '#2d723c', sky: '#3797c6', plum: '#8c5087', other: '#b5c1b7', hist: '#a3a3a3', comparison: '#595959',
+    bad: '#c06228', badMark: '#a75016', badText: '#a75016', badTint: '#853900', good: '#00642e', goodTint: '#195c2e',
+    ink: '#333333', text: '#595959', muted: '#666666', grid: '#e6e6e6', base: '#bfbfbf', plot: '#ffffff',
+    green: '#007e3a', sage: '#749370', sage300: '#b9cfb6', sage50: '#f0f5ef', navy: '#39527f',
+    generic: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f', '#edc948', '#b07aa1', '#ff9da7']
+  };
+
+  /* ================= 가상 데이터: Vizney Timber, Wk 44-26(2026년 10월 26일 월 ~ 11월 1일 일). 돈은 미국 달러 =================
+     제재소 8곳: SPF(캐나다 B.C.·앨버타) 4곳, SYP(미국 남부) 4곳. 주간 생산·출하·재고(MMfbm), 회수율(fbm/m³), 등급(#2&Btr %),
+     원가(US$/Mfbm), 45~48주 가동 일정 변경. Python으로 만들고 검산했다(공장 합 = 수종 소계, 수종 합 = 전체, 원가 단계 합 = 변화). */
+  const DATA = {"year":2026,"weeks":[32,33,34,35,36,37,38,39,40,41,42,43,44],"ends":["2026-08-09","2026-08-16","2026-08-23","2026-08-30","2026-09-06","2026-09-13","2026-09-20","2026-09-27","2026-10-04","2026-10-11","2026-10-18","2026-10-25","2026-11-01"],"mills":[{"id":"pg","en":"Prince George","ko":"프린스조지","st":"BC","sp":"spf","cap":8.0,"plan":7.4,"prod":[7.5,7.4,7.2,7.4,7.5,7.4,7.5,7.3,7.4,7.3,7.4,7.3,6.6],"ship":[7.6,7.5,7.5,7.3,7.2,7.3,7.1,7.0,6.9,6.8,6.8,6.7,6.4],"inv":[11.5,11.4,11.1,11.2,11.5,11.6,12.0,12.3,12.8,13.3,13.9,14.5,14.7],"lrf":[252,252,251,252,253,253,253,252,250,250,253,252,243],"grade":[87.0,86.9,86.8,87.2,87.1,87.3,86.7,86.7,87.0,87.0,86.8,86.9,84.1],"lrfT":[250,256],"gT":[86,88],"note":{"en":"Trimmer optimizer fault Tue–Wed (11 h); LRF down 9 fbm/m³","ko":"트리머 최적화 장치 고장(화~수, 11시간), LRF 9 fbm/m³ 하락"}},{"id":"kam","en":"Kamloops","ko":"캠루프스","st":"BC","sp":"spf","cap":6.0,"plan":5.6,"prod":[5.5,5.7,5.6,5.6,5.6,5.5,5.5,5.7,5.6,5.6,5.7,5.6,5.7],"ship":[5.7,5.6,5.7,5.6,5.5,5.5,5.4,5.3,5.3,5.2,5.1,5.1,4.9],"inv":[8.6,8.7,8.6,8.6,8.7,8.7,8.8,9.2,9.5,9.9,10.5,11.0,11.8],"lrf":[254,253,253,254,253,253,252,253,254,254,252,253,254],"grade":[87.2,87.3,86.7,86.5,86.8,86.8,87.3,87.3,87.1,87.2,86.8,87.0,87.2],"lrfT":[250,256],"gT":[86,88],"note":{"en":"On plan; U.S. orders slower, inventory building","ko":"계획대로, 미국 주문이 줄어 재고가 쌓임"}},{"id":"kel","en":"Kelowna","ko":"켈로나","st":"BC","sp":"spf","cap":5.2,"plan":4.8,"prod":[4.8,4.8,4.7,4.8,4.8,4.9,4.8,4.8,4.7,4.8,4.8,4.8,4.9],"ship":[4.9,4.8,4.9,4.8,4.7,4.8,4.6,4.6,4.5,4.4,4.4,4.3,4.3],"inv":[7.4,7.4,7.2,7.2,7.3,7.4,7.6,7.8,8.0,8.4,8.8,9.3,9.9],"lrf":[249,249,248,249,251,251,249,248,250,250,250,250,251],"grade":[86.2,86.1,86.6,86.4,86.7,86.4,86.3,86.1,86.7,86.5,86.6,86.6,86.8],"lrfT":[250,256],"gT":[86,88],"note":{"en":"On plan","ko":"계획대로"}},{"id":"rd","en":"Red Deer","ko":"레드디어","st":"AB","sp":"spf","cap":6.8,"plan":6.3,"prod":[6.3,6.3,6.4,6.3,6.2,6.2,6.3,6.4,6.3,6.3,6.3,6.2,6.4],"ship":[6.4,6.3,6.4,6.2,6.2,6.2,6.0,6.0,5.9,5.8,5.7,5.7,5.8],"inv":[9.7,9.7,9.7,9.8,9.8,9.8,10.1,10.5,10.9,11.4,12.0,12.5,13.1],"lrf":[255,257,255,254,255,255,255,256,256,255,255,255,256],"grade":[88.0,87.8,87.6,87.2,87.1,87.3,88.0,87.7,88.0,87.9,87.7,87.6,87.9],"lrfT":[250,256],"gT":[86,88],"note":{"en":"Above plan; best recovery in SPF","ko":"계획 초과, SPF 중 회수율 최고"}},{"id":"jac","en":"Jackson","ko":"잭슨","st":"MS","sp":"syp","cap":7.6,"plan":7.2,"prod":[7.2,7.2,7.1,7.3,7.2,7.2,7.2,7.2,7.0,7.2,7.1,7.1,5.9],"ship":[7.0,7.1,7.0,7.1,7.3,7.1,7.3,7.4,7.3,7.4,7.5,7.5,7.0],"inv":[10.1,10.2,10.3,10.5,10.4,10.5,10.4,10.2,9.9,9.7,9.3,8.9,7.8],"lrf":[283,282,284,283,285,286,283,284,284,284,285,284,283],"grade":[84.8,84.8,85.1,84.9,85.3,85.2,84.9,84.3,84.4,85.1,85.3,84.8,84.6],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Wet weather cut log deliveries; two shifts lost","ko":"비로 원목 반입이 줄어 2교대 손실"}},{"id":"mac","en":"Macon","ko":"메이컨","st":"GA","sp":"syp","cap":7.0,"plan":6.6,"prod":[6.6,6.7,6.7,6.7,6.7,6.6,6.5,6.7,6.7,6.6,6.7,6.7,6.0],"ship":[6.4,6.5,6.5,6.6,6.6,6.6,6.7,6.7,6.7,6.8,6.8,6.9,6.6],"inv":[9.2,9.4,9.6,9.7,9.8,9.8,9.6,9.6,9.6,9.4,9.3,9.1,8.5],"lrf":[285,286,285,285,284,283,285,285,284,284,285,284,283],"grade":[84.3,84.6,84.0,83.9,84.1,84.3,84.1,84.1,84.3,84.4,84.1,84.2,83.9],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Planer gearbox down 14 h","ko":"플레이너 감속기 고장 14시간"}},{"id":"mon","en":"Montgomery","ko":"몽고메리","st":"AL","sp":"syp","cap":6.6,"plan":6.3,"prod":[6.2,6.2,6.3,6.2,6.3,6.4,6.3,6.2,6.3,6.2,6.3,6.3,6.5],"ship":[6.2,6.2,6.2,6.3,6.3,6.3,6.3,6.4,6.4,6.4,6.5,6.5,6.9],"inv":[8.9,8.9,9.0,8.9,8.9,9.0,9.0,8.8,8.7,8.5,8.3,8.1,7.7],"lrf":[283,283,284,284,286,285,286,284,285,285,285,285,286],"grade":[85.4,85.1,85.9,85.7,86.0,85.4,85.4,85.0,85.6,85.9,85.5,85.6,85.8],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Above plan; Saturday shift from Wk 45","ko":"계획 초과, 45주부터 토요일 교대"}},{"id":"shr","en":"Shreveport","ko":"슈리브포트","st":"LA","sp":"syp","cap":7.2,"plan":6.8,"prod":[6.8,6.9,6.9,6.9,6.7,6.8,6.8,6.9,6.9,6.8,6.9,6.9,7.0],"ship":[6.6,6.7,6.6,6.8,6.8,6.7,6.9,6.9,6.9,7.0,7.0,7.1,7.4],"inv":[9.5,9.7,10.0,10.1,10.0,10.1,10.0,10.0,10.0,9.8,9.7,9.5,9.1],"lrf":[287,289,288,287,286,287,288,287,289,286,286,287,288],"grade":[86.2,86.3,86.3,85.9,85.8,86.1,86.6,86.5,86.3,86.2,85.9,86.2,86.4],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Above plan","ko":"계획 초과"}}],"scopes":{"all":{"mills":8,"cap":54.4,"plan":51.0,"prod":[50.9,51.2,50.9,51.2,51.0,51.0,50.9,51.2,50.9,50.8,51.2,50.9,49.0],"ship":[50.8,50.7,50.8,50.7,50.6,50.5,50.3,50.3,49.9,49.8,49.8,49.8,49.3],"inv":[74.9,75.4,75.5,76.0,76.4,76.9,77.5,78.4,79.4,80.4,81.8,82.9,82.6],"invDays":[10.3,10.4,10.4,10.5,10.6,10.7,10.8,10.9,11.1,11.3,11.5,11.7,11.7],"op":[93.6,94.1,93.6,94.1,93.8,93.8,93.6,94.1,93.6,93.4,94.1,93.6,90.1],"lrf":[268.5,268.9,268.6,268.5,269.1,269.2,268.8,268.6,268.9,268.4,268.9,268.8,267.5],"grade":[86.1,86.1,86.1,85.9,86.1,86.1,86.1,85.9,86.1,86.2,86.0,86.1,85.8],"lrfT":[266.9,272.9],"gradeT":[84.9,86.9],"prodR":[49.5,52.5],"opPlan":93.8,"opR":[91.8,95.8],"invR":[9.0,12.0],"cost":{"fibre":{"w43":237.4,"w44":243.6,"plan":234.6},"labour":{"w43":52.7,"w44":56.3,"plan":52.7},"energy":{"w43":12.9,"w44":14.0,"plan":12.9},"maint":{"w43":30.3,"w44":33.4,"plan":30.3},"transport":{"w43":79.4,"w44":82.7,"plan":78.5}},"cash":[331.1,327.4,328.2,328.8,330.4,331.4,332.6,329.9,325.9,328.1,331.5,333.3,347.3],"cashPlan":330.6,"shipPlan":50.5,"shipR":[48.5,52.5]},"spf":{"mills":4,"cap":26.0,"plan":24.1,"prod":[24.1,24.2,23.9,24.1,24.1,24.0,24.1,24.2,24.0,24.0,24.2,23.9,23.6],"ship":[24.6,24.2,24.5,23.9,23.6,23.8,23.1,22.9,22.6,22.2,22.0,21.8,21.4],"inv":[37.2,37.2,36.6,36.8,37.3,37.5,38.5,39.8,41.2,43.0,45.2,47.3,49.5],"invDays":[10.6,10.8,10.5,10.8,11.1,11.0,11.7,12.2,12.8,13.6,14.4,15.2,16.2],"op":[92.7,93.1,91.9,92.7,92.7,92.3,92.7,93.1,92.3,92.3,93.1,91.9,90.8],"lrf":[252.6,252.9,251.9,252.4,253.1,253.1,252.5,252.5,252.5,252.2,252.7,252.6,250.7],"grade":[87.1,87.1,87.0,86.9,87.0,87.0,87.1,87.0,87.2,87.2,87.0,87.0,86.4],"lrfT":[250.0,256.0],"gradeT":[86.0,88.0],"prodR":[23.4,24.8],"opPlan":92.7,"opR":[90.7,94.7],"invR":[9.0,12.0],"cost":{"fibre":{"w43":266.0,"w44":268.0,"plan":262.0},"labour":{"w43":58.0,"w44":61.0,"plan":58.0},"energy":{"w43":14.0,"w44":15.0,"plan":14.0},"maint":{"w43":34.0,"w44":36.0,"plan":34.0},"transport":{"w43":90.0,"w44":92.0,"plan":88.0}},"cash":[369.0,367.0,369.0,369.0,371.0,370.0,371.0,370.0,365.0,365.0,370.0,372.0,380.0],"cashPlan":368.0,"shipPlan":23.0,"shipR":[22.1,23.9]},"syp":{"mills":4,"cap":28.4,"plan":26.9,"prod":[26.8,27.0,27.0,27.1,26.9,27.0,26.8,27.0,26.9,26.8,27.0,27.0,25.4],"ship":[26.2,26.5,26.3,26.8,27.0,26.7,27.2,27.4,27.3,27.6,27.8,28.0,27.9],"inv":[37.7,38.2,38.9,39.2,39.1,39.4,39.0,38.6,38.2,37.4,36.6,35.6,33.1],"invDays":[10.1,10.1,10.4,10.2,10.1,10.3,10.0,9.9,9.8,9.5,9.2,8.9,8.3],"op":[94.4,95.1,95.1,95.4,94.7,95.1,94.4,95.1,94.7,94.4,95.1,95.1,89.4],"lrf":[284.5,285.0,285.3,284.7,285.2,285.3,285.4,285.0,285.5,284.7,285.3,285.0,285.1],"grade":[85.2,85.2,85.3,85.1,85.3,85.3,85.3,85.0,85.1,85.4,85.2,85.2,85.2],"lrfT":[282.0,288.0],"gradeT":[84.0,86.0],"prodR":[26.1,27.7],"opPlan":94.7,"opR":[92.7,96.7],"invR":[9.0,12.0],"cost":{"fibre":{"w43":212.0,"w44":221.0,"plan":210.0},"labour":{"w43":48.0,"w44":52.0,"plan":48.0},"energy":{"w43":12.0,"w44":13.0,"plan":12.0},"maint":{"w43":27.0,"w44":31.0,"plan":27.0},"transport":{"w43":70.0,"w44":74.0,"plan":70.0}},"cash":[297.0,292.0,292.0,293.0,294.0,297.0,298.0,294.0,291.0,295.0,297.0,299.0,317.0],"cashPlan":297.0,"shipPlan":27.5,"shipR":[26.4,28.6]}},"cost":{"spf":{"fibre":{"w43":266,"w44":268,"plan":262},"labour":{"w43":58,"w44":61,"plan":58},"energy":{"w43":14,"w44":15,"plan":14},"maint":{"w43":34,"w44":36,"plan":34},"transport":{"w43":90,"w44":92,"plan":88}},"syp":{"fibre":{"w43":212,"w44":221,"plan":210},"labour":{"w43":48,"w44":52,"plan":48},"energy":{"w43":12,"w44":13,"plan":12},"maint":{"w43":27,"w44":31,"plan":27},"transport":{"w43":70,"w44":74,"plan":70}}},"cashSp":{"spf":[369,367,369,369,371,370,371,370,365,365,370,372,380],"syp":[297,292,292,293,294,297,298,294,291,295,297,299,317]},"ledger":[{"wk":45,"mill":"kam","v":-1.2,"en":"sawmill down Thu–Fri","ko":"제재 라인 목~금 정지","sp":"spf"},{"wk":45,"mill":"mon","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":45,"mill":"shr","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":45,"mill":"jac","v":0.6,"en":"make-up shift","ko":"보충 교대","sp":"syp"},{"wk":46,"mill":"kam","v":-1.2,"en":"sawmill down Thu–Fri","ko":"제재 라인 목~금 정지","sp":"spf"},{"wk":46,"mill":"kel","v":-1.0,"en":"two shifts down","ko":"2교대 정지","sp":"spf"},{"wk":46,"mill":"mon","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":46,"mill":"shr","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":47,"mill":"pg","v":-0.7,"en":"optimizer replaced, one day","ko":"최적화 장치 교체, 하루","sp":"spf"},{"wk":47,"mill":"mon","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":47,"mill":"shr","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":48,"mill":"syp4","v":-2.4,"en":"Thanksgiving, closed Thu–Fri","ko":"추수감사절, 목~금 휴무","sp":"syp"},{"wk":48,"mill":"kel","v":-1.0,"en":"two shifts down","ko":"2교대 정지","sp":"spf"}],"ticker":{"spf":{"v":468,"d":-6},"syp":{"v":412,"d":9}}};
+  const SCOPES = ['all', 'spf', 'syp'];
+  const NW = DATA.weeks.length, LAST = NW - 1, PREV = NW - 2;
+  const MILL = Object.fromEntries(DATA.mills.map(m => [m.id, m]));
+  const CAUSE = {
+    jac: { en: 'logs at Jackson', ko: '잭슨의 원목 부족' },
+    mac: { en: 'the planer at Macon', ko: '메이컨의 플레이너 고장' },
+    pg: { en: 'the trimmer at Prince George', ko: '프린스조지의 트리머 고장' }
+  };
+
+  /* ================= 문구 ================= */
+  const T = {
+    en: {
+      locale: 'en-US', docTitle: 'West Fraser style · Lumber operations weekly sample',
+      brand: 'Vizney Timber', report: 'Lumber Operations Weekly',
+      catName: 'West Fraser style', words: 'Earthy, Outlook, Steady',
+      period: 'Wk 44-26 · Oct 26 – Nov 1, 2026',
+      tabsLabel: 'Species and region', scopes: { all: 'All mills', spf: 'SPF · Canada', syp: 'SYP · U.S. South' }, millsN: n => `(${n})`,
+      lead: { all: 'Production', spf: 'SPF', syp: 'SYP' },
+      navAside: 'Against plan and Wk 43-26',
+      tick: { spf: 'SPF 2x4', syp: 'SYP 2x4', unit: 'US$/Mfbm · Wk 44 composite' },
+      wk: w => `Wk ${w}-26`, wkS: w => `Wk ${w}`, wkRange: (a, b) => `Wk ${a}–${b}`,
+      num: ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'],
+      ord: ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth'],
+      vol: 'MMfbm', usdU: 'US$/Mfbm', pts: ' pts', days: ' days',
+      s1: { t: 'Wk 44-26 versus Wk 43-26', k: v => `${v.scope} · ${v.n} mills` },
+      ot: {
+        cap: 'Key figures for Wk 44-26 against the Q4-26 plan and Wk 43-26',
+        head: ['US$ unless noted', 'Wk 44-26', 'Q4-26 plan', 'Wk 43-26', 'Change', 'Commentary'],
+        rows: { prod: ['Lumber production', 'MMfbm'], ship: ['Shipments', 'MMfbm'], op: ['Operating rate', '% of capacity'], lrf: ['Recovery (LRF)', 'fbm per m³ of logs'], grade: ['#2&Btr grade', '% of production'], inv: ['Finished inventory', 'days of shipments'] },
+        costs: ['Costs', 'US$/Mfbm'], cost: { fibre: 'Fibre', labour: 'Labour', energy: 'Energy', transport: 'Transportation' },
+        st: { below: 'below', low: 'lower end', in: 'in range', high: 'upper end', above: 'above' },
+        com: {
+          prod: v => v.who ? `${v.who} short of plan` : 'Every mill on plan',
+          ship: { all: 'SYP orders strong; SPF slower into the U.S.', spf: v => `U.S. orders slower; shipped ${v.d} below production`, syp: v => `Orders strong; shipped ${v.d} above production` },
+          op: { all: 'Two shifts lost at Jackson; Macon planer down 14 h', spf: 'Prince George trimmer down 11 h', syp: 'Two shifts lost at Jackson; Macon planer down 14 h' },
+          lrf: { all: 'Prince George trimmer fault; SYP on target', spf: v => `Prince George at ${v.pg}, ${v.gap} below target`, syp: 'All four mills within target' },
+          grade: { all: 'Prince George and Macon below target', spf: v => `Prince George at ${v.pg}`, syp: v => `Macon at ${v.mac} after gearbox repairs` },
+          inv: { all: v => `In range only on average: SPF ${v.spf}, SYP ${v.syp}`, spf: v => `Above the range for a ${v.ord} week`, syp: v => `Below the 9-day floor for a ${v.ord} week` },
+          fibre: { all: 'Wet weather raised hauling in Mississippi', spf: 'Longer hauls in the B.C. Interior', syp: 'Wet weather raised hauling in Mississippi' },
+          labour: { all: 'Same crews over less volume', spf: 'Same crews over less volume', syp: 'Same crews over less volume' },
+          energy: { all: 'Kiln gas price up', spf: 'Kiln gas price up', syp: 'Kiln gas price up' },
+          transport: { all: 'Diesel surcharges', spf: 'Rail fuel surcharge', syp: 'Diesel surcharges' }
+        },
+        tip: { w44: 'Wk 44-26', w43: 'Wk 43-26', plan: 'Q4-26 plan', range: 'Plan range', chg: 'Change', pos: 'Against the range' },
+        aria: 'Key figures table. Up and down arrow keys move between rows.'
+      },
+      n1: 'Note: Q4-26 plan ranges are the weekly run-rate plan: production ±3%, shipments ±4%, operating rate ±2 pts; recovery and grade are species targets weighted by plan. Arrows show costs against Wk 43-26. Negatives in parentheses.',
+      f1: {
+        label: 'Figure 1',
+        title: v => v.n >= 2 ? `${T.en.num[v.n]} mills ran ${v.short} below plan; ${v.worst} lost the most, ${v.wv}`
+          : v.n === 1 ? `${v.worst} ran ${v.wv} below plan; the other ${T.en.num[v.rest].toLowerCase()} finished ${v.over} above`
+          : `Every mill met plan; ${v.best} ran ${v.bv} above`,
+        cht: ['Production vs plan by mill', '(MMfbm, Wk 44-26)'],
+        keys: ['Below plan', 'At or above plan', 'Plan'],
+        note: 'Note: plan is each mill’s Wk 44 operating schedule. Mills are ordered by the gap to plan, largest shortfall first.',
+        tip: { prod: 'Production', plan: 'Plan', gap: 'vs plan', w43: 'Wk 43-26', cause: 'Cause' },
+        generic: 'Production by Mill',
+        aria: 'Production against plan by mill. Up and down arrow keys move between mills.'
+      },
+      tw1: v => `${v.lead} finished ${v.gap} ${v.below ? 'below' : 'above'} plan${v.causes ? `: ${v.causes} cost ${v.sum}` : ''}`,
+      s2: { t: 'Mill results', k: 'Production, conversion and inventory by mill' },
+      t1: {
+        label: 'Table 1',
+        title: v => `${v.triple.length ? `${joinEn(v.triple)} missed on volume, recovery and grade` : v.short.length ? `${joinEn(v.short)} missed plan` : 'Every mill met plan'}; `
+          + (v.sp === 'all' ? `SPF mills hold ${v.spf[0]}–${v.spf[1]} days of lumber, SYP mills ${v.syp[0]}–${v.syp[1]}` : v.sp === 'spf' ? `every SPF mill holds ${v.spf[0]} days or more` : `every SYP mill holds ${v.syp[1]} days or less`),
+        cht: ['Mill results, Wk 44-26', '(production in MMfbm, LRF in fbm/m³, inventory in days of shipments)'],
+        cols: ['Mill', 'Wk 44-26', 'Wk 43-26', 'Plan', 'vs plan', 'LRF', '#2&Btr %', 'Inv. days', 'Comments'],
+        total: n => `All mills (${n})`,
+        note: 'Note: subtotal rows add the mills below them; recovery and grade are production-weighted. ▼ marks a figure below the species target. Negatives in parentheses.',
+        tip: { prod: 'Production', plan: 'Plan', gap: 'vs plan', w43: 'Wk 43-26', ship: 'Shipments', op: 'Operating rate', lrf: 'LRF', grade: '#2&Btr', inv: 'Finished inventory', target: 'target' }
+      },
+      f2: {
+        label: 'Figure 2',
+        cht: ['Recovery and grade against target', '(Wk 44-26)'],
+        cols: ['LRF vs target, fbm/m³', '#2&Btr vs target, pts'],
+        keys: ['Below target', 'At or above target', 'Target band'],
+        title: v => {
+          const parts = [];
+          if (v.both) parts.push(`${v.both.name} fell below target on recovery (${v.both.lrf} fbm/m³) and grade (${v.both.g})`);
+          else if (v.lrf) parts.push(`${v.lrf.name}’s recovery fell to ${v.lrf.v} fbm/m³, ${v.lrf.gap} below target`);
+          if (v.grades.length) parts.push(`${v.grades.map(x => x.name).join(' and ')}${v.grades.length === 1 ? '’s grade' : ' grades'} slipped to ${v.grades.map(x => x.g).join(' and ')}`);
+          if (!parts.length) return 'Every mill held recovery and grade within target';
+          return parts.join('; ') + (v.lrfOk ? '; recovery held everywhere else' : v.lrfAll ? '; recovery held at every mill' : '');
+        },
+        note: 'Note: each band is the species target (SPF: LRF 250–256 fbm/m³, #2&Btr 86–88%; SYP: 282–288 fbm/m³, 84–86%). Dots show the gap to the band’s lower edge.',
+        tip: { lrf: 'LRF', grade: '#2&Btr', target: 'Target', gap: 'vs lower edge' },
+        aria: 'Recovery and grade against target by mill. Up and down arrow keys move between mills.'
+      },
+      tw2: v => v.mill ? `${v.mill} lost ${v.d} fbm/m³ of recovery to ${v.cause}; ${v.fix}` : v.gmill ? `${v.gmill}’s grade slipped to ${v.g}, under the ${v.lo}% target; ${v.fix}` : 'Recovery and grade held within target at every mill',
+      fix: { pg: 'the optimizer is replaced in Wk 47', mac: 'the planer gearbox is back in service' },
+      s3: { t: 'Running to demand', k: 'Inventory and the operating schedule' },
+      f3: {
+        label: 'Figure 3',
+        title: v => v.all ? `SPF inventory rose to ${v.spf} while SYP fell to ${v.syp}, below the 9-day floor`
+          : v.sp === 'spf' ? `SPF inventory rose for a ${v.ord} straight week, to ${v.v}` : `SYP inventory fell to ${v.v}, below the 9-day floor for a ${v.ord} week`,
+        cht: ['Finished inventory', '(days of shipments, Wk 32–44)'],
+        keys: ['Wk 44-26', 'Earlier weeks', 'Target 9–12 days'],
+        note: v => `Note: days of shipments = lumber in the yard at week end ÷ that week’s average daily shipments.${v.all ? ` All mills combined: ${v.v}, inside the range only because the two species offset.` : ''}`,
+        tip: { days: 'Inventory', vol: 'In the yard', ship: 'Shipped', target: 'Target' },
+        aria: k => `${k}: finished inventory by week. Left and right arrow keys move between weeks.`
+      },
+      t2: {
+        label: 'Table 2',
+        title: v => v.all ? `SPF takes ${v.spfDown} down over four weeks; SYP adds ${v.sypAdd} in extra shifts before Thanksgiving`
+          : v.sp === 'spf' ? `SPF takes ${v.spfDown} down over four weeks at ${T.en.num[v.mills].toLowerCase()} mills` : `SYP adds ${v.sypAdd} in extra shifts before taking Thanksgiving down`,
+        cht: ['Operating schedule changes, Wk 45–48', '(MMfbm against the base schedule)'],
+        head: ['Timing', 'SPF · Canada', 'SYP · U.S. South', 'Net'],
+        all4: 'All four SYP mills', none: 'No change', total: 'Wk 45–48',
+        dates: { 45: 'Nov 2–8', 46: 'Nov 9–15', 47: 'Nov 16–22', 48: 'Nov 23–29' },
+        note: 'Note: green adds volume and rust takes it down, in MMfbm against each mill’s base two-shift schedule. The value comes first, as in a capacity ledger.',
+        tip: { net: 'Net', cum: 'Net since Wk 45' }, aria: 'Operating schedule table. Up and down arrow keys move between weeks.'
+      },
+      tw3: v => v.all ? `SPF holds ${v.spf} of lumber and SYP ${v.syp}: take SPF shifts down, add SYP shifts until Thanksgiving`
+        : v.sp === 'spf' ? `SPF holds ${v.spf} of lumber: take ${v.down} down at three mills over four weeks` : `SYP holds ${v.syp} of lumber: extra shifts add ${v.add} before Thanksgiving`,
+      s4: { t: 'Unit cash cost', k: 'From Wk 43-26 to Wk 44-26, and the last 13 weeks' },
+      f4: {
+        label: 'Figure 4',
+        title: v => `Cash cost ${v.up ? 'rose' : 'fell'} $${v.d} to $${v.c} per Mfbm; ${v.top} ${v.topUp ? 'added' : 'saved'} $${v.tv}`,
+        cht: ['Cash cost, Wk 43-26 to Wk 44-26', '(US$/Mfbm)'],
+        rows: { start: 'Wk 43-26 cash cost', fibre: 'Fibre', labour: 'Labour', energy: 'Energy', maint: 'Maintenance & supplies', end: 'Wk 44-26 cash cost' },
+        head: ['US$/Mfbm', '', 'Change', 'Why'],
+        why: {
+          fibre: { all: 'wet-weather hauling in Mississippi', spf: 'longer hauls in the B.C. Interior', syp: 'wet-weather hauling in Mississippi' },
+          labour: v => `same crews over ${v} less`,
+          energy: { all: 'kiln gas price', spf: 'kiln gas price', syp: 'kiln gas price' },
+          maint: { all: 'Macon gearbox, Prince George trimmer', spf: 'Prince George trimmer', syp: 'Macon planer gearbox' }
+        },
+        note: 'Note: cash cost per Mfbm produced, excluding transportation. Steps add up after rounding to $0.1.',
+        tip: { w43: 'Wk 43-26', w44: 'Wk 44-26', chg: 'Change', share: 'Share of the change', plan: 'Q4-26 plan', vs: 'vs plan' }, aria: 'Cash cost variance table. Up and down arrow keys move between steps.'
+      },
+      f5: {
+        label: 'Figure 5',
+        title: v => v.all ? `SYP cash cost jumped $${v.syp.d} to $${v.syp.v}, the highest in 13 weeks; SPF rose $${v.spf.d} to $${v.spf.v}`
+          : `${v.sp === 'spf' ? 'SPF' : 'SYP'} cash cost rose $${v.x.d} to $${v.x.v} per Mfbm, the highest in 13 weeks`,
+        cht: ['Cash cost', '(US$/Mfbm, Wk 32–44)'],
+        keys: ['Wk 44-26', 'Earlier weeks', 'Q4-26 plan'],
+        note: 'Note: cash cost = fibre, labour, energy, and maintenance and supplies per Mfbm produced. The dashed line is the Q4-26 plan.',
+        tip: { cost: 'Cash cost', plan: 'Plan', vs: 'vs plan' },
+        aria: k => `${k}: cash cost by week. Left and right arrow keys move between weeks.`
+      },
+      tw4: v => `${v.lead} cash cost ran $${v.c} per Mfbm, $${v.ap} above plan: ${v.why}`,
+      tw4why: { all: 'fibre hauling and lost volume, not price', spf: 'longer hauls and the trimmer outage', syp: 'wet-weather hauling and the planer outage' },
+      s5: { t: 'How it’s built', k: 'One spec, the same dashboard in any tool' },
+      build: {
+        p: 'Every view on this page follows one DASHBOARD.md. Put the package in your project folder and any agent that reads the folder builds to the same rules and checks its work against the same list. The Tableau and Power BI files carry the same colors and formats into those tools.',
+        spec: 'Read DASHBOARD.md', cta: 'Commission one for your company ↗',
+        steps: [['Add the style to your project', 'One command, or one zip, puts DASHBOARD.md in your project and the dashboard-style skill in .claude/skills, with the Tableau and Power BI files.'], ['Ask for the dashboard', 'Coding agents load the skill, plan the views from the spec and draw them. BI agents that read the same folder follow the same spec.'], ['Check before you share', 'The skill runs the checklist in DASHBOARD.md and reports what passed and what to fix. You can also ask it for a review on its own.']],
+        pkg: 'Package', pkgSub: 'files that go in your project',
+        get: 'Install', getNote: 'Run either one in your project folder: the first needs Node 18+, the second is a shell script for macOS and Linux. No terminal? Unzip the zip there instead.', zip: 'Download .zip', cmdCopied: 'Install command copied',
+        files: { 'your-project/': '', 'DASHBOARD.md': 'the spec: tokens, rules, checks', '.claude/skills/': '', 'dashboard-style/': 'the agent skill', 'SKILL.md': 'build · restyle · review', 'tokens.css': 'colors, type, spacing', 'west-fraser.tps': 'Tableau palettes', 'powerbi-theme.json': 'Power BI theme', 'prompt.md': 'tested prompts' },
+        modes: ['Without a spec', 'With DASHBOARD.md'],
+        checksT: 'Checks · DASHBOARD.md', checksOk: 'All 6 passed', checksBad: '0 of 6 passed',
+        checks: [[1, 'Frame: mills on the left, MMfbm axis, grid #e6e6e6'], [2, 'Plan: a 2px tick #333333 at each mill’s plan'], [3, 'Bars: below plan #c06228, the rest #b5c1b7, largest shortfall first'], [4, 'Values: Wk 44 at the bar end, gap in parentheses on the right'], [5, 'The title states the finding; the chart title carries the unit (MMfbm)'], [5, 'Text at 4.5:1 or more on #ffffff; tooltip, keys and table']],
+        run: 'Run again', copied: 'Code copied', lines: n => `${n} lines`, built: 'Drawn from DASHBOARD.md', drawing: 'Drawing…', generated: 'A first draft without a spec',
+        cap: 'Figure 1, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the same figure as Tableau and Power BI settings. The species filter at the top changes the code and the figure together.'
+      },
+      notes: {
+        k: 'Method and sources', t: 'How the numbers are counted',
+        items: [
+          ['MMfbm, Mfbm', 'Million and thousand board feet. A board foot is a board 1 inch thick, 12 inches wide and 12 inches long.'],
+          ['Q4-26 plan', 'The weekly run-rate plan from each mill’s operating schedule. Ranges: production ±3%, shipments ±4%, operating rate ±2 points. Recovery and grade use species targets weighted by plan.'],
+          ['Operating rate', 'Production as a share of capacity on a full two-shift, five-day schedule.'],
+          ['Recovery (LRF)', 'Lumber recovery factor: board feet of lumber per cubic metre of logs consumed.'],
+          ['#2&Btr grade', 'Share of production graded No. 2 and Better.'],
+          ['Finished inventory', 'Lumber in the yard at week end, divided by that week’s average daily shipments.'],
+          ['Cash cost', 'Fibre (delivered logs), labour, energy, and maintenance and supplies per Mfbm produced. Transportation is outbound freight per Mfbm shipped.'],
+          ['Operating schedule', 'Changes against each mill’s base two-shift schedule, in MMfbm. A shift is about 0.5 MMfbm.']
+        ],
+        src: 'Sources: mill production and grading tallies, log scale tickets, the shipping system and the weekly price composite. Wk 44-26 (Oct 26 – Nov 1, 2026), issued Mon Nov 2.'
+      },
+      note: 'A sample screen built around a fictional sawmill business and fictional data.',
+      notice: 'Not an official West Fraser design, and not affiliated with or endorsed by West Fraser. A reference style read from the publicly visible design of westfraser.com and its public touchpoints such as investor reports and wrapped lumber; it carries no logo, typeface, photo or data of theirs. Trademarks belong to their owners.',
+      back: { post: '← Back to the post', catalog: '← Back to the catalog' }
+    },
+    ko: {
+      locale: 'ko-KR', docTitle: 'West Fraser 스타일 · 제재 운영 주간 보고 샘플',
+      brand: '비즈니 팀버', report: '제재 운영 주간 보고',
+      catName: 'West Fraser 스타일', words: '어스 톤, 전망표, 차분함',
+      period: '2026년 44주 · 10월 26일~11월 1일',
+      tabsLabel: '수종과 지역', scopes: { all: '전체 공장', spf: 'SPF · 캐나다', syp: 'SYP · 미국 남부' }, millsN: n => `${n}곳`,
+      lead: { all: '전체', spf: 'SPF', syp: 'SYP' },
+      navAside: '계획과 43주 대비',
+      tick: { spf: 'SPF 2x4', syp: 'SYP 2x4', unit: 'Mfbm당 달러 · 44주 종합 가격' },
+      wk: w => `${w}주`, wkS: w => `${w}주`, wkRange: (a, b) => `${a}~${b}주`,
+      num: ['0', '1', '2', '3', '4', '5', '6', '7', '8'],
+      ord: n => `${n}주째`,
+      vol: '만 fbm', usdU: 'Mfbm당 달러', pts: '%p', days: '일',
+      s1: { t: '44주 대 43주', k: v => `${v.scope} · ${v.n}곳` },
+      ot: {
+        cap: '44주 핵심 수치, 4분기 계획과 43주 대비',
+        head: ['달러, 따로 적지 않으면', '44주', '4분기 계획', '43주', '변화', '설명'],
+        rows: { prod: ['목재 생산', '만 fbm'], ship: ['출하', '만 fbm'], op: ['가동률', '설비 능력 대비 %'], lrf: ['회수율(LRF)', '원목 m³당 fbm'], grade: ['#2&Btr 등급', '생산 중 %'], inv: ['완제품 재고', '출하 일수'] },
+        costs: ['원가', 'Mfbm당 달러'], cost: { fibre: '원목', labour: '인건비', energy: '에너지', transport: '운송' },
+        st: { below: '미달', low: '하단', in: '범위 안', high: '상단', above: '초과' },
+        com: {
+          prod: v => v.who ? `${v.who}의 생산 부족` : '모든 공장이 계획대로',
+          ship: { all: 'SYP 주문 강세, SPF는 미국행 둔화', spf: v => `미국 주문 둔화, 생산보다 ${v.d} 적게 출하`, syp: v => `주문 강세, 생산보다 ${v.d} 많이 출하` },
+          op: { all: '잭슨 2교대 손실, 메이컨 플레이너 14시간 정지', spf: '프린스조지 트리머 11시간 정지', syp: '잭슨 2교대 손실, 메이컨 플레이너 14시간 정지' },
+          lrf: { all: '프린스조지 트리머 고장, SYP는 목표 안', spf: v => `프린스조지 ${v.pg}, 목표보다 ${v.gap} 낮음`, syp: '네 곳 모두 목표 안' },
+          grade: { all: '프린스조지와 메이컨이 목표 미달', spf: v => `프린스조지 ${v.pg}`, syp: v => `메이컨 ${v.mac}, 감속기 수리 영향` },
+          inv: { all: v => `평균만 범위 안: SPF ${v.spf}, SYP ${v.syp}`, spf: v => `범위 초과 ${v.ord}`, syp: v => `9일 하한 미달 ${v.ord}` },
+          fibre: { all: '미시시피 우천으로 운반비 상승', spf: 'B.C. 내륙 운반 거리 증가', syp: '미시시피 우천으로 운반비 상승' },
+          labour: { all: '같은 인원, 줄어든 생산', spf: '같은 인원, 줄어든 생산', syp: '같은 인원, 줄어든 생산' },
+          energy: { all: '건조기 가스값 상승', spf: '건조기 가스값 상승', syp: '건조기 가스값 상승' },
+          transport: { all: '경유 할증', spf: '철도 연료 할증', syp: '경유 할증' }
+        },
+        tip: { w44: '44주', w43: '43주', plan: '4분기 계획', range: '계획 범위', chg: '변화', pos: '범위 대비' },
+        aria: '핵심 수치 표. 위아래 화살표 키로 줄을 옮깁니다.'
+      },
+      n1: '주: 4분기 계획 범위는 주간 계획입니다. 생산 ±3%, 출하 ±4%, 가동률 ±2%p이고, 회수율과 등급은 수종별 목표를 계획량으로 가중했습니다. 화살표는 43주 대비 원가 방향입니다. 음수는 괄호로 적습니다.',
+      f1: {
+        label: '그림 1',
+        title: v => v.n >= 2 ? `${v.n}곳이 계획보다 ${v.short} 적게 생산했고, ${josa(v.worst, '이가')} ${josa(v.wv, '으로')} 가장 많이 못 미쳤습니다`
+          : v.n === 1 ? `${josa(v.worst, '이가')} 계획보다 ${v.wv} 적었고, 나머지 ${v.rest}곳은 ${v.over} 많았습니다`
+          : `모든 공장이 계획을 채웠고, ${josa(v.best, '이가')} ${v.bv} 앞섰습니다`,
+        cht: ['공장별 생산 대 계획', '(만 fbm, 44주)'],
+        keys: ['계획 미달', '계획 이상', '계획'],
+        note: '주: 계획은 공장마다 44주 가동 일정으로 정한 값입니다. 계획에 많이 못 미친 공장부터 놓았습니다.',
+        tip: { prod: '생산', plan: '계획', gap: '계획 대비', w43: '43주', cause: '원인' },
+        generic: 'Production by Mill',
+        aria: '공장별 생산 대 계획. 위아래 화살표 키로 공장을 옮깁니다.'
+      },
+      tw1: v => `${v.lead} 생산이 계획보다 ${v.gap} ${v.below ? '적었습니다' : '많았습니다'}${v.causes ? `: ${josa(v.causes, '으로')} ${josa(v.sum, '을를')} 잃었습니다` : ''}`,
+      s2: { t: '공장별 실적', k: '공장마다 생산, 회수율과 등급, 재고' },
+      t1: {
+        label: '표 1',
+        title: v => `${v.triple.length ? `${josa(joinKo(v.triple), '은는')} 생산, 회수율, 등급 모두 못 미쳤고` : v.short.length ? `${josa(joinKo(v.short), '이가')} 계획에 못 미쳤고` : '모든 공장이 계획을 채웠고'}, `
+          + (v.sp === 'all' ? `재고는 SPF 공장이 ${v.spf[0]}~${v.spf[1]}일, SYP 공장이 ${v.syp[0]}~${v.syp[1]}일입니다` : v.sp === 'spf' ? `SPF 공장은 모두 재고가 ${v.spf[0]}일 이상입니다` : `SYP 공장은 모두 재고가 ${v.syp[1]}일 이하입니다`),
+        cht: ['공장별 실적, 44주', '(생산 만 fbm, LRF fbm/m³, 재고 출하 일수)'],
+        cols: ['공장', '44주', '43주', '계획', '계획 대비', 'LRF', '#2&Btr %', '재고 일수', '설명'],
+        total: n => `전체 ${n}곳`,
+        note: '주: 소계 줄은 아래 공장을 더한 값이고, 회수율과 등급은 생산량으로 가중했습니다. ▼는 수종 목표에 못 미친 값입니다. 음수는 괄호로 적습니다.',
+        tip: { prod: '생산', plan: '계획', gap: '계획 대비', w43: '43주', ship: '출하', op: '가동률', lrf: 'LRF', grade: '#2&Btr', inv: '완제품 재고', target: '목표' }
+      },
+      f2: {
+        label: '그림 2',
+        cht: ['목표 대비 회수율과 등급', '(44주)'],
+        cols: ['LRF, 목표 대비 fbm/m³', '#2&Btr, 목표 대비 %p'],
+        keys: ['목표 미달', '목표 이상', '목표 범위'],
+        title: v => {
+          const parts = [];
+          if (v.both) parts.push(`${josa(v.both.name, '이가')} 회수율(${v.both.lrf} fbm/m³)과 등급(${v.both.g}) 모두 목표에 못 미쳤습니다`);
+          else if (v.lrf) parts.push(`${v.lrf.name}의 회수율(${v.lrf.v} fbm/m³)이 목표보다 ${v.lrf.gap} 낮았습니다`);
+          if (v.grades.length) parts.push(`${joinKo(v.grades.map(x => x.name))}의 등급은 ${v.grades.map(x => x.g).join(', ')}로 내려갔습니다`);
+          if (!parts.length) return '모든 공장이 회수율과 등급 목표를 지켰습니다';
+          return parts.join('. ') + (v.lrfOk ? '. 다른 공장의 회수율은 목표 안입니다' : v.lrfAll ? '. 회수율은 모든 공장이 목표 안입니다' : '');
+        },
+        note: '주: 띠는 수종 목표입니다(SPF: LRF 250~256 fbm/m³, #2&Btr 86~88%. SYP: 282~288 fbm/m³, 84~86%). 점은 띠의 아래 끝과의 차이입니다.',
+        tip: { lrf: 'LRF', grade: '#2&Btr', target: '목표', gap: '아래 끝 대비' },
+        aria: '공장별 목표 대비 회수율과 등급. 위아래 화살표 키로 공장을 옮깁니다.'
+      },
+      tw2: v => v.mill ? `${v.mill}의 회수율이 ${josa(v.cause, '으로')} ${v.d} fbm/m³ 떨어졌습니다. ${v.fix}` : v.gmill ? `${v.gmill}의 등급이 ${v.g}로 목표 ${v.lo}%에 못 미쳤습니다. ${v.fix}` : '모든 공장이 회수율과 등급 목표를 지켰습니다',
+      fix: { pg: '최적화 장치는 47주에 교체합니다', mac: '플레이너 감속기는 수리를 마쳤습니다' },
+      s3: { t: '수요에 맞춘 가동', k: '재고와 가동 일정' },
+      f3: {
+        label: '그림 3',
+        title: v => v.all ? `SPF 재고는 ${v.spf}로 늘었고, SYP는 ${v.syp}로 9일 하한 아래로 내려갔습니다`
+          : v.sp === 'spf' ? `SPF 재고가 ${v.ord} 늘어 ${josa(v.v, '이가')} 됐습니다` : `SYP 재고가 ${v.v}로 ${v.ord} 9일 하한 아래입니다`,
+        cht: ['완제품 재고', '(출하 일수, 32~44주)'],
+        keys: ['44주', '이전 주', '목표 9~12일'],
+        note: v => `주: 출하 일수 = 주말 야적장의 목재 ÷ 그 주의 하루 평균 출하량.${v.all ? ` 전체를 합하면 ${v.v}로 범위 안이지만, 두 수종이 서로 상쇄한 결과입니다.` : ''}`,
+        tip: { days: '재고', vol: '야적장', ship: '출하', target: '목표' },
+        aria: k => `${k}: 주별 완제품 재고. 좌우 화살표 키로 주를 옮깁니다.`
+      },
+      t2: {
+        label: '표 2',
+        title: v => v.all ? `SPF는 4주 동안 ${v.spfDown}을 줄이고, SYP는 추수감사절 전까지 추가 교대로 ${v.sypAdd}을 더합니다`
+          : v.sp === 'spf' ? `SPF는 4주 동안 ${v.mills}곳에서 ${v.spfDown}을 줄입니다` : `SYP는 추가 교대로 ${v.sypAdd}을 더한 뒤 추수감사절에 쉽니다`,
+        cht: ['가동 일정 변경, 45~48주', '(기본 일정 대비, 만 fbm)'],
+        head: ['시기', 'SPF · 캐나다', 'SYP · 미국 남부', '순변화'],
+        all4: 'SYP 네 곳 모두', none: '변경 없음', total: '45~48주',
+        dates: { 45: '11/2~11/8', 46: '11/9~11/15', 47: '11/16~11/22', 48: '11/23~11/29' },
+        note: '주: 초록은 생산을 늘리는 일정, 녹슨 주황은 줄이는 일정이며, 공장마다 기본 2교대 일정 대비 만 fbm입니다. 설비 증감 장부처럼 값을 먼저 적습니다.',
+        tip: { net: '순변화', cum: '45주부터 누적' }, aria: '가동 일정 표. 위아래 화살표 키로 주를 옮깁니다.'
+      },
+      tw3: v => v.all ? `SPF 재고는 ${v.spf}, SYP는 ${v.syp}입니다. SPF 교대를 줄이고 추수감사절까지 SYP 교대를 더합니다`
+        : v.sp === 'spf' ? `SPF 재고가 ${v.spf}입니다. 4주 동안 세 곳에서 ${v.down}을 줄입니다` : `SYP 재고가 ${v.syp}입니다. 추수감사절 전까지 추가 교대로 ${v.add}을 더합니다`,
+      s4: { t: '단위 현금 원가', k: '43주에서 44주까지, 그리고 최근 13주' },
+      f4: {
+        label: '그림 4',
+        title: v => `현금 원가가 Mfbm당 ${v.d}달러 ${v.up ? '올라' : '내려'} ${v.c}달러가 됐고, ${josa(v.top, '이가')} ${v.tv}달러를 ${v.topUp ? '더했습니다' : '줄였습니다'}`,
+        cht: ['현금 원가, 43주에서 44주까지', '(Mfbm당 달러)'],
+        rows: { start: '43주 현금 원가', fibre: '원목', labour: '인건비', energy: '에너지', maint: '정비와 소모품', end: '44주 현금 원가' },
+        head: ['Mfbm당 달러', '', '변화', '이유'],
+        why: {
+          fibre: { all: '미시시피 우천 운반비', spf: 'B.C. 내륙 운반 거리', syp: '미시시피 우천 운반비' },
+          labour: v => `같은 인원으로 ${v} 적게 생산`,
+          energy: { all: '건조기 가스값', spf: '건조기 가스값', syp: '건조기 가스값' },
+          maint: { all: '메이컨 감속기, 프린스조지 트리머', spf: '프린스조지 트리머', syp: '메이컨 플레이너 감속기' }
+        },
+        note: '주: 생산 Mfbm당 현금 원가이며 운송비는 뺐습니다. 0.1달러로 반올림해 단계의 합이 맞게 했습니다.',
+        tip: { w43: '43주', w44: '44주', chg: '변화', share: '변화 중 비중', plan: '4분기 계획', vs: '계획 대비' }, aria: '현금 원가 증감 표. 위아래 화살표 키로 단계를 옮깁니다.'
+      },
+      f5: {
+        label: '그림 5',
+        title: v => v.all ? `SYP 현금 원가가 ${v.syp.d}달러 뛰어 ${v.syp.v}달러로 13주 중 가장 높았고, SPF는 ${v.spf.d}달러 올라 ${v.spf.v}달러입니다`
+          : `${v.sp === 'spf' ? 'SPF' : 'SYP'} 현금 원가가 Mfbm당 ${v.x.d}달러 올라 ${v.x.v}달러로 13주 중 가장 높았습니다`,
+        cht: ['현금 원가', '(Mfbm당 달러, 32~44주)'],
+        keys: ['44주', '이전 주', '4분기 계획'],
+        note: '주: 현금 원가 = 생산 Mfbm당 원목, 인건비, 에너지, 정비와 소모품. 점선은 4분기 계획입니다.',
+        tip: { cost: '현금 원가', plan: '계획', vs: '계획 대비' },
+        aria: k => `${k}: 주별 현금 원가. 좌우 화살표 키로 주를 옮깁니다.`
+      },
+      tw4: v => `${v.lead} 현금 원가는 Mfbm당 ${v.c}달러로 계획보다 ${v.ap}달러 높습니다: ${v.why}`,
+      tw4why: { all: '가격이 아니라 원목 운반과 줄어든 생산 때문', spf: '운반 거리와 트리머 정지 때문', syp: '우천 운반과 플레이너 정지 때문' },
+      s5: { t: '만드는 법', k: '명세 하나로, 어떤 도구에서든 같은 대시보드' },
+      build: {
+        p: '이 화면의 모든 그림은 DASHBOARD.md 하나를 따릅니다. 패키지를 프로젝트 폴더에 두면, 그 폴더를 읽는 에이전트는 같은 규칙으로 만들고 같은 목록으로 스스로 점검합니다. Tableau와 Power BI 파일은 같은 색과 서식을 그 도구로 옮깁니다.',
+        spec: 'DASHBOARD.md 읽기', cta: '우리 회사 것 의뢰하기 ↗',
+        steps: [['스타일을 프로젝트에 추가', '명령 한 줄이나 zip 하나로 프로젝트에 DASHBOARD.md가, .claude/skills에 dashboard-style 스킬이 Tableau·Power BI 파일과 함께 들어갑니다.'], ['대시보드를 요청', '코딩 에이전트는 스킬을 불러 명세대로 그림 계획을 세우고 그립니다. 같은 폴더를 읽는 BI 에이전트도 같은 명세를 따릅니다.'], ['공유 전에 점검', '스킬이 DASHBOARD.md의 점검 목록을 돌려 통과한 것과 고칠 것을 알려 줍니다. 언제든 검토만 따로 맡길 수도 있습니다.']],
+        pkg: '패키지', pkgSub: '프로젝트에 들어가는 파일',
+        get: '설치', getNote: '프로젝트 폴더에서 둘 중 하나를 실행합니다. 위 줄은 Node 18 이상, 아래 줄은 macOS·Linux 셸용입니다. 터미널이 없으면 zip을 프로젝트 폴더에 풉니다.', zip: 'zip 내려받기', cmdCopied: '설치 명령을 복사했습니다',
+        files: { 'your-project/': '', 'DASHBOARD.md': '명세: 토큰, 규칙, 점검 목록', '.claude/skills/': '', 'dashboard-style/': '에이전트 스킬', 'SKILL.md': '만들기 · 고치기 · 검토', 'tokens.css': '색·서체·간격', 'west-fraser.tps': 'Tableau 팔레트', 'powerbi-theme.json': 'Power BI 테마', 'prompt.md': '검증한 프롬프트' },
+        modes: ['명세 없이', 'DASHBOARD.md로'],
+        checksT: '점검 · DASHBOARD.md', checksOk: '6개 모두 통과', checksBad: '6개 중 0개 통과',
+        checks: [[1, '틀: 왼쪽에 공장 이름, 만 fbm 축, 격자 #e6e6e6'], [2, '계획: 공장마다 계획 자리에 2px 눈금 #333333'], [3, '막대: 계획 미달은 #c06228, 나머지는 #b5c1b7, 많이 못 미친 공장부터'], [4, '값: 막대 끝에 44주 생산, 오른쪽에 계획 대비를 괄호로'], [5, '제목은 결과를 말하고, 차트 제목에 단위(만 fbm)'], [5, '흰 판 #ffffff에서 글자 대비 4.5:1 이상, 툴팁·키보드·표']],
+        run: '다시 실행', copied: '코드를 복사했습니다', lines: n => `${n}줄`, built: 'DASHBOARD.md로 그림', drawing: '그리는 중…', generated: '명세 없이 만든 첫 초안',
+        cap: '그림 1을 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 같은 그림의 Tableau·Power BI 설정을 봅니다. 위의 수종 필터를 바꾸면 코드와 그림이 함께 바뀝니다.'
+      },
+      notes: {
+        k: '방법과 출처', t: '숫자를 센 방법',
+        items: [
+          ['MMfbm, Mfbm', '백만·천 보드피트입니다. 1보드피트는 두께 1인치, 폭 12인치, 길이 12인치인 판재입니다. 한국어 화면은 만 fbm으로 적습니다(1 MMfbm = 100만 fbm).'],
+          ['4분기 계획', '공장마다 가동 일정으로 정한 주간 계획입니다. 범위는 생산 ±3%, 출하 ±4%, 가동률 ±2%p입니다. 회수율과 등급은 수종별 목표를 계획량으로 가중합니다.'],
+          ['가동률', '주 5일 2교대를 모두 돌렸을 때의 설비 능력 대비 생산입니다.'],
+          ['회수율(LRF)', '목재 회수율: 들어간 원목 1m³당 나온 목재의 보드피트입니다.'],
+          ['#2&Btr 등급', '생산 가운데 No. 2 이상으로 등급을 받은 목재의 비중입니다.'],
+          ['완제품 재고', '주말 야적장의 목재를 그 주의 하루 평균 출하량으로 나눈 값입니다.'],
+          ['현금 원가', '생산 Mfbm당 원목(입고 원목), 인건비, 에너지, 정비와 소모품입니다. 운송은 출하 Mfbm당 운임입니다.'],
+          ['가동 일정', '공장마다 기본 2교대 일정 대비 변경이며 만 fbm으로 적습니다. 한 교대는 약 50만 fbm입니다.']
+        ],
+        src: '출처: 공장 생산·등급 집계, 원목 검척표, 출하 시스템, 주간 종합 가격. 44주(2026년 10월 26일~11월 1일), 11/2(월) 발행.'
+      },
+      note: '가상의 제재 사업과 가상 데이터로 구성한 샘플 화면입니다.',
+      notice: 'West Fraser의 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 공개된 웹사이트(westfraser.com)와 IR 보고서·목재 포장 등 공개된 접점에서 보이는 디자인을 읽어 낸 참고용 스타일이며 로고·서체·사진·데이터는 포함하지 않습니다. 상표는 각 소유자의 것입니다.',
+      back: { post: '← 포스트로', catalog: '← 카탈로그로' }
+    }
+  };
+  const qs = new URLSearchParams(location.search);
+  const state = { lang: qs.get('lang') === 'ko' ? 'ko' : 'en', scope: SCOPES.includes(qs.get('species')) ? qs.get('species') : 'all', code: 'js', mode: 'with' };
+  const L = () => T[state.lang];
+  const KO = () => state.lang === 'ko';
+  const S = () => DATA.scopes[state.scope];
+  const pick = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
+  // 돌아가는 길: 블로그가 나가는 링크에 붙이는 ?ref=kr.vizney.com · www.vizney.com(없으면 referrer)로 포스트에서 왔는지 본다.
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  const FROM_BLOG = (() => {
+    const hosts = ['kr.vizney.com', 'www.vizney.com', 'vizney.com'];
+    const host = v => { try { return new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v).hostname.toLowerCase(); } catch (e) { return ''; } };
+    return hosts.includes(host(qs.get('ref') || '')) || (!!document.referrer && hosts.includes(host(document.referrer)));
+  })();
+  const SLUG = location.pathname.split('/').filter(Boolean)[0] || 'west-fraser';
+
+  /* ================= 도우미 ================= */
+  const sum = a => a.reduce((s, x) => s + x, 0);
+  function setAttrs(e, a) {
+    if (!a) return;
+    for (const k in a) {
+      const v = a[k];
+      if (v == null || v === false) continue;
+      if (k === 'text') e.textContent = v;
+      else if (k === 'html') e.innerHTML = v;
+      else if (k === 'style') for (const p in v) { if (v[p] == null) continue; if (p.startsWith('--')) e.style.setProperty(p, v[p]); else e.style[p] = v[p]; }
+      else e.setAttribute(k, v);
+    }
+  }
+  function add(e, kids) { for (const k of kids.flat()) { if (k == null || k === false) continue; e.append(k instanceof Node ? k : document.createTextNode(String(k))); } }
+  function h(tag, attrs, ...kids) { const e = document.createElement(tag); setAttrs(e, attrs); add(e, kids); return e; }
+  function sv(tag, attrs, ...kids) { const e = document.createElementNS(SVGNS, tag); setAttrs(e, attrs); add(e, kids); return e; }
+  const animOK = a => a && !REDUCE;
+  const refade = (el, a) => { el.classList.remove('fade'); if (animOK(a)) { void el.offsetWidth; el.classList.add('fade'); } };
+  let measureCtx = null;
+  const textW = (txt, font) => { measureCtx = measureCtx || document.createElement('canvas').getContext('2d'); measureCtx.font = font; return measureCtx.measureText(txt).width; };
+  const fam = el => getComputedStyle(el).fontFamily;
+  // 한국어에서 숫자·%와 뒤따르는 조사가 다른 줄로 갈라지지 않게 잇는다(U+2060, 보이지 않음)
+  const glue = str => KO() ? String(str).replace(/([0-9%])(?=[가-힣])/g, '$1⁠') : str;
+  function lastHangul(word) { const s = String(word).replace(/[^가-힣0-9A-Za-z]+$/g, ''); return s.slice(-1); }
+  function batchim(word) {
+    const ch = lastHangul(word);
+    if (/[0-9]/.test(ch)) return '013678'.includes(ch);
+    if (/[A-Za-z]/.test(ch)) return 'lmnr'.includes(ch.toLowerCase());
+    const c = ch.charCodeAt(0);
+    return c >= 0xAC00 && c <= 0xD7A3 ? (c - 0xAC00) % 28 !== 0 : false;
+  }
+  const josa = (w, pair) => {
+    if (pair === '으로') {
+      // 받침 없음(0)·ㄹ(8)은 '로'. 숫자와 로마자는 읽는 소리로: 1·7·8·l·r은 ㄹ, 0·3·6·m·n은 다른 받침
+      const ch = lastHangul(w), c = ch.charCodeAt(0);
+      const j = /[0-9]/.test(ch) ? ('178'.includes(ch) ? 8 : '036'.includes(ch) ? 1 : 0)
+        : /[A-Za-z]/.test(ch) ? ('lr'.includes(ch.toLowerCase()) ? 8 : 'mn'.includes(ch.toLowerCase()) ? 1 : 0)
+        : c >= 0xAC00 && c <= 0xD7A3 ? (c - 0xAC00) % 28 : 0;
+      return w + (j === 0 || j === 8 ? '로' : '으로');
+    }
+    return w + (batchim(w) ? pair[0] : pair[1]);
+  };
+  const joinKo = arr => arr.length < 2 ? (arr[0] || '') : arr.slice(0, -1).map((x, i) => i === arr.length - 2 ? josa(x, '과와') : x + ',').join(' ') + ' ' + arr[arr.length - 1];
+  const joinEn = arr => arr.length < 3 ? arr.join(' and ') : arr.slice(0, -1).join(', ') + ' and ' + arr[arr.length - 1];
+  const joinL = arr => KO() ? joinKo(arr) : joinEn(arr);
+
+  /* 숫자: 영어 MMfbm·$·pts, 한국어 만 fbm·달러·%p. 표·변화량의 음수는 괄호, 문장 속 부호는 진짜 마이너스 */
+  const nf = (n, d = 0) => Number(n).toLocaleString(L().locale, { minimumFractionDigits: d, maximumFractionDigits: d });
+  const rnd = (n, d = 1) => { const v = Number(Number(n).toFixed(d)); return Object.is(v, -0) ? 0 : v; };
+  // 부피: 영어는 MMfbm 한 자리, 한국어는 만 fbm 정수(1 MMfbm = 100만 fbm)
+  const volN = v => KO() ? nf(rnd(v, 1) * 100, 0) : nf(rnd(v, 1), 1);
+  const volU = v => KO() ? `${volN(v)}만 fbm` : `${volN(v)} MMfbm`;
+  const volP = v => { const x = rnd(v, 1); return x < 0 ? `(${volN(-x)})` : volN(x); };
+  const volS = v => { const x = rnd(v, 1); return x > 0 ? `+${volN(x)}` : x < 0 ? `(${volN(-x)})` : volN(0); };
+  const volAbs = v => volU(Math.abs(rnd(v, 1)));
+  const pct = (v, d = 1) => `${nf(v, d)}%`;
+  const pctP = (v, d = 1) => { const x = rnd(v, d); return x < 0 ? `(${nf(-x, d)}%)` : x > 0 ? `+${nf(x, d)}%` : `${nf(0, d)}%`; };
+  const ptsP = (v, d = 1) => { const x = rnd(v, d); const u = KO() ? '%p' : ' pts'; return x > 0 ? `+${nf(x, d)}${u}` : x < 0 ? `(${nf(-x, d)}${u})` : `${nf(0, d)}${u}`; };
+  const numP = (v, d = 1) => { const x = rnd(v, d); return x > 0 ? `+${nf(x, d)}` : x < 0 ? `(${nf(-x, d)})` : nf(0, d); };
+  const usd = (v, d = 0) => KO() ? `${nf(v, d)}달러` : `$${nf(v, d)}`;
+  const usdP = (v, d = 0) => { const x = rnd(v, d); return KO() ? (x > 0 ? `+${nf(x, d)}달러` : x < 0 ? `(${nf(-x, d)}달러)` : `0달러`) : (x > 0 ? `+$${nf(x, d)}` : x < 0 ? `$(${nf(-x, d)})` : '$0'); };
+  const daysU = (v, d = 1) => KO() ? `${nf(v, d)}일` : `${nf(v, d)} days`;
+  const ordW = n => KO() ? L().ord(n) : L().ord[n] || `${n}th`;
+  const wkL = w => L().wk(w);
+  const millName = m => m.id === 'syp4' ? L().t2.all4 : (KO() ? `${m.ko} (${m.st})` : `${m.en} (${m.st})`);
+  const millShort = m => KO() ? m.ko : m.en;
+  function niceTicks(lo, hi, count, steps = [1, 2, 2.5, 5, 10]) {
+    const span = hi - lo, raw = span / count, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    const step = steps.map(x => x * mag).find(x => x >= raw);
+    const out = [];
+    for (let v = Math.floor(lo / step) * step; v <= hi + step * .999; v += step) out.push(Number(v.toFixed(6)));
+    if (out[out.length - 1] < hi) out.push(Number((out[out.length - 1] + step).toFixed(6)));
+    return out;
+  }
+
+  /* ================= 아이콘(16px, 한 획 굵기) ================= */
+  const ICONS = {
+    copy: '<rect x="5.5" y="5.5" width="8" height="8" rx="1"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/>',
+    play: '<path d="M4.2 2.6v10.8a.6.6 0 0 0 .9.5l8.6-5.4a.6.6 0 0 0 0-1L5.1 2.1a.6.6 0 0 0-.9.5z" fill="currentColor" stroke="none"/>'
+  };
+  const icon = (name, cls = 'ico') => { const s = sv('svg', { class: cls, viewBox: '0 0 16 16', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }); s.innerHTML = ICONS[name]; return s; };
+  for (const el of $$('[data-icon]')) el.prepend(icon(el.dataset.icon));
+  // IR 'Outlook' 표의 원가 화살표: 굵은 막대 화살표. 오름 ↗ · 그대로 ↔ · 내림 ↘
+  function costArrow(dir) {
+    const color = dir > 0 ? 'var(--bad-mark)' : dir < 0 ? 'var(--good-tint)' : 'var(--text)';
+    const s = sv('svg', { viewBox: '0 0 18 14', 'aria-hidden': 'true' });
+    if (dir === 0) s.append(sv('path', { d: 'M1 7 5.2 2.8V5.6h7.6V2.8L17 7l-4.2 4.2V8.4H5.2v2.8z', fill: color }));
+    else s.append(sv('path', { d: 'M1.5 5.6h9V2.4L16.5 7l-6 4.6V8.4h-9z', fill: color, transform: `rotate(${dir > 0 ? -38 : 38} 9 7)` }));
+    return s;
+  }
+
+  function keySwatch(kind, color) {
+    const g = sv('svg', { viewBox: '0 0 18 12', 'aria-hidden': 'true' });
+    if (kind === 'bar') g.append(sv('rect', { x: 1, y: 2, width: 16, height: 8, fill: color }));
+    else if (kind === 'tick') g.append(sv('path', { d: 'M9 0v12', stroke: color, 'stroke-width': 2 }));
+    else if (kind === 'dash') g.append(sv('path', { d: 'M1 6h16', stroke: color, 'stroke-width': 1.6, 'stroke-dasharray': '4 3' }));
+    else if (kind === 'line') g.append(sv('path', { d: 'M1 6h16', stroke: color, 'stroke-width': 2, 'stroke-linecap': 'round' }));
+    else if (kind === 'dot') g.append(sv('circle', { cx: 9, cy: 6, r: 4.5, fill: color }));
+    else if (kind === 'band') g.append(sv('rect', { x: 1, y: 1, width: 16, height: 10, fill: '#e1ebdf', stroke: C.sage300 }));
+    else if (kind === 'tband') g.append(sv('rect', { x: 1, y: 1, width: 16, height: 10, fill: C.sage50 }), sv('path', { d: 'M1 1.5h16M1 10.5h16', stroke: C.comparison, 'stroke-width': 1, 'stroke-dasharray': '3 2' }));
+    return g;
+  }
+  const keyItems = (ul, items) => ul.replaceChildren(...items.map(([kind, color, label]) => h('li', null, keySwatch(kind, color), label)));
+
+  /* ================= 툴팁: 흰 판 + 1px 회색 테두리, 모서리 8px. 카드 안에서 위 → 왼쪽 → 오른쪽 → 아래 순으로 자리를 찾는다 ================= */
+  function tipNodes(head, rows, sub) {
+    return [h('div', { class: 'tip-h', text: head }), sub ? h('div', { class: 'tip-s', text: sub }) : null].concat(rows.filter(Boolean).map(r => h('div', { class: 'tip-r' },
+      r.key ? h('i', { class: r.line ? ('ln' + (r.dash ? ' dash' : '')) : null, style: { '--c': r.key } }) : null,
+      h('b', null, r.value), r.label ? h('span', { text: r.label }) : null)));
+  }
+  function placeTip(host, nodes, ax, ayTop, ayBottom) {
+    const tip = $(':scope > .tip', host);
+    tip.replaceChildren(...nodes.filter(Boolean));
+    const cw = host.clientWidth, ch = host.clientHeight, tw = tip.offsetWidth, th = tip.offsetHeight, gap = 12, mid = (ayTop + ayBottom) / 2;
+    const cx = l => Math.max(6, Math.min(cw - tw - 6, l)), cy = y => Math.max(6, Math.min(ch - th - 6, y));
+    const options = [
+      [cx(ax - tw / 2), ayTop - gap - th, ayTop - gap - th >= 6],
+      [ax - gap - tw, cy(mid - th / 2), ax - gap - tw >= 6],
+      [ax + gap, cy(mid - th / 2), ax + gap + tw <= cw - 6],
+      [cx(ax - tw / 2), ayBottom + gap, ayBottom + gap + th <= ch - 6]
+    ];
+    const [left, top] = options.find(o => o[2]) || options[1];
+    tip.style.left = Math.round(left) + 'px';
+    tip.style.top = Math.round(top) + 'px';
+    tip.classList.add('on');
+  }
+  const hideTip = host => { const tip = $(':scope > .tip', host); if (tip) tip.classList.remove('on'); };
+  const offsetIn = (host, el) => { const a = host.getBoundingClientRect(), b = el.getBoundingClientRect(); return { x: b.left - a.left, y: b.top - a.top, w: b.width, h: b.height }; };
+  function keyStep(e, cur, n) {
+    const k = e.key;
+    let i = null;
+    if (k === 'ArrowRight' || k === 'ArrowDown') i = cur + 1;
+    else if (k === 'ArrowLeft' || k === 'ArrowUp') i = cur - 1;
+    else if (k === 'Home') i = 0;
+    else if (k === 'End') i = n - 1;
+    else if (k === 'Escape') i = -1;
+    if (i === null) return null;
+    e.preventDefault();
+    return k === 'Escape' ? -1 : Math.max(0, Math.min(n - 1, i));
+  }
+  function srTable(caption, head, rows) {
+    return h('table', null, h('caption', { text: caption }),
+      h('thead', null, h('tr', null, head.map(x => h('th', { scope: 'col', text: x })))),
+      h('tbody', null, rows.map(r => h('tr', null, r.map((c, j) => h(j ? 'td' : 'th', j ? { text: c } : { scope: 'row', text: c }))))));
+  }
+  const say = msg => { $('#live').textContent = String(msg).replace(/⁠/g, ''); };
+  const txt = n => n instanceof Node ? n.textContent : Array.isArray(n) ? n.map(txt).join('') : String(n ?? '');
+  // 표의 줄: 마우스·키보드로 줄을 고르면 툴팁을 띄운다
+  function wireRows(host, list, rowSel, cur, show) {
+    const rows = () => $$(rowSel, list).filter(r => !r.hidden);
+    const pickRow = i => { rows().forEach((r, k) => r.classList.toggle('on', k === i)); if (i == null || i < 0) { hideTip(host); return; } cur.i = i; show(i, rows()[i]); };
+    list.onpointermove = e => { const r = e.target.closest(rowSel); if (r && list.contains(r)) pickRow(rows().indexOf(r)); };
+    list.onpointerleave = e => { if (e.pointerType === 'mouse' && document.activeElement !== list) pickRow(-1); };
+    list.onfocus = () => pickRow(Math.min(cur.i, rows().length - 1));
+    list.onblur = () => pickRow(-1);
+    list.onkeydown = e => { const i = keyStep(e, cur.i, rows().length); if (i === null) return; pickRow(i); if (i >= 0) say(rows()[i].dataset.say || rows()[i].textContent); };
+  }
+
+  /* ================= 사실: 화면의 모든 문장은 데이터에서 계산한다 ================= */
+  const millsIn = (sc = state.scope) => DATA.mills.filter(m => sc === 'all' || m.sp === sc);
+  const gapOf = m => rnd(m.prod[LAST] - m.plan, 1);
+  const byGap = ms => ms.slice().sort((a, b) => gapOf(a) - gapOf(b) || a.en.localeCompare(b.en));
+  const invDaysOf = (m, i = LAST) => rnd(m.inv[i] / (m.ship[i] / 7), 1);
+  function posOf(v, r) {
+    const [lo, hi] = r;
+    if (v < lo - 1e-9) return 'below';
+    if (v > hi + 1e-9) return 'above';
+    const f = (v - lo) / (hi - lo);
+    return f < .25 ? 'low' : f > .75 ? 'high' : 'in';
+  }
+  // 범위 밖으로 몇 주째인가(끝에서부터 센다)
+  function runOut(series, test) { let n = 0; for (let i = series.length - 1; i >= 0 && test(series[i]); i--) n++; return n; }
+  function runUp(series) { let n = 0; for (let i = series.length - 1; i > 0 && series[i] > series[i - 1]; i--) n++; return n; }
+  function shortFacts(sc = state.scope) {
+    const ms = byGap(millsIn(sc)), short = ms.filter(m => gapOf(m) < 0), over = ms.filter(m => gapOf(m) > 0);
+    return { ms, short, over, shortSum: rnd(sum(short.map(gapOf)), 1), overSum: rnd(sum(over.map(gapOf)), 1) };
+  }
+
+  /* ================= 머리 ================= */
+  function renderChrome() {
+    const t = L();
+    $('#period').textContent = t.period;
+    const tk = DATA.ticker, show = state.scope === 'all' ? ['spf', 'syp'] : [state.scope];
+    $('#tick').replaceChildren(...show.map(k => {
+      const d = tk[k].d, up = d > 0;
+      return h('span', { class: 'tk' }, h('b', { text: t.tick[k] }), h('span', { class: 'v', text: usd(tk[k].v) }),
+        h('span', { class: 'd ' + (up ? 'good' : d < 0 ? 'bad' : ''), text: (up ? '▲' : d < 0 ? '▼' : '') + nf(Math.abs(d)) }));
+    }), h('span', { class: 'tu', text: t.tick.unit }));
+    $('#s1T').textContent = t.s1.t;
+    $('#s1K').textContent = t.s1.k({ scope: t.scopes[state.scope], n: millsIn().length });
+  }
+
+  /* ================= 대표 장치 1: Outlook 표 ================= */
+  const OT = { i: 0 };
+  function otRows() {
+    const A = S(), t = L(), sc = state.scope, f = shortFacts();
+    const names = f.short.map(millShort);
+    const pg = MILL.pg, mac = MILL.mac;
+    const ifn = (x, v) => typeof x === 'function' ? x(v) : x;
+    const com = t.ot.com;
+    const spfD = DATA.scopes.spf.invDays[LAST], sypD = DATA.scopes.syp.invDays[LAST];
+    const rows = [
+      { k: 'prod', v: A.prod[LAST], p: A.prod[PREV], r: A.prodR, dir: 1, fmt: volN, chg: volS, rfmt: volN },
+      { k: 'ship', v: A.ship[LAST], p: A.ship[PREV], r: A.shipR, dir: 1, fmt: volN, chg: volS, rfmt: volN },
+      { k: 'op', v: A.op[LAST], p: A.op[PREV], r: A.opR, dir: 1, fmt: v => nf(v, 1), unit: '%', chg: v => ptsP(v), rfmt: v => nf(v, 1) + '%' },
+      { k: 'lrf', v: A.lrf[LAST], p: A.lrf[PREV], r: A.lrfT, dir: 1, fmt: v => nf(v, 1), chg: v => numP(v, 1), rfmt: v => nf(Math.round(v), 0) },
+      { k: 'grade', v: A.grade[LAST], p: A.grade[PREV], r: A.gradeT, dir: 1, fmt: v => nf(v, 1), unit: '%', chg: v => ptsP(v), rfmt: v => nf(v, 1) + '%' },
+      { k: 'inv', v: A.invDays[LAST], p: A.invDays[PREV], r: A.invR, dir: 0, fmt: v => nf(v, 1), chg: v => numP(v, 1), rfmt: v => nf(v, 0) }
+    ];
+    for (const r of rows) {
+      r.st = posOf(r.v, r.r);
+      r.d = rnd(r.v - r.p, r.k === 'prod' || r.k === 'ship' ? 1 : 1);
+      r.badSt = r.dir === 1 ? r.st === 'below' : (r.st === 'below' || r.st === 'above');
+      r.chgCls = r.dir === 1 ? (r.d < 0 ? 'bad' : r.d > 0 ? 'good' : '') : ((r.st === 'above' && r.d > 0) || (r.st === 'below' && r.d < 0) ? 'bad' : '');
+    }
+    const ord = n => ordW(n);
+    const R = Object.fromEntries(rows.map(r => [r.k, r]));
+    R.prod.com = com.prod({ st: R.prod.st, who: joinL(names) });
+    R.ship.com = ifn(com.ship[sc], { d: volAbs(A.ship[LAST] - A.prod[LAST]) });
+    R.op.com = com.op[sc];
+    R.lrf.com = ifn(com.lrf[sc], { pg: nf(pg.lrf[LAST]), gap: nf(pg.lrfT[0] - pg.lrf[LAST]) });
+    R.grade.com = ifn(com.grade[sc], { pg: pct(pg.grade[LAST]), mac: pct(mac.grade[LAST]) });
+    const spfOut = runOut(DATA.scopes.spf.invDays, x => x > A.invR[1]), sypOut = runOut(DATA.scopes.syp.invDays, x => x < A.invR[0]);
+    R.inv.com = ifn(com.inv[sc], { spf: daysU(spfD), syp: daysU(sypD), ord: ord(sc === 'spf' ? spfOut : sypOut) });
+    const costs = ['fibre', 'labour', 'energy', 'transport'].map(k => {
+      const c = A.cost[k], d = rnd(c.w44 - c.w43, 1);
+      return { k, cost: true, v: c.w44, p: c.w43, plan: c.plan, d, dir: Math.abs(d) < 0.5 ? 0 : Math.sign(d), com: com[k][sc] };
+    });
+    return { kpis: rows, costs };
+  }
+  function renderOT(animate) {
+    const t = L(), M = otRows(), tab = $('#otT');
+    const hd = t.ot.head;
+    const head = h('thead', null, h('tr', null,
+      h('th', { class: 'lab', scope: 'col', colspan: 2, text: hd[0] }), h('th', { scope: 'col', text: hd[1] }), h('th', { scope: 'col', text: hd[2] }),
+      h('th', { scope: 'col', class: 'h-w43', text: hd[3] }), h('th', { scope: 'col', class: 'h-c4', text: hd[4] }), h('th', { scope: 'col', class: 'cm h-cm', text: hd[5] })));
+    const rb = r => {
+      const [lo, hi] = r.r, pad = (hi - lo) * .75, d0 = Math.min(lo, r.v) - pad, d1 = Math.max(hi, r.v) + pad, X = v => ((v - d0) / (d1 - d0) * 100).toFixed(2) + '%';
+      const bad = r.badSt;
+      return h('span', { class: 'ot-rb', 'aria-hidden': 'true' }, h('i', { style: { left: X(lo), width: ((hi - lo) / (d1 - d0) * 100).toFixed(2) + '%' } }), h('b', { class: bad ? 'bad' : null, style: { left: X(r.v) } }));
+    };
+    const kpiRow = r => {
+      const nm = t.ot.rows[r.k];
+      const tr = h('tr', { class: 'kp', 'data-k': r.k, 'data-say': `${nm[0]} ${r.fmt(r.v)}${r.unit || ''}; ${t.ot.tip.range} ${r.rfmt(r.r[0])} – ${r.rfmt(r.r[1])}, ${t.ot.st[r.st]}; ${t.ot.tip.chg} ${r.chg(r.d)}` },
+        h('th', { class: 'c0', scope: 'row', colspan: 2 }, nm[0], h('span', { class: 'u', text: nm[1] })),
+        h('td', { class: 'c1' }, r.fmt(r.v), r.unit ? h('small', { text: r.unit }) : null),
+        h('td', { class: 'c2' }, h('span', { class: 'ot-r', text: `${r.rfmt(r.r[0])} – ${r.rfmt(r.r[1])}` }), h('span', { class: 'ot-rr' }, rb(r), h('span', { class: 'st' + (r.badSt ? ' bad' : ''), text: t.ot.st[r.st] }))),
+        h('td', { class: 'c3 h-w43' }, r.fmt(r.p), r.unit || ''),
+        h('td', { class: 'c4 h-c4 ' + r.chgCls }, r.chg(r.d)),
+        h('td', { class: 'cm h-cm', text: r.com }));
+      return tr;
+    };
+    const costHead = () => h('tr', { class: 'cgh' }, h('th', { class: 'c0 cg', scope: 'rowgroup', colspan: 2 }, t.ot.costs[0], h('span', { class: 'u', text: t.ot.costs[1] })),
+      h('td', { class: 'c1' }), h('td', { class: 'c2' }), h('td', { class: 'c3 h-w43' }), h('td', { class: 'c4 h-c4' }), h('td', { class: 'cm h-cm' }));
+    const costRow = r => {
+      const tr = h('tr', { class: 'cs', 'data-k': r.k, 'data-say': `${t.ot.cost[r.k]} ${usd(r.v)}; ${t.ot.tip.plan} ${usd(r.plan)}; ${t.ot.tip.chg} ${usdP(r.d)}` },
+        h('th', { class: 'c0 sub', scope: 'row', colspan: 2, text: t.ot.cost[r.k] }),
+        h('td', { class: 'c1', text: nf(r.v, 0) }),
+        h('td', { class: 'c2' }, h('span', { class: 'ot-r' }, nf(r.plan, 0))),
+        h('td', { class: 'c3 h-w43', text: nf(r.p, 0) }),
+        h('td', { class: 'c4 h-c4' }, h('span', { class: 'ot-ch' }, costArrow(r.dir), h('span', { class: r.dir > 0 ? 'bad' : r.dir < 0 ? 'good' : '', text: numP(r.d, 0) }))),
+        h('td', { class: 'cm h-cm', text: r.com }));
+      return tr;
+    };
+    const body = h('tbody', null, M.kpis.map(kpiRow), costHead(), M.costs.map(costRow));
+    tab.replaceChildren(h('caption', { class: 'sr-only', text: t.ot.cap }), head, body);
+    tab.setAttribute('tabindex', '0');
+    tab.setAttribute('aria-label', t.ot.aria);
+    refade(tab, animate);
+    const host = $('#ot');
+    wireRows(host, tab, 'tbody tr[data-k]', OT, (i, tr) => {
+      const k = tr.dataset.k, r = M.kpis.find(x => x.k === k) || M.costs.find(x => x.k === k), o = offsetIn(host, tr);
+      if (r.cost) {
+        placeTip(host, tipNodes(t.ot.cost[k], [
+          { value: usd(r.v, 1), label: t.ot.tip.w44 }, { value: usd(r.plan, 1), label: t.ot.tip.plan }, { value: usd(r.p, 1), label: t.ot.tip.w43 },
+          { value: usdP(r.d, 1), label: t.ot.tip.chg }], r.com), o.x + o.w * .45, o.y, o.y + o.h);
+      } else {
+        const nm = t.ot.rows[k];
+        placeTip(host, tipNodes(`${nm[0]} (${nm[1]})`, [
+          { value: r.fmt(r.v) + (r.unit || ''), label: t.ot.tip.w44 }, { value: `${r.rfmt(r.r[0])} – ${r.rfmt(r.r[1])}`, label: t.ot.tip.range },
+          { value: t.ot.st[r.st], label: t.ot.tip.pos }, { value: r.fmt(r.p) + (r.unit || ''), label: t.ot.tip.w43 }, { value: r.chg(r.d), label: t.ot.tip.chg }], r.com), o.x + o.w * .45, o.y, o.y + o.h);
+      }
+    });
+    $('#n1').textContent = t.n1;
+  }
+
+  /* ================= 그림 1: 공장별 생산 대 계획(만드는 법에서도 같은 함수로 그린다) ================= */
+  const F1 = { i: 0 };
+  function f1Facts(sc = state.scope) {
+    const f = shortFacts(sc), w = f.short[0], b = f.over.slice().sort((a, b2) => gapOf(b2) - gapOf(a))[0];
+    return { n: f.short.length, short: volAbs(f.shortSum), worst: w ? millShort(w) : '', wv: w ? volAbs(gapOf(w)) : '', rest: f.ms.length - f.short.length, over: volAbs(f.overSum), best: b ? millShort(b) : '', bv: b ? volAbs(gapOf(b)) : '' };
+  }
+  function renderF1(animate) {
+    const t = L();
+    $('#f1Title').textContent = glue(t.f1.title(f1Facts()));
+    $('#f1Cht').replaceChildren(t.f1.cht[0] + ' ', h('span', { text: t.f1.cht[1] }));
+    keyItems($('#f1Keys'), [['bar', C.bad, t.f1.keys[0]], ['bar', C.other, t.f1.keys[1]], ['tick', C.ink, t.f1.keys[2]]]);
+    drawF1('#f1Plot', '#f1', { animate, key: 'f1' });
+    const ms = byGap(millsIn());
+    $('#f1Table').replaceChildren(srTable(`${t.f1.label}. ${$('#f1Title').textContent}`, [KO() ? '공장' : 'Mill', t.f1.tip.prod, t.f1.tip.plan, t.f1.tip.gap],
+      ms.map(m => [millName(m), volN(m.prod[LAST]), volN(m.plan), volP(gapOf(m))])));
+  }
+  function drawF1(plotSel, paneSel, opts = {}) {
+    const host = $(plotSel), pane = $(paneSel), t = L(), generic = opts.mode === 'without';
+    const W = Math.max(260, host.clientWidth), ms = generic ? millsIn().slice().sort((a, b) => a.en.localeCompare(b.en)) : byGap(millsIn());
+    const n = ms.length;
+    const font = `400 13px ${fam(host)}`;
+    const nameW = Math.ceil(Math.max(...ms.map(m => textW(KO() ? `${m.ko} (${m.st})` : `${m.en} (${m.st})`, font)))) + 14;
+    const gapW = generic ? 0 : (KO() ? 54 : 50), valW = 40, axisH = 24, top = 2;
+    host.style.minHeight = (n * 34 + axisH + top) + 'px';   // 한 단으로 쌓일 때도 공장 수만큼의 높이를 갖는다
+    let H = host.clientHeight;
+    if (!H || H < n * 26 + axisH) H = n * 34 + axisH + top;
+    host._w = Math.round(host.clientWidth); host._h = Math.round(host.clientHeight);
+    const x0 = nameW, x1 = W - gapW - valW;
+    const max = Math.max(...ms.map(m => Math.max(m.prod[LAST], m.plan)));
+    const ticks = niceTicks(0, max, 4);
+    const dmax = ticks[ticks.length - 1];
+    const X = v => x0 + (v / dmax) * (x1 - x0);
+    const rowH = (H - axisH - top) / n, bh = Math.max(10, Math.min(20, rowH * .52));
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': t.f1.aria });
+    const L1 = sv('g', { class: opts.layers ? 'layer' : null, 'data-step': 1 });
+    const L2 = sv('g', { class: opts.layers ? 'layer' : null, 'data-step': 2 });
+    const L3 = sv('g', { class: opts.layers ? 'layer' : null, 'data-step': 3 });
+    const L4 = sv('g', { class: opts.layers ? 'layer' : null, 'data-step': 4 });
+    const hl = sv('rect', { class: 'row-on', x: 0, width: W, height: rowH, y: 0, visibility: 'hidden' });
+    svg.append(hl);
+    // 1 · 틀: 격자, 축(만 fbm 또는 MMfbm), 공장 이름
+    for (const v of ticks) {
+      L1.append(sv('line', { x1: X(v), x2: X(v), y1: top, y2: H - axisH, stroke: generic ? '#cccccc' : C.grid, 'stroke-width': 1 }));
+      L1.append(sv('text', { class: 'ax', x: X(v), y: H - axisH + 16, 'text-anchor': 'middle' }, KO() ? nf(v * 100, 0) : nf(v, generic ? 1 : 0)));
+    }
+    L1.append(sv('line', { x1: x0, x2: x0, y1: top, y2: H - axisH, stroke: C.base, 'stroke-width': 1 }));
+    ms.forEach((m, i) => {
+      const cy = top + rowH * (i + .5);
+      L1.append(sv('text', { class: 'nm', x: 0, y: cy + 4.5 }, KO() ? m.ko : m.en, sv('tspan', { class: 'st', dx: 4 }, `(${m.st})`)));
+    });
+    // 2 · 계획: 공장마다 계획 자리에 2px 눈금
+    // 3 · 막대: 계획 미달은 흙주황, 나머지는 warm-grey. 명세 없이 그리면 공장마다 다른 색
+    // 4 · 값: 막대 끝에 생산, 오른쪽 끝에 계획 대비(괄호)
+    ms.forEach((m, i) => {
+      const cy = top + rowH * (i + .5), g = gapOf(m), below = g < 0;
+      const fill = generic ? C.generic[i % C.generic.length] : (below ? C.bad : C.other);
+      const bar = sv('rect', { x: x0, y: cy - bh / 2, width: Math.max(1, X(m.prod[LAST]) - x0), height: bh, fill, class: animOK(opts.animate) ? 'growx' : null, style: animOK(opts.animate) ? { animationDelay: (i * 40) + 'ms' } : null });
+      L3.append(bar);
+      if (!generic) {
+        L2.append(sv('line', { x1: X(m.plan), x2: X(m.plan), y1: cy - bh / 2 - 4, y2: cy + bh / 2 + 4, stroke: C.ink, 'stroke-width': 2 }));
+        L4.append(sv('text', { class: 'lb', x: Math.max(X(m.prod[LAST]), X(m.plan)) + 6, y: cy + 4.5 }, volN(m.prod[LAST])));
+        L4.append(sv('text', { class: 'lb b' + (below ? ' bad' : ''), x: W, y: cy + 4.5, 'text-anchor': 'end' }, volP(g)));
+      } else {
+        L4.append(sv('text', { class: 'lb', x: X(m.prod[LAST]) + 6, y: cy + 4.5 }, nf(m.prod[LAST], 2)));
+      }
+    });
+    svg.append(L1, L2, L3, L4);
+    if (!opts.layers && !generic) {
+      // 줄 고르기: 마우스·키보드
+      const rows = ms.map((m, i) => sv('rect', { class: 'hit', x: 0, y: top + rowH * i, width: W, height: rowH, 'data-i': i }));
+      svg.append(...rows);
+      const show = i => {
+        if (i < 0) { hl.setAttribute('visibility', 'hidden'); hideTip(pane); return; }
+        F1.i = i; hl.setAttribute('y', top + rowH * i); hl.setAttribute('visibility', 'visible');
+        const m = ms[i], g = gapOf(m), tt = t.f1.tip, hr = host.getBoundingClientRect(), pr = pane.getBoundingClientRect();
+        const ox = hr.left - pr.left, oy = hr.top - pr.top;
+        const cause = CAUSE[m.id] ? m.note[state.lang] : null;
+        placeTip(pane, tipNodes(millName(m), [
+          { key: g < 0 ? C.bad : C.other, value: volU(m.prod[LAST]), label: tt.prod }, { value: volU(m.plan), label: tt.plan },
+          { value: `${volP(g)} · ${pctP(g / m.plan * 100)}`, label: tt.gap }, { value: volU(m.prod[PREV]), label: tt.w43 }], cause), ox + Math.max(X(m.prod[LAST]), X(m.plan)), oy + top + rowH * i, oy + top + rowH * (i + 1));
+      };
+      svg.addEventListener('pointermove', e => { const r = e.target.closest('.hit'); if (r) show(Number(r.dataset.i)); });
+      svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== host) show(-1); });
+      host.onfocus = () => show(Math.min(F1.i, n - 1));
+      host.onblur = () => show(-1);
+      host.onkeydown = e => { const i = keyStep(e, F1.i, n); if (i === null) return; show(i); if (i >= 0) say(`${millName(ms[i])}: ${volU(ms[i].prod[LAST])}, ${t.f1.tip.gap} ${volP(gapOf(ms[i]))}`); };
+      host.setAttribute('aria-label', t.f1.aria);
+    }
+    host.replaceChildren(svg);
+  }
+
+  /* ================= 결론 띠 ================= */
+  function renderBands() {
+    const t = L(), sc = state.scope, A = S(), f = shortFacts();
+    // 01: 생산이 계획보다 얼마나, 가장 많이 못 미친 두 곳의 원인
+    const gap = rnd(A.prod[LAST] - A.plan, 1), top2 = f.short.filter(m => CAUSE[m.id]).slice(0, 2);
+    const s2 = rnd(sum(top2.map(gapOf)), 1);
+    const causes = top2.length ? joinL(top2.map(m => CAUSE[m.id][state.lang])) : '';
+    $('#tw1').textContent = glue(t.tw1({ lead: t.lead[sc], gap: volAbs(gap), below: gap < 0, causes, sum: volAbs(s2) }));
+    // 02: 회수율을 가장 많이 잃은 공장
+    const lrfDrop = millsIn().map(m => ({ m, d: rnd(m.lrf[PREV] - m.lrf[LAST], 0) })).filter(x => x.d >= 3 && CAUSE[x.m.id]).sort((a, b) => b.d - a.d)[0];
+    const gLow = millsIn().filter(m => m.grade[LAST] < m.gT[0] - 1e-9).sort((a, b) => (a.grade[LAST] - a.gT[0]) - (b.grade[LAST] - b.gT[0]))[0];
+    $('#tw2').textContent = glue(lrfDrop ? t.tw2({ mill: millShort(lrfDrop.m), d: nf(lrfDrop.d), cause: KO() ? CAUSE[lrfDrop.m.id].ko.replace(/^.*의 /, '') : CAUSE[lrfDrop.m.id].en.replace(/ at .*$/, ' fault'), fix: t.fix[lrfDrop.m.id] || '' })
+      : gLow ? t.tw2({ gmill: millShort(gLow), g: pct(gLow.grade[LAST]), lo: gLow.gT[0], fix: t.fix[gLow.id] || '' }) : t.tw2({}));
+    // 03: 수종별 재고 일수와 가동 일정
+    const lg = ledgerFacts();
+    $('#tw3').textContent = glue(t.tw3({ all: sc === 'all', sp: sc, spf: daysU(DATA.scopes.spf.invDays[LAST]), syp: daysU(DATA.scopes.syp.invDays[LAST]), down: volAbs(lg.spfDown), add: volAbs(lg.sypAdd) }));
+    // 04: 현금 원가와 계획 대비
+    $('#tw4').textContent = glue(t.tw4({ lead: sc === 'all' ? (KO() ? '전체' : 'All mills’') : sc.toUpperCase(), c: nf(A.cash[LAST], 0), ap: nf(A.cash[LAST] - A.cashPlan, 0), why: t.tw4why[sc] }));
+  }
+  /* ================= 표 1: 공장별 실적(IR 표: 세이지 머리줄, 오른쪽으로 짙어지는 칸, 모래색 Comments) ================= */
+  const T1 = { i: 0 };
+  function aggOf(ms) {
+    const prod = rnd(sum(ms.map(m => m.prod[LAST])), 1), p43 = rnd(sum(ms.map(m => m.prod[PREV])), 1), plan = rnd(sum(ms.map(m => m.plan)), 1);
+    const lrf = rnd(prod * 1e6 / sum(ms.map(m => m.prod[LAST] * 1e6 / m.lrf[LAST])), 1), grade = rnd(sum(ms.map(m => m.prod[LAST] * m.grade[LAST])) / prod, 1);
+    const inv = sum(ms.map(m => m.inv[LAST])), ship = sum(ms.map(m => m.ship[LAST]));
+    return { prod, p43, plan, gap: rnd(prod - plan, 1), lrf, grade, days: rnd(inv / (ship / 7), 1), ship: rnd(ship, 1), inv: rnd(inv, 1), cap: rnd(sum(ms.map(m => m.cap)), 1) };
+  }
+  function t1Facts() {
+    const ms = millsIn(), days = sp => { const v = millsIn(sp).map(m => invDaysOf(m)); return [nf(Math.min(...v), 1), nf(Math.max(...v), 1)]; };
+    return {
+      sp: state.scope, triple: byGap(ms).filter(m => gapOf(m) < 0 && m.lrf[LAST] < m.lrfT[0] && m.grade[LAST] < m.gT[0] - 1e-9).map(millShort),
+      short: byGap(ms).filter(m => gapOf(m) < 0).map(millShort), spf: days('spf'), syp: days('syp')
+    };
+  }
+  function vpBar(g, span = 2) {
+    const s = sv('svg', { viewBox: '0 0 58 12', 'aria-hidden': 'true' }), c = 29, w = Math.min(1, Math.abs(g) / span) * 28;
+    s.append(sv('line', { x1: c, x2: c, y1: 0, y2: 12, stroke: '#7a7a7a', 'stroke-width': 1 }));
+    if (Math.abs(g) >= .05) s.append(sv('rect', { x: g < 0 ? c - w : c, y: 2, width: Math.max(1.5, w), height: 8, fill: g < 0 ? C.badMark : '#595959' }));
+    return s;
+  }
+  function renderT1(animate) {
+    const t = L(), tt = t.t1, sc = state.scope;
+    $('#t1Title').textContent = glue(tt.title(t1Facts()));
+    $('#t1Cht').replaceChildren(tt.cht[0] + ' ', h('span', { text: tt.cht[1] }));
+    // IR 표처럼 머리줄은 한 줄. 단위는 차트 제목에 적고, 좁은 폭에서는 열을 줄인다
+    const c = tt.cols, hc = ['', '', 'h-w43', 'h-plan', '', 'h-lrf', 'h-grade', 'h-inv', 'cm h-cm'];
+    const head = h('thead', null, h('tr', null, c.map((x, i) => h('th', { scope: 'col', class: (i === 0 ? 'lab' : hc[i]) || null, text: x }))));
+    const flag = (v, lo, d) => v < lo - 1e-9 ? [h('span', { class: 'flag', 'aria-hidden': 'true', text: '▼' }), nf(v, d)] : nf(v, d);
+    const row = (cls, label, a, extra = {}) => {
+      const lrfLo = extra.lrfLo, gLo = extra.gLo;
+      const lrfBad = lrfLo != null && a.lrf < lrfLo - 1e-9, gBad = gLo != null && a.grade < gLo - 1e-9;
+      return h('tr', { class: cls, 'data-id': extra.id || '', 'data-say': `${extra.say || txt(label)}: ${volU(a.prod)}, ${tt.tip.gap} ${volP(a.gap)}` },
+        h('th', { class: 'c0 lab', scope: 'row' }, label),
+        h('td', { class: 'c1' }, volN(a.prod)),
+        h('td', { class: 'c2 h-w43' }, volN(a.p43)),
+        h('td', { class: 'c3 h-plan' }, volN(a.plan)),
+        h('td', { class: 'c4 vp' }, h('span', { class: 'mt-vp' }, vpBar(a.gap), h('span', { class: a.gap < 0 ? 'bad' : '', text: volP(a.gap) }))),
+        h('td', { class: 'c1 h-lrf' + (lrfBad ? ' bad' : '') }, extra.mill ? flag(a.lrf, lrfLo, 0) : nf(a.lrf, 1)),
+        h('td', { class: 'c2 h-grade' + (gBad ? ' bad' : '') }, extra.mill ? flag(a.grade, gLo, 1) : nf(a.grade, 1)),
+        h('td', { class: 'c3 h-inv' }, nf(a.days, 1)),
+        h('td', { class: 'cm h-cm', text: extra.note || '' }));
+    };
+    const rows = [];
+    const groups = sc === 'all' ? ['spf', 'syp'] : [sc];
+    for (const sp of groups) {
+      const ms = byGap(millsIn(sp)), a = aggOf(ms);
+      rows.push(row('grp', t.scopes[sp], a, { id: sp }));
+      for (const m of ms) {
+        const a1 = { prod: m.prod[LAST], p43: m.prod[PREV], plan: m.plan, gap: gapOf(m), lrf: m.lrf[LAST], grade: m.grade[LAST], days: invDaysOf(m) };
+        rows.push(row('mill', [millShort(m), h('span', { class: 'st', text: `(${m.st})` })], a1, { id: m.id, say: millName(m), mill: true, lrfLo: m.lrfT[0], gLo: m.gT[0], note: m.note[state.lang] }));
+      }
+    }
+    if (sc === 'all') rows.push(row('tot', tt.total(DATA.mills.length), aggOf(DATA.mills), { id: 'all' }));
+    const tab = h('table', { class: 'wt mt-t', tabindex: 0, 'aria-label': `${tt.label}. ${$('#t1Title').textContent}` }, h('caption', { class: 'sr-only', text: `${tt.label}. ${$('#t1Title').textContent}` }), head, h('tbody', null, rows));
+    $('#t1Wrap').replaceChildren(tab);
+    refade(tab, animate);
+    const host = $('#t1');
+    wireRows(host, tab, 'tbody tr', T1, (i, tr) => {
+      const id = tr.dataset.id, m = MILL[id], o = offsetIn(host, tr);
+      const a = m ? { prod: m.prod[LAST], plan: m.plan, gap: gapOf(m), p43: m.prod[PREV], ship: m.ship[LAST], op: rnd(m.prod[LAST] / m.cap * 100, 1), lrf: m.lrf[LAST], grade: m.grade[LAST], inv: m.inv[LAST], days: invDaysOf(m) }
+        : (() => { const x = aggOf(id === 'all' ? DATA.mills : millsIn(id)); return { ...x, op: rnd(x.prod / x.cap * 100, 1) }; })();
+      const head = m ? millName(m) : (id === 'all' ? tt.total(DATA.mills.length) : t.scopes[id]);
+      placeTip(host, tipNodes(head, [
+        { value: volU(a.prod), label: tt.tip.prod }, { value: volU(a.plan), label: tt.tip.plan }, { value: `${volP(a.gap)} · ${pctP(a.gap / a.plan * 100)}`, label: tt.tip.gap },
+        { value: volU(a.p43), label: tt.tip.w43 }, { value: volU(a.ship), label: tt.tip.ship }, { value: pct(a.op), label: tt.tip.op },
+        { value: `${nf(a.lrf, m ? 0 : 1)} fbm/m³${m ? ` · ${tt.tip.target} ${m.lrfT[0]}–${m.lrfT[1]}` : ''}`, label: tt.tip.lrf },
+        { value: `${pct(a.grade)}${m ? ` · ${tt.tip.target} ${m.gT[0]}–${m.gT[1]}%` : ''}`, label: tt.tip.grade },
+        { value: `${volU(a.inv)} · ${daysU(a.days)}`, label: tt.tip.inv }], m ? m.note[state.lang] : null), o.x + Math.min(o.w * .45, 360), o.y, o.y + o.h);
+    });
+  }
+
+  /* ================= 그림 2: 목표 대비 회수율과 등급(점 표). 띠의 아래 끝과의 차이 ================= */
+  const F2 = { i: 0 };
+  function f2Facts() {
+    const ms = millsIn();
+    const lrfBelow = ms.filter(m => m.lrf[LAST] < m.lrfT[0]).sort((a, b) => (a.lrf[LAST] - a.lrfT[0]) - (b.lrf[LAST] - b.lrfT[0]));
+    const gBelow = ms.filter(m => m.grade[LAST] < m.gT[0] - 1e-9).sort((a, b) => (a.grade[LAST] - a.gT[0]) - (b.grade[LAST] - b.gT[0]));
+    const lw = lrfBelow[0];
+    const both = lw && gBelow.includes(lw) ? { name: millShort(lw), lrf: nf(lw.lrf[LAST]), g: pct(lw.grade[LAST]) } : null;
+    const grades = gBelow.filter(m => !both || m !== lw).map(m => ({ name: millShort(m), g: pct(m.grade[LAST]) }));
+    return { both, lrf: lw && !both ? { name: millShort(lw), v: nf(lw.lrf[LAST]), gap: nf(lw.lrfT[0] - lw.lrf[LAST]) } : null, grades, lrfOk: lrfBelow.length === 1 && ms.length > 1 && !!both, lrfAll: lrfBelow.length === 0 };
+  }
+  function f2Order() {
+    const score = m => Math.max(0, (m.lrfT[0] - m.lrf[LAST]) / (m.lrfT[1] - m.lrfT[0])) + Math.max(0, (m.gT[0] - m.grade[LAST]) / (m.gT[1] - m.gT[0]));
+    return millsIn().slice().sort((a, b) => score(b) - score(a) || ((a.lrf[LAST] - a.lrfT[0]) - (b.lrf[LAST] - b.lrfT[0])) || a.en.localeCompare(b.en));
+  }
+  function renderF2(animate) {
+    const t = L();
+    $('#f2Title').textContent = glue(t.f2.title(f2Facts()));
+    $('#f2Cht').replaceChildren(t.f2.cht[0] + ' ', h('span', { text: t.f2.cht[1] }));
+    keyItems($('#f2Keys'), [['dot', C.bad, t.f2.keys[0]], ['dot', C.ink, t.f2.keys[1]], ['band', null, t.f2.keys[2]]]);
+    $('#f2Note').textContent = t.f2.note;
+    drawF2(animate);
+    const ms = f2Order();
+    $('#f2Table').replaceChildren(srTable(`${t.f2.label}. ${$('#f2Title').textContent}`, [KO() ? '공장' : 'Mill', 'LRF', t.f2.tip.target, '#2&Btr', t.f2.tip.target],
+      ms.map(m => [millName(m), nf(m.lrf[LAST]), `${m.lrfT[0]}–${m.lrfT[1]}`, pct(m.grade[LAST]), `${m.gT[0]}–${m.gT[1]}%`])));
+  }
+  function drawF2(animate) {
+    const host = $('#f2Plot'), pane = $('#f2'), t = L(), ms = f2Order(), n = ms.length;
+    // 넓으면 회수율과 등급을 나란히, 좁으면(600px 미만) 위아래로 쌓고 공장 이름을 다시 적는다
+    const stack = host.clientWidth < 600;
+    const headH = 20, axisH = 22, padR = 40, rowH = stack ? 30 : 34, blockH = n * rowH + headH + axisH, gapB = 20;
+    const H = stack ? blockH * 2 + gapB : blockH;
+    host.style.height = H + 'px';
+    const W = Math.max(280, host.clientWidth), gapC = W > 900 ? 64 : 16;
+    host._w = Math.round(host.clientWidth); host._h = Math.round(host.clientHeight);
+    const font = `400 13px ${fam(host)}`;
+    const nameW = Math.ceil(Math.max(...ms.map(m => textW(KO() ? `${m.ko} (${m.st})` : `${m.en} (${m.st})`, font)))) + 14;
+    const colW = stack ? W - nameW : (W - nameW - gapC) / 2;
+    const cols = [
+      { dom: [-12, 8], band: m => [0, m.lrfT[1] - m.lrfT[0]], v: m => m.lrf[LAST] - m.lrfT[0], lab: m => nf(m.lrf[LAST]), bad: m => m.lrf[LAST] < m.lrfT[0], ticks: [-10, -5, 0, 5] },
+      { dom: [-3, 3], band: m => [0, m.gT[1] - m.gT[0]], v: m => m.grade[LAST] - m.gT[0], lab: m => nf(m.grade[LAST], 1), bad: m => m.grade[LAST] < m.gT[0] - 1e-9, ticks: [-2, 0, 2] }
+    ].map((c, ci) => Object.assign(c, { x: stack ? nameW : nameW + ci * (colW + gapC), y: stack ? ci * (blockH + gapB) : 0 }));
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': t.f2.aria });
+    const hls = (stack ? cols : [cols[0]]).map(cl => { const r = sv('rect', { class: 'row-on', x: 0, width: W, height: rowH, y: cl.y, visibility: 'hidden' }); svg.append(r); return r; });
+    const rowY = (cl, i) => cl.y + headH + rowH * i;
+    cols.forEach((cl, ci) => {
+      // 값 글자는 점 바로 옆: 목표 아래면 점의 왼쪽, 아니면 띠나 점의 오른쪽(그래서 오른쪽에 글자 자리를 남긴다)
+      const X = v => cl.x + (Math.max(cl.dom[0], Math.min(cl.dom[1], v)) - cl.dom[0]) / (cl.dom[1] - cl.dom[0]) * (colW - padR);
+      cl.X = X;
+      const y0 = cl.y + headH, y1 = cl.y + headH + n * rowH;
+      svg.append(sv('text', { class: 'ax', x: stack ? 0 : cl.x, y: cl.y + 13, style: { fontWeight: 600, fill: C.ink } }, t.f2.cols[ci]));
+      for (const v of cl.ticks) {
+        svg.append(sv('line', { x1: X(v), x2: X(v), y1: y0, y2: y1, stroke: v === 0 ? C.sage : C.grid, 'stroke-width': 1 }));
+        svg.append(sv('text', { class: 'ax', x: X(v), y: y1 + 15, 'text-anchor': 'middle' }, v > 0 ? `+${v}` : v < 0 ? `−${-v}` : '0'));
+      }
+      ms.forEach((m, i) => {
+        const cy = rowY(cl, i) + rowH / 2, bh = Math.min(16, rowH * .5);
+        if (stack || ci === 0) svg.append(sv('text', { class: 'nm', x: 0, y: cy + 4.5 }, KO() ? m.ko : m.en, sv('tspan', { class: 'st', dx: 4 }, `(${m.st})`)));
+        const [b0, b1] = cl.band(m);
+        svg.append(sv('rect', { x: X(b0), y: cy - bh / 2, width: X(b1) - X(b0), height: bh, fill: '#e1ebdf', stroke: C.sage300 }));
+        const bad = cl.bad(m), x = X(cl.v(m)), left = cl.v(m) < 0;
+        svg.append(sv('circle', { cx: x, cy, r: 5.5, fill: bad ? C.bad : C.ink, class: animOK(animate) ? 'fade' : null }));
+        svg.append(sv('text', { class: 'lb' + (bad ? ' bad b' : ''), x: left ? x - 10 : Math.max(x, X(b1)) + 10, y: cy + 4.5, 'text-anchor': left ? 'end' : 'start' }, cl.lab(m)));
+      });
+    });
+    const hits = (stack ? cols : [cols[0]]).flatMap(cl => ms.map((m, i) => sv('rect', { class: 'hit', x: 0, y: rowY(cl, i), width: W, height: rowH, 'data-i': i })));
+    svg.append(...hits);
+    const show = i => {
+      if (i < 0) { hls.forEach(r => r.setAttribute('visibility', 'hidden')); hideTip(pane); return; }
+      F2.i = i;
+      hls.forEach((r, k) => { r.setAttribute('y', rowY(stack ? cols[k] : cols[0], i)); r.setAttribute('visibility', 'visible'); });
+      const m = ms[i], tt = t.f2.tip, hr = host.getBoundingClientRect(), pr = pane.getBoundingClientRect();
+      placeTip(pane, tipNodes(millName(m), [
+        { key: m.lrf[LAST] < m.lrfT[0] ? C.bad : C.ink, value: `${nf(m.lrf[LAST])} fbm/m³`, label: tt.lrf }, { value: `${m.lrfT[0]}–${m.lrfT[1]}`, label: tt.target }, { value: numP(m.lrf[LAST] - m.lrfT[0], 0), label: tt.gap },
+        { key: m.grade[LAST] < m.gT[0] ? C.bad : C.ink, value: pct(m.grade[LAST]), label: tt.grade }, { value: `${m.gT[0]}–${m.gT[1]}%`, label: tt.target }, { value: ptsP(m.grade[LAST] - m.gT[0]), label: tt.gap }]),
+        hr.left - pr.left + cols[0].X(cols[0].v(m)), hr.top - pr.top + rowY(cols[0], i), hr.top - pr.top + rowY(cols[0], i + 1));
+    };
+    svg.addEventListener('pointermove', e => { const r = e.target.closest('.hit'); if (r) show(Number(r.dataset.i)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== host) show(-1); });
+    host.onfocus = () => show(Math.min(F2.i, n - 1));
+    host.onblur = () => show(-1);
+    host.onkeydown = e => { const i = keyStep(e, F2.i, n); if (i === null) return; show(i); if (i >= 0) say(`${millName(ms[i])}: LRF ${nf(ms[i].lrf[LAST])}, #2&Btr ${pct(ms[i].grade[LAST])}`); };
+    host.setAttribute('aria-label', t.f2.aria);
+    host.replaceChildren(svg);
+  }
+
+
+  /* ================= 그림 3 · 5: 연차보고서식 13주 막대. 지난 주는 warm-grey, 이번 주만 초록, 목표 띠나 계획 점선 ================= */
+  function drawWeeks(host, pane, cfg, animate) {
+    const t = L(), vals = cfg.vals, n = vals.length, line = !!cfg.line;
+    const W = Math.max(220, host.clientWidth);
+    let H = host.clientHeight; if (!H || H < 150) H = 210;
+    host._w = Math.round(host.clientWidth); host._h = Math.round(host.clientHeight);
+    const top = 10, axisH = 22, axW = 32, right = 8;
+    const ticks = niceTicks(cfg.domain[0], cfg.domain[1], 4);
+    const lo = ticks[0], hi = ticks[ticks.length - 1];
+    const Y = v => top + (1 - (v - lo) / (hi - lo)) * (H - top - axisH);
+    const bw = (W - axW - right) / n, barW = Math.max(6, bw * .62);
+    const Xc = i => axW + bw * (i + .5);
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': cfg.aria });
+    if (cfg.band) {
+      svg.append(sv('rect', { x: axW, y: Y(cfg.band[1]), width: W - axW - right, height: Y(cfg.band[0]) - Y(cfg.band[1]), fill: C.sage50 }));
+      for (const b of cfg.band) svg.append(sv('line', { x1: axW, x2: W - right, y1: Y(b), y2: Y(b), stroke: C.comparison, 'stroke-width': 1, 'stroke-dasharray': '4 3' }));
+    }
+    for (const v of ticks) {
+      svg.append(sv('line', { x1: axW, x2: W - right, y1: Y(v), y2: Y(v), stroke: v === lo && !line ? C.base : C.grid, 'stroke-width': 1 }));
+      svg.append(sv('text', { class: 'ax', x: axW - 6, y: Y(v) + 4, 'text-anchor': 'end' }, cfg.tick(v)));
+    }
+    const hl = sv('rect', { class: 'row-on', y: top, width: bw, height: H - top - axisH, x: 0, visibility: 'hidden' }); svg.append(hl);
+    vals.forEach((v, i) => { if (i % 2 === 0 || i === n - 1) svg.append(sv('text', { class: 'ax', x: Xc(i), y: H - axisH + 15, 'text-anchor': 'middle' }, String(DATA.weeks[i]))); });
+    if (cfg.plan != null) svg.append(sv('line', { x1: axW, x2: W - right, y1: Y(cfg.plan), y2: Y(cfg.plan), stroke: C.comparison, 'stroke-width': 1.6, 'stroke-dasharray': '5 4' }));
+    if (line) {
+      // 선: 지난 주는 회녹색 선, 이번 주로 오르는 마지막 구간과 점만 초록(연차보고서의 '올해만 초록'을 선으로)
+      const pts = vals.map((v, i) => `${Xc(i).toFixed(1)},${Y(v).toFixed(1)}`);
+      const hist = sv('polyline', { points: pts.slice(0, n - 1).join(' '), fill: 'none', stroke: C.hist, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+      const last = sv('polyline', { points: pts.slice(n - 2).join(' '), fill: 'none', stroke: C.hero, 'stroke-width': 2.5, 'stroke-linecap': 'round' });
+      const dot = sv('circle', { cx: Xc(n - 1), cy: Y(vals[n - 1]), r: 4.5, fill: C.hero, stroke: C.plot, 'stroke-width': 2 });
+      if (animOK(animate)) { [hist, last, dot].forEach(el => el.classList.add('fade')); }
+      svg.append(hist, last, dot);
+    } else {
+      vals.forEach((v, i) => {
+        const cur = i === n - 1;
+        svg.append(sv('rect', { x: Xc(i) - barW / 2, y: Y(v), width: barW, height: Y(lo) - Y(v), fill: cur ? C.hero : C.other, class: animOK(animate) ? 'grow' : null, style: animOK(animate) ? { animationDelay: (i * 25) + 'ms' } : null }));
+      });
+    }
+    const hits = vals.map((v, i) => sv('rect', { class: 'hit', x: Xc(i) - bw / 2, y: top, width: bw, height: H - top - axisH, 'data-i': i }));
+    svg.append(...hits);
+    const cur = host._cur || (host._cur = { i: n - 1 });
+    const show = i => {
+      if (i < 0) { hl.setAttribute('visibility', 'hidden'); hideTip(pane); return; }
+      cur.i = i; hl.setAttribute('x', Xc(i) - bw / 2); hl.setAttribute('visibility', 'visible');
+      const hr = host.getBoundingClientRect(), pr = pane.getBoundingClientRect();
+      placeTip(pane, tipNodes(`${cfg.name} · ${t.wk(DATA.weeks[i])}`, cfg.tip(i)), hr.left - pr.left + Xc(i), hr.top - pr.top + Y(vals[i]) - (line ? 6 : 0), hr.top - pr.top + (line ? Y(vals[i]) + 6 : Y(lo)));
+    };
+    svg.addEventListener('pointermove', e => { const r = e.target.closest('.hit'); if (r) show(Number(r.dataset.i)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== host) show(-1); });
+    host.onfocus = () => show(cur.i);
+    host.onblur = () => show(-1);
+    host.onkeydown = e => { const i = keyStep(e, cur.i, n); if (i === null) return; show(i); if (i >= 0) say(`${cfg.name}, ${t.wk(DATA.weeks[i])}: ${cfg.fmt(vals[i])}`); };
+    host.setAttribute('aria-label', cfg.aria);
+    host.replaceChildren(svg);
+  }
+  const smScopes = () => state.scope === 'all' ? ['spf', 'syp'] : [state.scope];
+  function smPanels(sel, make, animate) {
+    const sps = smScopes(), box = $(sel);
+    box.style.setProperty('--n', sps.length);
+    box.replaceChildren(...sps.map(sp => {
+      const c = make(sp);
+      return h('div', { class: 'sm-c' }, h('p', { class: 'sm-h' }, L().scopes[sp], h('span', { text: c.head })), h('div', { class: 'plot', tabindex: 0, role: 'group', 'data-sp': sp }));
+    }));
+    box._draw = a => { box._w = Math.round(box.clientWidth); box._h = Math.round(box.clientHeight); sps.forEach(sp => drawWeeks($(`.plot[data-sp="${sp}"]`, box), box.closest('.panel'), make(sp), a)); };
+    box._draw(animate);
+  }
+  // 작은 그림 여럿은 같은 눈금을 쓴다(수종끼리 높이를 견줄 수 있게)
+  function f3Make(sp) {
+    const t = L(), X = DATA.scopes[sp], mx = Math.max(12, ...smScopes().flatMap(k => DATA.scopes[k].invDays));
+    return {
+      vals: X.invDays, band: X.invR, domain: [0, mx * 1.06], name: t.scopes[sp], head: daysU(X.invDays[LAST]), fmt: v => daysU(v), tick: v => nf(v, 0), aria: t.f3.aria(t.scopes[sp]),
+      tip: i => [{ key: i === LAST ? C.hero : C.other, value: daysU(X.invDays[i]), label: t.f3.tip.days }, { value: volU(X.inv[i]), label: t.f3.tip.vol }, { value: volU(X.ship[i]), label: t.f3.tip.ship }, { value: KO() ? '9~12일' : '9–12 days', label: t.f3.tip.target }]
+    };
+  }
+  function renderF3(animate) {
+    const t = L(), sc = state.scope, sp = DATA.scopes.spf.invDays, sy = DATA.scopes.syp.invDays;
+    const v = { all: sc === 'all', sp: sc, spf: daysU(sp[LAST]), syp: daysU(sy[LAST]), v: daysU(S().invDays[LAST]),
+      ord: sc === 'spf' ? ordW(runUp(sp)) : ordW(runOut(sy, x => x < 9)) };
+    $('#f3Title').textContent = glue(t.f3.title(v));
+    $('#f3Cht').replaceChildren(t.f3.cht[0] + ' ', h('span', { text: t.f3.cht[1] }));
+    keyItems($('#f3Keys'), [['bar', C.hero, t.f3.keys[0]], ['bar', C.other, t.f3.keys[1]], ['tband', null, t.f3.keys[2]]]);
+    $('#f3Note').textContent = glue(t.f3.note({ all: sc === 'all', v: daysU(DATA.scopes.all.invDays[LAST]) }));
+    smPanels('#f3Sm', f3Make, animate);
+    const sps = smScopes();
+    $('#f3Table').replaceChildren(srTable(`${t.f3.label}. ${$('#f3Title').textContent}`, [KO() ? '주' : 'Week', ...sps.map(x => t.scopes[x])],
+      DATA.weeks.map((w, i) => [t.wk(w), ...sps.map(x => daysU(DATA.scopes[x].invDays[i]))])));
+  }
+  function f5Make(sp) {
+    const t = L(), X = DATA.scopes[sp], all = smScopes().flatMap(k => [...DATA.scopes[k].cash, DATA.scopes[k].cashPlan]);
+    const lo = Math.min(...all), hi = Math.max(...all), pad = (hi - lo) * .12;
+    return {
+      line: true, vals: X.cash, plan: X.cashPlan, domain: [lo - pad, hi + pad], name: t.scopes[sp], head: `${usd(X.cash[LAST])} · ${t.f5.tip.plan} ${usd(X.cashPlan)}`,
+      fmt: v => usd(v), tick: v => nf(v, 0), aria: t.f5.aria(t.scopes[sp]),
+      tip: i => [{ key: i === LAST ? C.hero : C.hist, line: true, value: usd(X.cash[i], 1), label: t.f5.tip.cost }, { key: C.comparison, line: true, dash: true, value: usd(X.cashPlan, 1), label: t.f5.tip.plan }, { value: usdP(X.cash[i] - X.cashPlan, 1), label: t.f5.tip.vs }]
+    };
+  }
+  function renderF5(animate) {
+    const t = L(), sc = state.scope;
+    const one = sp => { const X = DATA.scopes[sp]; return { d: nf(X.cash[LAST] - X.cash[PREV], 0), v: nf(X.cash[LAST], 0) }; };
+    $('#f5Title').textContent = glue(t.f5.title({ all: sc === 'all', sp: sc, spf: one('spf'), syp: one('syp'), x: sc === 'all' ? null : one(sc) }));
+    $('#f5Cht').replaceChildren(t.f5.cht[0] + ' ', h('span', { text: t.f5.cht[1] }));
+    keyItems($('#f5Keys'), [['dot', C.hero, t.f5.keys[0]], ['line', C.hist, t.f5.keys[1]], ['dash', C.comparison, t.f5.keys[2]]]);
+    $('#f5Note').textContent = t.f5.note;
+    smPanels('#f5Sm', f5Make, animate);
+    const sps = smScopes();
+    $('#f5Table').replaceChildren(srTable(`${t.f5.label}. ${$('#f5Title').textContent}`, [KO() ? '주' : 'Week', ...sps.map(x => t.scopes[x])],
+      DATA.weeks.map((w, i) => [t.wk(w), ...sps.map(x => usd(DATA.scopes[x].cash[i]))])));
+  }
+
+  /* ================= 대표 장치 3: 증감 장부(가동 일정 변경, 45~48주) ================= */
+  function ledgerFacts() {
+    const E = DATA.ledger;
+    const spfDown = rnd(sum(E.filter(e => e.sp === 'spf' && e.v < 0).map(e => e.v)), 1);
+    const sypAdd = rnd(sum(E.filter(e => e.sp === 'syp' && e.v > 0).map(e => e.v)), 1);
+    const mills = new Set(E.filter(e => e.sp === 'spf' && e.v < 0).map(e => e.mill)).size;
+    return { spfDown, sypAdd, mills };
+  }
+  function renderT2(animate) {
+    const t = L(), tt = t.t2, sc = state.scope, lf = ledgerFacts();
+    $('#t2Title').textContent = glue(tt.title({ all: sc === 'all', sp: sc, spfDown: volAbs(lf.spfDown), sypAdd: volAbs(lf.sypAdd), mills: lf.mills }));
+    $('#t2Cht').replaceChildren(tt.cht[0] + ' ', h('span', { text: tt.cht[1] }));
+    const sps = sc === 'all' ? ['spf', 'syp'] : [sc];
+    const head = h('thead', null, h('tr', null, h('th', { class: 'lab', scope: 'col', text: tt.head[0] }),
+      ...sps.map(sp => h('th', { scope: 'col', class: 'lab', style: { fontStyle: 'normal' }, text: tt.head[sp === 'spf' ? 1 : 2] })),
+      sps.length > 1 ? h('th', { scope: 'col', class: 'h-net', text: tt.head[3] }) : null));
+    const ent = e => {
+      const m = e.mill === 'syp4' ? { id: 'syp4' } : MILL[e.mill];
+      return h('span', { class: 'lg-e' }, h('b', { class: e.v > 0 ? 'good' : 'bad', text: volS(e.v) }), h('span', { class: 'ml', text: millName(m) }), ' ', h('span', { class: 'wh', text: e[state.lang] }));
+    };
+    const weeks = [45, 46, 47, 48];
+    const tint = ['c1', 'c2'];
+    const body = h('tbody', null, weeks.map(w => {
+      const es = DATA.ledger.filter(e => e.wk === w);
+      const net = rnd(sum(es.filter(e => sps.includes(e.sp)).map(e => e.v)), 1);
+      return h('tr', { 'data-wk': w, 'data-say': `${t.wk(w)} ${tt.dates[w]}: ${volS(net)}` }, h('th', { class: 'c0 lab', scope: 'row' }, t.wk(w), h('span', { class: 'dt', text: tt.dates[w] })),
+        ...sps.map((sp, j) => { const xs = es.filter(e => e.sp === sp); return h('td', { class: `${tint[j]} ent` }, xs.length ? xs.map(ent) : h('span', { class: 'lg-none', text: tt.none })); }),
+        sps.length > 1 ? h('td', { class: 'c4 net h-net ' + (net > 0 ? 'good' : net < 0 ? 'bad' : '') }, volS(net)) : null);
+    }), (() => {
+      const tot = sp => rnd(sum(DATA.ledger.filter(e => e.sp === sp).map(e => e.v)), 1);
+      const all = rnd(sum(sps.map(tot)), 1);
+      return h('tr', { class: 'tot', 'data-wk': 'all', 'data-say': `${tt.total}: ${volS(all)}` }, h('th', { class: 'c0 lab', scope: 'row', text: tt.total }),
+        ...sps.map((sp, j) => { const v = tot(sp); return h('td', { class: `${tint[j]} ent` }, h('span', { class: 'lg-e' }, h('b', { class: v > 0 ? 'good' : v < 0 ? 'bad' : '', text: volS(v) }))); }),
+        sps.length > 1 ? h('td', { class: 'c4 net h-net ' + (all > 0 ? 'good' : all < 0 ? 'bad' : '') }, volS(all)) : null);
+    })());
+    const tab = h('table', { class: 'wt lg-t', tabindex: 0, 'aria-label': tt.aria }, h('caption', { class: 'sr-only', text: `${tt.label}. ${$('#t2Title').textContent}` }), head, body);
+    $('#t2Wrap').replaceChildren(tab);
+    refade(tab, animate);
+    // 줄마다: 수종별 합, 순변화, 45주부터 누적
+    const host = $('#t2'), sumOf = (sp, f) => rnd(sum(DATA.ledger.filter(e => e.sp === sp && f(e)).map(e => e.v)), 1);
+    wireRows(host, tab, 'tbody tr', T2, (i, tr) => {
+      const w = tr.dataset.wk, o = offsetIn(host, tr), inW = e => w === 'all' || e.wk === Number(w), upTo = e => w === 'all' || e.wk <= Number(w);
+      const rows = sps.map(sp => ({ value: volS(sumOf(sp, inW)), label: t.scopes[sp] }));
+      const net = rnd(sum(sps.map(sp => sumOf(sp, inW))), 1), cum = rnd(sum(sps.map(sp => sumOf(sp, upTo))), 1);
+      if (sps.length > 1) rows.push({ value: volS(net), label: tt.tip.net });
+      if (w !== 'all') rows.push({ value: volS(cum), label: tt.tip.cum });
+      placeTip(host, tipNodes(w === 'all' ? tt.total : `${t.wk(Number(w))} · ${tt.dates[w]}`, rows), o.x + Math.min(o.w * .3, 220), o.y, o.y + o.h);
+    });
+  }
+  const T2 = { i: 0 }, F4 = { i: 0 };
+
+  /* ================= 그림 4: 현금 원가 증감표(MD&A의 variance 표) ================= */
+  const F4K = ['fibre', 'labour', 'energy', 'maint'];
+  function f4Model() {
+    const A = S(), c0 = A.cash[PREV], c1 = A.cash[LAST];
+    const steps = F4K.map(k => ({ k, d: rnd(A.cost[k].w44 - A.cost[k].w43, 1) }));
+    // 0.1달러로 반올림한 단계의 합이 변화와 맞게, 나머지가 큰 단계부터 조정한다
+    const total = rnd(c1 - c0, 1), diff = rnd(total - sum(steps.map(s => s.d)), 1);
+    if (Math.abs(diff) >= .05) { const big = steps.slice().sort((a, b) => Math.abs(b.d) - Math.abs(a.d))[0]; big.d = rnd(big.d + diff, 1); }
+    return { c0, c1, total, steps };
+  }
+  function renderF4(animate) {
+    const t = L(), tt = t.f4, sc = state.scope, M = f4Model();
+    const top = M.steps.slice().sort((a, b) => Math.abs(b.d) - Math.abs(a.d))[0];
+    $('#f4Title').textContent = glue(tt.title({ up: M.total > 0, d: nf(Math.abs(M.total), 1), c: nf(M.c1, 1), top: KO() ? tt.rows[top.k] : tt.rows[top.k].toLowerCase(), topUp: top.d > 0, tv: nf(Math.abs(top.d), 1) }));
+    $('#f4Cht').replaceChildren(tt.cht[0] + ' ', h('span', { text: tt.cht[1] }));
+    const span = Math.max(...M.steps.map(s => Math.abs(s.d)), 1);
+    const bar = d => {
+      const s = sv('svg', { viewBox: '0 0 96 12', 'aria-hidden': 'true' }), c = 30, w = Math.abs(d) / span * 62;
+      s.append(sv('line', { x1: c, x2: c, y1: 0, y2: 12, stroke: '#7a7a7a', 'stroke-width': 1 }));
+      s.append(sv('rect', { x: d < 0 ? c - Math.min(28, w) : c, y: 2, width: Math.max(1.5, d < 0 ? Math.min(28, w) : w), height: 8, fill: d > 0 ? C.badMark : C.goodTint }));
+      return s;
+    };
+    const why = k => k === 'labour' ? tt.why.labour(volAbs(S().prod[PREV] - S().prod[LAST])) : tt.why[k][sc];
+    const head = h('thead', null, h('tr', null, h('th', { class: 'lab', scope: 'col', colspan: 3, text: tt.head[0] }), h('th', { class: 'cm h-why', scope: 'col', text: tt.head[3] })));
+    const rows = [
+      h('tr', { class: 'tot', 'data-k': 'start', 'data-say': `${tt.rows.start}: ${usd(M.c0, 1)}` }, h('th', { class: 'c0 lab', scope: 'row', text: tt.rows.start }), h('td', { class: 'c1', text: nf(M.c0, 1) }), h('td', { class: 'c2' }), h('td', { class: 'why h-why' })),
+      ...M.steps.map(s => h('tr', { 'data-k': s.k, 'data-say': `${tt.rows[s.k]}: ${usdP(s.d, 1)}` }, h('th', { class: 'c0 lab', scope: 'row', style: { fontWeight: 400, paddingLeft: '22px' }, text: tt.rows[s.k] }),
+        h('td', { class: 'c1 ' + (s.d > 0 ? 'bad' : s.d < 0 ? 'good' : ''), text: numP(s.d, 1) }), h('td', { class: 'c2' }, h('span', { class: 'vt-bar' }, bar(s.d))), h('td', { class: 'why h-why', text: why(s.k) }))),
+      h('tr', { class: 'tot', 'data-k': 'end', 'data-say': `${tt.rows.end}: ${usd(M.c1, 1)}` }, h('th', { class: 'c0 lab', scope: 'row', text: tt.rows.end }), h('td', { class: 'c1', text: nf(M.c1, 1) }), h('td', { class: 'c2' }, h('span', { class: 'vt-bar', style: { fontWeight: 700 } }, h('span', { class: M.total > 0 ? 'bad' : 'good', text: numP(M.total, 1) }))), h('td', { class: 'why h-why' }))
+    ];
+    const tab = h('table', { class: 'wt vt-t', tabindex: 0, 'aria-label': tt.aria }, h('caption', { class: 'sr-only', text: `${tt.label}. ${$('#f4Title').textContent}` }), head, h('tbody', null, rows));
+    $('#f4Wrap').replaceChildren(tab);
+    refade(tab, animate);
+    // 줄마다: 43주와 44주의 그 원가, 변화, 변화 중 비중, 계획
+    const host = $('#f4'), A = S();
+    wireRows(host, tab, 'tbody tr', F4, (i, tr) => {
+      const k = tr.dataset.k, o = offsetIn(host, tr), tp = tt.tip;
+      const rows = k === 'start' || k === 'end'
+        ? [{ value: usd(k === 'start' ? M.c0 : M.c1, 1), label: k === 'start' ? tp.w43 : tp.w44 }, { value: usd(A.cashPlan, 1), label: tp.plan }, { value: usdP((k === 'start' ? M.c0 : M.c1) - A.cashPlan, 1), label: tp.vs }]
+        : (() => { const st = M.steps.find(x => x.k === k), c = A.cost[k]; return [{ value: usd(c.w43, 1), label: tp.w43 }, { value: usd(c.w44, 1), label: tp.w44 }, { value: usdP(st.d, 1), label: tp.chg }, { value: pct(st.d / M.total * 100, 0), label: tp.share }, { value: usd(c.plan, 1), label: tp.plan }]; })();
+      placeTip(host, tipNodes(tt.rows[k], rows, k === 'start' || k === 'end' || !why(k) ? null : why(k)), o.x + Math.min(o.w * .4, 260), o.y, o.y + o.h);
+    });
+  }
+  /* ================= 만드는 법: 프로젝트 폴더 · 그림 1과 점검 · 코드 ================= */
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-1.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  const spCode = () => state.scope === 'all' ? 'all' : state.scope.toUpperCase();
+  function codeLines(kind) {
+    const ko = KO(), sp = spCode(), t = L().f1, ttl = t.title(f1Facts()), rt = t.cht[0], unit = t.cht[1];
+    const c = ko ? { head: '그림 1 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 수종 필터', s1: '1 · 틀: 왼쪽에 공장 이름, 만 fbm 축, 옅은 격자', s2: '2 · 계획: 공장마다 계획 자리에 2px 눈금', s3: '3 · 막대: 계획 미달은 흙주황, 나머지는 회녹색', s4: '4 · 값: 막대 끝에 생산, 오른쪽에 계획 대비(괄호)', s5: '5 · 제목은 결과를 말하고, 차트 제목에 단위', once: '처음 한 번: west-fraser.tps를 Preferences.tps에' }
+      : { head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the species filter above', s1: '1 · frame: mills on the left, MMfbm axis, light grid', s2: '2 · plan: a 2px tick at each mill’s plan', s3: '3 · bars: rust below plan, warm grey for the rest', s4: '4 · values: output at the bar end, the gap on the right', s5: '5 · the title states the finding; the chart title has the unit', once: 'once: paste west-fraser.tps into Preferences.tps' };
+    const q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(16) + v;
+    const J = {
+      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '제재 운영 주간 보고 대시보드를 만들어 줘. 계획 범위와 원가 화살표가 있는 Outlook 표, 공장별 생산 대 계획, IR 표 형식의 공장별 실적, 목표 대비 회수율과 등급, 재고 일수와 앞으로 4주의 가동 일정 장부, 현금 원가 증감으로 짜고, 절마다 결론 띠로 끝내고, 수종 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 1부터 mills.csv의 species "${sp}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
+        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build our lumber operations weekly: an Outlook table of six figures against plan ranges with cost arrows, production against plan by mill, mill results as an IR table, recovery and grade against target, inventory days with a schedule ledger for the next four weeks, and the cash cost variance. Close each section on a takeaway band, with one species filter for every view.'], [0, ''], [0, `Start with Figure 1 from mills.csv for species "${sp}".`], [0, 'Before you finish, run the checks in DASHBOARD.md and list what passed and what to fix.']],
+      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 머리 · westfraser.com의 머리'], [0, kv('제목', 'IR 슬라이드처럼 초록 굵은 보고서 이름')], [0, kv('가격 표시', 'SPF·SYP 2x4, 주가 표시 자리에')], [0, kv('수종 메뉴', '필터, 고른 항목은 연초록 알약 #e5f2eb')], [0, ''], [0, '# 01 · Outlook 표, 그림 1개, 결론 띠'], [0, kv('Outlook', '계획 범위 대비 수치 6줄, 화살표 달린 원가 4줄')], [0, kv('그림 1', '공장별 생산 대 계획 · 미달은 흙주황')], [0, kv('결론 띠', '남색 #39527f, 굵은 흰 문장, 모래색 번호 칸')], [0, ''], [0, '# 02 공장별 실적 · 표 1개, 그림 1개'], [0, kv('표 1', 'IR 표 · 세이지 머리줄, 오른쪽으로 짙어지는 칸')], [0, kv('그림 2', '목표 범위 대비 회수율과 등급 · 점')], [0, ''], [0, '# 03 수요에 맞춘 가동 · 그림 1개, 장부'], [0, kv('그림 3', '재고 일수 · 13주 막대, 이번 주만 초록')], [0, kv('표 2', '가동 일정 장부 · +초록, (녹슨 주황), 45~48주')], [0, ''], [0, '# 04 단위 현금 원가 · 그림 2개'], [0, kv('그림 4', '증감표 · 43주에서 44주, 단계마다 이유')], [0, kv('그림 5', '현금 원가 · 13주 선, 4분기 계획 점선')], [0, ''], [0, '# 수종 필터 하나를 모든 그림에, 한 절에 그림 7개 이하']]
+        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Header · the westfraser.com header'], [0, kv('Title', 'report name in green bold, like an IR slide')], [0, kv('Price ticker', 'SPF and SYP 2x4, where the share price sits')], [0, kv('Species menu', 'the filter, light-green pill #e5f2eb')], [0, ''], [0, '# 01 · the Outlook table, 1 figure, a takeaway band'], [0, kv('Outlook', '6 figures against plan ranges, 4 costs with arrows')], [0, kv('Figure 1', 'production vs plan by mill · rust below plan')], [0, kv('Band', 'navy #39527f, bold italic white, sand number tile')], [0, ''], [0, '# 02 Mill results · 1 table, 1 figure'], [0, kv('Table 1', 'IR table · sage head, tints darker to the right')], [0, kv('Figure 2', 'recovery and grade against target bands · dots')], [0, ''], [0, '# 03 Running to demand · 1 figure, the ledger'], [0, kv('Figure 3', 'inventory days · 13 weekly bars, this week green')], [0, kv('Table 2', 'schedule ledger · +green, (rust), Wk 45–48')], [0, ''], [0, '# 04 Unit cash cost · 2 figures'], [0, kv('Figure 4', 'variance table · Wk 43 to Wk 44, a reason a step')], [0, kv('Figure 5', 'cash cost · 13-week line, Q4 plan dashed')], [0, ''], [0, '# One species filter for every view; at most 7 per section']],
+      js: [
+        [0, `// ${c.head}`], [0, 'import { tokens, fmt, plot, load } from "./dashboard.js";'],
+        [0, `const species = ${q(sp)};${' '.repeat(Math.max(1, 12 - sp.length))}// ${c.filter}`], [0, 'const rows = await load("mills.csv", { species });'], [0, ''],
+        [1, `// ${c.s1}`], [1, 'const fig = plot("#figure-1", { surface: tokens.colors.panel,'], [1, '  grid: { stroke: tokens.colors.line },          // #e6e6e6'], [1, `  x: { format: fmt.volume, ticks: 4 },           // ${ko ? '만 fbm' : 'MMfbm'}`], [1, '  y: { field: "mill", sort: "vs_plan_mmfbm" } });'], [1, ''],
+        [2, `// ${c.s2}`], [2, 'fig.ticks(rows, { x: "plan_mmfbm", width: 2,'], [2, '  stroke: tokens.colors.ink });                  // #333333'], [2, ''],
+        [3, `// ${c.s3}`], [3, 'fig.bars(rows, { x: "production_mmfbm",'], [3, '  fill: r => r.vs_plan_mmfbm < 0'], [3, '    ? tokens.data.below                           // #c06228'], [3, '    : tokens.data.other });                       // #b5c1b7'], [3, ''],
+        [4, `// ${c.s4}`], [4, 'fig.labels({ x: "production_mmfbm", at: "end" });'], [4, 'fig.column("vs_plan_mmfbm", { negative: "parens",'], [4, '  below: tokens.data.belowText });               // #a75016'], [4, ''],
+        [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.chartTitle(${q(rt)}, { unit: ${q(unit)} });`]
+      ],
+      tab: ko ? [
+        [0, '# Tableau · 그림 1 · West Fraser 스타일'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('행', '[mill], SUM([vs_plan_mmfbm]) 오름차순')], [1, kv('열', 'SUM([production_mmfbm]) × 100, #,##0')], [1, kv('격자선', '열, 실선, #e6e6e6')], [1, ''],
+        [2, `# ${c.s2}`], [2, kv('참조선', '셀당, SUM([plan_mmfbm]), 레이블 없음')], [2, kv('선', '실선, 2px, #333333')], [2, ''],
+        [3, `# ${c.s3}`], [3, kv('마크', '막대, 크기 55%')], [3, kv('색상', '[vs_plan_mmfbm] < 0 → #c06228, 나머지 #b5c1b7')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('레이블', '막대 끝, × 100, #,##0')], [4, kv('계획 대비 열', 'SUM([vs_plan_mmfbm]) × 100, #,##0;(#,##0)')], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('부제', q(`${rt} ${unit}`))]
+      ] : [
+        [0, '# Tableau · Figure 1 · West Fraser style'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('Rows', '[mill], sorted by SUM([vs_plan_mmfbm])')], [1, kv('Columns', 'SUM([production_mmfbm]), #,##0')], [1, kv('Grid lines', 'columns, solid, #e6e6e6')], [1, ''],
+        [2, `# ${c.s2}`], [2, kv('Reference line', 'per cell, SUM([plan_mmfbm]), no label')], [2, kv('Line', 'solid, 2px, #333333')], [2, ''],
+        [3, `# ${c.s3}`], [3, kv('Mark type', 'Bar, size 55%')], [3, kv('Color', '[vs_plan_mmfbm] < 0 → #c06228, else #b5c1b7')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('Label', 'bar end, #,##0.0')], [4, kv('vs plan column', 'SUM([vs_plan_mmfbm]), #,##0.0;(#,##0.0)')], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Subtitle', q(`${rt} ${unit}`))]
+      ],
+      pbi: [
+        [0, ko ? '// Power BI · 그림 1 · West Fraser 스타일' : '// Power BI · Figure 1 · West Fraser style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
+        [1, `// ${c.s1}`], [1, ko ? '가로 막대형 차트 · Y축 = mill · X축 = production_mmfbm' : 'Clustered bar chart · Y = mill · X = production_mmfbm'], [1, ko ? '정렬 → vs_plan_mmfbm 오름차순' : 'Sort → vs_plan_mmfbm, ascending'], [1, '"valueAxis": { "gridlineColor": "#e6e6e6", "gridlineStyle": "solid" },'], [1, ''],
+        [2, `// ${c.s2}`], [2, ko ? '오차 막대 → 위·아래 경계 = plan_mmfbm' : 'Error bars → upper and lower bound = plan_mmfbm'], [2, ko ? '표식 → 켜기, 대시, 2px, #333333' : 'Markers → on, dash, 2px, #333333'], [2, ''],
+        [3, `// ${c.s3}`], [3, ko ? '막대 → 색 → fx → 규칙: vs_plan_mmfbm < 0 → #c06228' : 'Bars → Color → fx → rules: vs_plan_mmfbm < 0 → #c06228'], [3, ko ? '                      그 밖 → #b5c1b7' : '                         otherwise → #b5c1b7'], [3, ''],
+        [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 켜기 · 바깥쪽 끝 · × 100, "#,0"' : 'Data labels → on · outside end · "#,0.0"'], [4, ko ? '계획 대비 → 표 열 · × 100, "#,0;(#,0)"' : 'vs plan → table column · "#,0.0;(#,0.0)"'], [4, ''],
+        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(`${rt} ${unit}`)}`]
+      ]
+    };
+    return J[kind];
+  }
+  const KW = { js: 'import|from|const|let|await|async|return|new|true|false' };
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const hexify = s => s.replace(/#[0-9a-fA-F]{6}\b/g, m => `<span class="tk-hex" style="--sw:${m}">${m}</span>`);
+  function commentAt(text, kind) {
+    let q = null;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (q) { if (ch === '\\') { i++; continue; } if (ch === q) q = null; continue; }
+      if (ch === '"' || ch === "'" || ch === '`') { q = ch; continue; }
+      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
+      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+    }
+    return -1;
+  }
+  function highlight(text, kind) {
+    if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
+    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? hexify(esc(m[2])) : highlightCode(m[2], kind)}`; }
+    return highlightCode(text, kind);
+  }
+  function highlightCode(text, kind) {
+    const ci = commentAt(text, kind), code = ci < 0 ? text : text.slice(0, ci), comment = ci < 0 ? '' : text.slice(ci), kw = KW[kind];
+    const re = new RegExp('("(?:[^"\\\\]|\\\\.)*"|\'(?:[^\'\\\\]|\\\\.)*\')|(#[0-9a-fA-F]{6}\\b)|(\\b\\d+(?:\\.\\d+)?\\b)' + (kw ? `|\\b(${kw})\\b` : '|(?!x)x()') + '|([A-Za-z_][\\w.]*)(?=\\s*\\()|(\\b[A-Za-z_]\\w*)(?=\\s*:(?!:))', 'g');
+    let out = '', last = 0, m;
+    while ((m = re.exec(code))) {
+      out += esc(code.slice(last, m.index));
+      const [all, str, hex, num, k, fn, prop] = m;
+      if (str) out += /^\s*:/.test(code.slice(m.index + all.length)) ? `<span class="tk-p">${esc(str)}</span>` : `<span class="tk-s">${hexify(esc(str))}</span>`;
+      else if (hex) out += hexify(hex);
+      else if (num) out += `<span class="tk-n">${num}</span>`;
+      else if (k) out += `<span class="tk-k">${k}</span>`;
+      else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
+      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else out += esc(all);
+      last = m.index + all.length;
+    }
+    out += esc(code.slice(last));
+    if (comment) out += `<span class="tk-c">${hexify(esc(comment))}</span>`;
+    return out;
+  }
+  function renderBuildStatic() {
+    const t = L();
+    $('#steps').replaceChildren(...t.build.steps.map(([b, p], i) => h('li', null, h('span', { class: 'sn', 'aria-hidden': 'true', text: '0' + (i + 1) }), h('b', { text: b }), h('p', { text: p }))));
+    const fileIcon = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.2, 'aria-hidden': 'true' }, sv('path', { d: 'M3.5 1.5h4.6L11 4.4v7.1a1 1 0 0 1-1 1H3.5a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1z' }), sv('path', { d: 'M8 1.5v3h3' }));
+    const dirIcon = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.2, 'aria-hidden': 'true' }, sv('path', { d: 'M1.5 3.5a1 1 0 0 1 1-1h3l1.2 1.4h4.8a1 1 0 0 1 1 1v6.1a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1z' }));
+    const item = (name, href, opt = {}) => {
+      const inner = [opt.dir ? dirIcon() : fileIcon(), h('div', null, h('b', { text: name }), t.build.files[name] ? h('span', { text: t.build.files[name] }) : null)];
+      const el = href ? h('a', { href, target: opt.dl ? null : '_blank', rel: opt.dl ? null : 'noopener', download: opt.dl ? name : null }, inner) : h('div', { class: 'fi' }, inner);
+      return h('li', { class: [opt.cls, opt.root ? 'root' : null].filter(Boolean).join(' ') || null }, el);
+    };
+    $('#tree').replaceChildren(
+      item('your-project/', null, { dir: 1, root: 1 }),
+      item('DASHBOARD.md', 'DASHBOARD.html', { cls: 'in' }),
+      item('.claude/skills/', null, { dir: 1, cls: 'in' }), item('dashboard-style/', null, { dir: 1, cls: 'in2' }),
+      item('SKILL.md', 'skill/SKILL.html', { cls: 'in3' }), item('tokens.css', 'tokens.css', { cls: 'in3' }),
+      item('west-fraser.tps', 'west-fraser.tps', { cls: 'in3', dl: 1 }), item('powerbi-theme.json', 'powerbi-theme.json', { cls: 'in3', dl: 1 }),
+      item('prompt.md', 'prompt.html', { cls: 'in3' }));
+    $('#modeSeg').replaceChildren(...t.build.modes.map((x, i) => {
+      const k = i ? 'with' : 'without';
+      const b = h('button', { type: 'button', role: 'tab', 'aria-selected': state.mode === k ? 'true' : 'false', tabindex: state.mode === k ? 0 : -1, text: x });
+      b.addEventListener('click', () => setMode(k));
+      return b;
+    }));
+    $('#modeSeg').setAttribute('aria-label', KO() ? '비교' : 'Compare');
+  }
+  const BENCH = { built: true, playing: false, token: 0 };
+  function setMode(k) {
+    if (state.mode === k) return;
+    if (BENCH.playing) finishBench();
+    state.mode = k; renderBuildStatic(); renderBench();
+  }
+  function setCode(k) {
+    if (state.code === k) return;
+    if (BENCH.playing) finishBench();
+    state.code = k; renderCodeTabs(); renderCode();
+  }
+  function renderCodeTabs() {
+    $('#ctabs').replaceChildren(...CODE_TABS.map(([k, label]) => {
+      const b = h('button', { type: 'button', class: 'ctab', role: 'tab', 'aria-selected': state.code === k ? 'true' : 'false', tabindex: state.code === k ? 0 : -1, text: label || (KO() ? '프롬프트' : 'Prompt') });
+      b.addEventListener('click', () => setCode(k));
+      return b;
+    }));
+  }
+  function renderCode() {
+    const lines = codeLines(state.code), pre = $('#code');
+    pre.classList.toggle('wrap', state.code === 'prompt');
+    pre.replaceChildren(...lines.map(([step, text]) => {
+      const ln = h('span', { class: 'ln' + (BENCH.built ? ' shown' : ''), 'data-step': step, html: highlight(text, state.code) || ' ' });
+      if (step) { ln.addEventListener('mouseenter', () => focusStep(step)); ln.addEventListener('mouseleave', () => focusStep(0)); }
+      return ln;
+    }));
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), BENCH.built ? L().build.built : L().build.drawing);
+    $('#cstatR').textContent = L().build.lines(lines.length);
+  }
+  function focusStep(step) {
+    const win = $('#win'), on = step > 0 && BENCH.built && state.mode === 'with';
+    $$('.code .ln', win).forEach(ln => ln.classList.toggle('hl', step > 0 && Number(ln.dataset.step) === step));
+    win.classList.toggle('focus-step', on);
+    $$('.layer', win).forEach(el => el.classList.toggle('focus', Number(el.dataset.step) === step));
+  }
+  const drawBench = () => drawF1('#wbPlot', '.figpane', { key: 'wb', layers: true, mode: state.mode });
+  function renderBench() {
+    const t = L(), without = state.mode === 'without';
+    $('#wbScope').textContent = `species = ${spCode()}`;
+    $('#wbTitle').textContent = glue(without ? t.f1.generic : t.f1.title(f1Facts()));
+    $('#wbRt').replaceChildren(...(without ? [] : [t.f1.cht[0] + ' ', h('span', { text: t.f1.cht[1] })]));
+    $('#wbNote').textContent = without ? t.build.generated : t.f1.note.split(/(?<=[.다])\s/)[0];
+    const ok = $('#checksOk'); ok.textContent = without ? t.build.checksBad : t.build.checksOk; ok.classList.toggle('bad', without);
+    const ic = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' },
+      sv('circle', { cx: 7, cy: 7, r: 6.2, 'stroke-width': 1.2 }), sv('path', { d: without ? 'M4.8 4.8l4.4 4.4M9.2 4.8l-4.4 4.4' : 'M4.3 7.2 6.2 9l3.5-3.8' }));
+    $('#checks').replaceChildren(...t.build.checks.map(([step, txt]) => h('li', { class: 'layer' + (without ? ' no' : ''), 'data-step': step }, ic(),
+      h('span', null, txt.split(/(#[0-9a-f]{6})/).map(part => /^#[0-9a-f]{6}$/.test(part) ? h('code', { class: 'tk-hex', style: { '--sw': part }, text: part }) : part)))));
+    $('#win').classList.toggle('without', without);
+    renderCodeTabs(); renderCode();
+    drawBench();
+    if (BENCH.playing) playBench();   // 치는 중에 필터나 언어가 바뀌면 새 값으로 다시 친다
+  }
+  function flashScope() {
+    const lines = $$('.code .ln').filter(ln => ln.dataset.step === '0' && /species/.test(ln.textContent));
+    lines.forEach(ln => ln.classList.add('hl'));
+    setTimeout(() => lines.forEach(ln => ln.classList.remove('hl')), 1400);
+  }
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  async function playBench() {
+    const win = $('#win'), pre = $('#code'), token = ++BENCH.token;
+    if (REDUCE) { finishBench(); return; }
+    if (state.mode !== 'with') { state.mode = 'with'; renderBuildStatic(); }
+    BENCH.built = false; BENCH.playing = false;   // 아래 renderBench가 타이핑을 다시 부르지 않게
+    win.classList.add('building');
+    renderBench();
+    BENCH.playing = true;
+    pre.scrollTop = 0;
+    $$('.layer', win).forEach(el => el.classList.remove('on'));
+    const lines = $$('.code .ln', win);
+    let prevStep = 0;
+    for (const ln of lines) {
+      if (token !== BENCH.token) return;
+      const step = Number(ln.dataset.step);
+      if (step !== prevStep && prevStep > 0) { revealStep(prevStep); await sleep(380); if (token !== BENCH.token) return; }
+      prevStep = step;
+      lines.forEach(x => x.classList.remove('caret'));
+      ln.classList.add('shown', 'caret');
+      const bottom = ln.offsetTop + ln.offsetHeight + 12;   // 치는 줄이 늘 보이게 코드 창만 스크롤한다
+      if (bottom > pre.scrollTop + pre.clientHeight) pre.scrollTop = bottom - pre.clientHeight;
+      await sleep(ln.textContent.trim() ? 55 : 20);
+    }
+    if (token !== BENCH.token) return;
+    revealStep(prevStep);
+    await sleep(500);
+    if (token !== BENCH.token) return;
+    lines.forEach(x => x.classList.remove('caret'));
+    BENCH.built = true; BENCH.playing = false;
+    win.classList.remove('building');
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), L().build.built);
+  }
+  function finishBench() {
+    BENCH.token++; BENCH.playing = false; BENCH.built = true;
+    $('#win').classList.remove('building');
+    renderCode();
+    $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+  }
+  function revealStep(step) { $$(`.layer[data-step="${step}"]`, $('#win')).forEach(el => el.classList.add('on')); }
+  $('#btnRun').addEventListener('click', () => playBench());
+  async function copyText(txt) {
+    try { await navigator.clipboard.writeText(txt); } catch (e) { const ta = h('textarea', { class: 'sr-only', text: txt }); document.body.append(ta); ta.select(); try { document.execCommand('copy'); } catch (_) {} ta.remove(); }
+  }
+  let toastTimer = null;
+  function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('on'), 2200); }
+  $$('.btnCmd').forEach(b => b.addEventListener('click', async () => { await copyText(b.previousElementSibling.textContent); toast(L().build.cmdCopied); }));
+  const cmdFade = () => $$('.cmd code').forEach(c => {
+    const ov = c.scrollWidth > c.clientWidth + 1;
+    c.classList.toggle('more-r', ov && c.scrollLeft + c.clientWidth < c.scrollWidth - 2);
+    if (ov) c.setAttribute('tabindex', '0'); else c.removeAttribute('tabindex');
+  });
+  $$('.cmd code').forEach(c => c.addEventListener('scroll', cmdFade, { passive: true }));
+  addEventListener('resize', cmdFade);
+  if (document.fonts) document.fonts.ready.then(cmdFade);
+  cmdFade();
+  $('#btnCopyCode').addEventListener('click', async () => { await copyText(codeLines(state.code).map(l => l[1]).join('\n').replace(/⁠/g, '')); toast(L().build.copied); });
+
+  /* ================= 방법과 출처: MD&A의 용어 풀이처럼 ================= */
+  function renderTerms() {
+    const t = L();
+    $('#terms').replaceChildren(...t.notes.items.map(([k, v]) => h('p', null, h('b', null, k, ': '), v)), h('p', { class: 'src', text: t.notes.src }));
+  }
+
+  /* ================= 필터: westfraser.com 메뉴처럼, 고른 항목은 연초록 알약 ================= */
+  const tabsEl = $('#tabs');
+  for (const k of SCOPES) { const b = h('button', { type: 'button', id: 'tab-' + k, role: 'tab', 'aria-controls': 'panel', 'data-k': k }); b.addEventListener('click', () => select(k)); tabsEl.append(b); }
+  const arrowNav = (el, keys, cur, go) => el.addEventListener('keydown', e => {
+    const idx = keys.indexOf(cur()), next = { ArrowRight: idx + 1, ArrowLeft: idx - 1, Home: 0, End: keys.length - 1 }[e.key];
+    if (next == null) return;
+    e.preventDefault(); go(keys[(next + keys.length) % keys.length]);
+  });
+  arrowNav(tabsEl, SCOPES, () => state.scope, k => { select(k); $('#tab-' + k).focus(); });
+  arrowNav($('#ctabs'), CODE_TABS.map(x => x[0]), () => state.code, k => { setCode(k); $$('.ctab')[CODE_TABS.findIndex(x => x[0] === k)].focus(); });
+  arrowNav($('#modeSeg'), ['without', 'with'], () => state.mode, k => { setMode(k); $$('#modeSeg button')[k === 'with' ? 1 : 0].focus(); });
+  function syncTabs() {
+    const t = L();
+    for (const b of $$('button', tabsEl)) {
+      const on = b.dataset.k === state.scope;
+      b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1;
+      b.replaceChildren(h('span', { text: t.scopes[b.dataset.k] }), h('span', { class: 'n', text: t.millsN(millsIn(b.dataset.k).length) }));
+    }
+    $('#panel').setAttribute('aria-labelledby', 'tab-' + state.scope);
+  }
+
+  /* ================= 언어와 그리기 ================= */
+  function applyLang() {
+    const t = L();
+    document.documentElement.lang = state.lang;
+    document.title = t.docTitle;
+    for (const el of $$('[data-i18n]')) { const val = pick(t, el.dataset.i18n); if (typeof val === 'string') el.textContent = val; }
+    tabsEl.setAttribute('aria-label', t.tabsLabel);
+    for (const b of $$('#langSeg button')) b.setAttribute('aria-pressed', b.dataset.lang === state.lang ? 'true' : 'false');
+    $('#ctaLink').href = BLOG[state.lang] + 'contact-us/';
+    const cc = $('#btnCopyCode'); cc.setAttribute('aria-label', KO() ? '코드 복사' : 'Copy code'); cc.title = cc.getAttribute('aria-label');
+    $$('.btnCmd').forEach(cm => { cm.setAttribute('aria-label', KO() ? '설치 명령 복사' : 'Copy install command'); cm.title = cm.getAttribute('aria-label'); });
+    $('.foot .ser').href = 'https://styles.vizney.com/?lang=' + state.lang;
+    $('.foot .cat a[data-i18n="catName"]').href = 'https://styles.vizney.com/west-fraser/DASHBOARD.html';
+    const back = $('#backLink');
+    back.textContent = FROM_BLOG ? t.back.post : t.back.catalog;
+    back.href = FROM_BLOG ? BLOG[state.lang] + 'style-' + SLUG + '/' : 'https://styles.vizney.com/?lang=' + state.lang;
+    syncTabs(); renderBuildStatic(); renderTerms();
+  }
+  function renderAll(animate) {
+    renderChrome(); renderOT(animate); renderF1(animate); renderBands();
+    renderT1(animate); renderF2(animate); renderF3(animate); renderT2(animate); renderF4(animate); renderF5(animate); renderBench();
+  }
+  function keepInUrl() {
+    try {
+      const u = new URL(location.href);
+      u.searchParams.set('lang', state.lang);
+      if (state.scope === 'all') u.searchParams.delete('species'); else u.searchParams.set('species', state.scope);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* 주소를 못 바꾸는 환경에서는 화면만 바뀐다 */ }
+  }
+  function select(k) {
+    if (k === state.scope) return;
+    state.scope = k;
+    syncTabs(); renderAll(true); keepInUrl();
+    if (BENCH.built) flashScope();
+  }
+  for (const b of $$('#langSeg button')) b.addEventListener('click', () => { if (b.dataset.lang === state.lang) return; state.lang = b.dataset.lang; applyLang(); renderAll(false); keepInUrl(); });
+
+  applyLang();
+  renderAll(true);
+  // 만드는 법: 처음 화면에 들어올 때 한 번, 코드를 한 줄씩 치며 그림 1을 다시 그린다
+  if (!REDUCE && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); playBench(); } }, { threshold: .35 });
+    io.observe($('#win'));
+  }
+  const redraws = [
+    ['#f1Plot', () => drawF1('#f1Plot', '#f1', { key: 'f1' })], ['#f2Plot', () => drawF2(false)], ['#wbPlot', drawBench],
+    ['#f3Sm', () => $('#f3Sm')._draw(false)], ['#f5Sm', () => $('#f5Sm')._draw(false)]
+  ];
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(entries => {
+      for (const en of entries) {
+        const r = redraws.find(x => $(x[0]) === en.target);
+        if (!r) continue;
+        const el = en.target;
+        if (Math.round(el.clientWidth) !== el._w || Math.round(el.clientHeight) !== el._h) r[1]();
+      }
+    });
+    redraws.forEach(([sel]) => ro.observe($(sel)));
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => redraws.forEach(r => r[1]()));
+})();
+
+</script>
+</body>
+</html>
