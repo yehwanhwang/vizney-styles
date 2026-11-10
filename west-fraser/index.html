@@ -7,26 +7,27 @@
 <title>West Fraser style · Lumber operations weekly sample</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600;1,700&family=Roboto+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,600;1,700&family=Roboto+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script src="/lib/embed.js" defer></script>
 <style>
   /* West Fraser style (VIZNEY STYLES · 07) — Earthy, Outlook, Steady · 어스 톤, 전망표, 차분함
-     westfraser.com(2026-11-07 실측), 3분기 IR 슬라이드(2026-11), 3분기 MD&A, 연차보고서 2025, 지속가능성 보고서 2025에서 읽어 낸 참고용 스타일.
+     westfraser.com(2026-11-07 실측), 3분기 IR 슬라이드(2026-11), 3분기 MD&A, 연차보고서 2025에서 읽어 낸 참고용 스타일.
      공식 디자인이 아니며 로고·서체·사진·데이터는 쓰지 않는다. 가상 사업부 Vizney Timber(캐나다 SPF 4곳 + 미국 남부 SYP 4곳 제재소)의 주간 운영 보고.
-     대표 장치 셋: IR의 'Outlook' 표(계획 범위 · 원가 화살표) → 첫 화면 KPI, 슬라이드 바닥의 남색 결론 띠 → 절마다 결과 문장,
-     'Continuous Portfolio Optimization'의 증감 장부(+초록 / −주황) → 가동 일정. 표는 IR 표처럼 세이지 머리줄, 오른쪽으로 짙어지는 칸, 모래색 Comments 머리.
-     그림은 연차보고서 문법: 지난 주는 회색, 이번 주만 초록, 제목 아래 단위. 큰 숫자는 가는 굵기. 모서리는 네모(슬라이드), 그림자 없음.
-     조작 부품(필터 · 언어)은 westfraser.com 메뉴처럼 8px 모서리의 연초록 알약. */
+     대표 장치 셋: westfraser.com 투자자 페이지의 'Quick facts' 타일(초록 큰 숫자, 1px 초록 테두리, 12px 모서리)에 IR Outlook의 계획 범위를 얹은 KPI,
+     IR 슬라이드 바닥의 남색 결론 띠, IR의 증감 장부(+초록 / (주황))를 날짜 위에 놓은 가동 일정.
+     재료는 나무: 막대는 판재를 이어 놓은 모양(한 장 = 단위 하나, 사이 2px), 재고는 판재 더미, 비중은 목재 묶음의 단면 100칸.
+     나뭇결·사진 같은 실물 흉내는 쓰지 않고 모양과 색(소나무 #d3c5a9, 호두나무 #5c4e36, 삼나무 같은 흙주황 #c06228)으로만.
+     바탕은 회색 대신 크라프트 #f3f0e9(WF 모래색 100). 모서리는 판재처럼 네모, 그림자 없음. 조작 부품은 westfraser.com 메뉴의 연초록 알약. */
   :root{
-    --canvas:#ffffff; --body:#f2f2f2; --panel:#ffffff; --line:#e6e6e6; --rule:#d9d9d9; --edge:#bfbfbf;
+    --canvas:#ffffff; --body:#f3f0e9; --panel:#ffffff; --line:#e6e6e6; --rule:#d9d9d9; --edge:#bfbfbf; --kraft-200:#e5ddce;
     --ink:#333333; --text:#595959; --muted:#666666;
-    --green:#007e3a; --green-600:#00642e; --green-100:#e5f2eb; --green-150:#d9ece2;
+    --green:#007e3a; --green-600:#00642e; --green-100:#e5f2eb; --green-200:#b2d8c4;
     --sage:#749370; --sage-hd:#5d7b59; --sage-50:#f0f5ef; --sage-300:#b9cfb6;
-    --sand:#a8936a; --sand-hd:#836f47; --tile:#8d7b58; --sand-100:#f3f0e9;
+    --sand:#a8936a; --sand-hd:#836f47; --tile:#8d7b58;
     --navy:#39527f;
     --t0:#e6e7e6; --t1:#dbdeda; --t2:#d2d8d1; --t3:#c9d2c8; --t4:#b8c6b7;
-    --hero:#418d50; --hero-text:#2d723c; --sky:#3797c6; --plum:#8c5087; --other:#b5c1b7; --comparison:#595959;
+    --hero:#418d50; --hero-text:#2d723c; --pine:#d3c5a9; --walnut:#5c4e36; --comparison:#595959;
     --bad:#c06228; --bad-mark:#a75016; --bad-text:#a75016; --bad-tint:#853900; --bad-100:#ffede1;
     --good:#00642e; --good-tint:#195c2e;
     --font:'Open Sans',Arial,sans-serif;
@@ -51,7 +52,6 @@
   .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   .ico{width:16px;height:16px;flex:none}
   .wrap{max-width:1400px;margin:0 auto;padding:0 var(--page)}
-  .num{font-variant-numeric:tabular-nums}
 
   /* ---------- 머리: 슬라이드 제목처럼 초록 굵은 제목, 오른쪽에 westfraser.com 머리의 시세 표시(여기서는 목재 가격) ---------- */
   .head{background:var(--canvas);border-bottom:1px solid #eeeeee}
@@ -86,7 +86,7 @@
   .tabs .n{font-weight:400;font-size:14px;opacity:.85}
   .nav-aside{margin-left:auto;font-size:13px;color:var(--muted);white-space:nowrap}
 
-  /* ---------- 절 = IR 슬라이드 한 장: 흰 제목 줄 → 회색 #f2f2f2 몸 → 남색 결론 띠(왼쪽 모래색 칸에 절 번호) → 각주 ---------- */
+  /* ---------- 절 = IR 슬라이드 한 장: 흰 제목 줄 → 크라프트 #f3f0e9 몸 → 남색 결론 띠(왼쪽 모래색 칸에 절 번호) → 각주 ---------- */
   .slide{margin-top:var(--sec);scroll-margin-top:12px}
   .slide:first-child{margin-top:18px}
   .sl-h{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 14px;padding:0 0 12px}
@@ -94,67 +94,40 @@
   html[lang="ko"] .sl-t{font-size:23px;letter-spacing:-.01em}
   .sl-k{font-size:13px;color:var(--muted)}
   .sl-b{display:grid;gap:var(--gap);padding:var(--gap);background:var(--body)}
-  .sl-b.two{grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);align-items:stretch}
-  .sl-b.two-b{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:stretch}
-  .sl-b.two-c{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+  .row{display:grid;gap:var(--gap);grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:stretch}
   .sl-n{margin-top:8px;font-size:12px;line-height:1.55;color:var(--muted)}
-  .sl-n sup,.tw-t sup{font-size:.7em;line-height:0}
 
   /* 대표 장치 2: 결론 띠. IR 슬라이드 바닥의 남색 #39527f 띠(굵은 기울임 흰 글자) + 왼쪽 모래색 칸(띠보다 높게 솟는다) */
   .tw{display:grid;grid-template-columns:64px minmax(0,1fr);align-items:end}
   .tw-n{display:flex;align-items:center;justify-content:center;height:64px;background:var(--tile);color:#fff;font-size:22px;font-weight:700;letter-spacing:.02em;font-variant-numeric:tabular-nums}
   .tw-t{display:flex;align-items:center;justify-content:center;min-height:52px;padding:10px 24px;background:var(--navy);color:#fff;font-size:18px;font-weight:700;font-style:italic;line-height:1.3;text-align:center;text-wrap:balance}
   html[lang="ko"] .tw-t{font-style:normal;font-size:17px;letter-spacing:-.01em}
-  .tw-t b{font-weight:700}
 
-  /* ---------- 표 = IR 표: 세이지 머리줄(흰 굵은 글자), Comments 머리는 모래색, 칸은 오른쪽으로 갈수록 짙어진다, 칸 사이 흰 틈 2px ---------- */
-  .wt{width:100%;border-collapse:separate;border-spacing:2px;font-variant-numeric:tabular-nums;background:var(--canvas)}
-  .wt th,.wt td{padding:7px 12px;font-size:13.5px;line-height:1.35;color:var(--ink);text-align:right;vertical-align:middle}
-  .wt thead th{background:var(--sage-hd);color:#fff;font-weight:700;font-size:13px;line-height:1.3;white-space:nowrap}
-  .wt thead th.lab{text-align:left;font-style:italic;font-weight:600}
-  html[lang="ko"] .wt thead th.lab{font-style:normal}
-  .wt thead th.cm{background:var(--sand-hd);text-align:left}
-  .wt thead tr.grp th{font-size:12px;font-weight:600;padding:5px 12px;text-align:center}
-  .wt .lab{text-align:left}
-  .wt .c0{background:var(--t0)} .wt .c1{background:var(--t1)} .wt .c2{background:var(--t2)} .wt .c3{background:var(--t3)} .wt .c4{background:var(--t4)}
-  .wt td.cm{background:var(--panel);text-align:left;color:var(--ink);font-size:13px}
-  .wt .bad{color:var(--bad-tint)} .wt .good{color:var(--good-tint)}
-  .wt td.cm .bad{color:var(--bad-text)}
-  .wt tbody tr{cursor:default}
-  .wt tbody tr.on td,.wt tbody tr.on th{box-shadow:inset 0 0 0 999px rgba(0,0,0,.045)}
-  .wt tbody tr.on td.cm{box-shadow:inset 0 0 0 999px rgba(0,0,0,.03)}
-
-  /* 대표 장치 1: Outlook 표(IR '2026 Outlook' · 'Q3-26 versus Q2-26'). 이번 주 열의 숫자는 연차보고서처럼 가는 굵기로 크게 */
-  .ot{position:relative;display:flex;flex-direction:column;min-width:0}
-  .ot .wt{flex:1}
-  .ot-t th.lab .u{font-weight:400}
-  .ot-t tbody th{font-weight:600;text-align:left}
-  .ot-t tbody th .u{display:block;font-size:12px;font-weight:400;color:var(--text);margin-top:1px}
-  html[lang="ko"] .ot-t tbody th .u{font-size:12px}
-  .ot-t td.c1{font-size:25px;font-weight:300;line-height:1.1;color:#1a1a1a;letter-spacing:-.01em;padding-top:6px;padding-bottom:6px}
-  .ot-t td.c1 small{font-size:13px;font-weight:400;margin-left:1px;color:var(--text)}
-  .ot-t td.c4{font-weight:600;white-space:nowrap}
-  .ot-t tr.kp th,.ot-t tr.kp td{height:50px}
-  .ot-t tr.cs th,.ot-t tr.cs td{height:36px}
-  .ot-t tr.cs td.c1{font-size:19px}
-  /* 원가는 IR Outlook의 'Costs'처럼 묶음 줄 아래에 들여 쓴다 */
-  .ot-t tr.cgh th,.ot-t tr.cgh td{height:30px;padding-top:4px;padding-bottom:4px;font-size:13px;line-height:1.2}
-  .ot-t tr.kp th{white-space:nowrap}
-  .ot-t th.cg{text-align:left;font-weight:600}
-  .ot-t th.cg .u{display:inline;font-size:12px;font-weight:400;color:var(--text);margin-left:6px}
-  .ot-t tr.cs th.sub{font-weight:400;padding-left:24px}
-  .ot-t td.c2{padding-top:6px;padding-bottom:6px}
-  .ot-r{display:block;font-size:13px;white-space:nowrap}
-  .ot-rr{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-top:3px}
-  .ot-rr .st{font-size:11.5px;line-height:1.2;color:var(--text);white-space:nowrap}
-  .ot-rr .st.bad{color:var(--bad-tint)}
-  /* 계획 범위 막대: 범위는 세이지 띠, 이번 주는 3px 눈금(범위 밖 나쁜 쪽이면 녹슨 주황) — IR의 'Forecast Range' 띠를 칸 안에 */
-  .ot-rb{position:relative;display:block;flex:none;width:64px;height:12px}
-  .ot-rb i{position:absolute;top:2px;bottom:2px;background:var(--sage-300);box-shadow:inset 0 0 0 1px var(--sage)}
-  .ot-rb b{position:absolute;top:0;bottom:0;width:3px;margin-left:-1.5px;background:var(--ink)}
-  .ot-rb b.bad{background:var(--bad-mark)}
-  .ot-ch{display:inline-flex;align-items:center;gap:6px;justify-content:flex-end;white-space:nowrap}
-  .ot-ch svg{width:18px;height:14px;flex:none}
+  /* ---------- 대표 장치 1: Quick facts 타일(westfraser.com 투자자 페이지). 연초록 #e5f2eb 바탕, 1px 초록 테두리, 모서리 12px, 초록 큰 숫자.
+     그 아래에 IR Outlook처럼 계획 범위(세이지 띠 + 이번 주 눈금)와 위치, 맨 아래 13주 추세선 ---------- */
+  .qfs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--gap);margin:0;padding:0;list-style:none}
+  .qf{position:relative;display:flex;flex-direction:column;min-width:0;padding:13px 16px 10px;background:var(--green-100);border:1px solid var(--green);border-radius:12px;cursor:default}
+  .qf.on{box-shadow:inset 0 0 0 1px var(--green)}
+  .qf-l{font-size:13px;font-weight:600;line-height:1.3;color:var(--ink)}
+  .qf-v{margin-top:6px;font-size:32px;font-weight:600;line-height:1.1;letter-spacing:-.01em;color:var(--green);white-space:nowrap}
+  html[lang="ko"] .qf-v{font-size:30px;letter-spacing:-.02em}
+  .qf-v small{margin-left:4px;font-size:13px;font-weight:400;letter-spacing:0;color:var(--text)}
+  .qf-v small.pc{margin-left:1px;font-size:17px;font-weight:600;color:var(--green)}
+  .qf-d{margin-top:3px;font-size:12.5px;color:var(--text);white-space:nowrap}
+  .qf-d b{font-weight:600}
+  .qf-d .bad{color:var(--bad-text)} .qf-d .good{color:var(--good)}
+  .qfw{position:relative}
+  .qf-r{position:relative;display:block;height:14px;margin-top:10px}
+  .qf-r::before{content:"";position:absolute;left:0;right:0;top:6.5px;height:1px;background:var(--sage)}
+  .qf-r i{position:absolute;top:3px;bottom:3px;background:#ffffff;box-shadow:inset 0 0 0 1px var(--sage)}
+  .qf-r b{position:absolute;top:0;bottom:0;width:3px;margin-left:-1.5px;background:var(--ink)}
+  .qf-r b.bad{background:var(--bad-mark)}
+  .qf-rt{display:flex;flex-wrap:wrap;justify-content:space-between;gap:0 6px;margin:2px 0 6px;font-size:12px;line-height:1.35;color:var(--text)}
+  .qf-rt .st{font-weight:600;white-space:nowrap}
+  .qf-rt .st.bad{color:var(--bad-tint)}
+  .qf-s{position:relative;display:block;height:26px;margin-top:auto}
+  .qf-s svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .qf-s i{position:absolute;right:-3.5px;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--green)}
 
   /* ---------- 카드: 흰 판(그림자 없음). 그림 번호 → 결과를 말하는 제목 → IR식 차트 제목(단위) → 범례 → 그림 → 주 ---------- */
   .panel{position:relative;display:flex;flex-direction:column;min-width:0;background:var(--panel);padding:16px 18px 14px}
@@ -166,7 +139,7 @@
   .cht span{font-weight:400;color:var(--text)}
   .keys{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin:6px 0 0;padding:0;list-style:none}
   .keys li{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text);white-space:nowrap}
-  .keys svg{width:18px;height:12px;flex:none;overflow:visible}
+  .keys svg{width:22px;height:12px;flex:none;overflow:visible}
   .cb{position:relative;flex:1 1 auto;display:flex;flex-direction:column;min-width:0;margin-top:8px}
   .plot{position:relative;flex:1 1 auto;min-height:0}
   .plot > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
@@ -176,23 +149,61 @@
   .lb{font-size:12.5px;fill:var(--ink);font-family:var(--font);font-variant-numeric:tabular-nums}
   .lb.b{font-weight:600}
   .lb.bad{fill:var(--bad-text)}
+  .lb.good{fill:var(--good)}
   .lb.m{fill:var(--text)}
+  .lb.w{fill:#ffffff;font-weight:700}
+  .lb.sm{font-size:11.5px}
   .nm{font-size:13px;fill:var(--ink);font-family:var(--font)}
   .nm .st{fill:var(--text);font-size:12px}
+  .nm.b{font-weight:600}
   .hit{fill:transparent;cursor:default}
   .row-on{fill:rgba(0,0,0,.045)}
+  /* 판재: 단위마다 한 장, 사이 2px(바탕 흰색). 끝은 판재처럼 네모 */
+  .bd{shape-rendering:crispEdges}
 
-  /* 그림 1의 높이는 왼쪽 Outlook 표를 따른다(아래 끝을 맞춘다) */
-  #f1 .cb{min-height:260px}
-  /* 그림 2: 점 표(공장 × 회수율 · 등급). 높이는 공장 수로 정한다 */
-  /* 그림 3 · 5: 연차보고서식 작은 그림 여러 개(13주 막대, 이번 주만 초록) */
-  .sm{display:grid;grid-template-columns:repeat(var(--n,2),minmax(0,1fr));gap:0 22px;flex:1 1 auto;min-height:0}
-  .sm-c{display:flex;flex-direction:column;min-width:0}
-  .sm-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
+  /* 그림 1 · 2: 판재 막대. 짧은 쪽 카드는 그림 칸이 늘어나 아래 끝을 맞춘다 */
+  #f1 .cb,#f2 .cb{min-height:240px}
+  /* 그림 3: 야적장(공장마다 판재 더미, 한 장 = 출하 하루) */
+  #f3 .cb{min-height:300px}
+  /* 그림 4: 목재 묶음 단면 100칸(한 칸 = 1%) */
+  .wf{flex:1 1 auto;display:grid;grid-template-columns:repeat(var(--n,1),minmax(0,380px));grid-template-rows:repeat(3,auto);grid-auto-flow:column;justify-content:center;align-content:center;column-gap:24px}
+  .wf-c{display:contents}
+  .wf-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:0 8px;font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap}
+  .wf-h span{font-weight:400;color:var(--text);font-size:12.5px;white-space:nowrap}
+  .wf-c .plot{margin-top:6px}
+  .wf-l{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:2px}
+  .wf-l li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;font-size:12.5px;line-height:1.5;color:var(--text);font-variant-numeric:tabular-nums}
+  .wf-l li b{font-weight:600;color:var(--ink)}
+  .wf-l li .o{min-width:3.4em;text-align:right}
+  .wf-l li.hd{font-size:11.5px;color:var(--muted)}
+  .wf-l li.ex b,.wf-l li.ex .y{color:var(--bad-text)}
+  /* 그림 5: 가동 일정(IR 증감 장부를 날짜 위에). 줄이는 날은 녹슨 주황 칸, 늘리는 교대는 초록 테두리 칸 */
+  #f5 .plot{min-height:320px}
+  /* 그림 6: 점 표(공장 × 회수율 · 등급). 높이는 공장 수로 정한다 */
+  /* 그림 7: 판재 브리지 */
+  #f7 .cb{min-height:280px}
+  /* 그림 8: 연차보고서식 작은 그림(13주 선, 이번 주만 초록) */
+  .sm{display:grid;grid-template-columns:repeat(var(--n,2),minmax(0,1fr));grid-template-rows:auto minmax(0,1fr);grid-auto-flow:column;column-gap:22px;flex:1 1 auto;min-height:0}
+  .sm-c{display:contents}
+  .sm-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:0 8px;font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap}
   .sm-h span{font-weight:400;color:var(--text);font-size:12.5px;white-space:nowrap}
   .sm-c .plot{min-height:210px;margin-top:4px}
 
-  /* 표 1: 공장별 실적(IR 표). 수종 줄은 소계, 굵게 */
+  /* ---------- 표 1 = IR 표: 세이지 머리줄(흰 굵은 글자), Comments 머리는 모래색, 칸은 오른쪽으로 갈수록 짙어진다, 칸 사이 흰 틈 2px ---------- */
+  .wt{width:100%;border-collapse:separate;border-spacing:2px;font-variant-numeric:tabular-nums;background:var(--canvas)}
+  .wt th,.wt td{padding:7px 12px;font-size:13.5px;line-height:1.35;color:var(--ink);text-align:right;vertical-align:middle}
+  .wt thead th{background:var(--sage-hd);color:#fff;font-weight:700;font-size:13px;line-height:1.3;white-space:nowrap}
+  .wt thead th.lab{text-align:left;font-style:italic;font-weight:600}
+  html[lang="ko"] .wt thead th.lab{font-style:normal}
+  .wt thead th.cm{background:var(--sand-hd);text-align:left}
+  .wt .lab{text-align:left}
+  .wt .c0{background:var(--t0)} .wt .c1{background:var(--t1)} .wt .c2{background:var(--t2)} .wt .c3{background:var(--t3)} .wt .c4{background:var(--t4)}
+  .wt td.cm{background:var(--panel);text-align:left;color:var(--ink);font-size:13px}
+  .wt .bad{color:var(--bad-tint)} .wt .good{color:var(--good-tint)}
+  .wt td.cm .bad{color:var(--bad-text)}
+  .wt tbody tr{cursor:default}
+  .wt tbody tr.on td,.wt tbody tr.on th{box-shadow:inset 0 0 0 999px rgba(0,0,0,.045)}
+  .wt tbody tr.on td.cm{box-shadow:inset 0 0 0 999px rgba(0,0,0,.03)}
   .mt-wrap{overflow-x:auto}
   .mt-t tbody tr.grp th,.mt-t tbody tr.grp td{font-weight:700}
   .mt-t tbody tr.tot th,.mt-t tbody tr.tot td{font-weight:700;border-top:0}
@@ -202,26 +213,6 @@
   .mt-vp{display:inline-flex;align-items:center;gap:8px;justify-content:flex-end}
   .mt-vp svg{width:58px;height:12px;flex:none;overflow:visible}
   .mt-t .flag{font-size:9px;margin-right:3px;vertical-align:1px}
-
-  /* 대표 장치 3: 증감 장부(IR 'Continuous Portfolio Optimization'). 늘리는 일정은 초록, 줄이는 일정은 녹슨 주황, 값이 먼저 */
-  .lg-t td.ent{text-align:left;vertical-align:top}
-  .lg-t th.lab{vertical-align:top}
-  .lg-t tbody th{white-space:nowrap}
-  .lg-t tbody th .dt{display:block;font-size:12px;font-weight:400;color:var(--text);margin-top:1px}
-  .lg-e{display:block;font-size:13px;line-height:1.4}
-  .lg-e + .lg-e{margin-top:4px}
-  .lg-e b{font-weight:700;margin-right:5px;font-variant-numeric:tabular-nums}
-  .lg-e .ml{font-weight:600;color:var(--ink)}
-  .lg-e .wh{color:var(--ink)}
-  .lg-t td.net{font-weight:700;vertical-align:top}
-  .lg-t tr.tot th,.lg-t tr.tot td{font-weight:700;vertical-align:middle}
-  .lg-none{color:var(--text)}
-
-  /* 그림 4: 원가 증감표(MD&A의 variance 표). 단계마다 이유 한 마디 */
-  .vt-t td.why{background:var(--panel);text-align:left;font-size:13px;color:var(--ink)}
-  .vt-t tr.tot th,.vt-t tr.tot td{font-weight:700}
-  .vt-bar{display:inline-flex;align-items:center;gap:8px;justify-content:flex-end}
-  .vt-bar svg{width:96px;height:12px;flex:none;overflow:visible}
 
   /* ---------- 만드는 법 ---------- */
   .sec{margin-top:var(--sec);scroll-margin-top:12px}
@@ -250,14 +241,14 @@
   .tree{list-style:none;margin:0;padding:0}
   .tree li{display:block}
   .tree a,.tree .fi{display:grid;grid-template-columns:16px minmax(0,1fr);column-gap:8px;padding:4px 6px;border-radius:4px;text-decoration:none;color:inherit}
-  .tree a:hover{background:#e8e8e8}
+  .tree a:hover{background:var(--kraft-200)}
   .tree svg{width:14px;height:14px;margin-top:3px;color:var(--muted)}
   .tree b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .tree a b{text-decoration:underline;text-decoration-color:var(--sage);text-decoration-thickness:2px;text-underline-offset:3px}
   .tree span{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
   .tree .root b{font-weight:400;color:var(--text)}
   .tree .in{padding-left:14px} .tree .in2{padding-left:28px} .tree .in3{padding-left:42px}
-  .get{margin-top:12px;padding:12px 6px 0;border-top:1px solid var(--line)}
+  .get{margin-top:12px;padding:12px 6px 0;border-top:1px solid var(--kraft-200)}
   .get-h{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px}
   .cmds{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;min-width:0}
   .cmd{display:flex;align-items:center;gap:6px;padding:6px 6px 6px 10px;border:1px solid var(--line);border-radius:6px;background:#fff}
@@ -321,7 +312,7 @@
   .terms p b{font-weight:600;color:var(--ink)}
   .terms p.src{color:var(--text)}
 
-  /* ---------- 툴팁: 흰 바탕 + 1px 회색 테두리, 모서리 8px(westfraser.com의 작은 모서리), 옅은 그림자(--shadow-base) ---------- */
+  /* ---------- 툴팁: 흰 바탕 + 1px 회색 테두리, 모서리 8px(westfraser.com의 작은 모서리), 옅은 그림자 ---------- */
   .tip{position:absolute;z-index:8;left:0;top:0;pointer-events:none;min-width:160px;font-family:var(--font);background:#fff;color:var(--text);border:1px solid var(--rule);border-radius:8px;padding:9px 12px 10px;box-shadow:0 2px 16px rgba(38,38,38,.12);white-space:nowrap;opacity:0;transition:opacity .15s var(--ease)}
   .tip.on{opacity:1}
   .tip-h{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
@@ -330,10 +321,11 @@
   .tip-r i{width:9px;height:9px;flex:none;background:var(--c)}
   .tip-r i.ln{width:14px;height:0;background:none;border-top:2px solid var(--c)}
   .tip-r i.ln.dash{border-top-style:dashed}
+  .tip-r i.ol{background:var(--green-100);box-shadow:inset 0 0 0 1.5px var(--c)}
   .tip-r b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
   .tip-r span{color:var(--text)}
 
-  /* ---------- 바닥 ---------- */
+  /* ---------- 바닥: 크라프트 바탕에 초록 3px 윗줄(westfraser.com의 초록 바닥을 줄로) ---------- */
   .foot{margin-top:56px;background:var(--body);border-top:3px solid var(--green);color:var(--text);font-size:13px;line-height:1.65}
   .foot .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 40px;padding-top:22px;padding-bottom:34px}
   .foot .back{flex:none;font-weight:600;color:var(--green);white-space:nowrap;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
@@ -347,13 +339,15 @@
   .toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,8px);padding:10px 18px;border-radius:100px;background:var(--green);color:#fff;font-size:14px;font-weight:600;box-shadow:0 4px 8px rgba(0,126,58,.18);opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease)}
   .toast.on{opacity:1;transform:translate(-50%,0)}
 
-  /* ---------- 움직임 ---------- */
+  /* ---------- 움직임: 판재가 한 장씩 놓인다 ---------- */
   .fade{animation:fade .3s ease both}
   @keyframes fade{from{opacity:0}}
   .grow{transform-box:fill-box;transform-origin:bottom;animation:grow .45s var(--ease) both}
   @keyframes grow{from{transform:scaleY(0)}}
   .growx{transform-box:fill-box;transform-origin:left;animation:growx .5s var(--ease) both}
   @keyframes growx{from{transform:scaleX(0)}}
+  .drop{animation:drop .28s var(--ease) both}
+  @keyframes drop{from{opacity:0;transform:translateY(-6px)}}
   @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
   /* ---------- 임베드(?embed=1 · lib/embed.js): 포스트가 고지를 싣는다 ---------- */
@@ -365,6 +359,9 @@
   @media (max-width:1359px){
     :root{--page:24px;--gap:14px}
     .panel{padding:15px 16px 13px}
+    .qf{padding:12px 13px 9px}
+    .qf-v{font-size:28px}
+    html[lang="ko"] .qf-v{font-size:26px}
     .wt th,.wt td{padding:7px 10px}
     .win{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
     .side{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--line)}
@@ -377,11 +374,11 @@
     .get .btn{grid-row:2;grid-column:2}
     .get-note{grid-row:3;grid-column:1/-1;margin:0}
   }
-  /* 1279px 이하: Outlook 표가 폭 전체를 쓰고 그림 1은 표 아래로 내려간다(Commentary가 두 줄을 넘지 않게) */
+  /* 1279px 이하: 타일은 3개씩 두 줄 */
   @media (max-width:1279px){
-    /* 재고 그림이 장부 높이에 맞춰 지나치게 길어지지 않게, 03도 쌓는다 */
-    .sl-b.two,.sl-b.two-b,#s3 .sl-b{grid-template-columns:minmax(0,1fr)}
-    #f1 .cb{min-height:0}
+    .qfs{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .qf-v{font-size:30px}
+    html[lang="ko"] .qf-v{font-size:28px}
   }
   @media (max-width:1199px){
     .code{font-size:12px}
@@ -389,7 +386,8 @@
     .tick .tu{display:none}
   }
   @media (max-width:1023px){
-    .sl-b.two-c{grid-template-columns:minmax(0,1fr)}
+    .row{grid-template-columns:minmax(0,1fr)}
+    #f1 .cb,#f2 .cb,#f3 .cb,#f7 .cb{min-height:0}
     .build-intro{grid-template-columns:minmax(0,1fr);align-items:start}
     .build-cta{justify-content:flex-start}
     .win{grid-template-columns:minmax(0,1fr)}
@@ -404,15 +402,12 @@
     .tick{margin-left:0;justify-content:flex-start;order:3;flex-basis:100%}
     .tools{margin-left:auto}
     .nav-aside{display:none}
-    .ot-t .h-w43,.ot-t .h-cm{display:none}
     .mt-t .h-cm{display:none}
-    .lg-t .h-net{display:none}
-    .vt-t .h-why{display:none}
     .steps{grid-template-columns:minmax(0,1fr)}
     .code{max-height:440px}
   }
   @media (max-width:639px){
-    :root{--page:16px;--gap:12px;--sec:34px}
+    :root{--page:16px;--gap:10px;--sec:34px}
     .brand h1{font-size:23px;white-space:normal}
     html[lang="ko"] .brand h1{font-size:22px}
     .tabs button{font-size:14px;padding:8px 10px;height:36px}
@@ -420,27 +415,24 @@
     .sl-t{font-size:20px}
     html[lang="ko"] .sl-t{font-size:20px}
     .sl-b{padding:10px}
+    .qfs{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .qf{padding:11px 12px 8px}
+    .qf-v{font-size:25px}
+    html[lang="ko"] .qf-v{font-size:23px}
+    .qf-v small{font-size:12px}
     .tw{grid-template-columns:48px minmax(0,1fr)}
     .tw-n{height:52px;font-size:17px}
     .tw-t{min-height:44px;font-size:15px;padding:8px 14px}
     html[lang="ko"] .tw-t{font-size:14.5px}
     .wt th,.wt td{padding:6px 6px;font-size:12.5px}
     .wt thead th{font-size:12px;white-space:normal}
-    .ot-t td.c1{font-size:20px}
-    .ot-t tr.cs td.c1{font-size:16px}
-    .ot-t tr.kp th,.ot-t tr.kp td{height:46px}
-    .ot-t .h-c4 .ot-ch svg{display:none}
-    .ot-rr{flex-wrap:wrap;gap:2px 6px}
-    .ot-t tr.kp th{white-space:normal}
-    .ot-rb{width:48px}
-    .ot-t tr.cs th.sub{padding-left:14px}
-    .ot-t tbody th .u{font-size:11.5px}
     .mt-t .h-plan,.mt-t .h-lrf,.mt-t .h-grade{display:none}
     .mt-vp svg{width:40px}
-    .vt-bar svg{width:56px}
     .panel{padding:14px 12px 12px}
     .ct{font-size:16px}
-    .sm{grid-template-columns:minmax(0,1fr);gap:16px}
+    .sm{grid-template-columns:minmax(0,1fr);grid-template-rows:none;grid-auto-flow:row}
+    .wf{grid-template-columns:minmax(0,380px);grid-template-rows:none;grid-auto-flow:row}
+    .sm-c + .sm-c .sm-h,.wf-c + .wf-c .wf-h{margin-top:16px}
     .get{display:block}
     .get-h{margin-bottom:6px}
     .get-note{margin:6px 0 10px}
@@ -450,10 +442,8 @@
     .cbtns{margin-left:auto}
     .foot .wrap{flex-direction:column;align-items:flex-start}
   }
-  /* 아주 좁은 폭(임베드 350px 등): Outlook 표는 변화 열을 빼고 이번 주와 계획 범위만 */
   @media (max-width:479px){
-    .ot-t .h-c4{display:none}
-    .lg-t tbody th{white-space:normal}
+    .qf-d{white-space:normal}
     .build-cta .btn{white-space:normal;height:auto;min-height:36px;padding-top:7px;padding-bottom:7px;text-align:center;line-height:1.3}
   }
 </style>
@@ -475,33 +465,84 @@
 </div></nav>
 
 <main class="page wrap" id="panel" role="tabpanel">
-  <!-- 01 · 첫 화면: Outlook 표 | 그림 1 → 결론 띠 -->
+  <!-- 01 · 이번 주: Quick facts 타일 6개 → 그림 1(판재 막대, 공장별 생산 대 계획) | 그림 2(판재 막대, 정지 시간 원인) → 결론 띠 -->
   <section class="slide" id="s1" aria-labelledby="s1T">
     <div class="sl-h"><h2 class="sl-t" id="s1T"></h2><p class="sl-k" id="s1K"></p></div>
-    <div class="sl-b two">
-      <figure class="ot" id="ot">
-        <figcaption class="sr-only" id="otCap"></figcaption>
-        <table class="wt ot-t" id="otT"></table>
+    <div class="sl-b">
+      <div class="qfw" id="qfw">
+        <ul class="qfs" id="qfs" tabindex="0"></ul>
         <div class="tip" aria-hidden="true"></div>
-      </figure>
-      <figure class="panel" id="f1">
-        <span class="fl" data-i18n="f1.label"></span>
-        <h3 class="ct" id="f1Title"></h3>
-        <p class="cht" id="f1Cht"></p>
-        <ul class="keys" id="f1Keys" aria-hidden="true"></ul>
-        <div class="cb"><div class="plot" id="f1Plot" tabindex="0" role="group"></div></div>
-        <figcaption class="cf" data-i18n="f1.note"></figcaption>
-        <div class="tip" aria-hidden="true"></div>
-        <div class="sr-only" id="f1Table"></div>
-      </figure>
+      </div>
+      <div class="row">
+        <figure class="panel" id="f1">
+          <span class="fl" data-i18n="f1.label"></span>
+          <h3 class="ct" id="f1Title"></h3>
+          <p class="cht" id="f1Cht"></p>
+          <ul class="keys" id="f1Keys" aria-hidden="true"></ul>
+          <div class="cb"><div class="plot" id="f1Plot" tabindex="0" role="group"></div></div>
+          <figcaption class="cf" data-i18n="f1.note"></figcaption>
+          <div class="tip" aria-hidden="true"></div>
+          <div class="sr-only" id="f1Table"></div>
+        </figure>
+        <figure class="panel" id="f2">
+          <span class="fl" data-i18n="f2.label"></span>
+          <h3 class="ct" id="f2Title"></h3>
+          <p class="cht" id="f2Cht"></p>
+          <ul class="keys" id="f2Keys" aria-hidden="true"></ul>
+          <div class="cb"><div class="plot" id="f2Plot" tabindex="0" role="group"></div></div>
+          <figcaption class="cf" data-i18n="f2.note"></figcaption>
+          <div class="tip" aria-hidden="true"></div>
+          <div class="sr-only" id="f2Table"></div>
+        </figure>
+      </div>
     </div>
     <div class="tw"><span class="tw-n" aria-hidden="true">01</span><p class="tw-t" id="tw1"></p></div>
     <p class="sl-n" id="n1"></p>
   </section>
 
-  <!-- 02 · 공장: 표 1 | 그림 2 → 결론 띠 -->
+  <!-- 02 · 야적장: 그림 3(공장마다 판재 더미) | 그림 4(목재 묶음 단면 100칸) → 그림 5(가동 일정) → 결론 띠 -->
   <section class="slide" id="s2" aria-labelledby="s2T">
     <div class="sl-h"><h2 class="sl-t" id="s2T" data-i18n="s2.t"></h2><p class="sl-k" data-i18n="s2.k"></p></div>
+    <div class="sl-b">
+      <div class="row">
+        <figure class="panel" id="f3">
+          <span class="fl" data-i18n="f3.label"></span>
+          <h3 class="ct" id="f3Title"></h3>
+          <p class="cht" id="f3Cht"></p>
+          <ul class="keys" id="f3Keys" aria-hidden="true"></ul>
+          <div class="cb"><div class="plot" id="f3Plot" tabindex="0" role="group"></div></div>
+          <figcaption class="cf" data-i18n="f3.note"></figcaption>
+          <div class="tip" aria-hidden="true"></div>
+          <div class="sr-only" id="f3Table"></div>
+        </figure>
+        <figure class="panel" id="f4">
+          <span class="fl" data-i18n="f4.label"></span>
+          <h3 class="ct" id="f4Title"></h3>
+          <p class="cht" id="f4Cht"></p>
+          <ul class="keys" id="f4Keys" aria-hidden="true"></ul>
+          <div class="cb"><div class="wf" id="f4Wf"></div></div>
+          <figcaption class="cf" data-i18n="f4.note"></figcaption>
+          <div class="tip" aria-hidden="true"></div>
+          <div class="sr-only" id="f4Table"></div>
+        </figure>
+      </div>
+      <figure class="panel" id="f5">
+        <span class="fl" data-i18n="f5.label"></span>
+        <h3 class="ct" id="f5Title"></h3>
+        <p class="cht" id="f5Cht"></p>
+        <ul class="keys" id="f5Keys" aria-hidden="true"></ul>
+        <div class="cb"><div class="plot" id="f5Plot" tabindex="0" role="group"></div></div>
+        <figcaption class="cf" data-i18n="f5.note"></figcaption>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f5Table"></div>
+      </figure>
+    </div>
+    <div class="tw"><span class="tw-n" aria-hidden="true">02</span><p class="tw-t" id="tw2"></p></div>
+  </section>
+
+  <!-- 03 · 공장별 실적: 표 1(IR 표) → 그림 6(목표 대비 회수율·등급) → 결론 띠 -->
+  <section class="slide" id="s3" aria-labelledby="s3T">
+    <div class="sl-h"><h2 class="sl-t" id="s3T" data-i18n="s3.t"></h2><p class="sl-k" data-i18n="s3.k"></p></div>
     <div class="sl-b">
       <figure class="panel" id="t1">
         <span class="fl" data-i18n="t1.label"></span>
@@ -511,68 +552,46 @@
         <figcaption class="cf" data-i18n="t1.note"></figcaption>
         <div class="tip" aria-hidden="true"></div>
       </figure>
-      <figure class="panel" id="f2">
-        <span class="fl" data-i18n="f2.label"></span>
-        <h3 class="ct" id="f2Title"></h3>
-        <p class="cht" id="f2Cht"></p>
-        <ul class="keys" id="f2Keys" aria-hidden="true"></ul>
-        <div class="cb"><div class="plot" id="f2Plot" tabindex="0" role="group"></div></div>
-        <figcaption class="cf" id="f2Note"></figcaption>
+      <figure class="panel" id="f6">
+        <span class="fl" data-i18n="f6.label"></span>
+        <h3 class="ct" id="f6Title"></h3>
+        <p class="cht" id="f6Cht"></p>
+        <ul class="keys" id="f6Keys" aria-hidden="true"></ul>
+        <div class="cb"><div class="plot" id="f6Plot" tabindex="0" role="group"></div></div>
+        <figcaption class="cf" id="f6Note"></figcaption>
         <div class="tip" aria-hidden="true"></div>
-        <div class="sr-only" id="f2Table"></div>
-      </figure>
-    </div>
-    <div class="tw"><span class="tw-n" aria-hidden="true">02</span><p class="tw-t" id="tw2"></p></div>
-  </section>
-
-  <!-- 03 · 수요에 맞춘 가동: 그림 3 | 표 2(증감 장부) → 결론 띠 -->
-  <section class="slide" id="s3" aria-labelledby="s3T">
-    <div class="sl-h"><h2 class="sl-t" id="s3T" data-i18n="s3.t"></h2><p class="sl-k" data-i18n="s3.k"></p></div>
-    <div class="sl-b two-c">
-      <figure class="panel" id="f3">
-        <span class="fl" data-i18n="f3.label"></span>
-        <h3 class="ct" id="f3Title"></h3>
-        <p class="cht" id="f3Cht"></p>
-        <ul class="keys" id="f3Keys" aria-hidden="true"></ul>
-        <div class="cb"><div class="sm" id="f3Sm"></div></div>
-        <figcaption class="cf" id="f3Note"></figcaption>
-        <div class="tip" aria-hidden="true"></div>
-        <div class="sr-only" id="f3Table"></div>
-      </figure>
-      <figure class="panel" id="t2">
-        <span class="fl" data-i18n="t2.label"></span>
-        <h3 class="ct" id="t2Title"></h3>
-        <p class="cht" id="t2Cht"></p>
-        <div class="cb"><div class="mt-wrap" id="t2Wrap"></div></div>
-        <figcaption class="cf" data-i18n="t2.note"></figcaption>
-        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f6Table"></div>
       </figure>
     </div>
     <div class="tw"><span class="tw-n" aria-hidden="true">03</span><p class="tw-t" id="tw3"></p></div>
   </section>
 
-  <!-- 04 · 원가: 그림 4(증감표) | 그림 5 → 결론 띠 -->
+  <!-- 04 · 원가: 그림 7(판재 브리지) | 그림 8(13주 선) → 결론 띠 -->
   <section class="slide" id="s4" aria-labelledby="s4T">
     <div class="sl-h"><h2 class="sl-t" id="s4T" data-i18n="s4.t"></h2><p class="sl-k" data-i18n="s4.k"></p></div>
-    <div class="sl-b two-c">
-      <figure class="panel" id="f4">
-        <span class="fl" data-i18n="f4.label"></span>
-        <h3 class="ct" id="f4Title"></h3>
-        <p class="cht" id="f4Cht"></p>
-        <div class="cb"><div id="f4Wrap"></div></div>
-        <figcaption class="cf" data-i18n="f4.note"></figcaption>
-        <div class="tip" aria-hidden="true"></div>
-      </figure>
-      <figure class="panel" id="f5">
-        <span class="fl" data-i18n="f5.label"></span>
-        <h3 class="ct" id="f5Title"></h3>
-        <p class="cht" id="f5Cht"></p>
-        <ul class="keys" id="f5Keys" aria-hidden="true"></ul>
-        <div class="cb"><div class="sm" id="f5Sm"></div></div>
-        <figcaption class="cf" id="f5Note"></figcaption>
-        <div class="tip" aria-hidden="true"></div>
-        <div class="sr-only" id="f5Table"></div>
-      </figure>
+    <div class="sl-b">
+      <div class="row">
+        <figure class="panel" id="f7">
+          <span class="fl" data-i18n="f7.label"></span>
+          <h3 class="ct" id="f7Title"></h3>
+          <p class="cht" id="f7Cht"></p>
+          <ul class="keys" id="f7Keys" aria-hidden="true"></ul>
+          <div class="cb"><div class="plot" id="f7Plot" tabindex="0" role="group"></div></div>
+          <figcaption class="cf" data-i18n="f7.note"></figcaption>
+          <div class="tip" aria-hidden="true"></div>
+          <div class="sr-only" id="f7Table"></div>
+        </figure>
+        <figure class="panel" id="f8">
+          <span class="fl" data-i18n="f8.label"></span>
+          <h3 class="ct" id="f8Title"></h3>
+          <p class="cht" id="f8Cht"></p>
+          <ul class="keys" id="f8Keys" aria-hidden="true"></ul>
+          <div class="cb"><div class="sm" id="f8Sm"></div></div>
+          <figcaption class="cf" id="f8Note"></figcaption>
+          <div class="tip" aria-hidden="true"></div>
+          <div class="sr-only" id="f8Table"></div>
+        </figure>
+      </div>
     </div>
     <div class="tw"><span class="tw-n" aria-hidden="true">04</span><p class="tw-t" id="tw4"></p></div>
   </section>
@@ -651,22 +670,23 @@
   const SVGNS = 'http://www.w3.org/2000/svg';
   const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* 데이터 색: West Fraser가 차트에 쓰는 색상군(IR의 세이지·흙주황·하늘색·자주, 연차보고서의 '회색 + 올해만 초록')에서.
-     주인공은 초록 #418d50(UI 초록 #007e3a에서 한 단계 밝고 세이지 쪽, 글자 #2d723c). 범주 순서 초록 → 하늘색 #3797c6 → 자두색 #8c5087 → 기타 warm-grey #b5c1b7.
-     계획 미달·나쁨은 WF처럼 빨강 대신 흙주황 #c06228(글자 #a75016, 표의 회녹색 칸 위 글자 #853900). 계획선은 #595959.
-     validate_palette.js(OKLab), 흰 판 #ffffff 기준: 범주 모든 쌍 색각 ΔE 최저 12.0, 일반 시각 17.0, 대비 3.28:1 이상. */
+  /* 데이터 색: 나무와 숲. 판재의 기본은 소나무 #d3c5a9(중립), 예외는 삼나무 같은 흙주황 #c06228(WF는 나쁨에 빨강 대신 earth orange),
+     두 번째 나무 단계는 호두나무 #5c4e36, 주인공·이번 주는 초록 #418d50(UI 초록 #007e3a에서 한 단계 밝고 세이지 쪽).
+     validate_palette.js(OKLab), 흰 판 기준: 소나무↔흙주황 색각 ΔE 23.2 · 일반 25.4, 소나무↔초록 21.8 · 27.1, 호두나무↔흙주황 13.0 · 19.8.
+     소나무는 흰 바탕에서 1.7:1이라 값 글자를 늘 붙인다. 초록↔흙주황은 색각 6.3이라 부호·괄호·▼·모양(채움과 테두리)을 함께 쓴다. */
   const C = {
-    hero: '#418d50', heroText: '#2d723c', sky: '#3797c6', plum: '#8c5087', other: '#b5c1b7', hist: '#a3a3a3', comparison: '#595959',
+    hero: '#418d50', heroText: '#2d723c', sky: '#3797c6', plum: '#8c5087', pine: '#d3c5a9', walnut: '#5c4e36', hist: '#a3a3a3', comparison: '#595959',
     bad: '#c06228', badMark: '#a75016', badText: '#a75016', badTint: '#853900', good: '#00642e', goodTint: '#195c2e',
-    ink: '#333333', text: '#595959', muted: '#666666', grid: '#e6e6e6', base: '#bfbfbf', plot: '#ffffff',
-    green: '#007e3a', sage: '#749370', sage300: '#b9cfb6', sage50: '#f0f5ef', navy: '#39527f',
+    ink: '#333333', text: '#595959', muted: '#666666', grid: '#e6e6e6', base: '#bfbfbf', plot: '#ffffff', kraft: '#f3f0e9', kraft200: '#e5ddce',
+    green: '#007e3a', green100: '#e5f2eb', sage: '#749370', sageHd: '#5d7b59', sage300: '#b9cfb6', sage50: '#f0f5ef', navy: '#39527f',
     generic: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f', '#edc948', '#b07aa1', '#ff9da7']
   };
 
   /* ================= 가상 데이터: Vizney Timber, Wk 44-26(2026년 10월 26일 월 ~ 11월 1일 일). 돈은 미국 달러 =================
      제재소 8곳: SPF(캐나다 B.C.·앨버타) 4곳, SYP(미국 남부) 4곳. 주간 생산·출하·재고(MMfbm), 회수율(fbm/m³), 등급(#2&Btr %),
-     원가(US$/Mfbm), 45~48주 가동 일정 변경. Python으로 만들고 검산했다(공장 합 = 수종 소계, 수종 합 = 전체, 원가 단계 합 = 변화). */
-  const DATA = {"year":2026,"weeks":[32,33,34,35,36,37,38,39,40,41,42,43,44],"ends":["2026-08-09","2026-08-16","2026-08-23","2026-08-30","2026-09-06","2026-09-13","2026-09-20","2026-09-27","2026-10-04","2026-10-11","2026-10-18","2026-10-25","2026-11-01"],"mills":[{"id":"pg","en":"Prince George","ko":"프린스조지","st":"BC","sp":"spf","cap":8.0,"plan":7.4,"prod":[7.5,7.4,7.2,7.4,7.5,7.4,7.5,7.3,7.4,7.3,7.4,7.3,6.6],"ship":[7.6,7.5,7.5,7.3,7.2,7.3,7.1,7.0,6.9,6.8,6.8,6.7,6.4],"inv":[11.5,11.4,11.1,11.2,11.5,11.6,12.0,12.3,12.8,13.3,13.9,14.5,14.7],"lrf":[252,252,251,252,253,253,253,252,250,250,253,252,243],"grade":[87.0,86.9,86.8,87.2,87.1,87.3,86.7,86.7,87.0,87.0,86.8,86.9,84.1],"lrfT":[250,256],"gT":[86,88],"note":{"en":"Trimmer optimizer fault Tue–Wed (11 h); LRF down 9 fbm/m³","ko":"트리머 최적화 장치 고장(화~수, 11시간), LRF 9 fbm/m³ 하락"}},{"id":"kam","en":"Kamloops","ko":"캠루프스","st":"BC","sp":"spf","cap":6.0,"plan":5.6,"prod":[5.5,5.7,5.6,5.6,5.6,5.5,5.5,5.7,5.6,5.6,5.7,5.6,5.7],"ship":[5.7,5.6,5.7,5.6,5.5,5.5,5.4,5.3,5.3,5.2,5.1,5.1,4.9],"inv":[8.6,8.7,8.6,8.6,8.7,8.7,8.8,9.2,9.5,9.9,10.5,11.0,11.8],"lrf":[254,253,253,254,253,253,252,253,254,254,252,253,254],"grade":[87.2,87.3,86.7,86.5,86.8,86.8,87.3,87.3,87.1,87.2,86.8,87.0,87.2],"lrfT":[250,256],"gT":[86,88],"note":{"en":"On plan; U.S. orders slower, inventory building","ko":"계획대로, 미국 주문이 줄어 재고가 쌓임"}},{"id":"kel","en":"Kelowna","ko":"켈로나","st":"BC","sp":"spf","cap":5.2,"plan":4.8,"prod":[4.8,4.8,4.7,4.8,4.8,4.9,4.8,4.8,4.7,4.8,4.8,4.8,4.9],"ship":[4.9,4.8,4.9,4.8,4.7,4.8,4.6,4.6,4.5,4.4,4.4,4.3,4.3],"inv":[7.4,7.4,7.2,7.2,7.3,7.4,7.6,7.8,8.0,8.4,8.8,9.3,9.9],"lrf":[249,249,248,249,251,251,249,248,250,250,250,250,251],"grade":[86.2,86.1,86.6,86.4,86.7,86.4,86.3,86.1,86.7,86.5,86.6,86.6,86.8],"lrfT":[250,256],"gT":[86,88],"note":{"en":"On plan","ko":"계획대로"}},{"id":"rd","en":"Red Deer","ko":"레드디어","st":"AB","sp":"spf","cap":6.8,"plan":6.3,"prod":[6.3,6.3,6.4,6.3,6.2,6.2,6.3,6.4,6.3,6.3,6.3,6.2,6.4],"ship":[6.4,6.3,6.4,6.2,6.2,6.2,6.0,6.0,5.9,5.8,5.7,5.7,5.8],"inv":[9.7,9.7,9.7,9.8,9.8,9.8,10.1,10.5,10.9,11.4,12.0,12.5,13.1],"lrf":[255,257,255,254,255,255,255,256,256,255,255,255,256],"grade":[88.0,87.8,87.6,87.2,87.1,87.3,88.0,87.7,88.0,87.9,87.7,87.6,87.9],"lrfT":[250,256],"gT":[86,88],"note":{"en":"Above plan; best recovery in SPF","ko":"계획 초과, SPF 중 회수율 최고"}},{"id":"jac","en":"Jackson","ko":"잭슨","st":"MS","sp":"syp","cap":7.6,"plan":7.2,"prod":[7.2,7.2,7.1,7.3,7.2,7.2,7.2,7.2,7.0,7.2,7.1,7.1,5.9],"ship":[7.0,7.1,7.0,7.1,7.3,7.1,7.3,7.4,7.3,7.4,7.5,7.5,7.0],"inv":[10.1,10.2,10.3,10.5,10.4,10.5,10.4,10.2,9.9,9.7,9.3,8.9,7.8],"lrf":[283,282,284,283,285,286,283,284,284,284,285,284,283],"grade":[84.8,84.8,85.1,84.9,85.3,85.2,84.9,84.3,84.4,85.1,85.3,84.8,84.6],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Wet weather cut log deliveries; two shifts lost","ko":"비로 원목 반입이 줄어 2교대 손실"}},{"id":"mac","en":"Macon","ko":"메이컨","st":"GA","sp":"syp","cap":7.0,"plan":6.6,"prod":[6.6,6.7,6.7,6.7,6.7,6.6,6.5,6.7,6.7,6.6,6.7,6.7,6.0],"ship":[6.4,6.5,6.5,6.6,6.6,6.6,6.7,6.7,6.7,6.8,6.8,6.9,6.6],"inv":[9.2,9.4,9.6,9.7,9.8,9.8,9.6,9.6,9.6,9.4,9.3,9.1,8.5],"lrf":[285,286,285,285,284,283,285,285,284,284,285,284,283],"grade":[84.3,84.6,84.0,83.9,84.1,84.3,84.1,84.1,84.3,84.4,84.1,84.2,83.9],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Planer gearbox down 14 h","ko":"플레이너 감속기 고장 14시간"}},{"id":"mon","en":"Montgomery","ko":"몽고메리","st":"AL","sp":"syp","cap":6.6,"plan":6.3,"prod":[6.2,6.2,6.3,6.2,6.3,6.4,6.3,6.2,6.3,6.2,6.3,6.3,6.5],"ship":[6.2,6.2,6.2,6.3,6.3,6.3,6.3,6.4,6.4,6.4,6.5,6.5,6.9],"inv":[8.9,8.9,9.0,8.9,8.9,9.0,9.0,8.8,8.7,8.5,8.3,8.1,7.7],"lrf":[283,283,284,284,286,285,286,284,285,285,285,285,286],"grade":[85.4,85.1,85.9,85.7,86.0,85.4,85.4,85.0,85.6,85.9,85.5,85.6,85.8],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Above plan; Saturday shift from Wk 45","ko":"계획 초과, 45주부터 토요일 교대"}},{"id":"shr","en":"Shreveport","ko":"슈리브포트","st":"LA","sp":"syp","cap":7.2,"plan":6.8,"prod":[6.8,6.9,6.9,6.9,6.7,6.8,6.8,6.9,6.9,6.8,6.9,6.9,7.0],"ship":[6.6,6.7,6.6,6.8,6.8,6.7,6.9,6.9,6.9,7.0,7.0,7.1,7.4],"inv":[9.5,9.7,10.0,10.1,10.0,10.1,10.0,10.0,10.0,9.8,9.7,9.5,9.1],"lrf":[287,289,288,287,286,287,288,287,289,286,286,287,288],"grade":[86.2,86.3,86.3,85.9,85.8,86.1,86.6,86.5,86.3,86.2,85.9,86.2,86.4],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Above plan","ko":"계획 초과"}}],"scopes":{"all":{"mills":8,"cap":54.4,"plan":51.0,"prod":[50.9,51.2,50.9,51.2,51.0,51.0,50.9,51.2,50.9,50.8,51.2,50.9,49.0],"ship":[50.8,50.7,50.8,50.7,50.6,50.5,50.3,50.3,49.9,49.8,49.8,49.8,49.3],"inv":[74.9,75.4,75.5,76.0,76.4,76.9,77.5,78.4,79.4,80.4,81.8,82.9,82.6],"invDays":[10.3,10.4,10.4,10.5,10.6,10.7,10.8,10.9,11.1,11.3,11.5,11.7,11.7],"op":[93.6,94.1,93.6,94.1,93.8,93.8,93.6,94.1,93.6,93.4,94.1,93.6,90.1],"lrf":[268.5,268.9,268.6,268.5,269.1,269.2,268.8,268.6,268.9,268.4,268.9,268.8,267.5],"grade":[86.1,86.1,86.1,85.9,86.1,86.1,86.1,85.9,86.1,86.2,86.0,86.1,85.8],"lrfT":[266.9,272.9],"gradeT":[84.9,86.9],"prodR":[49.5,52.5],"opPlan":93.8,"opR":[91.8,95.8],"invR":[9.0,12.0],"cost":{"fibre":{"w43":237.4,"w44":243.6,"plan":234.6},"labour":{"w43":52.7,"w44":56.3,"plan":52.7},"energy":{"w43":12.9,"w44":14.0,"plan":12.9},"maint":{"w43":30.3,"w44":33.4,"plan":30.3},"transport":{"w43":79.4,"w44":82.7,"plan":78.5}},"cash":[331.1,327.4,328.2,328.8,330.4,331.4,332.6,329.9,325.9,328.1,331.5,333.3,347.3],"cashPlan":330.6,"shipPlan":50.5,"shipR":[48.5,52.5]},"spf":{"mills":4,"cap":26.0,"plan":24.1,"prod":[24.1,24.2,23.9,24.1,24.1,24.0,24.1,24.2,24.0,24.0,24.2,23.9,23.6],"ship":[24.6,24.2,24.5,23.9,23.6,23.8,23.1,22.9,22.6,22.2,22.0,21.8,21.4],"inv":[37.2,37.2,36.6,36.8,37.3,37.5,38.5,39.8,41.2,43.0,45.2,47.3,49.5],"invDays":[10.6,10.8,10.5,10.8,11.1,11.0,11.7,12.2,12.8,13.6,14.4,15.2,16.2],"op":[92.7,93.1,91.9,92.7,92.7,92.3,92.7,93.1,92.3,92.3,93.1,91.9,90.8],"lrf":[252.6,252.9,251.9,252.4,253.1,253.1,252.5,252.5,252.5,252.2,252.7,252.6,250.7],"grade":[87.1,87.1,87.0,86.9,87.0,87.0,87.1,87.0,87.2,87.2,87.0,87.0,86.4],"lrfT":[250.0,256.0],"gradeT":[86.0,88.0],"prodR":[23.4,24.8],"opPlan":92.7,"opR":[90.7,94.7],"invR":[9.0,12.0],"cost":{"fibre":{"w43":266.0,"w44":268.0,"plan":262.0},"labour":{"w43":58.0,"w44":61.0,"plan":58.0},"energy":{"w43":14.0,"w44":15.0,"plan":14.0},"maint":{"w43":34.0,"w44":36.0,"plan":34.0},"transport":{"w43":90.0,"w44":92.0,"plan":88.0}},"cash":[369.0,367.0,369.0,369.0,371.0,370.0,371.0,370.0,365.0,365.0,370.0,372.0,380.0],"cashPlan":368.0,"shipPlan":23.0,"shipR":[22.1,23.9]},"syp":{"mills":4,"cap":28.4,"plan":26.9,"prod":[26.8,27.0,27.0,27.1,26.9,27.0,26.8,27.0,26.9,26.8,27.0,27.0,25.4],"ship":[26.2,26.5,26.3,26.8,27.0,26.7,27.2,27.4,27.3,27.6,27.8,28.0,27.9],"inv":[37.7,38.2,38.9,39.2,39.1,39.4,39.0,38.6,38.2,37.4,36.6,35.6,33.1],"invDays":[10.1,10.1,10.4,10.2,10.1,10.3,10.0,9.9,9.8,9.5,9.2,8.9,8.3],"op":[94.4,95.1,95.1,95.4,94.7,95.1,94.4,95.1,94.7,94.4,95.1,95.1,89.4],"lrf":[284.5,285.0,285.3,284.7,285.2,285.3,285.4,285.0,285.5,284.7,285.3,285.0,285.1],"grade":[85.2,85.2,85.3,85.1,85.3,85.3,85.3,85.0,85.1,85.4,85.2,85.2,85.2],"lrfT":[282.0,288.0],"gradeT":[84.0,86.0],"prodR":[26.1,27.7],"opPlan":94.7,"opR":[92.7,96.7],"invR":[9.0,12.0],"cost":{"fibre":{"w43":212.0,"w44":221.0,"plan":210.0},"labour":{"w43":48.0,"w44":52.0,"plan":48.0},"energy":{"w43":12.0,"w44":13.0,"plan":12.0},"maint":{"w43":27.0,"w44":31.0,"plan":27.0},"transport":{"w43":70.0,"w44":74.0,"plan":70.0}},"cash":[297.0,292.0,292.0,293.0,294.0,297.0,298.0,294.0,291.0,295.0,297.0,299.0,317.0],"cashPlan":297.0,"shipPlan":27.5,"shipR":[26.4,28.6]}},"cost":{"spf":{"fibre":{"w43":266,"w44":268,"plan":262},"labour":{"w43":58,"w44":61,"plan":58},"energy":{"w43":14,"w44":15,"plan":14},"maint":{"w43":34,"w44":36,"plan":34},"transport":{"w43":90,"w44":92,"plan":88}},"syp":{"fibre":{"w43":212,"w44":221,"plan":210},"labour":{"w43":48,"w44":52,"plan":48},"energy":{"w43":12,"w44":13,"plan":12},"maint":{"w43":27,"w44":31,"plan":27},"transport":{"w43":70,"w44":74,"plan":70}}},"cashSp":{"spf":[369,367,369,369,371,370,371,370,365,365,370,372,380],"syp":[297,292,292,293,294,297,298,294,291,295,297,299,317]},"ledger":[{"wk":45,"mill":"kam","v":-1.2,"en":"sawmill down Thu–Fri","ko":"제재 라인 목~금 정지","sp":"spf"},{"wk":45,"mill":"mon","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":45,"mill":"shr","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":45,"mill":"jac","v":0.6,"en":"make-up shift","ko":"보충 교대","sp":"syp"},{"wk":46,"mill":"kam","v":-1.2,"en":"sawmill down Thu–Fri","ko":"제재 라인 목~금 정지","sp":"spf"},{"wk":46,"mill":"kel","v":-1.0,"en":"two shifts down","ko":"2교대 정지","sp":"spf"},{"wk":46,"mill":"mon","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":46,"mill":"shr","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":47,"mill":"pg","v":-0.7,"en":"optimizer replaced, one day","ko":"최적화 장치 교체, 하루","sp":"spf"},{"wk":47,"mill":"mon","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":47,"mill":"shr","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp"},{"wk":48,"mill":"syp4","v":-2.4,"en":"Thanksgiving, closed Thu–Fri","ko":"추수감사절, 목~금 휴무","sp":"syp"},{"wk":48,"mill":"kel","v":-1.0,"en":"two shifts down","ko":"2교대 정지","sp":"spf"}],"ticker":{"spf":{"v":468,"d":-6},"syp":{"v":412,"d":9}}};
+     계획 외 정지(시간), 품목별 재고와 주문(MMfbm), 원가(US$/Mfbm), 45~48주 가동 일정(날짜별). Python으로 만들고 검산했다
+     (공장 합 = 수종 소계, 수종 합 = 전체, 품목 합 = 재고, 원가 단계 합 = 변화, 일정의 주별 순변화). */
+  const DATA = {"year":2026,"weeks":[32,33,34,35,36,37,38,39,40,41,42,43,44],"ends":["2026-08-09","2026-08-16","2026-08-23","2026-08-30","2026-09-06","2026-09-13","2026-09-20","2026-09-27","2026-10-04","2026-10-11","2026-10-18","2026-10-25","2026-11-01"],"mills":[{"id":"pg","en":"Prince George","ko":"프린스조지","st":"BC","sp":"spf","cap":8.0,"plan":7.4,"prod":[7.5,7.4,7.2,7.4,7.5,7.4,7.5,7.3,7.4,7.3,7.4,7.3,6.6],"ship":[7.6,7.5,7.5,7.3,7.2,7.3,7.1,7.0,6.9,6.8,6.8,6.7,6.4],"inv":[11.5,11.4,11.1,11.2,11.5,11.6,12.0,12.3,12.8,13.3,13.9,14.5,14.7],"lrf":[252,252,251,252,253,253,253,252,250,250,253,252,243],"grade":[87.0,86.9,86.8,87.2,87.1,87.3,86.7,86.7,87.0,87.0,86.8,86.9,84.1],"lrfT":[250,256],"gT":[86,88],"note":{"en":"Trimmer optimizer fault Tue–Wed (11 h); LRF down 9 fbm/m³","ko":"트리머 최적화 장치 고장(화~수, 11시간), LRF 9 fbm/m³ 하락"}},{"id":"kam","en":"Kamloops","ko":"캠루프스","st":"BC","sp":"spf","cap":6.0,"plan":5.6,"prod":[5.5,5.7,5.6,5.6,5.6,5.5,5.5,5.7,5.6,5.6,5.7,5.6,5.7],"ship":[5.7,5.6,5.7,5.6,5.5,5.5,5.4,5.3,5.3,5.2,5.1,5.1,4.9],"inv":[8.6,8.7,8.6,8.6,8.7,8.7,8.8,9.2,9.5,9.9,10.5,11.0,11.8],"lrf":[254,253,253,254,253,253,252,253,254,254,252,253,254],"grade":[87.2,87.3,86.7,86.5,86.8,86.8,87.3,87.3,87.1,87.2,86.8,87.0,87.2],"lrfT":[250,256],"gT":[86,88],"note":{"en":"On plan; U.S. orders slower, inventory building","ko":"계획대로, 미국 주문이 줄어 재고가 쌓임"}},{"id":"kel","en":"Kelowna","ko":"켈로나","st":"BC","sp":"spf","cap":5.2,"plan":4.8,"prod":[4.8,4.8,4.7,4.8,4.8,4.9,4.8,4.8,4.7,4.8,4.8,4.8,4.9],"ship":[4.9,4.8,4.9,4.8,4.7,4.8,4.6,4.6,4.5,4.4,4.4,4.3,4.3],"inv":[7.4,7.4,7.2,7.2,7.3,7.4,7.6,7.8,8.0,8.4,8.8,9.3,9.9],"lrf":[249,249,248,249,251,251,249,248,250,250,250,250,251],"grade":[86.2,86.1,86.6,86.4,86.7,86.4,86.3,86.1,86.7,86.5,86.6,86.6,86.8],"lrfT":[250,256],"gT":[86,88],"note":{"en":"On plan","ko":"계획대로"}},{"id":"rd","en":"Red Deer","ko":"레드디어","st":"AB","sp":"spf","cap":6.8,"plan":6.3,"prod":[6.3,6.3,6.4,6.3,6.2,6.2,6.3,6.4,6.3,6.3,6.3,6.2,6.4],"ship":[6.4,6.3,6.4,6.2,6.2,6.2,6.0,6.0,5.9,5.8,5.7,5.7,5.8],"inv":[9.7,9.7,9.7,9.8,9.8,9.8,10.1,10.5,10.9,11.4,12.0,12.5,13.1],"lrf":[255,257,255,254,255,255,255,256,256,255,255,255,256],"grade":[88.0,87.8,87.6,87.2,87.1,87.3,88.0,87.7,88.0,87.9,87.7,87.6,87.9],"lrfT":[250,256],"gT":[86,88],"note":{"en":"Above plan; best recovery in SPF","ko":"계획 초과, SPF 중 회수율 최고"}},{"id":"jac","en":"Jackson","ko":"잭슨","st":"MS","sp":"syp","cap":7.6,"plan":7.2,"prod":[7.2,7.2,7.1,7.3,7.2,7.2,7.2,7.2,7.0,7.2,7.1,7.1,5.9],"ship":[7.0,7.1,7.0,7.1,7.3,7.1,7.3,7.4,7.3,7.4,7.5,7.5,7.0],"inv":[10.1,10.2,10.3,10.5,10.4,10.5,10.4,10.2,9.9,9.7,9.3,8.9,7.8],"lrf":[283,282,284,283,285,286,283,284,284,284,285,284,283],"grade":[84.8,84.8,85.1,84.9,85.3,85.2,84.9,84.3,84.4,85.1,85.3,84.8,84.6],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Wet weather cut log deliveries; two shifts lost","ko":"비로 원목 반입이 줄어 2교대 손실"}},{"id":"mac","en":"Macon","ko":"메이컨","st":"GA","sp":"syp","cap":7.0,"plan":6.6,"prod":[6.6,6.7,6.7,6.7,6.7,6.6,6.5,6.7,6.7,6.6,6.7,6.7,6.0],"ship":[6.4,6.5,6.5,6.6,6.6,6.6,6.7,6.7,6.7,6.8,6.8,6.9,6.6],"inv":[9.2,9.4,9.6,9.7,9.8,9.8,9.6,9.6,9.6,9.4,9.3,9.1,8.5],"lrf":[285,286,285,285,284,283,285,285,284,284,285,284,283],"grade":[84.3,84.6,84.0,83.9,84.1,84.3,84.1,84.1,84.3,84.4,84.1,84.2,83.9],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Planer gearbox down 14 h","ko":"플레이너 감속기 고장 14시간"}},{"id":"mon","en":"Montgomery","ko":"몽고메리","st":"AL","sp":"syp","cap":6.6,"plan":6.3,"prod":[6.2,6.2,6.3,6.2,6.3,6.4,6.3,6.2,6.3,6.2,6.3,6.3,6.5],"ship":[6.2,6.2,6.2,6.3,6.3,6.3,6.3,6.4,6.4,6.4,6.5,6.5,6.9],"inv":[8.9,8.9,9.0,8.9,8.9,9.0,9.0,8.8,8.7,8.5,8.3,8.1,7.7],"lrf":[283,283,284,284,286,285,286,284,285,285,285,285,286],"grade":[85.4,85.1,85.9,85.7,86.0,85.4,85.4,85.0,85.6,85.9,85.5,85.6,85.8],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Above plan; Saturday shift from Wk 45","ko":"계획 초과, 45주부터 토요일 교대"}},{"id":"shr","en":"Shreveport","ko":"슈리브포트","st":"LA","sp":"syp","cap":7.2,"plan":6.8,"prod":[6.8,6.9,6.9,6.9,6.7,6.8,6.8,6.9,6.9,6.8,6.9,6.9,7.0],"ship":[6.6,6.7,6.6,6.8,6.8,6.7,6.9,6.9,6.9,7.0,7.0,7.1,7.4],"inv":[9.5,9.7,10.0,10.1,10.0,10.1,10.0,10.0,10.0,9.8,9.7,9.5,9.1],"lrf":[287,289,288,287,286,287,288,287,289,286,286,287,288],"grade":[86.2,86.3,86.3,85.9,85.8,86.1,86.6,86.5,86.3,86.2,85.9,86.2,86.4],"lrfT":[282,288],"gT":[84,86],"note":{"en":"Above plan","ko":"계획 초과"}}],"scopes":{"all":{"mills":8,"cap":54.4,"plan":51.0,"prod":[50.9,51.2,50.9,51.2,51.0,51.0,50.9,51.2,50.9,50.8,51.2,50.9,49.0],"ship":[50.8,50.7,50.8,50.7,50.6,50.5,50.3,50.3,49.9,49.8,49.8,49.8,49.3],"inv":[74.9,75.4,75.5,76.0,76.4,76.9,77.5,78.4,79.4,80.4,81.8,82.9,82.6],"invDays":[10.3,10.4,10.4,10.5,10.6,10.7,10.8,10.9,11.1,11.3,11.5,11.7,11.7],"op":[93.6,94.1,93.6,94.1,93.8,93.8,93.6,94.1,93.6,93.4,94.1,93.6,90.1],"lrf":[268.5,268.9,268.6,268.5,269.1,269.2,268.8,268.6,268.9,268.4,268.9,268.8,267.5],"grade":[86.1,86.1,86.1,85.9,86.1,86.1,86.1,85.9,86.1,86.2,86.0,86.1,85.8],"lrfT":[266.9,272.9],"gradeT":[84.9,86.9],"prodR":[49.5,52.5],"opPlan":93.8,"opR":[91.8,95.8],"invR":[9.0,12.0],"cost":{"fibre":{"w43":237.4,"w44":243.6,"plan":234.6},"labour":{"w43":52.7,"w44":56.3,"plan":52.7},"energy":{"w43":12.9,"w44":14.0,"plan":12.9},"maint":{"w43":30.3,"w44":33.4,"plan":30.3},"transport":{"w43":79.4,"w44":82.7,"plan":78.5}},"cash":[331.1,327.4,328.2,328.8,330.4,331.4,332.6,329.9,325.9,328.1,331.5,333.3,347.3],"cashPlan":330.6,"shipPlan":50.5,"shipR":[48.5,52.5]},"spf":{"mills":4,"cap":26.0,"plan":24.1,"prod":[24.1,24.2,23.9,24.1,24.1,24.0,24.1,24.2,24.0,24.0,24.2,23.9,23.6],"ship":[24.6,24.2,24.5,23.9,23.6,23.8,23.1,22.9,22.6,22.2,22.0,21.8,21.4],"inv":[37.2,37.2,36.6,36.8,37.3,37.5,38.5,39.8,41.2,43.0,45.2,47.3,49.5],"invDays":[10.6,10.8,10.5,10.8,11.1,11.0,11.7,12.2,12.8,13.6,14.4,15.2,16.2],"op":[92.7,93.1,91.9,92.7,92.7,92.3,92.7,93.1,92.3,92.3,93.1,91.9,90.8],"lrf":[252.6,252.9,251.9,252.4,253.1,253.1,252.5,252.5,252.5,252.2,252.7,252.6,250.7],"grade":[87.1,87.1,87.0,86.9,87.0,87.0,87.1,87.0,87.2,87.2,87.0,87.0,86.4],"lrfT":[250.0,256.0],"gradeT":[86.0,88.0],"prodR":[23.4,24.8],"opPlan":92.7,"opR":[90.7,94.7],"invR":[9.0,12.0],"cost":{"fibre":{"w43":266.0,"w44":268.0,"plan":262.0},"labour":{"w43":58.0,"w44":61.0,"plan":58.0},"energy":{"w43":14.0,"w44":15.0,"plan":14.0},"maint":{"w43":34.0,"w44":36.0,"plan":34.0},"transport":{"w43":90.0,"w44":92.0,"plan":88.0}},"cash":[369.0,367.0,369.0,369.0,371.0,370.0,371.0,370.0,365.0,365.0,370.0,372.0,380.0],"cashPlan":368.0,"shipPlan":23.0,"shipR":[22.1,23.9]},"syp":{"mills":4,"cap":28.4,"plan":26.9,"prod":[26.8,27.0,27.0,27.1,26.9,27.0,26.8,27.0,26.9,26.8,27.0,27.0,25.4],"ship":[26.2,26.5,26.3,26.8,27.0,26.7,27.2,27.4,27.3,27.6,27.8,28.0,27.9],"inv":[37.7,38.2,38.9,39.2,39.1,39.4,39.0,38.6,38.2,37.4,36.6,35.6,33.1],"invDays":[10.1,10.1,10.4,10.2,10.1,10.3,10.0,9.9,9.8,9.5,9.2,8.9,8.3],"op":[94.4,95.1,95.1,95.4,94.7,95.1,94.4,95.1,94.7,94.4,95.1,95.1,89.4],"lrf":[284.5,285.0,285.3,284.7,285.2,285.3,285.4,285.0,285.5,284.7,285.3,285.0,285.1],"grade":[85.2,85.2,85.3,85.1,85.3,85.3,85.3,85.0,85.1,85.4,85.2,85.2,85.2],"lrfT":[282.0,288.0],"gradeT":[84.0,86.0],"prodR":[26.1,27.7],"opPlan":94.7,"opR":[92.7,96.7],"invR":[9.0,12.0],"cost":{"fibre":{"w43":212.0,"w44":221.0,"plan":210.0},"labour":{"w43":48.0,"w44":52.0,"plan":48.0},"energy":{"w43":12.0,"w44":13.0,"plan":12.0},"maint":{"w43":27.0,"w44":31.0,"plan":27.0},"transport":{"w43":70.0,"w44":74.0,"plan":70.0}},"cash":[297.0,292.0,292.0,293.0,294.0,297.0,298.0,294.0,291.0,295.0,297.0,299.0,317.0],"cashPlan":297.0,"shipPlan":27.5,"shipR":[26.4,28.6]}},"cost":{"spf":{"fibre":{"w43":266,"w44":268,"plan":262},"labour":{"w43":58,"w44":61,"plan":58},"energy":{"w43":14,"w44":15,"plan":14},"maint":{"w43":34,"w44":36,"plan":34},"transport":{"w43":90,"w44":92,"plan":88}},"syp":{"fibre":{"w43":212,"w44":221,"plan":210},"labour":{"w43":48,"w44":52,"plan":48},"energy":{"w43":12,"w44":13,"plan":12},"maint":{"w43":27,"w44":31,"plan":27},"transport":{"w43":70,"w44":74,"plan":70}}},"cashSp":{"spf":[369,367,369,369,371,370,371,370,365,365,370,372,380],"syp":[297,292,292,293,294,297,298,294,291,295,297,299,317]},"ledger":[{"wk":45,"mill":"kam","v":-1.2,"en":"sawmill down Thu–Fri","ko":"제재 라인 목~금 정지","sp":"spf","days":[3,4]},{"wk":45,"mill":"mon","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp","days":[5]},{"wk":45,"mill":"shr","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp","days":[5]},{"wk":45,"mill":"jac","v":0.6,"en":"make-up shift","ko":"보충 교대","sp":"syp","days":[5]},{"wk":46,"mill":"kam","v":-1.2,"en":"sawmill down Thu–Fri","ko":"제재 라인 목~금 정지","sp":"spf","days":[3,4]},{"wk":46,"mill":"kel","v":-1.0,"en":"two shifts down","ko":"2교대 정지","sp":"spf","days":[4]},{"wk":46,"mill":"mon","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp","days":[5]},{"wk":46,"mill":"shr","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp","days":[5]},{"wk":47,"mill":"pg","v":-0.7,"en":"optimizer replaced, one day","ko":"최적화 장치 교체, 하루","sp":"spf","days":[1]},{"wk":47,"mill":"mon","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp","days":[5]},{"wk":47,"mill":"shr","v":0.5,"en":"Saturday shift","ko":"토요일 교대","sp":"syp","days":[5]},{"wk":48,"mill":"syp4","v":-2.4,"en":"Thanksgiving, closed Thu–Fri","ko":"추수감사절, 목~금 휴무","sp":"syp","days":[3,4]},{"wk":48,"mill":"kel","v":-1.0,"en":"two shifts down","ko":"2교대 정지","sp":"spf","days":[4]}],"ticker":{"spf":{"v":468,"d":-6},"syp":{"v":412,"d":9}},"down":[{"mill":"jac","cause":"logs","h":16,"sp":"syp"},{"mill":"mac","cause":"planer","h":14,"sp":"syp"},{"mill":"pg","cause":"trimmer","h":11,"sp":"spf"},{"mill":"kel","cause":"kilns","h":3,"sp":"spf"},{"mill":"mon","cause":"kilns","h":2,"sp":"syp"},{"mill":"kam","cause":"jams","h":2,"sp":"spf"},{"mill":"shr","cause":"jams","h":1,"sp":"syp"}],"mix":{"all":{"yard":{"2x4":38.3,"2x6":19.8,"wide":16.2,"other":8.3},"orders":{"2x4":39.4,"2x6":29.5,"wide":24.7,"other":11.4},"yardB":{"2x4":46,"2x6":24,"wide":20,"other":10},"ordB":{"2x4":37,"2x6":28,"wide":24,"other":11}},"spf":{"yard":{"2x4":25.7,"2x6":10.9,"wide":7.9,"other":5.0},"orders":{"2x4":15.0,"2x6":13.6,"wide":10.1,"other":5.3},"yardB":{"2x4":52,"2x6":22,"wide":16,"other":10},"ordB":{"2x4":34,"2x6":31,"wide":23,"other":12}},"syp":{"yard":{"2x4":12.6,"2x6":8.9,"wide":8.3,"other":3.3},"orders":{"2x4":24.4,"2x6":15.9,"wide":14.6,"other":6.1},"yardB":{"2x4":38,"2x6":27,"wide":25,"other":10},"ordB":{"2x4":40,"2x6":26,"wide":24,"other":10}}},"schedStart":"2026-11-02"};
   const SCOPES = ['all', 'spf', 'syp'];
   const NW = DATA.weeks.length, LAST = NW - 1, PREV = NW - 2;
   const MILL = Object.fromEntries(DATA.mills.map(m => [m.id, m]));
@@ -675,6 +695,7 @@
     mac: { en: 'the planer at Macon', ko: '메이컨의 플레이너 고장' },
     pg: { en: 'the trimmer at Prince George', ko: '프린스조지의 트리머 고장' }
   };
+  const PRODUCTS = ['2x4', '2x6', 'wide', 'other'];
 
   /* ================= 문구 ================= */
   const T = {
@@ -690,13 +711,13 @@
       wk: w => `Wk ${w}-26`, wkS: w => `Wk ${w}`, wkRange: (a, b) => `Wk ${a}–${b}`,
       num: ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'],
       ord: ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth'],
-      vol: 'MMfbm', usdU: 'US$/Mfbm', pts: ' pts', days: ' days',
+      vol: 'MMfbm', usdU: 'US$/Mfbm', pts: ' pts', days: ' days', hrs: h => `${h} h`,
       s1: { t: 'Wk 44-26 versus Wk 43-26', k: v => `${v.scope} · ${v.n} mills` },
-      ot: {
+      qf: {
         cap: 'Key figures for Wk 44-26 against the Q4-26 plan and Wk 43-26',
-        head: ['US$ unless noted', 'Wk 44-26', 'Q4-26 plan', 'Wk 43-26', 'Change', 'Commentary'],
-        rows: { prod: ['Lumber production', 'MMfbm'], ship: ['Shipments', 'MMfbm'], op: ['Operating rate', '% of capacity'], lrf: ['Recovery (LRF)', 'fbm per m³ of logs'], grade: ['#2&Btr grade', '% of production'], inv: ['Finished inventory', 'days of shipments'] },
-        costs: ['Costs', 'US$/Mfbm'], cost: { fibre: 'Fibre', labour: 'Labour', energy: 'Energy', transport: 'Transportation' },
+        rows: { prod: ['Lumber production', 'MMfbm'], ship: ['Shipments', 'MMfbm'], op: ['Operating rate', '%'], lrf: ['Recovery (LRF)', 'fbm/m³'], grade: ['#2&Btr grade', '%'], inv: ['Finished inventory', 'days'] },
+        delta: (arrow, v) => `${arrow} ${v} vs Wk 43`, same: 'unchanged from Wk 43',
+        plan: 'Plan', target: 'Target',
         st: { below: 'below', low: 'lower end', in: 'in range', high: 'upper end', above: 'above' },
         com: {
           prod: v => v.who ? `${v.who} short of plan` : 'Every mill on plan',
@@ -704,16 +725,12 @@
           op: { all: 'Two shifts lost at Jackson; Macon planer down 14 h', spf: 'Prince George trimmer down 11 h', syp: 'Two shifts lost at Jackson; Macon planer down 14 h' },
           lrf: { all: 'Prince George trimmer fault; SYP on target', spf: v => `Prince George at ${v.pg}, ${v.gap} below target`, syp: 'All four mills within target' },
           grade: { all: 'Prince George and Macon below target', spf: v => `Prince George at ${v.pg}`, syp: v => `Macon at ${v.mac} after gearbox repairs` },
-          inv: { all: v => `In range only on average: SPF ${v.spf}, SYP ${v.syp}`, spf: v => `Above the range for a ${v.ord} week`, syp: v => `Below the 9-day floor for a ${v.ord} week` },
-          fibre: { all: 'Wet weather raised hauling in Mississippi', spf: 'Longer hauls in the B.C. Interior', syp: 'Wet weather raised hauling in Mississippi' },
-          labour: { all: 'Same crews over less volume', spf: 'Same crews over less volume', syp: 'Same crews over less volume' },
-          energy: { all: 'Kiln gas price up', spf: 'Kiln gas price up', syp: 'Kiln gas price up' },
-          transport: { all: 'Diesel surcharges', spf: 'Rail fuel surcharge', syp: 'Diesel surcharges' }
+          inv: { all: v => `In range only on average: SPF ${v.spf}, SYP ${v.syp}`, spf: v => `Above the range for a ${v.ord} week`, syp: v => `Below the 9-day floor for a ${v.ord} week` }
         },
-        tip: { w44: 'Wk 44-26', w43: 'Wk 43-26', plan: 'Q4-26 plan', range: 'Plan range', chg: 'Change', pos: 'Against the range' },
-        aria: 'Key figures table. Up and down arrow keys move between rows.'
+        tip: { w44: 'Wk 44-26', w43: 'Wk 43-26', pos: 'Against the range', trend: 'Wk 32–44 low – high' },
+        aria: 'Key figures. Arrow keys move between tiles.'
       },
-      n1: 'Note: Q4-26 plan ranges are the weekly run-rate plan: production ±3%, shipments ±4%, operating rate ±2 pts; recovery and grade are species targets weighted by plan. Arrows show costs against Wk 43-26. Negatives in parentheses.',
+      n1: 'Note: Q4-26 plan ranges are the weekly run-rate plan: production ±3%, shipments ±4%, operating rate ±2 pts; recovery and grade are species targets weighted by plan; inventory targets 9–12 days of shipments. Lines show Wk 32–44.',
       f1: {
         label: 'Figure 1',
         title: v => v.n >= 2 ? `${T.en.num[v.n]} mills ran ${v.short} below plan; ${v.worst} lost the most, ${v.wv}`
@@ -721,13 +738,62 @@
           : `Every mill met plan; ${v.best} ran ${v.bv} above`,
         cht: ['Production vs plan by mill', '(MMfbm, Wk 44-26)'],
         keys: ['Below plan', 'At or above plan', 'Plan'],
-        note: 'Note: plan is each mill’s Wk 44 operating schedule. Mills are ordered by the gap to plan, largest shortfall first.',
+        note: 'Note: each board is 1 MMfbm. Plan is each mill’s Wk 44 operating schedule. Mills are ordered by the gap to plan, largest shortfall first.',
         tip: { prod: 'Production', plan: 'Plan', gap: 'vs plan', w43: 'Wk 43-26', cause: 'Cause' },
         generic: 'Production by Mill',
         aria: 'Production against plan by mill. Up and down arrow keys move between mills.'
       },
+      f2: {
+        label: 'Figure 2',
+        title: v => v.n ? `${T.en.num[v.n]} ${v.n === 1 ? 'cause' : 'causes'} took ${v.top} of ${v.tot} lost hours: ${v.causes}` : `Mills lost ${v.tot} hours, none of them a full shift`,
+        cht: ['Unplanned downtime by cause', '(hours, Wk 44-26)'],
+        keys: ['A shift or more', 'Under a shift', 'One shift, 8 h'],
+        causes: { logs: 'Log supply', planer: 'Planer', trimmer: 'Trimmer optimizer', kilns: 'Kilns', jams: 'Sawline jams' },
+        shift: '1 shift',
+        note: 'Note: each board is 2 hours; a shift is 8 hours. Scheduled maintenance is not counted.',
+        tip: { h: 'Lost hours', share: 'Share of lost hours', at: 'At' },
+        aria: 'Unplanned downtime by cause. Up and down arrow keys move between causes.'
+      },
       tw1: v => `${v.lead} finished ${v.gap} ${v.below ? 'below' : 'above'} plan${v.causes ? `: ${v.causes} cost ${v.sum}` : ''}`,
-      s2: { t: 'Mill results', k: 'Production, conversion and inventory by mill' },
+      s2: { t: 'Running to demand', k: 'The yard, what is in it, and the next four weeks' },
+      f3: {
+        label: 'Figure 3',
+        title: v => v.sp === 'all' ? `SPF yards hold ${v.spf[0]}–${v.spf[1]} days of lumber, over the 12-day ceiling; SYP yards hold ${v.syp[0]}–${v.syp[1]}, at or under the 9-day floor`
+          : v.sp === 'spf' ? `Every SPF yard is over the 12-day ceiling, at ${v.spf[0]}–${v.spf[1]} days of shipments` : `Every SYP yard is at or under the 9-day floor, at ${v.syp[0]}–${v.syp[1]} days of shipments`,
+        cht: ['Finished inventory by mill', '(days of shipments, Wk 44-26)'],
+        keys: ['Within the ceiling', 'Over the 12-day ceiling', 'Short of the 9-day floor', 'Target 9–12 days'],
+        note: 'Note: each board is one day of shipments: lumber in the yard at week end ÷ that week’s average daily shipments.',
+        tip: { days: 'Inventory', vol: 'In the yard', ship: 'Shipped', over: 'Over the ceiling', short: 'Short of the floor', w43: 'Wk 43-26' },
+        target: 'Target 9–12 days',
+        aria: 'Finished inventory by mill. Arrow keys move between mills.'
+      },
+      f4: {
+        label: 'Figure 4',
+        title: v => v.sp === 'all' ? `SPF’s yard is ${v.spf.y}% 2x4 against ${v.spf.o}% of open orders; SYP’s follows its order file`
+          : v.sp === 'spf' ? `2x4 is ${v.spf.y}% of the SPF yard against ${v.spf.o}% of open orders: ${v.spf.ex} points too many` : `SYP’s yard follows its order file: 2x4 is ${v.syp.y}% of the yard and ${v.syp.o}% of orders`,
+        cht: ['What’s in the yard', '(share of finished inventory by product, Wk 44-26)'],
+        keys: ['2x4, up to its share of orders', '2x4 above it', 'Other products'],
+        products: { '2x4': '2x4', '2x6': '2x6', wide: '2x8 & wider', other: 'Other' },
+        head: ['Product', 'Yard', 'Orders'], unitOf: v => `${v} MMfbm`,
+        note: 'Note: each board end is 1% of the yard, rounded so a unit holds 100. Orders are the open order file at week end.',
+        tip: { yard: 'Share of the yard', orders: 'Share of open orders', vol: 'In the yard' },
+        aria: k => `${k}: product mix of finished inventory. Arrow keys move between products.`
+      },
+      f5: {
+        label: 'Figure 5',
+        title: v => v.all ? `SPF takes ${v.spfDown} down over four weeks; SYP adds ${v.sypAdd} in extra shifts before Thanksgiving`
+          : v.sp === 'spf' ? `SPF takes ${v.spfDown} down over four weeks at ${T.en.num[v.mills].toLowerCase()} mills` : `SYP adds ${v.sypAdd} in extra shifts before taking Thanksgiving down`,
+        cht: ['Operating schedule, Wk 45–48', '(MMfbm against the base schedule)'],
+        keys: ['Down', 'Extra shift', 'Base schedule, Mon–Fri'],
+        days: ['M', 'T', 'W', 'T', 'F', 'S', 'S'], dates: { 45: 'Nov 2–8', 46: 'Nov 9–15', 47: 'Nov 16–22', 48: 'Nov 23–29' },
+        net: 'Net', total: 'Wk 45–48', thanks: 'Thanksgiving', all4: 'All four SYP mills',
+        note: 'Note: rust takes volume down and green adds it, in MMfbm against each mill’s base two-shift, five-day schedule; the value comes first, as in a capacity ledger. A shift is about 0.5 MMfbm.',
+        tip: { net: 'Net that week', cum: 'Net since Wk 45', total: 'Wk 45–48' },
+        aria: 'Operating schedule by mill and day. Up and down arrow keys move between mills.'
+      },
+      tw2: v => v.all ? `SPF holds ${v.spf} of lumber and SYP ${v.syp}: take SPF shifts down, add SYP shifts until Thanksgiving`
+        : v.sp === 'spf' ? `SPF holds ${v.spf} of lumber, most of it 2x4: take ${v.down} down at three mills over four weeks` : `SYP holds ${v.syp} of lumber: extra shifts add ${v.add} before Thanksgiving`,
+      s3: { t: 'Mill results', k: 'Production, conversion and inventory by mill' },
       t1: {
         label: 'Table 1',
         title: v => `${v.triple.length ? `${joinEn(v.triple)} missed on volume, recovery and grade` : v.short.length ? `${joinEn(v.short)} missed plan` : 'Every mill met plan'}; `
@@ -738,8 +804,8 @@
         note: 'Note: subtotal rows add the mills below them; recovery and grade are production-weighted. ▼ marks a figure below the species target. Negatives in parentheses.',
         tip: { prod: 'Production', plan: 'Plan', gap: 'vs plan', w43: 'Wk 43-26', ship: 'Shipments', op: 'Operating rate', lrf: 'LRF', grade: '#2&Btr', inv: 'Finished inventory', target: 'target' }
       },
-      f2: {
-        label: 'Figure 2',
+      f6: {
+        label: 'Figure 6',
         cht: ['Recovery and grade against target', '(Wk 44-26)'],
         cols: ['LRF vs target, fbm/m³', '#2&Btr vs target, pts'],
         keys: ['Below target', 'At or above target', 'Target band'],
@@ -755,50 +821,29 @@
         tip: { lrf: 'LRF', grade: '#2&Btr', target: 'Target', gap: 'vs lower edge' },
         aria: 'Recovery and grade against target by mill. Up and down arrow keys move between mills.'
       },
-      tw2: v => v.mill ? `${v.mill} lost ${v.d} fbm/m³ of recovery to ${v.cause}; ${v.fix}` : v.gmill ? `${v.gmill}’s grade slipped to ${v.g}, under the ${v.lo}% target; ${v.fix}` : 'Recovery and grade held within target at every mill',
+      tw3: v => v.mill ? `${v.mill} lost ${v.d} fbm/m³ of recovery to ${v.cause}; ${v.fix}` : v.gmill ? `${v.gmill}’s grade slipped to ${v.g}, under the ${v.lo}% target; ${v.fix}` : 'Recovery and grade held within target at every mill',
       fix: { pg: 'the optimizer is replaced in Wk 47', mac: 'the planer gearbox is back in service' },
-      s3: { t: 'Running to demand', k: 'Inventory and the operating schedule' },
-      f3: {
-        label: 'Figure 3',
-        title: v => v.all ? `SPF inventory rose to ${v.spf} while SYP fell to ${v.syp}, below the 9-day floor`
-          : v.sp === 'spf' ? `SPF inventory rose for a ${v.ord} straight week, to ${v.v}` : `SYP inventory fell to ${v.v}, below the 9-day floor for a ${v.ord} week`,
-        cht: ['Finished inventory', '(days of shipments, Wk 32–44)'],
-        keys: ['Wk 44-26', 'Earlier weeks', 'Target 9–12 days'],
-        note: v => `Note: days of shipments = lumber in the yard at week end ÷ that week’s average daily shipments.${v.all ? ` All mills combined: ${v.v}, inside the range only because the two species offset.` : ''}`,
-        tip: { days: 'Inventory', vol: 'In the yard', ship: 'Shipped', target: 'Target' },
-        aria: k => `${k}: finished inventory by week. Left and right arrow keys move between weeks.`
-      },
-      t2: {
-        label: 'Table 2',
-        title: v => v.all ? `SPF takes ${v.spfDown} down over four weeks; SYP adds ${v.sypAdd} in extra shifts before Thanksgiving`
-          : v.sp === 'spf' ? `SPF takes ${v.spfDown} down over four weeks at ${T.en.num[v.mills].toLowerCase()} mills` : `SYP adds ${v.sypAdd} in extra shifts before taking Thanksgiving down`,
-        cht: ['Operating schedule changes, Wk 45–48', '(MMfbm against the base schedule)'],
-        head: ['Timing', 'SPF · Canada', 'SYP · U.S. South', 'Net'],
-        all4: 'All four SYP mills', none: 'No change', total: 'Wk 45–48',
-        dates: { 45: 'Nov 2–8', 46: 'Nov 9–15', 47: 'Nov 16–22', 48: 'Nov 23–29' },
-        note: 'Note: green adds volume and rust takes it down, in MMfbm against each mill’s base two-shift schedule. The value comes first, as in a capacity ledger.',
-        tip: { net: 'Net', cum: 'Net since Wk 45' }, aria: 'Operating schedule table. Up and down arrow keys move between weeks.'
-      },
-      tw3: v => v.all ? `SPF holds ${v.spf} of lumber and SYP ${v.syp}: take SPF shifts down, add SYP shifts until Thanksgiving`
-        : v.sp === 'spf' ? `SPF holds ${v.spf} of lumber: take ${v.down} down at three mills over four weeks` : `SYP holds ${v.syp} of lumber: extra shifts add ${v.add} before Thanksgiving`,
       s4: { t: 'Unit cash cost', k: 'From Wk 43-26 to Wk 44-26, and the last 13 weeks' },
-      f4: {
-        label: 'Figure 4',
+      f7: {
+        label: 'Figure 7',
         title: v => `Cash cost ${v.up ? 'rose' : 'fell'} $${v.d} to $${v.c} per Mfbm; ${v.top} ${v.topUp ? 'added' : 'saved'} $${v.tv}`,
         cht: ['Cash cost, Wk 43-26 to Wk 44-26', '(US$/Mfbm)'],
-        rows: { start: 'Wk 43-26 cash cost', fibre: 'Fibre', labour: 'Labour', energy: 'Energy', maint: 'Maintenance & supplies', end: 'Wk 44-26 cash cost' },
-        head: ['US$/Mfbm', '', 'Change', 'Why'],
+        rows: { start: 'Wk 43-26', fibre: 'Fibre', labour: 'Labour', energy: 'Energy', maint: 'Maintenance', end: 'Wk 44-26' },
+        rowsS: { start: 'Wk 43', fibre: 'Fibre', labour: 'Labour', energy: 'Energy', maint: 'Maint.', end: 'Wk 44' },
+        full: { start: 'Wk 43-26 cash cost', fibre: 'Fibre', labour: 'Labour', energy: 'Energy', maint: 'Maintenance & supplies', end: 'Wk 44-26 cash cost' },
         why: {
           fibre: { all: 'wet-weather hauling in Mississippi', spf: 'longer hauls in the B.C. Interior', syp: 'wet-weather hauling in Mississippi' },
           labour: v => `same crews over ${v} less`,
           energy: { all: 'kiln gas price', spf: 'kiln gas price', syp: 'kiln gas price' },
           maint: { all: 'Macon gearbox, Prince George trimmer', spf: 'Prince George trimmer', syp: 'Macon planer gearbox' }
         },
-        note: 'Note: cash cost per Mfbm produced, excluding transportation. Steps add up after rounding to $0.1.',
-        tip: { w43: 'Wk 43-26', w44: 'Wk 44-26', chg: 'Change', share: 'Share of the change', plan: 'Q4-26 plan', vs: 'vs plan' }, aria: 'Cash cost variance table. Up and down arrow keys move between steps.'
+        keys: ['Cost up', 'Cost down', 'Cash cost', 'Q4-26 plan'], plan: 'Plan',
+        note: 'Note: cash cost per Mfbm produced, excluding transportation. Steps add up after rounding to $0.1. The axis is cut below its first tick.',
+        tip: { w43: 'Wk 43-26', w44: 'Wk 44-26', chg: 'Change', share: 'Share of the change', plan: 'Q4-26 plan', vs: 'vs plan' },
+        aria: 'Cash cost bridge from Wk 43-26 to Wk 44-26. Left and right arrow keys move between steps.'
       },
-      f5: {
-        label: 'Figure 5',
+      f8: {
+        label: 'Figure 8',
         title: v => v.all ? `SYP cash cost jumped $${v.syp.d} to $${v.syp.v}, the highest in 13 weeks; SPF rose $${v.spf.d} to $${v.spf.v}`
           : `${v.sp === 'spf' ? 'SPF' : 'SYP'} cash cost rose $${v.x.d} to $${v.x.v} per Mfbm, the highest in 13 weeks`,
         cht: ['Cash cost', '(US$/Mfbm, Wk 32–44)'],
@@ -819,7 +864,7 @@
         files: { 'your-project/': '', 'DASHBOARD.md': 'the spec: tokens, rules, checks', '.claude/skills/': '', 'dashboard-style/': 'the agent skill', 'SKILL.md': 'build · restyle · review', 'tokens.css': 'colors, type, spacing', 'west-fraser.tps': 'Tableau palettes', 'powerbi-theme.json': 'Power BI theme', 'prompt.md': 'tested prompts' },
         modes: ['Without a spec', 'With DASHBOARD.md'],
         checksT: 'Checks · DASHBOARD.md', checksOk: 'All 6 passed', checksBad: '0 of 6 passed',
-        checks: [[1, 'Frame: mills on the left, MMfbm axis, grid #e6e6e6'], [2, 'Plan: a 2px tick #333333 at each mill’s plan'], [3, 'Bars: below plan #c06228, the rest #b5c1b7, largest shortfall first'], [4, 'Values: Wk 44 at the bar end, gap in parentheses on the right'], [5, 'The title states the finding; the chart title carries the unit (MMfbm)'], [5, 'Text at 4.5:1 or more on #ffffff; tooltip, keys and table']],
+        checks: [[1, 'Frame: mills on the left, MMfbm axis, grid #e6e6e6'], [2, 'Plan: a 2px tick #333333 at each mill’s plan'], [3, 'Boards: 1 MMfbm a board with 2px gaps; below plan #c06228, the rest #d3c5a9'], [4, 'Values: Wk 44 at the bar end, gap in parentheses on the right'], [5, 'The title states the finding; the chart title carries the unit (MMfbm)'], [5, 'Text at 4.5:1 or more on #ffffff; tooltip, keys and table']],
         run: 'Run again', copied: 'Code copied', lines: n => `${n} lines`, built: 'Drawn from DASHBOARD.md', drawing: 'Drawing…', generated: 'A first draft without a spec',
         cap: 'Figure 1, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the same figure as Tableau and Power BI settings. The species filter at the top changes the code and the figure together.'
       },
@@ -827,15 +872,18 @@
         k: 'Method and sources', t: 'How the numbers are counted',
         items: [
           ['MMfbm, Mfbm', 'Million and thousand board feet. A board foot is a board 1 inch thick, 12 inches wide and 12 inches long.'],
+          ['Boards', 'Bars and stacks are drawn board by board: 1 MMfbm a board in Figure 1, 2 hours in Figure 2, one day of shipments in Figure 3, 1% of the yard in Figure 4.'],
           ['Q4-26 plan', 'The weekly run-rate plan from each mill’s operating schedule. Ranges: production ±3%, shipments ±4%, operating rate ±2 points. Recovery and grade use species targets weighted by plan.'],
           ['Operating rate', 'Production as a share of capacity on a full two-shift, five-day schedule.'],
+          ['Unplanned downtime', 'Hours a sawmill or planer line stood idle outside the schedule, by cause. Scheduled maintenance is not counted.'],
           ['Recovery (LRF)', 'Lumber recovery factor: board feet of lumber per cubic metre of logs consumed.'],
           ['#2&Btr grade', 'Share of production graded No. 2 and Better.'],
           ['Finished inventory', 'Lumber in the yard at week end, divided by that week’s average daily shipments.'],
+          ['Product mix and orders', 'Finished inventory and the open order file by product at week end: 2x4, 2x6, 2x8 and wider, other.'],
           ['Cash cost', 'Fibre (delivered logs), labour, energy, and maintenance and supplies per Mfbm produced. Transportation is outbound freight per Mfbm shipped.'],
           ['Operating schedule', 'Changes against each mill’s base two-shift schedule, in MMfbm. A shift is about 0.5 MMfbm.']
         ],
-        src: 'Sources: mill production and grading tallies, log scale tickets, the shipping system and the weekly price composite. Wk 44-26 (Oct 26 – Nov 1, 2026), issued Mon Nov 2.'
+        src: 'Sources: mill production and grading tallies, downtime logs, log scale tickets, the shipping and order systems and the weekly price composite. Wk 44-26 (Oct 26 – Nov 1, 2026), issued Mon Nov 2.'
       },
       note: 'A sample screen built around a fictional sawmill business and fictional data.',
       notice: 'Not an official West Fraser design, and not affiliated with or endorsed by West Fraser. A reference style read from the publicly visible design of westfraser.com and its public touchpoints such as investor reports and wrapped lumber; it carries no logo, typeface, photo or data of theirs. Trademarks belong to their owners.',
@@ -851,15 +899,15 @@
       navAside: '계획과 43주 대비',
       tick: { spf: 'SPF 2x4', syp: 'SYP 2x4', unit: 'Mfbm당 달러 · 44주 종합 가격' },
       wk: w => `${w}주`, wkS: w => `${w}주`, wkRange: (a, b) => `${a}~${b}주`,
-      num: ['0', '1', '2', '3', '4', '5', '6', '7', '8'],
+      num: ['0', '1', '2', '3', '4', '5', '6', '7', '8'], numW: ['', '한', '두', '세', '네', '다섯'],
       ord: n => `${n}주째`,
-      vol: '만 fbm', usdU: 'Mfbm당 달러', pts: '%p', days: '일',
+      vol: '만 fbm', usdU: 'Mfbm당 달러', pts: '%p', days: '일', hrs: h => `${h}시간`,
       s1: { t: '44주 대 43주', k: v => `${v.scope} · ${v.n}곳` },
-      ot: {
+      qf: {
         cap: '44주 핵심 수치, 4분기 계획과 43주 대비',
-        head: ['달러, 따로 적지 않으면', '44주', '4분기 계획', '43주', '변화', '설명'],
-        rows: { prod: ['목재 생산', '만 fbm'], ship: ['출하', '만 fbm'], op: ['가동률', '설비 능력 대비 %'], lrf: ['회수율(LRF)', '원목 m³당 fbm'], grade: ['#2&Btr 등급', '생산 중 %'], inv: ['완제품 재고', '출하 일수'] },
-        costs: ['원가', 'Mfbm당 달러'], cost: { fibre: '원목', labour: '인건비', energy: '에너지', transport: '운송' },
+        rows: { prod: ['목재 생산', '만 fbm'], ship: ['출하', '만 fbm'], op: ['가동률', '%'], lrf: ['회수율(LRF)', 'fbm/m³'], grade: ['#2&Btr 등급', '%'], inv: ['완제품 재고', '일'] },
+        delta: (arrow, v) => `43주 대비 ${arrow} ${v}`, same: '43주와 같음',
+        plan: '계획', target: '목표',
         st: { below: '미달', low: '하단', in: '범위 안', high: '상단', above: '초과' },
         com: {
           prod: v => v.who ? `${v.who}의 생산 부족` : '모든 공장이 계획대로',
@@ -867,16 +915,12 @@
           op: { all: '잭슨 2교대 손실, 메이컨 플레이너 14시간 정지', spf: '프린스조지 트리머 11시간 정지', syp: '잭슨 2교대 손실, 메이컨 플레이너 14시간 정지' },
           lrf: { all: '프린스조지 트리머 고장, SYP는 목표 안', spf: v => `프린스조지 ${v.pg}, 목표보다 ${v.gap} 낮음`, syp: '네 곳 모두 목표 안' },
           grade: { all: '프린스조지와 메이컨이 목표 미달', spf: v => `프린스조지 ${v.pg}`, syp: v => `메이컨 ${v.mac}, 감속기 수리 영향` },
-          inv: { all: v => `평균만 범위 안: SPF ${v.spf}, SYP ${v.syp}`, spf: v => `범위 초과 ${v.ord}`, syp: v => `9일 하한 미달 ${v.ord}` },
-          fibre: { all: '미시시피 우천으로 운반비 상승', spf: 'B.C. 내륙 운반 거리 증가', syp: '미시시피 우천으로 운반비 상승' },
-          labour: { all: '같은 인원, 줄어든 생산', spf: '같은 인원, 줄어든 생산', syp: '같은 인원, 줄어든 생산' },
-          energy: { all: '건조기 가스값 상승', spf: '건조기 가스값 상승', syp: '건조기 가스값 상승' },
-          transport: { all: '경유 할증', spf: '철도 연료 할증', syp: '경유 할증' }
+          inv: { all: v => `평균만 범위 안: SPF ${v.spf}, SYP ${v.syp}`, spf: v => `범위 초과 ${v.ord}`, syp: v => `9일 하한 미달 ${v.ord}` }
         },
-        tip: { w44: '44주', w43: '43주', plan: '4분기 계획', range: '계획 범위', chg: '변화', pos: '범위 대비' },
-        aria: '핵심 수치 표. 위아래 화살표 키로 줄을 옮깁니다.'
+        tip: { w44: '44주', w43: '43주', pos: '범위 대비', trend: '32~44주 최저~최고' },
+        aria: '핵심 수치. 화살표 키로 타일을 옮깁니다.'
       },
-      n1: '주: 4분기 계획 범위는 주간 계획입니다. 생산 ±3%, 출하 ±4%, 가동률 ±2%p이고, 회수율과 등급은 수종별 목표를 계획량으로 가중했습니다. 화살표는 43주 대비 원가 방향입니다. 음수는 괄호로 적습니다.',
+      n1: '주: 4분기 계획 범위는 주간 계획입니다. 생산 ±3%, 출하 ±4%, 가동률 ±2%p이고, 회수율과 등급은 수종별 목표를 계획량으로 가중했습니다. 재고 목표는 출하 9~12일입니다. 선은 32~44주입니다.',
       f1: {
         label: '그림 1',
         title: v => v.n >= 2 ? `${v.n}곳이 계획보다 ${v.short} 적게 생산했고, ${josa(v.worst, '이가')} ${josa(v.wv, '으로')} 가장 많이 못 미쳤습니다`
@@ -884,13 +928,62 @@
           : `모든 공장이 계획을 채웠고, ${josa(v.best, '이가')} ${v.bv} 앞섰습니다`,
         cht: ['공장별 생산 대 계획', '(만 fbm, 44주)'],
         keys: ['계획 미달', '계획 이상', '계획'],
-        note: '주: 계획은 공장마다 44주 가동 일정으로 정한 값입니다. 계획에 많이 못 미친 공장부터 놓았습니다.',
+        note: '주: 판재 한 장이 100만 fbm입니다. 계획은 공장마다 44주 가동 일정으로 정한 값입니다. 계획에 많이 못 미친 공장부터 놓았습니다.',
         tip: { prod: '생산', plan: '계획', gap: '계획 대비', w43: '43주', cause: '원인' },
         generic: 'Production by Mill',
         aria: '공장별 생산 대 계획. 위아래 화살표 키로 공장을 옮깁니다.'
       },
+      f2: {
+        label: '그림 2',
+        title: v => v.n ? `${T.ko.numW[v.n] || v.n} 가지 원인이 정지 ${v.tot}시간 중 ${v.top}시간을 차지했습니다: ${v.causes}` : `정지는 ${v.tot}시간이며 한 교대를 넘긴 원인은 없습니다`,
+        cht: ['원인별 계획 외 정지', '(시간, 44주)'],
+        keys: ['한 교대 이상', '한 교대 미만', '한 교대, 8시간'],
+        causes: { logs: '원목 부족', planer: '플레이너', trimmer: '트리머 최적화 장치', kilns: '건조기', jams: '제재 라인 걸림' },
+        shift: '1교대',
+        note: '주: 판재 한 장이 2시간이고, 한 교대는 8시간입니다. 계획된 정비는 넣지 않았습니다.',
+        tip: { h: '정지 시간', share: '정지 중 비중', at: '공장' },
+        aria: '원인별 계획 외 정지. 위아래 화살표 키로 원인을 옮깁니다.'
+      },
       tw1: v => `${v.lead} 생산이 계획보다 ${v.gap} ${v.below ? '적었습니다' : '많았습니다'}${v.causes ? `: ${josa(v.causes, '으로')} ${josa(v.sum, '을를')} 잃었습니다` : ''}`,
-      s2: { t: '공장별 실적', k: '공장마다 생산, 회수율과 등급, 재고' },
+      s2: { t: '수요에 맞춘 가동', k: '야적장, 그 안의 품목, 앞으로 4주' },
+      f3: {
+        label: '그림 3',
+        title: v => v.sp === 'all' ? `SPF 야적장은 ${v.spf[0]}~${v.spf[1]}일로 12일 상한을 넘었고, SYP는 ${v.syp[0]}~${v.syp[1]}일로 9일 하한 이하입니다`
+          : v.sp === 'spf' ? `SPF 야적장은 모두 12일 상한을 넘었습니다: 출하 ${v.spf[0]}~${v.spf[1]}일 분량` : `SYP 야적장은 모두 9일 하한 이하입니다: 출하 ${v.syp[0]}~${v.syp[1]}일 분량`,
+        cht: ['공장별 완제품 재고', '(출하 일수, 44주)'],
+        keys: ['상한 안', '12일 상한 초과', '9일 하한까지 모자란 분량', '목표 9~12일'],
+        note: '주: 판재 한 장이 출하 하루 분량입니다(주말 야적장의 목재 ÷ 그 주의 하루 평균 출하량).',
+        tip: { days: '재고', vol: '야적장', ship: '출하', over: '상한 초과', short: '하한까지 모자람', w43: '43주' },
+        target: '목표 9~12일',
+        aria: '공장별 완제품 재고. 화살표 키로 공장을 옮깁니다.'
+      },
+      f4: {
+        label: '그림 4',
+        title: v => v.sp === 'all' ? `SPF 야적장은 2x4가 ${v.spf.y}%로 주문 비중 ${v.spf.o}%보다 많고, SYP는 주문 구성과 비슷합니다`
+          : v.sp === 'spf' ? `SPF 야적장의 ${v.spf.y}%가 2x4인데 주문은 ${v.spf.o}%입니다: ${v.spf.ex}%p 많습니다` : `SYP 야적장은 주문 구성과 비슷합니다: 2x4가 야적장의 ${v.syp.y}%, 주문의 ${v.syp.o}%`,
+        cht: ['야적장 품목 구성', '(완제품 재고 중 품목별 비중, 44주)'],
+        keys: ['주문 비중만큼의 2x4', '그보다 많은 2x4', '다른 품목'],
+        products: { '2x4': '2x4', '2x6': '2x6', wide: '2x8 이상', other: '기타' },
+        head: ['품목', '야적장', '주문'], unitOf: v => `${v}만 fbm`,
+        note: '주: 판재 단면 한 칸이 야적장의 1%이며, 반올림해 한 묶음이 100칸이 되게 했습니다. 주문은 주말 기준 미출하 주문입니다.',
+        tip: { yard: '야적장 중 비중', orders: '미출하 주문 중 비중', vol: '야적장' },
+        aria: k => `${k}: 완제품 재고의 품목 구성. 화살표 키로 품목을 옮깁니다.`
+      },
+      f5: {
+        label: '그림 5',
+        title: v => v.all ? `SPF는 4주 동안 ${v.spfDown}을 줄이고, SYP는 추수감사절 전까지 추가 교대로 ${v.sypAdd}을 더합니다`
+          : v.sp === 'spf' ? `SPF는 4주 동안 ${v.mills}곳에서 ${v.spfDown}을 줄입니다` : `SYP는 추가 교대로 ${v.sypAdd}을 더한 뒤 추수감사절에 쉽니다`,
+        cht: ['가동 일정, 45~48주', '(기본 일정 대비, 만 fbm)'],
+        keys: ['정지', '추가 교대', '기본 일정, 월~금'],
+        days: ['월', '화', '수', '목', '금', '토', '일'], dates: { 45: '11/2~11/8', 46: '11/9~11/15', 47: '11/16~11/22', 48: '11/23~11/29' },
+        net: '순변화', total: '45~48주', thanks: '추수감사절', all4: 'SYP 네 곳 모두',
+        note: '주: 녹슨 주황은 생산을 줄이는 일정, 초록은 늘리는 일정이며, 공장마다 기본 2교대·주 5일 일정 대비 만 fbm입니다. 설비 증감 장부처럼 값을 먼저 적습니다. 한 교대는 약 50만 fbm입니다.',
+        tip: { net: '그 주 순변화', cum: '45주부터 누적', total: '45~48주' },
+        aria: '공장별·날짜별 가동 일정. 위아래 화살표 키로 공장을 옮깁니다.'
+      },
+      tw2: v => v.all ? `SPF 재고는 ${v.spf}, SYP는 ${v.syp}입니다. SPF 교대를 줄이고 추수감사절까지 SYP 교대를 더합니다`
+        : v.sp === 'spf' ? `SPF 재고가 ${v.spf}이고 대부분 2x4입니다. 4주 동안 세 곳에서 ${v.down}을 줄입니다` : `SYP 재고가 ${v.syp}입니다. 추수감사절 전까지 추가 교대로 ${v.add}을 더합니다`,
+      s3: { t: '공장별 실적', k: '공장마다 생산, 회수율과 등급, 재고' },
       t1: {
         label: '표 1',
         title: v => `${v.triple.length ? `${josa(joinKo(v.triple), '은는')} 생산, 회수율, 등급 모두 못 미쳤고` : v.short.length ? `${josa(joinKo(v.short), '이가')} 계획에 못 미쳤고` : '모든 공장이 계획을 채웠고'}, `
@@ -901,8 +994,8 @@
         note: '주: 소계 줄은 아래 공장을 더한 값이고, 회수율과 등급은 생산량으로 가중했습니다. ▼는 수종 목표에 못 미친 값입니다. 음수는 괄호로 적습니다.',
         tip: { prod: '생산', plan: '계획', gap: '계획 대비', w43: '43주', ship: '출하', op: '가동률', lrf: 'LRF', grade: '#2&Btr', inv: '완제품 재고', target: '목표' }
       },
-      f2: {
-        label: '그림 2',
+      f6: {
+        label: '그림 6',
         cht: ['목표 대비 회수율과 등급', '(44주)'],
         cols: ['LRF, 목표 대비 fbm/m³', '#2&Btr, 목표 대비 %p'],
         keys: ['목표 미달', '목표 이상', '목표 범위'],
@@ -918,50 +1011,29 @@
         tip: { lrf: 'LRF', grade: '#2&Btr', target: '목표', gap: '아래 끝 대비' },
         aria: '공장별 목표 대비 회수율과 등급. 위아래 화살표 키로 공장을 옮깁니다.'
       },
-      tw2: v => v.mill ? `${v.mill}의 회수율이 ${josa(v.cause, '으로')} ${v.d} fbm/m³ 떨어졌습니다. ${v.fix}` : v.gmill ? `${v.gmill}의 등급이 ${v.g}로 목표 ${v.lo}%에 못 미쳤습니다. ${v.fix}` : '모든 공장이 회수율과 등급 목표를 지켰습니다',
+      tw3: v => v.mill ? `${v.mill}의 회수율이 ${josa(v.cause, '으로')} ${v.d} fbm/m³ 떨어졌습니다. ${v.fix}` : v.gmill ? `${v.gmill}의 등급이 ${v.g}로 목표 ${v.lo}%에 못 미쳤습니다. ${v.fix}` : '모든 공장이 회수율과 등급 목표를 지켰습니다',
       fix: { pg: '최적화 장치는 47주에 교체합니다', mac: '플레이너 감속기는 수리를 마쳤습니다' },
-      s3: { t: '수요에 맞춘 가동', k: '재고와 가동 일정' },
-      f3: {
-        label: '그림 3',
-        title: v => v.all ? `SPF 재고는 ${v.spf}로 늘었고, SYP는 ${v.syp}로 9일 하한 아래로 내려갔습니다`
-          : v.sp === 'spf' ? `SPF 재고가 ${v.ord} 늘어 ${josa(v.v, '이가')} 됐습니다` : `SYP 재고가 ${v.v}로 ${v.ord} 9일 하한 아래입니다`,
-        cht: ['완제품 재고', '(출하 일수, 32~44주)'],
-        keys: ['44주', '이전 주', '목표 9~12일'],
-        note: v => `주: 출하 일수 = 주말 야적장의 목재 ÷ 그 주의 하루 평균 출하량.${v.all ? ` 전체를 합하면 ${v.v}로 범위 안이지만, 두 수종이 서로 상쇄한 결과입니다.` : ''}`,
-        tip: { days: '재고', vol: '야적장', ship: '출하', target: '목표' },
-        aria: k => `${k}: 주별 완제품 재고. 좌우 화살표 키로 주를 옮깁니다.`
-      },
-      t2: {
-        label: '표 2',
-        title: v => v.all ? `SPF는 4주 동안 ${v.spfDown}을 줄이고, SYP는 추수감사절 전까지 추가 교대로 ${v.sypAdd}을 더합니다`
-          : v.sp === 'spf' ? `SPF는 4주 동안 ${v.mills}곳에서 ${v.spfDown}을 줄입니다` : `SYP는 추가 교대로 ${v.sypAdd}을 더한 뒤 추수감사절에 쉽니다`,
-        cht: ['가동 일정 변경, 45~48주', '(기본 일정 대비, 만 fbm)'],
-        head: ['시기', 'SPF · 캐나다', 'SYP · 미국 남부', '순변화'],
-        all4: 'SYP 네 곳 모두', none: '변경 없음', total: '45~48주',
-        dates: { 45: '11/2~11/8', 46: '11/9~11/15', 47: '11/16~11/22', 48: '11/23~11/29' },
-        note: '주: 초록은 생산을 늘리는 일정, 녹슨 주황은 줄이는 일정이며, 공장마다 기본 2교대 일정 대비 만 fbm입니다. 설비 증감 장부처럼 값을 먼저 적습니다.',
-        tip: { net: '순변화', cum: '45주부터 누적' }, aria: '가동 일정 표. 위아래 화살표 키로 주를 옮깁니다.'
-      },
-      tw3: v => v.all ? `SPF 재고는 ${v.spf}, SYP는 ${v.syp}입니다. SPF 교대를 줄이고 추수감사절까지 SYP 교대를 더합니다`
-        : v.sp === 'spf' ? `SPF 재고가 ${v.spf}입니다. 4주 동안 세 곳에서 ${v.down}을 줄입니다` : `SYP 재고가 ${v.syp}입니다. 추수감사절 전까지 추가 교대로 ${v.add}을 더합니다`,
       s4: { t: '단위 현금 원가', k: '43주에서 44주까지, 그리고 최근 13주' },
-      f4: {
-        label: '그림 4',
+      f7: {
+        label: '그림 7',
         title: v => `현금 원가가 Mfbm당 ${v.d}달러 ${v.up ? '올라' : '내려'} ${v.c}달러가 됐고, ${josa(v.top, '이가')} ${v.tv}달러를 ${v.topUp ? '더했습니다' : '줄였습니다'}`,
         cht: ['현금 원가, 43주에서 44주까지', '(Mfbm당 달러)'],
-        rows: { start: '43주 현금 원가', fibre: '원목', labour: '인건비', energy: '에너지', maint: '정비와 소모품', end: '44주 현금 원가' },
-        head: ['Mfbm당 달러', '', '변화', '이유'],
+        rows: { start: '43주', fibre: '원목', labour: '인건비', energy: '에너지', maint: '정비', end: '44주' },
+        rowsS: { start: '43주', fibre: '원목', labour: '인건비', energy: '에너지', maint: '정비', end: '44주' },
+        full: { start: '43주 현금 원가', fibre: '원목', labour: '인건비', energy: '에너지', maint: '정비와 소모품', end: '44주 현금 원가' },
         why: {
           fibre: { all: '미시시피 우천 운반비', spf: 'B.C. 내륙 운반 거리', syp: '미시시피 우천 운반비' },
           labour: v => `같은 인원으로 ${v} 적게 생산`,
           energy: { all: '건조기 가스값', spf: '건조기 가스값', syp: '건조기 가스값' },
           maint: { all: '메이컨 감속기, 프린스조지 트리머', spf: '프린스조지 트리머', syp: '메이컨 플레이너 감속기' }
         },
-        note: '주: 생산 Mfbm당 현금 원가이며 운송비는 뺐습니다. 0.1달러로 반올림해 단계의 합이 맞게 했습니다.',
-        tip: { w43: '43주', w44: '44주', chg: '변화', share: '변화 중 비중', plan: '4분기 계획', vs: '계획 대비' }, aria: '현금 원가 증감 표. 위아래 화살표 키로 단계를 옮깁니다.'
+        keys: ['원가 상승', '원가 하락', '현금 원가', '4분기 계획'], plan: '계획',
+        note: '주: 생산 Mfbm당 현금 원가이며 운송비는 뺐습니다. 0.1달러로 반올림해 단계의 합이 맞게 했습니다. 축은 첫 눈금 아래를 잘랐습니다.',
+        tip: { w43: '43주', w44: '44주', chg: '변화', share: '변화 중 비중', plan: '4분기 계획', vs: '계획 대비' },
+        aria: '43주에서 44주까지 현금 원가 브리지. 좌우 화살표 키로 단계를 옮깁니다.'
       },
-      f5: {
-        label: '그림 5',
+      f8: {
+        label: '그림 8',
         title: v => v.all ? `SYP 현금 원가가 ${v.syp.d}달러 뛰어 ${v.syp.v}달러로 13주 중 가장 높았고, SPF는 ${v.spf.d}달러 올라 ${v.spf.v}달러입니다`
           : `${v.sp === 'spf' ? 'SPF' : 'SYP'} 현금 원가가 Mfbm당 ${v.x.d}달러 올라 ${v.x.v}달러로 13주 중 가장 높았습니다`,
         cht: ['현금 원가', '(Mfbm당 달러, 32~44주)'],
@@ -982,7 +1054,7 @@
         files: { 'your-project/': '', 'DASHBOARD.md': '명세: 토큰, 규칙, 점검 목록', '.claude/skills/': '', 'dashboard-style/': '에이전트 스킬', 'SKILL.md': '만들기 · 고치기 · 검토', 'tokens.css': '색·서체·간격', 'west-fraser.tps': 'Tableau 팔레트', 'powerbi-theme.json': 'Power BI 테마', 'prompt.md': '검증한 프롬프트' },
         modes: ['명세 없이', 'DASHBOARD.md로'],
         checksT: '점검 · DASHBOARD.md', checksOk: '6개 모두 통과', checksBad: '6개 중 0개 통과',
-        checks: [[1, '틀: 왼쪽에 공장 이름, 만 fbm 축, 격자 #e6e6e6'], [2, '계획: 공장마다 계획 자리에 2px 눈금 #333333'], [3, '막대: 계획 미달은 #c06228, 나머지는 #b5c1b7, 많이 못 미친 공장부터'], [4, '값: 막대 끝에 44주 생산, 오른쪽에 계획 대비를 괄호로'], [5, '제목은 결과를 말하고, 차트 제목에 단위(만 fbm)'], [5, '흰 판 #ffffff에서 글자 대비 4.5:1 이상, 툴팁·키보드·표']],
+        checks: [[1, '틀: 왼쪽에 공장 이름, 만 fbm 축, 격자 #e6e6e6'], [2, '계획: 공장마다 계획 자리에 2px 눈금 #333333'], [3, '판재: 한 장에 100만 fbm, 사이 2px. 계획 미달은 #c06228, 나머지는 #d3c5a9'], [4, '값: 막대 끝에 44주 생산, 오른쪽에 계획 대비를 괄호로'], [5, '제목은 결과를 말하고, 차트 제목에 단위(만 fbm)'], [5, '흰 판 #ffffff에서 글자 대비 4.5:1 이상, 툴팁·키보드·표']],
         run: '다시 실행', copied: '코드를 복사했습니다', lines: n => `${n}줄`, built: 'DASHBOARD.md로 그림', drawing: '그리는 중…', generated: '명세 없이 만든 첫 초안',
         cap: '그림 1을 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 같은 그림의 Tableau·Power BI 설정을 봅니다. 위의 수종 필터를 바꾸면 코드와 그림이 함께 바뀝니다.'
       },
@@ -990,15 +1062,18 @@
         k: '방법과 출처', t: '숫자를 센 방법',
         items: [
           ['MMfbm, Mfbm', '백만·천 보드피트입니다. 1보드피트는 두께 1인치, 폭 12인치, 길이 12인치인 판재입니다. 한국어 화면은 만 fbm으로 적습니다(1 MMfbm = 100만 fbm).'],
+          ['판재', '막대와 더미는 판재 한 장씩 그립니다. 그림 1은 한 장에 100만 fbm, 그림 2는 2시간, 그림 3은 출하 하루 분량, 그림 4는 야적장의 1%입니다.'],
           ['4분기 계획', '공장마다 가동 일정으로 정한 주간 계획입니다. 범위는 생산 ±3%, 출하 ±4%, 가동률 ±2%p입니다. 회수율과 등급은 수종별 목표를 계획량으로 가중합니다.'],
           ['가동률', '주 5일 2교대를 모두 돌렸을 때의 설비 능력 대비 생산입니다.'],
+          ['계획 외 정지', '제재 라인이나 플레이너가 일정 밖에서 멈춘 시간을 원인별로 셉니다. 계획된 정비는 넣지 않습니다.'],
           ['회수율(LRF)', '목재 회수율: 들어간 원목 1m³당 나온 목재의 보드피트입니다.'],
           ['#2&Btr 등급', '생산 가운데 No. 2 이상으로 등급을 받은 목재의 비중입니다.'],
           ['완제품 재고', '주말 야적장의 목재를 그 주의 하루 평균 출하량으로 나눈 값입니다.'],
+          ['품목 구성과 주문', '주말 기준 완제품 재고와 미출하 주문을 품목(2x4, 2x6, 2x8 이상, 기타)별로 나눈 값입니다.'],
           ['현금 원가', '생산 Mfbm당 원목(입고 원목), 인건비, 에너지, 정비와 소모품입니다. 운송은 출하 Mfbm당 운임입니다.'],
           ['가동 일정', '공장마다 기본 2교대 일정 대비 변경이며 만 fbm으로 적습니다. 한 교대는 약 50만 fbm입니다.']
         ],
-        src: '출처: 공장 생산·등급 집계, 원목 검척표, 출하 시스템, 주간 종합 가격. 44주(2026년 10월 26일~11월 1일), 11/2(월) 발행.'
+        src: '출처: 공장 생산·등급 집계, 정지 기록, 원목 검척표, 출하·주문 시스템, 주간 종합 가격. 44주(2026년 10월 26일~11월 1일), 11/2(월) 발행.'
       },
       note: '가상의 제재 사업과 가상 데이터로 구성한 샘플 화면입니다.',
       notice: 'West Fraser의 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 공개된 웹사이트(westfraser.com)와 IR 보고서·목재 포장 등 공개된 접점에서 보이는 디자인을 읽어 낸 참고용 스타일이며 로고·서체·사진·데이터는 포함하지 않습니다. 상표는 각 소유자의 것입니다.',
@@ -1084,7 +1159,7 @@
   const daysU = (v, d = 1) => KO() ? `${nf(v, d)}일` : `${nf(v, d)} days`;
   const ordW = n => KO() ? L().ord(n) : L().ord[n] || `${n}th`;
   const wkL = w => L().wk(w);
-  const millName = m => m.id === 'syp4' ? L().t2.all4 : (KO() ? `${m.ko} (${m.st})` : `${m.en} (${m.st})`);
+  const millName = m => m.id === 'syp4' ? L().f5.all4 : (KO() ? `${m.ko} (${m.st})` : `${m.en} (${m.st})`);
   const millShort = m => KO() ? m.ko : m.en;
   function niceTicks(lo, hi, count, steps = [1, 2, 2.5, 5, 10]) {
     const span = hi - lo, raw = span / count, mag = Math.pow(10, Math.floor(Math.log10(raw)));
@@ -1102,24 +1177,23 @@
   };
   const icon = (name, cls = 'ico') => { const s = sv('svg', { class: cls, viewBox: '0 0 16 16', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' }); s.innerHTML = ICONS[name]; return s; };
   for (const el of $$('[data-icon]')) el.prepend(icon(el.dataset.icon));
-  // IR 'Outlook' 표의 원가 화살표: 굵은 막대 화살표. 오름 ↗ · 그대로 ↔ · 내림 ↘
-  function costArrow(dir) {
-    const color = dir > 0 ? 'var(--bad-mark)' : dir < 0 ? 'var(--good-tint)' : 'var(--text)';
-    const s = sv('svg', { viewBox: '0 0 18 14', 'aria-hidden': 'true' });
-    if (dir === 0) s.append(sv('path', { d: 'M1 7 5.2 2.8V5.6h7.6V2.8L17 7l-4.2 4.2V8.4H5.2v2.8z', fill: color }));
-    else s.append(sv('path', { d: 'M1.5 5.6h9V2.4L16.5 7l-6 4.6V8.4h-9z', fill: color, transform: `rotate(${dir > 0 ? -38 : 38} 9 7)` }));
-    return s;
-  }
-
+  // 범례 견본(22×12): 판재·더미·단면은 실제 그림처럼 2px(견본에서는 1~2px) 틈을 둔다
   function keySwatch(kind, color) {
-    const g = sv('svg', { viewBox: '0 0 18 12', 'aria-hidden': 'true' });
-    if (kind === 'bar') g.append(sv('rect', { x: 1, y: 2, width: 16, height: 8, fill: color }));
-    else if (kind === 'tick') g.append(sv('path', { d: 'M9 0v12', stroke: color, 'stroke-width': 2 }));
-    else if (kind === 'dash') g.append(sv('path', { d: 'M1 6h16', stroke: color, 'stroke-width': 1.6, 'stroke-dasharray': '4 3' }));
-    else if (kind === 'line') g.append(sv('path', { d: 'M1 6h16', stroke: color, 'stroke-width': 2, 'stroke-linecap': 'round' }));
-    else if (kind === 'dot') g.append(sv('circle', { cx: 9, cy: 6, r: 4.5, fill: color }));
-    else if (kind === 'band') g.append(sv('rect', { x: 1, y: 1, width: 16, height: 10, fill: '#e1ebdf', stroke: C.sage300 }));
-    else if (kind === 'tband') g.append(sv('rect', { x: 1, y: 1, width: 16, height: 10, fill: C.sage50 }), sv('path', { d: 'M1 1.5h16M1 10.5h16', stroke: C.comparison, 'stroke-width': 1, 'stroke-dasharray': '3 2' }));
+    const g = sv('svg', { viewBox: '0 0 22 12', 'aria-hidden': 'true' });
+    if (kind === 'bar') g.append(sv('rect', { x: 1, y: 2, width: 20, height: 8, fill: color }));
+    else if (kind === 'boards') for (const x of [0, 8, 16]) g.append(sv('rect', { x, y: 2, width: 6, height: 8, fill: color }));
+    else if (kind === 'stack') for (const y of [0, 4.5, 9]) g.append(sv('rect', { x: 4, y, width: 14, height: 3, fill: color }));
+    else if (kind === 'empty') g.append(sv('rect', { x: 4.6, y: 3.6, width: 12.8, height: 4.8, fill: 'none', stroke: color, 'stroke-width': 1.2, 'stroke-dasharray': '3 2' }));
+    else if (kind === 'endb') for (const [x, y] of [[1, 1], [11.5, 1], [1, 6.5], [11.5, 6.5]]) g.append(sv('rect', { x, y, width: 9.5, height: 4.5, fill: color }));
+    else if (kind === 'outline') g.append(sv('rect', { x: 1.75, y: 2.75, width: 18.5, height: 6.5, fill: C.green100, stroke: color, 'stroke-width': 1.5 }));
+    else if (kind === 'kraft') g.append(sv('rect', { x: 1, y: 2, width: 20, height: 8, fill: C.kraft200 }));
+    else if (kind === 'tick') g.append(sv('path', { d: 'M11 0v12', stroke: color, 'stroke-width': 2 }));
+    else if (kind === 'vdash') g.append(sv('path', { d: 'M11 0v12', stroke: color, 'stroke-width': 1.4, 'stroke-dasharray': '3 2' }));
+    else if (kind === 'dash') g.append(sv('path', { d: 'M1 6h20', stroke: color, 'stroke-width': 1.6, 'stroke-dasharray': '4 3' }));
+    else if (kind === 'line') g.append(sv('path', { d: 'M1 6h20', stroke: color, 'stroke-width': 2, 'stroke-linecap': 'round' }));
+    else if (kind === 'dot') g.append(sv('circle', { cx: 11, cy: 6, r: 4.5, fill: color }));
+    else if (kind === 'band') g.append(sv('rect', { x: 1, y: 1, width: 20, height: 10, fill: '#e1ebdf', stroke: C.sage300 }));
+    else if (kind === 'tband') g.append(sv('rect', { x: 1, y: 1, width: 20, height: 10, fill: C.sage50 }), sv('path', { d: 'M1 1.5h20M1 10.5h20', stroke: C.comparison, 'stroke-width': 1, 'stroke-dasharray': '3 2' }));
     return g;
   }
   const keyItems = (ul, items) => ul.replaceChildren(...items.map(([kind, color, label]) => h('li', null, keySwatch(kind, color), label)));
@@ -1127,7 +1201,7 @@
   /* ================= 툴팁: 흰 판 + 1px 회색 테두리, 모서리 8px. 카드 안에서 위 → 왼쪽 → 오른쪽 → 아래 순으로 자리를 찾는다 ================= */
   function tipNodes(head, rows, sub) {
     return [h('div', { class: 'tip-h', text: head }), sub ? h('div', { class: 'tip-s', text: sub }) : null].concat(rows.filter(Boolean).map(r => h('div', { class: 'tip-r' },
-      r.key ? h('i', { class: r.line ? ('ln' + (r.dash ? ' dash' : '')) : null, style: { '--c': r.key } }) : null,
+      r.key ? h('i', { class: r.line ? ('ln' + (r.dash ? ' dash' : '')) : r.ol ? 'ol' : null, style: { '--c': r.key } }) : null,
       h('b', null, r.value), r.label ? h('span', { text: r.label }) : null)));
   }
   function placeTip(host, nodes, ax, ayTop, ayBottom) {
@@ -1198,6 +1272,31 @@
     return { ms, short, over, shortSum: rnd(sum(short.map(gapOf)), 1), overSum: rnd(sum(over.map(gapOf)), 1) };
   }
 
+  /* ================= 판재: 단위마다 한 장, 사이 2px(바탕색). 끝은 네모 ================= */
+  // 가로로 이어 놓은 판재(X(v)는 값 v의 x). 마지막 장은 값에서 끝난다
+  // 끝에 남는 조각이 0.35장보다 짧으면 따로 떼지 않고 앞 장에 붙인다(가는 띠가 판재처럼 보이지 않게). 전체 길이는 그대로 값이다
+  const boardCount = (span, unit) => { const n = Math.ceil(span / unit - 1e-9), rest = span - (n - 1) * unit; return n > 1 && rest < unit * .35 ? n - 1 : n; };
+  function boardsH(X, from, to, unit, y, hgt, fill, gap = 2) {
+    const g = sv('g', null), n = boardCount(to - from, unit);
+    for (let k = 0; k < n; k++) {
+      const a = from + k * unit, b = k === n - 1 ? to : Math.min(to, from + (k + 1) * unit), last = b >= to - 1e-9;
+      const w = X(b) - X(a) - (last ? 0 : gap);
+      if (w > .4) g.append(sv('rect', { class: 'bd', x: X(a), y, width: w, height: hgt, fill: typeof fill === 'function' ? fill(a, b) : fill }));
+    }
+    return g;
+  }
+  // 아래에서 위로 쌓은 판재(Y(v)는 값 v의 y)
+  function boardsV(Y, from, to, unit, x, wdt, fill, gap = 2) {
+    const g = sv('g', null), n = boardCount(to - from, unit);
+    for (let k = 0; k < n; k++) {
+      const a = from + k * unit, b = k === n - 1 ? to : Math.min(to, from + (k + 1) * unit), last = b >= to - 1e-9;
+      const hh = Y(a) - Y(b) - (last ? 0 : gap);
+      if (hh > .4) g.append(sv('rect', { class: 'bd', x, y: Y(b) + (last ? 0 : gap), width: wdt, height: hh, fill: typeof fill === 'function' ? fill(a, b) : fill }));
+    }
+    return g;
+  }
+  const unitJoin = k => KO() && ['prod', 'ship', 'inv'].includes(k) ? '' : ' ';
+
   /* ================= 머리 ================= */
   function renderChrome() {
     const t = L();
@@ -1210,102 +1309,547 @@
     }), h('span', { class: 'tu', text: t.tick.unit }));
     $('#s1T').textContent = t.s1.t;
     $('#s1K').textContent = t.s1.k({ scope: t.scopes[state.scope], n: millsIn().length });
+    $('#n1').textContent = t.n1;
   }
 
-  /* ================= 대표 장치 1: Outlook 표 ================= */
-  const OT = { i: 0 };
-  function otRows() {
-    const A = S(), t = L(), sc = state.scope, f = shortFacts();
-    const names = f.short.map(millShort);
-    const pg = MILL.pg, mac = MILL.mac;
+  /* ================= 대표 장치 1: Quick facts 타일(초록 큰 숫자 · 계획 범위 · 13주 추세) ================= */
+  const QF = { i: 0 };
+  function qfRows() {
+    const A = S(), t = L(), sc = state.scope, f = shortFacts(), com = t.qf.com, pg = MILL.pg, mac = MILL.mac;
     const ifn = (x, v) => typeof x === 'function' ? x(v) : x;
-    const com = t.ot.com;
-    const spfD = DATA.scopes.spf.invDays[LAST], sypD = DATA.scopes.syp.invDays[LAST];
+    const pts = v => `${nf(v, 1)}${t.pts}`;
     const rows = [
-      { k: 'prod', v: A.prod[LAST], p: A.prod[PREV], r: A.prodR, dir: 1, fmt: volN, chg: volS, rfmt: volN },
-      { k: 'ship', v: A.ship[LAST], p: A.ship[PREV], r: A.shipR, dir: 1, fmt: volN, chg: volS, rfmt: volN },
-      { k: 'op', v: A.op[LAST], p: A.op[PREV], r: A.opR, dir: 1, fmt: v => nf(v, 1), unit: '%', chg: v => ptsP(v), rfmt: v => nf(v, 1) + '%' },
-      { k: 'lrf', v: A.lrf[LAST], p: A.lrf[PREV], r: A.lrfT, dir: 1, fmt: v => nf(v, 1), chg: v => numP(v, 1), rfmt: v => nf(Math.round(v), 0) },
-      { k: 'grade', v: A.grade[LAST], p: A.grade[PREV], r: A.gradeT, dir: 1, fmt: v => nf(v, 1), unit: '%', chg: v => ptsP(v), rfmt: v => nf(v, 1) + '%' },
-      { k: 'inv', v: A.invDays[LAST], p: A.invDays[PREV], r: A.invR, dir: 0, fmt: v => nf(v, 1), chg: v => numP(v, 1), rfmt: v => nf(v, 0) }
+      { k: 'prod', s: A.prod, r: A.prodR, dir: 1, fmt: volN, abs: volN, sgn: volS, rfmt: volN, kind: 'plan' },
+      { k: 'ship', s: A.ship, r: A.shipR, dir: 1, fmt: volN, abs: volN, sgn: volS, rfmt: volN, kind: 'plan' },
+      { k: 'op', s: A.op, r: A.opR, dir: 1, fmt: v => nf(v, 1), pc: true, abs: pts, sgn: v => ptsP(v), rfmt: v => nf(v, 1), kind: 'plan' },
+      { k: 'lrf', s: A.lrf, r: A.lrfT, dir: 1, fmt: v => nf(v, 1), abs: v => nf(v, 1), sgn: v => numP(v, 1), rfmt: v => nf(Math.round(v), 0), kind: 'target' },
+      { k: 'grade', s: A.grade, r: A.gradeT, dir: 1, fmt: v => nf(v, 1), pc: true, abs: pts, sgn: v => ptsP(v), rfmt: v => nf(v, 1), kind: 'target' },
+      { k: 'inv', s: A.invDays, r: A.invR, dir: 0, fmt: v => nf(v, 1), abs: v => nf(v, 1), sgn: v => numP(v, 1), rfmt: v => nf(v, 0), kind: 'target' }
     ];
     for (const r of rows) {
-      r.st = posOf(r.v, r.r);
-      r.d = rnd(r.v - r.p, r.k === 'prod' || r.k === 'ship' ? 1 : 1);
+      r.v = r.s[LAST]; r.p = r.s[PREV]; r.st = posOf(r.v, r.r); r.d = rnd(r.v - r.p, 1);
       r.badSt = r.dir === 1 ? r.st === 'below' : (r.st === 'below' || r.st === 'above');
       r.chgCls = r.dir === 1 ? (r.d < 0 ? 'bad' : r.d > 0 ? 'good' : '') : ((r.st === 'above' && r.d > 0) || (r.st === 'below' && r.d < 0) ? 'bad' : '');
     }
-    const ord = n => ordW(n);
     const R = Object.fromEntries(rows.map(r => [r.k, r]));
-    R.prod.com = com.prod({ st: R.prod.st, who: joinL(names) });
+    R.prod.com = com.prod({ who: joinL(f.short.map(millShort)) });
     R.ship.com = ifn(com.ship[sc], { d: volAbs(A.ship[LAST] - A.prod[LAST]) });
     R.op.com = com.op[sc];
     R.lrf.com = ifn(com.lrf[sc], { pg: nf(pg.lrf[LAST]), gap: nf(pg.lrfT[0] - pg.lrf[LAST]) });
     R.grade.com = ifn(com.grade[sc], { pg: pct(pg.grade[LAST]), mac: pct(mac.grade[LAST]) });
     const spfOut = runOut(DATA.scopes.spf.invDays, x => x > A.invR[1]), sypOut = runOut(DATA.scopes.syp.invDays, x => x < A.invR[0]);
-    R.inv.com = ifn(com.inv[sc], { spf: daysU(spfD), syp: daysU(sypD), ord: ord(sc === 'spf' ? spfOut : sypOut) });
-    const costs = ['fibre', 'labour', 'energy', 'transport'].map(k => {
-      const c = A.cost[k], d = rnd(c.w44 - c.w43, 1);
-      return { k, cost: true, v: c.w44, p: c.w43, plan: c.plan, d, dir: Math.abs(d) < 0.5 ? 0 : Math.sign(d), com: com[k][sc] };
-    });
-    return { kpis: rows, costs };
+    R.inv.com = ifn(com.inv[sc], { spf: daysU(DATA.scopes.spf.invDays[LAST]), syp: daysU(DATA.scopes.syp.invDays[LAST]), ord: ordW(sc === 'spf' ? spfOut : sypOut) });
+    return rows;
   }
-  function renderOT(animate) {
-    const t = L(), M = otRows(), tab = $('#otT');
-    const hd = t.ot.head;
-    const head = h('thead', null, h('tr', null,
-      h('th', { class: 'lab', scope: 'col', colspan: 2, text: hd[0] }), h('th', { scope: 'col', text: hd[1] }), h('th', { scope: 'col', text: hd[2] }),
-      h('th', { scope: 'col', class: 'h-w43', text: hd[3] }), h('th', { scope: 'col', class: 'h-c4', text: hd[4] }), h('th', { scope: 'col', class: 'cm h-cm', text: hd[5] })));
-    const rb = r => {
-      const [lo, hi] = r.r, pad = (hi - lo) * .75, d0 = Math.min(lo, r.v) - pad, d1 = Math.max(hi, r.v) + pad, X = v => ((v - d0) / (d1 - d0) * 100).toFixed(2) + '%';
-      const bad = r.badSt;
-      return h('span', { class: 'ot-rb', 'aria-hidden': 'true' }, h('i', { style: { left: X(lo), width: ((hi - lo) / (d1 - d0) * 100).toFixed(2) + '%' } }), h('b', { class: bad ? 'bad' : null, style: { left: X(r.v) } }));
-    };
-    const kpiRow = r => {
-      const nm = t.ot.rows[r.k];
-      const tr = h('tr', { class: 'kp', 'data-k': r.k, 'data-say': `${nm[0]} ${r.fmt(r.v)}${r.unit || ''}; ${t.ot.tip.range} ${r.rfmt(r.r[0])} – ${r.rfmt(r.r[1])}, ${t.ot.st[r.st]}; ${t.ot.tip.chg} ${r.chg(r.d)}` },
-        h('th', { class: 'c0', scope: 'row', colspan: 2 }, nm[0], h('span', { class: 'u', text: nm[1] })),
-        h('td', { class: 'c1' }, r.fmt(r.v), r.unit ? h('small', { text: r.unit }) : null),
-        h('td', { class: 'c2' }, h('span', { class: 'ot-r', text: `${r.rfmt(r.r[0])} – ${r.rfmt(r.r[1])}` }), h('span', { class: 'ot-rr' }, rb(r), h('span', { class: 'st' + (r.badSt ? ' bad' : ''), text: t.ot.st[r.st] }))),
-        h('td', { class: 'c3 h-w43' }, r.fmt(r.p), r.unit || ''),
-        h('td', { class: 'c4 h-c4 ' + r.chgCls }, r.chg(r.d)),
-        h('td', { class: 'cm h-cm', text: r.com }));
-      return tr;
-    };
-    const costHead = () => h('tr', { class: 'cgh' }, h('th', { class: 'c0 cg', scope: 'rowgroup', colspan: 2 }, t.ot.costs[0], h('span', { class: 'u', text: t.ot.costs[1] })),
-      h('td', { class: 'c1' }), h('td', { class: 'c2' }), h('td', { class: 'c3 h-w43' }), h('td', { class: 'c4 h-c4' }), h('td', { class: 'cm h-cm' }));
-    const costRow = r => {
-      const tr = h('tr', { class: 'cs', 'data-k': r.k, 'data-say': `${t.ot.cost[r.k]} ${usd(r.v)}; ${t.ot.tip.plan} ${usd(r.plan)}; ${t.ot.tip.chg} ${usdP(r.d)}` },
-        h('th', { class: 'c0 sub', scope: 'row', colspan: 2, text: t.ot.cost[r.k] }),
-        h('td', { class: 'c1', text: nf(r.v, 0) }),
-        h('td', { class: 'c2' }, h('span', { class: 'ot-r' }, nf(r.plan, 0))),
-        h('td', { class: 'c3 h-w43', text: nf(r.p, 0) }),
-        h('td', { class: 'c4 h-c4' }, h('span', { class: 'ot-ch' }, costArrow(r.dir), h('span', { class: r.dir > 0 ? 'bad' : r.dir < 0 ? 'good' : '', text: numP(r.d, 0) }))),
-        h('td', { class: 'cm h-cm', text: r.com }));
-      return tr;
-    };
-    const body = h('tbody', null, M.kpis.map(kpiRow), costHead(), M.costs.map(costRow));
-    tab.replaceChildren(h('caption', { class: 'sr-only', text: t.ot.cap }), head, body);
-    tab.setAttribute('tabindex', '0');
-    tab.setAttribute('aria-label', t.ot.aria);
-    refade(tab, animate);
-    const host = $('#ot');
-    wireRows(host, tab, 'tbody tr[data-k]', OT, (i, tr) => {
-      const k = tr.dataset.k, r = M.kpis.find(x => x.k === k) || M.costs.find(x => x.k === k), o = offsetIn(host, tr);
-      if (r.cost) {
-        placeTip(host, tipNodes(t.ot.cost[k], [
-          { value: usd(r.v, 1), label: t.ot.tip.w44 }, { value: usd(r.plan, 1), label: t.ot.tip.plan }, { value: usd(r.p, 1), label: t.ot.tip.w43 },
-          { value: usdP(r.d, 1), label: t.ot.tip.chg }], r.com), o.x + o.w * .45, o.y, o.y + o.h);
-      } else {
-        const nm = t.ot.rows[k];
-        placeTip(host, tipNodes(`${nm[0]} (${nm[1]})`, [
-          { value: r.fmt(r.v) + (r.unit || ''), label: t.ot.tip.w44 }, { value: `${r.rfmt(r.r[0])} – ${r.rfmt(r.r[1])}`, label: t.ot.tip.range },
-          { value: t.ot.st[r.st], label: t.ot.tip.pos }, { value: r.fmt(r.p) + (r.unit || ''), label: t.ot.tip.w43 }, { value: r.chg(r.d), label: t.ot.tip.chg }], r.com), o.x + o.w * .45, o.y, o.y + o.h);
-      }
+  // 13주 추세선: 하나의 계열이라 색은 하나(세이지 머리줄 #5d7b59, 연초록 위 4.2:1), 이번 주만 초록 점
+  function spark(s) {
+    const n = s.length, lo = Math.min(...s), hi = Math.max(...s), pad = (hi - lo) * .18 || 1;
+    const Y = v => (1 - (v - (lo - pad)) / ((hi + pad) - (lo - pad))) * 100;
+    const pts = s.map((v, i) => `${(i / (n - 1) * 100).toFixed(2)},${Y(v).toFixed(2)}`).join(' ');
+    return h('span', { class: 'qf-s', 'aria-hidden': 'true' },
+      sv('svg', { viewBox: '0 0 100 100', preserveAspectRatio: 'none' }, sv('polyline', { points: pts, fill: 'none', stroke: C.sageHd, 'stroke-width': 1.6, 'vector-effect': 'non-scaling-stroke', 'stroke-linejoin': 'round', 'stroke-linecap': 'round' })),
+      h('i', { style: { top: Y(s[n - 1]).toFixed(1) + '%' } }));
+  }
+  function renderTiles(animate) {
+    const t = L(), rows = qfRows(), ul = $('#qfs');
+    ul.replaceChildren(...rows.map(r => {
+      const nm = t.qf.rows[r.k], [lo, hi] = r.r, rl = r.kind === 'plan' ? t.qf.plan : t.qf.target;
+      const arrow = r.d > 0 ? '▲' : '▼';
+      const delta = r.d === 0 ? h('span', { text: t.qf.same }) : h('span', { class: r.chgCls || null, text: t.qf.delta(arrow, r.abs(Math.abs(r.d))) });
+      // 계획 범위: IR Outlook의 범위를 칸 안에. 흰 띠(세이지 테두리) + 이번 주 3px 눈금(범위 밖 나쁜 쪽이면 흙주황)
+      const pad = (hi - lo) * .9, d0 = Math.min(lo, r.v) - pad, d1 = Math.max(hi, r.v) + pad, P = v => ((v - d0) / (d1 - d0) * 100).toFixed(2) + '%';
+      return h('li', { class: 'qf' + (animOK(animate) ? ' fade' : ''), 'data-k': r.k, 'data-say': `${nm[0]} ${r.fmt(r.v)}${r.pc ? '%' : unitJoin(r.k) + nm[1]}; ${rl} ${r.rfmt(lo)} – ${r.rfmt(hi)}, ${t.qf.st[r.st]}` },
+        h('p', { class: 'qf-l', text: nm[0] }),
+        h('p', { class: 'qf-v' }, r.fmt(r.v), r.pc ? h('small', { class: 'pc', text: '%' }) : h('small', { text: nm[1] })),
+        h('p', { class: 'qf-d' }, delta),
+        h('span', { class: 'qf-r', 'aria-hidden': 'true' }, h('i', { style: { left: P(lo), width: ((hi - lo) / (d1 - d0) * 100).toFixed(2) + '%' } }), h('b', { class: r.badSt ? 'bad' : null, style: { left: P(r.v) } })),
+        h('p', { class: 'qf-rt' }, h('span', { text: `${rl} ${r.rfmt(lo)}${KO() ? '~' : '–'}${r.rfmt(hi)}` }), h('span', { class: 'st' + (r.badSt ? ' bad' : ''), text: t.qf.st[r.st] })),
+        spark(r.s));
+    }));
+    ul.setAttribute('aria-label', `${t.qf.cap}. ${t.qf.aria}`);
+    const host = $('#qfw');
+    wireRows(host, ul, '.qf', QF, (i, li) => {
+      const r = rows.find(x => x.k === li.dataset.k), nm = t.qf.rows[r.k], o = offsetIn(host, li), u = r.pc ? '%' : unitJoin(r.k) + nm[1];
+      placeTip(host, tipNodes(nm[0], [
+        { value: r.fmt(r.v) + u, label: t.qf.tip.w44 }, { value: r.fmt(r.p) + u, label: t.qf.tip.w43 }, { value: r.sgn(r.d), label: KO() ? '변화' : 'Change' },
+        { value: `${r.rfmt(r.r[0])} – ${r.rfmt(r.r[1])} · ${t.qf.st[r.st]}`, label: r.kind === 'plan' ? t.qf.plan : t.qf.target },
+        { value: `${r.fmt(Math.min(...r.s))} – ${r.fmt(Math.max(...r.s))}${u}`, label: t.qf.tip.trend }], r.com), o.x + o.w / 2, o.y, o.y + o.h);
     });
-    $('#n1').textContent = t.n1;
   }
 
+  /* ================= 그림 2: 원인별 계획 외 정지(판재 한 장 = 2시간, 한 교대 이상은 흙주황) ================= */
+  const F2 = { i: 0 };
+  function downOf(sc = state.scope) {
+    const by = {};
+    for (const x of DATA.down.filter(x => sc === 'all' || x.sp === sc)) {
+      const c = by[x.cause] || (by[x.cause] = { cause: x.cause, h: 0, mills: [] });
+      c.h += x.h; c.mills.push(x);
+    }
+    const list = Object.values(by).sort((a, b) => b.h - a.h || a.cause.localeCompare(b.cause));
+    return { list, tot: sum(list.map(x => x.h)) };
+  }
+  function f2Facts() {
+    const D = downOf(), major = D.list.filter(x => x.h >= 8);
+    const phrase = c => c.mills.length === 1 && CAUSE[c.mills[0].mill] ? CAUSE[c.mills[0].mill][state.lang] : L().f2.causes[c.cause];
+    return { n: major.length, top: sum(major.map(x => x.h)), tot: D.tot, causes: joinL(major.map(phrase)) };
+  }
+  function renderF2(animate) {
+    const t = L(), D = downOf();
+    $('#f2Title').textContent = glue(t.f2.title(f2Facts()));
+    $('#f2Cht').replaceChildren(t.f2.cht[0] + ' ', h('span', { text: t.f2.cht[1] }));
+    keyItems($('#f2Keys'), [['boards', C.bad, t.f2.keys[0]], ['boards', C.pine, t.f2.keys[1]], ['vdash', C.comparison, t.f2.keys[2]]]);
+    drawF2(animate);
+    $('#f2Table').replaceChildren(srTable(`${t.f2.label}. ${$('#f2Title').textContent}`, [KO() ? '원인' : 'Cause', t.f2.tip.h, t.f2.tip.at],
+      D.list.map(c => [t.f2.causes[c.cause], t.hrs(c.h), c.mills.map(x => `${millName(MILL[x.mill])} ${t.hrs(x.h)}`).join(', ')])));
+  }
+  function drawF2(animate) {
+    const host = $('#f2Plot'), pane = $('#f2'), t = L(), D = downOf(), list = D.list, n = list.length;
+    const W = Math.max(240, host.clientWidth), axisH = 24, top = 4;
+    host.style.minHeight = (n * 44 + axisH + top) + 'px';
+    let H = host.clientHeight; if (!H || H < n * 34 + axisH) H = n * 44 + axisH + top;
+    host._w = Math.round(host.clientWidth); host._h = Math.round(host.clientHeight);
+    const names = list.map(c => t.f2.causes[c.cause]), subs = list.map(c => c.mills.map(x => millShort(MILL[x.mill])).join(', '));
+    const nameW = Math.ceil(Math.max(...names.map(s => textW(s, `600 13px ${fam(host)}`)), ...subs.map(s => textW(s, `400 11.5px ${fam(host)}`)))) + 14;
+    const valW = KO() ? 50 : 40, x0 = nameW, x1 = W - valW;
+    const dmax = Math.max(8, Math.ceil(Math.max(...list.map(c => c.h)) / 4) * 4), ticks = Array.from({ length: dmax / 4 + 1 }, (_, i) => i * 4);
+    const X = v => x0 + v / dmax * (x1 - x0);
+    const rowH = (H - axisH - top) / n, bh = Math.max(12, Math.min(20, rowH * .46));
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': t.f2.aria });
+    const hl = sv('rect', { class: 'row-on', x: 0, width: W, height: rowH, y: 0, visibility: 'hidden' }); svg.append(hl);
+    for (const v of ticks) {
+      svg.append(sv('line', { x1: X(v), x2: X(v), y1: top, y2: H - axisH, stroke: C.grid, 'stroke-width': 1 }));
+      svg.append(sv('text', { class: 'ax', x: X(v), y: H - axisH + 16, 'text-anchor': 'middle' }, String(v)));
+    }
+    svg.append(sv('line', { x1: x0, x2: x0, y1: top, y2: H - axisH, stroke: C.base, 'stroke-width': 1 }));
+    list.forEach((c, i) => {
+      const cy = top + rowH * (i + .5), major = c.h >= 8;
+      svg.append(sv('text', { class: 'nm' + (major ? ' b' : ''), x: 0, y: cy - 1 }, names[i]));
+      svg.append(sv('text', { class: 'ax', x: 0, y: cy + 14 }, subs[i]));
+      const g = boardsH(X, 0, c.h, 2, cy - bh / 2, bh, major ? C.bad : C.pine);
+      if (animOK(animate)) { g.classList.add('growx'); g.style.animationDelay = (i * 50) + 'ms'; }
+      svg.append(g, sv('text', { class: 'lb' + (major ? ' b' : ''), x: X(c.h) + 6, y: cy + 4.5 }, t.hrs(c.h)));
+    });
+    // 한 교대(8시간) 기준선: 점선, 막대 위에
+    svg.append(sv('line', { x1: X(8), x2: X(8), y1: top - 2, y2: H - axisH, stroke: C.comparison, 'stroke-width': 1.4, 'stroke-dasharray': '4 3' }));
+    const hits = list.map((c, i) => sv('rect', { class: 'hit', x: 0, y: top + rowH * i, width: W, height: rowH, 'data-i': i }));
+    svg.append(...hits);
+    const show = i => {
+      if (i < 0) { hl.setAttribute('visibility', 'hidden'); hideTip(pane); return; }
+      F2.i = i; hl.setAttribute('y', top + rowH * i); hl.setAttribute('visibility', 'visible');
+      const c = list[i], hr = host.getBoundingClientRect(), pr = pane.getBoundingClientRect(), tt = t.f2.tip;
+      placeTip(pane, tipNodes(names[i], [{ key: c.h >= 8 ? C.bad : C.pine, value: t.hrs(c.h), label: tt.h }, { value: pct(c.h / D.tot * 100, 0), label: tt.share },
+        ...c.mills.map(x => ({ value: t.hrs(x.h), label: millName(MILL[x.mill]) }))]), hr.left - pr.left + X(c.h), hr.top - pr.top + top + rowH * i, hr.top - pr.top + top + rowH * (i + 1));
+    };
+    svg.addEventListener('pointermove', e => { const r = e.target.closest('.hit'); if (r) show(Number(r.dataset.i)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== host) show(-1); });
+    host.onfocus = () => show(Math.min(F2.i, n - 1));
+    host.onblur = () => show(-1);
+    host.onkeydown = e => { const i = keyStep(e, F2.i, n); if (i === null) return; show(i); if (i >= 0) say(`${names[i]}: ${t.hrs(list[i].h)}`); };
+    host.setAttribute('aria-label', t.f2.aria);
+    host.replaceChildren(svg);
+  }
+
+  /* ================= 그림 3: 야적장(공장마다 판재 더미, 한 장 = 출하 하루). 12일 상한 위는 흙주황, 9일 하한까지 모자란 칸은 점선 ================= */
+  const F3 = { i: 0 }, LO = 9, HI = 12;
+  const smScopes = () => state.scope === 'all' ? ['spf', 'syp'] : [state.scope];
+  const f3Order = () => smScopes().flatMap(sp => millsIn(sp).slice().sort((a, b) => invDaysOf(b) - invDaysOf(a) || a.en.localeCompare(b.en)));
+  function f3Facts() {
+    const days = sp => { const v = millsIn(sp).map(m => invDaysOf(m)); return [nf(Math.min(...v), 1), nf(Math.max(...v), 1)]; };
+    return { sp: state.scope, spf: days('spf'), syp: days('syp') };
+  }
+  function renderF3(animate) {
+    const t = L();
+    $('#f3Title').textContent = glue(t.f3.title(f3Facts()));
+    $('#f3Cht').replaceChildren(t.f3.cht[0] + ' ', h('span', { text: t.f3.cht[1] }));
+    keyItems($('#f3Keys'), [['stack', C.pine, t.f3.keys[0]], ['stack', C.bad, t.f3.keys[1]], ['empty', C.badMark, t.f3.keys[2]], ['tband', null, t.f3.keys[3]]]);
+    drawF3(animate);
+    const ms = f3Order();
+    $('#f3Table').replaceChildren(srTable(`${t.f3.label}. ${$('#f3Title').textContent}`, [KO() ? '공장' : 'Mill', t.f3.tip.days, t.f3.tip.vol, t.f3.tip.w43],
+      ms.map(m => [millName(m), daysU(invDaysOf(m)), volU(m.inv[LAST]), daysU(invDaysOf(m, PREV))])));
+  }
+  function drawF3(animate) {
+    const host = $('#f3Plot'), pane = $('#f3'), t = L(), ms = f3Order(), n = ms.length;
+    const W = Math.max(260, host.clientWidth);
+    const sp0 = ms.map(m => m.sp), firstOf = i => !i || sp0[i] !== sp0[i - 1], grouped = state.scope === 'all';
+    const nGroups = sp0.filter((s, i) => firstOf(i)).length, groupGap = 22, axW = 26;
+    const slot = (W - axW - (nGroups - 1) * groupGap) / n;
+    const nameFont = `400 11.5px ${fam(host)}`;
+    const wordsOf = m => textW(millShort(m), nameFont) <= slot - 4 ? [millShort(m)] : millShort(m).split(' ');
+    // 세로 더미가 기본. 공장 이름의 낱말이 칸에 들어가지 않을 만큼 좁으면 가로로 눕힌다
+    const horiz = W < 420 || ms.some(m => wordsOf(m).some(w => textW(w, nameFont) > slot - 4));
+    const dmax = Math.max(15, Math.ceil(Math.max(...ms.map(m => invDaysOf(m))) / 3) * 3 + 1);
+    const svg = sv('svg', { role: 'img', 'aria-label': t.f3.aria });
+    const fillOf = a => a >= HI - 1e-9 ? C.bad : C.pine;
+    const dash = { fill: 'none', stroke: C.badMark, 'stroke-width': 1.2, 'stroke-dasharray': '3 2' };
+    const grpLabel = (sp, x, y, anchor) => sv('text', { class: 'ax', x, y, 'text-anchor': anchor || 'start', style: { fontWeight: 700, fill: C.green, letterSpacing: '.04em' } }, t.scopes[sp].toUpperCase());
+    let H, geo, hl, Y, rowH = 0;
+    if (!horiz) {
+      // 세로: 공장마다 판재 더미 하나(한 장 = 출하 하루). 아래에 공장 이름과 주
+      const lines = Math.max(...ms.map(m => wordsOf(m).length)), top = 24, nameH = 22 + lines * 13;
+      host.style.minHeight = '300px';
+      H = Math.max(300, host.clientHeight);
+      const sw = Math.min(58, slot * .62);
+      Y = v => top + (1 - v / dmax) * (H - top - nameH);
+      let x = axW;
+      geo = ms.map((m, i) => { if (i && firstOf(i)) x += groupGap; const cx = x + slot / 2; x += slot; return { m, cx, x0: cx - sw / 2, sw, v: invDaysOf(m), first: firstOf(i), gx: cx - slot / 2 }; });
+      // 목표 띠 9~12일(뒤), 점선 경계. 격자는 3일마다
+      svg.append(sv('rect', { x: axW, y: Y(HI), width: W - axW, height: Y(LO) - Y(HI), fill: C.sage50 }));
+      for (let v = 3; v <= dmax; v += 3) if (v !== LO && v !== HI) svg.append(sv('line', { x1: axW, x2: W, y1: Y(v), y2: Y(v), stroke: C.grid, 'stroke-width': 1 }));
+      for (const b of [LO, HI]) svg.append(sv('line', { x1: axW, x2: W, y1: Y(b), y2: Y(b), stroke: C.comparison, 'stroke-width': 1, 'stroke-dasharray': '4 3' }));
+      for (let v = 0; v <= dmax; v += 3) svg.append(sv('text', { class: 'ax', x: axW - 6, y: Y(v) + 4, 'text-anchor': 'end' }, String(v)));
+      svg.append(sv('line', { x1: axW, x2: W, y1: Y(0), y2: Y(0), stroke: C.base, 'stroke-width': 1 }));
+      hl = sv('rect', { class: 'row-on', x: 0, y: top - 4, width: 10, height: H - top + 4, visibility: 'hidden' }); svg.append(hl);
+      geo.forEach((g, i) => {
+        const v = g.v, out = v > HI || v < LO;
+        if (grouped && g.first) svg.append(grpLabel(g.m.sp, g.gx + 4, 13));
+        // 9일 하한까지 모자란 칸: 점선 판재(채운 판재가 그 위에 놓인다)
+        if (v < LO) for (let k = Math.floor(v); k < LO; k++) svg.append(sv('rect', Object.assign({ x: g.x0 + .6, y: Y(k + 1) + 2.6, width: g.sw - 1.2, height: Math.max(1, Y(k) - Y(k + 1) - 3.2) }, dash)));
+        const st = boardsV(Y, 0, v, 1, g.x0, g.sw, fillOf);
+        if (animOK(animate)) { st.classList.add('grow'); st.style.animationDelay = (i * 45) + 'ms'; }
+        svg.append(st);
+        svg.append(sv('text', { class: 'lb b' + (out ? ' bad' : ''), x: g.cx, y: Y(Math.max(v, LO > v ? LO : v)) - 7, 'text-anchor': 'middle' }, nf(v, 1)));
+        const ws = wordsOf(g.m);
+        ws.forEach((w, j) => svg.append(sv('text', { class: 'nm', x: g.cx, y: H - nameH + 16 + j * 13, 'text-anchor': 'middle', style: { fontSize: '11.5px' } }, w)));
+        svg.append(sv('text', { class: 'ax', x: g.cx, y: H - nameH + 16 + ws.length * 13, 'text-anchor': 'middle' }, `(${g.m.st})`));
+      });
+    } else {
+      // 가로(좁은 폭): 공장마다 판재를 옆으로 쌓는다
+      const font = `400 13px ${fam(host)}`, nameW = Math.ceil(Math.max(...ms.map(m => textW(millShort(m), font)))) + 12, valW = 36, axisH = 22, grpH = grouped ? 18 : 0;
+      const Hmin = n * 28 + nGroups * grpH + axisH + 4;
+      host.style.minHeight = Hmin + 'px';
+      H = Math.max(Hmin, host.clientHeight);
+      rowH = (H - nGroups * grpH - axisH - 4) / n;
+      const X = v => nameW + v / dmax * (W - nameW - valW), bh = Math.min(18, rowH * .62);
+      svg.append(sv('rect', { x: X(LO), y: 0, width: X(HI) - X(LO), height: H - axisH, fill: C.sage50 }));
+      for (let v = 3; v <= dmax; v += 3) if (v !== LO && v !== HI) svg.append(sv('line', { x1: X(v), x2: X(v), y1: 0, y2: H - axisH, stroke: C.grid, 'stroke-width': 1 }));
+      for (const b of [LO, HI]) svg.append(sv('line', { x1: X(b), x2: X(b), y1: 0, y2: H - axisH, stroke: C.comparison, 'stroke-width': 1, 'stroke-dasharray': '4 3' }));
+      for (let v = 0; v <= dmax; v += 3) svg.append(sv('text', { class: 'ax', x: X(v), y: H - axisH + 15, 'text-anchor': 'middle' }, String(v)));
+      svg.append(sv('line', { x1: X(0), x2: X(0), y1: 0, y2: H - axisH, stroke: C.base, 'stroke-width': 1 }));
+      hl = sv('rect', { class: 'row-on', x: 0, y: 0, width: W, height: rowH, visibility: 'hidden' }); svg.append(hl);
+      let y = 2;
+      geo = ms.map((m, i) => { const first = firstOf(i), gy = y; if (grpH && first) y += grpH; const cy = y + rowH / 2; y += rowH; return { m, cy, v: invDaysOf(m), first, gy }; });
+      geo.forEach((g, i) => {
+        const v = g.v, out = v > HI || v < LO;
+        if (grouped && g.first) svg.append(grpLabel(g.m.sp, 0, g.gy + 12));
+        svg.append(sv('text', { class: 'nm', x: 0, y: g.cy + 4.5 }, millShort(g.m)));
+        if (v < LO) for (let k = Math.floor(v); k < LO; k++) svg.append(sv('rect', Object.assign({ x: X(k) + .6, y: g.cy - bh / 2 + .6, width: Math.max(1, X(k + 1) - X(k) - 3.2), height: bh - 1.2 }, dash)));
+        const st = boardsH(X, 0, v, 1, g.cy - bh / 2, bh, fillOf);
+        if (animOK(animate)) { st.classList.add('growx'); st.style.animationDelay = (i * 45) + 'ms'; }
+        svg.append(st);
+        svg.append(sv('text', { class: 'lb b' + (out ? ' bad' : ''), x: W, y: g.cy + 4.5, 'text-anchor': 'end' }, nf(v, 1)));
+      });
+    }
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    host._w = Math.round(host.clientWidth); host._h = Math.round(host.clientHeight);
+    const hits = geo.map((g, i) => !horiz ? sv('rect', { class: 'hit', x: g.cx - slot / 2, y: 0, width: slot, height: H, 'data-i': i }) : sv('rect', { class: 'hit', x: 0, y: g.cy - rowH / 2, width: W, height: rowH, 'data-i': i }));
+    svg.append(...hits);
+    const show = i => {
+      if (i < 0) { hl.setAttribute('visibility', 'hidden'); hideTip(pane); return; }
+      F3.i = i; const g = geo[i], m = g.m, v = g.v, tt = t.f3.tip;
+      if (!horiz) { hl.setAttribute('x', g.cx - slot / 2); hl.setAttribute('width', slot); } else hl.setAttribute('y', g.cy - rowH / 2);
+      hl.setAttribute('visibility', 'visible');
+      const hr = host.getBoundingClientRect(), pr = pane.getBoundingClientRect(), ox = hr.left - pr.left, oy = hr.top - pr.top;
+      const rows = [{ key: v > HI ? C.bad : C.pine, value: daysU(v), label: tt.days }, { value: volU(m.inv[LAST]), label: tt.vol }, { value: volU(m.ship[LAST]), label: tt.ship },
+        v > HI ? { value: daysU(v - HI), label: tt.over } : v < LO ? { value: daysU(LO - v), label: tt.short } : null, { value: daysU(invDaysOf(m, PREV)), label: tt.w43 }];
+      if (!horiz) placeTip(pane, tipNodes(millName(m), rows), ox + g.cx, oy + Y(Math.max(v, LO)) - 24, oy + Y(0));
+      else placeTip(pane, tipNodes(millName(m), rows), ox + W * .6, oy + g.cy - rowH / 2, oy + g.cy + rowH / 2);
+    };
+    svg.addEventListener('pointermove', e => { const r = e.target.closest('.hit'); if (r) show(Number(r.dataset.i)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== host) show(-1); });
+    host.onfocus = () => show(Math.min(F3.i, n - 1));
+    host.onblur = () => show(-1);
+    host.onkeydown = e => { const i = keyStep(e, F3.i, n); if (i === null) return; show(i); if (i >= 0) say(`${millName(geo[i].m)}: ${daysU(geo[i].v)}`); };
+    host.setAttribute('aria-label', t.f3.aria);
+    host.replaceChildren(svg);
+  }
+
+  /* ================= 그림 4: 목재 묶음 단면 100칸(한 칸 = 야적장의 1%). 주문 비중만큼의 2x4는 호두나무, 그보다 많은 2x4는 흙주황 ================= */
+  const F4 = {};
+  function mixOf(sp) { const X = DATA.mix[sp], y = X.yardB['2x4'], o = X.ordB['2x4']; return { X, y, o, ex: Math.max(0, y - o), base: Math.min(y, o) }; }
+  function renderF4(animate) {
+    const t = L(), sc = state.scope, sps = smScopes();
+    $('#f4Title').textContent = glue(t.f4.title({ sp: sc, spf: mixOf('spf'), syp: mixOf('syp') }));
+    $('#f4Cht').replaceChildren(t.f4.cht[0] + ' ', h('span', { text: t.f4.cht[1] }));
+    keyItems($('#f4Keys'), [['endb', C.walnut, t.f4.keys[0]], ['endb', C.bad, t.f4.keys[1]], ['endb', C.pine, t.f4.keys[2]]]);
+    const box = $('#f4Wf');
+    box.style.setProperty('--n', sps.length);
+    box.replaceChildren(...sps.map(sp => {
+      const M = mixOf(sp);
+      return h('div', { class: 'wf-c' },
+        h('p', { class: 'wf-h' }, t.scopes[sp], h('span', { text: volU(DATA.scopes[sp].inv[LAST]) })),
+        h('div', { class: 'plot', tabindex: 0, role: 'group', 'data-sp': sp }),
+        h('ul', { class: 'wf-l' }, h('li', { class: 'hd' }, h('span', { text: t.f4.head[0] }), h('span', { class: 'y', text: t.f4.head[1] }), h('span', { class: 'o', text: t.f4.head[2] })),
+          ...PRODUCTS.map(p => h('li', { class: p === '2x4' && M.ex > 0 ? 'ex' : null }, h('b', { text: t.f4.products[p] }), h('span', { class: 'y', text: `${M.X.yardB[p]}%` }), h('span', { class: 'o', text: `${M.X.ordB[p]}%` })))));
+    }));
+    drawUnits(animate);
+    $('#f4Table').replaceChildren(srTable(`${t.f4.label}. ${$('#f4Title').textContent}`, [KO() ? '수종 · 품목' : 'Species · product', t.f4.tip.yard, t.f4.tip.orders, t.f4.tip.vol],
+      sps.flatMap(sp => PRODUCTS.map(p => [`${t.scopes[sp]} · ${t.f4.products[p]}`, `${DATA.mix[sp].yardB[p]}%`, `${DATA.mix[sp].ordB[p]}%`, volU(DATA.mix[sp].yard[p])]))));
+  }
+  function drawUnits(animate) {
+    const box = $('#f4Wf');
+    box._w = Math.round(box.clientWidth); box._h = Math.round(box.clientHeight);
+    smScopes().forEach(sp => drawUnit(sp, animate));
+  }
+  function drawUnit(sp, animate) {
+    const host = $(`.plot[data-sp="${sp}"]`, $('#f4Wf')), pane = $('#f4'), t = L(), M = mixOf(sp);
+    const W = Math.max(150, Math.min(host.clientWidth || 300, 380)), cols = 10, gap = 2;
+    const bw = (W - gap * (cols - 1)) / cols, bh = Math.max(6, bw * 1.5 / 3.5), H = 10 * bh + 9 * gap;
+    host.style.height = H + 'px';
+    // 순서: 아래 줄부터 왼쪽→오른쪽으로 쌓는다. 2x4(주문 비중만큼 → 넘는 만큼) → 2x6 → 2x8 이상 → 기타
+    const seq = [];
+    for (let i = 0; i < M.base; i++) seq.push(['2x4', C.walnut]);
+    for (let i = 0; i < M.ex; i++) seq.push(['2x4', C.bad]);
+    for (const p of ['2x6', 'wide', 'other']) for (let i = 0; i < M.X.yardB[p]; i++) seq.push([p, C.pine]);
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': t.f4.aria(t.scopes[sp]) });
+    const cells = seq.map(([p, fill], i) => {
+      const r = Math.floor(i / cols), c = i % cols;
+      return sv('rect', { class: 'bd' + (animOK(animate) ? ' drop' : ''), x: c * (bw + gap), y: H - (r + 1) * bh - r * gap, width: bw, height: bh, fill, 'data-p': p, style: animOK(animate) ? { animationDelay: (r * 40 + c * 6) + 'ms' } : null });
+    });
+    svg.append(...cells);
+    const cur = F4[sp] || (F4[sp] = { i: 0 });
+    const show = i => {
+      if (i < 0) { cells.forEach(r => r.removeAttribute('opacity')); hideTip(pane); return; }
+      cur.i = i; const p = PRODUCTS[i];
+      cells.forEach(r => r.setAttribute('opacity', r.dataset.p === p ? 1 : .32));
+      const hr = host.getBoundingClientRect(), pr = pane.getBoundingClientRect(), tt = t.f4.tip;
+      const mine = cells.filter(r => r.dataset.p === p), topY = Math.min(...mine.map(r => Number(r.getAttribute('y'))));
+      placeTip(pane, tipNodes(`${t.scopes[sp]} · ${t.f4.products[p]}`, [
+        { key: p === '2x4' ? (M.ex > 0 ? C.bad : C.walnut) : C.pine, value: `${M.X.yardB[p]}%`, label: tt.yard }, { value: `${M.X.ordB[p]}%`, label: tt.orders }, { value: volU(M.X.yard[p]), label: tt.vol }]),
+        hr.left - pr.left + W / 2, hr.top - pr.top + topY, hr.top - pr.top + H);
+    };
+    svg.addEventListener('pointermove', e => { const r = e.target.closest('rect[data-p]'); if (r) show(PRODUCTS.indexOf(r.dataset.p)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== host) show(-1); });
+    host.onfocus = () => show(cur.i);
+    host.onblur = () => show(-1);
+    host.onkeydown = e => { const i = keyStep(e, cur.i, PRODUCTS.length); if (i === null) return; show(i); if (i >= 0) say(`${t.f4.products[PRODUCTS[i]]}: ${M.X.yardB[PRODUCTS[i]]}%`); };
+    host.setAttribute('aria-label', t.f4.aria(t.scopes[sp]));
+    host.replaceChildren(svg);
+  }
+
+  /* ================= 그림 5: 가동 일정(대표 장치 3, IR 증감 장부를 날짜 위에). 줄이는 날은 흙주황 칸, 늘리는 교대는 초록 테두리 칸 ================= */
+  const F5 = { i: 0 };
+  function ledgerFacts() {
+    const E = DATA.ledger;
+    const spfDown = rnd(sum(E.filter(e => e.sp === 'spf' && e.v < 0).map(e => e.v)), 1);
+    const sypAdd = rnd(sum(E.filter(e => e.sp === 'syp' && e.v > 0).map(e => e.v)), 1);
+    const mills = new Set(E.filter(e => e.sp === 'spf' && e.v < 0).map(e => e.mill)).size;
+    return { spfDown, sypAdd, mills };
+  }
+  // 공장 한 곳의 일정: 네 곳이 함께 쉬는 추수감사절은 공장마다 4분의 1
+  const entriesOf = m => DATA.ledger.filter(e => e.mill === m.id || (e.mill === 'syp4' && m.sp === 'syp')).map(e => e.mill === 'syp4' ? Object.assign({}, e, { v: rnd(e.v / 4, 2), shared: true }) : e);
+  const dayName = d => (KO() ? ['월', '화', '수', '목', '금', '토', '일'] : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'])[d];
+  const daysTxt = ds => ds.length > 1 ? `${dayName(ds[0])}${KO() ? '~' : '–'}${dayName(ds[ds.length - 1])}` : dayName(ds[0]);
+  function renderF5(animate) {
+    const t = L(), tt = t.f5, sc = state.scope, lf = ledgerFacts();
+    $('#f5Title').textContent = glue(tt.title({ all: sc === 'all', sp: sc, spfDown: volAbs(lf.spfDown), sypAdd: volAbs(lf.sypAdd), mills: lf.mills }));
+    $('#f5Cht').replaceChildren(tt.cht[0] + ' ', h('span', { text: tt.cht[1] }));
+    keyItems($('#f5Keys'), [['bar', C.badMark, tt.keys[0]], ['outline', C.heroText, tt.keys[1]], ['kraft', null, tt.keys[2]]]);
+    drawF5(animate);
+    const ms = smScopes().flatMap(sp => millsIn(sp));
+    $('#f5Table').replaceChildren(srTable(`${tt.label}. ${$('#f5Title').textContent}`, [KO() ? '공장' : 'Mill', ...[45, 46, 47, 48].map(w => t.wk(w)), tt.total],
+      ms.map(m => { const es = entriesOf(m); return [millName(m), ...[45, 46, 47, 48].map(w => es.filter(e => e.wk === w).map(e => `${volS(e.v)} ${daysTxt(e.days)} ${e[state.lang]}`).join('; ') || '–'), volS(sum(es.map(e => e.v)))]; })));
+  }
+  function drawF5(animate) {
+    const host = $('#f5Plot'), pane = $('#f5'), t = L(), tt = t.f5, sps = smScopes();
+    const W = Math.max(300, host.clientWidth), narrow = W < 640;
+    const groups = sps.map(sp => ({ sp, ms: millsIn(sp) }));
+    const font = `400 13px ${fam(host)}`;
+    const nameW = Math.ceil(Math.max(...groups.flatMap(g => g.ms.map(m => textW(narrow ? millShort(m) : millName(m), font))))) + 14;
+    const totLabs = [tt.total, ...groups.flatMap(g => g.ms.map(m => volS(sum(entriesOf(m).map(e => e.v))))), volS(sum(DATA.ledger.filter(e => sps.includes(e.sp)).map(e => e.v)))];
+    const totW = Math.ceil(Math.max(...totLabs.map(s => textW(s, `600 12.5px ${fam(host)}`)))) + 16, headH = narrow ? 22 : 36, grpH = 22, rowH = 30, netH = 30;
+    const nRows = sum(groups.map(g => g.ms.length));
+    const H = headH + groups.length * grpH + nRows * rowH + netH + 4;
+    host.style.minHeight = H + 'px';
+    host._w = Math.round(host.clientWidth); host._h = Math.round(host.clientHeight);
+    const x0 = nameW, x1 = W - totW, dayW = (x1 - x0) / 28;
+    const DX = d => x0 + d * dayW;   // 45주 월요일부터 d일째의 왼쪽 끝
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': tt.aria });
+    // 머리: 주 이름과 날짜, 요일 글자
+    [45, 46, 47, 48].forEach((w, k) => {
+      svg.append(sv('text', { class: 'ax', x: DX(k * 7) + 4, y: 13, style: { fontWeight: 600, fill: C.ink } }, narrow ? t.wkS(w) : `${t.wk(w)} · ${tt.dates[w]}`));
+      if (!narrow) for (let d = 0; d < 7; d++) svg.append(sv('text', { class: 'ax', x: DX(k * 7 + d) + dayW / 2, y: 30, 'text-anchor': 'middle', style: d > 4 ? { fill: C.muted } : null }, tt.days[d]));
+    });
+    svg.append(sv('text', { class: 'ax', x: W, y: narrow ? 13 : 30, 'text-anchor': 'end', style: { fontWeight: 600, fill: C.ink } }, tt.total));
+    const rowsGeo = [];
+    let y = headH;
+    const body = sv('g', null), marks = sv('g', null);
+    for (const g of groups) {
+      svg.append(sv('text', { class: 'ax', x: 0, y: y + 15, style: { fontWeight: 700, fill: C.green, letterSpacing: '.04em' } }, t.scopes[g.sp].toUpperCase()));
+      if (g.sp === 'syp' && !narrow) svg.append(sv('text', { class: 'ax', x: DX(3 * 7 + 3) + 2, y: y + 15, style: { fill: C.badText, fontWeight: 600 } }, tt.thanks));
+      y += grpH;
+      for (const m of g.ms) {
+        // 기본 일정(월~금 2교대): 옅은 크라프트 칸
+        for (let d = 0; d < 28; d++) if (d % 7 < 5) body.append(sv('rect', { x: DX(d) + 1, y: y + 5, width: Math.max(1, dayW - 2), height: rowH - 10, fill: C.kraft200 }));
+        const es = entriesOf(m), tot = rnd(sum(es.map(e => e.v)), 1);
+        for (const e of es) {
+          const d0 = (e.wk - 45) * 7 + e.days[0], d1 = (e.wk - 45) * 7 + e.days[e.days.length - 1] + 1;
+          const xa = DX(d0) + 1, wd = DX(d1) - DX(d0) - 2, down = e.v < 0, lab = volS(e.v);
+          const r = down ? sv('rect', { class: 'bd' + (animOK(animate) ? ' fade' : ''), x: xa, y: y + 4, width: wd, height: rowH - 8, fill: C.badMark })
+            : sv('rect', { class: 'bd' + (animOK(animate) ? ' fade' : ''), x: xa + .75, y: y + 4.75, width: wd - 1.5, height: rowH - 9.5, fill: C.green100, stroke: C.heroText, 'stroke-width': 1.5 });
+          marks.append(r);
+          if (!narrow && textW(lab, `700 11.5px ${fam(host)}`) + 6 <= wd) marks.append(sv('text', { class: 'lb sm ' + (down ? 'w' : 'good b'), x: xa + wd / 2, y: y + rowH / 2 + 4, 'text-anchor': 'middle' }, lab));
+        }
+        svg.append(sv('text', { class: 'nm', x: 0, y: y + rowH / 2 + 4.5 }, narrow ? millShort(m) : (KO() ? m.ko : m.en), narrow ? null : sv('tspan', { class: 'st', dx: 4 }, `(${m.st})`)));
+        marks.append(sv('text', { class: 'lb b ' + (tot > 0 ? 'good' : tot < 0 ? 'bad' : 'm'), x: W, y: y + rowH / 2 + 4.5, 'text-anchor': 'end' }, es.length ? volS(tot) : '–'));
+        rowsGeo.push({ m, y, es, tot });
+        y += rowH;
+      }
+    }
+    // 주 경계선
+    for (let k = 0; k <= 4; k++) body.append(sv('line', { x1: DX(k * 7), x2: DX(k * 7), y1: narrow ? 18 : 18, y2: y + netH, stroke: C.grid, 'stroke-width': 1 }));
+    svg.append(body, marks);
+    // 맨 아래: 주별 순변화와 4주 합
+    svg.append(sv('line', { x1: 0, x2: W, y1: y + 2, y2: y + 2, stroke: C.base, 'stroke-width': 1 }));
+    svg.append(sv('text', { class: 'nm b', x: 0, y: y + 20 }, tt.net));
+    let all = 0;
+    [45, 46, 47, 48].forEach((w, k) => {
+      const v = rnd(sum(DATA.ledger.filter(e => e.wk === w && sps.includes(e.sp)).map(e => e.v)), 1); all += v;
+      svg.append(sv('text', { class: 'lb b ' + (v > 0 ? 'good' : v < 0 ? 'bad' : 'm'), x: DX(k * 7 + 3.5), y: y + 20, 'text-anchor': 'middle' }, volS(v)));
+    });
+    all = rnd(all, 1);
+    svg.append(sv('text', { class: 'lb b ' + (all > 0 ? 'good' : all < 0 ? 'bad' : 'm'), x: W, y: y + 20, 'text-anchor': 'end' }, volS(all)));
+    const hl = sv('rect', { class: 'row-on', x: 0, width: W, height: rowH, y: 0, visibility: 'hidden' }); svg.insertBefore(hl, svg.firstChild);
+    const hits = rowsGeo.map((r, i) => sv('rect', { class: 'hit', x: 0, y: r.y, width: W, height: rowH, 'data-i': i }));
+    svg.append(...hits);
+    const show = i => {
+      if (i < 0) { hl.setAttribute('visibility', 'hidden'); hideTip(pane); return; }
+      F5.i = i; const r = rowsGeo[i];
+      hl.setAttribute('y', r.y); hl.setAttribute('visibility', 'visible');
+      const hr = host.getBoundingClientRect(), pr = pane.getBoundingClientRect();
+      const rows = r.es.map(e => ({ key: e.v < 0 ? C.badMark : C.heroText, ol: e.v > 0, value: volS(e.v), label: `${t.wkS(e.wk)} ${daysTxt(e.days)} · ${e.shared ? tt.all4 + ', ' : ''}${e[state.lang]}` }));
+      rows.push({ value: volS(r.tot), label: tt.tip.total });
+      const xe = r.es.length ? DX((r.es[0].wk - 45) * 7 + r.es[0].days[0]) : W / 2;
+      placeTip(pane, tipNodes(millName(r.m), rows), hr.left - pr.left + xe, hr.top - pr.top + r.y, hr.top - pr.top + r.y + rowH);
+    };
+    svg.addEventListener('pointermove', e => { const r = e.target.closest('.hit'); if (r) show(Number(r.dataset.i)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== host) show(-1); });
+    host.onfocus = () => show(Math.min(F5.i, rowsGeo.length - 1));
+    host.onblur = () => show(-1);
+    host.onkeydown = e => { const i = keyStep(e, F5.i, rowsGeo.length); if (i === null) return; show(i); if (i >= 0) { const r = rowsGeo[i]; say(`${millName(r.m)}: ${r.es.length ? r.es.map(e => `${t.wkS(e.wk)} ${daysTxt(e.days)} ${volS(e.v)}`).join(', ') : '–'}`); } };
+    host.setAttribute('aria-label', tt.aria);
+    host.replaceChildren(svg);
+  }
+
+  /* ================= 그림 7: 판재 브리지(MD&A의 증감 다리). 43주 → 원목 → 인건비 → 에너지 → 정비 → 44주 ================= */
+  const F7 = { i: 0 };
+  const F4K = ['fibre', 'labour', 'energy', 'maint'];
+  function f4Model() {
+    const A = S(), c0 = A.cash[PREV], c1 = A.cash[LAST];
+    const steps = F4K.map(k => ({ k, d: rnd(A.cost[k].w44 - A.cost[k].w43, 1) }));
+    // 0.1달러로 반올림한 단계의 합이 변화와 맞게, 나머지가 큰 단계부터 조정한다
+    const total = rnd(c1 - c0, 1), diff = rnd(total - sum(steps.map(s => s.d)), 1);
+    if (Math.abs(diff) >= .05) { const big = steps.slice().sort((a, b) => Math.abs(b.d) - Math.abs(a.d))[0]; big.d = rnd(big.d + diff, 1); }
+    return { c0, c1, total, steps };
+  }
+  // SVG 글자 줄바꿈(단어 단위, 최대 lines줄)
+  function wrapText(str, maxW, font, lines = 2) {
+    const words = String(str).split(' '), out = [];
+    let cur = '';
+    for (const w of words) { const nx = cur ? cur + ' ' + w : w; if (textW(nx, font) <= maxW || !cur) cur = nx; else { out.push(cur); cur = w; } }
+    if (cur) out.push(cur);
+    if (out.length > lines) { out.length = lines; out[lines - 1] = out[lines - 1].replace(/\s*\S*$/, '') + '…'; }
+    return out;
+  }
+  function renderF7(animate) {
+    const t = L(), tt = t.f7, M = f4Model();
+    const top = M.steps.slice().sort((a, b) => Math.abs(b.d) - Math.abs(a.d))[0];
+    $('#f7Title').textContent = glue(tt.title({ up: M.total > 0, d: nf(Math.abs(M.total), 1), c: nf(M.c1, 1), top: KO() ? tt.full[top.k] : tt.full[top.k].toLowerCase(), topUp: top.d > 0, tv: nf(Math.abs(top.d), 1) }));
+    $('#f7Cht').replaceChildren(tt.cht[0] + ' ', h('span', { text: tt.cht[1] }));
+    keyItems($('#f7Keys'), [['bar', C.bad, tt.keys[0]], ['bar', C.hero, tt.keys[1]], ['bar', C.pine, tt.keys[2]], ['dash', C.comparison, `${tt.keys[3]} ${usd(S().cashPlan, 1)}`]]);
+    drawF7(animate);
+    $('#f7Table').replaceChildren(srTable(`${tt.label}. ${$('#f7Title').textContent}`, [KO() ? '단계' : 'Step', 'US$/Mfbm', KO() ? '이유' : 'Why'],
+      [[tt.full.start, nf(M.c0, 1), ''], ...M.steps.map(s => [tt.full[s.k], numP(s.d, 1), f7Why(s.k)]), [tt.full.end, nf(M.c1, 1), '']]));
+  }
+  const f7Why = k => { const tt = L().f7, sc = state.scope; return k === 'labour' ? tt.why.labour(volAbs(S().prod[PREV] - S().prod[LAST])) : tt.why[k][sc]; };
+  function drawF7(animate) {
+    const host = $('#f7Plot'), pane = $('#f7'), t = L(), tt = t.f7, M = f4Model(), A = S();
+    const W = Math.max(280, host.clientWidth);
+    host.style.minHeight = '280px';
+    const H = Math.max(280, host.clientHeight);
+    host._w = Math.round(host.clientWidth); host._h = Math.round(host.clientHeight);
+    const cats = [{ k: 'start', a: null, b: M.c0, tot: true }];
+    let run = M.c0;
+    for (const s of M.steps) { cats.push({ k: s.k, a: run, b: rnd(run + s.d, 1), d: s.d }); run = rnd(run + s.d, 1); }
+    cats.push({ k: 'end', a: null, b: M.c1, tot: true });
+    const vals = [M.c0, M.c1, A.cashPlan, ...cats.map(c => c.b)];
+    const lo0 = Math.min(...vals), hi0 = Math.max(...vals), span = hi0 - lo0;
+    const ticks = niceTicks(lo0 - span * .55, hi0 + span * .12, 4), lo = ticks[0], hi = ticks[ticks.length - 1];
+    const axW = 34, top = 20, labH = W < 560 ? 30 : 70;
+    const right = 4;
+    const Y = v => top + (1 - (v - lo) / (hi - lo)) * (H - top - labH);
+    const slot = (W - axW - right) / cats.length, bw = Math.min(70, slot * .56);
+    const Xc = i => axW + slot * (i + .5);
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': tt.aria });
+    const hl = sv('rect', { class: 'row-on', y: top - 16, width: slot, height: H - top + 16, x: 0, visibility: 'hidden' }); svg.append(hl);
+    for (const v of ticks) {
+      svg.append(sv('line', { x1: axW, x2: W, y1: Y(v), y2: Y(v), stroke: v === lo ? C.base : C.grid, 'stroke-width': 1 }));
+      svg.append(sv('text', { class: 'ax', x: axW - 6, y: Y(v) + 4, 'text-anchor': 'end' }, nf(v, 0)));
+    }
+    const fontS = `400 11.5px ${fam(host)}`, nmSize = W < 560 ? 11.5 : 12.5, nmFont = `600 ${nmSize}px ${fam(host)}`;
+    const names = cats.some(c => textW(tt.rows[c.k], nmFont) > slot - 4) ? tt.rowsS : tt.rows;
+    cats.forEach((c, i) => {
+      const x = Xc(i) - bw / 2;
+      let r;
+      if (c.tot) {
+        r = sv('rect', { class: 'bd' + (animOK(animate) ? ' grow' : ''), x, y: Y(c.b), width: bw, height: Y(lo) - Y(c.b), fill: C.pine });
+        svg.append(r);
+        // 축을 잘랐다는 표시: 막대 아래쪽의 흰 사선 두 줄
+        const yb = Y(lo) - 9;
+        svg.append(sv('path', { d: `M${x - 3} ${yb + 3} L${x + bw + 3} ${yb - 3} M${x - 3} ${yb + 7} L${x + bw + 3} ${yb + 1}`, stroke: '#ffffff', 'stroke-width': 2.2 }));
+        svg.append(sv('text', { class: 'lb b', x: Xc(i), y: Y(c.b) - 7, 'text-anchor': 'middle' }, nf(c.b, 1)));
+      } else {
+        const up = c.d > 0, y0 = Y(Math.max(c.a, c.b)), y1 = Y(Math.min(c.a, c.b));
+        r = sv('rect', { class: 'bd' + (animOK(animate) ? ' fade' : ''), x, y: y0, width: bw, height: Math.max(2, y1 - y0), fill: up ? C.bad : C.hero, style: animOK(animate) ? { animationDelay: (i * 80) + 'ms' } : null });
+        svg.append(r);
+        svg.append(sv('text', { class: 'lb b ' + (up ? 'bad' : 'good'), x: Xc(i), y: y0 - 7, 'text-anchor': 'middle' }, numP(c.d, 1)));
+      }
+      // 이음선: 앞 판재의 끝에서 다음 판재로
+      if (i < cats.length - 1) svg.append(sv('line', { x1: Xc(i) + bw / 2, x2: Xc(i + 1) - bw / 2, y1: Y(c.b), y2: Y(c.b), stroke: C.text, 'stroke-width': 1, 'stroke-dasharray': '2 2' }));
+      // 이름과 이유
+      svg.append(sv('text', { class: 'nm b', x: Xc(i), y: H - labH + 17, 'text-anchor': 'middle', style: { fontSize: nmSize + 'px' } }, names[c.k]));
+      if (labH > 40 && !c.tot) wrapText(f7Why(c.k), slot - 6, fontS, 3).forEach((ln, j) => svg.append(sv('text', { class: 'ax', x: Xc(i), y: H - labH + 32 + j * 13, 'text-anchor': 'middle' }, ln)));
+    });
+    // 계획선: 판재 위에 점선(값은 범례에)
+    svg.append(sv('line', { x1: axW, x2: W, y1: Y(A.cashPlan), y2: Y(A.cashPlan), stroke: C.comparison, 'stroke-width': 1.6, 'stroke-dasharray': '5 4' }));
+    const hits = cats.map((c, i) => sv('rect', { class: 'hit', x: axW + slot * i, y: 0, width: slot, height: H, 'data-i': i }));
+    svg.append(...hits);
+    const show = i => {
+      if (i < 0) { hl.setAttribute('visibility', 'hidden'); hideTip(pane); return; }
+      F7.i = i; const c = cats[i], tp = tt.tip;
+      hl.setAttribute('x', axW + slot * i); hl.setAttribute('visibility', 'visible');
+      const hr = host.getBoundingClientRect(), pr = pane.getBoundingClientRect();
+      const rows = c.tot ? [{ key: C.pine, value: usd(c.b, 1), label: c.k === 'start' ? tp.w43 : tp.w44 }, { value: usd(A.cashPlan, 1), label: tp.plan }, { value: usdP(c.b - A.cashPlan, 1), label: tp.vs }]
+        : (() => { const cc = A.cost[c.k]; return [{ key: c.d > 0 ? C.bad : C.hero, value: usdP(c.d, 1), label: tp.chg }, { value: usd(cc.w43, 1), label: tp.w43 }, { value: usd(cc.w44, 1), label: tp.w44 }, { value: pct(c.d / M.total * 100, 0), label: tp.share }, { value: usd(cc.plan, 1), label: tp.plan }]; })();
+      placeTip(pane, tipNodes(tt.full[c.k], rows, c.tot ? null : f7Why(c.k)), hr.left - pr.left + Xc(i), hr.top - pr.top + Y(Math.max(c.a || 0, c.b)) - 20, hr.top - pr.top + Y(lo));
+    };
+    svg.addEventListener('pointermove', e => { const r = e.target.closest('.hit'); if (r) show(Number(r.dataset.i)); });
+    svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== host) show(-1); });
+    host.onfocus = () => show(Math.min(F7.i, cats.length - 1));
+    host.onblur = () => show(-1);
+    host.onkeydown = e => { const i = keyStep(e, F7.i, cats.length); if (i === null) return; show(i); if (i >= 0) { const c = cats[i]; say(`${tt.full[c.k]}: ${c.tot ? usd(c.b, 1) : usdP(c.d, 1)}`); } };
+    host.setAttribute('aria-label', tt.aria);
+    host.replaceChildren(svg);
+  }
+
+  /* ================= 결론 띠 ================= */
+  function renderBands() {
+    const t = L(), sc = state.scope, A = S(), f = shortFacts();
+    // 01: 생산이 계획보다 얼마나, 가장 많이 못 미친 두 곳의 원인
+    const gap = rnd(A.prod[LAST] - A.plan, 1), top2 = f.short.filter(m => CAUSE[m.id]).slice(0, 2);
+    const s2 = rnd(sum(top2.map(gapOf)), 1);
+    const causes = top2.length ? joinL(top2.map(m => CAUSE[m.id][state.lang])) : '';
+    $('#tw1').textContent = glue(t.tw1({ lead: t.lead[sc], gap: volAbs(gap), below: gap < 0, causes, sum: volAbs(s2) }));
+    // 02: 수종별 재고 일수와 가동 일정
+    const lg = ledgerFacts();
+    $('#tw2').textContent = glue(t.tw2({ all: sc === 'all', sp: sc, spf: daysU(DATA.scopes.spf.invDays[LAST]), syp: daysU(DATA.scopes.syp.invDays[LAST]), down: volAbs(lg.spfDown), add: volAbs(lg.sypAdd) }));
+    // 03: 회수율을 가장 많이 잃은 공장, 없으면 등급이 목표 아래인 공장
+    const lrfDrop = millsIn().map(m => ({ m, d: rnd(m.lrf[PREV] - m.lrf[LAST], 0) })).filter(x => x.d >= 3 && CAUSE[x.m.id]).sort((a, b) => b.d - a.d)[0];
+    const gLow = millsIn().filter(m => m.grade[LAST] < m.gT[0] - 1e-9).sort((a, b) => (a.grade[LAST] - a.gT[0]) - (b.grade[LAST] - b.gT[0]))[0];
+    $('#tw3').textContent = glue(lrfDrop ? t.tw3({ mill: millShort(lrfDrop.m), d: nf(lrfDrop.d), cause: KO() ? CAUSE[lrfDrop.m.id].ko.replace(/^.*의 /, '') : CAUSE[lrfDrop.m.id].en.replace(/ at .*$/, ' fault'), fix: t.fix[lrfDrop.m.id] || '' })
+      : gLow ? t.tw3({ gmill: millShort(gLow), g: pct(gLow.grade[LAST]), lo: gLow.gT[0], fix: t.fix[gLow.id] || '' }) : t.tw3({}));
+    // 04: 현금 원가와 계획 대비
+    $('#tw4').textContent = glue(t.tw4({ lead: sc === 'all' ? (KO() ? '전체' : 'All mills’') : sc.toUpperCase(), c: nf(A.cash[LAST], 0), ap: nf(A.cash[LAST] - A.cashPlan, 0), why: t.tw4why[sc] }));
+  }
   /* ================= 그림 1: 공장별 생산 대 계획(만드는 법에서도 같은 함수로 그린다) ================= */
   const F1 = { i: 0 };
   function f1Facts(sc = state.scope) {
@@ -1316,7 +1860,7 @@
     const t = L();
     $('#f1Title').textContent = glue(t.f1.title(f1Facts()));
     $('#f1Cht').replaceChildren(t.f1.cht[0] + ' ', h('span', { text: t.f1.cht[1] }));
-    keyItems($('#f1Keys'), [['bar', C.bad, t.f1.keys[0]], ['bar', C.other, t.f1.keys[1]], ['tick', C.ink, t.f1.keys[2]]]);
+    keyItems($('#f1Keys'), [['boards', C.bad, t.f1.keys[0]], ['boards', C.pine, t.f1.keys[1]], ['tick', C.ink, t.f1.keys[2]]]);
     drawF1('#f1Plot', '#f1', { animate, key: 'f1' });
     const ms = byGap(millsIn());
     $('#f1Table').replaceChildren(srTable(`${t.f1.label}. ${$('#f1Title').textContent}`, [KO() ? '공장' : 'Mill', t.f1.tip.prod, t.f1.tip.plan, t.f1.tip.gap],
@@ -1357,12 +1901,13 @@
       L1.append(sv('text', { class: 'nm', x: 0, y: cy + 4.5 }, KO() ? m.ko : m.en, sv('tspan', { class: 'st', dx: 4 }, `(${m.st})`)));
     });
     // 2 · 계획: 공장마다 계획 자리에 2px 눈금
-    // 3 · 막대: 계획 미달은 흙주황, 나머지는 warm-grey. 명세 없이 그리면 공장마다 다른 색
+    // 3 · 판재: 한 장에 1 MMfbm(한국어 100만 fbm), 사이 2px. 계획 미달은 흙주황, 나머지는 소나무색. 명세 없이 그리면 공장마다 다른 색의 막대 하나
     // 4 · 값: 막대 끝에 생산, 오른쪽 끝에 계획 대비(괄호)
     ms.forEach((m, i) => {
       const cy = top + rowH * (i + .5), g = gapOf(m), below = g < 0;
-      const fill = generic ? C.generic[i % C.generic.length] : (below ? C.bad : C.other);
-      const bar = sv('rect', { x: x0, y: cy - bh / 2, width: Math.max(1, X(m.prod[LAST]) - x0), height: bh, fill, class: animOK(opts.animate) ? 'growx' : null, style: animOK(opts.animate) ? { animationDelay: (i * 40) + 'ms' } : null });
+      const fill = generic ? C.generic[i % C.generic.length] : (below ? C.bad : C.pine);
+      const bar = generic ? sv('rect', { x: x0, y: cy - bh / 2, width: Math.max(1, X(m.prod[LAST]) - x0), height: bh, fill }) : boardsH(X, 0, m.prod[LAST], 1, cy - bh / 2, bh, fill);
+      if (animOK(opts.animate)) { bar.classList.add('growx'); bar.style.animationDelay = (i * 40) + 'ms'; }
       L3.append(bar);
       if (!generic) {
         L2.append(sv('line', { x1: X(m.plan), x2: X(m.plan), y1: cy - bh / 2 - 4, y2: cy + bh / 2 + 4, stroke: C.ink, 'stroke-width': 2 }));
@@ -1372,7 +1917,7 @@
         L4.append(sv('text', { class: 'lb', x: X(m.prod[LAST]) + 6, y: cy + 4.5 }, nf(m.prod[LAST], 2)));
       }
     });
-    svg.append(L1, L2, L3, L4);
+    svg.append(L1, L3, L2, L4);   // 계획 눈금은 판재 위에
     if (!opts.layers && !generic) {
       // 줄 고르기: 마우스·키보드
       const rows = ms.map((m, i) => sv('rect', { class: 'hit', x: 0, y: top + rowH * i, width: W, height: rowH, 'data-i': i }));
@@ -1384,7 +1929,7 @@
         const ox = hr.left - pr.left, oy = hr.top - pr.top;
         const cause = CAUSE[m.id] ? m.note[state.lang] : null;
         placeTip(pane, tipNodes(millName(m), [
-          { key: g < 0 ? C.bad : C.other, value: volU(m.prod[LAST]), label: tt.prod }, { value: volU(m.plan), label: tt.plan },
+          { key: g < 0 ? C.bad : C.pine, value: volU(m.prod[LAST]), label: tt.prod }, { value: volU(m.plan), label: tt.plan },
           { value: `${volP(g)} · ${pctP(g / m.plan * 100)}`, label: tt.gap }, { value: volU(m.prod[PREV]), label: tt.w43 }], cause), ox + Math.max(X(m.prod[LAST]), X(m.plan)), oy + top + rowH * i, oy + top + rowH * (i + 1));
       };
       svg.addEventListener('pointermove', e => { const r = e.target.closest('.hit'); if (r) show(Number(r.dataset.i)); });
@@ -1397,25 +1942,6 @@
     host.replaceChildren(svg);
   }
 
-  /* ================= 결론 띠 ================= */
-  function renderBands() {
-    const t = L(), sc = state.scope, A = S(), f = shortFacts();
-    // 01: 생산이 계획보다 얼마나, 가장 많이 못 미친 두 곳의 원인
-    const gap = rnd(A.prod[LAST] - A.plan, 1), top2 = f.short.filter(m => CAUSE[m.id]).slice(0, 2);
-    const s2 = rnd(sum(top2.map(gapOf)), 1);
-    const causes = top2.length ? joinL(top2.map(m => CAUSE[m.id][state.lang])) : '';
-    $('#tw1').textContent = glue(t.tw1({ lead: t.lead[sc], gap: volAbs(gap), below: gap < 0, causes, sum: volAbs(s2) }));
-    // 02: 회수율을 가장 많이 잃은 공장
-    const lrfDrop = millsIn().map(m => ({ m, d: rnd(m.lrf[PREV] - m.lrf[LAST], 0) })).filter(x => x.d >= 3 && CAUSE[x.m.id]).sort((a, b) => b.d - a.d)[0];
-    const gLow = millsIn().filter(m => m.grade[LAST] < m.gT[0] - 1e-9).sort((a, b) => (a.grade[LAST] - a.gT[0]) - (b.grade[LAST] - b.gT[0]))[0];
-    $('#tw2').textContent = glue(lrfDrop ? t.tw2({ mill: millShort(lrfDrop.m), d: nf(lrfDrop.d), cause: KO() ? CAUSE[lrfDrop.m.id].ko.replace(/^.*의 /, '') : CAUSE[lrfDrop.m.id].en.replace(/ at .*$/, ' fault'), fix: t.fix[lrfDrop.m.id] || '' })
-      : gLow ? t.tw2({ gmill: millShort(gLow), g: pct(gLow.grade[LAST]), lo: gLow.gT[0], fix: t.fix[gLow.id] || '' }) : t.tw2({}));
-    // 03: 수종별 재고 일수와 가동 일정
-    const lg = ledgerFacts();
-    $('#tw3').textContent = glue(t.tw3({ all: sc === 'all', sp: sc, spf: daysU(DATA.scopes.spf.invDays[LAST]), syp: daysU(DATA.scopes.syp.invDays[LAST]), down: volAbs(lg.spfDown), add: volAbs(lg.sypAdd) }));
-    // 04: 현금 원가와 계획 대비
-    $('#tw4').textContent = glue(t.tw4({ lead: sc === 'all' ? (KO() ? '전체' : 'All mills’') : sc.toUpperCase(), c: nf(A.cash[LAST], 0), ap: nf(A.cash[LAST] - A.cashPlan, 0), why: t.tw4why[sc] }));
-  }
   /* ================= 표 1: 공장별 실적(IR 표: 세이지 머리줄, 오른쪽으로 짙어지는 칸, 모래색 Comments) ================= */
   const T1 = { i: 0 };
   function aggOf(ms) {
@@ -1488,9 +2014,9 @@
     });
   }
 
-  /* ================= 그림 2: 목표 대비 회수율과 등급(점 표). 띠의 아래 끝과의 차이 ================= */
-  const F2 = { i: 0 };
-  function f2Facts() {
+  /* ================= 그림 6: 목표 대비 회수율과 등급(점 표). 띠의 아래 끝과의 차이 ================= */
+  const F6 = { i: 0 };
+  function f6Facts() {
     const ms = millsIn();
     const lrfBelow = ms.filter(m => m.lrf[LAST] < m.lrfT[0]).sort((a, b) => (a.lrf[LAST] - a.lrfT[0]) - (b.lrf[LAST] - b.lrfT[0]));
     const gBelow = ms.filter(m => m.grade[LAST] < m.gT[0] - 1e-9).sort((a, b) => (a.grade[LAST] - a.gT[0]) - (b.grade[LAST] - b.gT[0]));
@@ -1499,23 +2025,23 @@
     const grades = gBelow.filter(m => !both || m !== lw).map(m => ({ name: millShort(m), g: pct(m.grade[LAST]) }));
     return { both, lrf: lw && !both ? { name: millShort(lw), v: nf(lw.lrf[LAST]), gap: nf(lw.lrfT[0] - lw.lrf[LAST]) } : null, grades, lrfOk: lrfBelow.length === 1 && ms.length > 1 && !!both, lrfAll: lrfBelow.length === 0 };
   }
-  function f2Order() {
+  function f6Order() {
     const score = m => Math.max(0, (m.lrfT[0] - m.lrf[LAST]) / (m.lrfT[1] - m.lrfT[0])) + Math.max(0, (m.gT[0] - m.grade[LAST]) / (m.gT[1] - m.gT[0]));
     return millsIn().slice().sort((a, b) => score(b) - score(a) || ((a.lrf[LAST] - a.lrfT[0]) - (b.lrf[LAST] - b.lrfT[0])) || a.en.localeCompare(b.en));
   }
-  function renderF2(animate) {
+  function renderF6(animate) {
     const t = L();
-    $('#f2Title').textContent = glue(t.f2.title(f2Facts()));
-    $('#f2Cht').replaceChildren(t.f2.cht[0] + ' ', h('span', { text: t.f2.cht[1] }));
-    keyItems($('#f2Keys'), [['dot', C.bad, t.f2.keys[0]], ['dot', C.ink, t.f2.keys[1]], ['band', null, t.f2.keys[2]]]);
-    $('#f2Note').textContent = t.f2.note;
-    drawF2(animate);
-    const ms = f2Order();
-    $('#f2Table').replaceChildren(srTable(`${t.f2.label}. ${$('#f2Title').textContent}`, [KO() ? '공장' : 'Mill', 'LRF', t.f2.tip.target, '#2&Btr', t.f2.tip.target],
+    $('#f6Title').textContent = glue(t.f6.title(f6Facts()));
+    $('#f6Cht').replaceChildren(t.f6.cht[0] + ' ', h('span', { text: t.f6.cht[1] }));
+    keyItems($('#f6Keys'), [['dot', C.bad, t.f6.keys[0]], ['dot', C.ink, t.f6.keys[1]], ['band', null, t.f6.keys[2]]]);
+    $('#f6Note').textContent = t.f6.note;
+    drawF6(animate);
+    const ms = f6Order();
+    $('#f6Table').replaceChildren(srTable(`${t.f6.label}. ${$('#f6Title').textContent}`, [KO() ? '공장' : 'Mill', 'LRF', t.f6.tip.target, '#2&Btr', t.f6.tip.target],
       ms.map(m => [millName(m), nf(m.lrf[LAST]), `${m.lrfT[0]}–${m.lrfT[1]}`, pct(m.grade[LAST]), `${m.gT[0]}–${m.gT[1]}%`])));
   }
-  function drawF2(animate) {
-    const host = $('#f2Plot'), pane = $('#f2'), t = L(), ms = f2Order(), n = ms.length;
+  function drawF6(animate) {
+    const host = $('#f6Plot'), pane = $('#f6'), t = L(), ms = f6Order(), n = ms.length;
     // 넓으면 회수율과 등급을 나란히, 좁으면(600px 미만) 위아래로 쌓고 공장 이름을 다시 적는다
     const stack = host.clientWidth < 600;
     const headH = 20, axisH = 22, padR = 40, rowH = stack ? 30 : 34, blockH = n * rowH + headH + axisH, gapB = 20;
@@ -1530,7 +2056,7 @@
       { dom: [-12, 8], band: m => [0, m.lrfT[1] - m.lrfT[0]], v: m => m.lrf[LAST] - m.lrfT[0], lab: m => nf(m.lrf[LAST]), bad: m => m.lrf[LAST] < m.lrfT[0], ticks: [-10, -5, 0, 5] },
       { dom: [-3, 3], band: m => [0, m.gT[1] - m.gT[0]], v: m => m.grade[LAST] - m.gT[0], lab: m => nf(m.grade[LAST], 1), bad: m => m.grade[LAST] < m.gT[0] - 1e-9, ticks: [-2, 0, 2] }
     ].map((c, ci) => Object.assign(c, { x: stack ? nameW : nameW + ci * (colW + gapC), y: stack ? ci * (blockH + gapB) : 0 }));
-    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': t.f2.aria });
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': t.f6.aria });
     const hls = (stack ? cols : [cols[0]]).map(cl => { const r = sv('rect', { class: 'row-on', x: 0, width: W, height: rowH, y: cl.y, visibility: 'hidden' }); svg.append(r); return r; });
     const rowY = (cl, i) => cl.y + headH + rowH * i;
     cols.forEach((cl, ci) => {
@@ -1538,7 +2064,7 @@
       const X = v => cl.x + (Math.max(cl.dom[0], Math.min(cl.dom[1], v)) - cl.dom[0]) / (cl.dom[1] - cl.dom[0]) * (colW - padR);
       cl.X = X;
       const y0 = cl.y + headH, y1 = cl.y + headH + n * rowH;
-      svg.append(sv('text', { class: 'ax', x: stack ? 0 : cl.x, y: cl.y + 13, style: { fontWeight: 600, fill: C.ink } }, t.f2.cols[ci]));
+      svg.append(sv('text', { class: 'ax', x: stack ? 0 : cl.x, y: cl.y + 13, style: { fontWeight: 600, fill: C.ink } }, t.f6.cols[ci]));
       for (const v of cl.ticks) {
         svg.append(sv('line', { x1: X(v), x2: X(v), y1: y0, y2: y1, stroke: v === 0 ? C.sage : C.grid, 'stroke-width': 1 }));
         svg.append(sv('text', { class: 'ax', x: X(v), y: y1 + 15, 'text-anchor': 'middle' }, v > 0 ? `+${v}` : v < 0 ? `−${-v}` : '0'));
@@ -1557,9 +2083,9 @@
     svg.append(...hits);
     const show = i => {
       if (i < 0) { hls.forEach(r => r.setAttribute('visibility', 'hidden')); hideTip(pane); return; }
-      F2.i = i;
+      F6.i = i;
       hls.forEach((r, k) => { r.setAttribute('y', rowY(stack ? cols[k] : cols[0], i)); r.setAttribute('visibility', 'visible'); });
-      const m = ms[i], tt = t.f2.tip, hr = host.getBoundingClientRect(), pr = pane.getBoundingClientRect();
+      const m = ms[i], tt = t.f6.tip, hr = host.getBoundingClientRect(), pr = pane.getBoundingClientRect();
       placeTip(pane, tipNodes(millName(m), [
         { key: m.lrf[LAST] < m.lrfT[0] ? C.bad : C.ink, value: `${nf(m.lrf[LAST])} fbm/m³`, label: tt.lrf }, { value: `${m.lrfT[0]}–${m.lrfT[1]}`, label: tt.target }, { value: numP(m.lrf[LAST] - m.lrfT[0], 0), label: tt.gap },
         { key: m.grade[LAST] < m.gT[0] ? C.bad : C.ink, value: pct(m.grade[LAST]), label: tt.grade }, { value: `${m.gT[0]}–${m.gT[1]}%`, label: tt.target }, { value: ptsP(m.grade[LAST] - m.gT[0]), label: tt.gap }]),
@@ -1567,15 +2093,15 @@
     };
     svg.addEventListener('pointermove', e => { const r = e.target.closest('.hit'); if (r) show(Number(r.dataset.i)); });
     svg.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && document.activeElement !== host) show(-1); });
-    host.onfocus = () => show(Math.min(F2.i, n - 1));
+    host.onfocus = () => show(Math.min(F6.i, n - 1));
     host.onblur = () => show(-1);
-    host.onkeydown = e => { const i = keyStep(e, F2.i, n); if (i === null) return; show(i); if (i >= 0) say(`${millName(ms[i])}: LRF ${nf(ms[i].lrf[LAST])}, #2&Btr ${pct(ms[i].grade[LAST])}`); };
-    host.setAttribute('aria-label', t.f2.aria);
+    host.onkeydown = e => { const i = keyStep(e, F6.i, n); if (i === null) return; show(i); if (i >= 0) say(`${millName(ms[i])}: LRF ${nf(ms[i].lrf[LAST])}, #2&Btr ${pct(ms[i].grade[LAST])}`); };
+    host.setAttribute('aria-label', t.f6.aria);
     host.replaceChildren(svg);
   }
 
 
-  /* ================= 그림 3 · 5: 연차보고서식 13주 막대. 지난 주는 warm-grey, 이번 주만 초록, 목표 띠나 계획 점선 ================= */
+  /* ================= 그림 8: 연차보고서식 13주 선. 지난 주는 회색, 이번 주만 초록, 계획 점선 ================= */
   function drawWeeks(host, pane, cfg, animate) {
     const t = L(), vals = cfg.vals, n = vals.length, line = !!cfg.line;
     const W = Math.max(220, host.clientWidth);
@@ -1610,7 +2136,7 @@
     } else {
       vals.forEach((v, i) => {
         const cur = i === n - 1;
-        svg.append(sv('rect', { x: Xc(i) - barW / 2, y: Y(v), width: barW, height: Y(lo) - Y(v), fill: cur ? C.hero : C.other, class: animOK(animate) ? 'grow' : null, style: animOK(animate) ? { animationDelay: (i * 25) + 'ms' } : null }));
+        svg.append(sv('rect', { x: Xc(i) - barW / 2, y: Y(v), width: barW, height: Y(lo) - Y(v), fill: cur ? C.hero : C.pine, class: animOK(animate) ? 'grow' : null, style: animOK(animate) ? { animationDelay: (i * 25) + 'ms' } : null }));
       });
     }
     const hits = vals.map((v, i) => sv('rect', { class: 'hit', x: Xc(i) - bw / 2, y: top, width: bw, height: H - top - axisH, 'data-i': i }));
@@ -1630,7 +2156,6 @@
     host.setAttribute('aria-label', cfg.aria);
     host.replaceChildren(svg);
   }
-  const smScopes = () => state.scope === 'all' ? ['spf', 'syp'] : [state.scope];
   function smPanels(sel, make, animate) {
     const sps = smScopes(), box = $(sel);
     box.style.setProperty('--n', sps.length);
@@ -1642,184 +2167,70 @@
     box._draw(animate);
   }
   // 작은 그림 여럿은 같은 눈금을 쓴다(수종끼리 높이를 견줄 수 있게)
-  function f3Make(sp) {
-    const t = L(), X = DATA.scopes[sp], mx = Math.max(12, ...smScopes().flatMap(k => DATA.scopes[k].invDays));
-    return {
-      vals: X.invDays, band: X.invR, domain: [0, mx * 1.06], name: t.scopes[sp], head: daysU(X.invDays[LAST]), fmt: v => daysU(v), tick: v => nf(v, 0), aria: t.f3.aria(t.scopes[sp]),
-      tip: i => [{ key: i === LAST ? C.hero : C.other, value: daysU(X.invDays[i]), label: t.f3.tip.days }, { value: volU(X.inv[i]), label: t.f3.tip.vol }, { value: volU(X.ship[i]), label: t.f3.tip.ship }, { value: KO() ? '9~12일' : '9–12 days', label: t.f3.tip.target }]
-    };
-  }
-  function renderF3(animate) {
-    const t = L(), sc = state.scope, sp = DATA.scopes.spf.invDays, sy = DATA.scopes.syp.invDays;
-    const v = { all: sc === 'all', sp: sc, spf: daysU(sp[LAST]), syp: daysU(sy[LAST]), v: daysU(S().invDays[LAST]),
-      ord: sc === 'spf' ? ordW(runUp(sp)) : ordW(runOut(sy, x => x < 9)) };
-    $('#f3Title').textContent = glue(t.f3.title(v));
-    $('#f3Cht').replaceChildren(t.f3.cht[0] + ' ', h('span', { text: t.f3.cht[1] }));
-    keyItems($('#f3Keys'), [['bar', C.hero, t.f3.keys[0]], ['bar', C.other, t.f3.keys[1]], ['tband', null, t.f3.keys[2]]]);
-    $('#f3Note').textContent = glue(t.f3.note({ all: sc === 'all', v: daysU(DATA.scopes.all.invDays[LAST]) }));
-    smPanels('#f3Sm', f3Make, animate);
-    const sps = smScopes();
-    $('#f3Table').replaceChildren(srTable(`${t.f3.label}. ${$('#f3Title').textContent}`, [KO() ? '주' : 'Week', ...sps.map(x => t.scopes[x])],
-      DATA.weeks.map((w, i) => [t.wk(w), ...sps.map(x => daysU(DATA.scopes[x].invDays[i]))])));
-  }
-  function f5Make(sp) {
+  function f8Make(sp) {
     const t = L(), X = DATA.scopes[sp], all = smScopes().flatMap(k => [...DATA.scopes[k].cash, DATA.scopes[k].cashPlan]);
     const lo = Math.min(...all), hi = Math.max(...all), pad = (hi - lo) * .12;
     return {
-      line: true, vals: X.cash, plan: X.cashPlan, domain: [lo - pad, hi + pad], name: t.scopes[sp], head: `${usd(X.cash[LAST])} · ${t.f5.tip.plan} ${usd(X.cashPlan)}`,
-      fmt: v => usd(v), tick: v => nf(v, 0), aria: t.f5.aria(t.scopes[sp]),
-      tip: i => [{ key: i === LAST ? C.hero : C.hist, line: true, value: usd(X.cash[i], 1), label: t.f5.tip.cost }, { key: C.comparison, line: true, dash: true, value: usd(X.cashPlan, 1), label: t.f5.tip.plan }, { value: usdP(X.cash[i] - X.cashPlan, 1), label: t.f5.tip.vs }]
+      line: true, vals: X.cash, plan: X.cashPlan, domain: [lo - pad, hi + pad], name: t.scopes[sp], head: `${usd(X.cash[LAST])} · ${t.f8.tip.plan} ${usd(X.cashPlan)}`,
+      fmt: v => usd(v), tick: v => nf(v, 0), aria: t.f8.aria(t.scopes[sp]),
+      tip: i => [{ key: i === LAST ? C.hero : C.hist, line: true, value: usd(X.cash[i], 1), label: t.f8.tip.cost }, { key: C.comparison, line: true, dash: true, value: usd(X.cashPlan, 1), label: t.f8.tip.plan }, { value: usdP(X.cash[i] - X.cashPlan, 1), label: t.f8.tip.vs }]
     };
   }
-  function renderF5(animate) {
+  function renderF8(animate) {
     const t = L(), sc = state.scope;
     const one = sp => { const X = DATA.scopes[sp]; return { d: nf(X.cash[LAST] - X.cash[PREV], 0), v: nf(X.cash[LAST], 0) }; };
-    $('#f5Title').textContent = glue(t.f5.title({ all: sc === 'all', sp: sc, spf: one('spf'), syp: one('syp'), x: sc === 'all' ? null : one(sc) }));
-    $('#f5Cht').replaceChildren(t.f5.cht[0] + ' ', h('span', { text: t.f5.cht[1] }));
-    keyItems($('#f5Keys'), [['dot', C.hero, t.f5.keys[0]], ['line', C.hist, t.f5.keys[1]], ['dash', C.comparison, t.f5.keys[2]]]);
-    $('#f5Note').textContent = t.f5.note;
-    smPanels('#f5Sm', f5Make, animate);
+    $('#f8Title').textContent = glue(t.f8.title({ all: sc === 'all', sp: sc, spf: one('spf'), syp: one('syp'), x: sc === 'all' ? null : one(sc) }));
+    $('#f8Cht').replaceChildren(t.f8.cht[0] + ' ', h('span', { text: t.f8.cht[1] }));
+    keyItems($('#f8Keys'), [['dot', C.hero, t.f8.keys[0]], ['line', C.hist, t.f8.keys[1]], ['dash', C.comparison, t.f8.keys[2]]]);
+    $('#f8Note').textContent = t.f8.note;
+    smPanels('#f8Sm', f8Make, animate);
     const sps = smScopes();
-    $('#f5Table').replaceChildren(srTable(`${t.f5.label}. ${$('#f5Title').textContent}`, [KO() ? '주' : 'Week', ...sps.map(x => t.scopes[x])],
+    $('#f8Table').replaceChildren(srTable(`${t.f8.label}. ${$('#f8Title').textContent}`, [KO() ? '주' : 'Week', ...sps.map(x => t.scopes[x])],
       DATA.weeks.map((w, i) => [t.wk(w), ...sps.map(x => usd(DATA.scopes[x].cash[i]))])));
   }
 
-  /* ================= 대표 장치 3: 증감 장부(가동 일정 변경, 45~48주) ================= */
-  function ledgerFacts() {
-    const E = DATA.ledger;
-    const spfDown = rnd(sum(E.filter(e => e.sp === 'spf' && e.v < 0).map(e => e.v)), 1);
-    const sypAdd = rnd(sum(E.filter(e => e.sp === 'syp' && e.v > 0).map(e => e.v)), 1);
-    const mills = new Set(E.filter(e => e.sp === 'spf' && e.v < 0).map(e => e.mill)).size;
-    return { spfDown, sypAdd, mills };
-  }
-  function renderT2(animate) {
-    const t = L(), tt = t.t2, sc = state.scope, lf = ledgerFacts();
-    $('#t2Title').textContent = glue(tt.title({ all: sc === 'all', sp: sc, spfDown: volAbs(lf.spfDown), sypAdd: volAbs(lf.sypAdd), mills: lf.mills }));
-    $('#t2Cht').replaceChildren(tt.cht[0] + ' ', h('span', { text: tt.cht[1] }));
-    const sps = sc === 'all' ? ['spf', 'syp'] : [sc];
-    const head = h('thead', null, h('tr', null, h('th', { class: 'lab', scope: 'col', text: tt.head[0] }),
-      ...sps.map(sp => h('th', { scope: 'col', class: 'lab', style: { fontStyle: 'normal' }, text: tt.head[sp === 'spf' ? 1 : 2] })),
-      sps.length > 1 ? h('th', { scope: 'col', class: 'h-net', text: tt.head[3] }) : null));
-    const ent = e => {
-      const m = e.mill === 'syp4' ? { id: 'syp4' } : MILL[e.mill];
-      return h('span', { class: 'lg-e' }, h('b', { class: e.v > 0 ? 'good' : 'bad', text: volS(e.v) }), h('span', { class: 'ml', text: millName(m) }), ' ', h('span', { class: 'wh', text: e[state.lang] }));
-    };
-    const weeks = [45, 46, 47, 48];
-    const tint = ['c1', 'c2'];
-    const body = h('tbody', null, weeks.map(w => {
-      const es = DATA.ledger.filter(e => e.wk === w);
-      const net = rnd(sum(es.filter(e => sps.includes(e.sp)).map(e => e.v)), 1);
-      return h('tr', { 'data-wk': w, 'data-say': `${t.wk(w)} ${tt.dates[w]}: ${volS(net)}` }, h('th', { class: 'c0 lab', scope: 'row' }, t.wk(w), h('span', { class: 'dt', text: tt.dates[w] })),
-        ...sps.map((sp, j) => { const xs = es.filter(e => e.sp === sp); return h('td', { class: `${tint[j]} ent` }, xs.length ? xs.map(ent) : h('span', { class: 'lg-none', text: tt.none })); }),
-        sps.length > 1 ? h('td', { class: 'c4 net h-net ' + (net > 0 ? 'good' : net < 0 ? 'bad' : '') }, volS(net)) : null);
-    }), (() => {
-      const tot = sp => rnd(sum(DATA.ledger.filter(e => e.sp === sp).map(e => e.v)), 1);
-      const all = rnd(sum(sps.map(tot)), 1);
-      return h('tr', { class: 'tot', 'data-wk': 'all', 'data-say': `${tt.total}: ${volS(all)}` }, h('th', { class: 'c0 lab', scope: 'row', text: tt.total }),
-        ...sps.map((sp, j) => { const v = tot(sp); return h('td', { class: `${tint[j]} ent` }, h('span', { class: 'lg-e' }, h('b', { class: v > 0 ? 'good' : v < 0 ? 'bad' : '', text: volS(v) }))); }),
-        sps.length > 1 ? h('td', { class: 'c4 net h-net ' + (all > 0 ? 'good' : all < 0 ? 'bad' : '') }, volS(all)) : null);
-    })());
-    const tab = h('table', { class: 'wt lg-t', tabindex: 0, 'aria-label': tt.aria }, h('caption', { class: 'sr-only', text: `${tt.label}. ${$('#t2Title').textContent}` }), head, body);
-    $('#t2Wrap').replaceChildren(tab);
-    refade(tab, animate);
-    // 줄마다: 수종별 합, 순변화, 45주부터 누적
-    const host = $('#t2'), sumOf = (sp, f) => rnd(sum(DATA.ledger.filter(e => e.sp === sp && f(e)).map(e => e.v)), 1);
-    wireRows(host, tab, 'tbody tr', T2, (i, tr) => {
-      const w = tr.dataset.wk, o = offsetIn(host, tr), inW = e => w === 'all' || e.wk === Number(w), upTo = e => w === 'all' || e.wk <= Number(w);
-      const rows = sps.map(sp => ({ value: volS(sumOf(sp, inW)), label: t.scopes[sp] }));
-      const net = rnd(sum(sps.map(sp => sumOf(sp, inW))), 1), cum = rnd(sum(sps.map(sp => sumOf(sp, upTo))), 1);
-      if (sps.length > 1) rows.push({ value: volS(net), label: tt.tip.net });
-      if (w !== 'all') rows.push({ value: volS(cum), label: tt.tip.cum });
-      placeTip(host, tipNodes(w === 'all' ? tt.total : `${t.wk(Number(w))} · ${tt.dates[w]}`, rows), o.x + Math.min(o.w * .3, 220), o.y, o.y + o.h);
-    });
-  }
-  const T2 = { i: 0 }, F4 = { i: 0 };
-
-  /* ================= 그림 4: 현금 원가 증감표(MD&A의 variance 표) ================= */
-  const F4K = ['fibre', 'labour', 'energy', 'maint'];
-  function f4Model() {
-    const A = S(), c0 = A.cash[PREV], c1 = A.cash[LAST];
-    const steps = F4K.map(k => ({ k, d: rnd(A.cost[k].w44 - A.cost[k].w43, 1) }));
-    // 0.1달러로 반올림한 단계의 합이 변화와 맞게, 나머지가 큰 단계부터 조정한다
-    const total = rnd(c1 - c0, 1), diff = rnd(total - sum(steps.map(s => s.d)), 1);
-    if (Math.abs(diff) >= .05) { const big = steps.slice().sort((a, b) => Math.abs(b.d) - Math.abs(a.d))[0]; big.d = rnd(big.d + diff, 1); }
-    return { c0, c1, total, steps };
-  }
-  function renderF4(animate) {
-    const t = L(), tt = t.f4, sc = state.scope, M = f4Model();
-    const top = M.steps.slice().sort((a, b) => Math.abs(b.d) - Math.abs(a.d))[0];
-    $('#f4Title').textContent = glue(tt.title({ up: M.total > 0, d: nf(Math.abs(M.total), 1), c: nf(M.c1, 1), top: KO() ? tt.rows[top.k] : tt.rows[top.k].toLowerCase(), topUp: top.d > 0, tv: nf(Math.abs(top.d), 1) }));
-    $('#f4Cht').replaceChildren(tt.cht[0] + ' ', h('span', { text: tt.cht[1] }));
-    const span = Math.max(...M.steps.map(s => Math.abs(s.d)), 1);
-    const bar = d => {
-      const s = sv('svg', { viewBox: '0 0 96 12', 'aria-hidden': 'true' }), c = 30, w = Math.abs(d) / span * 62;
-      s.append(sv('line', { x1: c, x2: c, y1: 0, y2: 12, stroke: '#7a7a7a', 'stroke-width': 1 }));
-      s.append(sv('rect', { x: d < 0 ? c - Math.min(28, w) : c, y: 2, width: Math.max(1.5, d < 0 ? Math.min(28, w) : w), height: 8, fill: d > 0 ? C.badMark : C.goodTint }));
-      return s;
-    };
-    const why = k => k === 'labour' ? tt.why.labour(volAbs(S().prod[PREV] - S().prod[LAST])) : tt.why[k][sc];
-    const head = h('thead', null, h('tr', null, h('th', { class: 'lab', scope: 'col', colspan: 3, text: tt.head[0] }), h('th', { class: 'cm h-why', scope: 'col', text: tt.head[3] })));
-    const rows = [
-      h('tr', { class: 'tot', 'data-k': 'start', 'data-say': `${tt.rows.start}: ${usd(M.c0, 1)}` }, h('th', { class: 'c0 lab', scope: 'row', text: tt.rows.start }), h('td', { class: 'c1', text: nf(M.c0, 1) }), h('td', { class: 'c2' }), h('td', { class: 'why h-why' })),
-      ...M.steps.map(s => h('tr', { 'data-k': s.k, 'data-say': `${tt.rows[s.k]}: ${usdP(s.d, 1)}` }, h('th', { class: 'c0 lab', scope: 'row', style: { fontWeight: 400, paddingLeft: '22px' }, text: tt.rows[s.k] }),
-        h('td', { class: 'c1 ' + (s.d > 0 ? 'bad' : s.d < 0 ? 'good' : ''), text: numP(s.d, 1) }), h('td', { class: 'c2' }, h('span', { class: 'vt-bar' }, bar(s.d))), h('td', { class: 'why h-why', text: why(s.k) }))),
-      h('tr', { class: 'tot', 'data-k': 'end', 'data-say': `${tt.rows.end}: ${usd(M.c1, 1)}` }, h('th', { class: 'c0 lab', scope: 'row', text: tt.rows.end }), h('td', { class: 'c1', text: nf(M.c1, 1) }), h('td', { class: 'c2' }, h('span', { class: 'vt-bar', style: { fontWeight: 700 } }, h('span', { class: M.total > 0 ? 'bad' : 'good', text: numP(M.total, 1) }))), h('td', { class: 'why h-why' }))
-    ];
-    const tab = h('table', { class: 'wt vt-t', tabindex: 0, 'aria-label': tt.aria }, h('caption', { class: 'sr-only', text: `${tt.label}. ${$('#f4Title').textContent}` }), head, h('tbody', null, rows));
-    $('#f4Wrap').replaceChildren(tab);
-    refade(tab, animate);
-    // 줄마다: 43주와 44주의 그 원가, 변화, 변화 중 비중, 계획
-    const host = $('#f4'), A = S();
-    wireRows(host, tab, 'tbody tr', F4, (i, tr) => {
-      const k = tr.dataset.k, o = offsetIn(host, tr), tp = tt.tip;
-      const rows = k === 'start' || k === 'end'
-        ? [{ value: usd(k === 'start' ? M.c0 : M.c1, 1), label: k === 'start' ? tp.w43 : tp.w44 }, { value: usd(A.cashPlan, 1), label: tp.plan }, { value: usdP((k === 'start' ? M.c0 : M.c1) - A.cashPlan, 1), label: tp.vs }]
-        : (() => { const st = M.steps.find(x => x.k === k), c = A.cost[k]; return [{ value: usd(c.w43, 1), label: tp.w43 }, { value: usd(c.w44, 1), label: tp.w44 }, { value: usdP(st.d, 1), label: tp.chg }, { value: pct(st.d / M.total * 100, 0), label: tp.share }, { value: usd(c.plan, 1), label: tp.plan }]; })();
-      placeTip(host, tipNodes(tt.rows[k], rows, k === 'start' || k === 'end' || !why(k) ? null : why(k)), o.x + Math.min(o.w * .4, 260), o.y, o.y + o.h);
-    });
-  }
   /* ================= 만드는 법: 프로젝트 폴더 · 그림 1과 점검 · 코드 ================= */
   const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-1.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
   const spCode = () => state.scope === 'all' ? 'all' : state.scope.toUpperCase();
   function codeLines(kind) {
     const ko = KO(), sp = spCode(), t = L().f1, ttl = t.title(f1Facts()), rt = t.cht[0], unit = t.cht[1];
-    const c = ko ? { head: '그림 1 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 수종 필터', s1: '1 · 틀: 왼쪽에 공장 이름, 만 fbm 축, 옅은 격자', s2: '2 · 계획: 공장마다 계획 자리에 2px 눈금', s3: '3 · 막대: 계획 미달은 흙주황, 나머지는 회녹색', s4: '4 · 값: 막대 끝에 생산, 오른쪽에 계획 대비(괄호)', s5: '5 · 제목은 결과를 말하고, 차트 제목에 단위', once: '처음 한 번: west-fraser.tps를 Preferences.tps에' }
-      : { head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the species filter above', s1: '1 · frame: mills on the left, MMfbm axis, light grid', s2: '2 · plan: a 2px tick at each mill’s plan', s3: '3 · bars: rust below plan, warm grey for the rest', s4: '4 · values: output at the bar end, the gap on the right', s5: '5 · the title states the finding; the chart title has the unit', once: 'once: paste west-fraser.tps into Preferences.tps' };
+    const c = ko ? { head: '그림 1 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 수종 필터', s1: '1 · 틀: 왼쪽에 공장 이름, 만 fbm 축, 옅은 격자', s2: '2 · 계획: 공장마다 계획 자리에 2px 눈금', s3: '3 · 판재: 한 장에 100만 fbm, 사이 2px. 미달은 흙주황', s4: '4 · 값: 막대 끝에 생산, 오른쪽에 계획 대비(괄호)', s5: '5 · 제목은 결과를 말하고, 차트 제목에 단위', once: '처음 한 번: west-fraser.tps를 Preferences.tps에' }
+      : { head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the species filter above', s1: '1 · frame: mills on the left, MMfbm axis, light grid', s2: '2 · plan: a 2px tick at each mill’s plan', s3: '3 · boards: 1 MMfbm each, 2px apart; rust below plan', s4: '4 · values: output at the bar end, the gap on the right', s5: '5 · the title states the finding; the chart title has the unit', once: 'once: paste west-fraser.tps into Preferences.tps' };
     const q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(16) + v;
     const J = {
-      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '제재 운영 주간 보고 대시보드를 만들어 줘. 계획 범위와 원가 화살표가 있는 Outlook 표, 공장별 생산 대 계획, IR 표 형식의 공장별 실적, 목표 대비 회수율과 등급, 재고 일수와 앞으로 4주의 가동 일정 장부, 현금 원가 증감으로 짜고, 절마다 결론 띠로 끝내고, 수종 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 1부터 mills.csv의 species "${sp}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
-        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build our lumber operations weekly: an Outlook table of six figures against plan ranges with cost arrows, production against plan by mill, mill results as an IR table, recovery and grade against target, inventory days with a schedule ledger for the next four weeks, and the cash cost variance. Close each section on a takeaway band, with one species filter for every view.'], [0, ''], [0, `Start with Figure 1 from mills.csv for species "${sp}".`], [0, 'Before you finish, run the checks in DASHBOARD.md and list what passed and what to fix.']],
-      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 머리 · westfraser.com의 머리'], [0, kv('제목', 'IR 슬라이드처럼 초록 굵은 보고서 이름')], [0, kv('가격 표시', 'SPF·SYP 2x4, 주가 표시 자리에')], [0, kv('수종 메뉴', '필터, 고른 항목은 연초록 알약 #e5f2eb')], [0, ''], [0, '# 01 · Outlook 표, 그림 1개, 결론 띠'], [0, kv('Outlook', '계획 범위 대비 수치 6줄, 화살표 달린 원가 4줄')], [0, kv('그림 1', '공장별 생산 대 계획 · 미달은 흙주황')], [0, kv('결론 띠', '남색 #39527f, 굵은 흰 문장, 모래색 번호 칸')], [0, ''], [0, '# 02 공장별 실적 · 표 1개, 그림 1개'], [0, kv('표 1', 'IR 표 · 세이지 머리줄, 오른쪽으로 짙어지는 칸')], [0, kv('그림 2', '목표 범위 대비 회수율과 등급 · 점')], [0, ''], [0, '# 03 수요에 맞춘 가동 · 그림 1개, 장부'], [0, kv('그림 3', '재고 일수 · 13주 막대, 이번 주만 초록')], [0, kv('표 2', '가동 일정 장부 · +초록, (녹슨 주황), 45~48주')], [0, ''], [0, '# 04 단위 현금 원가 · 그림 2개'], [0, kv('그림 4', '증감표 · 43주에서 44주, 단계마다 이유')], [0, kv('그림 5', '현금 원가 · 13주 선, 4분기 계획 점선')], [0, ''], [0, '# 수종 필터 하나를 모든 그림에, 한 절에 그림 7개 이하']]
-        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Header · the westfraser.com header'], [0, kv('Title', 'report name in green bold, like an IR slide')], [0, kv('Price ticker', 'SPF and SYP 2x4, where the share price sits')], [0, kv('Species menu', 'the filter, light-green pill #e5f2eb')], [0, ''], [0, '# 01 · the Outlook table, 1 figure, a takeaway band'], [0, kv('Outlook', '6 figures against plan ranges, 4 costs with arrows')], [0, kv('Figure 1', 'production vs plan by mill · rust below plan')], [0, kv('Band', 'navy #39527f, bold italic white, sand number tile')], [0, ''], [0, '# 02 Mill results · 1 table, 1 figure'], [0, kv('Table 1', 'IR table · sage head, tints darker to the right')], [0, kv('Figure 2', 'recovery and grade against target bands · dots')], [0, ''], [0, '# 03 Running to demand · 1 figure, the ledger'], [0, kv('Figure 3', 'inventory days · 13 weekly bars, this week green')], [0, kv('Table 2', 'schedule ledger · +green, (rust), Wk 45–48')], [0, ''], [0, '# 04 Unit cash cost · 2 figures'], [0, kv('Figure 4', 'variance table · Wk 43 to Wk 44, a reason a step')], [0, kv('Figure 5', 'cash cost · 13-week line, Q4 plan dashed')], [0, ''], [0, '# One species filter for every view; at most 7 per section']],
+      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '제재 운영 주간 보고 대시보드를 만들어 줘. 계획 범위를 얹은 Quick facts 타일 6개, 판재로 쌓은 공장별 생산 대 계획과 원인별 정지, 판재 더미로 그린 야적장 재고와 목재 묶음 단면으로 그린 품목 구성, 앞으로 4주의 날짜별 가동 일정, IR 표 형식의 공장별 실적, 목표 대비 회수율과 등급, 현금 원가 브리지로 짜고, 절마다 결론 띠로 끝내고, 수종 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 1부터 mills.csv의 species "${sp}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
+        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build our lumber operations weekly: six Quick facts tiles against plan ranges, production against plan by mill and downtime by cause drawn board by board, the yard as board stacks with its product mix as a unit end, a day-by-day operating schedule for the next four weeks, mill results as an IR table, recovery and grade against target, and a cash cost bridge. Close each section on a takeaway band, with one species filter for every view.'], [0, ''], [0, `Start with Figure 1 from mills.csv for species "${sp}".`], [0, 'Before you finish, run the checks in DASHBOARD.md and list what passed and what to fix.']],
+      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 머리 · westfraser.com의 머리'], [0, kv('제목', 'IR 슬라이드처럼 초록 굵은 보고서 이름')], [0, kv('가격 표시', 'SPF·SYP 2x4, 주가 표시 자리에')], [0, kv('수종 메뉴', '필터, 고른 항목은 연초록 알약 #e5f2eb')], [0, ''], [0, '# 01 이번 주 · 타일 6개, 그림 2개, 결론 띠'], [0, kv('타일', 'Quick facts #e5f2eb, 계획 범위와 13주 추세')], [0, kv('그림 1', '공장별 생산 대 계획 · 판재, 미달은 흙주황')], [0, kv('그림 2', '원인별 정지 · 판재 한 장에 2시간')], [0, kv('결론 띠', '남색 #39527f, 굵은 흰 문장, 모래색 번호 칸')], [0, ''], [0, '# 02 수요에 맞춘 가동 · 그림 3개'], [0, kv('그림 3', '야적장 · 판재 한 장에 출하 하루')], [0, kv('그림 4', '품목 구성 · 목재 묶음 단면 100칸')], [0, kv('그림 5', '가동 일정 · 45~48주 날짜별, 정지와 추가 교대')], [0, ''], [0, '# 03 공장별 실적 · 표 1개, 그림 1개'], [0, kv('표 1', 'IR 표 · 세이지 머리줄, 오른쪽으로 짙어지는 칸')], [0, kv('그림 6', '목표 범위 대비 회수율과 등급 · 점')], [0, ''], [0, '# 04 단위 현금 원가 · 그림 2개'], [0, kv('그림 7', '브리지 · 43주에서 44주, 단계마다 이유')], [0, kv('그림 8', '현금 원가 · 13주 선, 4분기 계획 점선')], [0, ''], [0, '# 수종 필터 하나를 모든 그림에, 한 절에 그림 7개 이하']]
+        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Header · the westfraser.com header'], [0, kv('Title', 'report name in green bold, like an IR slide')], [0, kv('Price ticker', 'SPF and SYP 2x4, where the share price sits')], [0, kv('Species menu', 'the filter, light-green pill #e5f2eb')], [0, ''], [0, '# 01 This week · 6 tiles, 2 figures, a takeaway band'], [0, kv('Tiles', 'Quick facts #e5f2eb, plan range and 13 weeks')], [0, kv('Figure 1', 'production vs plan by mill · boards, rust below plan')], [0, kv('Figure 2', 'downtime by cause · a board per 2 hours')], [0, kv('Band', 'navy #39527f, bold italic white, sand number tile')], [0, ''], [0, '# 02 Running to demand · 3 figures'], [0, kv('Figure 3', 'the yard · a board per day of shipments')], [0, kv('Figure 4', 'product mix · a unit end of 100 boards')], [0, kv('Figure 5', 'schedule · Wk 45–48 by day, down and extra shifts')], [0, ''], [0, '# 03 Mill results · 1 table, 1 figure'], [0, kv('Table 1', 'IR table · sage head, tints darker to the right')], [0, kv('Figure 6', 'recovery and grade against target bands · dots')], [0, ''], [0, '# 04 Unit cash cost · 2 figures'], [0, kv('Figure 7', 'bridge · Wk 43 to Wk 44, a reason a step')], [0, kv('Figure 8', 'cash cost · 13-week line, Q4 plan dashed')], [0, ''], [0, '# One species filter for every view; at most 7 per section']],
       js: [
         [0, `// ${c.head}`], [0, 'import { tokens, fmt, plot, load } from "./dashboard.js";'],
         [0, `const species = ${q(sp)};${' '.repeat(Math.max(1, 12 - sp.length))}// ${c.filter}`], [0, 'const rows = await load("mills.csv", { species });'], [0, ''],
         [1, `// ${c.s1}`], [1, 'const fig = plot("#figure-1", { surface: tokens.colors.panel,'], [1, '  grid: { stroke: tokens.colors.line },          // #e6e6e6'], [1, `  x: { format: fmt.volume, ticks: 4 },           // ${ko ? '만 fbm' : 'MMfbm'}`], [1, '  y: { field: "mill", sort: "vs_plan_mmfbm" } });'], [1, ''],
         [2, `// ${c.s2}`], [2, 'fig.ticks(rows, { x: "plan_mmfbm", width: 2,'], [2, '  stroke: tokens.colors.ink });                  // #333333'], [2, ''],
-        [3, `// ${c.s3}`], [3, 'fig.bars(rows, { x: "production_mmfbm",'], [3, '  fill: r => r.vs_plan_mmfbm < 0'], [3, '    ? tokens.data.below                           // #c06228'], [3, '    : tokens.data.other });                       // #b5c1b7'], [3, ''],
+        [3, `// ${c.s3}`], [3, 'fig.boards(rows, { x: "production_mmfbm", unit: 1, gap: 2,'], [3, '  fill: r => r.vs_plan_mmfbm < 0'], [3, '    ? tokens.data.below                           // #c06228'], [3, '    : tokens.data.pine });                        // #d3c5a9'], [3, ''],
         [4, `// ${c.s4}`], [4, 'fig.labels({ x: "production_mmfbm", at: "end" });'], [4, 'fig.column("vs_plan_mmfbm", { negative: "parens",'], [4, '  below: tokens.data.belowText });               // #a75016'], [4, ''],
         [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.chartTitle(${q(rt)}, { unit: ${q(unit)} });`]
       ],
       tab: ko ? [
         [0, '# Tableau · 그림 1 · West Fraser 스타일'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('행', '[mill], SUM([vs_plan_mmfbm]) 오름차순')], [1, kv('열', 'SUM([production_mmfbm]) × 100, #,##0')], [1, kv('격자선', '열, 실선, #e6e6e6')], [1, ''],
+        [1, `# ${c.s1}`], [1, kv('행', '[mill], SUM([vs_plan_mmfbm]) 오름차순')], [1, kv('열', 'SUM([board_mmfbm]) × 100, #,##0')], [1, kv('격자선', '열, 실선, #e6e6e6')], [1, ''],
         [2, `# ${c.s2}`], [2, kv('참조선', '셀당, SUM([plan_mmfbm]), 레이블 없음')], [2, kv('선', '실선, 2px, #333333')], [2, ''],
-        [3, `# ${c.s3}`], [3, kv('마크', '막대, 크기 55%')], [3, kv('색상', '[vs_plan_mmfbm] < 0 → #c06228, 나머지 #b5c1b7')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('레이블', '막대 끝, × 100, #,##0')], [4, kv('계획 대비 열', 'SUM([vs_plan_mmfbm]) × 100, #,##0;(#,##0)')], [4, ''],
+        [3, `# ${c.s3}`], [3, kv('데이터', '판재마다 한 줄: board_mmfbm = 1, 마지막 장은 나머지')], [3, kv('마크', '막대, [board]로 쌓기, 크기 55%')], [3, kv('색상', '[vs_plan_mmfbm] < 0 → #c06228, 나머지 #d3c5a9')], [3, kv('테두리', '흰색, 판재 사이 2px')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('레이블', '막대 끝에 합계, × 100, #,##0')], [4, kv('계획 대비 열', 'SUM([vs_plan_mmfbm]) × 100, #,##0;(#,##0)')], [4, ''],
         [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('부제', q(`${rt} ${unit}`))]
       ] : [
         [0, '# Tableau · Figure 1 · West Fraser style'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('Rows', '[mill], sorted by SUM([vs_plan_mmfbm])')], [1, kv('Columns', 'SUM([production_mmfbm]), #,##0')], [1, kv('Grid lines', 'columns, solid, #e6e6e6')], [1, ''],
+        [1, `# ${c.s1}`], [1, kv('Rows', '[mill], sorted by SUM([vs_plan_mmfbm])')], [1, kv('Columns', 'SUM([board_mmfbm]), #,##0')], [1, kv('Grid lines', 'columns, solid, #e6e6e6')], [1, ''],
         [2, `# ${c.s2}`], [2, kv('Reference line', 'per cell, SUM([plan_mmfbm]), no label')], [2, kv('Line', 'solid, 2px, #333333')], [2, ''],
-        [3, `# ${c.s3}`], [3, kv('Mark type', 'Bar, size 55%')], [3, kv('Color', '[vs_plan_mmfbm] < 0 → #c06228, else #b5c1b7')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('Label', 'bar end, #,##0.0')], [4, kv('vs plan column', 'SUM([vs_plan_mmfbm]), #,##0.0;(#,##0.0)')], [4, ''],
+        [3, `# ${c.s3}`], [3, kv('Data', 'one row per board: board_mmfbm = 1, the last the rest')], [3, kv('Mark type', 'Bar, stacked by [board], size 55%')], [3, kv('Color', '[vs_plan_mmfbm] < 0 → #c06228, else #d3c5a9')], [3, kv('Border', 'white, 2px between boards')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('Label', 'total at the bar end, #,##0.0')], [4, kv('vs plan column', 'SUM([vs_plan_mmfbm]), #,##0.0;(#,##0.0)')], [4, ''],
         [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Subtitle', q(`${rt} ${unit}`))]
       ],
       pbi: [
         [0, ko ? '// Power BI · 그림 1 · West Fraser 스타일' : '// Power BI · Figure 1 · West Fraser style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
-        [1, `// ${c.s1}`], [1, ko ? '가로 막대형 차트 · Y축 = mill · X축 = production_mmfbm' : 'Clustered bar chart · Y = mill · X = production_mmfbm'], [1, ko ? '정렬 → vs_plan_mmfbm 오름차순' : 'Sort → vs_plan_mmfbm, ascending'], [1, '"valueAxis": { "gridlineColor": "#e6e6e6", "gridlineStyle": "solid" },'], [1, ''],
+        [1, `// ${c.s1}`], [1, ko ? '누적 가로 막대형 차트 · Y축 = mill · X축 = board 1 … board 8(각 100만 fbm)' : 'Stacked bar chart · Y = mill · X = board 1 … board 8 (1 MMfbm each)'], [1, ko ? '정렬 → vs_plan_mmfbm 오름차순' : 'Sort → vs_plan_mmfbm, ascending'], [1, '"valueAxis": { "gridlineColor": "#e6e6e6", "gridlineStyle": "solid" },'], [1, ''],
         [2, `// ${c.s2}`], [2, ko ? '오차 막대 → 위·아래 경계 = plan_mmfbm' : 'Error bars → upper and lower bound = plan_mmfbm'], [2, ko ? '표식 → 켜기, 대시, 2px, #333333' : 'Markers → on, dash, 2px, #333333'], [2, ''],
-        [3, `// ${c.s3}`], [3, ko ? '막대 → 색 → fx → 규칙: vs_plan_mmfbm < 0 → #c06228' : 'Bars → Color → fx → rules: vs_plan_mmfbm < 0 → #c06228'], [3, ko ? '                      그 밖 → #b5c1b7' : '                         otherwise → #b5c1b7'], [3, ''],
+        [3, `// ${c.s3}`], [3, ko ? '막대 → 색 → 계열마다 fx → 규칙: vs_plan_mmfbm < 0 → #c06228' : 'Bars → Color → fx per series → rules: vs_plan_mmfbm < 0 → #c06228'], [3, ko ? '                      그 밖 → #d3c5a9' : '                         otherwise → #d3c5a9'], [3, ko ? '막대 → 테두리 → 흰색, 2px(판재 사이)' : 'Bars → Border → white, 2px between boards'], [3, ''],
         [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 켜기 · 바깥쪽 끝 · × 100, "#,0"' : 'Data labels → on · outside end · "#,0.0"'], [4, ko ? '계획 대비 → 표 열 · × 100, "#,0;(#,0)"' : 'vs plan → table column · "#,0.0;(#,0.0)"'], [4, ''],
         [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(`${rt} ${unit}`)}`]
       ]
@@ -2051,8 +2462,10 @@
     syncTabs(); renderBuildStatic(); renderTerms();
   }
   function renderAll(animate) {
-    renderChrome(); renderOT(animate); renderF1(animate); renderBands();
-    renderT1(animate); renderF2(animate); renderF3(animate); renderT2(animate); renderF4(animate); renderF5(animate); renderBench();
+    renderChrome(); renderTiles(animate); renderF1(animate); renderF2(animate); renderBands();
+    renderF3(animate); renderF4(animate); renderF5(animate);
+    renderT1(animate); renderF6(animate);
+    renderF7(animate); renderF8(animate); renderBench();
   }
   function keepInUrl() {
     try {
@@ -2079,7 +2492,8 @@
   }
   const redraws = [
     ['#f1Plot', () => drawF1('#f1Plot', '#f1', { key: 'f1' })], ['#f2Plot', () => drawF2(false)], ['#wbPlot', drawBench],
-    ['#f3Sm', () => $('#f3Sm')._draw(false)], ['#f5Sm', () => $('#f5Sm')._draw(false)]
+    ['#f3Plot', () => drawF3(false)], ['#f4Wf', () => drawUnits(false)], ['#f5Plot', () => drawF5(false)],
+    ['#f6Plot', () => drawF6(false)], ['#f7Plot', () => drawF7(false)], ['#f8Sm', () => $('#f8Sm')._draw(false)]
   ];
   if ('ResizeObserver' in window) {
     const ro = new ResizeObserver(entries => {
@@ -2094,7 +2508,6 @@
   }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => redraws.forEach(r => r[1]()));
 })();
-
 </script>
 </body>
 </html>
