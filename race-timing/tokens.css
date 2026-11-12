@@ -1,0 +1,80 @@
+/* Race Timing style — Racing, Telemetry, Precise · VIZNEY STYLES · 07
+   Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
+:root{
+  --canvas:#000000; /* page background, header and footer (formula1.com results pages put black and #15151e side by side, measured) */
+  --card:#15151e; /* every panel: figures, tables and the workbench sit on #15151e with 8px corners, no border and no shadow (formula1.com results panels, measured); the onboard display is a deeper #0d0d14 face with a 1px #303037 rim and 24px corners */
+  --plot:#15151e; /* chart background: the card itself, never a second panel */
+  --raise:#1c1c25; /* our rows in the timing tower and the bench, pit-cycle shading in Figure 3, the tooltip (formula1.com raised panel #1c1c25, measured) */
+  --sunk:#0d0d14; /* the onboard display's face, the circuit's track band, the code window and package panel, the rounds-to-go band, bar tracks in tables */
+  --hair:#303037; /* row rules and gridlines (formula1.com table rules, 1px #303037, measured) */
+  --rule:#47464c; /* header rules, position-box outlines, axis ticks, the neutral status band (formula1.com #47464c, measured) */
+  --ink:#ffffff; /* titles, values, our cars (the subject), the selected round and position boxes, the focus ring */
+  --body:#d9d9df; /* body text and table values (12.9:1 on the card) */
+  --muted:#aaaaaa; /* axis ticks, notes, subtitles and turn numbers (7.8:1 on the card) */
+  --text-2:#aaaaaa; /* labels, table heads and keys in condensed capitals (formula1.com table heads #aaaaaa, measured) */
+  --best:#8c51d9; /* purple: fastest of the race, as on timing screens. White text on it 4.9:1 */
+  --good:#04a97a; /* green: improved, personal best, target or plan met. Text on it #15151e, 6.0:1 */
+  --missed:#b88c19; /* yellow: target or plan missed, slower than before. Text on it #15151e, 5.9:1 */
+  --focus:#ffffff; /* focus ring, 2px with a 2px offset */
+  --cat-1:#cc3336; /* soft (S) */
+  --cat-1-text:#ff8f87; /* soft (S) for labels and text */
+  --cat-2:#b88c19; /* medium (M) */
+  --cat-2-text:#f2c94c; /* medium (M) for labels and text */
+  --cat-3:#d9dce2; /* hard (H) */
+  --cat-3-text:#d9dce2; /* hard (H) for labels and text */
+  --cat-other:#5f6270;
+  --comparison:#aaaaaa;
+  --ref-1:#8c51d9; /* reference series (rivals, benchmarks): neutral on purpose */
+  --mark-subject:#ffffff;
+  --mark-second:#b9bcc6;
+  --mark-rival:#8b8f99;
+  --mark-grid:#303037;
+  --mark-baseline:#47464c;
+  --mark-target:#ffffff;
+  --mark-best:#8c51d9;
+  --mark-track:#0d0d14;
+  --mark-hover:#262631;
+  --mark-off:#26262f;
+  --seq-1:#5d3c94;
+  --seq-2:#7c54be;
+  --seq-3:#9973df;
+  --seq-4:#b598f2;
+  --seq-5:#d1befe;
+  --div-1:#bb9ef9;
+  --div-2:#946ade;
+  --div-3:#6f4bac;
+  --div-4:#4a4d57;
+  --div-5:#7b5f06;
+  --div-6:#a58108;
+  --div-7:#d6ab32;
+  --font-sans:'Barlow',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-display:'Barlow Condensed',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-panel:8px;
+  --radius-display:24px;
+  --radius-tab:17px;
+  --radius-button:18px;
+  --radius-chip:4px;
+  --radius-tooltip:6px;
+  --radius-tyre:3px;
+  --radius-bar:2px;
+  --space-page:32px;
+  --space-gap:16px;
+  --space-section:56px;
+  --space-card:18px 20px 14px;
+  --space-row:34px;
+  --space-cell:0 10px;
+  --space-footer:22px 32px 36px;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --code-background:#0d0d14;
+  --code-comment:#aaaaaa;
+  --code-string:#6ee7a8;
+  --code-number:#f2c94c;
+  --code-keyword:#c4b5fd;
+  --code-function:#ff8f87;
+  --code-property:#d9d9df;
+  --code-line-number:#aaaaaa;
+  --code-highlight:#262631;
+  --code-caret:#ffffff;
+}
+html[lang="ko"]{--font-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--font-display:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}

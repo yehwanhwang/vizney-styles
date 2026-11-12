@@ -217,6 +217,9 @@ def skill_md(t):
     carries = "logo, typeface, photo or data" if t.get('touchpoints') else "logo, typeface or data"
     disclaimer = (f"Not an official {brand} design and not affiliated with or endorsed by {brand}; a reference style read from "
                   f"the public websites {sites}{seen}, with no {carries} of theirs. Trademarks belong to their owners.")
+    # a style named after its format, or whose rights holder sets its own wording, carries that notice instead (tokens.json "notice")
+    if t.get('notice', {}).get('en'):
+        disclaimer = t['notice']['en']
     text = (ROOT / 'tools' / 'skill.md').read_text(encoding='utf-8')
     for k, v in {'__STYLE__': t['name'], '__WORDS__': t['words']['en'], '__SLUG__': t['slug'], '__DISCLAIMER__': disclaimer}.items():
         text = text.replace(k, v)

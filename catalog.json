@@ -47,6 +47,14 @@
       "words": "Energy, Forecourt, Confident",
       "words_ko": "에너지, 포코트, 당당함",
       "sample": "https://styles.vizney.com/shell/"
+    },
+    {
+      "number": 7,
+      "slug": "race-timing",
+      "name": "Race Timing style",
+      "words": "Racing, Telemetry, Precise",
+      "words_ko": "레이싱, 텔레메트리, 정밀함",
+      "sample": "https://styles.vizney.com/race-timing/"
     }
   ]
 }
