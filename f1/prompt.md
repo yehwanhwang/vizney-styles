@@ -3,10 +3,10 @@
 Install the style in your project first:
 
 ```
-npx @vizney/styles@latest add race-timing
+npx @vizney/styles@latest add f1
 ```
 
-or run `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- race-timing`, or unzip `race-timing-dashboard-style.zip` in the project root. Agents that read skills then load `dashboard-style` by themselves; prompts 1–4 are the same three modes (build, restyle, review) written out for agents that do not. Replace the parts in `<angle brackets>`.
+or run `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- f1`, or unzip `f1-dashboard-style.zip` in the project root. Agents that read skills then load `dashboard-style` by themselves; prompts 1–4 are the same three modes (build, restyle, review) written out for agents that do not. Replace the parts in `<angle brackets>`.
 
 ## 1. A new dashboard (English)
 
@@ -110,7 +110,7 @@ screen-reader table, then list which checks in "Agent Prompt Guide" pass.
 
 ## Tableau (for people)
 
-1. Paste the `<color-palette>` elements from `race-timing.tps` into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. The categorical palette is the tyres (soft, medium, hard) then gray; use the status palette for purple, green and yellow.
+1. Paste the `<color-palette>` elements from `f1.tps` into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. The categorical palette is the tyres (soft, medium, hard) then gray; use the status palette for purple, green and yellow.
 2. Dashboard background `#000000`; worksheets and panes shaded `#15151e`, no borders, row gridlines `#303037`, text `#d9d9df`, headers `#aaaaaa`. Each sheet's title is the finding; the method goes in the caption.
 3. Onboard display: a horizontal container on `#0d0d14`. Lights as a circle mark per lap coloured by a calculated `Quicker / Slower / Pit lap`; the dials as a bar on a fixed axis with a reference line at the target or plan (or a text BAN with its status line); the position as a large text object with `▲3` under it.
 4. Circuit map: a line mark on continuous X and Y (equal scales), Path on distance, Detail on mini-sector, Colour on the gap with the diverging palette stepped at ±0.005, ±0.02 and ±0.05 s; a dual-mark copy underneath in `#0d0d14` at a larger size for the track band.
