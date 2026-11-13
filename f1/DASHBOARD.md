@@ -6,7 +6,7 @@ number: 7
 tagline: Racing, Telemetry, Precise
 tagline_ko: 레이싱, 텔레메트리, 정밀함
 source: https://www.formula1.com/en/results/2026/races
-sample: https://styles.vizney.com/race-timing/
+sample: https://styles.vizney.com/f1/
 author: Vizney (https://www.vizney.com)
 license: reference only — not an official design; trademarks belong to their owners
 colors:
@@ -42,7 +42,7 @@ typography:
 radius: {panel: "8px", display: "24px", tab: "17px", button: "18px", chip: "4px", tooltip: "6px", tyre: "3px", bar: "2px"}
 spacing: {page: "32px", gap: "16px", section: "56px", card: "18px 20px 14px", row: "34px", cell: "0 10px", footer: "22px 32px 36px"}
 layout: {maxWidth: "1400px", columns: 12}
-files: {tokens: tokens.json, css: tokens.css, tableau: race-timing.tps, powerbi: powerbi-theme.json, prompts: prompt.md, sample_data: stints.csv}
+files: {tokens: tokens.json, css: tokens.css, tableau: f1.tps, powerbi: powerbi-theme.json, prompts: prompt.md, sample_data: stints.csv}
 ---
 
 # F1 style — DASHBOARD.md
@@ -52,18 +52,18 @@ files: {tokens: tokens.json, css: tokens.css, tableau: race-timing.tps, powerbi:
 A dashboard design spec read from the way motor racing shows its numbers on television and on its results pages: the timing tower down the side of the picture, the purple, green and yellow of the sector times, the onboard display with its shift lights and gear readout, the circuit map coloured mini-sector by mini-sector, the speed trace with the running gap underneath, and the tyre graphic that splits a race into stints. It turns those parts into a working race debrief on a black page, with the values, rules and checks an AI coding agent, Tableau or Power BI needs to rebuild it.
 
 ```
-npx @vizney/styles@latest add race-timing
+npx @vizney/styles@latest add f1
 # or, without Node:
-curl -fsSL https://styles.vizney.com/install.sh | sh -s -- race-timing
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- f1
 ```
 
-That puts `DASHBOARD.md` in the project root and the `dashboard-style` agent skill (build, restyle, review) in `.claude/skills/dashboard-style/`, together with `tokens.css`, `tokens.json`, `race-timing.tps`, `powerbi-theme.json` and `prompt.md`. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow `DASHBOARD.md`.
+That puts `DASHBOARD.md` in the project root and the `dashboard-style` agent skill (build, restyle, review) in `.claude/skills/dashboard-style/`, together with `tokens.css`, `tokens.json`, `f1.tps`, `powerbi-theme.json` and `prompt.md`. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow `DASHBOARD.md`.
 
-- Live sample: https://styles.vizney.com/race-timing/?lang=en (Korean `?lang=ko`; one round `&round=16`)
-- Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/race-timing/DASHBOARD.md
-- Package: [race-timing-dashboard-style.zip](race-timing-dashboard-style.zip) (unzip in your project root) · the skill: [skill/SKILL.md](skill/SKILL.md)
-- Files in this folder: [tokens.json](tokens.json) (the source of every value here), [tokens.css](tokens.css), [race-timing.tps](race-timing.tps) (Tableau), [powerbi-theme.json](powerbi-theme.json), [prompt.md](prompt.md), [stints.csv](stints.csv) (the data behind the sample's Figure 2)
-- Blog post: [English](https://www.vizney.com/style-race-timing/) · [한국어](https://kr.vizney.com/style-race-timing/)
+- Live sample: https://styles.vizney.com/f1/?lang=en (Korean `?lang=ko`; one round `&round=16`)
+- Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/f1/DASHBOARD.md
+- Package: [f1-dashboard-style.zip](f1-dashboard-style.zip) (unzip in your project root) · the skill: [skill/SKILL.md](skill/SKILL.md)
+- Files in this folder: [tokens.json](tokens.json) (the source of every value here), [tokens.css](tokens.css), [f1.tps](f1.tps) (Tableau), [powerbi-theme.json](powerbi-theme.json), [prompt.md](prompt.md), [stints.csv](stints.csv) (the data behind the sample's Figure 2)
+- Blog post: [English](https://www.vizney.com/style-f1/) · [한국어](https://kr.vizney.com/style-f1/)
 - Catalog: VIZNEY STYLES · 07 · https://styles.vizney.com (Vizney Styles is a line of [Vizney](https://www.vizney.com))
 
 Not an official Formula 1 design, and not affiliated with or endorsed by Formula 1. A reference style read from the publicly visible design of formula1.com and public touchpoints such as race broadcasts and timing documents; it carries no logo, typeface, photo or data of theirs. This website is unofficial and is not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V. The sample's team, Vizney Racing, its series, circuits and drivers, and all its numbers are fictional. Trademarks belong to their owners.
@@ -276,7 +276,7 @@ Flat. Depth comes only from surface steps: page `#000000`, panels `#15151e`, our
 
 The dials are one SVG each (two arcs and three lines on a 150 × 118 viewBox); the lights are 15 `<i>` elements. The map is one SVG: the circuit as a closed path of x, y points every 20 m, each mini-sector a separate path over the dark band, labels placed by testing candidate offsets against the track and the labels already placed. Figure 4 is one SVG with two panels and two clip paths for the purple and yellow fills. Panels use `grid-template-rows: subgrid` so neighbours end on one line.
 
-**Tableau.** Paste the `<color-palette>` elements of `race-timing.tps` into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. The categorical palette runs soft, medium, hard, then gray; the status palette purple, green, yellow.
+**Tableau.** Paste the `<color-palette>` elements of `f1.tps` into `My Tableau Repository/Preferences.tps` and restart Tableau Desktop. The categorical palette runs soft, medium, hard, then gray; the status palette purple, green, yellow.
 - Dashboard background `#000000`; each sheet's worksheet and pane shading `#15151e`, no borders, gridlines `#303037` on rows only, text `#d9d9df`, headers `#aaaaaa`. Title each sheet with the finding; the method in a caption.
 - Onboard display: a horizontal container on `#0d0d14`. Lights: a circle mark per lap (15 columns) coloured by a calculated `Quicker / Slower / Pit lap`. Dials: a donut-free version — a bar on a fixed axis (2.0–3.5 s; 0–43 pts) with a reference line for the target or plan, or a text BAN with the status line; the position as a large text object `P2` with `▲3` under it.
 - Circuit map: a line mark with X and Y as continuous axes (fixed to equal scales), Path on distance, Detail on mini-sector, Colour on the gap (diverging, purple for negative, stepped at ±0.005, ±0.02, ±0.05); a second line mark (dual-mark, same axes) in `#0d0d14` and a larger size underneath for the track band.
@@ -310,7 +310,7 @@ The dials are one SVG each (two arcs and three lines on a 150 × 118 viewBox); t
 
 ## Agent Prompt Guide
 
-Install the style (`npx @vizney/styles@latest add race-timing`, `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- race-timing`, or unzip the package in the project root). Agents that read skills load `dashboard-style` on their own and work in one of three modes: **Build** (plan the views, then draw them to this file), **Restyle** (keep the data and the questions, change the look) and **Review** (check a screen against the checklist below). Other agents can be given this prompt:
+Install the style (`npx @vizney/styles@latest add f1`, `curl -fsSL https://styles.vizney.com/install.sh | sh -s -- f1`, or unzip the package in the project root). Agents that read skills load `dashboard-style` on their own and work in one of three modes: **Build** (plan the views, then draw them to this file), **Restyle** (keep the data and the questions, change the look) and **Review** (check a screen against the checklist below). Other agents can be given this prompt:
 
 ```
 Read DASHBOARD.md and follow it exactly. Build our race debrief as one self-contained HTML file with fictional data,

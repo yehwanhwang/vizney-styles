@@ -232,17 +232,17 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 <h1 id="f1-style--dashboardmd">F1 style — DASHBOARD.md</h1>
 <p><strong>Racing, Telemetry, Precise</strong> · 레이싱, 텔레메트리, 정밀함</p>
 <p>A dashboard design spec read from the way motor racing shows its numbers on television and on its results pages: the timing tower down the side of the picture, the purple, green and yellow of the sector times, the onboard display with its shift lights and gear readout, the circuit map coloured mini-sector by mini-sector, the speed trace with the running gap underneath, and the tyre graphic that splits a race into stints. It turns those parts into a working race debrief on a black page, with the values, rules and checks an AI coding agent, Tableau or Power BI needs to rebuild it.</p>
-<pre><code>npx @vizney/styles@latest add race-timing
+<pre><code>npx @vizney/styles@latest add f1
 # or, without Node:
-curl -fsSL https://styles.vizney.com/install.sh | sh -s -- race-timing
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- f1
 </code></pre>
-<p>That puts <code>DASHBOARD.md</code> in the project root and the <code>dashboard-style</code> agent skill (build, restyle, review) in <code>.claude/skills/dashboard-style/</code>, together with <code>tokens.css</code>, <code>tokens.json</code>, <code>race-timing.tps</code>, <code>powerbi-theme.json</code> and <code>prompt.md</code>. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow <code>DASHBOARD.md</code>.</p>
+<p>That puts <code>DASHBOARD.md</code> in the project root and the <code>dashboard-style</code> agent skill (build, restyle, review) in <code>.claude/skills/dashboard-style/</code>, together with <code>tokens.css</code>, <code>tokens.json</code>, <code>f1.tps</code>, <code>powerbi-theme.json</code> and <code>prompt.md</code>. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow <code>DASHBOARD.md</code>.</p>
 <ul>
-<li>Live sample: https://styles.vizney.com/race-timing/?lang=en (Korean <code>?lang=ko</code>; one round <code>&amp;round=16</code>)</li>
-<li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/race-timing/DASHBOARD.md</li>
-<li>Package: <a href="race-timing-dashboard-style.zip">race-timing-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
-<li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="race-timing.tps">race-timing.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="stints.csv">stints.csv</a> (the data behind the sample's Figure 2)</li>
-<li>Blog post: <a href="https://www.vizney.com/style-race-timing/">English</a> · <a href="https://kr.vizney.com/style-race-timing/">한국어</a></li>
+<li>Live sample: https://styles.vizney.com/f1/?lang=en (Korean <code>?lang=ko</code>; one round <code>&amp;round=16</code>)</li>
+<li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/f1/DASHBOARD.md</li>
+<li>Package: <a href="f1-dashboard-style.zip">f1-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
+<li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="f1.tps">f1.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="stints.csv">stints.csv</a> (the data behind the sample's Figure 2)</li>
+<li>Blog post: <a href="https://www.vizney.com/style-f1/">English</a> · <a href="https://kr.vizney.com/style-f1/">한국어</a></li>
 <li>Catalog: VIZNEY STYLES · 07 · https://styles.vizney.com (Vizney Styles is a line of <a href="https://www.vizney.com">Vizney</a>)</li>
 </ul>
 <p>Not an official Formula 1 design, and not affiliated with or endorsed by Formula 1. A reference style read from the publicly visible design of formula1.com and public touchpoints such as race broadcasts and timing documents; it carries no logo, typeface, photo or data of theirs. This website is unofficial and is not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V. The sample's team, Vizney Racing, its series, circuits and drivers, and all its numbers are fictional. Trademarks belong to their owners.</p>
@@ -624,7 +624,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- race-timing
 <!--/email_off-->
 
 <p>The dials are one SVG each (two arcs and three lines on a 150 × 118 viewBox); the lights are 15 <code>&lt;i&gt;</code> elements. The map is one SVG: the circuit as a closed path of x, y points every 20 m, each mini-sector a separate path over the dark band, labels placed by testing candidate offsets against the track and the labels already placed. Figure 4 is one SVG with two panels and two clip paths for the purple and yellow fills. Panels use <code>grid-template-rows: subgrid</code> so neighbours end on one line.</p>
-<p><strong>Tableau.</strong> Paste the <code>&lt;color-palette&gt;</code> elements of <code>race-timing.tps</code> into <code>My Tableau Repository/Preferences.tps</code> and restart Tableau Desktop. The categorical palette runs soft, medium, hard, then gray; the status palette purple, green, yellow.
+<p><strong>Tableau.</strong> Paste the <code>&lt;color-palette&gt;</code> elements of <code>f1.tps</code> into <code>My Tableau Repository/Preferences.tps</code> and restart Tableau Desktop. The categorical palette runs soft, medium, hard, then gray; the status palette purple, green, yellow.
 - Dashboard background <code>#000000</code>; each sheet's worksheet and pane shading <code>#15151e</code>, no borders, gridlines <code>#303037</code> on rows only, text <code>#d9d9df</code>, headers <code>#aaaaaa</code>. Title each sheet with the finding; the method in a caption.
 - Onboard display: a horizontal container on <code>#0d0d14</code>. Lights: a circle mark per lap (15 columns) coloured by a calculated <code>Quicker / Slower / Pit lap</code>. Dials: a donut-free version — a bar on a fixed axis (2.0–3.5 s; 0–43 pts) with a reference line for the target or plan, or a text BAN with the status line; the position as a large text object <code>P2</code> with <code>▲3</code> under it.
 - Circuit map: a line mark with X and Y as continuous axes (fixed to equal scales), Path on distance, Detail on mini-sector, Colour on the gap (diverging, purple for negative, stepped at ±0.005, ±0.02, ±0.05); a second line mark (dual-mark, same axes) in <code>#0d0d14</code> and a larger size underneath for the track band.
@@ -682,7 +682,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- race-timing
 </tbody>
 </table>
 <h2 id="agent-prompt-guide">Agent Prompt Guide</h2>
-<p>Install the style (<code>npx @vizney/styles@latest add race-timing</code>, <code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- race-timing</code>, or unzip the package in the project root). Agents that read skills load <code>dashboard-style</code> on their own and work in one of three modes: <strong>Build</strong> (plan the views, then draw them to this file), <strong>Restyle</strong> (keep the data and the questions, change the look) and <strong>Review</strong> (check a screen against the checklist below). Other agents can be given this prompt:</p>
+<p>Install the style (<code>npx @vizney/styles@latest add f1</code>, <code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- f1</code>, or unzip the package in the project root). Agents that read skills load <code>dashboard-style</code> on their own and work in one of three modes: <strong>Build</strong> (plan the views, then draw them to this file), <strong>Restyle</strong> (keep the data and the questions, change the look) and <strong>Review</strong> (check a screen against the checklist below). Other agents can be given this prompt:</p>
 <pre><code>Read DASHBOARD.md and follow it exactly. Build our race debrief as one self-contained HTML file with fictional data,
 in English and Korean (?lang=en|ko, English by default), on the black page the spec describes.
 Header on one line: &quot;VIZNEY RACING  RACE DEBRIEF&quot; in condensed capitals, the round tabs as pills (the filter for every

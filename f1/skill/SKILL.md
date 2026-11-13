@@ -14,7 +14,7 @@ Files (this folder holds the style's tool files; `DASHBOARD.md` sits at the proj
 | `DASHBOARD.md` (project root) | the spec: read it in full before any dashboard work |
 | `tokens.css` | CSS custom properties for web dashboards; load it or copy its values |
 | `tokens.json` | the same values as data, for scripts and other tools |
-| `race-timing.tps` | Tableau color palettes; the user pastes them into `My Tableau Repository/Preferences.tps` |
+| `f1.tps` | Tableau color palettes; the user pastes them into `My Tableau Repository/Preferences.tps` |
 | `powerbi-theme.json` | Power BI theme; the user imports it under View → Themes → Browse for themes |
 | `prompt.md` | tested prompts and the Tableau and Power BI notes for people |
 
@@ -61,4 +61,4 @@ Run the checklist at the end of `DASHBOARD.md` ("Agent Prompt Guide"). At the le
 
 When the work is in Tableau or Power BI, give the user the settings rather than code: the palette or theme file from this folder, then the per-sheet or per-visual settings from Tool Mapping in `DASHBOARD.md` and the notes in `prompt.md`. Say which steps the user does by hand (installing palettes or themes, fonts on viewing machines).
 
-Style source: https://styles.vizney.com/race-timing/ · Vizney Styles, a line of Vizney (https://www.vizney.com). Not an official Formula 1 design, and not affiliated with or endorsed by Formula 1. A reference style read from the publicly visible design of formula1.com and public touchpoints such as race broadcasts and timing documents; it carries no logo, typeface, photo or data of theirs. This website is unofficial and is not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V. Trademarks belong to their owners.
+Style source: https://styles.vizney.com/f1/ · Vizney Styles, a line of Vizney (https://www.vizney.com). Not an official Formula 1 design, and not affiliated with or endorsed by Formula 1. A reference style read from the publicly visible design of formula1.com and public touchpoints such as race broadcasts and timing documents; it carries no logo, typeface, photo or data of theirs. This website is unofficial and is not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V. Trademarks belong to their owners.
