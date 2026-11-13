@@ -1,9 +1,9 @@
 ---
 name: dashboard-style
-description: Build, restyle or review dashboards, charts, KPI cards and report screens to the house style in DASHBOARD.md (Race Timing style · Racing, Telemetry, Precise) — colors, chart choice, number and date formats, layout, accessibility, and Tableau or Power BI settings. Use whenever a task makes or changes a dashboard or chart, or asks whether one follows the style.
+description: Build, restyle or review dashboards, charts, KPI cards and report screens to the house style in DASHBOARD.md (F1 style · Racing, Telemetry, Precise) — colors, chart choice, number and date formats, layout, accessibility, and Tableau or Power BI settings. Use whenever a task makes or changes a dashboard or chart, or asks whether one follows the style.
 ---
 
-# Dashboard style: Race Timing style
+# Dashboard style: F1 style
 
 The house style for dashboards in this project is written down in `DASHBOARD.md` at the project root. It decides colors, chart forms, number formats, layout and checks, so do not invent any of them and do not ask the user about style; ask only about content (data, audience, period) when it is missing.
 

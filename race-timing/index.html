@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <meta name="robots" content="noindex">
-<title>Race Timing style · Race debrief sample</title>
+<title>F1 style · Race debrief sample</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script src="/lib/embed.js" defer></script>
 <style>
-  /* Race Timing style (VIZNEY STYLES · 07) — Racing, Telemetry, Precise · 레이싱, 텔레메트리, 정밀함
+  /* F1 style (VIZNEY STYLES · 07) — Racing, Telemetry, Precise · 레이싱, 텔레메트리, 정밀함
      Read from race broadcasts' timing graphics, onboard displays and circuit maps, and the results pages of formula1.com
      (measured 2026-11-11). A reference style, not an official design; no logo, typeface, photo or data.
      Sample: Vizney Racing, a fictional team in a fictional series, rounds 16-18 on three fictional circuits.
@@ -703,9 +703,9 @@
   /* ================= 문구: 화면의 모든 문장은 데이터에서 계산한다 ================= */
   const T = {
     en: {
-      locale: 'en-GB', docTitle: 'Race Timing style · Race debrief sample',
+      locale: 'en-GB', docTitle: 'F1 style · Race debrief sample',
       brand: 'Vizney Racing', report: 'Race debrief', final: 'Final classification',
-      catName: 'Race Timing style', words: 'Racing, Telemetry, Precise',
+      catName: 'F1 style', words: 'Racing, Telemetry, Precise',
       round: 'Round', tabsLabel: 'Round',
       eyebrow: r => `Round ${r.rd} · ${r.city.en} · ${r.laps} laps · ${dateL(r.date)}`,
       num: ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'],
@@ -863,9 +863,9 @@
       back: { post: '← Back to the post', catalog: '← Back to the catalog' }
     },
     ko: {
-      locale: 'ko-KR', docTitle: 'Race Timing 스타일 · 레이스 디브리프 샘플',
+      locale: 'ko-KR', docTitle: 'F1 스타일 · 레이스 디브리프 샘플',
       brand: '비즈니 레이싱', report: '레이스 디브리프', final: '최종 순위',
-      catName: 'Race Timing 스타일', words: '레이싱, 텔레메트리, 정밀함',
+      catName: 'F1 스타일', words: '레이싱, 텔레메트리, 정밀함',
       round: '라운드', tabsLabel: '라운드',
       eyebrow: r => `${r.rd}라운드 · ${r.city.ko} · ${r.laps}랩 · ${dateL(r.date)}`,
       car: no => `${no}번 차량`, carL: no => `${no}번 차량`,
@@ -2002,14 +2002,14 @@
         [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.subtitle(${q(sub)});`]
       ],
       tab: ko ? [
-        [0, '# Tableau · 그림 2 · Race Timing 스타일'], [0, `# ${c.once}`], [0, ''],
+        [0, '# Tableau · 그림 2 · F1 스타일'], [0, `# ${c.once}`], [0, ''],
         [1, `# ${c.s1}`], [1, kv('행', '[car], MIN([position]) 오름차순')], [1, kv('열', `[lap_start] 연속형, 축 1~${r.laps}`)], [1, kv('격자선', '행, 실선, #303037')], [1, ''],
         [2, `# ${c.s2}`], [2, kv('마크', '간트 막대, 크기 = SUM([laps])')], [2, kv('색상', '[compound]: S #cc3336 · M #b88c19 · H #d9dce2')], [2, kv('레이블', '[compound], 막대 안 왼쪽')], [2, ''],
         [3, `# ${c.s3}`], [3, kv('크기', 'SUM([laps]) − 0.15, 스톱마다 틈')], [3, kv('행 강조', '[team] = "Vizney" → #1c1c25, 흰 줄')], [3, ''],
         [4, `# ${c.s4}`], [4, kv('데이터', 'compound = "FL"인 줄 하나 더하기')], [4, kv('색상', 'FL → #8c51d9, 크기 0.6')], [4, ''],
         [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('부제', q(sub))]
       ] : [
-        [0, '# Tableau · Figure 2 · Race Timing style'], [0, `# ${c.once}`], [0, ''],
+        [0, '# Tableau · Figure 2 · F1 style'], [0, `# ${c.once}`], [0, ''],
         [1, `# ${c.s1}`], [1, kv('Rows', '[car], sorted by MIN([position])')], [1, kv('Columns', `[lap_start], continuous, axis 1–${r.laps}`)], [1, kv('Grid lines', 'rows, solid, #303037')], [1, ''],
         [2, `# ${c.s2}`], [2, kv('Mark type', 'Gantt bar, size = SUM([laps])')], [2, kv('Color', '[compound]: S #cc3336 · M #b88c19 · H #d9dce2')], [2, kv('Label', '[compound], inside left')], [2, ''],
         [3, `# ${c.s3}`], [3, kv('Size', 'SUM([laps]) − 0.15, a gap per stop')], [3, kv('Row banding', '[team] = "Vizney" → #1c1c25, white rule')], [3, ''],
@@ -2017,7 +2017,7 @@
         [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Subtitle', q(sub))]
       ],
       pbi: [
-        [0, ko ? '// Power BI · 그림 2 · Race Timing 스타일' : '// Power BI · Figure 2 · Race Timing style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
+        [0, ko ? '// Power BI · 그림 2 · F1 스타일' : '// Power BI · Figure 2 · F1 style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
         [1, `// ${c.s1}`], [1, ko ? '누적 가로 막대형 차트 · Y축 = car · X축 = 스틴트별 laps' : 'Stacked bar chart · Y = car · X = laps by stint'], [1, ko ? '정렬 → position 오름차순' : 'Sort → position, ascending'], [1, '"categoryAxis": { "gridlineColor": "#303037" },'], [1, ''],
         [2, `// ${c.s2}`], [2, ko ? '막대 → 색 → fx: compound S #cc3336 · M #b88c19 · H #d9dce2' : 'Bars → Color → fx: compound S #cc3336 · M #b88c19 · H #d9dce2'], [2, ko ? '데이터 레이블 → 켜기 · 안쪽 기준 · [compound]' : 'Data labels → on · inside base · [compound]'], [2, ''],
         [3, `// ${c.s3}`], [3, ko ? '막대 → 테두리 → #15151e, 2px(스톱마다 틈)' : 'Bars → Border → #15151e, 2px (a gap per stop)'], [3, ko ? '조건부 서식 → team = Vizney → 배경 #1c1c25' : 'Conditional formatting → team = Vizney → #1c1c25'], [3, ''],

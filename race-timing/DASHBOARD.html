@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<title>Race Timing style — DASHBOARD.md · Vizney Styles</title>
+<title>F1 style — DASHBOARD.md · Vizney Styles</title>
 <link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=1d2c1aa7de" as="font" type="font/woff" crossorigin>
@@ -229,7 +229,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 </nav>
 
 <main id="main" class="doc">
-<h1 id="race-timing-style--dashboardmd">Race Timing style — DASHBOARD.md</h1>
+<h1 id="f1-style--dashboardmd">F1 style — DASHBOARD.md</h1>
 <p><strong>Racing, Telemetry, Precise</strong> · 레이싱, 텔레메트리, 정밀함</p>
 <p>A dashboard design spec read from the way motor racing shows its numbers on television and on its results pages: the timing tower down the side of the picture, the purple, green and yellow of the sector times, the onboard display with its shift lights and gear readout, the circuit map coloured mini-sector by mini-sector, the speed trace with the running gap underneath, and the tyre graphic that splits a race into stints. It turns those parts into a working race debrief on a black page, with the values, rules and checks an AI coding agent, Tableau or Power BI needs to rebuild it.</p>
 <pre><code>npx @vizney/styles@latest add race-timing
@@ -242,6 +242,7 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- race-timing
 <li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/race-timing/DASHBOARD.md</li>
 <li>Package: <a href="race-timing-dashboard-style.zip">race-timing-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
 <li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="race-timing.tps">race-timing.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="stints.csv">stints.csv</a> (the data behind the sample's Figure 2)</li>
+<li>Blog post: <a href="https://www.vizney.com/style-race-timing/">English</a> · <a href="https://kr.vizney.com/style-race-timing/">한국어</a></li>
 <li>Catalog: VIZNEY STYLES · 07 · https://styles.vizney.com (Vizney Styles is a line of <a href="https://www.vizney.com">Vizney</a>)</li>
 </ul>
 <p>Not an official Formula 1 design, and not affiliated with or endorsed by Formula 1. A reference style read from the publicly visible design of formula1.com and public touchpoints such as race broadcasts and timing documents; it carries no logo, typeface, photo or data of theirs. This website is unofficial and is not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V. The sample's team, Vizney Racing, its series, circuits and drivers, and all its numbers are fictional. Trademarks belong to their owners.</p>
@@ -675,8 +676,8 @@ curl -fsSL https://styles.vizney.com/install.sh | sh -s -- race-timing
 <td>Add borders, glow, carbon fibre or chequered flags</td>
 </tr>
 <tr>
-<td>Name the style by its format</td>
-<td>Use F1 marks, logos or the official typefaces</td>
+<td>Use the F1 name only to say where the look was read from, with the notice</td>
+<td>Use F1 logos, the official typefaces, team marks or liveries</td>
 </tr>
 </tbody>
 </table>
@@ -708,7 +709,7 @@ Every view needs a tooltip, keyboard control and a screen-reader table.
 - [ ] Timing to the thousandth, stops to the hundredth, signs on every gap, true minus signs, in both languages.
 - [ ] Panels side by side end on one line at 1440, 1280 and 1024px; nothing breaks at 390px.
 - [ ] Text ≥ 4.5:1; every view has a tooltip, keyboard control and a data table; the round filter changes every card.
-- [ ] No logo, official typeface, photo, real team, driver or circuit, and the style is named by its format.</p>
+- [ ] No logo, official typeface, photo, real team, driver or circuit, and the Formula 1 notice is on the screen.</p>
 </main>
 
 <footer class="foot">
