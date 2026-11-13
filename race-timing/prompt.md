@@ -1,4 +1,4 @@
-# Prompt pack — Race Timing style
+# Prompt pack — F1 style
 
 Install the style in your project first:
 

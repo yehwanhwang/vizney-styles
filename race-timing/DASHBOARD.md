@@ -1,5 +1,5 @@
 ---
-name: Race Timing style
+name: F1 style
 spec: dashboard.md/0.1
 extends: DESIGN.md
 number: 7
@@ -45,7 +45,7 @@ layout: {maxWidth: "1400px", columns: 12}
 files: {tokens: tokens.json, css: tokens.css, tableau: race-timing.tps, powerbi: powerbi-theme.json, prompts: prompt.md, sample_data: stints.csv}
 ---
 
-# Race Timing style — DASHBOARD.md
+# F1 style — DASHBOARD.md
 
 **Racing, Telemetry, Precise** · 레이싱, 텔레메트리, 정밀함
 
@@ -63,6 +63,7 @@ That puts `DASHBOARD.md` in the project root and the `dashboard-style` agent ski
 - Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/race-timing/DASHBOARD.md
 - Package: [race-timing-dashboard-style.zip](race-timing-dashboard-style.zip) (unzip in your project root) · the skill: [skill/SKILL.md](skill/SKILL.md)
 - Files in this folder: [tokens.json](tokens.json) (the source of every value here), [tokens.css](tokens.css), [race-timing.tps](race-timing.tps) (Tableau), [powerbi-theme.json](powerbi-theme.json), [prompt.md](prompt.md), [stints.csv](stints.csv) (the data behind the sample's Figure 2)
+- Blog post: [English](https://www.vizney.com/style-race-timing/) · [한국어](https://kr.vizney.com/style-race-timing/)
 - Catalog: VIZNEY STYLES · 07 · https://styles.vizney.com (Vizney Styles is a line of [Vizney](https://www.vizney.com))
 
 Not an official Formula 1 design, and not affiliated with or endorsed by Formula 1. A reference style read from the publicly visible design of formula1.com and public touchpoints such as race broadcasts and timing documents; it carries no logo, typeface, photo or data of theirs. This website is unofficial and is not associated in any way with the Formula 1 companies. F1, FORMULA ONE, FORMULA 1, FIA FORMULA ONE WORLD CHAMPIONSHIP, GRAND PRIX and related marks are trade marks of Formula One Licensing B.V. The sample's team, Vizney Racing, its series, circuits and drivers, and all its numbers are fictional. Trademarks belong to their owners.
@@ -304,7 +305,7 @@ The dials are one SVG each (two arcs and three lines on a 150 × 118 viewBox); t
 | Show timing to the thousandth, stops to the hundredth | Round lap times to tenths, or drop the sign of a gap |
 | Mark pit cycles when you compare cumulative time | Let a pit stop's 20 seconds flatten the rest of the race |
 | Keep panels flat on `#15151e` with 8px corners | Add borders, glow, carbon fibre or chequered flags |
-| Name the style by its format | Use F1 marks, logos or the official typefaces |
+| Use the F1 name only to say where the look was read from, with the notice | Use F1 logos, the official typefaces, team marks or liveries |
 
 
 ## Agent Prompt Guide
@@ -339,4 +340,4 @@ Before it is done, the agent checks:
 - [ ] Timing to the thousandth, stops to the hundredth, signs on every gap, true minus signs, in both languages.
 - [ ] Panels side by side end on one line at 1440, 1280 and 1024px; nothing breaks at 390px.
 - [ ] Text ≥ 4.5:1; every view has a tooltip, keyboard control and a data table; the round filter changes every card.
-- [ ] No logo, official typeface, photo, real team, driver or circuit, and the style is named by its format.
+- [ ] No logo, official typeface, photo, real team, driver or circuit, and the Formula 1 notice is on the screen.
