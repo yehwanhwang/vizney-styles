@@ -21,7 +21,7 @@
 
 ## 테마가 아니라 해석
 
-대표색 하나를 막대와 단추에 칠하고 나머지를 흰 카드와 회색으로 채운 화면은 스타일이 아니라 테마다. 홈 페이지가 '색과 서체만 입힌 화면'이라고 부르는 바로 그 접근이고, 검증된 데이터 색을 써도 마찬가지다. 스타일은 그 회사가 현실에서 숫자를 보여 주는 방식(가격표, 영수증, 전광판, 계기판, 설명서, 작업 지시서, 탑승권, 보고서의 차트)을 대시보드 부품으로 옮긴 해석이다.
+대표색 하나를 막대와 단추에 칠하고 나머지를 흰 카드와 회색으로 채운 화면은 스타일이 아니라 테마다. 흔히 '색과 서체만 입힌 화면'이라고 부르는 접근이고, 검증된 데이터 색을 써도 마찬가지다. 스타일은 그 회사가 현실에서 숫자를 보여 주는 방식(가격표, 영수증, 전광판, 계기판, 설명서, 작업 지시서, 탑승권, 보고서의 차트)을 대시보드 부품으로 옮긴 해석이다.
 
 - **대표 장치 세 개:** 현실 접점에서 고른다. 세 조건을 모두 갖춰야 한다: 업종 전체가 아니라 그 회사를 떠올리게 한다, 데이터를 담는다(KPI·표·그림·필터·상태 중 한 역할), Tableau·Power BI의 표준 그림이나 표로 다시 만들 수 있다. 셋을 깊게 쓰고, 나머지 화면은 조용히 두어 장치가 돋보이게 한다. 데이터를 담지 않는 장식은 넣지 않는다.
 - **구조를 옮기고 그림은 옮기지 않는다:** 옮기는 것은 위계, 배열, 숫자 표기, 단위, 번호, 구분선, 말투다. 로고, 워드마크, 마스코트, 일러스트, 사진, 무늬, 자체 서체, 슬로건, 실제 제품명, 실제 매장·공장 번호는 옮기지 않는다. 실물을 흉내 낸 장식(찢어진 종이 가장자리, 금속 질감, LED 번짐)도 넣지 않는다.
@@ -50,7 +50,7 @@
 7. **검증:** 아래 '검증'을 모두 통과시킨다.
 8. **명세와 패키지:** `tokens.json`을 쓰고 DASHBOARD.md 본문과 `prompt.md`를 쓴 뒤(아래 '명세 형식') `python3 tools/package.py <name>`으로 `tokens.css`, `<name>.tps`, `powerbi-theme.json`, DASHBOARD.md 머리, 명세 페이지 `DASHBOARD.html`, `skill/SKILL.md`, 설치용 zip을 만든다(Python `markdown` 패키지 필요). 명세나 프롬프트를 고칠 때마다 다시 돌린다(zip이 그 파일들을 담는다).
 9. **커버:** `python3 tools/shots.py <name>`으로 `cover-en.png`, `cover-ko.png`(1440×810, 2배)를 만든다. 홈 카드, 포스트 대표 이미지, 링크 미리보기에 쓴다. 커버의 바탕은 그 브랜드의 룩(샘플 화면) 그대로이고, 하단 가운데에 'Vizney' 워드마크만 넣는다: 페이지 바탕색의 띠(84px, 위로 40px 페이드)에 워드마크를 그 화면 `<h1>`의 색으로 칠한다. 캡처에서만 더하는 띠이며 샘플 화면에는 마크를 넣지 않는다.
-10. **README와 홈:** README의 Catalog 표에 행을 추가하고, 홈(`index.html`)에 카드를 넣고 첫 화면 오른쪽 샘플을 새 스타일로 바꾼다(아래 '홈 페이지').
+10. **README와 홈:** README의 Catalog 표에 행을 추가하고, 홈(`index.html`) 목록 맨 앞에 타일을 넣는다(아래 '홈 페이지').
 11. **배포:** 최신 `main`을 받은 뒤 작업 브랜치를 만든다(다른 작업이 생성 파일을 바꿨을 수 있으니 머지 전에 `package.py`를 다시 돌린다) → 커밋 → PR → 머지. GitHub Actions의 'pages build and deployment'가 성공했는지로 배포를 확인한다. `main`에 올라간 것은 바로 공개된다. 이 환경에서 `gh pr create`(GraphQL)가 막히면 REST로 연다(`gh api repos/yehwanhwang/vizney-styles/pulls -f title=… -f head=<브랜치> -f base=main -F body=@<파일>`, 머지는 `gh api -X PUT …/pulls/<번호>/merge -f merge_method=merge`).
 12. **포스트 초안:** 아래 '포스트 형식'으로 한국어·영어 전문과 영어 SNS 캡션을 대화창에 바로 준다(Claude Docs는 쓰지 않는다).
 
@@ -68,10 +68,10 @@
 
 - **이름:** 브랜드는 Vizney, 라인은 Vizney Styles다. 글·화면·외부 등록에서 늘 'Vizney Styles'로 쓰고, 'Styles'만 따로 떼어 브랜드처럼 쓰지 않는다. 다른 라인도 같은 방식이다(Vizney Blocks, 차트 가이드, Fullcut by Vizney).
 - **시리즈 줄:** `VIZNEY STYLES · 01`(대문자, 가운뎃점, 두 자리 번호). 샘플 화면 바닥의 카탈로그 줄, 생성 파일(`tokens.css`·`.tps`·Power BI 테마 이름) 머리에 이 형식으로 쓴다. 화면에서는 늘 카탈로그(`https://styles.vizney.com/?lang=ko|en`) 링크다. 블로그 포스트에는 쓰지 않는다.
-- **로고:** 블로그(kr.vizney.com · www.vizney.com)가 기준이다. 블로그 테마는 Ghost 요금제상 고칠 수 없으므로 Styles가 블로그에 맞춘다. 사이트 헤더는 블로그와 같은 Vizney 공통 헤더(아래 '공통 헤더 규격')이고, 로고는 그 가운데의 흰색 'Vizney' 워드마크(`assets/brand/vizney-wordmark-white.png`, 106×40 상자. Vizney 원본 로고 파일 `vizney_logo_w_v2.png`(2544×960, 블로그 헤더 로고와 같은 그림)를 636×240으로 줄인 이미지) 하나다. 헤더에 'Vizney Styles' 이름을 붙이지 않는다. 사이트 이름은 헤더 아래 탭 줄의 첫 항목이다. 워드마크를 다시 그리거나 바꾸지 않는다. 밝은 바탕에서는 같은 이미지를 마스크로 써서 잉크색으로 칠한다.
+- **로고:** 블로그(kr.vizney.com · www.vizney.com)가 기준이다. 블로그 테마는 Ghost 요금제상 고칠 수 없으므로 Styles가 블로그에 맞춘다. 사이트 헤더는 블로그와 같은 Vizney 공통 헤더(아래 '공통 헤더 규격')이고, 로고는 그 가운데의 흰색 'Vizney' 워드마크(`assets/brand/vizney-wordmark-white.png`, 106×40 상자. Vizney 원본 로고 파일 `vizney_logo_w_v2.png`(2544×960, 블로그 헤더 로고와 같은 그림)를 636×240으로 줄인 이미지) 하나다. 헤더에 'Vizney Styles' 이름을 붙이지 않는다. 사이트 이름은 홈에서는 헤더 아래 제목 'Styles'이고, 404와 명세 페이지에서는 탭 줄의 첫 항목이다. 워드마크를 다시 그리거나 바꾸지 않는다. 밝은 바탕에서는 같은 이미지를 마스크로 써서 잉크색으로 칠한다.
 - **아이콘(파비콘):** 블로그와 같은 Vizney 아이콘이다(검정 `#1b1b1b` 바탕에 흰 V. 원본 `vizney_icon_b_v2.png`, 720×720). `assets/brand/vizney-icon.png`(256), `apple-touch-icon.png`(180), `favicon.ico`(16·32·48)로 두고, 예전 주소 `favicon.svg`도 같은 그림이다. 홈·404·명세 페이지의 `<head>`에 `icon`과 `apple-touch-icon`을 넣는다. 샘플 화면은 링크 없이 브라우저가 `/favicon.ico`를 읽는다. 블록 마크(2×2)는 Vizney Blocks의 마크라 이 사이트에는 쓰지 않는다. Styles만의 변형 마크나 Styles 소개 페이지는 만들지 않는다. 샘플 화면에는 어떤 마크도 넣지 않는다.
 - **사이트 UI 강조색:** 블로그 포스트 이미지의 노랑 `#ffcc00` 하나다(블로그 공지 띠와 같은 값, 호버 `#f2c200`). 주 버튼, 링크 밑줄, 포커스에 쓴다(공통 헤더의 메뉴와 탭 줄에는 쓰지 않는다). 노랑 바탕의 글자는 잉크 `#1b1b1b`(12.9:1)다. 포커스는 흰 바탕에서 노랑만으로는 1.6:1이라 잉크 링 바깥에 노랑 테를 두르고, 검정 헤더 안에서는 노랑 링만 쓴다. 이 노랑은 사이트(홈·404·명세 페이지·OG)에만 쓰고, 브랜드별 참고 화면과 커버의 색은 그 브랜드의 룩이므로 바꾸지 않는다. 데이터 색으로도 쓰지 않는다.
-- **사이트:** Vizney의 한 라인으로 보이게 한다. 블로그 메뉴에서 Styles를 눌러 넘어와도 사이트가 바뀐 줄 모르게 하는 것이 목표다. 맨 위는 공통 헤더(Vizney 메뉴만), 그 아래에 이 사이트의 탭 줄(아래 '탭 줄'), 본문은 흰 바탕이다. 바닥글(Blog · 문의 · Vizney Blocks · GitHub)에 블로그 링크를 두고, 회사 소개·브랜드 이야기는 블로그(About)에 맡긴다.
+- **사이트:** Vizney의 한 라인으로 보이게 한다. 블로그 메뉴에서 Styles를 눌러 넘어와도 사이트가 바뀐 줄 모르게 하는 것이 목표다. 맨 위는 공통 헤더(Vizney 메뉴만)이고, 홈은 그 아래에 바로 블로그 카테고리 화면과 같은 제목 영역이 온다(Vizney Blocks 첫 화면과 같은 구성). 404와 명세 페이지에는 헤더 아래에 이 사이트의 탭 줄(아래 '탭 줄')이 있다. 본문은 흰 바탕이다. 바닥글(Blog · 문의 · Vizney Blocks · GitHub)에 블로그 링크를 두고, 회사 소개·브랜드 이야기는 블로그에 맡긴다.
 - **언어별 링크:** 블로그로 가는 링크(공통 헤더의 로고·메뉴·돋보기, Blog, 문의, 소개 글, 샘플의 '우리 회사 것 의뢰하기', 돌아가는 링크)는 화면 언어를 따른다. 헤더 메뉴의 주소는 아래 '공통 헤더 규격'의 주소표이고 `VZ` 표에 있다. 한국어는 `https://kr.vizney.com/`(문의 `https://kr.vizney.com/contact-us/`), 영어는 `https://www.vizney.com/`(문의 `https://www.vizney.com/contact-us/`). 홈·404·명세 페이지는 `data-href`와 `href()`로, 샘플은 `applyLang()`에서 바꾼다. HTML에 적힌 주소는 스크립트 없이 읽힐 때의 영어 기본값이다.
 - **외부 등록:** OpenDesign, 링크드인 등에 올릴 때 발행자 이름은 Vizney, 항목 이름은 `Vizney Styles · <브랜드>`(예: `Vizney Styles · Anthropic`)다. npm 패키지는 `@vizney/styles`다.
 - **바꾸지 않는 것:** 저장소 이름(`vizney-styles`), 주소(styles.vizney.com), 공개 폴더 이름, embed 경로, 설치 명령의 형태.
@@ -108,10 +108,10 @@ Vizney Blocks와 블로그가 같은 값을 쓰는 헤더다. 아래 규격은 �
 - 블로그와 같이 다른 언어의 같은 페이지로 갑니다. 툴팁은 한국어 페이지에서 'Switch to English', 영어 페이지에서 '한글로 보기'.
 
 메뉴 항목 (표기는 두 언어 모두 영어, 순서 고정)
-- 한국어 페이지: Chart Guide https://kr.vizney.com/chart-guide/ · Blocks https://blocks.vizney.com/ko/ · Styles https://styles.vizney.com/?lang=ko · Tips & Tricks https://kr.vizney.com/tips/ · Knowledge Base https://kr.vizney.com/kb/ · About https://kr.vizney.com/about/ · Contact https://kr.vizney.com/contact-us/ · 로고 https://kr.vizney.com/
-- 영어 페이지: Chart Guide https://www.vizney.com/chart-guide/ · Blocks https://blocks.vizney.com/ · Styles https://styles.vizney.com/ · Tips & Tricks https://www.vizney.com/tips/ · Knowledge Base https://www.vizney.com/kb/ · About https://www.vizney.com/about/ · Contact https://www.vizney.com/contact-us/ · 로고 https://www.vizney.com/
+- 한국어 페이지: Chart Guide https://kr.vizney.com/chart-guide/ · Blocks https://blocks.vizney.com/ko/ · Styles https://styles.vizney.com/?lang=ko · Tips & Tricks https://kr.vizney.com/tips/ · Knowledge Base https://kr.vizney.com/kb/ · Contact https://kr.vizney.com/contact-us/ · 로고 https://kr.vizney.com/
+- 영어 페이지: Chart Guide https://www.vizney.com/chart-guide/ · Blocks https://blocks.vizney.com/ · Styles https://styles.vizney.com/ · Tips & Tricks https://www.vizney.com/tips/ · Knowledge Base https://www.vizney.com/kb/ · Contact https://www.vizney.com/contact-us/ · 로고 https://www.vizney.com/
 - 모든 링크는 같은 탭에서 열고 ↗ 표시를 붙이지 않습니다. 사용자에게는 한 사이트입니다.
-- 블로그 메뉴는 곧 이 순서로 바뀝니다. 지금 블로그 메뉴가 다르게 보여도 위 주소표를 따릅니다.
+- 블로그 메뉴도 이 순서입니다(2026-11-14 확인. About은 메뉴에서 빠졌고, Vizney Blocks는 v0.46에서 같이 뺐습니다).
 
 블로그 실측(2026-11-02, kr.vizney.com, 1440·800·390px)과 맞춘 점:
 
@@ -127,7 +127,7 @@ Vizney Blocks와 블로그가 같은 값을 쓰는 헤더다. 아래 규격은 �
 - 헤더에는 Vizney 메뉴만 둔다. 'Vizney Styles' 이름, Styles만의 마크, 사이트 자체 메뉴, EN/KO 전환, GitHub 버튼은 헤더에 넣지 않는다. 메뉴의 현재 위치는 Styles다.
 - 지구본은 이 페이지의 다른 언어 버전(`?lang=ko` 붙이기·빼기)이다. 홈·404·명세 페이지는 다시 불러오지 않고 그 자리에서 바꾼다. 돋보기는 블로그 검색(한국어 `https://kr.vizney.com/#/search`, 영어 `https://www.vizney.com/#/search`)이다.
 - 한국어 카탈로그 주소는 `https://styles.vizney.com/?lang=ko`다. Blocks와 블로그 메뉴가 이 주소를 쓴다.
-- **탭 줄:** 헤더 바로 아래, 흰 바탕, 높이 48px, 안쪽 폭은 헤더와 같다(최대 1200px, 좌우 max(4vmin, 20px)). 왼쪽부터 'Vizney Styles'(굵게) · 카탈로그 · 우리 회사 · 브랜드 요청 ↗, 오른쪽 끝에 GitHub ↗. 탭 이름은 화면 언어를 따른다(Catalog · Your company · Request a brand). 지금 보고 있는 탭은 `#1b1b1b` 2px 밑줄이다. 홈에서는 보이는 구역에 따라 바뀌고(머리 → Vizney Styles, 카탈로그, 우리 회사부터 끝까지), 404와 명세 페이지에서는 표시하지 않는다. 스크롤할 때 화면 위에 붙고(`position: sticky; top: 0`), 모바일에서는 가로 스크롤이다. GitHub로 나가는 두 탭만 새 탭으로 연다.
+- **탭 줄:** 404와 명세 페이지에만 둔다(홈에는 없다. Vizney Blocks도 첫 화면에는 없고 카테고리 페이지에만 있다). 헤더 바로 아래, 흰 바탕, 높이 48px, 안쪽 폭은 헤더와 같다(최대 1200px, 좌우 max(4vmin, 20px)). 왼쪽부터 'Vizney Styles'(굵게, 홈) · 카탈로그(홈 `#styles`) · 우리 회사(홈 `#custom`) · 브랜드 요청 ↗, 오른쪽 끝에 GitHub ↗. 탭 이름은 화면 언어를 따른다(Catalog · Your company · Request a brand). 현재 위치 표시는 하지 않는다. 스크롤할 때 화면 위에 붙고(`position: sticky; top: 0`), 모바일에서는 가로 스크롤이다. GitHub로 나가는 두 탭만 새 탭으로 연다.
 - 명세 페이지(`<name>/DASHBOARD.html`)는 `tools/package.py`가 DASHBOARD.md 본문을 `_layouts/spec.html`에 넣어 만든다. DASHBOARD.md 머리의 `layout` 토큰이 Jekyll의 레이아웃 키와 겹치므로 Jekyll이 렌더링하지 않게 `_config.yml`에서 `*/DASHBOARD.md`를 제외한다. 머리글 id는 GitHub Pages(kramdown GFM)와 같은 규칙이다. 다른 Markdown 페이지(`prompt.html`, `skill/SKILL.html`)는 Jekyll이 같은 레이아웃으로 감싼다(`_config.yml`의 `defaults`). 헤더·탭 줄·바닥글은 홈과 같고 본문은 영어다. HTML 파일에는 머리(front matter)를 넣지 않는다. 넣으면 레이아웃이 씌워진다.
 - 라이브 샘플(`/<name>/`)은 대시보드 화면이므로 공통 헤더를 넣지 않는다. 대신 바닥의 고지 옆에 돌아가는 링크를 둔다(아래 '화면 규칙').
 
@@ -243,13 +243,19 @@ Materials 시리즈는 없다. 모든 스타일은 실제 기업·기관·도시
 
 ## 홈 페이지
 
-- 루트의 `index.html`이 첫 화면이다. 머리(문제와 약속), 카탈로그, AI 대시보드가 어색한 이유(전후 비교), 받는 것과 진행 순서, 문의·요청. 한국어·영어를 `?lang=ko|en`과 헤더의 지구본으로 바꾸고 기본은 영어다. 없는 주소에는 `404.html`이 보인다. 둘은 헤더·탭 줄·바닥글·CSS·`STR`이 같으므로 한쪽을 고치면 다른 쪽도 맞춘다. 명세 페이지 레이아웃 `_layouts/spec.html`도 같은 헤더·탭 줄·바닥글을 쓴다.
-- 첫 화면은 두 단이다(`.hero--split`): 왼쪽에 문구, 오른쪽에 카탈로그의 최신 스타일 커버(`img[data-cover]`, 언어에 따라 `cover-en.png`·`cover-ko.png`로 바뀐다)와 캡션, 라이브 샘플 링크. 960px 이하에서는 커버가 문구 아래로 내려간다. 새 스타일을 공개하면 커버의 `data-cover`·`data-cover-name`, 링크 두 곳(`data-href="sample:<name>"`), `STR`의 `heroCap`을 새 스타일로 바꾼다. 404는 `.hero`만 쓰고 `.hero--split`은 쓰지 않는다.
-- 새 카드: 기존 `article.swatch`를 복사해 '우리 회사' 카드 앞에 두고, 번호와 이름(`01 Anthropic`), 폴더, 링크(샘플, DASHBOARD.md, 파일, 소개 글)를 바꾼다. `STR` 한국어·영어에 `sub_<name>`(세 단어)과 `meta_<name>`(샘플 설명)을 더한다.
-- 화면 문구는 `STR`이 기준이고, 본문의 영어 문구와 링크는 스크립트 없이 읽힐 때의 기본값이므로 둘 다 고친다. `<head>`의 제목·설명·`og:` 메타도 영어로 쓴다.
-- 헤더는 '공통 헤더 규격'을 따르고, 버튼 모양·바닥글·회색 값과 글꼴은 Vizney Blocks(blocks.vizney.com)에 맞춘다. 글꼴은 VZ Sans(Spoqa Han Sans Neo 부분 글꼴, SIL OFL). 두 페이지의 문구를 고치거나 카드를 더하면 `python3 tools/font.py <spoqa-han-sans 저장소>/Original/SpoqaHanSansNeo`로 `assets/fonts/`를 다시 만든다. 글꼴 주소의 `?v=`도 함께 바뀐다.
+- 루트의 `index.html`이 첫 화면이다. 한국어·영어를 `?lang=ko|en`과 헤더의 지구본으로 바꾸고 기본은 영어다. 없는 주소에는 `404.html`이 보인다. 둘은 헤더·바닥글·CSS·`STR`·스크립트가 같으므로 한쪽을 고치면 다른 쪽도 맞춘다(404는 탭 줄과 `.hero`를 쓴다). 명세 페이지 레이아웃 `_layouts/spec.html`도 같은 헤더·탭 줄·바닥글을 쓴다.
+- 구성(위에서부터): 공통 헤더 → 제목 영역 → 카탈로그 → 해석 → 여덟 가지 → 우리 회사 스타일 → 바닥글. Vizney Blocks 첫 화면(blocks.vizney.com/ko/)과 블로그 카테고리 화면(Knowledge Base)이 기준이고, 값은 Blocks의 `page/site.css`(`.ghead` · `.gal` · `.gt`)를 그대로 옮긴다. 1440px에서 목록 시작 위치가 Blocks와 같아야 한다(388px).
+- **제목 영역(`.ghead`):** 헤더 바로 아래에 제목 'Styles'(Spoqa Han Sans Neo Bold, `clamp(34px, 1.36vw + 27px, 44px)`, 자간 −0.02em, 줄 높이 1.2)와 설명(16px, 줄 높이 1.6, 잉크색, 최대 600px, 제목 아래 10px, 두 줄)만 둔다. 위 여백 89px, 목록까지 49px(720px 이하 40px · 32px). 설명 오른쪽에 주 버튼 두 개(노랑 '우리 회사 것 만들기' → `#custom`, 테두리 '브랜드 요청 ↗')를 설명 마지막 줄에 맞춰 두고, 한 줄에 들어가지 않는 폭에서는 설명 아래로, 720px 이하에서는 두 버튼을 반씩 나눈다. 히어로, 탭 줄, 알약 문구는 두지 않는다.
+- **카탈로그(`#styles`, `.gal-grid`):** 스타일 하나에 타일 하나(`li.gt`), 최신 번호가 맨 앞이다. 타일은 회색 바탕 `#f4f5f7`, 모서리 20px, 안쪽 여백 12px(720px 이하 8px · 18px)이고, 커버(16:9, 언어에 따라 `cover-en.png`·`cover-ko.png`, 누르면 라이브 샘플) → 번호와 이름(15px Bold, 라이브 샘플 링크) → 세 단어(13px 회색) → 같은 폭 버튼 두 개(높이 38px)다. 버튼은 '명세 복사'(DASHBOARD.md 전문. 사이트에는 원문이 없으므로 저장소 raw 파일을 받아 복사한다)와 '파일 받기'(`<name>-dashboard-style.zip`)이고, 접근 이름과 툴팁에 스타일 이름과 받는 것을 적는다. 'DASHBOARD.md 복사'는 좁은 3열 폭에서 잘리므로 쓰지 않는다. 3열, 1080px 이하 2열, 720px 이하 1열, 간격 24px(1열 16px). 두 줄(6개, 720px 이하 4개)이 넘으면 접고 아래 가운데에 '스타일 N개 모두 보기' · '접기' 버튼을 둔다(N은 타일 수, 스크립트가 없으면 모두 보인다). 목록 아래에 고지 한 단락(공식 디자인이 아님, 제휴·승인 없음, 샘플의 회사와 숫자는 가상)을 둔다.
+- **새 스타일 타일:** 맨 앞 `li.gt`를 복사해 맨 앞에 두고, 번호와 이름(`07 F1`), 폴더(`data-cover`, `data-cover-name`, `data-href="sample:<name>"`, zip 주소, `data-id`·`data-name`)를 바꾼다. `STR` 한국어·영어에 `sub_<name>`(세 단어)을 더한다. 처음 세 타일은 바로, 나머지는 `loading="lazy"`로 읽는다.
+- **해석(`#how`):** '색을 입히지 않고, 숫자를 보여 주는 방식을 옮깁니다'. 카탈로그 샘플에서 잘라 낸 대표 장치 세 개(지금은 F1 온보드 계기판, Costco 계산대 영수증, Singapore Airlines 탑승권)를 '현실 접점 → 대시보드 부품'과 한 문장으로 보이고, 누르면 그 샘플이 열린다. 이미지는 `python3 tools/devices.py`가 샘플에서 잘라 `assets/home/device-<name>-<lang>.webp`(16:10, 2배)로 만든다. 그 샘플이 바뀌면 다시 돌리고, 다른 장치로 바꿀 때는 `tools/devices.py`의 창과 홈의 `.devs`·`STR`(`dev1t`~`dev3p`)을 함께 고친다. 끝에 '일반 막대나 표가 더 잘 읽히면 장치를 고친다'는 문장을 둔다.
+- **여덟 가지(`#rules`):** 위 '핵심 약속' 8가지를 같은 순서와 번호로 넣는다(4열, 1080px 이하 2열, 720px 이하 1열). 약속을 고치면 여기도 고친다.
+- **우리 회사 스타일(`#custom`):** 받는 것(DASHBOARD.md, 에이전트 스킬, 참고 화면, Tableau·Power BI 파일)과 진행 순서(자료 받기 → 브리프 → 시안 화면 → 전달, 약 1주일), 그 아래 화면 기획 한 줄(어떤 질문을 어떤 카드로 답할지 정하는 대시보드 화면 기획도 함께 맡을 수 있다), 마무리 패널(노랑 '제작 문의하기' · '브랜드 요청 ↗'). 기본은 비공개이고 허락할 때만 카탈로그에 올린다는 문장을 둔다.
+- 화면 문구는 `STR`이 기준이고, 본문의 영어 문구와 링크는 스크립트 없이 읽힐 때의 기본값이므로 둘 다 고친다. 한국어에서 '세 개', '약 1주일'처럼 끊기면 어색한 말은 `\u00a0`으로 묶는다. `<head>`의 제목·설명·`og:` 메타도 영어로 쓴다.
+- 버튼 모양·바닥글·회색 값과 글꼴은 Vizney Blocks에 맞춘다. 글꼴은 VZ Sans(Spoqa Han Sans Neo 부분 글꼴, SIL OFL). 홈이나 404의 문구를 고치거나 타일을 더하면 `python3 tools/font.py <spoqa-han-sans 저장소>/Original/SpoqaHanSansNeo`로 `assets/fonts/`를 다시 만든다. 글꼴 주소의 `?v=`도 함께 바뀐다.
+- 검증: 한국어·영어, 1440 · 1200 · 1081 · 1024 · 390px에서 겹침·잘림·가로 넘침·콘솔 오류, 버튼 글자가 잘리지 않는지, 접기·펼치기, 명세 복사(클립보드 내용이 DASHBOARD.md와 같은지), 언어 전환에서 커버와 장치 이미지가 바뀌는지 본다.
 - 파비콘은 블로그와 같은 Vizney 아이콘이다(위 '브랜드 표기'). 바닥글에 언어별 블로그 링크를 둔다.
-- `og.png`(1200×630)는 블로그 포스트 이미지 규격이다: 검정 `#1b1b1b` 바탕, 노랑 `#ffcc00` 포인트 하나(라인 이름과 'DASHBOARD.md', 최신 커버의 테두리), 하단 가운데 흰 워드마크. `python3 tools/og.py`로 만들고(catalog.json의 마지막 스타일 커버를 쓴다), 카탈로그나 첫 화면 문구가 바뀌면 다시 만들어 `index.html`의 `og:image` 주소 `?v=`를 올린다. `sitemap.xml`에는 홈만 넣고 샘플 화면은 `noindex`다.
+- `og.png`(1200×630)는 블로그 포스트 이미지 규격이다: 검정 `#1b1b1b` 바탕, 노랑 `#ffcc00` 포인트 하나(라인 이름과 'DASHBOARD.md', 최신 커버의 테두리), 하단 가운데 흰 워드마크. `python3 tools/og.py`로 만들고(catalog.json의 마지막 스타일 커버를 쓴다), 카탈로그가 바뀌면 다시 만들어 `index.html`의 `og:image` 주소 `?v=`를 올린다. `sitemap.xml`에는 홈만 넣고 샘플 화면은 `noindex`다.
 
 
 ## 저장소 규칙

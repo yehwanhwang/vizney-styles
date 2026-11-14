@@ -8,19 +8,20 @@
 <meta name="robots" content="noindex">
 <link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=55dd6de435" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=fa2d24393e" as="font" type="font/woff" crossorigin>
 <style>
 /* VZ Sans, as on Vizney Blocks: Spoqa Han Sans Neo cut down to these pages' characters. tools/font.py builds it;
    rebuild after changing any text here or on the other site page (index.html / 404.html). */
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=55dd6de435) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=55dd6de435) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=55dd6de435) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=55dd6de435) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=fa2d24393e) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=fa2d24393e) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=fa2d24393e) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=fa2d24393e) format('woff')}
 :root{
   /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
-     The blog's Vizney header (scrolls away) and the site's sticky tabs under it; a hero with a fact pill, two buttons and an AI hint; the catalog cards
-     with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
-     built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
+     Home: the blog's Vizney header (scrolls away), then the title area of a blog category page with the main buttons on its
+     right, and the catalog as Blocks-style tiles (cover, name and three words, two buttons), newest first, folded after two
+     rows; then three device examples (a style is a reading, not a theme), the eight rules, a company's own style (what you get,
+     how it works, a closing panel); the Blocks footer. The 404 and spec pages keep the site's sticky tabs under the header.
      Single light theme on purpose, like Blocks and the style screens. */
   color-scheme: light;
   --page:#ffffff;
@@ -52,15 +53,6 @@
   --shadow:0 12px 32px -12px rgba(17,24,39,.28);
   --shadow-sm:0 1px 2px rgba(17,24,39,.12);
   --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
-
-  /* demo: the fictional brand guide */
-  --b-red:#D7262E; --b-orange:#F07A3A; --b-navy:#1E2B4A;
-  --b-t1:#E3676D; --b-t2:#ED9DA1; --b-t3:#F5C9CB;
-  /* demo: the designed style (passes color-vision and contrast checks) */
-  --s-1:#2F5D9E; --s-2:#2A9D8F; --s-3:#C47F1E; --s-other:#A7ACB4; --s-prev:#8E949D;
-  --good:#1A7A43; --bad:#C2362A;
-  --bar-hover:#eef0f3;
-  --tip:#1b1b1b; --tip-ink:#ffffff; --tip-muted:#b9bec6;
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -168,16 +160,8 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 .btn.is-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:var(--accent-ink)}
 .btn.is-lg{height:48px;padding:0 22px;border-radius:12px;font-size:15px}
 
-/* ---------- hero ---------- */
+/* ---------- 404 hero ---------- */
 .hero{padding-top:72px}
-/* Home hero: copy on the left, the newest sample on the right (the product is the screen, so the first view carries one). Below 960px the sample stacks under the copy. */
-.hero--split{display:grid;grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);gap:40px 64px;align-items:center}
-.hero__copy{min-width:0}
-.hero__fig{min-width:0;margin:0}
-.hero__shot{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--soft);box-shadow:var(--shadow-sm)}
-.hero__shot img{display:block;width:100%;height:auto}
-.hero__cap{margin-top:10px;font-size:13px;line-height:1.5;color:var(--muted)}
-.hero__cap a{color:var(--ink-2);font-weight:500}
 .pill{display:inline-flex;padding:6px 12px;border-radius:999px;background:var(--soft);font-size:13px;line-height:1.4;color:var(--ink-2)}
 .hero h1{margin-top:20px;max-width:13em;font-size:clamp(36px, 3.7vw, 52px);line-height:1.16;font-weight:700;letter-spacing:-.035em;text-wrap:balance}
 .lede{margin-top:20px;max-width:640px;font-size:18px;line-height:1.7;color:var(--ink-2)}
@@ -186,149 +170,80 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 .lost{min-height:46vh}
 .lost h1{font-size:clamp(30px, 4vw, 44px)}
 
-/* ---------- gallery ---------- */
-.gallery{padding-top:72px}
-.gallery__title{font-size:17px;font-weight:700;letter-spacing:-.01em}
-.gallery__note{margin-top:8px;max-width:720px;font-size:15px;line-height:1.7;color:var(--muted)}
-.swatches{margin-top:20px;display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:36px 24px}
-.swatch{min-width:0;display:flex;flex-direction:column}
-.swatch__media{display:block;aspect-ratio:16/9;max-width:100%;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--soft)}
-.swatch__media img{width:100%;height:100%;object-fit:cover;object-position:left top}
-.swatch__media--blank{border:1.5px dashed var(--rule);background:var(--page)}
-.swatch__media--blank svg{display:block;width:100%;height:100%}
-.swatch__name{margin-top:16px;font-size:22px;line-height:1.3;font-weight:700;letter-spacing:-.015em}
-.swatch--yours .swatch__name span{border-bottom:2px dashed var(--rule)}
-.swatch__sub{margin-top:6px;font-size:15px;line-height:1.6;color:var(--ink)}
-.swatch__meta{margin-top:2px;font-size:13.5px;color:var(--muted)}
-.swatch__links{margin-top:auto;padding-top:12px;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;font-weight:500}
+/* ---------- home: the title area of a Vizney blog category page (as on Vizney Blocks, v0.45) ----------
+   Spoqa Han Sans Neo Bold 44px at -0.02em (34px on phones), the description 16px in the text color, at most 600px wide.
+   Values copied from Vizney Blocks (.ghead, .gal, .gt in page/site.css) so the two homes line up to the pixel. The site's
+   main action (a company's own style) sits right of the description, on its last line; below about 1060px it wraps under it. */
+.ghead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 40px;padding-top:89px}
+.ghead-copy{flex:0 1 600px;min-width:0}
+.ghead h1{margin:0;font-size:clamp(34px, 1.36vw + 27px, 44px);line-height:1.2;font-weight:700;letter-spacing:-.02em}
+.ghead p{margin:10px 0 0;max-width:600px;font-size:16px;line-height:1.6;color:var(--ink)}
+.ghead-acts{display:flex;flex-wrap:wrap;gap:10px}
+.gal{padding-top:49px}
+/* The catalog: one tile per style, newest first. A tile holds the cover (opens the live sample), the name and the three
+   words, and the style's two buttons, so a button always belongs to the style above it. Past two rows (four tiles on
+   phones) the catalog folds behind a button; without the script it stays open. */
+.gal-grid{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:24px}
+.gal-grid.is-folded > .gt:nth-child(n+7){display:none}
+.gt{display:flex;flex-direction:column;min-width:0;padding:12px;border-radius:20px;background:var(--soft)}
+.gt-pv{display:block;aspect-ratio:16/9;overflow:hidden;border-radius:18px;background:var(--page);border:1px solid rgba(17,24,39,.05);box-shadow:0 1px 2px rgba(17,24,39,.04),0 18px 40px -22px rgba(17,24,39,.22);transition:box-shadow .15s}
+.gt-pv:hover{box-shadow:0 1px 2px rgba(17,24,39,.06),0 22px 44px -20px rgba(17,24,39,.34)}
+.gt-pv img{width:100%;height:100%;object-fit:cover;object-position:left top}
+.gt-meta{display:flex;flex-direction:column;min-width:0;padding:14px 4px 0}
+.gt-name{align-self:flex-start;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;line-height:1.7;font-weight:700;color:var(--ink);text-decoration:none}
+.gt-name:hover{text-decoration:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+.gt-kind{font-size:13px;line-height:1.6;color:var(--muted)}
+.gt-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto;padding-top:12px}
+.gt-acts .btn{min-width:0;height:38px;padding:0 10px;font-size:13.5px}
+.gt-acts .btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gt-acts .btn.is-done{border-color:var(--ink)}
+.gal-more{display:flex;justify-content:center;margin-top:32px}
+.gal-more[hidden]{display:none}
+.gal-more svg{transition:transform .15s}
+.gal-more [aria-expanded="true"] svg{transform:rotate(180deg)}
+.gal-note{margin-top:32px;max-width:840px;font-size:13px;line-height:1.7;color:var(--muted)}
 
 /* ---------- sections (as on Vizney Blocks) ---------- */
 .sec{padding-top:120px}
 .sec h2{font-size:32px;line-height:1.25;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
 .sec-hd p{margin-top:10px;max-width:640px;font-size:16px;color:var(--muted)}
-.show{margin-top:40px;padding:32px;border-radius:28px;background:var(--soft)}
 
-/* ---------- company styles: one guide, two screens ---------- */
-.compare{display:grid;grid-template-columns:176px minmax(0, 1fr) minmax(0, 1fr);column-gap:28px}
-.compare > *{min-width:0}
-.guide{grid-column:1;display:flex;flex-direction:column;gap:16px;padding-top:36px}
-.screen{display:flex;flex-direction:column;gap:12px}
-.screen--before{grid-column:2}
-.screen--after{grid-column:3}
-.screen figcaption{font-size:14.5px;font-weight:700;line-height:1.5}
+/* ---------- interpretation: three devices from the catalog, cropped from the samples (assets/home/device-*.webp) ---------- */
+.devs{margin-top:40px;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:32px 24px}
+.dev{min-width:0}
+.dev-pv{display:block;aspect-ratio:16/10;overflow:hidden;border-radius:14px;border:1px solid var(--line);background:var(--soft);transition:border-color .15s}
+.dev-pv:hover{border-color:var(--rule)}
+.dev-pv img{width:100%;height:100%;object-fit:cover;object-position:left top}
+.dev h3{margin-top:16px;font-size:16px;line-height:1.45;font-weight:700}
+.dev h3 a{color:var(--ink);text-decoration:none}
+.dev h3 a:hover{text-decoration:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+.dev h3 i{font-style:normal;font-weight:500;color:var(--muted)}
+.dev p{margin-top:6px;font-size:14.5px;line-height:1.7;color:var(--ink-2)}
+.dev-note{margin-top:32px;max-width:720px;font-size:15px;line-height:1.7;color:var(--ink-2)}
 
-.guide__label{font-size:13px;font-weight:700;color:var(--muted)}
-.guide__brand{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700}
-.guide__brand svg{width:22px;height:22px;flex:none}
-.guide__colors{display:grid;gap:10px}
-.guide__color{display:grid;grid-template-columns:30px auto;column-gap:10px;align-items:center}
-.guide__color i{grid-row:span 2;width:30px;height:30px;border-radius:8px}
-.guide__color span{font-size:13px;font-weight:500;line-height:1.3}
-.guide__color code{font-size:12px;color:var(--muted)}
-.guide__font{font-size:13px;line-height:1.5}
-.guide__font b{display:block;font-weight:500}
-.guide__font span{color:var(--muted)}
-.guide__note{font-size:13px;line-height:1.6;color:var(--muted)}
+/* ---------- the eight rules every style keeps ---------- */
+.rules{margin-top:40px;display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:36px 28px;counter-reset:rule}
+.rules li{padding-top:14px;border-top:1px solid var(--line)}
+.rules li::before{counter-increment:rule;content:counter(rule, decimal-leading-zero);display:block;margin-bottom:8px;font-size:13px;font-weight:700;line-height:1;color:var(--muted)}
+.rules h3{font-size:16px;font-weight:700;line-height:1.45}
+.rules p{margin-top:6px;font-size:14.5px;line-height:1.7;color:var(--ink-2)}
 
-.diff-label{grid-column:1;display:flex;align-items:flex-start;gap:10px;font-size:15.5px;font-weight:700;line-height:1.45}
-.diff-before{grid-column:2}
-.diff-after{grid-column:3}
-.diff-label,.diff-cell{border-top:1px solid var(--rule);padding-block:18px 20px;transition:background-color .15s}
-.diff-cell{font-size:15px;line-height:1.7;color:var(--ink-2)}
-.diff-label.is-first,.diff-cell.is-first{margin-top:40px}
-.diff-label.is-on,.diff-cell.is-on{color:var(--ink)}
-.diff-tag{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-
-/* numbered markers that tie a row to places on both screens */
-.mk{position:absolute;z-index:2;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--page);font-size:11px;font-weight:700;line-height:1;box-shadow:0 0 0 3px var(--page);transition:transform .15s, background-color .15s, color .15s}
-.mk.is-on{background:var(--page);color:var(--ink);box-shadow:0 0 0 2px var(--ink);transform:scale(1.15)}
-.diff-label .mk{position:static;flex:none;width:22px;height:22px;margin-top:-1px;font-size:11.5px;box-shadow:none}
-.diff-label .mk.is-on{box-shadow:0 0 0 2px var(--ink)}
-.is-hl{outline:2px solid var(--ink);outline-offset:4px;border-radius:6px}
-.delta.is-hl,.kpi__value.is-hl{outline-offset:2px}
-
-/* ---------- mini dashboard (both screens) ---------- */
-.mini{position:relative;display:grid;gap:14px;padding:16px 16px 14px;background:var(--page);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-card);font-size:12px;line-height:1.45;color:var(--ink)}
-.mini__head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.mini__brand{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700}
-.mini__brand svg{width:18px;height:18px;flex:none}
-.mini__title{padding-left:10px;border-left:1px solid var(--line);font-size:12.5px;font-weight:700;color:var(--ink-2)}
-.mini__period{margin-left:auto;font-size:11px;color:var(--muted)}
-
-.kpis{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:8px;align-items:start}
-.kpi{position:relative;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:10px 11px 11px;background:var(--tile);border-radius:9px}
-.kpi__label{font-size:11px;font-weight:500;color:var(--muted)}
-.kpi__value{max-width:100%;font-size:22px;line-height:1.15;font-weight:700;letter-spacing:-.015em;overflow-wrap:anywhere;word-break:break-all}
-.kpi__value .u{font-size:12px;margin-left:1px}
-.kpi__value .u--pre{margin:0 1px 0 0}
-.mini--before .kpi__value .u{font-size:inherit;margin:0}
-.kpi .mk{top:-8px;right:8px}
-.delta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700;line-height:1.3;border-radius:4px}
-.delta svg{width:8px;height:8px;flex:none}
-.delta--good{color:var(--good)}
-.delta--bad{color:var(--bad)}
-
-.sec-mini{display:grid;gap:10px;padding-top:12px;border-top:1px solid var(--line)}
-.sec-mini__head{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;min-height:20px}
-.sec-mini__title{font-size:12.5px;font-weight:700}
-.sec-mini__head .mk{position:static;margin-left:auto;box-shadow:none}
-.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--ink-2)}
-.legend span{display:inline-flex;align-items:center;gap:5px}
-.legend i,.stack-legend i,.tip i{display:inline-block;width:9px;height:9px;border-radius:2px;flex:none}
-
-.bars{display:grid;grid-template-columns:var(--yg, 30px) minmax(0, 1fr);grid-template-rows:132px auto;column-gap:8px;row-gap:6px;border-radius:6px}
-.bars:focus-visible{outline-offset:6px}
-.bars__y{position:relative}
-.bars__y span{position:absolute;right:0;transform:translateY(50%);font-size:10.5px;line-height:1;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-.bars__plot{position:relative;border-bottom:1px solid var(--rule)}
-.bars__grid{position:absolute;left:0;right:0;height:1px;background:var(--line-2)}
-.bars__groups{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6, minmax(0, 1fr))}
-.bars__g{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:center;gap:2px;cursor:default}
-.bars__g::before{content:"";position:absolute;inset:-6px 2px 0;border-radius:6px 6px 0 0;background:transparent;transition:background-color .12s}
-.bars__g.is-on::before{background:var(--bar-hover)}
-.bar{position:relative;width:min(16px, 34%);border-radius:4px 4px 0 0}
-.bars__lbl{position:absolute;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:700;line-height:1.2;white-space:nowrap;color:var(--ink)}
-.bars__x{grid-column:2;display:grid;grid-template-columns:repeat(6, minmax(0, 1fr));text-align:center;font-size:10.5px;color:var(--muted)}
-
-.stack{display:flex;gap:2px;height:14px}
-.stack span{display:block;height:100%;min-width:2px}
-.stack span:first-child{border-radius:4px 0 0 4px}
-.stack span:last-child{border-radius:0 4px 4px 0}
-.stack-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11px;color:var(--ink-2)}
-.stack-legend li{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
-.stack-legend b{font-weight:700;color:var(--ink)}
-
-.tip{position:absolute;z-index:4;top:0;left:0;min-width:136px;padding:8px 10px;border-radius:8px;background:var(--tip);color:var(--tip-ink);font-size:11.5px;line-height:1.5;box-shadow:var(--shadow);pointer-events:none;opacity:0;visibility:hidden;transition:opacity .12s, visibility .12s}
-.tip.is-on{opacity:1;visibility:visible}
-.tip__t{margin-bottom:3px;font-weight:700}
-.tip__r{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.tip__r span{display:inline-flex;align-items:center;gap:6px;color:var(--tip-muted)}
-.tip__r b{font-variant-numeric:tabular-nums}
-.tip__d{margin-top:3px;color:var(--tip-muted)}
-
-/* ---------- also decided ---------- */
-.also{margin-top:72px}
-.also__title{font-size:22px;line-height:1.35;font-weight:700;letter-spacing:-.02em}
-.also__grid{margin-top:24px;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:28px}
-.also__grid li{padding-top:14px;border-top:1px solid var(--line)}
-.also__grid h4{font-size:15.5px;font-weight:700}
-.also__grid p{margin-top:6px;font-size:14.5px;line-height:1.7;color:var(--ink-2)}
-
-/* ---------- what you get / how it works ---------- */
-.offer__grid{display:grid;grid-template-columns:minmax(0, 7fr) minmax(0, 5fr);gap:64px}
+/* ---------- your company's style: what you get, how it works, the closing panel ---------- */
+.offer__grid{margin-top:40px;display:grid;grid-template-columns:minmax(0, 7fr) minmax(0, 5fr);gap:64px}
 .offer__grid > *{min-width:0}
-.gets{margin-top:28px;display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:32px 28px}
+.offer__grid h3{font-size:20px;line-height:1.35;font-weight:700;letter-spacing:-.015em}
+.gets{margin-top:24px;display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:32px 28px}
 .gets li{padding-top:14px;border-top:1px solid var(--line)}
-.gets h3,.steps h3{font-size:16.5px;font-weight:700;line-height:1.45}
+.gets h4,.steps h4{font-size:16.5px;font-weight:700;line-height:1.45}
 .gets p,.steps p{margin-top:6px;font-size:15px;line-height:1.7;color:var(--ink-2)}
-.steps{margin-top:28px;display:grid;gap:24px;counter-reset:step}
+.steps{margin-top:24px;display:grid;gap:24px;counter-reset:step}
 .steps li{display:grid;grid-template-columns:44px minmax(0, 1fr);padding-top:14px;border-top:1px solid var(--line)}
 .steps li::before{counter-increment:step;content:counter(step);grid-row:span 2;font-size:28px;line-height:1;font-weight:300;color:var(--muted)}
-
-/* ---------- closing ---------- */
-.closing{padding:56px 48px;border-radius:28px;background:var(--soft)}
+.plan-note{margin-top:24px;padding-left:44px;font-size:14.5px;line-height:1.7;color:var(--muted)}
+.closing{margin-top:72px;padding:56px 48px;border-radius:28px;background:var(--soft)}
+.closing h3{font-size:26px;line-height:1.3;font-weight:700;letter-spacing:-.02em}
 .closing p{margin-top:12px;max-width:36em;font-size:16px;line-height:1.7;color:var(--ink-2)}
-.closing .btn{margin-top:28px}
+.closing .acts{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px}
 
 /* ---------- footer (as on Vizney Blocks) ---------- */
 .foot{margin-top:120px;border-top:1px solid var(--line-2)}
@@ -337,51 +252,41 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 .foot-in a{color:var(--ink-2);text-decoration-color:currentColor;text-decoration-thickness:auto;text-underline-offset:auto}
 
 /* ---------- widths ---------- */
-@media (max-width:1100px){
-  .compare{grid-template-columns:minmax(0, 1fr) minmax(0, 1fr)}
-  .guide{grid-column:1 / -1;flex-direction:row;flex-wrap:wrap;align-items:center;gap:14px 32px;padding:0 0 28px}
-  .guide__colors{grid-auto-flow:column;gap:20px}
-  .guide__note{flex-basis:100%}
-  .screen--before{grid-column:1}
-  .screen--after{grid-column:2}
-  .diff-label{grid-column:1 / -1;padding-bottom:4px}
-  .diff-before{grid-column:1;border-top:0;padding-top:0}
-  .diff-after{grid-column:2;border-top:0;padding-top:0}
-  .diff-cell.is-first{margin-top:0}
-}
 @media (max-width:1080px){
-  .swatches{grid-template-columns:repeat(2, minmax(0, 1fr))}
+  .gal-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+  .rules{grid-template-columns:repeat(2, minmax(0, 1fr))}
 }
 @media (max-width:960px){
-  .hero--split{grid-template-columns:minmax(0, 1fr)}
-  .offer__grid{grid-template-columns:minmax(0, 1fr);gap:72px}
-  .also__grid{grid-template-columns:repeat(2, minmax(0, 1fr))}
+  .offer__grid{grid-template-columns:minmax(0, 1fr);gap:56px}
+}
+@media (max-width:860px){
+  .devs{grid-template-columns:minmax(0, 1fr);gap:40px}
 }
 @media (max-width:720px){
   .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
   .hero{padding-top:44px}
   .lede{font-size:16px}
-  .gallery{padding-top:56px}
+  .ghead{padding-top:40px;gap:20px}
+  .ghead p{margin-top:14px}
+  .ghead-acts{flex:1 1 100%;display:grid;grid-template-columns:1fr 1fr}
+  .ghead-acts .btn{padding:0 12px}
+  .gal{padding-top:32px}
+  .gal-grid{grid-template-columns:minmax(0, 1fr);gap:16px}
+  .gal-grid.is-folded > .gt:nth-child(n+5){display:none}
+  .gt{padding:8px;border-radius:18px}
+  .gt-meta{padding:12px 4px 0}
+  .gt-acts{padding-top:10px}
+  .gal-more .btn{width:100%}
   .sec{padding-top:80px}
   .sec h2{font-size:26px}
-  .show{padding:14px;border-radius:22px}
-  .compare{grid-template-columns:minmax(0, 1fr)}
-  .guide{gap:14px 24px;padding:6px 4px 24px}
-  .guide__colors{grid-auto-flow:row;grid-template-columns:repeat(3, minmax(0, auto));gap:12px 18px}
-  .screen--before,.screen--after,.diff-before,.diff-after{grid-column:1}
-  .screen figcaption{padding-inline:4px}
-  .screen--after{margin-top:28px}
-  .diff-label,.diff-cell{padding-inline:4px}
-  .diff-cell{padding-bottom:14px}
-  .diff-after{padding-bottom:22px}
-  .diff-tag{position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:normal;display:block;margin-bottom:2px;font-size:13px;font-weight:700;color:var(--ink)}
-  .also{margin-top:56px}
-  .also__grid,.gets{grid-template-columns:minmax(0, 1fr)}
-  .closing{padding:32px 20px;border-radius:22px}
+  .rules,.gets{grid-template-columns:minmax(0, 1fr)}
+  .rules{gap:28px}
+  .plan-note{padding-left:0}
+  .closing{margin-top:56px;padding:32px 20px;border-radius:22px}
+  .closing h3{font-size:22px}
+  .closing .acts{display:grid;grid-template-columns:1fr 1fr}
+  .closing .acts .btn{padding:0 12px}
   .foot-in nav{margin-left:0}
-}
-@media (max-width:560px){
-  .swatches{grid-template-columns:minmax(0, 1fr)}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important}
@@ -406,7 +311,6 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
         <li><a href="https://styles.vizney.com/" data-href="v:styles" aria-current="page">Styles</a></li>
         <li><a href="https://www.vizney.com/tips/" data-href="v:tips">Tips &amp; Tricks</a></li>
         <li><a href="https://www.vizney.com/kb/" data-href="v:kb">Knowledge Base</a></li>
-        <li><a href="https://www.vizney.com/about/" data-href="v:about">About</a></li>
         <li><a href="https://www.vizney.com/contact-us/" data-href="v:contact">Contact</a></li>
       </ul>
     </nav>
@@ -469,96 +373,87 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "tabsAria": "Vizney Styles 메뉴",
       "docTitle_home": "Vizney Styles · 우리 회사 대시보드를 위한 DASHBOARD.md",
       "docTitle_404": "페이지를 찾을 수 없습니다 · Vizney Styles",
-      "pill": "DASHBOARD.md · 라이브 샘플 · Tableau · Power BI · 한·영",
-      "heroTitle": "AI가 만들어도 우리 회사 대시보드처럼",
-      "heroLead": "DESIGN.md가 코딩 에이전트에게 웹사이트의 생김새를 알려 준다면, DASHBOARD.md는 대시보드에 필요한 것을 더합니다. 검증된 데이터 색, KPI 카드, 차트 규칙, 숫자 표기, 밀도, 그리고 Tableau와 Power BI 설정값까지. 카탈로그의 브랜드는 그 방식을 보여 주는 예시이고, 우리 회사 파일도 같은 방식으로 만듭니다.",
-      "ctaBrowse": "카탈로그 보기",
+      "gDesc": "AI가 만들어도 우리 회사 대시보드처럼. 기업이 가격표, 영수증, 계기판으로 숫자를 보여 주는 방식을 읽어 명세 DASHBOARD.md와 Tableau·Power BI 파일로 옮겼습니다.",
       "ctaCompany": "우리 회사 것 만들기",
-      "hint": "DASHBOARD.md를 저장소 루트에 두고 에이전트에게 ‘DASHBOARD.md의 Anthropic 스타일로 월간 매출 대시보드를 만들어 줘’라고 하면 됩니다.",
-      "galleryTitle": "카탈로그",
-      "galleryNote": "기업의 공개 웹사이트에서 읽어 낸 대시보드 스타일입니다. 가상 데이터로 만든 라이브 샘플, DASHBOARD.md, Tableau·Power BI·CSS 파일이 함께 있습니다. 참고용 해석일 뿐 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 다음 브랜드에 투표하거나 우리 회사 것을 요청하세요.",
-      "sub_anthropic": "아이보리, 에디토리얼, 고요함",
-      "meta_anthropic": "배송 운영 보고 샘플",
-      "sub_notion": "모노톤, 블록, 단정함",
-      "meta_notion": "매장 운영 보고 샘플",
-      "sub_netflix": "다크, 시네마틱, 강렬함",
-      "meta_netflix": "주간 티켓 판매 보고 샘플",
-      "linkSample": "샘플 화면",
-      "linkFiles": "파일",
-      "linkPost": "소개 글",
+      "ctaRequest": "브랜드 요청 ↗",
+      "ctaBrowse": "카탈로그 보기",
+      "galAria": "스타일 카탈로그",
       "coverAlt": "{name} 스타일 샘플 화면",
-      "heroCap": "카탈로그의 최신 스타일 · 03 Netflix 스타일, 가상 데이터로 만든 주간 티켓 판매 보고서",
-      "heroCapLink": "라이브 샘플 열기",
-      "yoursName": "우리 회사",
-      "yoursSub": "브랜드 가이드와 우리 데이터로 만드는 같은 패키지",
-      "yoursMeta": "비공개, 약 1주일",
-      "yoursLink": "만드는 방식 보기",
-      "customTitle": "AI가 만든 대시보드가 어색한 이유, 그리고 파일이 고치는 것",
-      "customLead": "브랜드 가이드는 로고와 대표색, 서체를 정합니다. 대시보드는 그 위에서 숫자를 비교하고 변화를 읽는 화면이라 정할 것이 훨씬 많고, 브랜드 가이드만 받은 에이전트는 그것을 틀립니다. 같은 가이드로 만든 두 화면을 비교해 보세요.",
-      "guideLabel": "가상 브랜드 가이드",
-      "guideBrand": "오름푸드",
-      "guidePrimary": "대표색",
-      "guideSecondary": "보조색",
-      "guideNavy": "남색",
-      "guideFont": "서체",
-      "guideNote": "두 화면 모두 이 가이드로 만들었습니다.",
-      "capBefore": "브랜드 색과 서체만 입힌 화면",
-      "capAfter": "대시보드 스타일로 설계한 화면",
-      "tagBefore": "색과 서체만 입히면",
-      "tagAfter": "스타일로 설계하면",
-      "d1t": "데이터 색",
-      "d1b": "대표색 빨강과 주황으로 막대를 채워, 매출이 늘어도 화면이 경고처럼 읽힙니다. 주황 막대는 흰 바탕과의 대비도 부족합니다.",
-      "d1a": "빨강은 로고와 나쁜 변화 표시에만 남깁니다. 올해 막대는 파랑, 비교할 전년 막대는 회색으로 한발 물러나게 합니다.",
-      "d2t": "증감 색",
-      "d2b": "오르면 초록, 내리면 빨강으로 칠해서 원가율이 낮아진 좋은 소식은 빨강으로, 반품률이 오른 나쁜 소식은 초록으로 보입니다.",
-      "d2a": "색은 값이 움직인 방향이 아니라 그 지표에 좋은 변화인지로 정합니다. 원가율 하락은 초록, 반품률 상승은 빨강입니다.",
-      "d3t": "숫자 표기",
-      "d3b": "1,243,512,800원처럼 원 단위를 그대로 쓰면 카드 폭을 넘고, 단위가 숫자만큼 커서 카드마다 수치 높이가 달라집니다.",
-      "d3a": "12.4억처럼 읽기 쉬운 단위로 줄이고, 억과 %는 숫자보다 작게 씁니다. 카드 안 글자 크기는 대표 수치와 나머지, 두 단계만 씁니다.",
-      "d4t": "범주 색",
-      "d4b": "대표색의 명도만 바꾼 다섯 색은 색 구분 검사를 통과하지 못해, 범례를 몇 번씩 다시 보게 됩니다.",
-      "d4a": "범주 색은 세 가지와 회색 기타까지만 씁니다. 색각 이상 구분과 대비 검사를 통과한 조합만 남깁니다.",
-      "alsoTitle": "화면에 다 보이지 않는 것도 DASHBOARD.md가 정합니다",
-      "a1t": "화면 폭",
-      "a1p": "넓은 모니터에서 휴대폰까지, 폭마다 카드가 어떤 순서로 접히는지 정합니다.",
-      "a2t": "한국어와 영어",
-      "a2p": "억·만과 ₩·M·K 표기, 더 길어지는 영어 라벨까지 한 화면에서 맞춥니다.",
-      "a3t": "필터와 카드",
-      "a3p": "필터는 화면 위 한 줄에 두고 모든 카드에 함께 적용하며, 카드 안에 카드를 넣지 않습니다.",
-      "a4t": "차트 고르기",
-      "a4p": "이중 축 대신 나란히 놓은 두 차트처럼, 데이터에 맞는 차트를 고르는 기준을 둡니다.",
-      "a5t": "툴팁과 주석",
-      "a5p": "툴팁에 보여 줄 값과 순서, 명절이나 행사 구간을 표시하는 방법을 정합니다.",
-      "a6t": "접근성",
-      "a6p": "키보드 조작과 스크린 리더용 표, 움직임 줄이기 설정까지 챙깁니다.",
+      "tSpec": "명세 복사",
+      "tZip": "파일 받기",
+      "tSpecAria": "{name} 스타일의 DASHBOARD.md 복사",
+      "tZipAria": "{name} 스타일 파일(zip) 받기",
+      "tSpecTip": "DASHBOARD.md 전문을 클립보드에 복사합니다",
+      "tZipTip": "DASHBOARD.md, 에이전트 스킬, Tableau·Power BI 파일을 zip으로 받습니다",
+      "copied": "복사됨",
+      "copyFail": "복사가 막혀 DASHBOARD.md를 새 탭에 열었습니다",
+      "foldMore": "스타일 {n}개 모두 보기",
+      "foldLess": "접기",
+      "galNote": "모든 스타일은 공개된 웹사이트와 매장·인쇄물에서 읽어 낸 참고용 해석입니다. 해당 기업의 공식 디자인이 아니며 제휴·승인 관계가 없고, 샘플의 회사와 숫자는 모두 가상입니다.",
+      "howTitle": "색을 입히지 않고, 숫자를 보여 주는 방식을 옮깁니다",
+      "howLead": "대표색을 막대와 버튼에 칠한 화면은 테마입니다. 스타일은 그 회사가 매장과 인쇄물, 현장에서 숫자를 보여 주는 방식을 읽어 대시보드 부품으로 옮긴 해석입니다. 스타일마다 이런 대표 장치를 세\u00a0개 고르고, 모든 장치는 데이터를 담습니다.",
+      "dev1t": "온보드 계기판 → 핵심 지표",
+      "dev1p": "시프트 라이트에 마지막 15랩을, 다이얼에 목표와 계획 눈금을, 기어 자리에 순위를 담았습니다.",
+      "dev2t": "계산대 영수증 → 부서별 매출 표",
+      "dev2p": "부서 줄마다 길이가 매출인 바코드 막대를 붙이고, 영수증처럼 소계와 합계를 적었습니다.",
+      "dev3t": "탑승권 → 월간 운항 통계",
+      "dev3p": "출발·도착 자리에 노선망을, 몸통에 핵심 지표를, 떼는 쪽에 탑승률을 두었습니다.",
+      "devNote": "같은 내용을 일반 막대나 표로 그렸을 때 더 잘 읽히면 장치를 고칩니다. 예쁜 화면보다 읽히는 숫자가 먼저입니다.",
+      "rulesTitle": "모든 스타일이 지키는 여덟 가지",
+      "rulesLead": "AI가 만든 대시보드가 어색해 보이는 이유를 규칙으로 막습니다. 규칙은 DASHBOARD.md에 적혀 있어 에이전트와 BI 도구가 그대로 따릅니다.",
+      "r1t": "브랜드 색과 데이터 색",
+      "r1p": "대표색은 로고와 포인트에 남기고, 데이터 색은 따로 설계합니다.",
+      "r2t": "질문에 맞는 차트",
+      "r2p": "도넛, 이중 축, 무지개 범주는 쓰지 않습니다.",
+      "r3t": "정보 위계",
+      "r3p": "결과를 말하는 머리와 그 근거인 카드로, 한 역할의 한 질문에 답합니다.",
+      "r4t": "숫자와 언어",
+      "r4p": "억·만·건·%p와 ₩·M·K·pts, 반올림, 부호, 날짜를 규칙으로 적습니다.",
+      "r5t": "계산으로 검사한 색",
+      "r5p": "색각 이상 구분, 일반 시각 구분, 대비를 통과한 조합만 씁니다.",
+      "r6t": "실제 화면의 밀도",
+      "r6p": "노트북(1366~1440) 첫 화면에 머리와 KPI 줄이 들어옵니다.",
+      "r7t": "수백 장의 일관성",
+      "r7p": "한 장이 아니라 규칙을 적어, 명세만 보고 같은 화면을 다시 만듭니다.",
+      "r8t": "도구로의 번역",
+      "r8p": "웹 CSS, Tableau 팔레트와 서식, Power BI 테마로 바로 들어갑니다.",
+      "customTitle": "우리 회사 스타일은 비공개로 만들어 드립니다",
+      "customLead": "카탈로그와 같은 방식으로 우리 회사의 웹사이트와 매장·보고서·양식을 읽어 대표 장치를 찾고, 회사 업무 보고 하나로 화면을 그려 패키지로 드립니다. 기본은 비공개이고, 허락하실 때만 카탈로그에 올립니다.",
       "getsTitle": "받는 것",
       "g1t": "DASHBOARD.md",
-      "g1p_html": "코딩 에이전트가 저장소 루트에서 읽는 명세입니다. 머리에 토큰, 본문에 색·서체·숫자·레이아웃·부품·차트·접근성·도구 적용을 적고, DESIGN.md 형식과 호환됩니다.",
-      "g2t": "검증된 데이터 색",
-      "g2p": "범주·순차·발산 팔레트와 좋음·나쁨 색입니다. 모든 조합을 색각 이상 구분, 일반 시각 구분, 대비로 검사합니다.",
-      "g3t": "살아 있는 참고 화면",
-      "g3p": "회사 업무 주제로 가상 데이터를 넣어 만든 실제 대시보드 한 장입니다. 한국어·영어를 한 파일에 담고, 모든 폭에서 배치되며, 툴팁·키보드·스크린 리더까지 갖춥니다.",
-      "g4t": "도구 파일과 프롬프트",
-      "g4p_html": "Tableau 팔레트(<code>.tps</code>)와 서식 메모, Power BI 테마(<code>.json</code>), CSS 토큰, 그리고 새로 만들기·고치기·검토용 프롬프트 모음입니다.",
+      "g1p": "에이전트가 저장소 루트에서 읽는 명세입니다. 토큰과 대표 장치, 숫자·차트·접근성 규칙을 적고 DESIGN.md 형식과 호환됩니다.",
+      "g2t": "에이전트 스킬",
+      "g2p": "새 대시보드 만들기, 기존 화면 고치기, 명세로 검토하기를 맡습니다. 명령 한 줄이나 zip으로 프로젝트에 넣습니다.",
+      "g3t": "참고 화면",
+      "g3p": "회사 업무 보고 하나를 회사 용어와 가상 데이터로 그린 화면입니다. 한국어·영어, 모든 폭, 툴팁·키보드·스크린 리더까지 갖춥니다.",
+      "g4t": "Tableau · Power BI 파일",
+      "g4p_html": "Tableau 팔레트(<code>.tps</code>)와 서식 메모, Power BI 테마(<code>.json</code>), CSS 토큰, 그리고 만들기·고치기·검토용 프롬프트입니다.",
       "stepsTitle": "진행 순서",
       "s1t": "자료 받기",
-      "s1p": "웹사이트나 브랜드 가이드, 지금 쓰는 대시보드 몇 장, 자주 보는 지표를 받습니다. 공개 웹사이트만으로도 시작할 수 있습니다.",
-      "s2t": "진단",
-      "s2p": "토큰을 읽고, 브랜드 색이 데이터 색으로 쓸 만한지 검사하고, 지금 숫자와 차트가 어디서 오해를 만드는지 짚습니다.",
-      "s3t": "참고 화면",
-      "s3p": "회사 업무로 만든 살아 있는 화면 한 장에서 스타일을 정하고, 함께 다듬습니다.",
+      "s1p": "웹사이트나 브랜드 가이드, 지금 쓰는 대시보드 몇 장, 숫자가 보이는 현장 자료(매장 게시물, 보고서, 작업 양식)를 받습니다. 공개 웹사이트만으로도 시작할 수 있습니다.",
+      "s2t": "브리프",
+      "s2p": "현실 접점과 대표 장치 세 개, 데이터 색 검사 결과, 숫자 표기와 회사 용어를 한 장으로 정리해 먼저 확인받습니다.",
+      "s3t": "시안 화면",
+      "s3p": "확인한 브리프로 회사 업무 보고 하나를 그리고, 함께 다듬습니다.",
       "s4t": "전달",
-      "s4p": "DASHBOARD.md, 팔레트, Tableau·Power BI 파일, 프롬프트를 약 1주일 안에 드립니다. 기본은 비공개이고, 원하실 때만 카탈로그에 올립니다.",
-      "ctaTitle": "우리 회사의 DASHBOARD.md를 받으세요",
+      "s4p": "확정한 화면에서 DASHBOARD.md와 스킬, 도구 파일을 만들어 약\u00a01주일 안에 드립니다.",
+      "planNote": "어떤 질문을 어떤 카드로 답할지 정하는 대시보드 화면 기획도 함께 맡길 수 있습니다.",
+      "ctaTitle": "우리 회사 스타일을 의뢰하세요",
       "ctaText": "웹사이트나 브랜드 가이드, 지금 쓰는 대시보드 화면 몇 장을 보내 주세요. 카탈로그에 올릴 공개 브랜드는 GitHub에서 요청할 수 있습니다.",
       "ctaBtn": "제작 문의하기",
-      "ctaRequest": "브랜드 요청 ↗",
       "nfTitle": "페이지를 찾을 수 없습니다",
       "nfLead": "주소가 바뀌었거나 없는 페이지입니다. 첫 화면의 카탈로그에서 골라 보세요.",
       "nfHome": "첫 화면으로",
       "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)",
       "footAria": "바닥글",
-      "footBlog": "블로그"
+      "footBlog": "블로그",
+      "sub_f1": "레이싱, 텔레메트리, 정밀함",
+      "sub_shell": "에너지, 포코트, 당당함",
+      "sub_singapore-airlines": "프리미엄, 탑승권, 단아함",
+      "sub_costco": "창고형, 영수증, 꾸밈없음",
+      "sub_netflix": "다크, 시네마틱, 강렬함",
+      "sub_notion": "모노톤, 블록, 단정함",
+      "sub_anthropic": "아이보리, 에디토리얼, 고요함"
     },
     "en": {
       "skip": "Skip to content",
@@ -575,96 +470,87 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "tabsAria": "Vizney Styles menu",
       "docTitle_home": "Vizney Styles · DASHBOARD.md for your company's dashboards",
       "docTitle_404": "Page not found · Vizney Styles",
-      "pill": "DASHBOARD.md · live sample · Tableau · Power BI · Korean and English",
-      "heroTitle": "Dashboards that look like your company, even when an AI builds them",
-      "heroLead": "DESIGN.md tells a coding agent how your website looks. DASHBOARD.md adds what dashboards need: validated data colors, KPI cards, chart rules, number formats, density, and the settings for Tableau and Power BI. Each brand in the catalog is a worked example; your company's file is made the same way.",
+      "gDesc": "Dashboards that look like your company, even when an AI builds them. Read from price tags, receipts and gauges, each style is DASHBOARD.md plus Tableau and Power BI files.",
+      "ctaCompany": "Get yours made",
+      "ctaRequest": "Request a brand ↗",
       "ctaBrowse": "Browse the catalog",
-      "ctaCompany": "Get yours",
-      "hint": "Put DASHBOARD.md in your repository root, then ask your agent for “a monthly sales dashboard in the Anthropic style defined in DASHBOARD.md”.",
-      "galleryTitle": "The catalog",
-      "galleryNote": "Each entry is a dashboard style read from a company's public website: a live sample with fictional data, DASHBOARD.md, and the Tableau, Power BI and CSS files. Reference readings only, not official designs, and not affiliated with or endorsed by the companies. Vote for the next one or request your own.",
-      "sub_anthropic": "Ivory, Editorial, Quiet",
-      "meta_anthropic": "Sample: delivery operations report",
-      "sub_notion": "Monochrome, Blocks, Tidy",
-      "meta_notion": "Sample: store operations report",
-      "sub_netflix": "Dark, Cinematic, Bold",
-      "meta_netflix": "Sample: weekly ticket sales report",
-      "linkSample": "Live sample",
-      "linkFiles": "Files",
-      "linkPost": "Blog post",
+      "galAria": "Style catalog",
       "coverAlt": "{name} style sample screen",
-      "heroCap": "Newest in the catalog · 03 Netflix style, a weekly ticket sales report with fictional data",
-      "heroCapLink": "Open the live sample",
-      "yoursName": "Your company",
-      "yoursSub": "The same package, from your brand guide and your data",
-      "yoursMeta": "Private, in about a week",
-      "yoursLink": "See how it works",
-      "customTitle": "Why an AI-built dashboard looks wrong, and what the file fixes",
-      "customLead": "A brand guide sets the logo, the brand colors and the typeface. A dashboard is where people compare numbers and read change, so it takes many more decisions, and an agent given only the brand guide gets them wrong. Compare two screens built from the same guide.",
-      "guideLabel": "Fictional brand guide",
-      "guideBrand": "Orum Foods",
-      "guidePrimary": "Primary",
-      "guideSecondary": "Secondary",
-      "guideNavy": "Navy",
-      "guideFont": "Typeface",
-      "guideNote": "Both screens use this guide.",
-      "capBefore": "Brand colors and fonts applied",
-      "capAfter": "Designed as a dashboard style",
-      "tagBefore": "Colors and fonts only",
-      "tagAfter": "Designed as a style",
-      "d1t": "Data color",
-      "d1b": "Brand red and orange fill the bars, so even rising sales read like a warning. The orange bars also lack contrast on white.",
-      "d1a": "Red stays in the logo and in bad changes. This year's bars are blue, and last year's step back in gray.",
-      "d2t": "Change color",
-      "d2b": "Up is green and down is red, so a falling cost ratio, which is good news, shows red, and a rising return rate shows green.",
-      "d2a": "Color says whether the change is good for that metric. A falling cost ratio is green and a rising return rate is red.",
-      "d3t": "Number format",
-      "d3b": "Raw figures like ₩1,243,512,800 overflow the card, and units as large as the digits leave each value at a different height.",
-      "d3a": "Figures are compacted to ₩1,244M with smaller units, and each card uses just two type sizes, one for the value and one for the rest.",
-      "d4t": "Category color",
-      "d4b": "Five tints of the brand colors fail the color-separation check, so readers keep going back to the legend.",
-      "d4a": "Three colors plus gray for Other, and only combinations that pass color-vision and contrast checks.",
-      "alsoTitle": "DASHBOARD.md also settles what one screen can't show",
-      "a1t": "Screen widths",
-      "a1p": "How cards fold, from wide monitors down to phones.",
-      "a2t": "Korean and English",
-      "a2p": "Number formats in both languages, and English labels that run longer, in one layout.",
-      "a3t": "Filters and cards",
-      "a3p": "One filter row at the top that scopes every card, and no cards inside cards.",
-      "a4t": "Chart choice",
-      "a4p": "Rules for picking a chart, such as two aligned charts instead of a dual axis.",
-      "a5t": "Tooltips and notes",
-      "a5p": "What a tooltip shows and in what order, and how holidays and events are marked.",
-      "a6t": "Accessibility",
-      "a6p": "Keyboard control, screen-reader tables and reduced motion.",
+      "tSpec": "Copy spec",
+      "tZip": "Download",
+      "tSpecAria": "Copy DASHBOARD.md of the {name} style",
+      "tZipAria": "Download the {name} style files (zip)",
+      "tSpecTip": "Copies the whole DASHBOARD.md to your clipboard",
+      "tZipTip": "DASHBOARD.md, the agent skill and the Tableau and Power BI files in a zip",
+      "copied": "Copied",
+      "copyFail": "Copying is blocked, so DASHBOARD.md opened in a new tab",
+      "foldMore": "Show all {n} styles",
+      "foldLess": "Show fewer",
+      "galNote": "Every style is a reference reading of public websites and real-world touchpoints: not an official design, and not affiliated with or endorsed by the company. The sample companies and their numbers are fictional.",
+      "howTitle": "Not a color theme: the way a company shows its numbers",
+      "howLead": "Painting bars and buttons in the brand color makes a theme. A style reads how a company shows numbers in its stores, print and operations, and turns that into dashboard parts. Each style picks three such devices, and every device carries data.",
+      "dev1t": "Onboard display → key figures",
+      "dev1p": "Shift lights hold the last 15 laps, the dials carry target and plan ticks, and the gear readout shows the position.",
+      "dev2t": "Register receipt → department sales",
+      "dev2p": "Each department line carries a barcode bar as long as its sales, with a subtotal and a total as on a receipt.",
+      "dev3t": "Boarding pass → monthly operating statistics",
+      "dev3p": "The route network sits where origin and destination go, key figures fill the pass, and the load factor sits on the stub.",
+      "devNote": "If a plain bar chart or table would read better, the device is reworked. Numbers that read come before a pretty screen.",
+      "rulesTitle": "Eight rules every style keeps",
+      "rulesLead": "They fix what makes AI-built dashboards look off. The rules are written into DASHBOARD.md, so agents and BI tools follow them as they are.",
+      "r1t": "Brand color, data color",
+      "r1p": "The brand color stays in the logo and accents; data colors are designed apart.",
+      "r2t": "A chart for the question",
+      "r2p": "No donuts, no dual axes, no rainbow categories.",
+      "r3t": "Hierarchy",
+      "r3p": "A headline that states the result, and the cards that back it: one question per role.",
+      "r4t": "Numbers and language",
+      "r4p": "₩, $, M, K and pts, rounding, signs and dates, set as rules in English and Korean.",
+      "r5t": "Colors checked by calculation",
+      "r5p": "Only combinations that pass color-vision, normal-vision separation and contrast checks.",
+      "r6t": "Real-screen density",
+      "r6p": "On a laptop (1366–1440), the headline and the KPI row fit the first screen.",
+      "r7t": "The same across hundreds",
+      "r7p": "Rules, not one picture, so the spec alone rebuilds the same screen.",
+      "r8t": "Into your tools",
+      "r8p": "Straight into web CSS, Tableau palettes and formatting, and Power BI themes.",
+      "customTitle": "Your company's style, made privately",
+      "customLead": "Made the way the catalog is: we read your website, stores, reports and forms for the devices, draw one of your business reports with them and hand over the package. Private by default; in the catalog only with your permission.",
       "getsTitle": "What you get",
       "g1t": "DASHBOARD.md",
-      "g1p_html": "A spec your coding agent reads from the repository root: tokens in the front matter, then colors, type, numbers, layout, components, charts, accessibility and tool mapping, compatible with the DESIGN.md convention.",
-      "g2t": "Validated data colors",
-      "g2p": "Categorical, sequential and diverging palettes plus good and bad, every pair checked for color-vision deficiency, normal-vision separation and contrast.",
-      "g3t": "A live reference screen",
-      "g3p": "One real dashboard on a topic from your business, with fictional data, Korean and English in one file, laid out for every width, with tooltips, keyboard control and screen-reader tables.",
-      "g4t": "Tool files and prompts",
-      "g4p_html": "A Tableau palette (<code>.tps</code>) with formatting notes, a Power BI theme (<code>.json</code>), CSS tokens, and a prompt pack for new builds, restyles and reviews.",
+      "g1p": "The spec an agent reads from the repository root: tokens, the devices, and rules for numbers, charts and accessibility. Compatible with DESIGN.md.",
+      "g2t": "Agent skill",
+      "g2p": "Builds new dashboards, restyles existing ones and reviews them against the spec. One command or a zip puts it in a project.",
+      "g3t": "Reference screen",
+      "g3p": "One of your business reports, drawn with your terms and fictional data, in Korean and English, for every width, with tooltips, keyboard control and screen-reader tables.",
+      "g4t": "Tableau and Power BI files",
+      "g4p_html": "A Tableau palette (<code>.tps</code>) with formatting notes, a Power BI theme (<code>.json</code>), CSS tokens, and prompts for builds, restyles and reviews.",
       "stepsTitle": "How it works",
       "s1t": "Share your materials",
-      "s1p": "Your website or brand guide, a few of the dashboards you use now, and the metrics you watch. A public website alone is enough to start.",
-      "s2t": "Review",
-      "s2p": "We read the tokens, test whether the brand colors work as data colors, and note where your current numbers and charts mislead.",
-      "s3t": "Reference screen",
-      "s3p": "We settle the style on one live screen built from your business, and iterate with you on it.",
+      "s1p": "Your website or brand guide, a few of the dashboards you use, and where your numbers show up in the field: store signs, reports, work forms. A public website alone is enough to start.",
+      "s2t": "Brief",
+      "s2p": "The touchpoints and three devices, the data color checks, number formats and your terms, on one page for you to confirm first.",
+      "s3t": "Draft screen",
+      "s3p": "We draw one of your business reports from the brief and refine it with you.",
       "s4t": "Hand over",
-      "s4p": "DASHBOARD.md, the palettes, the Tableau and Power BI files and the prompts, in about a week. Private by default; published in the catalog only if you want it there.",
-      "ctaTitle": "Get DASHBOARD.md for your company",
-      "ctaText": "Send your website or brand guide and a few screenshots of the dashboards you use now. Or request a public brand for the catalog on GitHub.",
+      "s4p": "From the settled screen we make DASHBOARD.md, the skill and the tool files, in about a week.",
+      "planNote": "We can also plan the dashboards themselves: which questions each screen answers, with which cards.",
+      "ctaTitle": "Ask for your company's style",
+      "ctaText": "Send your website or brand guide and a few screenshots of the dashboards you use now. Public brands for the catalog can be requested on GitHub.",
       "ctaBtn": "Contact us",
-      "ctaRequest": "Request a brand ↗",
       "nfTitle": "Page not found",
       "nfLead": "This page has moved or doesn't exist. Pick a style from the catalog on the home page.",
       "nfHome": "Go to the home page",
       "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)",
       "footAria": "Footer",
-      "footBlog": "Blog"
+      "footBlog": "Blog",
+      "sub_f1": "Racing, Telemetry, Precise",
+      "sub_shell": "Energy, Forecourt, Confident",
+      "sub_singapore-airlines": "Premium, Boarding Pass, Courteous",
+      "sub_costco": "Warehouse, Receipt, No-Frills",
+      "sub_netflix": "Dark, Cinematic, Bold",
+      "sub_notion": "Monochrome, Blocks, Tidy",
+      "sub_anthropic": "Ivory, Editorial, Quiet"
     }
   };
 
@@ -684,11 +570,11 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
   const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
   // The Vizney header's menu, as on the blog (the same addresses on Vizney Blocks). Labels are English in both languages.
   const VZ = {
-    ko: { home: 'https://kr.vizney.com/', 'chart-guide': 'https://kr.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/ko/', styles: 'https://styles.vizney.com/?lang=ko', tips: 'https://kr.vizney.com/tips/', kb: 'https://kr.vizney.com/kb/', about: 'https://kr.vizney.com/about/', contact: 'https://kr.vizney.com/contact-us/', search: 'https://kr.vizney.com/#/search' },
-    en: { home: 'https://www.vizney.com/', 'chart-guide': 'https://www.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/', styles: 'https://styles.vizney.com/', tips: 'https://www.vizney.com/tips/', kb: 'https://www.vizney.com/kb/', about: 'https://www.vizney.com/about/', contact: 'https://www.vizney.com/contact-us/', search: 'https://www.vizney.com/#/search' }
+    ko: { home: 'https://kr.vizney.com/', 'chart-guide': 'https://kr.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/ko/', styles: 'https://styles.vizney.com/?lang=ko', tips: 'https://kr.vizney.com/tips/', kb: 'https://kr.vizney.com/kb/', contact: 'https://kr.vizney.com/contact-us/', search: 'https://kr.vizney.com/#/search' },
+    en: { home: 'https://www.vizney.com/', 'chart-guide': 'https://www.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/', styles: 'https://styles.vizney.com/', tips: 'https://www.vizney.com/tips/', kb: 'https://www.vizney.com/kb/', contact: 'https://www.vizney.com/contact-us/', search: 'https://www.vizney.com/#/search' }
   };
-  // The fact pill counts the style cards, so adding a card updates it.
-  const COUNT = String($$('.swatch:not(.swatch--yours)').length);
+  // The number of styles in the catalog ({n} in the strings), so adding a tile updates it.
+  const COUNT = String($$('.gal-grid > .gt').length);
 
   function href(key) {
     const L = state.lang;
@@ -715,250 +601,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     return '#';
   }
 
-  /* ---------- demo data: fictional brand, September 2026 against September 2025 ---------- */
-  const D = {
-    months: [4, 5, 6, 7, 8, 9],
-    prev: [1013770000, 1066420000, 1091880000, 1184650000, 1221330000, 1153480500],
-    now: [1081240000, 1158930000, 1121460000, 1287350000, 1362080000, 1243512800],
-    cost: [0.613, 0.625],
-    ret: [0.028, 0.024],
-    channels: [['own', 38], ['mart', 27], ['cvs', 19], ['mkt', 9], ['etc', 7]]
-  };
-  const YMAX = 1.5e9;
-  const TICKS = [0, 5e8, 1e9, 1.5e9];
-
-  // Bars run in time order: 2025 on the left, 2026 on the right.
-  const PAL = {
-    before: { prev: 'var(--b-orange)', now: 'var(--b-red)', stack: ['var(--b-red)', 'var(--b-orange)', 'var(--b-t1)', 'var(--b-t2)', 'var(--b-t3)'] },
-    after: { prev: 'var(--s-prev)', now: 'var(--s-1)', stack: ['var(--s-1)', 'var(--s-2)', 'var(--s-3)', 'var(--s-other)'] }
-  };
-
-  const nf = v => Math.round(v).toLocaleString('en-US');
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-
-  const MINI = {
-    ko: {
-      brand: '오름푸드', title: '매출 현황', period: '2026년 9월 · 전년 동월 대비',
-      kpi: { rev: '매출', cost: '원가율', ret: '반품률' },
-      bars: '월별 매출', stack: '채널별 매출 비중', y25: '2025년', y26: '2026년',
-      month: m => m + '월', monthLong: m => m + '월', yoy: '전년 대비',
-      ch: { own: '자사몰', mart: '대형마트', cvs: '편의점', mkt: '오픈마켓', etc: '기타' },
-      good: '좋은 변화', bad: '나쁜 변화', pp: '%p',
-      barsAria: '월별 매출 막대 차트. 왼쪽·오른쪽 화살표로 달을 옮기며 값을 봅니다.',
-      colMonth: '월',
-      tick: v => (v === 0 ? '0' : v / 1e8 + '억')
-    },
-    en: {
-      brand: 'Orum Foods', title: 'Sales overview', period: 'Sep 2026 · vs Sep 2025',
-      kpi: { rev: 'Revenue', cost: 'Cost ratio', ret: 'Return rate' },
-      bars: 'Monthly revenue', stack: 'Revenue by channel', y25: '2025', y26: '2026',
-      month: m => ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'][m - 4],
-      monthLong: m => ['April', 'May', 'June', 'July', 'August', 'September'][m - 4],
-      yoy: 'vs last year',
-      ch: { own: 'Own store', mart: 'Hypermarkets', cvs: 'Convenience', mkt: 'Marketplaces', etc: 'Other' },
-      good: 'good change', bad: 'bad change', pp: ' pp',
-      barsAria: 'Monthly revenue bar chart. Use the left and right arrow keys to move between months.',
-      colMonth: 'Month',
-      tick: v => (v === 0 ? '0' : '₩' + nf(v / 1e6) + 'M')
-    }
-  };
-  const M = () => MINI[state.lang];
-
-  /* ---------- number formats ---------- */
-  // A value is a list of parts; parts with u:1 are units, drawn smaller in the designed screen.
-  function money(v, raw) {
-    if (state.lang === 'ko') return raw ? [{ t: nf(v) }, { t: '원', u: 1 }] : [{ t: (v / 1e8).toFixed(1) }, { t: '억', u: 1 }];
-    return raw ? [{ t: '₩', u: 1, pre: 1 }, { t: nf(v) }] : [{ t: '₩', u: 1, pre: 1 }, { t: nf(v / 1e6) }, { t: 'M', u: 1 }];
-  }
-  const rate = v => [{ t: (v * 100).toFixed(1) }, { t: '%', u: 1 }];
-  const plain = parts => parts.map(p => p.t).join('');
-  const marked = parts => parts.map(p => (p.u ? '<span class="u' + (p.pre ? ' u--pre' : '') + '">' + esc(p.t) + '</span>' : esc(p.t))).join('');
-  const signed = v => (v > 0 ? '+' : v < 0 ? MINUS : '') + Math.abs(v).toFixed(1);
-
-  const ARROW = {
-    up: '<svg viewBox="0 0 8 8" aria-hidden="true" focusable="false"><path d="M4 .8 7.6 7H.4z" fill="currentColor"/></svg>',
-    down: '<svg viewBox="0 0 8 8" aria-hidden="true" focusable="false"><path d="M4 7.2.4 1h7.2z" fill="currentColor"/></svg>'
-  };
-  const LOGO = '<svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="10" fill="var(--b-red)"/><path d="M4.4 13.6 8.6 7.6l2.2 3 1.5-1.9 3.3 4.9z" fill="var(--page)"/></svg>';
-  const marker = n => '<span class="mk" data-n="' + n + '" aria-hidden="true">' + n + '</span>';
-
-  const KPIS = [
-    { id: 'rev', value: raw => money(D.now[5], raw), d: (D.now[5] / D.prev[5] - 1) * 100, unit: '%', better: 'up', mk: 3 },
-    { id: 'cost', value: () => rate(D.cost[0]), d: (D.cost[0] - D.cost[1]) * 100, unit: 'pp', better: 'down', mk: 2 },
-    { id: 'ret', value: () => rate(D.ret[0]), d: (D.ret[0] - D.ret[1]) * 100, unit: 'pp', better: 'down' }
-  ];
-
-  // The brand-only screen colors a change by its direction; the designed one by whether it is good for that metric.
-  function tone(mode, k) {
-    const up = k.d > 0;
-    if (mode === 'before') return up ? 'good' : 'bad';
-    return up === (k.better === 'up') ? 'good' : 'bad';
-  }
-
-  function channelsFor(mode) {
-    const ch = D.channels.slice();
-    if (mode === 'before') return ch;
-    const rest = ch.slice(3).reduce((a, x) => a + x[1], 0);
-    return ch.slice(0, 3).concat([['etc', rest]]);
-  }
-
-  /* ---------- mini dashboard ---------- */
-  function renderMini(el) {
-    const mode = el.dataset.mode;
-    const raw = mode === 'before';
-    const m = M();
-    const p = PAL[mode];
-    const ch = channelsFor(mode);
-
-    const kpis = KPIS.map(k => {
-      const t = tone(mode, k);
-      const delta = signed(k.d) + (k.unit === '%' ? '%' : m.pp);
-      const sr = raw ? '' : '<span class="sr-only"> (' + (t === 'good' ? m.good : m.bad) + ')</span>';
-      return '<div class="kpi">' + (k.mk ? marker(k.mk) : '') +
-        '<span class="kpi__label">' + esc(m.kpi[k.id]) + '</span>' +
-        '<span class="kpi__value"' + (k.id === 'rev' ? ' data-region="3"' : '') + '>' + marked(k.value(raw)) + '</span>' +
-        '<span class="delta delta--' + t + '" data-region="2">' + (k.d > 0 ? ARROW.up : ARROW.down) + esc(delta) + sr + '</span>' +
-        '</div>';
-    }).join('');
-
-    const pct = v => (v / YMAX * 100).toFixed(3) + '%';
-    const ticks = TICKS.map(v => '<span style="bottom:' + pct(v) + '">' + esc(m.tick(v)) + '</span>').join('');
-    const grid = TICKS.slice(1).map(v => '<i class="bars__grid" style="bottom:' + pct(v) + '"></i>').join('');
-    const last = D.months.length - 1;
-    const groups = D.months.map((mo, i) => {
-      const label = !raw && i === last
-        ? '<span class="bars__lbl" style="bottom:calc(' + pct(Math.max(D.prev[i], D.now[i])) + ' + 4px)">' + esc(plain(money(D.now[i], false))) + '</span>'
-        : '';
-      return '<div class="bars__g" data-i="' + i + '">' +
-        '<span class="bar" style="height:' + pct(D.prev[i]) + ';background:' + p.prev + '"></span>' +
-        '<span class="bar" style="height:' + pct(D.now[i]) + ';background:' + p.now + '"></span>' + label + '</div>';
-    }).join('');
-    const xs = D.months.map(mo => '<span>' + esc(m.month(mo)) + '</span>').join('');
-    const table = '<table class="sr-only"><caption>' + esc(m.bars) + '</caption><thead><tr>' +
-      '<th scope="col">' + esc(m.colMonth) + '</th><th scope="col">' + esc(m.y25) + '</th><th scope="col">' + esc(m.y26) + '</th><th scope="col">' + esc(m.yoy) + '</th>' +
-      '</tr></thead><tbody>' +
-      D.months.map((mo, i) => '<tr><th scope="row">' + esc(m.monthLong(mo)) + '</th><td>' + esc(plain(money(D.prev[i], raw))) + '</td><td>' + esc(plain(money(D.now[i], raw))) + '</td><td>' + signed((D.now[i] / D.prev[i] - 1) * 100) + '%</td></tr>').join('') +
-      '</tbody></table>';
-
-    const segs = ch.map((x, i) => '<span data-i="' + i + '" style="flex:' + x[1] + ' 1 0;background:' + p.stack[i] + '"></span>').join('');
-    const legend = ch.map((x, i) => '<li><i style="background:' + p.stack[i] + '"></i><span>' + esc(m.ch[x[0]]) + '</span><b>' + x[1] + '%</b></li>').join('');
-
-    el.innerHTML =
-      '<div class="mini__head">' +
-        '<span class="mini__brand">' + LOGO + '<span>' + esc(m.brand) + '</span></span>' +
-        '<span class="mini__title">' + esc(m.title) + '</span>' +
-        '<span class="mini__period">' + esc(m.period) + '</span>' +
-      '</div>' +
-      '<div class="kpis">' + kpis + '</div>' +
-      '<div class="sec-mini" data-region="1">' +
-        '<div class="sec-mini__head"><span class="sec-mini__title">' + esc(m.bars) + '</span>' +
-          '<span class="legend"><span><i style="background:' + p.prev + '"></i>' + esc(m.y25) + '</span><span><i style="background:' + p.now + '"></i>' + esc(m.y26) + '</span></span>' +
-          marker(1) + '</div>' +
-        '<div class="bars" tabindex="0" role="group" aria-label="' + esc(m.barsAria) + '" style="--yg:' + (state.lang === 'en' ? 46 : 28) + 'px">' +
-          '<div class="bars__y" aria-hidden="true">' + ticks + '</div>' +
-          '<div class="bars__plot" aria-hidden="true">' + grid + '<div class="bars__groups">' + groups + '</div></div>' +
-          '<div class="bars__x" aria-hidden="true">' + xs + '</div>' +
-        '</div>' + table +
-      '</div>' +
-      '<div class="sec-mini" data-region="4">' +
-        '<div class="sec-mini__head"><span class="sec-mini__title">' + esc(m.stack) + '</span>' + marker(4) + '</div>' +
-        '<div class="stack" aria-hidden="true">' + segs + '</div>' +
-        '<ul class="stack-legend">' + legend + '</ul>' +
-      '</div>' +
-      '<div class="tip" aria-hidden="true"></div>' +
-      '<p class="sr-only" aria-live="polite" data-live></p>';
-
-    bindMini(el, mode, ch);
-  }
-
-  function bindMini(el, mode, ch) {
-    const tip = $('.tip', el);
-    const bars = $('.bars', el);
-    const groups = $$('.bars__g', el);
-    const live = $('[data-live]', el);
-    const raw = mode === 'before';
-    let idx = -1;
-
-    function place(rect, topY) {
-      const box = el.getBoundingClientRect();
-      const w = tip.offsetWidth, h = tip.offsetHeight;
-      let left = rect.left - box.left + rect.width / 2 - w / 2;
-      left = Math.max(8, Math.min(left, box.width - w - 8));
-      const top = Math.max(8, topY - box.top - h - 10);
-      tip.style.transform = 'translate(' + Math.round(left) + 'px,' + Math.round(top) + 'px)';
-    }
-
-    function showMonth(i, announce) {
-      idx = i;
-      const m = M(), p = PAL[mode];
-      groups.forEach((g, k) => g.classList.toggle('is-on', k === i));
-      const v26 = plain(money(D.now[i], raw)), v25 = plain(money(D.prev[i], raw));
-      const yoy = signed((D.now[i] / D.prev[i] - 1) * 100) + '%';
-      tip.innerHTML = '<div class="tip__t">' + esc(m.monthLong(D.months[i])) + '</div>' +
-        '<div class="tip__r"><span><i style="background:' + p.now + '"></i>' + esc(m.y26) + '</span><b>' + esc(v26) + '</b></div>' +
-        '<div class="tip__r"><span><i style="background:' + p.prev + '"></i>' + esc(m.y25) + '</span><b>' + esc(v25) + '</b></div>' +
-        '<div class="tip__d">' + esc(m.yoy) + ' ' + yoy + '</div>';
-      tip.classList.add('is-on');
-      const top = Math.min.apply(null, $$('.bar', groups[i]).map(b => b.getBoundingClientRect().top));
-      place(groups[i].getBoundingClientRect(), top);
-      if (announce) live.textContent = m.monthLong(D.months[i]) + ': ' + m.y26 + ' ' + v26 + ', ' + m.y25 + ' ' + v25 + ', ' + m.yoy + ' ' + yoy;
-    }
-
-    function hide() {
-      idx = -1;
-      groups.forEach(g => g.classList.remove('is-on'));
-      tip.classList.remove('is-on');
-    }
-
-    groups.forEach((g, i) => g.addEventListener('mouseenter', () => showMonth(i, false)));
-    bars.addEventListener('mouseleave', () => { if (document.activeElement !== bars) hide(); });
-    bars.addEventListener('focus', () => showMonth(idx >= 0 ? idx : groups.length - 1, true));
-    bars.addEventListener('blur', hide);
-    bars.addEventListener('keydown', e => {
-      const lastI = groups.length - 1;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-        e.preventDefault();
-        const from = idx < 0 ? lastI : idx;
-        showMonth(Math.max(0, Math.min(lastI, from + (e.key === 'ArrowRight' ? 1 : -1))), true);
-      } else if (e.key === 'Home' || e.key === 'End') {
-        e.preventDefault();
-        showMonth(e.key === 'Home' ? 0 : lastI, true);
-      } else if (e.key === 'Escape') {
-        hide();
-      }
-    });
-
-    $$('.stack span', el).forEach(seg => {
-      seg.addEventListener('mouseenter', () => {
-        const i = +seg.dataset.i, m = M();
-        tip.innerHTML = '<div class="tip__r"><span><i style="background:' + PAL[mode].stack[i] + '"></i>' + esc(m.ch[ch[i][0]]) + '</span><b>' + ch[i][1] + '%</b></div>';
-        tip.classList.add('is-on');
-        const r = seg.getBoundingClientRect();
-        place(r, r.top);
-      });
-      seg.addEventListener('mouseleave', hide);
-    });
-  }
-
-  /* ---------- rows below the screens point at both screens ---------- */
-  function bindCompare() {
-    const root = $('#compare');
-    if (!root) return;
-    let cur = '';
-    function set(n) {
-      if (n === cur) return;
-      cur = n;
-      $$('.mk', root).forEach(x => x.classList.toggle('is-on', x.dataset.n === n));
-      $$('[data-region]', root).forEach(x => x.classList.toggle('is-hl', x.dataset.region === n));
-      $$('.diff-label, .diff-cell', root).forEach(x => x.classList.toggle('is-on', x.dataset.n === n));
-    }
-    root.addEventListener('mouseover', e => {
-      const t = e.target.closest('.diff-label, .diff-cell, .mk');
-      set(t ? t.dataset.n : '');
-    });
-    root.addEventListener('mouseleave', () => set(''));
-    root.addEventListener('vz:render', () => { cur = ''; });
-  }
 
   /* ---------- language ---------- */
   function applyLang() {
@@ -972,13 +615,18 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     $$('img[data-cover]').forEach(img => {
       const k = img.dataset.cover, src = k + '/cover-' + L + '.png';
       if (img.getAttribute('src') !== src) img.setAttribute('src', src);
-      const sw = img.closest('.swatch');
-      img.alt = s.coverAlt.replace('{name}', sw ? sw.querySelector('.swatch__name').textContent.trim() : (img.dataset.coverName || k));
+      img.alt = s.coverAlt.replace('{name}', img.dataset.coverName || k);
     });
+    // The device crops follow the language of the samples they come from.
+    $$('img[data-device]').forEach(img => {
+      const src = 'assets/home/device-' + img.dataset.device + '-' + L + '.webp';
+      if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+    });
+    // Tile buttons: the visible label is short ('Copy spec'); the accessible name says which style, the tooltip what it gives.
+    $$('[data-aria]').forEach(el => { const v = s[el.dataset.aria]; if (v != null) el.setAttribute('aria-label', v.replace('{name}', el.dataset.name || '')); });
+    $$('[data-tip]').forEach(el => { const v = s[el.dataset.tip]; if (v != null) el.title = v; });
+    labelFold();
     applyHeader();
-    $$('.mini').forEach(renderMini);
-    const root = $('#compare');
-    if (root) root.dispatchEvent(new Event('vz:render'));
   }
 
   function setLang(L) {
@@ -1054,21 +702,80 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     setLang(state.lang === 'ko' ? 'en' : 'ko');
   }));
 
-  // Tabs: on the home page the tab follows the section in view; elsewhere none is current.
-  const TAB_SECTIONS = PAGE === 'home' ? ['custom', 'styles'].map(id => [id, document.getElementById(id)]) : [];
-  function markTab() {
-    if (PAGE !== 'home') return;
-    const line = $('.tabs').getBoundingClientRect().bottom + 8;
-    let cur = 'top';
-    for (const [id, el] of TAB_SECTIONS) {
-      const sec = el && (el.closest('section') || el);
-      if (sec && sec.getBoundingClientRect().top <= line) { cur = id; break; }
-    }
-    $$('.tabs [data-tab]').forEach(a => { if (a.dataset.tab === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+  // ---------- tile buttons: copy a style's DASHBOARD.md ----------
+  // The spec is not served on this site (_config.yml excludes every DASHBOARD.md from Jekyll), so it comes from the
+  // repository's raw file, as for install.sh and the npm CLI. Fetched when the pointer or focus reaches the button, so the
+  // click can write it at once; a cold click hands the clipboard a promise (Safari wants the write to start inside the click).
+  const RAW = 'https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/';
+  const specText = {};
+  function loadSpec(id) {
+    if (!specText[id]) specText[id] = fetch(RAW + id + '/DASHBOARD.md').then(r => { if (!r.ok) throw new Error(r.status); return r.text(); });
+    return specText[id];
   }
-  let tabFrame = 0;
-  window.addEventListener('scroll', () => { if (!tabFrame) tabFrame = requestAnimationFrame(() => { tabFrame = 0; markTab(); }); }, { passive: true });
-  markTab();
+  const live = document.createElement('p');
+  live.className = 'sr-only';
+  live.setAttribute('aria-live', 'polite');
+  document.body.append(live);
+  function done(btn, label) {
+    live.textContent = '';
+    setTimeout(() => { live.textContent = label; }, 30);
+    const span = btn.querySelector('span');
+    if (!btn.dataset.label) btn.dataset.label = span.textContent;
+    span.textContent = label;
+    btn.classList.add('is-done');
+    clearTimeout(btn.vzTimer);
+    btn.vzTimer = setTimeout(() => { span.textContent = S()[span.dataset.i18n] || btn.dataset.label; btn.classList.remove('is-done'); }, 1500);
+  }
+  async function copySpec(btn) {
+    const id = btn.dataset.id;
+    try {
+      if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+        const blob = loadSpec(id).then(t => new Blob([t], { type: 'text/plain' }));
+        await navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]);
+      } else {
+        await navigator.clipboard.writeText(await loadSpec(id));
+      }
+      done(btn, S().copied);
+    } catch (e) {
+      // Blocked or offline: show the spec instead, so it can be copied by hand.
+      window.open(SITE + id + '/DASHBOARD.html', '_blank', 'noopener');
+      live.textContent = S().copyFail;
+    }
+  }
+  $$('[data-act="copy-spec"]').forEach(btn => {
+    const warm = () => { loadSpec(btn.dataset.id).catch(() => { delete specText[btn.dataset.id]; }); };
+    btn.addEventListener('pointerenter', warm, { once: true });
+    btn.addEventListener('focus', warm, { once: true });
+    btn.addEventListener('click', () => copySpec(btn));
+  });
+
+  // ---------- catalog: fold after two rows (four tiles on phones) ----------
+  // Without the script every tile shows. The button says how many styles there are, so it stays right as the catalog grows.
+  const galGrid = $('#galGrid'), galMore = $('.gal-more'), foldBtn = galMore && $('button', galMore);
+  const NARROW = window.matchMedia('(max-width:720px)');
+  const TILES = galGrid ? $$('.gt', galGrid).length : 0;
+  function labelFold() {
+    if (!foldBtn) return;
+    const s = S(), folded = galGrid.classList.contains('is-folded');
+    $('[data-fold]', foldBtn).textContent = folded ? s.foldMore.replace('{n}', COUNT) : s.foldLess;
+  }
+  function setFold(folded) {
+    galGrid.classList.toggle('is-folded', folded);
+    foldBtn.setAttribute('aria-expanded', folded ? 'false' : 'true');
+    labelFold();
+  }
+  function fitFold() { galMore.hidden = TILES <= (NARROW.matches ? 4 : 6); }
+  if (foldBtn) {
+    setFold(true);
+    fitFold();
+    NARROW.addEventListener('change', fitFold);
+    foldBtn.addEventListener('click', () => {
+      const fold = !galGrid.classList.contains('is-folded');
+      setFold(fold);
+      // Folding shortens the page above the button: bring it back into view.
+      if (fold) { const r = galMore.getBoundingClientRect(); if (r.top < 0 || r.bottom > innerHeight) galMore.scrollIntoView({ block: 'center' }); }
+    });
+  }
 
   function applyHeader() {
     const s = S();
@@ -1078,7 +785,6 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
   }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutMenu);
   window.addEventListener('load', layoutMenu);
-  bindCompare();
   applyLang();
 })();
 </script>
