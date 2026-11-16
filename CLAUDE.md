@@ -260,6 +260,7 @@ Materials 시리즈는 없다. 모든 스타일은 실제 기업·기관·도시
 
 ## 저장소 규칙
 
+- **canonical:** 색인되는 페이지(홈, `_layouts/spec.html`을 쓰는 명세·프롬프트·스킬 페이지)는 `<link rel="canonical">`에 쿼리 없는 자기 주소를 적는다. 블로그가 나가는 링크에 붙이는 `?ref=`나 `?lang=` 주소가 Search Console에서 '사용자가 선택한 표준이 없는 중복 페이지'로 잡히지 않게 하려는 것이다. 레이아웃은 `{{ page.url }}`을 쓰고, `DASHBOARD.html`은 `package.py`가 `/<name>/DASHBOARD.html`로 채운다. 샘플 화면과 404는 `noindex`이므로 넣지 않는다.
 - 공개된 스타일의 폴더 이름은 바꾸지 않는다(포스트 임베드가 깨진다). 고칠 때는 같은 주소에서 고치고 이력은 Git이 보관한다.
 - `lib/embed.js`, `lib/embed-host.js`는 발행된 포스트가 쓰므로 이전 동작과 호환되게 고친다.
 - 사이트는 Cloudflare를 거치며 HTML 안의 `이름@도메인` 모양 글자를 이메일 보호로 가린다(예: `pretendard@v1.3.9`가 `[email protected]`로 보인다). DASHBOARD.md 본문에 `@`가 든 주소를 적을 때는 코드 블록으로 쓰고 앞뒤를 `<!--email_off-->` · `<!--/email_off-->`로 감싼다.

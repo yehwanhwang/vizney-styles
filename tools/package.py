@@ -258,7 +258,7 @@ def gfm_slug(text, used):
     return slug
 
 
-def spec_html(body):
+def spec_html(body, slug):
     try:
         import markdown
     except ImportError:
@@ -271,6 +271,7 @@ def spec_html(body):
     esc = lambda v: v.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
     page = (ROOT / '_layouts' / 'spec.html').read_text(encoding='utf-8')
     return (page.replace('{{ page.title | default: "DASHBOARD.md" | escape }}', esc(title))
+                .replace('{{ page.url }}', f'/{slug}/DASHBOARD.html')
                 .replace('{{ content }}', html)
                 .replace('<!-- Layout for the site', '<!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site'))
 
@@ -293,7 +294,7 @@ def main():
         else:
             body = text
     md.write_text(front_matter(t) + "\n" + body, encoding='utf-8')
-    (folder / 'DASHBOARD.html').write_text(spec_html(body), encoding='utf-8')
+    (folder / 'DASHBOARD.html').write_text(spec_html(body, folder.name), encoding='utf-8')
     (folder / 'skill').mkdir(exist_ok=True)
     (folder / 'skill' / 'SKILL.md').write_text(skill_md(t), encoding='utf-8')
     write_zip(folder, t)
