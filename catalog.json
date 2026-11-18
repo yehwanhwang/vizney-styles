@@ -55,6 +55,14 @@
       "words": "Racing, Telemetry, Precise",
       "words_ko": "레이싱, 텔레메트리, 정밀함",
       "sample": "https://styles.vizney.com/f1/"
+    },
+    {
+      "number": 8,
+      "slug": "lego",
+      "name": "LEGO® style",
+      "words": "Colorful, Stacked, Playful",
+      "words_ko": "알록달록, 쌓기, 즐거움",
+      "sample": "https://styles.vizney.com/lego/"
     }
   ]
 }

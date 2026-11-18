@@ -1,0 +1,82 @@
+/* LEGO® style — Colorful, Stacked, Playful · VIZNEY STYLES · 08
+   Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
+:root{
+  --canvas:#ffffff; /* page, boxes and the plot: lego.com's white */
+  --header:#ffd502; /* the header band (56px; lego.com's is 60px), the date badge, the plan badge in Figure 1, the gift-step flags in Figure 3, the plan's numbered badges in Figure 4. Only ink sits on it: #141414 13.0:1 */
+  --line:#d9d9d9; /* 1px box outlines, KPI dividers: lego.com's product tile line. No shadows on boxes */
+  --hair:#ececec; /* table row rules, gridlines */
+  --rule:#2c2c2c; /* 1.5px rule under table heads */
+  --ink:#2c2c2c; /* titles, values, the selected pill (white text 14.0:1), step lines in Figure 3, the plan's edge in Figure 1, plan outlines in Figure 4 */
+  --body:#3d3d3d; /* body text (10.9:1) */
+  --text-2:#636363; /* labels, table heads and keys (6.0:1) */
+  --muted:#636363; /* subtitles, notes, axis ticks, set numbers (6.0:1): lego.com's element ID grey */
+  --pill:#f2f2f2; /* filter and secondary pills, 40px, 999px corners: lego.com's Filter and Sort pills */
+  --button:#f47d20; /* the one primary pill (Get one made), text #141414 6.8:1: lego.com's Add to Bag on the Black Friday page */
+  --button-text:#141414; /* text on the orange pill and on badges */
+  --side:#f4f4f4; /* the package list in the build bench; hovered rows */
+  --baseplate:#c9c9c9; /* the 4px baseplate under Figure 1, the zero line */
+  --focus:#141414; /* focus ring, 2px with a 2px offset */
+  --sale:#dd0000; /* % OFF badges and shortfall badges with white 700 text (5.2:1): lego.com's sale badge */
+  --sale-text:#bd0000; /* sale prices and shortfalls in text (6.6:1 on white): lego.com's sale price */
+  --near:#fff1b0; /* the band under the $20 before each gift step in Figure 3; never under text */
+  --cat-1:#1e5aa8; /* Shoppers */
+  --cat-1-text:#1e5aa8; /* Shoppers for labels and text */
+  --cat-2:#e05a00; /* Offers */
+  --cat-2-text:#b04f00; /* Offers for labels and text */
+  --cat-3:#f7c600; /* Sets */
+  --cat-3-text:#2c2c2c; /* Sets for labels and text */
+  --cat-other:#a3a3a3;
+  --comparison:#8a8a8a;
+  --mark-grid:#ececec;
+  --mark-baseline:#c9c9c9;
+  --mark-connector:#8a8a8a;
+  --mark-plan-edge:#2c2c2c;
+  --mark-yellow-edge:#b38f00;
+  --mark-near:#fff1b0;
+  --mark-zero:#f2f2f2;
+  --mark-hover:#2c2c2c;
+  --mark-badge:#ffd502;
+  --mark-sale:#dd0000;
+  --mark-short:#bd0000;
+  --seq-1:#89b5f2;
+  --seq-2:#6f9edf;
+  --seq-3:#5587cd;
+  --seq-4:#3a70ba;
+  --seq-5:#1e5aa8;
+  --div-1:#e05a00;
+  --div-2:#ea7f4e;
+  --div-3:#f3a07d;
+  --div-4:#e8e8e8;
+  --div-5:#89b5f2;
+  --div-6:#5587cd;
+  --div-7:#1e5aa8;
+  --font-sans:'Gantari',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-card:8px;
+  --radius-pill:999px;
+  --radius-badge:4px;
+  --radius-chip:2px;
+  --radius-age:4px;
+  --radius-tooltip:8px;
+  --radius-brick:2px;
+  --radius-stud:1px;
+  --radius-cell:2px (heatmap tiles);
+  --space-page:32px (24px under 1360px, 16px under 640px);
+  --space-gap:16px (12px under 640px);
+  --space-section:56px (44px under 640px);
+  --space-card:16px 20px 14px;
+  --space-kpi:12px 18px 13px;
+  --space-cell:9px 10px;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --code-background:#f7f7f7;
+  --code-comment:#636363;
+  --code-string:#007133;
+  --code-number:#9c4f12;
+  --code-keyword:#901f76;
+  --code-function:#bd0000;
+  --code-property:#1e5aa8;
+  --code-line-number:#636363;
+  --code-highlight:#fff3b0;
+  --code-caret:#2c2c2c;
+}
+html[lang="ko"]{--font-sans:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
