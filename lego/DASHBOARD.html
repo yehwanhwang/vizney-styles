@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>LEGO® style — DASHBOARD.md · Vizney Styles</title>
+<link rel="canonical" href="https://styles.vizney.com/lego/DASHBOARD.html">
+<link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=1d2c1aa7de" as="font" type="font/woff" crossorigin>
+<!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site's Markdown pages (prompt.md, skill/SKILL.md: _config.yml defaults) and, through tools/package.py, <name>/DASHBOARD.html. Header, tabs and footer are the site's (index.html / 404.html). -->
+<style>
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=1d2c1aa7de) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=1d2c1aa7de) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=1d2c1aa7de) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=1d2c1aa7de) format('woff')}
+:root{
+  /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
+     The blog's Vizney header (scrolls away) and the site's sticky tabs under it; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
+     styles with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
+     built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
+     Single light theme on purpose, like Blocks and the style screens. */
+  color-scheme: light;
+  --page:#ffffff;
+  --soft:#f4f5f7;
+  --tile:#f6f7f9;
+  --ink:#1b1b1b;
+  --ink-2:#4a4a4a;
+  --muted:#616771;
+  --line:#e6e8ec;
+  --line-2:#eceef2;
+  --rule:#cfd2d8;
+  --btn-line:#e3e5ea;
+  --ink-hover:#3a3a3a;
+  /* Top bar: the blog's (kr.vizney.com · www.vizney.com) black header, so moving between the two reads as one site. */
+  --top-bg:#1b1b1b;
+  --top-ink:#ffffff;
+  --top-ink-2:rgba(255,255,255,.78);
+  --top-line:rgba(255,255,255,.22);
+  --top-soft:rgba(255,255,255,.10);
+  --top-rule:hsla(0,0%,100%,.15);
+  /* The one UI accent: the yellow of the blog's post images (#ffcc00). Buttons, active states, focus. Never a data color. */
+  --accent:#ffcc00;
+  --accent-hover:#f2c200;
+  --accent-ink:#1b1b1b;
+  --yellow:#ffcc00;
+  --pink:#ff2d55;
+  --font:'VZ Sans','Spoqa Han Sans Neo','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono','VZ Sans',monospace;
+  --shadow:0 12px 32px -12px rgba(17,24,39,.28);
+  --shadow-sm:0 1px 2px rgba(17,24,39,.12);
+  --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
+
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.7 var(--font);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--top-bg)}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{text-decoration-color:var(--ink)}
+/* Focus: the accent yellow as a halo around an ink ring, so it shows on white (yellow alone is 1.6:1 there) and on the black bar. */
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--accent);border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;white-space:nowrap}
+svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--page);font-size:14px;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}
+
+/* ---------- Vizney header (the common header of the blog, Vizney Blocks and Vizney Styles) ----------
+   Copied from the blog (kr.vizney.com · www.vizney.com): Ghost Casper, stacked navigation, with the blog's code injection
+   (black bar, Spoqa Han Sans Neo, globe language switch). 768px and up: two rows, wordmark centred over the menu.
+   767px and down: one row, wordmark left, globe · search · burger right, the menu as a full-screen sheet.
+   Not sticky: it scrolls away like the blog's. The site's own tabs stick below it. */
+.gh{position:relative;padding:0 max(4vmin, 20px);background:var(--top-bg);color:var(--top-ink);font-size:16px;line-height:1.3}
+.gh a{color:inherit;text-decoration:none}
+.gh-in{display:grid;grid-template-columns:1fr auto 1fr;grid-auto-flow:dense;column-gap:40px;align-items:center;max-width:1200px;margin:0 auto}
+.gh-brand{grid-row-start:1;grid-column-start:2;position:relative;display:flex;align-items:center;height:80px}
+.gh-logo{display:block}
+.gh-logo img{display:block;width:auto;max-height:40px}
+.gh-menu{grid-row-start:2;grid-column:1 / 4;display:flex;justify-content:center;align-items:center;height:56px;margin:0 48px;font-weight:500}
+.gh-menu::before{content:"";position:absolute;top:80px;left:0;width:100%;height:1px;background-color:var(--top-rule)}
+.gh-nav{display:inline-flex;flex-wrap:wrap;align-items:center;gap:32px;margin:0;padding:0;list-style:none}
+.gh-nav li{margin:0;padding:0}
+.gh-nav a{display:inline-flex;align-items:center;line-height:1.7}
+.gh-nav a:hover{opacity:.9}
+/* Where you are: aria-current on this site's item, with no underline (the blog and Vizney Blocks show none). */
+.gh-actions{grid-row-start:1;grid-column:1 / 4;display:flex;justify-content:flex-start;align-items:center;gap:8px}
+.gh-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;padding:0}
+.gh-icon svg{display:block}
+.gh-globe{opacity:.9;transition:opacity .2s ease}
+.gh-globe:hover{opacity:1}
+.gh-search:hover{opacity:.9}
+.gh-actions .gh-globe{margin-right:-4px}
+.gh-brand .gh-icon{display:none}
+/* The blog's overflow menu: items that do not fit on one line go under '…' (Casper's dropdown). */
+.gh-more{position:relative;display:inline-flex}
+.gh-more__toggle{position:relative;width:30px;height:30px;margin:0 -6px;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}
+.gh-more__toggle svg{display:block;width:24px;height:24px;margin:auto}
+.gh-dropdown{position:absolute;top:100%;right:-16px;z-index:90;width:200px;margin:24px 0 0;padding:12px 0;list-style:none;text-align:left;background:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 7px 20px -5px rgba(0,0,0,.15);opacity:0;visibility:hidden;transform:translate3d(0,6px,0);transition:opacity .3s,transform .2s}
+.gh-more.is-open .gh-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.gh-dropdown a{display:block;padding:6px 20px;color:#15171a;line-height:1.7}
+.gh-burger{position:relative;display:none;flex-shrink:0;width:30px;height:30px;margin-right:-3px;padding:0;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
+.gh-burger::before,.gh-burger::after{content:"";position:absolute;left:3px;width:24px;height:1px;background:#fff;transition:all .2s cubic-bezier(.04,.04,.12,.96) .1008s}
+.gh-burger::before{top:11px}
+.gh-burger::after{bottom:11px}
+.gh-open .gh-burger::before{top:15px;transform:rotate(45deg)}
+.gh-open .gh-burger::after{bottom:14px;transform:rotate(-45deg)}
+.gh :focus-visible{outline-color:var(--accent);box-shadow:none}
+.gh-dropdown :focus-visible{outline-color:var(--ink)}
+@media (max-width:767px){
+  .gh{height:64px}
+  .gh-in{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;gap:48px;height:100%}
+  .gh-brand{grid-column-start:1;width:100%;height:64px;flex-wrap:nowrap}
+  .gh-logo{margin-right:auto;flex-shrink:1}
+  .gh-brand .gh-icon{display:inline-flex}
+  .gh-brand .gh-globe{margin-right:8px}
+  .gh-brand .gh-search{margin-left:-6px;margin-right:8px}
+  .gh-burger{display:block}
+  .gh-menu,.gh-actions{grid-row-start:auto;grid-column:auto}
+  .gh-actions{display:none}
+  .gh-menu{position:fixed;justify-content:center;margin:0;visibility:hidden;opacity:0}
+  .gh-menu::before{content:none}
+  .gh-nav{gap:16px;line-height:1.4}
+  .gh-nav a{font-size:26px;font-weight:600}
+  .gh-nav li{opacity:0;transform:translateY(-4px)}
+  .gh-open .gh{position:fixed;inset:0;z-index:3999999;height:100%;overflow-y:auto;overscroll-behavior-y:contain}
+  .gh-open .gh-menu{position:static;visibility:visible;opacity:1}
+  .gh-open .gh-nav{display:flex;flex-direction:column}
+  .gh-open .gh-nav li{opacity:1;transform:translateY(0);transition:transform .2s,opacity .2s}
+  /* The blog keeps a footer row here for 'Sign in'; this site has no members, so the row stays empty to keep the menu where the blog's is. */
+  .gh-open .gh-actions{display:block;height:calc(max(4vmin, 20px) + max(4vmin, 28px) + 21px)}
+  .gh-open .gh-actions > *{display:none}
+}
+
+/* ---------- the site's tabs, under the Vizney header ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;padding:0 max(4vmin, 20px);background:var(--page);box-shadow:inset 0 -1px var(--line)}
+.tabs-in{display:flex;align-items:stretch;gap:28px;max-width:1200px;height:48px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs-in::-webkit-scrollbar{display:none}
+.tabs a{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;padding-top:2px;border-bottom:2px solid transparent;font-size:15px;font-weight:500;line-height:1;white-space:nowrap;color:var(--ink-2);text-decoration:none}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs .tabs__name{font-weight:700;color:var(--ink)}
+.tabs .tabs__git{margin-left:auto}
+.tabs :focus-visible{outline-offset:-2px;box-shadow:none}
+
+/* ---------- footer (as on Vizney Blocks) ---------- */
+.foot{margin-top:120px;border-top:1px solid var(--line-2)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
+.foot-in nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot-in a{color:var(--ink-2);text-decoration-color:currentColor;text-decoration-thickness:auto;text-underline-offset:auto}
+
+/* ---------- the spec (DASHBOARD.md rendered by GitHub Pages) ---------- */
+.doc{max-width:880px;margin:0 auto;padding:56px max(4vmin, 20px) 0;font-size:16px;line-height:1.75}
+.doc h1{font-size:clamp(30px, 4vw, 40px);line-height:1.2;font-weight:700;letter-spacing:-.025em}
+.doc h2{margin-top:64px;padding-top:28px;border-top:1px solid var(--line);font-size:26px;line-height:1.3;font-weight:700;letter-spacing:-.02em}
+.doc h3{margin-top:36px;font-size:19px;line-height:1.4;font-weight:700}
+.doc h4{margin-top:28px;font-size:16px;font-weight:700}
+.doc p,.doc ul,.doc ol,.doc pre,.doc blockquote,.doc table,.doc .highlighter-rouge{margin-top:16px}
+.doc .highlighter-rouge pre{margin-top:0}
+.doc ul{padding-left:22px;list-style:disc}
+.doc ol{padding-left:24px;list-style:decimal}
+.doc li + li{margin-top:6px}
+.doc li > ul,.doc li > ol{margin-top:6px}
+.doc strong{font-weight:700}
+.doc hr{margin:40px 0;border:0;border-top:1px solid var(--line)}
+.doc blockquote{padding-left:16px;border-left:3px solid var(--line);color:var(--ink-2)}
+.doc code{padding:.12em .36em;border-radius:5px;background:var(--soft);white-space:normal;overflow-wrap:anywhere}
+.doc pre{padding:16px 18px;border-radius:12px;background:var(--soft);overflow-x:auto;font-size:13.5px;line-height:1.6}
+.doc pre code{padding:0;background:none;font-size:inherit;white-space:pre;overflow-wrap:normal}
+.doc table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:14px;line-height:1.55}
+.doc th,.doc td{padding:9px 14px 9px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.doc th{font-weight:700;border-bottom-color:var(--rule);white-space:nowrap}
+.doc img{max-width:100%;height:auto}
+@media (max-width:720px){
+  .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  .doc{padding-top:36px;font-size:15px}
+  .doc h2{margin-top:48px;font-size:22px}
+  .foot-in nav{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body data-page="spec">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="gh" id="top">
+  <div class="gh-in">
+    <div class="gh-brand">
+      <a class="gh-logo" href="https://www.vizney.com/" data-href="v:home"><img src="/assets/brand/vizney-wordmark-white.png" width="106" height="40" alt="Vizney"></a>
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+      <button class="gh-burger" type="button" aria-label="Main Menu" aria-expanded="false" aria-controls="ghMenu" data-i18n-aria="ghMenu"></button>
+    </div>
+    <nav class="gh-menu" id="ghMenu" aria-label="Vizney">
+      <ul class="gh-nav">
+        <li><a href="https://www.vizney.com/chart-guide/" data-href="v:chart-guide">Chart Guide</a></li>
+        <li><a href="https://blocks.vizney.com/" data-href="v:blocks">Blocks</a></li>
+        <li><a href="https://styles.vizney.com/" data-href="v:styles" aria-current="page">Styles</a></li>
+        <li><a href="https://www.vizney.com/tips/" data-href="v:tips">Tips &amp; Tricks</a></li>
+        <li><a href="https://www.vizney.com/kb/" data-href="v:kb">Knowledge Base</a></li>
+        <li><a href="https://www.vizney.com/contact-us/" data-href="v:contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="gh-actions">
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Vizney Styles" data-i18n-aria="tabsAria">
+  <div class="tabs-in">
+    <a class="tabs__name" href="/" data-href="home" data-tab="top">Vizney Styles</a>
+    <a href="/#styles" data-href="home:styles" data-tab="styles" data-i18n="navStyles">Catalog</a>
+    <a href="/#custom" data-href="home:custom" data-tab="custom" data-i18n="navCustom">Your company</a>
+    <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true">↗</span></a>
+    <a class="tabs__git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="main" class="doc">
+<h1 id="lego-style--dashboardmd">LEGO® style — DASHBOARD.md</h1>
+<p><strong>Colorful, Stacked, Playful</strong> · 알록달록, 쌓기, 즐거움</p>
+<p>A dashboard design spec read from the way LEGO® shows a number to a shopper and from the bricks themselves: results drawn as columns of stacked bricks, the yellow header band and the badges of lego.com, the red % OFF tag beside a struck-out price, the box line <code>18+ | set | pieces</code>, and the gifts with purchase that step up with the basket at Black Friday. It turns those parts into a bright, working event plan on a white page, with the values, rules and checks an AI coding agent, Tableau or Power BI needs to rebuild it.</p>
+<pre><code>npx @vizney/styles@latest add lego
+# or, without Node:
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- lego
+</code></pre>
+<p>That puts <code>DASHBOARD.md</code> in the project root and the <code>dashboard-style</code> agent skill (build, restyle, review) in <code>.claude/skills/dashboard-style/</code>, together with <code>tokens.css</code>, <code>tokens.json</code>, <code>lego.tps</code>, <code>powerbi-theme.json</code> and <code>prompt.md</code>. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow <code>DASHBOARD.md</code>.</p>
+<ul>
+<li>Live sample: https://styles.vizney.com/lego/?lang=en (Korean <code>?lang=ko</code>; one channel <code>&amp;channel=online</code> or <code>&amp;channel=stores</code>)</li>
+<li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/lego/DASHBOARD.md</li>
+<li>Package: <a href="lego-dashboard-style.zip">lego-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
+<li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="lego.tps">lego.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="event.csv">event.csv</a> (the data behind the sample's Figure 1)</li>
+<li>Catalog: VIZNEY STYLES · 08 · https://styles.vizney.com (Vizney Styles is a line of <a href="https://www.vizney.com">Vizney</a>)</li>
+</ul>
+<p>Not an official LEGO® design, and not affiliated with or endorsed by the LEGO Group. A reference style read from the publicly visible design of lego.com and public touchpoints such as the bricks, LEGO® stores, the Black Friday offers and annual reports; it carries no logo, typeface, photo or data of theirs. LEGO® is a trademark of the LEGO Group of companies which does not sponsor, authorize or endorse this site. The sample's company, Vizney Toys, its sets, offers and all its numbers are fictional. Trademarks belong to their owners.</p>
+<h2 id="visual-theme--atmosphere">Visual Theme &amp; Atmosphere</h2>
+<p>A toy shop on its biggest weekend. The page is white, the header is the lego.com yellow, the boxes are white with a 1px <code>#d9d9d9</code> line and 8px corners, and the numbers are big: KPI values in 52px, the plan in 30px over its tower. Colour is brick colour, given by job and used generously inside the figures: <strong>blue</strong> for shoppers, <strong>orange</strong> for offers, <strong>yellow</strong> for sets, <strong>grey</strong> for past events. Red is lego.com's sale red and appears only on % OFF badges and shortfalls.</p>
+<p>Three devices carry the report, and each holds data:</p>
+<ul>
+<li><strong>Stack — brick towers (Figure 1).</strong> What each event added over the year before, as towers of flat grey bricks on a grey baseplate at 0, a full brick a fixed number of sets. This year's plan is then built one brick per driver, each brick starting where the last one ended, with a dashed brick for what a driver takes off, and finished as a wide tower of clear bricks with the total in a yellow badge. The towers read like the LEGO Group's results drawn as columns of bricks.</li>
+<li><strong>Sale tags (Figure 2, the KPI row, Table 1).</strong> The lego.com shop's tags become labels and number formats: an offer's badge (yellow Gift with purchase, red 20% OFF) names its row, and its effect is a long flat brick with one stud per 5 sets; the offer cost in the KPI row is written like a price, this year's value big with last year's struck out beside it; hero sets carry the badge, the red sale price and the struck-out price.</li>
+<li><strong>Gift ladder (Figure 3).</strong> Gifts with purchase at set basket values: last year's orders as $10 basket bars, coloured darker orange the more gift steps they reach, a yellow badge flag on each step with the share of orders that reach it, and a pale yellow band under the $20 below each step.</li>
+</ul>
+<p>Two plainer views finish the plan: orders by hour over the six event days with this year's actions as numbered yellow badges (Figure 4), and the hero sets by stock against demand (Table 1). The rest stays calm so the devices stand out: no shadows, no gradients, no photos, no minifigures, no lettering on studs.</p>
+<p>Measured in a browser on November 14–15 and 18, 2026 on lego.com (US home, product pages, the Sale page, the Black Friday 2026 page, the Insiders Weekend page) and in the LEGO Group's performance highlights: header band <code>#ffd502</code> (60px on the site) with <code>#2c2c2c</code> text; product tiles white with a 1px <code>#d9d9d9</code> line and 8px corners; badges 24px high with 4px corners and a 1px white edge, yellow <code>#ffd502</code> with <code>#141414</code> text (New, Exclusives, Retiring soon) and red <code>#dd0000</code> with white 700 text (20% OFF); the sale price <code>#bd0000</code> 16px/700 beside the struck-out price in <code>#141414</code>; Add to Bag <code>#f47d20</code> with <code>#141414</code> text; Filter and Sort pills <code>#f2f2f2</code>; element IDs 12px <code>#636363</code>. The site's typeface Cera Pro is not used (Gantari stands in; Korean uses Noto Sans KR, as lego.com/ko-kr does). The Sale page's dark red and the Black Friday page's black-and-red brick lettering are not used.</p>
+<h2 id="color-palette--roles">Color Palette &amp; Roles</h2>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td><code>#ffffff</code></td>
+<td>Page, boxes and the plot</td>
+</tr>
+<tr>
+<td>header</td>
+<td><code>#ffd502</code></td>
+<td>The 56px header band, the date badge, the plan badge in Figure 1, the gift-step flags in Figure 3, the numbered plan badges in Figure 4. Only ink on it (<code>#141414</code> 13.0:1)</td>
+</tr>
+<tr>
+<td>line</td>
+<td><code>#d9d9d9</code></td>
+<td>1px box outlines; no shadows on boxes</td>
+</tr>
+<tr>
+<td>hair</td>
+<td><code>#ececec</code></td>
+<td>Gridlines and table row rules</td>
+</tr>
+<tr>
+<td>rule</td>
+<td><code>#2c2c2c</code></td>
+<td>1.5px rule under table heads</td>
+</tr>
+<tr>
+<td>ink</td>
+<td><code>#2c2c2c</code></td>
+<td>Titles, values, the selected pill (white text 14.0:1), step lines in Figure 3, the plan's edge in Figure 1, plan outlines in Figure 4</td>
+</tr>
+<tr>
+<td>body</td>
+<td><code>#3d3d3d</code></td>
+<td>Body text (10.9:1)</td>
+</tr>
+<tr>
+<td>text-2</td>
+<td><code>#636363</code></td>
+<td>Labels, table heads and keys (6.0:1)</td>
+</tr>
+<tr>
+<td>muted</td>
+<td><code>#636363</code></td>
+<td>Subtitles, notes, axis ticks, set numbers (6.0:1)</td>
+</tr>
+<tr>
+<td>pill</td>
+<td><code>#f2f2f2</code></td>
+<td>Filter pills and secondary buttons, 999px corners</td>
+</tr>
+<tr>
+<td>button</td>
+<td><code>#f47d20</code></td>
+<td>The one primary pill (Get one made), text <code>#141414</code> 6.8:1</td>
+</tr>
+<tr>
+<td>baseplate</td>
+<td><code>#c9c9c9</code></td>
+<td>The 4px baseplate under Figure 1: the zero line</td>
+</tr>
+<tr>
+<td>sale</td>
+<td><code>#dd0000</code></td>
+<td>% OFF badges and shortfall badges, white 700 text (5.2:1)</td>
+</tr>
+<tr>
+<td>sale-text</td>
+<td><code>#bd0000</code></td>
+<td>Sale prices and shortfalls in text (6.6:1)</td>
+</tr>
+<tr>
+<td>near</td>
+<td><code>#fff1b0</code></td>
+<td>The band under the $20 before each gift step in Figure 3; never under text</td>
+</tr>
+<tr>
+<td>focus</td>
+<td><code>#141414</code></td>
+<td>Focus ring, 2px with a 2px offset</td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-colors">Data Colors</h2>
+<p>Validated with the dataviz <code>validate_palette.js</code> (OKLab, <code>--mode light</code>) on <code>#ffffff</code>, where every chart sits.</p>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Values</th>
+<th>Text step (≥ 4.5:1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Categorical (brick colours by job)</td>
+<td>shoppers <code>#1e5aa8</code> · offers <code>#e05a00</code> · sets <code>#f7c600</code> (edge <code>#b38f00</code>) · past events <code>#a3a3a3</code></td>
+<td><code>#1e5aa8</code> · <code>#b04f00</code> · <code>#2c2c2c</code> · <code>#636363</code></td>
+</tr>
+<tr>
+<td>Gift steps (Figure 3)</td>
+<td>no gift <code>#a3a3a3</code> · gift 1 <code>#f3a07d</code> · gift 2 <code>#ea7f4e</code> · gift 3 <code>#e05a00</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Sequential (Figure 4)</td>
+<td>under 0.1% <code>#f2f2f2</code>, then <code>#89b5f2</code> <code>#6f9edf</code> <code>#5587cd</code> <code>#3a70ba</code> <code>#1e5aa8</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Diverging (for tools)</td>
+<td><code>#e05a00</code> <code>#ea7f4e</code> <code>#f3a07d</code> · <code>#e8e8e8</code> · <code>#89b5f2</code> <code>#5587cd</code> <code>#1e5aa8</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>good <code>#1e5aa8</code> · bad <code>#bd0000</code> · neutral <code>#a3a3a3</code></td>
+<td><code>#1e5aa8</code> · <code>#bd0000</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The four categorical colours with <code>--pairs all</code>: worst colour-vision ΔE 15.1 (grey and orange, deutan), worst normal-vision ΔE 20.2. Yellow sits above the lightness band on purpose (L 0.85) and grey has no chroma on purpose: yellow bricks always carry a 1px <code>#b38f00</code> edge and a value, and grey means past events only.</li>
+<li>The blue ramp and the gift steps pass <code>--ordinal</code> (one hue, monotone, every step ΔL ≥ 0.06, light end 2.0:1 on white). The diverging arms pass <code>--ordinal</code> separately and their mirrored steps differ by ΔE 16.4, 19.9 and 24.4 under colour-vision deficiency.</li>
+<li>One meaning per colour across the page. Blue is also the colour of a good change (▲ 17%, ▼ 2.8 pts cost); a bad change is red with its sign. Orange text uses <code>#b04f00</code>. Values and labels stay in ink; a coloured mark beside them carries the meaning.</li>
+<li>Red is not a data colour: it is the sale badge and the shortfall (a dashed red brick in the coverage bar, red text, a red badge in the KPI row).</li>
+</ul>
+<h2 id="typography-rules">Typography Rules</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>English</th>
+<th>Korean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Every word and number</td>
+<td>Gantari 400–800</td>
+<td>Noto Sans KR 400–800</td>
+</tr>
+<tr>
+<td>Code and file names</td>
+<td>Roboto Mono 400/500</td>
+<td>Roboto Mono</td>
+</tr>
+</tbody>
+</table>
+<p>One body face per language, never mixed on one screen. Numerals are tabular in KPIs, tables and axes.</p>
+<table>
+<thead>
+<tr>
+<th>Size</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headline</td>
+<td>30px/800, line-height 1.22 (Korean 28px/700); 24px under 640px</td>
+</tr>
+<tr>
+<td>KPI value</td>
+<td>52px/800 tabular (Korean 700); 46px under 1360px (42px at 1200–1279px), 34px under 640px; unit 22px/700 beside it; label 14px/600 above; change 13.5px under</td>
+</tr>
+<tr>
+<td>Card title</td>
+<td>19px/700 (Korean 18px); the figure number above it 12.5px/700 muted</td>
+</tr>
+<tr>
+<td>Figure 1 values</td>
+<td>drivers 14.5px/800, past events 13px (the last year 700), the plan 30px/800 under a 24px badge; names 12.5px on up to two lines</td>
+</tr>
+<tr>
+<td>Figure 2</td>
+<td>badges 12.5px in 24px; where the offer applies 12.5px muted; values 26px/800 with <code>sets</code> 13px muted on the first row</td>
+</tr>
+<tr>
+<td>Figure 3</td>
+<td>flags 12px/700 in 22px badges; the share that reaches each step 20px/800 with <code>reach it</code> 12.5px muted</td>
+</tr>
+<tr>
+<td>Table</td>
+<td>name 15px/700; box line 12.5px (age 11.5px/700 in a 1.5px outlined box with 4px corners); numbers 16px/700; prices 15px/700</td>
+</tr>
+<tr>
+<td>Body</td>
+<td>15px/400 (Korean 14.5px)</td>
+</tr>
+<tr>
+<td>Notes</td>
+<td>12.5px/400</td>
+</tr>
+</tbody>
+</table>
+<p>Load the fonts as in Tool Mapping. Never Cera Pro, the LEGO wordmark or any lettering made of bricks.</p>
+<h2 id="numbers-dates--units">Numbers, Dates &amp; Units</h2>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>English</th>
+<th>Korean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sets</td>
+<td><code>70K</code> · <code>2.90M</code></td>
+<td><code>7만</code> · <code>290만</code>; under 10K in 천: <code>9천</code></td>
+</tr>
+<tr>
+<td>Added or taken off</td>
+<td><code>+150K</code> · <code>−200K</code></td>
+<td><code>+15만</code> · <code>−20만</code></td>
+</tr>
+<tr>
+<td>Money, large</td>
+<td><code>$149M</code></td>
+<td><code>1.49억 달러</code>; under 100M <code>9,912만 달러</code></td>
+</tr>
+<tr>
+<td>Prices</td>
+<td><code>$249.99</code>, sale <code>$103.99</code> with <code>$129.99</code> struck out</td>
+<td><code>249.99달러</code>, <code>103.99달러</code></td>
+</tr>
+<tr>
+<td>Percent</td>
+<td>titles and changes whole: <code>17%</code>; shares and cost one decimal: <code>6.4%</code></td>
+<td>same</td>
+</tr>
+<tr>
+<td>Points of a share</td>
+<td><code>▼ 2.8 pts</code></td>
+<td><code>▼ 2.8%p</code></td>
+</tr>
+<tr>
+<td>Orders</td>
+<td><code>110.9K</code></td>
+<td><code>11.1만</code></td>
+</tr>
+<tr>
+<td>Basket bins</td>
+<td><code>$90–99</code> · <code>$300 and over</code></td>
+<td><code>90~99달러</code> · <code>300달러 이상</code></td>
+</tr>
+<tr>
+<td>Hours</td>
+<td>axis <code>12a 3a 6a … 9p</code>; in text <code>7 am</code></td>
+<td>axis <code>0시 3시 …</code>; in text <code>오전 7시</code>, <code>자정</code></td>
+</tr>
+<tr>
+<td>Event days</td>
+<td><code>Members' Sat</code> · <code>Black Friday</code> · <code>Cyber Monday</code></td>
+<td><code>회원 토요일</code> · <code>블랙프라이데이</code> · <code>사이버먼데이</code></td>
+</tr>
+<tr>
+<td>Dates</td>
+<td><code>Nov 21–22</code> · <code>Plan · Nov 9</code></td>
+<td><code>11월 21~22일</code> · <code>11월 9일 기준</code></td>
+</tr>
+<tr>
+<td>Box line</td>
+<td><code>18+ | V3104 | 3,412 pcs</code></td>
+<td><code>18+ | V3104 | 부품 3,412개</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>▲ ▼ before every change, a true minus (−), the unit never wrapping away from the number (no-break space). Korean glues a number to the word after it with a word joiner.</li>
+</ul>
+<h2 id="layout-principles">Layout Principles</h2>
+<ul>
+<li>Page 1400px wide at most, 32px side padding (24px under 1360px, 16px under 640px), 16px between boxes, 56px between sections.</li>
+<li>Header: a 56px yellow band with the company in 19px/800 and the report name in 17px/500 on the left, the EN/KO pill in white on the right.</li>
+<li>Under it, one line: a strip with the yellow <code>Plan · Nov 9</code> badge and the event dates divided by thin rules, and the channel filter on the right (<code>All channels | Online | Brand stores</code>, pills on <code>#f2f2f2</code>, the selected one ink with white text). The filter changes every card and is kept in the URL (<code>?channel=online</code>).</li>
+<li>Then the result in one sentence, then the KPI row: four white boxes (Black Friday target, revenue target, offer cost with last year struck out, hero sets ready with a red shortfall badge).</li>
+<li>First screen (1440 × 810): Figure 1, the brick towers | Figure 2, the sale tags (560px). Bottoms on one line.</li>
+<li><code>Running the event</code>: Figure 3, the gift ladder | Figure 4, orders by hour with the plan; then Table 1, the hero sets, least covered first, eight rows and the rest on demand.</li>
+<li>Every figure and table is one box with one anatomy: figure number → the finding as the title → a subtitle with the method → keys → the view → a note.</li>
+</ul>
+<h2 id="component-stylings">Component Stylings</h2>
+<p><strong>Header and strip.</strong> The band is <code>#ffd502</code> with ink text only. Badges are 24px high, 4px corners, 1px white edge, 12.5px text, 12px side padding: yellow with <code>#141414</code> 600, red <code>#dd0000</code> with white 700, white with a 1px ink edge (points), <code>#f2f2f2</code> (shipping).</p>
+<p><strong>KPI boxes.</strong> White, 1px <code>#d9d9d9</code>, 8px corners, 12px 18px 13px padding: the label, the value with its unit, the change (<code>▲ 17% vs 2025</code> in the good blue, 700). A cost that falls is written like a sale price: <code>6.4%</code> big and <code>9.2%</code> struck out in 22px/700 <code>#141414</code> beside it. A shortfall is a red badge (<code>3 short</code>) followed by its words.</p>
+<p><strong>Brick towers (Figure 1).</strong>
+- A 4px <code>#c9c9c9</code> baseplate at 0 under the whole plot; row gridlines <code>#ececec</code> with signed ticks (<code>+200K</code>) on the left.
+- Columns: the last three events (two under 600px), the six drivers, then the plan, 1.8 columns wide.
+- A past event is a tower of grey <code>#a3a3a3</code> bricks: a full brick is 100K sets for all channels and online, 50K for stores (one unit chosen so the tallest tower has at most seven bricks); bricks 2px apart, 2px corners; a top brick smaller than 35% of a full one joins the brick below.
+- A driver is one brick, starting where the last driver ended: shoppers <code>#1e5aa8</code>, offers <code>#e05a00</code>, new sets <code>#f7c600</code> with a 1px <code>#b38f00</code> edge. A driver that takes sets off is a white brick with a 2px <code>#e05a00</code> dashed edge (<code>5 3</code>) and dashed studs, its value under it.
+- The plan is a tower of white bricks with a 2px <code>#2c2c2c</code> edge and four studs, its value (<code>+420K</code>) in 30px/800 over it and a yellow badge above with the total (<code>2.90M in total</code>). When the value would cross a neighbouring column, it rises above that column's bricks and value.
+- Studs: two flat ones on each column's top brick (four on the plan), as wide as a quarter of the column up to 12px, 4px high, 1px corners, overlapping the brick by 1px.
+- Connectors: 1px <code>#8a8a8a</code> dashed (<code>2 2</code>) lines at the running total between drivers and on to the plan.
+- A value over every column, signed; a later value that would sit on another rises above it. Names under the axis: years, driver names on up to two lines (11px or a short name when they would be cut; at an angle under 400px), the plan in bold.</p>
+<p><strong>Sale tags (Figure 2).</strong> One row per offer, in order of effect: the lego.com badge with the offer's name, where it applies under it in 12.5px muted, then a flat brick as long as the extra sets per $1,000 of offer cost with one stud per 5 complete sets (studs at most 14px wide, 5px high), orange <code>#e05a00</code> when the offer is in the plan and grey <code>#a3a3a3</code> when it is dropped, and the value at its end in 26px/800. Keys: <code>In the plan</code> and <code>Dropped</code>. The note says what a stud is.</p>
+<p><strong>Gift ladder (Figure 3).</strong> $10 basket bars with 2px gaps and 2px corners on a 1px ink baseline, coloured by the gift step reached; the open last bin (<code>$300+</code>) half a bar apart. A <code>#fff1b0</code> band behind the two bins below each step. Each step is a 1.5px ink line from the baseline to a yellow badge flag at the top (<code>Gift 1 · $40</code>, or <code>$40</code> alone when the next step is too close) with the share of orders that reach it under the flag (<code>80%</code> 20px/800 + <code>reach it</code>). Row gridlines <code>#ececec</code>; the x axis every $50.</p>
+<p><strong>Hours and plan (Figure 4).</strong> Six rows (the event days, Black Friday in bold) by 24 hours; 1×1 tiles with 2px gaps and 2px corners filled by the share of event orders in that hour (cuts 0.1 · 0.4 · 0.8 · 1.2 · 1.8%). Each action in the plan outlines its tile or tiles in 2px <code>#141414</code> with a numbered 17px yellow circle at the top-right corner; the numbered list sits under the grid. The legend is the six tiles with the cuts under their borders.</p>
+<p><strong>Hero sets (Table 1).</strong> Head 12.5px/700 muted over a 1.5px ink rule; rows 9px 10px with <code>#ececec</code> rules. Set: the name, then the box line (age box | set | pieces). Offer: its badge, then the price (a red sale price with the struck-out price for a % OFF set). Demand and stock + inbound right-aligned. Covered: a 10px bar to 120% with a 1.5px ink tick at 100%, filled <code>#f7c600</code> with a <code>#b38f00</code> edge; a shortfall is a red <code>#bd0000</code> dashed outline from the fill to 100%, the share in red and <code>14K short</code> under it; otherwise <code>Ready</code> muted. Least covered first; eight rows and <code>Show all 12 sets</code>.</p>
+<p><strong>Tooltip.</strong> White, 1px <code>#bdbdbd</code>, 8px corners, a soft shadow (<code>0 6px 18px</code> at 14%), 9px 12px 10px padding; a bold head, a muted sub line, rows of swatch, value and label. It adds detail and is never the only copy of a number.</p>
+<p><strong>Buttons.</strong> Pills 40px with 999px corners: the one primary <code>#f47d20</code> with <code>#141414</code> text; secondary <code>#f2f2f2</code>. Code windows on <code>#f7f7f7</code> in Roboto Mono 12.5px (keyword <code>#901f76</code>, string <code>#007133</code>, number <code>#9c4f12</code>, function <code>#bd0000</code>, property <code>#1e5aa8</code>, highlight <code>#fff3b0</code>).</p>
+<h2 id="charts">Charts</h2>
+<ul>
+<li><strong>Choose by the question.</strong></li>
+<li>How big is the plan and is it ready → the result sentence and the KPI row (target and revenue against last year, offer cost against last year, hero sets ready).</li>
+<li>How does the plan get there, and is it bigger than past events → the brick towers (Figure 1).</li>
+<li>Which offers to run → the sale tags, extra sets per $1,000 (Figure 2).</li>
+<li>Where to set the gift steps and which add-ons to push → the gift ladder (Figure 3).</li>
+<li>When to open deals, send emails and staff the stores → orders by hour with the plan (Figure 4).</li>
+<li>Which sets to restock → hero sets, least covered first (Table 1).</li>
+<li><strong>Titles.</strong> The finding, recomputed for each channel: <code>The plan adds 420K sets, 2.5 times last year's 170K; gifts add the most</code>; <code>Gifts bring 46 extra sets per $1,000, 4.2 times as many as 30% off</code>; <code>36% of orders reach the $100 gift; 30% sit within $20 of a step</code>; <code>3 of 12 hero sets fall short of event demand; Clockwork Tower needs 14K more</code>.</li>
+<li><strong>Marks.</strong> Bricks are flat: one fill, 2px apart, 2px corners, flat studs; no bevel, no highlight line, no shadow. Bars start at zero. A brick for a part of the plan never carries a different colour rule from the legend.</li>
+<li><strong>Axes.</strong> Row gridlines <code>#ececec</code>, no axis lines except the baseplate and the histogram baseline; ticks 12px muted, signed where the chart shows change.</li>
+<li><strong>Labels.</strong> A value on every brick column, on every offer, on every gift step. The heatmap has no numbers in its tiles; the tooltip and table give them.</li>
+<li><strong>One axis.</strong> Never a dual axis. Sets and money are separate figures.</li>
+<li><strong>Never:</strong> pie, donut, 3D, gradients, bevelled or shiny bricks, minifigures, the LEGO logo or lettering on studs, real sets, prices or gifts, the Black Friday page's black-and-red art, photos, or decoration that carries no number.</li>
+<li>Every figure and the table have a tooltip, keyboard control and a screen-reader table.</li>
+</ul>
+<h2 id="depth--elevation">Depth &amp; Elevation</h2>
+<p>Flat. White boxes with a 1px <code>#d9d9d9</code> line on a white page; the yellow header is the only band of colour outside the data. The tooltip is the only element with a shadow.</p>
+<h2 id="interaction--motion">Interaction &amp; Motion</h2>
+<ul>
+<li>The channel pills filter every card; the URL keeps <code>?lang=</code> and <code>?channel=</code>. Language switches in place and only the language's own font is used.</li>
+<li>Every view responds to hover and to the keyboard: Tab to focus, arrow keys to move (columns, offers, $10 bins, hours, rows), Home and End, Esc to close; a polite live region reads the focused item.</li>
+<li>Motion (<code>cubic-bezier(.4,0,.2,1)</code>): bricks drop 0.34s from 14px above with a small settle, past towers brick by brick (70ms a column, 55ms a brick), the drivers after them, the plan last, then the values and badge fade in; Figure 2's bricks grow from the left 90ms apart; Figure 3's bars drop 18ms apart; Figure 4's tiles fade in by hour and day. With <code>prefers-reduced-motion</code> everything appears complete.</li>
+</ul>
+<h2 id="accessibility">Accessibility</h2>
+<ul>
+<li>Text ≥ 4.5:1 on white: ink 14.0, body 10.9, muted 6.0, blue 6.8, orange text <code>#b04f00</code> 5.3, sale red <code>#bd0000</code> 6.6; white on <code>#dd0000</code> 5.2; <code>#141414</code> on <code>#ffd502</code> 13.0 and on <code>#f47d20</code> 6.8.</li>
+<li>Light marks (yellow <code>#f7c600</code> 1.6:1, grey <code>#a3a3a3</code> 2.5:1, the light heat and gift steps 2.0:1) always carry an edge, a value or a table view.</li>
+<li>Changes and shortfalls never rely on colour alone: ▲ ▼, signs, words (<code>3 short</code>, <code>14K short</code>, <code>Ready</code>), the dashed outline.</li>
+<li>Every view has a screen-reader table; the focus ring is 2px <code>#141414</code> with a 2px offset; targets at least 32px high.</li>
+</ul>
+<h2 id="responsive-behavior">Responsive Behavior</h2>
+<ul>
+<li>≥ 1360px: as described.</li>
+<li>1200–1359px: 24px padding; the first screen 1fr | 520px; Figure 1 keeps the last two events and short names when its plot is narrower than 600px.</li>
+<li>Under 1200px: Figures 1 and 2, then 3 and 4, stack across the page; Figure 2 is as tall as its rows.</li>
+<li>Under 1024px: the KPI row 2 × 2.</li>
+<li>Under 900px: Table 1 drops stock + inbound.</li>
+<li>Under 640px: one column; the channel filter in three equal pills; Figure 1's names at an angle under 400px; Figure 2 drops the line under each badge; Table 1 keeps set, offer and covered, and prices wrap.</li>
+<li>Captured and checked at 1440, 1280, 1200, 1024, 640 and 390px in both languages, with no horizontal scroll and no text over text.</li>
+</ul>
+<h2 id="tool-mapping">Tool Mapping</h2>
+<p><strong>Web and coding agents.</strong> Load <code>tokens.css</code> (installed in <code>.claude/skills/dashboard-style/</code>; or copy the <code>colors</code> block from the front matter) and the fonts:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gantari:wght@400;500;600;700;800&amp;family=Noto+Sans+KR:wght@400;500;600;700;800&amp;family=Roboto+Mono:wght@400;500&amp;display=swap&quot;&gt;
+</code></pre>
+<p>Each figure is one SVG drawn over its box so the drawing never pushes the box taller. Bricks are <code>&lt;rect&gt;</code>s: a tower's bricks from <code>pieces(value, unit)</code>, inset 1px top and bottom for the 2px gap; studs are small <code>&lt;rect&gt;</code>s on the top brick. Badges are a <code>&lt;rect&gt;</code> with 4px corners and centred text sized from the measured label.</p>
+<p><strong>Tableau.</strong> Paste the <code>&lt;color-palette&gt;</code> elements of <code>lego.tps</code> into <code>My Tableau Repository/Preferences.tps</code> and restart Tableau Desktop. The categorical palette runs shoppers, offers, sets, then grey.
+- Dashboard background <code>#ffffff</code>, a 56px <code>#ffd502</code> text object for the header, each sheet on white with a 1px <code>#d9d9d9</code> border, row gridlines <code>#ececec</code>, text <code>#3d3d3d</code>, headers <code>#636363</code>. Title each sheet with the finding.
+- Brick towers: a Gantt bar from <code>event.csv</code> (<code>running_start</code>, size <code>added_k_sets</code>, colour <code>group</code>), past events and the plan from 0; fake the brick gaps with a reference line every 100K in <code>#ffffff</code> 2px; the plan with no fill and a 2px <code>#2c2c2c</code> border; the taken-off driver with a dashed border. Studs need a second shape mark and are optional.
+- Sale tags: horizontal bars with the badge text as the row label; studs optional.
+- Gift ladder: a histogram of basket value with $10 bins, colour by the step reached, reference lines at $40, $100 and $200 labelled with the share that reaches each.
+- Hours: a highlight table (day × hour) on the blue palette; plan actions as a second, outlined mark.
+- Formats: <code>0.00,,"M"</code>, <code>+0,"K";−0,"K"</code>, <code>$0.00</code>, <code>0.0%</code>; Korean workbooks <code>0,"만"</code>. Fonts: Tableau Book unless Gantari is installed on every viewing machine and the server.</p>
+<p><strong>Power BI.</strong> View → Themes → Browse for themes → <code>powerbi-theme.json</code>. It sets the data colours (shoppers, offers, sets, then grey), white visuals with a 1px <code>#d9d9d9</code> border and 8px corners, axis and gridline colours and text classes. Install Gantari on authoring and viewing machines or accept Segoe UI.
+- Brick towers: a waterfall chart (category <code>bar</code>, Y <code>added_k_sets</code>) with increase colours by group and the total as a white column with an ink border, beside a column chart for past events in <code>#a3a3a3</code>. Studs are not available; leave them out.
+- Sale tags: a bar chart with conditional colour (in the plan / dropped) and data labels; badges as a text column with conditional background.
+- Gift ladder: a column chart by $10 bin with conditional colour by step and constant lines at the steps; hours: a matrix with conditional background on the blue steps.
+- Title each visual with the finding; the method in the subtitle.</p>
+<p><strong>Chart libraries (D3, Observable Plot, Vega-Lite, matplotlib).</strong> Background <code>#ffffff</code>; shoppers <code>#1e5aa8</code>, offers <code>#e05a00</code>, sets <code>#f7c600</code> with a <code>#b38f00</code> edge, past <code>#a3a3a3</code>; gridlines <code>#ececec</code>; text <code>#3d3d3d</code>, ticks <code>#636363</code>; gift steps <code>#a3a3a3 #f3a07d #ea7f4e #e05a00</code>; sequential <code>#89b5f2 #6f9edf #5587cd #3a70ba #1e5aa8</code>; good <code>#1e5aa8</code>, bad <code>#bd0000</code>.</p>
+<h2 id="dos-and-donts">Do's and Don'ts</h2>
+<table>
+<thead>
+<tr>
+<th>Do</th>
+<th>Don't</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Give each brick colour one job (blue shoppers, orange offers, yellow sets, grey past)</td>
+<td>Paint bars in the header yellow or cycle brick colours by rank</td>
+</tr>
+<tr>
+<td>Build a total brick by brick, each brick from where the last ended</td>
+<td>Stack bricks that do not add up, or draw thin slivers on a total's axis</td>
+</tr>
+<tr>
+<td>Keep bricks flat: one fill, 2px gaps, flat studs</td>
+<td>Add bevels, shine, shadows or lettering on studs</td>
+</tr>
+<tr>
+<td>Use the lego.com badge and price formats (yellow badge, red % OFF, struck-out price)</td>
+<td>Use red for anything but sale badges and shortfalls</td>
+</tr>
+<tr>
+<td>Put a value on every brick column and every offer</td>
+<td>Make the reader count bricks or studs to get a number</td>
+</tr>
+<tr>
+<td>Make the numbers big and the boxes white</td>
+<td>Fill the page with colour outside the data</td>
+</tr>
+<tr>
+<td>Use the LEGO® name only to say where the look was read from, with the notice</td>
+<td>Use the logo, minifigures, Cera Pro, real sets, prices or gifts</td>
+</tr>
+</tbody>
+</table>
+<h2 id="agent-prompt-guide">Agent Prompt Guide</h2>
+<p>Install the style (<code>npx @vizney/styles@latest add lego</code>, <code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- lego</code>, or unzip the package in the project root). Agents that read skills load <code>dashboard-style</code> on their own and work in one of three modes: <strong>Build</strong>, <strong>Restyle</strong> and <strong>Review</strong>. Other agents can be given this prompt:</p>
+<pre><code>Read DASHBOARD.md and follow it exactly. Build our Black Friday plan dashboard as one self-contained HTML file with
+fictional data, in English and Korean (?lang=en|ko, English by default), on the white page the spec describes.
+Header: a 56px #ffd502 band with the company and report name and the EN/KO pill. Under it the strip (a yellow
+&quot;Plan · Nov 9&quot; badge and the event dates) and the channel pills (All channels | Online | Brand stores, the filter for
+every card, kept in the URL). Then the result in one sentence and four KPI boxes with 52px values: target, revenue,
+offer cost with last year struck out, hero sets ready with a red shortfall badge.
+First screen: Figure 1, brick towers of the sets each event added over the year before, then this year's drivers brick
+by brick (shoppers #1e5aa8, offers #e05a00, new sets #f7c600, a dashed brick for what is taken off) and a wide clear
+plan tower with its value in 30px under a yellow badge with the total; beside it Figure 2, the offers as lego.com sale
+tags with a brick of extra sets per $1,000, one stud per 5 sets, orange in the plan and grey dropped.
+Running the event: Figure 3, last year's baskets in $10 bars coloured by the gift step reached, with yellow badge
+flags and the share that reaches each step; Figure 4, orders by hour over the six days in five blues with the plan as
+numbered yellow badges; Table 1, the hero sets with the box line, offer badge, price, demand, stock and coverage.
+Every view in the same box: figure number, finding title, subtitle, keys, view, note. Use only the values in Data
+Colors, the formats in Numbers, Dates &amp; Units and the components in Component Stylings. Every view needs a tooltip,
+keyboard control and a screen-reader table.
+</code></pre>
+<p>Before it is done, the agent checks:
+- [ ] The headline and every title state the finding and change with the channel filter.
+- [ ] KPI values are 52px with ▲ ▼ changes in blue when good and red when bad; a falling cost shows last year struck out.
+- [ ] Figure 1 starts at a grey baseplate at 0; past towers are grey bricks of one unit; each driver starts where the last ended; the plan is clear with a 2px ink edge, a 30px value and a yellow total badge.
+- [ ] Bricks are flat, 2px apart, with two flat studs on top; a brick taken off is a dashed outline.
+- [ ] Figure 2's bricks are as long as their values with one stud per 5 sets; every row has its lego.com badge.
+- [ ] Figure 3's bars are coloured by the gift step reached, with flags, shares and the $20 bands.
+- [ ] Red appears only on % OFF badges and shortfalls; yellow marks carry a <code>#b38f00</code> edge or a value.
+- [ ] Boxes side by side end on one line at 1440 and 1280px; nothing breaks or overlaps at 390px.
+- [ ] Text ≥ 4.5:1; every view has a tooltip, keyboard control and a data table.
+- [ ] No logo, Cera Pro, minifigure, photo, real set, price or gift, and the LEGO® notice is on the screen.</p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Vizney Styles · © 2026 <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener">Vizney</a></span>
+    <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
+    <nav aria-label="Footer" data-i18n-aria="footAria">
+      <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>
+      <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="navContact">Contact</a>
+      <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
+      <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  // The site's header, tabs and footer around a spec page. The spec itself is English; ?lang=ko switches the
+  // chrome (labels and Vizney links) like the other site pages. Same code as index.html / 404.html.
+  var STR = { "ko": {"skip": "본문으로 건너뛰기", "navStyles": "카탈로그", "navCustom": "우리 회사", "navRequest": "브랜드 요청", "navContact": "문의", "globeTitle": "Switch to English", "ghSearch": "Vizney 검색", "ghMenu": "메뉴", "ghMore": "더 보기", "tabsAria": "Vizney Styles 메뉴", "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)", "footAria": "바닥글", "footBlog": "블로그"}, "en": {"skip": "Skip to content", "navStyles": "Catalog", "navCustom": "Your company", "navRequest": "Request a brand", "navContact": "Contact", "globeTitle": "한글로 보기", "ghSearch": "Search Vizney", "ghMenu": "Main Menu", "ghMore": "More", "tabsAria": "Vizney Styles menu", "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)", "footAria": "Footer", "footBlog": "Blog"} };
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
+  const state = { lang: params.get('lang') === 'ko' ? 'ko' : 'en' };
+  const S = () => STR[state.lang];
+  const PAGE = 'spec';
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  // The Vizney header's menu, as on the blog (the same addresses on Vizney Blocks). Labels are English in both languages.
+  const VZ = {
+    ko: { home: 'https://kr.vizney.com/', 'chart-guide': 'https://kr.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/ko/', styles: 'https://styles.vizney.com/?lang=ko', tips: 'https://kr.vizney.com/tips/', kb: 'https://kr.vizney.com/kb/', contact: 'https://kr.vizney.com/contact-us/', search: 'https://kr.vizney.com/#/search' },
+    en: { home: 'https://www.vizney.com/', 'chart-guide': 'https://www.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/', styles: 'https://styles.vizney.com/', tips: 'https://www.vizney.com/tips/', kb: 'https://www.vizney.com/kb/', contact: 'https://www.vizney.com/contact-us/', search: 'https://www.vizney.com/#/search' }
+  };
+  function href(key) {
+    const L = state.lang;
+    const [kind, name] = key.split(':');
+    if (kind === 'home') return '/' + (L === 'ko' ? '?lang=ko' : '') + (name ? '#' + name : '');
+    if (kind === 'contact') return BLOG[L] + 'contact-us/';
+    if (kind === 'blog') return BLOG[L];
+    if (kind === 'v') return VZ[L][name];
+    if (kind === 'lang') {
+      try {
+        const u = new URL(location.href);
+        if (L === 'en') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+        return u.pathname + u.search + u.hash;
+      } catch (e) { return L === 'en' ? '?lang=ko' : '?'; }
+    }
+    return '#';
+  }
+  function applyLang() {
+    const s = S();
+    $$('[data-i18n]').forEach(el => { const v = s[el.dataset.i18n]; if (v != null) el.textContent = v; });
+    $$('[data-i18n-aria]').forEach(el => { const v = s[el.dataset.i18nAria]; if (v != null) el.setAttribute('aria-label', v); });
+    $$('[data-href]').forEach(a => { a.href = href(a.dataset.href); });
+    applyHeader();
+  }
+  function setLang(L) {
+    if (L === state.lang) return;
+    state.lang = L;
+    applyLang();
+    try {
+      const u = new URL(location.href);
+      if (L === 'ko') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* the page still switches */ }
+  }
+  /* ---------- Vizney header: menu overflow, burger, globe; the site's tabs ---------- */
+  const PHONE = window.matchMedia('(max-width:767px)');
+  const ghMenu = $('.gh-menu'), ghNav = $('.gh-nav');
+  const GH_ITEMS = $$('li', ghNav);
+  const MORE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM13.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM5.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0z"/></svg>';
+  let ghMoreEl = null;
+
+  function closeMore() {
+    if (!ghMoreEl || !ghMoreEl.classList.contains('is-open')) return;
+    ghMoreEl.classList.remove('is-open');
+    $('.gh-more__toggle', ghMoreEl).setAttribute('aria-expanded', 'false');
+  }
+  // As on the blog (Casper): items that do not fit one line move, from the end, under a '…' toggle.
+  function layoutMenu() {
+    ghMoreEl = null;
+    ghNav.replaceChildren(...GH_ITEMS);
+    GH_ITEMS.forEach((li, i) => { li.style.transitionDelay = PHONE.matches ? (0.03 * (i + 1)) + 's' : ''; });
+    if (PHONE.matches) return;
+    const sub = [];
+    while (ghNav.offsetWidth + 64 > ghMenu.offsetWidth && ghNav.lastElementChild) {
+      sub.unshift(ghNav.lastElementChild);
+      ghNav.lastElementChild.remove();
+    }
+    if (!sub.length) return;
+    const li = document.createElement('li');
+    li.className = 'gh-more';
+    li.innerHTML = '<button class="gh-more__toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="' + esc(S().ghMore) + '">' + MORE_SVG + '</button><ul class="gh-dropdown"></ul>';
+    $('.gh-dropdown', li).append(...sub);
+    ghNav.append(li);
+    ghMoreEl = li;
+  }
+  document.addEventListener('click', e => {
+    if (!ghMoreEl) return;
+    const toggle = $('.gh-more__toggle', ghMoreEl);
+    if (ghMoreEl.classList.contains('is-open')) closeMore();
+    else if (toggle.contains(e.target)) { ghMoreEl.classList.add('is-open'); toggle.setAttribute('aria-expanded', 'true'); }
+  });
+
+  const burger = $('.gh-burger');
+  function setMenuOpen(open) {
+    document.body.classList.toggle('gh-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', () => setMenuOpen(!document.body.classList.contains('gh-open')));
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (ghMoreEl && ghMoreEl.classList.contains('is-open')) { closeMore(); $('.gh-more__toggle', ghMoreEl).focus(); }
+    else if (document.body.classList.contains('gh-open')) { setMenuOpen(false); burger.focus(); }
+  });
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (!PHONE.matches) setMenuOpen(false); layoutMenu(); }, 1);
+  });
+
+  // The globe opens this page in the other language; here it switches in place, keeping the address right.
+  $$('.gh-globe').forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    setLang(state.lang === 'ko' ? 'en' : 'ko');
+  }));
+
+  // Tabs: on the home page the tab follows the section in view; elsewhere none is current.
+  const TAB_SECTIONS = PAGE === 'home' ? ['custom', 'styles'].map(id => [id, document.getElementById(id)]) : [];
+  function markTab() {
+    if (PAGE !== 'home') return;
+    const line = $('.tabs').getBoundingClientRect().bottom + 8;
+    let cur = 'top';
+    for (const [id, el] of TAB_SECTIONS) {
+      const sec = el && (el.closest('section') || el);
+      if (sec && sec.getBoundingClientRect().top <= line) { cur = id; break; }
+    }
+    $$('.tabs [data-tab]').forEach(a => { if (a.dataset.tab === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+  }
+  let tabFrame = 0;
+  window.addEventListener('scroll', () => { if (!tabFrame) tabFrame = requestAnimationFrame(() => { tabFrame = 0; markTab(); }); }, { passive: true });
+  markTab();
+
+  function applyHeader() {
+    const s = S();
+    $$('.gh-globe').forEach(a => { a.title = s.globeTitle; a.setAttribute('aria-label', s.globeTitle); });
+    $$('.gh-search').forEach(a => { a.title = s.ghSearch; });
+    layoutMenu();
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutMenu);
+  window.addEventListener('load', layoutMenu);
+  applyLang();
+})();
+</script>
+</body>
+</html>

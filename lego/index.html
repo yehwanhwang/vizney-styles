@@ -1,0 +1,1698 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>LEGO® style · Black Friday plan sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gantari:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap">
+<script src="/lib/embed.js" defer></script>
+<style>
+  /* LEGO® style (VIZNEY STYLES · 08) — Colorful, Stacked, Playful · 알록달록, 쌓기, 즐거움
+     Read from lego.com (the yellow header, product tiles, the Sale and Black Friday pages, measured 2026-11-14 and 2026-11-18),
+     the gifts-with-purchase steps LEGO® runs at Black Friday, and the bricks themselves. A reference style, not an official
+     design; no logo, typeface, minifigure, photo, artwork or data of theirs.
+     Sample: Vizney Toys, a fictional brick-toy maker, planning Black Friday 2026 in the US (plan as of Nov 9).
+     Three devices, three ways LEGO® shows a number: stack (Figure 1, last year's event built up brick by brick to this
+     year's plan), sale tags (lego.com's yellow badges, red % OFF tags and struck-out prices on the KPI row, the offers in
+     Figure 2 and the hero sets in Table 1) and the gift ladder (Figure 3, gifts with purchase at three basket steps).
+     Data colours are brick colours by job: blue for shoppers, orange for offers, yellow for sets, grey for past events. */
+  :root{
+    --page:#ffffff; --card:#ffffff; --line:#d9d9d9; --hair:#ececec; --ink:#2c2c2c; --body:#3d3d3d; --mute:#636363; --rule:#2c2c2c;
+    --yellow:#ffd502; --pill:#f2f2f2; --black:#141414; --side:#f4f4f4; --tint:#f4f4f4;
+    --shop:#1e5aa8; --offer:#e05a00; --sets:#f7c600; --setsE:#b38f00; --past:#a3a3a3;
+    --sale:#dd0000; --sale-t:#bd0000; --good-t:#1e5aa8; --bad-t:#bd0000; --warn-t:#b04f00;
+    --font:'Gantari',Arial,sans-serif;
+    --mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.4,0,.2,1);
+    --pad:32px; --gap:16px; --sec:56px; --r:8px;
+  }
+  html[lang="ko"]{
+    --font:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    --mono:'Roboto Mono','Noto Sans KR',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--page);color:var(--body);font-family:var(--font);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  html[lang="ko"] body{word-break:keep-all;font-size:14.5px}
+  p,h1,h2,h3,h4,ul,ol,figure,table{margin:0}
+  ul,ol{padding:0;list-style:none}
+  button{font:inherit;color:inherit}
+  a{color:var(--ink)}
+  :focus-visible{outline:2px solid var(--black);outline-offset:2px}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .wrap{max-width:1400px;margin:0 auto;padding:0 var(--pad)}
+  .n{font-variant-numeric:tabular-nums}
+
+  /* ---------- 머리: lego.com의 노란 띠. 아래 줄에 행사 날짜 띠와 채널 필터 ---------- */
+  .top{background:var(--yellow)}
+  .top .wrap{display:flex;align-items:center;gap:10px 20px;min-height:56px}
+  .co{display:flex;align-items:baseline;gap:4px 12px;flex-wrap:wrap;min-width:0;margin-right:auto}
+  .co b{font-size:19px;font-weight:800;letter-spacing:-.01em;color:var(--ink);white-space:nowrap}
+  .co span{font-size:17px;font-weight:500;color:var(--ink);white-space:nowrap}
+  .seg{display:inline-flex;gap:2px;padding:3px;border-radius:999px;background:var(--pill)}
+  .seg button{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 15px;border:0;border-radius:999px;background:none;font-size:15px;font-weight:500;color:var(--ink);cursor:pointer;white-space:nowrap}
+  .seg button:hover{background:#e4e4e4}
+  .seg button[aria-selected="true"],.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+  .seg button:focus-visible{outline-offset:-3px;outline-color:var(--shop)}
+  .top .seg{background:#fff}
+  .lang button{height:30px;padding:0 13px;font-size:14px;font-weight:600}
+  .chip{display:inline-block;flex:none;width:14px;height:14px;border:1px solid #000;border-radius:2px;background:var(--c)}
+  .bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;padding-top:12px}
+  .strip{display:flex;align-items:center;flex-wrap:wrap;gap:6px 0;margin-left:-11px;overflow:hidden;font-size:14.5px;color:var(--body)}
+  .strip > span{display:inline-block;margin:0 10px 0 -1px;padding-left:10px;border-left:1px solid #b5b5b5;line-height:16px;white-space:nowrap}
+  .strip b{font-weight:700;color:var(--ink)}
+  /* lego.com 배지: 24px, 모서리 4px, 1px 흰 테두리. 노랑(New·Exclusives)과 빨강(% OFF) */
+  .badge{display:inline-flex;align-items:center;height:24px;padding:0 12px;border:1px solid #fff;border-radius:4px;background:var(--yellow);font-size:12.5px;font-weight:600;color:var(--black);vertical-align:middle;white-space:nowrap}
+  .badge.sale{background:var(--sale);color:#fff;font-weight:700}
+  .badge.pts{background:#fff;border-color:var(--ink);font-weight:700}
+  .badge.ship{background:var(--pill);border-color:var(--pill)}
+  .head{margin-top:14px}
+  .head h1{font-size:30px;font-weight:800;line-height:1.22;letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+  html[lang="ko"] .head h1{font-size:28px;font-weight:700;letter-spacing:-.025em;line-height:1.32}
+
+  /* ---------- KPI: lego.com 상품 칸처럼 흰 판, 1px 선, 모서리 8px. 숫자는 크게 ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);margin-top:16px}
+  .kpi{min-width:0;padding:12px 18px 13px;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+  .k-l{font-size:14px;font-weight:600;line-height:1.3;color:var(--ink)}
+  .k-v{margin-top:4px;font-size:52px;font-weight:800;line-height:1;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  html[lang="ko"] .k-v{font-weight:700}
+  .k-v .u{margin-left:4px;font-size:22px;font-weight:700;letter-spacing:0}
+  .k-d{margin-top:7px;font-size:13.5px;line-height:1.35;color:var(--mute)}
+  .k-d .good{color:var(--good-t);font-weight:700} .k-d .warn{color:var(--warn-t);font-weight:700} .k-d .bad{color:var(--bad-t);font-weight:700}
+  .k-d .badge{height:22px;padding:0 9px;margin-right:6px;font-size:12.5px}
+  /* 가격표처럼: 올해 값 옆에 작년 값을 취소선으로(lego.com의 원래 가격 표기) */
+  .k-v .was-w{margin-left:12px}
+  .k-v .was{font-size:22px;font-weight:700;letter-spacing:0;color:var(--black)}
+
+  /* ---------- 카드: 흰 판, 1px 선, 모서리 8px. 그림 번호 → 결과 제목 → 부제 → 범례 → 그림 → 주 ---------- */
+  .panel{position:relative;display:flex;flex-direction:column;min-width:0;padding:16px 20px 14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+  .fig{display:block;font-size:12.5px;font-weight:700;color:var(--mute)}
+  .ct{margin-top:3px;font-size:19px;font-weight:700;line-height:1.3;color:var(--ink);text-wrap:balance}
+  html[lang="ko"] .ct{font-size:18px;letter-spacing:-.015em}
+  .cs{margin-top:3px;font-size:14px;line-height:1.45;color:var(--mute)}
+  .keys{display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px;margin-top:9px}
+  .keys li{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--body);white-space:nowrap}
+  .keys svg{flex:none}
+  .keys li.scale{align-items:flex-start;gap:8px} .keys li.scale span{line-height:16px}
+  .cb{position:relative;flex:1;min-height:0;margin-top:8px;display:flex;flex-direction:column}
+  .cf{padding-top:10px;font-size:12.5px;line-height:1.5;color:var(--mute)}
+  .plot{position:relative;width:100%;min-width:0}
+  .plot > svg{position:absolute;left:0;top:0;display:block;overflow:visible}
+  .plot:focus-visible{outline-offset:4px}
+
+  /* ---------- 첫 화면: KPI 넷 아래 그림 1(쌓기) | 그림 2(세일 태그) ---------- */
+  .first{display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:var(--gap);margin-top:var(--gap);align-items:stretch}
+  #f1Plot{flex:1;min-height:300px}
+  #f2Plot{flex:1;min-height:300px}
+
+  /* ---------- 2절: 행사 운영 ---------- */
+  .sec{margin-top:var(--sec)}
+  .sh{display:flex;align-items:baseline;gap:4px 14px;flex-wrap:wrap;margin-bottom:14px}
+  .sh h2{font-size:22px;font-weight:800;line-height:1.2;color:var(--ink)}
+  html[lang="ko"] .sh h2{font-weight:700}
+  .sh p{font-size:14.5px;color:var(--mute)}
+  .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--gap);align-items:stretch}
+  #f3Plot{flex:1;min-height:300px}
+  #f4Plot{flex:1;min-height:180px}
+  .plan-k{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:10px;font-size:13px;color:var(--body)}
+  .plan-k li{display:flex;align-items:center;gap:6px;white-space:nowrap}
+  .num-b{display:inline-grid;place-items:center;flex:none;width:18px;height:18px;border-radius:50%;background:var(--yellow);border:1px solid var(--black);font-size:11px;font-weight:800;color:var(--black);line-height:1}
+  #t1{margin-top:var(--gap)}
+
+  /* 상자 정보 띠: 연령 상자 | 세트 번호 | 부품 수 (lego.com 상품 칸의 숫자 줄) */
+  .bx{display:flex;align-items:center;margin-top:3px;font-size:12.5px;color:var(--mute);white-space:nowrap}
+  .bx > span + span::before{content:"|";margin:0 7px;color:#c4c4c4}
+  .age{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:18px;padding:0 4px;border:1.5px solid var(--ink);border-radius:4px;font-size:11.5px;font-weight:700;color:var(--ink);line-height:1}
+
+  /* 표 1: 대표 세트. 머리 아래 짙은 선, 줄 사이 옅은 선 */
+  .od-wrap{overflow-x:auto;scrollbar-width:thin}
+  table.od{width:100%;border-collapse:collapse;font-size:14px}
+  .od th{padding:0 10px 8px;border-bottom:1.5px solid var(--rule);font-size:12.5px;font-weight:700;color:var(--mute);text-align:left;white-space:nowrap}
+  .od th.r,.od td.r{text-align:right}
+  .od td{padding:9px 10px;border-bottom:1px solid var(--hair);vertical-align:middle}
+  .od tbody tr:last-child td{border-bottom:0}
+  .od tbody tr.on td{background:var(--tint)}
+  .od td:first-child,.od th:first-child{padding-left:0}
+  .od td:last-child,.od th:last-child{padding-right:0}
+  .od .nm b{display:block;font-size:15px;font-weight:700;line-height:1.25;color:var(--ink)}
+  .od .num{font-size:16px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .od .offer{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+  .od .price{display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+  .od .was{font-size:14px;font-weight:700;color:var(--black);text-decoration:line-through}
+  .od .now{font-size:15px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .od .now.sale{color:var(--sale-t)}
+  .od th:nth-child(1){width:25%} .od th:nth-child(2){width:16%} .od th:nth-child(3){width:10%} .od th:nth-child(4){width:12%}
+  .cov{display:grid;grid-template-columns:minmax(80px,1fr) auto;align-items:center;gap:10px;min-width:220px}
+  .cov svg{display:block;width:100%;height:16px;overflow:visible}
+  .cov b{font-size:15px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .cov b.bad{color:var(--bad-t)}
+  .cov small{display:block;font-size:12.5px;font-weight:700;color:var(--bad-t);white-space:nowrap}
+  .cov small.ok{font-weight:500;color:var(--mute)}
+  svg .growx{transform-box:fill-box}
+  .more{display:flex;justify-content:center;padding-top:12px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border:2px solid transparent;border-radius:999px;font-size:15.5px;font-weight:600;line-height:1;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .15s var(--ease),color .15s var(--ease)}
+  .btn-p{background:#f47d20;color:var(--black)}
+  .btn-p:hover{background:#e46d12}
+  .btn-o{background:var(--pill);color:var(--black)}
+  .btn-o:hover{background:#e4e4e4}
+  .btn-sm{height:32px;padding:0 14px;font-size:14px;gap:6px}
+  .btn-icon{width:32px;padding:0}
+  .btn svg{width:15px;height:15px;flex:none}
+
+  /* ---------- 만드는 법 ---------- */
+  .build-intro{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px 40px;align-items:end}
+  .build-intro p{max-width:46em;font-size:15.5px;line-height:1.55;color:var(--body)}
+  .build-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+  .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin-top:18px}
+  .steps li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;padding:14px 16px 16px;background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+  .steps .bn{grid-row:span 2;align-self:start;font-size:30px;font-weight:800;line-height:.95;color:var(--ink)}
+  .steps b{font-size:16px;font-weight:700;line-height:1.35;color:var(--ink)}
+  .steps p{margin-top:4px;font-size:14px;line-height:1.5;color:var(--mute)}
+  .win{position:relative;display:grid;grid-template-columns:250px minmax(0,1fr) minmax(0,1.05fr);margin-top:var(--gap);border:1px solid var(--line);border-radius:var(--r);background:var(--card);overflow:hidden}
+  .side{padding:14px 12px;background:var(--side);border-right:1px solid var(--line);font-size:14px}
+  .side-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 6px 8px}
+  .side-h b{font-size:14px;font-weight:700;color:var(--ink)}
+  .side-h span{font-size:12px;color:var(--mute)}
+  .tree li{display:block}
+  .tree a,.tree .fi{display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:6px;padding:4px 6px;border-radius:4px;text-decoration:none;color:inherit}
+  .tree a:hover{background:#e9e9e9}
+  .tree .q{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.6;font-variant-numeric:tabular-nums}
+  .tree b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tree a b{text-decoration:underline;text-decoration-color:#b5b5b5;text-decoration-thickness:1px;text-underline-offset:3px}
+  .tree span{display:block;font-size:12px;line-height:1.35;color:var(--mute)}
+  .tree .root b{font-weight:400;color:var(--body)}
+  .tree .in{padding-left:12px} .tree .in2{padding-left:24px} .tree .in3{padding-left:36px}
+  .get{margin-top:12px;padding:12px 6px 0;border-top:1px solid var(--line)}
+  .get-h{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+  .cmds{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;min-width:0}
+  .cmd{display:flex;align-items:center;gap:6px;padding:6px 6px 6px 10px;border:1px solid var(--line);border-radius:4px;background:var(--card)}
+  .cmd code{flex:1;min-width:0;font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--ink);white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+  .cmd code::-webkit-scrollbar{display:none}
+  .cmd code.more-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
+  .cmd button{flex:none;width:22px;height:22px;display:grid;place-items:center;border:0;border-radius:4px;background:none;color:var(--mute);cursor:pointer}
+  .cmd button:hover{background:var(--tint);color:var(--ink)}
+  .cmd button svg{width:13px;height:13px}
+  .get-note{margin:6px 0 10px;font-size:12px;line-height:1.45;color:var(--mute)}
+  .figpane{position:relative;display:flex;flex-direction:column;min-width:0;padding:16px 18px 18px;border-right:1px solid var(--line)}
+  .figbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .modes button{height:30px;padding:0 12px;font-size:13.5px}
+  .scope{display:inline-flex;align-items:center;height:24px;padding:0 9px;border:1px solid var(--line);border-radius:4px;font-family:var(--mono);font-size:11.5px;color:var(--body);white-space:nowrap}
+  .wb-l{align-self:flex-start}
+  .wb-t{margin-top:4px;font-size:16px;font-weight:700;line-height:1.35;color:var(--ink)}
+  .wb-s{margin:2px 0 8px;font-size:13px;color:var(--mute)}
+  #wbPlot{flex:1;min-height:250px}
+  .wb-n{margin-top:6px;font-size:12px;color:var(--mute)}
+  .checks{margin-top:14px;padding-top:12px;border-top:1px solid var(--hair)}
+  .checks-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;font-size:13.5px;font-weight:700;color:var(--ink)}
+  .checks-h .ok{font-weight:600;color:var(--good-t)}
+  .checks-h .ok.bad{color:var(--bad-t)}
+  .checks ul{display:grid;gap:3px}
+  .checks li{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.45;color:var(--body)}
+  .checks li svg{width:14px;height:14px;flex:none;margin-top:2px;color:var(--good-t)}
+  .checks li.no svg{color:var(--bad-t)}
+  .checks code{font-family:var(--mono);font-size:12px;color:var(--ink);white-space:nowrap}
+  .codepane{display:flex;flex-direction:column;min-width:0;background:#f7f7f7;contain:size}
+  .cbar{display:flex;align-items:center;gap:10px;height:48px;padding:0 12px 0 16px;border-bottom:1px solid var(--line);background:var(--card)}
+  .ctabs{flex:1;min-width:0;align-self:stretch;display:flex;gap:18px;overflow-x:auto;scrollbar-width:none}
+  .ctabs::-webkit-scrollbar{display:none}
+  .cbtns{flex:none;display:flex;gap:6px}
+  .ctab{flex:none;display:flex;align-items:center;border:0;border-bottom:3px solid transparent;border-top:3px solid transparent;background:none;padding:0;font-size:14px;color:var(--mute);cursor:pointer;white-space:nowrap}
+  .ctab[aria-selected="true"]{border-bottom-color:var(--ink);color:var(--ink);font-weight:700}
+  .code{position:relative;flex:1;margin:0;padding:10px 0;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.62;color:var(--ink);counter-reset:ln;tab-size:2;scrollbar-width:thin;scrollbar-color:#b0b0b0 transparent}
+  .code .ln{display:block;position:relative;min-height:1.62em;padding:0 16px 0 46px;white-space:pre;transition:background-color .2s ease}
+  .code.wrap .ln{white-space:pre-wrap}
+  .code .ln::before{counter-increment:ln;content:counter(ln);position:absolute;left:0;width:30px;text-align:right;color:var(--mute)}
+  .code .ln.hl{background:#fff3b0}
+  .building .code .ln:not(.shown){visibility:hidden}
+  .code .caret::after{content:"";display:inline-block;width:7px;height:1.2em;margin-left:1px;vertical-align:-.22em;background:var(--ink);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  /* 코드 색: 화면의 글자용 단계와 레고 색, 모두 #f7f7f7에서 4.5:1 이상 */
+  /* 코드 색은 화면 글자 단계와 브릭 색 두 개(tokens.json code). 데이터의 좋음·나쁨과는 따로 둔다 */
+  .tk-c{color:var(--mute)} .tk-s{color:#007133} .tk-n{color:#9c4f12} .tk-k{color:#901f76} .tk-f{color:var(--bad-t)} .tk-p{color:#1e5aa8;font-weight:500}
+  .code .kv{display:inline-block;min-width:15ch;color:var(--mute)}
+  .tk-hex::before{content:"";display:inline-block;width:.78em;height:.78em;margin-right:4px;border-radius:2px;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(0,0,0,.35);vertical-align:-.04em}
+  .cstat{display:flex;justify-content:space-between;gap:12px;padding:8px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--mute);background:var(--card)}
+  .cstat .dot{display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--good-t);vertical-align:1px}
+  .layer{transition:opacity .3s ease}
+  .building .layer:not(.on){opacity:0}
+  .focus-step .layer:not(.focus){opacity:.18}
+  .focus-step .layer[data-step="1"]:not(.focus){opacity:.5}
+  .build-cap{margin-top:12px;max-width:64em;font-size:13px;line-height:1.5;color:var(--mute)}
+
+  /* ---------- 숫자를 세는 법 ---------- */
+  .terms{columns:2 380px;column-gap:40px}
+  .terms p{break-inside:avoid;margin:0 0 10px;font-size:13.5px;line-height:1.6;color:var(--body)}
+  .terms p b{font-weight:700;color:var(--ink)}
+  .terms p.src{color:var(--mute)}
+
+  /* ---------- 툴팁: 흰 판, 1px 회색 선, 모서리 4px ---------- */
+  .tip{position:absolute;z-index:8;left:0;top:0;pointer-events:none;min-width:180px;background:var(--card);color:var(--body);border:1px solid #bdbdbd;border-radius:var(--r);padding:9px 12px 10px;box-shadow:0 6px 18px rgba(20,20,20,.14);white-space:nowrap;opacity:0;transition:opacity .15s var(--ease)}
+  .tip.on{opacity:1}
+  .tip-h{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px}
+  .tip-s{font-size:12.5px;color:var(--mute);margin:-1px 0 5px;white-space:normal;max-width:300px}
+  .tip-r{display:flex;align-items:center;gap:8px;font-size:13.5px;line-height:1.55}
+  .tip-r i{width:10px;height:10px;flex:none;border-radius:2px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.35)}
+  .tip-r i.ln{width:14px;height:0;border-radius:0;background:none;box-shadow:none;border-top:2px solid var(--c)}
+  .tip-r i.dot{border-radius:50%}
+  .tip-r b{font-size:15px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .tip-r span{color:var(--mute)}
+  .tip-r .bad{color:var(--bad-t);font-weight:600} .tip-r .good{color:var(--good-t);font-weight:600} .tip-r .warn{color:var(--warn-t);font-weight:600}
+
+  /* ---------- 바닥 ---------- */
+  .foot{margin-top:72px;border-top:1px solid var(--line);color:var(--body);font-size:13px;line-height:1.65}
+  .foot .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 40px;padding-top:22px;padding-bottom:36px}
+  .foot .back{flex:none;font-weight:700;color:var(--ink);white-space:nowrap;text-decoration:underline;text-decoration-color:#b5b5b5;text-decoration-thickness:1px;text-underline-offset:4px}
+  .foot .back:hover{text-decoration-color:var(--ink)}
+  .foot p{max-width:108ch}
+  .foot p + p{margin-top:6px}
+  .foot .cat{font-weight:700;color:var(--ink)}
+  .foot .cat a{color:inherit;text-underline-offset:3px;text-decoration-color:#b5b5b5}
+  .foot .cat a:hover{text-decoration-color:var(--ink)}
+  .foot .cat .ser{font-size:12px;font-weight:700;letter-spacing:.08em;margin-right:10px}
+  .foot .cat .w{font-weight:400;color:var(--body)}
+  .toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,8px);padding:9px 18px;border-radius:999px;background:var(--ink);color:#fff;font-size:15px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease)}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  /* ---------- 움직임: 브릭이 하나씩 내려와 쌓이고, 매장 돌기는 서쪽부터 박힌다 ---------- */
+  .fade{animation:fade .3s ease both}
+  @keyframes fade{from{opacity:0}}
+  .drop{animation:drop .34s var(--ease) both}
+  @keyframes drop{0%{opacity:0;transform:translateY(-14px)}70%{opacity:1;transform:translateY(1.5px)}100%{transform:none}}
+  .pop{animation:pop .3s var(--ease) both;transform-box:fill-box;transform-origin:center}
+  @keyframes pop{from{opacity:0;transform:scale(.4)}}
+  .growx{transform-origin:left;animation:growx .5s var(--ease) both}
+  @keyframes growx{from{transform:scaleX(0)}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+  /* ---------- 임베드(?embed=1 · lib/embed.js): 고지는 포스트가 싣는다 ---------- */
+  html.vz-embed .foot{display:none}
+  html.vz-embed main{padding-bottom:24px}
+  @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.lang,.cbtns,.build-cta,.foot .back,.more{display:none}.building .code .ln{visibility:visible!important}.building .layer{opacity:1!important}.panel{break-inside:avoid}}
+
+  /* ---------- 반응형 ---------- */
+  @media (max-width:1359px){
+    :root{--pad:24px}
+    .first{grid-template-columns:minmax(0,1fr) 520px}
+    .k-v{font-size:46px}
+    .win{grid-template-columns:230px minmax(0,1fr) minmax(0,1fr)}
+  }
+  @media (max-width:1279px){
+    .kpi{padding:12px 15px 13px}
+    .k-v{font-size:42px}
+  }
+  @media (max-width:1199px){
+    /* 그림 1·2, 그림 3·4를 세로로 쌓는다 */
+    .first,.row2{grid-template-columns:minmax(0,1fr)}
+    #f1Plot{min-height:340px}
+    #f2Plot{flex:none;min-height:0}
+    #f3Plot{min-height:300px}
+    .k-v{font-size:46px}
+    .win{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    .side{grid-column:1 / -1;border-right:0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 24px}
+    .side-h{grid-column:1 / -1}
+    .get{margin-top:0;border-top:0;padding-top:0}
+    .codepane{contain:none;min-height:440px}
+  }
+  @media (max-width:1023px){
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .build-intro{grid-template-columns:minmax(0,1fr)}
+    .build-cta{justify-content:flex-start}
+    .steps{grid-template-columns:minmax(0,1fr)}
+  }
+  @media (max-width:899px){
+    .top .wrap{flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+    .win{grid-template-columns:minmax(0,1fr)}
+    .side{grid-template-columns:minmax(0,1fr)}
+    .figpane{border-right:0;border-bottom:1px solid var(--line)}
+    .od .hide-m{display:none}
+  }
+  @media (max-width:639px){
+    :root{--pad:16px;--sec:44px;--gap:12px}
+    .head h1{font-size:24px}
+    html[lang="ko"] .head h1{font-size:23px}
+    .kpi{padding:10px 12px 11px}
+    .k-l{font-size:13px}
+    .k-v{font-size:34px}
+    .k-v .u{font-size:17px}
+    .k-d{font-size:12.5px}
+    .panel{padding:14px 14px 12px}
+    .bar{flex-direction:column;align-items:flex-start}
+    .seg{max-width:100%}
+    .seg button{padding:0 12px;font-size:14px}
+    #f1Plot{min-height:300px}
+    #f3Plot{min-height:260px}
+    .od td,.od th{padding-left:5px;padding-right:5px}
+    .cov{min-width:0;grid-template-columns:minmax(0,1fr)}
+    .cov svg{display:none}
+    .od .hide-s{display:none}
+    .od .price{flex-wrap:wrap;column-gap:8px;row-gap:0}
+    .cov small{white-space:normal}
+    .od .num,.od .now{font-size:14.5px}
+    .od th:nth-child(1),.od th:nth-child(2){width:auto}
+    #chanSeg{display:grid;grid-template-columns:1fr 1fr 1fr;width:100%}
+    #chanSeg button{justify-content:center;padding:0 6px}
+    .modes{display:grid;grid-template-columns:1fr 1fr;width:100%}
+    .modes button{justify-content:center;padding:0 8px;font-size:12.5px}
+    .cbar{flex-wrap:wrap;height:auto;padding:0 12px}
+    .cbtns{order:1;margin-left:auto;padding-top:8px}
+    .ctabs{order:2;flex:1 1 100%;height:44px;gap:14px}
+    .foot .wrap{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <p class="co"><b data-i18n="brand"></b><span data-i18n="report"></span></p>
+  <div class="seg lang" id="langSeg" role="group" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+  </div>
+</div></header>
+
+<main class="wrap" id="panel" role="tabpanel">
+  <!-- 행사 날짜 띠(기준일 배지 · 회원 주말 · 블랙프라이데이~사이버먼데이)와 채널 필터 -->
+  <div class="bar">
+    <p class="strip" id="strip"></p>
+    <div class="seg" id="chanSeg" role="tablist"></div>
+  </div>
+  <div class="head"><h1 id="h1"></h1></div>
+  <div class="kpis" id="kpis"></div>
+
+  <!-- 첫 화면: 그림 1 쌓기(작년 행사에서 올해 계획까지 브릭으로) | 그림 2 세일 태그(혜택별 효과) -->
+  <section class="first" aria-label="The plan">
+    <figure class="panel" id="f1">
+      <figcaption><span class="fig" data-i18n="f1.label"></span><h2 class="ct" id="f1T"></h2><p class="cs" data-i18n="f1.sub"></p><ul class="keys" id="f1K" aria-hidden="true"></ul></figcaption>
+      <div class="cb"><div class="plot" id="f1Plot" tabindex="0" role="group"></div></div>
+      <p class="cf" data-i18n="f1.note"></p>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="f1Table"></div>
+    </figure>
+    <figure class="panel" id="f2">
+      <figcaption><span class="fig" data-i18n="f2.label"></span><h2 class="ct" id="f2T"></h2><p class="cs" data-i18n="f2.sub"></p><ul class="keys" id="f2K" aria-hidden="true"></ul></figcaption>
+      <div class="cb"><div class="plot" id="f2Plot" tabindex="0" role="group"></div></div>
+      <p class="cf" data-i18n="f2.note"></p>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="f2Table"></div>
+    </figure>
+  </section>
+
+  <!-- 행사 운영: 그림 3 사은품 사다리 | 그림 4 시간대 히트맵, 아래 표 1 대표 세트 -->
+  <section class="sec" id="s2" aria-labelledby="s2T">
+    <div class="sh"><h2 id="s2T" data-i18n="s2.t"></h2></div>
+    <div class="row2">
+      <figure class="panel" id="f3">
+        <figcaption><span class="fig" data-i18n="f3.label"></span><h3 class="ct" id="f3T"></h3><p class="cs" data-i18n="f3.sub"></p><ul class="keys" id="f3K" aria-hidden="true"></ul></figcaption>
+        <div class="cb"><div class="plot" id="f3Plot" tabindex="0" role="group"></div></div>
+        <p class="cf" data-i18n="f3.note"></p>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f3Table"></div>
+      </figure>
+      <figure class="panel" id="f4">
+        <figcaption><span class="fig" data-i18n="f4.label"></span><h3 class="ct" id="f4T"></h3><p class="cs" data-i18n="f4.sub"></p><ul class="keys" id="f4K" aria-hidden="true"></ul></figcaption>
+        <div class="cb"><div class="plot" id="f4Plot" tabindex="0" role="group"></div><ul class="plan-k" id="f4P"></ul></div>
+        <p class="cf" data-i18n="f4.note"></p>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f4Table"></div>
+      </figure>
+    </div>
+    <figure class="panel" id="t1">
+      <figcaption><span class="fig" data-i18n="t1.label"></span><h3 class="ct" id="t1T"></h3><p class="cs" data-i18n="t1.sub"></p></figcaption>
+      <div class="cb"><div class="od-wrap" id="t1Wrap"></div><div class="more" id="t1More"></div></div>
+      <p class="cf" data-i18n="t1.note"></p>
+      <div class="tip" aria-hidden="true"></div>
+    </figure>
+  </section>
+
+  <!-- 만드는 법 -->
+  <section class="sec" id="s5" aria-labelledby="s5T">
+    <div class="sh"><h2 id="s5T" data-i18n="build.t"></h2><p data-i18n="build.k"></p></div>
+    <div class="build-intro">
+      <p data-i18n="build.p"></p>
+      <div class="build-cta"><a class="btn btn-o" href="DASHBOARD.html" target="_blank" rel="noopener" data-i18n="build.spec"></a><a class="btn btn-p" id="ctaLink" href="https://www.vizney.com/contact-us/" target="_blank" rel="noopener" data-i18n="build.cta"></a></div>
+    </div>
+    <ol class="steps" id="steps"></ol>
+    <div class="win" id="win">
+      <aside class="side" aria-label="Package">
+        <div class="side-h"><b data-i18n="build.pkg"></b><span data-i18n="build.pkgSub"></span></div>
+        <ul class="tree" id="tree"></ul>
+        <div class="get">
+          <p class="get-h" data-i18n="build.get"></p>
+          <div class="cmds">
+            <div class="cmd"><code>npx @vizney/styles@latest add lego</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+            <div class="cmd"><code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- lego</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+          </div>
+          <p class="get-note" data-i18n="build.getNote"></p>
+          <a class="btn btn-sm btn-o" href="lego-dashboard-style.zip" download data-i18n="build.zip"></a>
+        </div>
+      </aside>
+      <div class="figpane">
+        <div class="figbar"><div class="seg modes" id="modeSeg" role="tablist"></div><span class="scope" id="wbScope"></span></div>
+        <span class="fig wb-l layer" data-step="5" data-i18n="f1.label"></span>
+        <p class="wb-t layer" data-step="5" id="wbTitle"></p>
+        <p class="wb-s layer" data-step="5" id="wbSub"></p>
+        <div class="plot" id="wbPlot"></div>
+        <p class="wb-n layer" data-step="5" id="wbNote"></p>
+        <div class="checks">
+          <p class="checks-h"><span data-i18n="build.checksT"></span><span class="ok layer" data-step="5" id="checksOk"></span></p>
+          <ul id="checks"></ul>
+        </div>
+        <div class="tip" aria-hidden="true"></div>
+      </div>
+      <div class="codepane">
+        <div class="cbar">
+          <div class="ctabs" id="ctabs" role="tablist" aria-label="Code"></div>
+          <div class="cbtns">
+            <button type="button" class="btn btn-sm btn-o btn-icon" id="btnCopyCode" data-icon="copy"></button>
+            <button type="button" class="btn btn-sm btn-p" id="btnRun" data-icon="play"><span data-i18n="build.run"></span></button>
+          </div>
+        </div>
+        <pre class="code" id="code" tabindex="0" aria-label="Code"></pre>
+        <div class="cstat"><span id="cstatL"></span><span id="cstatR"></span></div>
+      </div>
+    </div>
+    <p class="build-cap" data-i18n="build.cap"></p>
+  </section>
+
+  <!-- 숫자를 세는 법 -->
+  <section class="sec" id="notes" aria-labelledby="s6T">
+    <div class="sh"><h2 id="s6T" data-i18n="notes.t"></h2><p data-i18n="notes.k"></p></div>
+    <div class="terms" id="terms"></div>
+  </section>
+  <p class="sr-only" id="live" aria-live="polite"></p>
+  <div class="toast" id="toast" role="status"></div>
+</main>
+<footer class="foot"><div class="wrap">
+  <div>
+  <p class="cat"><a class="ser" href="https://styles.vizney.com/">VIZNEY STYLES · 08</a> <a href="https://styles.vizney.com/lego/DASHBOARD.html" data-i18n="catName"></a> <span class="w" data-i18n="words"></span></p>
+  <p data-i18n="note"></p>
+  <p data-i18n="notice"></p>
+  </div>
+  <a class="back" id="backLink" href="https://styles.vizney.com/">← Back to the catalog</a>
+</div></footer>
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 데이터 색: 브릭 색을 하는 일에 따라 나눈다. validate_palette.js(OKLab), light, 흰 면, 모든 쌍:
+     파랑 #1e5aa8(손님) · 주황 #e05a00(혜택) · 노랑 #f7c600(세트) · 회색 #a3a3a3(지난 행사) 색각 이상 최소 ΔE 15.1, 일반 시각 20.2.
+     노랑은 일부러 명도 범위 밖이라 짙은 테두리 #b38f00와 라벨로 받친다.
+     히트맵: 파랑 다섯 단계 #89b5f2 · #6f9edf · #5587cd · #3a70ba · #1e5aa8(흰 면 서수 검사 통과), 행사 주문의 0.1% 미만은 #f2f2f2.
+     사은품 단계: 주황 셋 #f3a07d · #ea7f4e · #e05a00(흰 면 서수 검사 통과), 사은품에 못 닿은 주문은 회색.
+     빨강 #dd0000(배지, 흰 글자)과 #bd0000(글자)은 lego.com처럼 % OFF 배지와 재고 부족에만 쓴다. */
+  const C = {
+    card: '#ffffff', line: '#d9d9d9', hair: '#ececec', ink: '#2c2c2c', body: '#3d3d3d', mute: '#636363', black: '#141414',
+    shop: '#1e5aa8', offer: '#e05a00', sets: '#f7c600', setsE: '#b38f00', past: '#a3a3a3',
+    sale: '#dd0000', saleT: '#bd0000', yellow: '#ffd502', pill: '#f2f2f2', near: '#fff1b0',
+    goodT: '#1e5aa8', badT: '#bd0000', warnT: '#b04f00', base: '#c9c9c9', conn: '#8a8a8a',
+    generic: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f', '#edc948']
+  };
+  const GROUP = { demand: C.shop, offer: C.offer, sets: C.sets };
+  const TIER = [C.past, '#f3a07d', '#ea7f4e', '#e05a00'];
+  const HEAT = ['#f2f2f2', '#89b5f2', '#6f9edf', '#5587cd', '#3a70ba', '#1e5aa8'];
+  const HEAT_CUT = [0.1, 0.4, 0.8, 1.2, 1.8];
+
+  /* ================= 가상 데이터: Vizney Toys, 미국, 2026 블랙프라이데이 기획(11월 9일 기준) =================
+     행사는 회원 주말(11월 21~22일)과 블랙프라이데이~사이버먼데이(11월 27~30일) 엿새. 채널은 온라인과 직영 매장.
+     지난 행사 판매와 올해 계획 요인(천 세트), 혜택 테스트(1천 달러당 더 팔린 세트), 작년 장바구니(10달러 구간, 백 주문),
+     시간대별 주문(엿새 × 24시간, 백 주문), 대표 세트 12종(행사 수요, 재고와 입고). Python으로 만들고 검산했다. */
+  const DATA = {"now":"2026-11-09","channels":["ON","ST"],"views":{"ALL":{"years":[1710,2020,2310,2480],"drivers":{"MEM":150,"WISH":130,"GIFT":180,"PTS":90,"NEW":70,"DISC":-200},"target":2900,"rev25":122.92,"rev26":148.84,"cost25":9.18,"cost26":6.4,"offers":[{"id":"GIFT","v":46,"plan":true},{"id":"PTS","v":31,"plan":true},{"id":"D20","v":17,"plan":true},{"id":"D30","v":11,"plan":false},{"id":"SHIP","v":8,"plan":false}],"bins":[38,409,853,1071,1109,1049,948,837,728,629,542,468,403,347,300,260,225,197,171,150,131,116,102,90,80,71,63,56,51,45,461],"heat":[[18,11,7,5,4,5,9,16,69,57,88,107,148,160,159,159,133,123,101,95,60,58,48,32],[15,9,6,4,4,4,8,14,21,27,32,89,117,130,129,129,116,104,82,47,51,50,41,27],[297,119,47,21,7,9,182,249,209,180,178,184,165,164,148,148,150,154,150,161,157,140,80,53],[26,15,10,8,6,8,13,23,36,46,118,165,230,250,248,248,207,190,154,144,87,85,69,46],[20,12,8,6,5,6,10,18,27,35,41,109,142,157,156,156,141,128,102,61,67,65,53,35],[24,14,9,7,6,7,12,21,33,43,80,94,105,104,103,103,104,108,105,154,136,132,108,116]]},"ON":{"years":[950,1160,1360,1480],"drivers":{"MEM":110,"WISH":100,"GIFT":120,"PTS":60,"NEW":40,"DISC":-140},"target":1770,"rev25":79.92,"rev26":99.12,"cost25":9.6,"cost26":6.8,"offers":[{"id":"GIFT","v":44,"plan":true},{"id":"PTS","v":33,"plan":true},{"id":"D20","v":18,"plan":true},{"id":"D30","v":12,"plan":false},{"id":"SHIP","v":8,"plan":false}],"bins":[9,112,277,398,459,474,460,432,396,358,321,287,255,226,200,178,157,140,124,110,98,88,78,70,63,56,50,45,41,37,401],"heat":[[18,11,7,5,4,5,9,16,69,57,48,40,41,40,39,39,40,43,48,55,60,58,48,32],[15,9,6,4,4,4,8,14,21,27,32,34,35,34,33,33,34,36,41,47,51,50,41,27],[297,119,47,21,7,9,15,27,42,69,81,87,68,67,65,65,67,71,80,92,101,98,80,53],[26,15,10,8,6,8,13,23,36,46,54,58,59,58,56,56,58,62,69,80,87,85,69,46],[20,12,8,6,5,6,10,18,27,35,41,44,45,44,43,43,44,47,53,61,67,65,53,35],[24,14,9,7,6,7,12,21,33,43,50,53,54,53,52,52,53,57,64,124,136,132,108,116]]},"ST":{"years":[760,860,950,1000],"drivers":{"MEM":40,"WISH":30,"GIFT":60,"PTS":30,"NEW":30,"DISC":-60},"target":1130,"rev25":43.0,"rev26":49.72,"cost25":8.4,"cost26":5.6,"offers":[{"id":"GIFT","v":50,"plan":true},{"id":"PTS","v":27,"plan":true},{"id":"D20","v":15,"plan":true},{"id":"D30","v":9,"plan":false}],"bins":[29,297,576,673,650,575,488,405,332,271,221,181,148,121,100,82,68,57,47,40,33,28,24,20,17,15,13,11,10,8,60],"heat":[[0,0,0,0,0,0,0,0,0,0,40,67,107,120,120,120,93,80,53,40,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,55,82,96,96,96,82,68,41,0,0,0,0,0],[0,0,0,0,0,0,167,222,167,111,97,97,97,97,83,83,83,83,70,69,56,42,0,0],[0,0,0,0,0,0,0,0,0,0,64,107,171,192,192,192,149,128,85,64,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,65,97,113,113,113,97,81,49,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,30,41,51,51,51,51,51,51,41,30,0,0,0,0]]}},"years":[2022,2023,2024,2025],"drivers":["MEM","WISH","GIFT","PTS","NEW","DISC"],"groups":{"MEM":"demand","WISH":"demand","GIFT":"offer","PTS":"offer","NEW":"sets","DISC":"offer"},"tiers":[40,100,200],"days":["MSA","MSU","BF","SAT","SUN","CM"],"sets":[{"id":"V3104","en":"Clockwork Tower","ko":"\uc2dc\uacc4\ud0d1","age":"18+","pcs":3412,"price":249.99,"offer":"GIFT","demand":{"ON":58,"ST":22},"stock":{"ON":46,"ST":20}},{"id":"V2216","en":"Vintage Camper Van","ko":"\ube48\ud2f0\uc9c0 \ucea0\ud551\uce74","age":"18+","pcs":1486,"price":129.99,"offer":"D20","demand":{"ON":64,"ST":30},"stock":{"ON":56,"ST":29}},{"id":"V1408","en":"Fire Rescue Truck","ko":"\uc18c\ubc29 \uad6c\uc870\ucc28","age":"6+","pcs":512,"price":59.99,"offer":"PTS","demand":{"ON":38,"ST":46},"stock":{"ON":38,"ST":40}},{"id":"V3127","en":"Moonlight Observatory","ko":"\ub2ec\ube5b \ucc9c\ubb38\ub300","age":"18+","pcs":2180,"price":179.99,"offer":"GIFT","demand":{"ON":48,"ST":16},"stock":{"ON":52,"ST":18}},{"id":"V3150","en":"Jazz Club Corner","ko":"\uc7ac\uc988 \ud074\ub7fd \ucf54\ub108","age":"18+","pcs":2899,"price":219.99,"offer":"PTS","demand":{"ON":36,"ST":14},"stock":{"ON":40,"ST":15}},{"id":"V2081","en":"Deep Sea Lab","ko":"\uc2ec\ud574 \uc5f0\uad6c\uc18c","age":"9+","pcs":864,"price":89.99,"offer":"GIFT","demand":{"ON":44,"ST":38},"stock":{"ON":47,"ST":41}},{"id":"V2093","en":"Mountain Cable Car","ko":"\uc0b0\uc545 \ucf00\uc774\ube14\uce74","age":"9+","pcs":1102,"price":99.99,"offer":"D20","demand":{"ON":40,"ST":30},"stock":{"ON":44,"ST":33}},{"id":"V1532","en":"Dino Dig Site","ko":"\uacf5\ub8e1 \ubc1c\uad74\uc9c0","age":"7+","pcs":640,"price":69.99,"offer":"PTS","demand":{"ON":30,"ST":42},"stock":{"ON":33,"ST":46}},{"id":"V1611","en":"Space Rover","ko":"\uc6b0\uc8fc \ud0d0\uc0ac\ucc28","age":"8+","pcs":712,"price":79.99,"offer":"GIFT","demand":{"ON":34,"ST":36},"stock":{"ON":37,"ST":40}},{"id":"V0457","en":"Pony Farm","ko":"\uc870\ub791\ub9d0 \ub18d\uc7a5","age":"4+","pcs":386,"price":49.99,"offer":"PTS","demand":{"ON":22,"ST":40},"stock":{"ON":25,"ST":44}},{"id":"V2140","en":"Snowy Bakery","ko":"\ub208 \ub0b4\ub9b0 \ube75\uc9d1","age":"12+","pcs":1045,"price":99.99,"offer":"GIFT","demand":{"ON":46,"ST":28},"stock":{"ON":50,"ST":31}},{"id":"V1720","en":"Neon Racer","ko":"\ub124\uc628 \ub808\uc774\uc11c","age":"9+","pcs":498,"price":39.99,"offer":"D20","demand":{"ON":26,"ST":32},"stock":{"ON":29,"ST":35}}]};
+  const VIEWS = ['ALL', 'ON', 'ST'];
+  const QV = { all: 'ALL', online: 'ON', stores: 'ST' }, VQ = { ALL: 'all', ON: 'online', ST: 'stores' };
+  const qs = new URLSearchParams(location.search);
+  const state = { lang: qs.get('lang') === 'ko' ? 'ko' : 'en', chan: QV[(qs.get('channel') || '').toLowerCase()] || 'ALL', mode: 'with', code: 'js', showAll: false };
+
+  /* ================= 문구 ================= */
+  const T = {
+    en: {
+      docTitle: 'LEGO® style · Black Friday plan sample',
+      brand: 'Vizney Toys', report: 'Black Friday 2026 plan', chanLabel: 'Channel',
+      chans: { ALL: 'All channels', ON: 'Online', ST: 'Brand stores' },
+      strip: () => [['badge', 'Plan · Nov 9'], ['t', "Members' weekend ", 'Nov 21–22'], ['t', 'Black Friday to Cyber Monday ', 'Nov 27–30']],
+      head: F => `Build ${F.v === 'ON' ? 'online ' : F.v === 'ST' ? 'store ' : ''}Black Friday to ${K(F.target)} sets, ${pct(F.growth)} over last year, on gifts and points, not discounts.`,
+      kpi: F => [
+        { l: 'Black Friday target', v: K(F.target), u: ' sets', d: [[arrow(F.growth) + pct(F.growth), 'good'], ' vs 2025'] },
+        { l: 'Revenue target', v: '$' + NF(0).format(Math.round(F.rev26)) + 'M', d: [[arrow(F.revGrowth) + pct(F.revGrowth), 'good'], ' vs 2025'] },
+        { l: 'Offer cost, share of sales', v: NF(1).format(F.cost26), u: '%', was: NF(1).format(F.cost25) + '%', d: [[arrow(F.cost26 - F.cost25) + NF(1).format(Math.abs(F.cost26 - F.cost25)) + ' pts', F.cost26 <= F.cost25 ? 'good' : 'bad'], ' vs 2025'] },
+        { l: 'Hero sets ready', v: String(F.ready), u: ` of ${F.sets.length}`, d: F.short.length ? [['badge', `${F.short.length} short`], ' of event demand'] : [['All covered', 'good']] }
+      ],
+      f1: {
+        label: 'Figure 1',
+        title: F => `The plan adds ${K(F.add)} sets, ${NF(1).format(F.add / F.lastAdd)} times last year's ${K(F.lastAdd)}; gifts add the most`,
+        sub: "Sets added at each event over the year before, and what builds this year's plan",
+        keys: ['Past events', 'More shoppers', 'Offers', 'New sets', 'Taken off', 'Plan'],
+        names: { MEM: 'More members', WISH: 'Wishlists', GIFT: 'Gifts', PTS: '2× points', NEW: 'New sets', DISC: 'Fewer discounts' },
+        namesS: { MEM: 'Members', WISH: 'Wishlists', GIFT: 'Gifts', PTS: 'Points', NEW: 'New', DISC: 'Discounts' },
+        groups: { demand: 'More shoppers', offer: 'Offers', sets: 'New sets' },
+        plan: '2026 plan', event: y => `${y} event`, totalBadge: v => `${v} in total`, totalBadgeS: v => `${v} total`,
+        tip: { added: y => `added over ${y}`, total: 'sets over the event', on25: 'over the 2025 event' },
+        sr: ['', 'Sets added', 'Sets over the event'],
+        note: u => `A full brick is ${K(u)} sets. Each event is the members' weekend plus Black Friday to Cyber Monday.`
+      },
+      f2: {
+        label: 'Figure 2',
+        title: F => `Gifts bring ${F.offers[0].v} extra sets per $1,000, ${NF(1).format(F.offers[0].v / F.d30)} times as many as 30% off`,
+        sub: 'Extra sets sold per $1,000 of offer cost, tests from 2024 to 2026',
+        keys: ['In the plan', 'Dropped'],
+        names: { GIFT: 'Gift with purchase', PTS: '2× points', D20: '20% OFF', D30: '30% OFF', SHIP: 'Free shipping' },
+        detail: { GIFT: '$40 · $100 · $200', PTS: "Members' weekend", D20: 'Retiring sets only', D30: 'Selected sets', SHIP: 'Online only' },
+        unit: 'sets', tip: { per: 'extra sets per $1,000', cost: 'offer cost per extra set' }, sr: ['Offer', 'Where', 'Extra sets per $1,000', 'Plan'],
+        note: 'One stud is 5 sets. Each offer was tested against a control group.'
+      },
+      s2: { t: 'Running the event' },
+      f3: {
+        label: 'Figure 3',
+        title: F => `${pct(F.reach[1])} of orders reach the $100 gift; ${pct(F.near)} sit within $20 of a step`,
+        sub: "Orders by basket value at last year's event, with this year's gift steps",
+        keys: ['No gift', 'Gift 1', 'Gift 2', 'Gift 3', 'Within $20 of a step'],
+        step: (i, t) => `Gift ${i + 1} · $${t}`, stepS: t => `$${t}`, reach: 'reach it', axis: (v, last) => last ? `$${v}+` : `$${v}`,
+        bin: (a, b) => b ? `$${a}–${b - 1}` : `$${a} and over`,
+        tip: { orders: 'orders', share: 'of event orders', gift: n => `Gift ${n}`, none: 'No gift', toStep: (a, b, n) => `$${a}–${b} short of Gift ${n}` },
+        sr: ['Basket', 'Orders', 'Gift'],
+        note: 'Each bar is $10 of basket value, before offers.'
+      },
+      f4: {
+        label: 'Figure 4',
+        title: { ALL: 'Orders peak at 12 am on Black Friday, when online deals open', ON: "Online orders peak at 12 am on Black Friday and in Cyber Monday's last hours", ST: 'Store orders peak at 7 am on Black Friday, an hour after the doors open' },
+        sub: "Orders an hour at last year's event, with this year's plan",
+        days: ["Members' Sat", "Members' Sun", 'Black Friday', 'Saturday', 'Sunday', 'Cyber Monday'],
+        hour: hh => `${hh % 12 || 12}${hh < 12 ? 'a' : 'p'}`, hourLong: hh => `${hh % 12 || 12} ${hh < 12 ? 'am' : 'pm'}`,
+        scale: 'Share of event orders in the hour', orders: 'orders', ofEvent: 'of event orders', sr: ['Day', 'Orders', 'Busiest hour', 'Orders that hour'],
+        plan: ["Members' deals open 8 am", 'Online deals open 12 am', 'Doors open 6 am', 'Extra staff 12–4 pm', 'Last-call email 7 pm'],
+        note: 'Online in Eastern time, stores in local time.'
+      },
+      t1: {
+        label: 'Table 1',
+        title: F => F.short.length ? `${F.short.length} of ${F.sets.length} hero sets fall short of event demand; ${F.sets[0].en} needs ${K(F.sets[0].short)} more` : 'Every hero set covers its event demand',
+        sub: 'Stock and inbound against forecast event demand, least covered first',
+        cols: ['Set', 'Offer', 'Demand', 'Stock + inbound', 'Covered'],
+        offer: { GIFT: 'Gift steps', PTS: '2× points', D20: '20% OFF' },
+        pcs: n => `${NF(0).format(n)} pcs`, short: v => `${K(v)} short`, ready: 'Ready', tip: { split: 'stock / demand', short: 'short of event demand' },
+        more: n => `Show all ${n} sets`, less: 'Show fewer',
+        note: 'Inbound arrives by Nov 20. Sale prices are for the event.'
+      },
+      build: {
+        t: 'Build it yourself', k: 'What you get and how an agent uses it',
+        p: 'DASHBOARD.md writes down the brick build-up, the sale tags, the gift ladder and the shop parts as rules, down to colours and number formats. An agent that reads it draws Figure 1 like this.',
+        spec: 'Read DASHBOARD.md', cta: 'Get one made for your company',
+        steps: [['Add the package', 'One command puts DASHBOARD.md and the skill in your project.'], ['Ask in words', 'Describe the report and its questions; the agent plans the cards from the spec.'], ['Check against the spec', 'The checklist under the figure is the one in DASHBOARD.md.']],
+        pkg: 'In the box', pkgSub: '6 files',
+        files: { 'DASHBOARD.md': 'the spec', 'SKILL.md': 'how an agent uses the spec', 'tokens.css': 'CSS variables', 'lego.tps': 'Tableau palettes', 'powerbi-theme.json': 'Power BI theme', 'prompt.md': 'the prompt' },
+        get: 'Add it to your project', getNote: 'npm or the install script. Both put the same files in the same place.', zip: 'Download the zip',
+        modes: ['Without DASHBOARD.md', 'With DASHBOARD.md'],
+        checksT: 'DASHBOARD.md checks', checksOk: 'All 5 pass', checksBad: '0 of 5 pass',
+        checks: [[1, 'Sets added on a grey baseplate at 0: past events as towers of grey #a3a3a3 bricks, the plan in clear bricks with a 2px ink edge'], [2, 'Each driver a brick starting where the last one ended: shoppers #1e5aa8, offers #e05a00, new sets #f7c600'], [3, 'Bricks 2px apart with two flat studs on top; a brick taken off is a dashed outline'], [4, 'A value on every column; the plan in 30px under a #ffd502 badge with the total'], [5, 'The title says the result: how much the plan adds and what adds the most']],
+        run: 'Draw again', built: 'Done', drawing: 'Drawing…', lines: n => `${n} lines`, copied: 'Code copied', cmdCopied: 'Command copied',
+        generic: 'Sets added and plan drivers', genericSub: 'A default chart drawn without the spec', generated: 'Drawn without DASHBOARD.md',
+        wbNote: 'Sets added at each event, 2023 to the 2026 plan.',
+        cap: 'The code is a short version of an agent working from DASHBOARD.md. The package\'s prompt.md has the full prompt.'
+      },
+      notes: {
+        t: 'How we count', k: 'Definitions and sources',
+        items: [
+          ['Event', "The members' weekend (Nov 21–22, 2026) and Black Friday to Cyber Monday (Nov 27–30). Past years use the same six days."],
+          ['Sets sold', 'Sets bought online and in our brand stores, counted on the day of sale. Retail partners run their own plans.'],
+          ['Drivers', 'The change in sets each driver brings against 2025: member and wishlist counts, offer tests and the forecast for new sets.'],
+          ['Offer cost', 'Discounts, gifts at cost and the value of extra points, as a share of revenue.'],
+          ['Offer tests', 'Extra sets against a control group at the 2024 and 2025 events and in October 2026, per $1,000 of offer cost.'],
+          ['Baskets', "Order value before offers at last year's event, in $10 steps. Gifts come at $40, $100 and $200."],
+          ['Hero sets', 'Stock in our warehouse and stores plus inbound by Nov 20, against the forecast for the six event days.']
+        ],
+        src: 'Sources: online and store orders, member and wishlist counts, offer tests, warehouse and store stock on Nov 9, the 2026 plan.'
+      },
+      catName: 'LEGO® style', words: 'Colorful, Stacked, Playful',
+      note: 'A sample screen built from a fictional company, sets and data.',
+      notice: 'Not an official LEGO® design, and not affiliated with or endorsed by the LEGO Group. A reference style read from the publicly visible design of lego.com and public touchpoints such as the bricks, LEGO® stores, the Black Friday offers and annual reports; it carries no logo, typeface, photo or data of theirs. LEGO® is a trademark of the LEGO Group of companies which does not sponsor, authorize or endorse this site. Trademarks belong to their owners.',
+      back: { post: '← Back to the post', catalog: '← Back to the catalog' }
+    },
+    ko: {
+      docTitle: 'LEGO® 스타일 · 블랙프라이데이 기획 샘플',
+      brand: 'Vizney Toys', report: '2026 블랙프라이데이 기획', chanLabel: '채널',
+      chans: { ALL: '모든 채널', ON: '온라인', ST: '직영 매장' },
+      strip: () => [['badge', '11월 9일 기준'], ['t', '회원 주말 ', '11월 21~22일'], ['t', '블랙프라이데이~사이버먼데이 ', '11월 27~30일']],
+      head: F => `올해 ${F.v === 'ON' ? '온라인 ' : F.v === 'ST' ? '매장 ' : ''}블랙프라이데이는 작년보다 ${pct(F.growth)} 많은 ${K(F.target)} 세트로, 할인 대신 사은품과 포인트로 키웁니다.`,
+      kpi: F => [
+        { l: '블랙프라이데이 목표', v: K(F.target), u: ' 세트', d: ['2025년 대비 ', [arrow(F.growth) + pct(F.growth), 'good']] },
+        { l: '매출 목표', v: F.rev26 >= 100 ? trim(NF(2).format(F.rev26 / 100)) + '억' : NF(0).format(Math.round(F.rev26 * 100)) + '만', u: ' 달러', d: ['2025년 대비 ', [arrow(F.revGrowth) + pct(F.revGrowth), 'good']] },
+        { l: '혜택 비용(매출 대비)', v: NF(1).format(F.cost26), u: '%', was: NF(1).format(F.cost25) + '%', d: ['2025년 대비 ', [arrow(F.cost26 - F.cost25) + NF(1).format(Math.abs(F.cost26 - F.cost25)) + '%p', F.cost26 <= F.cost25 ? 'good' : 'bad']] },
+        { l: '준비된 대표 세트', v: String(F.ready), u: `종 / ${F.sets.length}종`, d: F.short.length ? [['badge', `${F.short.length}종 부족`], ' 행사 수요 대비'] : [['모두 준비', 'good']] }
+      ],
+      f1: {
+        label: '그림 1',
+        title: F => `올해 계획은 ${K(F.add)} 세트를 더해 작년(${K(F.lastAdd)})의 ${NF(1).format(F.add / F.lastAdd)}배이고, 사은품이 가장 많이 더합니다`,
+        sub: '행사마다 전년보다 더 판 세트와 올해 계획을 쌓는 요인',
+        keys: ['지난 행사', '손님 증가', '혜택', '신제품', '빠지는 몫', '계획'],
+        names: { MEM: '회원 증가', WISH: '위시리스트', GIFT: '사은품', PTS: '포인트 2배', NEW: '신제품', DISC: '할인 축소' },
+        namesS: { MEM: '회원', WISH: '위시', GIFT: '사은품', PTS: '포인트', NEW: '신제품', DISC: '할인' },
+        groups: { demand: '손님 증가', offer: '혜택', sets: '신제품' },
+        plan: '2026년 계획', event: y => `${y}년 행사`, totalBadge: v => `합계 ${v}`, totalBadgeS: v => `합계 ${v}`,
+        tip: { added: y => `${y}년보다 더 판 세트`, total: '행사 전체 세트', on25: '2025년 행사 대비' },
+        sr: ['', '더 판 세트', '행사 전체 세트'],
+        note: u => `꽉 찬 브릭 하나가 ${K(u)} 세트입니다. 행사는 회원 주말과 블랙프라이데이~사이버먼데이입니다.`
+      },
+      f2: {
+        label: '그림 2',
+        title: F => `사은품은 1천 달러당 ${F.offers[0].v}세트를 더 팔아 30% 할인의 ${NF(1).format(F.offers[0].v / F.d30)}배입니다`,
+        sub: '혜택 비용 1천 달러당 더 팔린 세트, 2024~2026년 테스트',
+        keys: ['계획에 넣음', '뺌'],
+        names: { GIFT: '구매 사은품', PTS: '포인트 2배', D20: '20% OFF', D30: '30% OFF', SHIP: '무료 배송' },
+        detail: { GIFT: '40 · 100 · 200달러', PTS: '회원 주말', D20: '단종 예정 세트만', D30: '일부 세트', SHIP: '온라인만' },
+        unit: '세트', tip: { per: '1천 달러당 더 팔린 세트', cost: '더 팔린 세트 하나의 혜택 비용' }, sr: ['혜택', '적용', '1천 달러당 더 팔린 세트', '계획'],
+        note: '돌기 하나가 5세트입니다. 혜택마다 대조군과 견줘 테스트했습니다.'
+      },
+      s2: { t: '행사 운영' },
+      f3: {
+        label: '그림 3',
+        title: F => `주문의 ${pct(F.reach[1])}가 100달러 사은품에 닿고, ${pct(F.near)}는 다음 단계까지 20달러 안에 있습니다`,
+        sub: '작년 행사 주문의 장바구니 금액과 올해 사은품 단계',
+        keys: ['사은품 없음', '사은품 1', '사은품 2', '사은품 3', '다음 단계까지 20달러 안'],
+        step: (i, t) => `사은품 ${i + 1} · ${t}달러`, stepS: t => `${t}달러`, reach: '도달', axis: (v, last) => last ? `${v}달러 이상` : v ? `${v}달러` : '0',
+        bin: (a, b) => b ? `${a}~${b - 1}달러` : `${a}달러 이상`,
+        tip: { orders: '주문', share: '행사 주문 중', gift: n => `사은품 ${n}`, none: '사은품 없음', toStep: (a, b, n) => `사은품 ${n}까지 ${a}~${b}달러` },
+        sr: ['장바구니', '주문', '사은품'],
+        note: '막대 하나가 10달러 구간입니다(혜택 적용 전 금액).'
+      },
+      f4: {
+        label: '그림 4',
+        title: { ALL: '주문은 온라인 혜택이 열리는 블랙프라이데이 자정에 가장 많습니다', ON: '온라인 주문은 블랙프라이데이 자정과 사이버먼데이 마지막 시간에 몰립니다', ST: '매장 주문은 문을 연 지 한 시간 뒤인 블랙프라이데이 오전 7시에 가장 많습니다' },
+        sub: '작년 행사의 시간대별 주문과 올해 계획',
+        days: ['회원 토요일', '회원 일요일', '블랙프라이데이', '토요일', '일요일', '사이버먼데이'],
+        hour: hh => `${hh}시`, hourLong: hh => hh === 0 ? '자정' : hh < 12 ? `오전 ${hh}시` : hh === 12 ? '낮 12시' : `오후 ${hh - 12}시`,
+        scale: '행사 주문 중 그 시간의 비율', orders: '주문', ofEvent: '행사 주문 중', sr: ['날', '주문', '가장 많은 시간', '그 시간 주문'],
+        plan: ['회원 혜택 오전 8시 오픈', '온라인 자정 오픈', '매장 오전 6시 개장', '직원 추가 낮 12~4시', '마감 메일 오후 7시'],
+        note: '온라인은 미국 동부 시간, 매장은 현지 시간입니다.'
+      },
+      t1: {
+        label: '표 1',
+        title: F => F.short.length ? `대표 세트 ${F.sets.length}종 중 ${F.short.length}종이 행사 수요에 모자라고, ${eun(F.sets[0].ko)} ${K(F.sets[0].short)} 세트가 더 필요합니다` : '모든 대표 세트가 행사 수요를 채웁니다',
+        sub: '재고와 입고를 행사 예상 수요와 견준 것, 덜 채운 순서',
+        cols: ['세트', '혜택', '수요', '재고 + 입고', '채운 정도'],
+        offer: { GIFT: '사은품 단계', PTS: '포인트 2배', D20: '20% OFF' },
+        pcs: n => `부품 ${NF(0).format(n)}개`, short: v => `${K(v)} 부족`, ready: '준비됨', tip: { split: '재고 / 수요', short: '행사 수요보다 부족' },
+        more: n => `${n}종 모두 보기`, less: '접기',
+        note: '입고분은 11월 20일까지 도착합니다. 할인가는 행사 기간 가격입니다.'
+      },
+      build: {
+        t: '만드는 법', k: '받는 것과 에이전트가 쓰는 법',
+        p: 'DASHBOARD.md는 브릭 쌓기, 세일 태그, 사은품 사다리, 쇼핑몰 부품을 색과 숫자 표기까지 규칙으로 적습니다. 이 파일을 읽은 에이전트가 그림 1을 이렇게 그립니다.',
+        spec: 'DASHBOARD.md 읽기', cta: '우리 회사 것 의뢰하기',
+        steps: [['패키지 넣기', '명령 한 줄로 DASHBOARD.md와 스킬을 프로젝트에 넣습니다.'], ['말로 요청하기', '보고서와 질문을 말하면 에이전트가 명세로 카드를 짭니다.'], ['명세로 점검하기', '그림 아래 점검 목록이 DASHBOARD.md의 것입니다.']],
+        pkg: '상자에 든 것', pkgSub: '파일 6개',
+        files: { 'DASHBOARD.md': '명세', 'SKILL.md': '에이전트가 명세를 쓰는 법', 'tokens.css': 'CSS 변수', 'lego.tps': 'Tableau 팔레트', 'powerbi-theme.json': 'Power BI 테마', 'prompt.md': '프롬프트' },
+        get: '프로젝트에 넣기', getNote: 'npm이나 설치 스크립트. 둘 다 같은 파일을 같은 자리에 넣습니다.', zip: 'zip 내려받기',
+        modes: ['DASHBOARD.md 없이', 'DASHBOARD.md와 함께'],
+        checksT: 'DASHBOARD.md 점검', checksOk: '5개 모두 통과', checksBad: '5개 중 0개 통과',
+        checks: [[1, '0에 놓인 회색 바닥판 위에 더 판 세트: 지난 행사는 회색 #a3a3a3 브릭 탑, 올해 계획은 2px 잉크 테두리의 투명 브릭'], [2, '요인마다 앞 브릭이 끝난 자리에서 시작하는 브릭: 손님 #1e5aa8, 혜택 #e05a00, 신제품 #f7c600'], [3, '브릭은 2px 띄워 쌓고 위에 납작한 돌기 둘, 빠지는 몫은 점선 브릭'], [4, '기둥마다 값, 계획 값은 30px, 그 위 #ffd502 배지에 합계'], [5, '제목이 결과를 말한다: 계획이 더하는 양과 가장 많이 더하는 것']],
+        run: '다시 그리기', built: '완성', drawing: '그리는 중…', lines: n => `${n}줄`, copied: '코드를 복사했습니다', cmdCopied: '명령을 복사했습니다',
+        generic: '더 판 세트와 계획 요인', genericSub: '명세 없이 그린 기본 차트', generated: 'DASHBOARD.md 없이 그림',
+        wbNote: '행사마다 더 판 세트, 2023년부터 2026년 계획까지.',
+        cap: '코드는 에이전트가 DASHBOARD.md로 일하는 모습을 줄인 것입니다. 패키지의 prompt.md에 전체 프롬프트가 있습니다.'
+      },
+      notes: {
+        t: '숫자를 세는 법', k: '정의와 출처',
+        items: [
+          ['행사', '회원 주말(2026년 11월 21~22일)과 블랙프라이데이~사이버먼데이(11월 27~30일). 지난해들도 같은 엿새로 셉니다.'],
+          ['판매 세트', '온라인과 직영 매장에서 손님이 산 세트. 판 날에 셉니다. 소매 협력사는 따로 계획합니다.'],
+          ['요인', '요인마다 2025년보다 늘거나 주는 세트: 회원·위시리스트 수, 혜택 테스트, 신제품 예측에서 냅니다.'],
+          ['혜택 비용', '할인, 사은품 원가, 더 준 포인트의 값을 매출로 나눈 비율.'],
+          ['혜택 테스트', '2024·2025년 행사와 2026년 10월 테스트에서 대조군보다 더 팔린 세트를 혜택 비용 1천 달러당으로.'],
+          ['장바구니', '작년 행사 주문의 혜택 적용 전 금액, 10달러 구간. 사은품은 40·100·200달러에서 줍니다.'],
+          ['대표 세트', '창고와 매장 재고에 11월 20일까지 들어올 입고를 더해 행사 엿새 예상 수요와 견줍니다.']
+        ],
+        src: '출처: 온라인·매장 주문, 회원·위시리스트 수, 혜택 테스트, 11월 9일 창고·매장 재고, 2026년 계획.'
+      },
+      catName: 'LEGO® 스타일', words: '알록달록, 쌓기, 즐거움',
+      note: '가상의 회사와 세트, 가상 데이터로 구성한 샘플 화면입니다.',
+      notice: 'LEGO®의 공식 디자인이 아니며 LEGO Group과 제휴·승인 관계가 없습니다. 공개된 웹사이트(lego.com)와 브릭·LEGO® 매장·블랙프라이데이 혜택·연차 보고서 등 공개된 접점에서 보이는 디자인을 읽어 낸 참고용 스타일이며 로고·서체·사진·데이터는 포함하지 않습니다. LEGO® is a trademark of the LEGO Group of companies which does not sponsor, authorize or endorse this site. 상표는 각 소유자의 것입니다.',
+      back: { post: '← 포스트로', catalog: '← 카탈로그로' }
+    }
+  };
+  const L = () => T[state.lang];
+  const KO = () => state.lang === 'ko';
+  const pick = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  const FROM_BLOG = (() => {
+    const hosts = ['kr.vizney.com', 'www.vizney.com', 'vizney.com'];
+    const host = v => { try { return new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v).hostname.toLowerCase(); } catch (e) { return ''; } };
+    return hosts.includes(host(qs.get('ref') || '')) || (!!document.referrer && hosts.includes(host(document.referrer)));
+  })();
+  const SLUG = location.pathname.split('/').filter(Boolean)[0] || 'lego';
+
+  /* ================= 도우미 ================= */
+  const sum = a => a.reduce((s, x) => s + x, 0);
+  function setAttrs(e, a) {
+    if (!a) return;
+    for (const k in a) {
+      const v = a[k];
+      if (v == null || v === false) continue;
+      if (k === 'text') e.textContent = v;
+      else if (k === 'html') e.innerHTML = v;
+      else if (k === 'style') for (const p in v) { if (v[p] == null) continue; if (p.startsWith('--')) e.style.setProperty(p, v[p]); else e.style[p] = v[p]; }
+      else e.setAttribute(k, v);
+    }
+  }
+  function add(e, kids) { for (const k of kids.flat()) { if (k == null || k === false) continue; e.append(k instanceof Node ? k : document.createTextNode(String(k))); } }
+  function h(tag, attrs, ...kids) { const e = document.createElement(tag); setAttrs(e, attrs); add(e, kids); return e; }
+  function sv(tag, attrs, ...kids) { const e = document.createElementNS(SVGNS, tag); setAttrs(e, attrs); add(e, kids); return e; }
+  const animOK = a => a && !REDUCE;
+  const glue = str => KO() ? String(str).replace(/([0-9%])(?=[가-힣])/g, '$1⁠') : str;
+  const NF = d => new Intl.NumberFormat('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const trim = s => s.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
+  // 세트(천 세트 단위): 영어 70K · 2.48M, 한국어 7만 · 248만
+  function K(k) {
+    const a = Math.abs(k), s = k < 0 ? '−' : '';
+    if (KO()) { const man = a / 10; return s + (a > 0 && a < 10 ? NF(0).format(Math.round(a)) + '천' : (man >= 100 ? NF(0).format(Math.round(man)) : trim(NF(1).format(man))) + '만'); }
+    if (a >= 1000) return s + NF(a >= 10000 ? 1 : 2).format(a / 1000) + 'M';
+    return s + NF(0).format(Math.round(a)) + 'K';
+  }
+  const KD = v => (v > 0 ? '+' : '') + K(v);
+  // 축 눈금: 영어 1M · 500K, 한국어 100만 · 50만
+  const KA = k => KO() ? K(k) : k >= 1000 ? trim(NF(2).format(k / 1000)) + 'M' : K(k);
+  const N = v => NF(0).format(Math.round(v));
+  // 주문(백 주문 단위로 받는다): 영어 6.3K · 110.9K, 한국어 6,300 · 11.1만
+  const ORD = x => KO() ? (x >= 100 ? trim(NF(1).format(x / 100)) + '만' : N(x * 100)) : trim(NF(1).format(x / 10)) + 'K';
+  const USD = p => KO() ? NF(2).format(p) + '달러' : '$' + NF(2).format(p);
+  // 글자 폭: 그 언어의 본문 서체로 잰다
+  const TW = document.createElement('canvas').getContext('2d');
+  const textW = (str, size, weight = 400) => { TW.font = `${weight} ${size}px ${getComputedStyle(document.documentElement).getPropertyValue('--font')}`; return TW.measureText(String(str)).width; };
+  const pct = v => NF(0).format(Math.abs(v)) + '%';
+  const pct1 = v => NF(1).format(Math.abs(v)) + '%';
+  const arrow = v => v < 0 ? '▼ ' : '▲ ';
+  const batchim = w => { const c = String(w).trim().slice(-1).charCodeAt(0); return c >= 0xAC00 && c <= 0xD7A3 && (c - 0xAC00) % 28 !== 0; };
+  const eun = w => w + (batchim(w) ? '은' : '는');
+  const hexRgb = x => { const n = parseInt(x.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+  const rgbHex = a => '#' + a.map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
+  const shade = (x, k) => rgbHex(hexRgb(x).map(v => v * (1 - k)));
+  const setName = s => KO() ? s.ko : s.en;
+  const salePrice = s => s.offer === 'D20' ? Math.round(s.price * 80) / 100 : s.price;
+  function fitText(str, size, weight, maxW) {
+    if (textW(str, size, weight) <= maxW) return str;
+    let s = str;
+    while (s.length > 1 && textW(s + '…', size, weight) > maxW) s = s.slice(0, -1);
+    return s.length > 2 ? s.trimEnd() + '…' : '';
+  }
+  // 이름이 한 줄에 안 들어가면 낱말 사이에서 두 줄로 나눈다(두 줄이 가장 고른 자리). 그래도 넘치면 줄인다
+  function fitLines(str, size, weight, maxW) {
+    if (textW(str, size, weight) <= maxW || !/\s/.test(str)) return [fitText(str, size, weight, maxW)];
+    const words = str.split(/\s+/);
+    let best = null;
+    for (let k = 1; k < words.length; k++) {
+      const a = words.slice(0, k).join(' '), b = words.slice(k).join(' '), m = Math.max(textW(a, size, weight), textW(b, size, weight));
+      if (!best || m < best[2]) best = [a, b, m];
+    }
+    return best[2] <= maxW ? [best[0], best[1]] : [fitText(best[0], size, weight, maxW), fitText(best[1], size, weight, maxW)];
+  }
+
+  /* ================= 사실: 채널 필터마다 ================= */
+  const FCACHE = {};
+  function facts(v = state.chan) {
+    const key = v + state.lang;
+    if (FCACHE[key]) return FCACHE[key];
+    const V = DATA.views[v], chs = v === 'ALL' ? DATA.channels : [v], by = f => Object.fromEntries(DATA.channels.map(c => [c, f(DATA.views[c])]));
+    const base = V.years[V.years.length - 1];
+    const years = DATA.years.map((y, i) => ({ y, v: V.years[i], by: by(x => x.years[i]) }));
+    // 그림 1: 행사마다 전년보다 더 판 세트, 올해 계획은 요인마다 앞 브릭이 끝난 자리에서(0 = 2025년과 같음)
+    const adds = years.slice(1).map((o, i) => ({ y: o.y, v: o.v - years[i].v, total: o.v, by: Object.fromEntries(DATA.channels.map(c => [c, o.by[c] - years[i].by[c]])) }));
+    let cum = 0;
+    const drivers = DATA.drivers.map(id => {
+      const d = V.drivers[id], lo = d >= 0 ? cum : cum + d, hi = d >= 0 ? cum + d : cum;
+      cum += d;
+      return { id, g: DATA.groups[id], v: d, lo, hi, end: cum, by: by(x => x.drivers[id]) };
+    });
+    const add = V.target - base;
+    const top = Math.max(add, ...adds.map(a => a.v), ...drivers.map(d => d.hi));
+    const unit = [50, 100, 200, 250, 500].find(u => top / u <= 7) || 500;
+    // 그림 3: 장바구니 10달러 구간, 사은품 단계마다 닿은 주문과 다음 단계까지 20달러 안에 있는 주문
+    const bins = V.bins, orders = sum(bins), at = i => i * 10;
+    const tierOf = i => DATA.tiers.filter(t => at(i) >= t).length;
+    const nearBin = i => DATA.tiers.some(t => t - 20 <= at(i) && at(i) < t);
+    const reach = DATA.tiers.map(t => sum(bins.filter((x, i) => at(i) >= t)) / orders * 100);
+    const near = sum(bins.filter((x, i) => nearBin(i))) / orders * 100;
+    // 그림 4: 시간대별 주문, 가장 많은 칸
+    const heat = V.heat, heatTot = sum(heat.map(sum));
+    let peak = [0, 0];
+    heat.forEach((r, d) => r.forEach((x, hh) => { if (x > heat[peak[0]][peak[1]]) peak = [d, hh]; }));
+    // 표 1: 대표 세트, 덜 채운 순서. 모든 채널은 채널마다 모자란 몫을 더한다
+    const sets = DATA.sets.map(s => {
+      const dem = sum(chs.map(c => s.demand[c])), st = sum(chs.map(c => s.stock[c])), short = sum(chs.map(c => Math.max(0, s.demand[c] - s.stock[c])));
+      return { ...s, dem, st, short, cover: st / dem * 100 };
+    }).sort((a, b) => a.cover - b.cover || a.id.localeCompare(b.id));
+    const short = sets.filter(s => s.short > 0);
+    const F = {
+      v, V, chs, base, years, adds, drivers, add, lastAdd: adds[adds.length - 1].v, addBy: by(x => x.target - x.years[x.years.length - 1]), top, unit, target: V.target, growth: (V.target / base - 1) * 100,
+      rev25: V.rev25, rev26: V.rev26, revGrowth: (V.rev26 / V.rev25 - 1) * 100, cost25: V.cost25, cost26: V.cost26,
+      disc: V.drivers.DISC, most: drivers.reduce((a, b) => b.v > a.v ? b : a).id, offers: V.offers, d30: (V.offers.find(o => o.id === 'D30') || V.offers[V.offers.length - 1]).v,
+      bins, orders, tierOf, nearBin, reach, near, heat, heatTot, peak, sets, short, ready: sets.length - short.length
+    };
+    FCACHE[key] = F;
+    return F;
+  }
+
+  /* ================= 툴팁·키보드·스크린 리더 ================= */
+  function tipNodes(head, rows, sub) {
+    return [h('div', { class: 'tip-h', text: glue(head) }), sub ? h('div', { class: 'tip-s', text: glue(sub) }) : null].concat(rows.filter(Boolean).map(r => h('div', { class: 'tip-r' },
+      r.key ? h('i', { class: r.line ? 'ln' : r.dot ? 'dot' : null, style: { '--c': r.key } }) : null,
+      h('b', null, r.value), r.label ? h('span', { class: r.tone || null, text: glue(r.label) }) : null)));
+  }
+  function placeTip(host, nodes, ax, ayTop, ayBottom) {
+    const tip = $(':scope > .tip', host);
+    tip.replaceChildren(...nodes.filter(Boolean));
+    const cw = host.clientWidth, ch = host.clientHeight, tw = tip.offsetWidth, th = tip.offsetHeight, gap = 12, mid = (ayTop + ayBottom) / 2;
+    const cx = l => Math.max(6, Math.min(cw - tw - 6, l)), cy = y => Math.max(6, Math.min(ch - th - 6, y));
+    const options = [
+      [cx(ax - tw / 2), ayTop - gap - th, ayTop - gap - th >= 6],
+      [ax + gap, cy(mid - th / 2), ax + gap + tw <= cw - 6],
+      [ax - gap - tw, cy(mid - th / 2), ax - gap - tw >= 6],
+      [cx(ax - tw / 2), ayBottom + gap, ayBottom + gap + th <= ch - 6]
+    ];
+    const [left, top] = options.find(o => o[2]) || options[1];
+    tip.style.left = Math.round(left) + 'px';
+    tip.style.top = Math.round(top) + 'px';
+    tip.classList.add('on');
+  }
+  const hideTip = host => { const tip = $(':scope > .tip', host); if (tip) tip.classList.remove('on'); };
+  const offsetIn = (host, el) => { const a = host.getBoundingClientRect(), b = el.getBoundingClientRect(); return { x: b.left - a.left, y: b.top - a.top, w: b.width, h: b.height }; };
+  function keyStep(e, cur, n) {
+    const k = e.key;
+    let i = null;
+    if (k === 'ArrowRight' || k === 'ArrowDown') i = cur + 1;
+    else if (k === 'ArrowLeft' || k === 'ArrowUp') i = cur - 1;
+    else if (k === 'Home') i = 0;
+    else if (k === 'End') i = n - 1;
+    else if (k === 'Escape') i = -1;
+    if (i === null) return null;
+    e.preventDefault();
+    return k === 'Escape' ? -1 : Math.max(0, Math.min(n - 1, i));
+  }
+  function srTable(caption, head, rows) {
+    return h('table', null, h('caption', { text: caption }),
+      h('thead', null, h('tr', null, head.map(x => h('th', { scope: 'col', text: x })))),
+      h('tbody', null, rows.map(r => h('tr', null, r.map((c, j) => h(j ? 'td' : 'th', j ? { text: c } : { scope: 'row', text: c }))))));
+  }
+  const say = msg => { $('#live').textContent = String(msg).replace(/⁠/g, ''); };
+  function wireRows(host, list, rowSel, cur, show) {
+    const rows = () => $$(rowSel, list);
+    const pickRow = i => { rows().forEach((r, k) => r.classList.toggle('on', k === i)); if (i == null || i < 0) { hideTip(host); return; } cur.i = i; show(i, rows()[i]); };
+    list.onpointermove = e => { const r = e.target.closest(rowSel); if (r && list.contains(r)) pickRow(rows().indexOf(r)); };
+    list.onpointerleave = e => { if (e.pointerType === 'mouse' && document.activeElement !== list) pickRow(-1); };
+    list.onfocus = () => pickRow(Math.min(cur.i, rows().length - 1));
+    list.onblur = () => pickRow(-1);
+    list.onkeydown = e => { const i = keyStep(e, cur.i, rows().length); if (i === null) return; pickRow(i); if (i >= 0) say(rows()[i].dataset.say || rows()[i].textContent); };
+  }
+  function wireItems(host, plot, n, cur, nearest, show, clear) {
+    const go = i => { if (i == null || i < 0) { clear(); hideTip(host); return; } cur.i = i; show(i); };
+    plot.onpointermove = e => { const b = plot.getBoundingClientRect(); go(nearest(e.clientX - b.left, e.clientY - b.top)); };
+    plot.onpointerleave = e => { if (e.pointerType === 'mouse' && document.activeElement !== plot) go(-1); };
+    plot.onfocus = () => go(Math.min(cur.i, n - 1));
+    plot.onblur = () => go(-1);
+    plot.onkeydown = e => { const i = keyStep(e, cur.i, n); if (i === null) return; go(i); if (i >= 0 && cur.say) say(cur.say(i)); };
+  }
+  // 범례 그림: 브릭(돌기 둘), 투명 브릭(계획), 점선 브릭(빠지는 몫), 칩, 노란 띠(다음 단계까지 20달러 안)
+  function keyIcon(kind, color) {
+    if (kind === 'chip') return h('i', { class: 'chip', style: { '--c': color } });
+    const s = sv('svg', { width: 22, height: 14, viewBox: '0 0 22 14', 'aria-hidden': 'true' });
+    if (kind === 'brick' || kind === 'pbrick' || kind === 'obrick') {
+      const plan = kind === 'pbrick', off = kind === 'obrick', edge = color === C.sets ? C.setsE : null;
+      const a = plan || off ? { fill: '#ffffff', stroke: plan ? C.ink : color, 'stroke-width': plan ? 1.6 : 1.4, 'stroke-dasharray': off ? '3 2' : null } : { fill: color, stroke: edge, 'stroke-width': edge ? 1 : null };
+      s.append(sv('rect', { x: 2.5, y: 5.5, width: 17, height: 8, rx: 1.5, ...a }));
+      for (const sx of [5.5, 12.5]) s.append(sv('rect', { x: sx, y: 2.5, width: 4, height: 3, rx: .8, ...a, 'stroke-dasharray': null, 'stroke-width': a['stroke-width'] ? 1 : null }));
+    } else if (kind === 'band') {
+      s.append(sv('rect', { x: 1, y: 1, width: 20, height: 12, rx: 2, fill: C.near }), sv('rect', { x: 8, y: 5, width: 6, height: 8, rx: 1, fill: C.past }));
+    } else if (kind === 'step') s.append(sv('line', { x1: 11, x2: 11, y1: 0, y2: 14, stroke: C.ink, 'stroke-width': 1.6 }));
+    return s;
+  }
+  const keys = (id, list) => $(id).replaceChildren(...list.map(([kind, color, label]) => h('li', null, kind ? keyIcon(kind, color) : null, label)));
+  // lego.com 배지(SVG): 24px, 모서리 4px. 노랑(Gift with purchase), 빨강(% OFF), 흰 바탕 잉크 테두리(포인트), 회색(배송)
+  const BADGE = {
+    GIFT: { fill: C.yellow, text: C.black, w: 600 }, PTS: { fill: '#ffffff', text: C.black, w: 700, stroke: C.ink },
+    D20: { fill: C.sale, text: '#ffffff', w: 700 }, D30: { fill: C.sale, text: '#ffffff', w: 700 }, SHIP: { fill: C.pill, text: C.black, w: 600 },
+    plan: { fill: C.yellow, text: C.black, w: 700 }
+  };
+  function badgeSvg(g, x, y, label, style, fs = 12.5, hgt = 24, anchor = 'start') {
+    const w = Math.ceil(textW(label, fs, style.w)) + Math.round(hgt * .9), x0 = anchor === 'end' ? x - w : anchor === 'middle' ? x - w / 2 : x;
+    g.append(sv('rect', { x: x0 + .5, y: y + .5, width: w - 1, height: hgt - 1, rx: 4, fill: style.fill, stroke: style.stroke || 'none', 'stroke-width': style.stroke ? 1.2 : null }),
+      sv('text', { x: x0 + w / 2, y: y + hgt / 2 + fs * .36, 'text-anchor': 'middle', 'font-size': fs, 'font-weight': style.w, fill: style.text, text: label }));
+    return w;
+  }
+  const badgeEl = (id, label) => h('span', { class: 'badge' + (id === 'D20' || id === 'D30' ? ' sale' : id === 'PTS' ? ' pts' : id === 'SHIP' ? ' ship' : ''), text: label });
+
+  /* ================= 머리: 행사 날짜 띠, 결과 문장, KPI(세일 태그) ================= */
+  function renderHead() {
+    const t = L(), F = facts();
+    $('#strip').replaceChildren(...t.strip().map(([kind, a, b]) => kind === 'badge' ? h('span', null, h('span', { class: 'badge', text: a })) : h('span', null, a, h('b', { text: b }))));
+    $('#h1').textContent = glue(t.head(F));
+    $('#kpis').replaceChildren(...t.kpi(F).map(k => h('div', { class: 'kpi' },
+      h('p', { class: 'k-l', text: k.l }),
+      h('p', { class: 'k-v' }, k.v, k.u ? h('span', { class: 'u', text: k.u }) : null,
+        k.was ? h('span', { class: 'was-w' }, h('span', { class: 'sr-only', text: KO() ? '작년 ' : 'was ' }), h('s', { class: 'was', text: k.was })) : null),
+      h('p', { class: 'k-d' }, ...k.d.map(p => !Array.isArray(p) ? p : p[0] === 'badge' ? h('span', { class: 'badge sale', text: p[1] }) : h('span', { class: p[1], style: { whiteSpace: 'nowrap' }, text: p[0] }))))));
+  }
+
+  /* ================= 대표 장치 1 · 쌓기: 브릭 탑(그림 1) =================
+     LEGO® 브릭을 쌓듯 행사마다 전년보다 더 판 세트를 탑으로 세운다. 지난 행사는 회색 브릭 탑(꽉 찬 브릭 하나가 F.unit 천 세트,
+     맨 위 브릭은 남은 만큼, 아주 얇으면 아래 브릭에 붙인다). 올해 계획은 요인마다 브릭 하나를 앞 브릭이 끝난 자리에 얹고
+     (손님 파랑, 혜택 주황, 신제품 노랑), 빼는 몫은 주황 점선 브릭. 끝에 2px 잉크 테두리의 투명 브릭 탑(돌기 넷)으로 계획을 세운다. */
+  function pieces(v, unit) {
+    const out = [];
+    let lo = 0;
+    while (v - lo > 1e-9) {
+      let hi = Math.min(v, lo + unit);
+      if (v - hi > 0 && v - hi < unit * .35) hi = v;
+      out.push([lo, hi]);
+      lo = hi;
+    }
+    return out;
+  }
+  // 그림 1과 만드는 법이 함께 쓴다. layers를 주면 층(1 틀 · 2 브릭 · 3 돌기 · 4 값·이음선·배지)마다 묶는다
+  function towerSvg(F, W, H, opt = {}) {
+    // 좁으면(560px 미만) 최근 두 해만, 400px 미만이면 아래 이름을 비스듬히
+    const t = L().f1, tight = W < 600, rot = W < 400, anim = animOK(opt.animate), unit = F.unit;
+    const cols = [];
+    (tight ? F.adds.slice(-2) : F.adds).forEach(o => cols.push({ kind: 'past', key: String(o.y), lo: 0, hi: o.v, v: o.v, w: 1, label: String(o.y), o }));
+    F.drivers.forEach(d => cols.push({ kind: 'drv', key: d.id, lo: d.lo, hi: d.hi, v: d.v, w: 1, label: t.names[d.id], d }));
+    cols.push({ kind: 'plan', key: 'plan', lo: 0, hi: F.add, v: F.add, w: rot ? 2 : tight ? 1.6 : 1.8, label: t.plan });
+    const slots = sum(cols.map(c => c.w));
+    const step = [50, 100, 200, 250, 500, 1000].find(x => x >= F.top / 4) || 1000;
+    let tw = textW('0', 12);
+    for (let v = step; v <= F.top + 1e-6; v += step) tw = Math.max(tw, textW(KD(v), 12));
+    const padL = Math.ceil(tw) + 12, padR = 2, bpH = 4, fsL = tight ? 11.5 : 12.5, padB = rot ? 72 : tight ? 36 : 40, base = H - padB - bpH;
+    const pitch0 = (W - padL - padR) / slots, gap = Math.max(6, Math.min(26, pitch0 * .3)), sh = tight ? 3 : 4;
+    let acc = 0;
+    cols.forEach(c => { c.x = padL + acc * pitch0 + gap / 2; c.cw = c.w * pitch0 - gap; c.cx = c.x + c.cw / 2; acc += c.w; });
+    // 계획의 큰 값과 배지: 계획 기둥 위 가운데(오른쪽 끝을 넘지 않게). 옆 기둥 위로 넘어가면 그 기둥의 브릭과 값보다 높이 올린다
+    const plan = cols[cols.length - 1], fsP = tight ? 20 : 30, fsB = tight ? 11 : 12.5, bhP = tight ? 20 : 24;
+    const fsOf = c => c.kind === 'drv' ? (tight ? 11.5 : 14.5) : (tight ? 11 : 13);
+    const bl = (tight ? t.totalBadgeS : t.totalBadge)(K(F.target)), bwP = textW(bl, fsB, 700) + (tight ? 16 : 22);
+    const planW = Math.max(textW(KD(F.add), fsP, 800), bwP), pcx = Math.min(plan.cx, W - padR - planW / 2), lx0 = pcx - planW / 2, lx1 = pcx + planW / 2;
+    const cap = KO() ? .9 : .76;
+    let padT = tight ? 24 : 28, ppk, yv, vy;
+    for (let it = 0; it < 5; it++) {
+      ppk = (base - padT) / F.top; yv = v => base - v * ppk;
+      vy = yv(F.add) - sh - 8;
+      for (const c of cols) if (c !== plan && c.x < lx1 + 2 && c.x + c.cw > lx0 - 2) vy = Math.min(vy, (c.v >= 0 ? yv(c.hi) - sh - 6 - fsOf(c) : yv(c.hi) - sh) - 6);
+      const need = Math.min(vy - fsP * cap - bhP - 6, ...cols.filter(c => c.v >= 0 && c !== plan).map(c => yv(c.hi) - sh - 6 - fsOf(c))) - 2;
+      if (need >= 0) break;
+      padT += Math.ceil(-need) + 1;
+    }
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: opt.layers ? 'img' : null, 'aria-label': opt.label || null, 'aria-hidden': opt.layers ? null : 'true' });
+    const lay = k => sv('g', opt.layers ? { class: 'layer', 'data-step': k } : null);
+    const g0 = lay(1), g1 = lay(2), g2 = lay(3), g3 = lay(4), gsel = sv('g');
+    svg.append(g0, g1, g2, g3, gsel);
+    // 틀: 눈금(전년보다 +), 회색 바닥판(0 = 전년과 같음)
+    for (let v = step; v <= F.top + 1e-6; v += step) {
+      const y = yv(v);
+      g0.append(sv('line', { x1: padL - 4, x2: W - padR, y1: y, y2: y, stroke: C.hair }), sv('text', { x: padL - 8, y: y + 4, 'text-anchor': 'end', 'font-size': 12, fill: C.mute, text: KD(v) }));
+    }
+    g0.append(sv('text', { x: padL - 8, y: base + 4, 'text-anchor': 'end', 'font-size': 12, fill: C.mute, text: '0' }),
+      sv('rect', { x: padL - 4, y: base, width: W - padR - padL + 4, height: bpH, rx: 2, fill: C.base }));
+    const dropG = (g, delay) => { const gg = sv('g', { class: anim ? 'drop' : null, style: anim ? { animationDelay: Math.round(delay) + 'ms' } : null }); g.append(gg); return gg; };
+    // 브릭: 위아래 1px씩 들여 2px 틈. 테두리 브릭은 선이 칸 안에 들게 더 들인다
+    const brick = (g, c, y0, y1, a) => {
+      const i = a.inset || 0;
+      g.append(sv('rect', { class: 'f1-b', 'data-k': c.key, x: c.x + i, y: y0 + 1 + i, width: c.cw - 2 * i, height: Math.max(1, y1 - y0 - 2 - 2 * i), rx: 2, fill: a.fill, stroke: a.stroke || 'none', 'stroke-width': a.stroke ? a.sw : null, 'stroke-dasharray': a.dash || null }));
+    };
+    // 돌기: 납작하게, 브릭 위 가장자리에 1px 겹쳐서
+    const studs = (g, c, y0, a) => {
+      const i = a.inset || 0, ns = c.w > 1 ? 4 : 2, sw = Math.min(12, c.cw / ns * .5), top = y0 + 1 + i;
+      for (let q = 0; q < ns; q++) {
+        const cx = c.x + c.cw * (q + .5) / ns;
+        g.append(a.stroke && a.fill === '#ffffff'
+          ? sv('rect', { class: 'f1-s', 'data-k': c.key, x: cx - sw / 2, y: top - sh + .5, width: sw, height: sh, rx: 1, fill: '#ffffff', stroke: a.stroke, 'stroke-width': 1.2, 'stroke-dasharray': a.dash ? '2 1.5' : null })
+          : sv('rect', { class: 'f1-s', 'data-k': c.key, x: cx - sw / 2, y: top - sh, width: sw, height: sh + 1, rx: 1, fill: a.fill, stroke: a.stroke || 'none', 'stroke-width': a.stroke ? 1 : null }));
+      }
+    };
+    const geo = [];
+    let k = 0;
+    cols.forEach((c, j) => {
+      const delay = j * 70 + (c.kind === 'past' ? 0 : 160) + (c.kind === 'plan' ? 160 : 0);
+      let a;
+      if (c.kind === 'drv') {
+        const pos = c.v >= 0, g = c.d.g;
+        a = pos ? { fill: GROUP[g], stroke: g === 'sets' ? C.setsE : null, sw: 1, inset: g === 'sets' ? .5 : 0 } : { fill: '#ffffff', stroke: C.offer, sw: 2, dash: '5 3', inset: 1 };
+        brick(dropG(g1, delay), c, yv(c.hi), yv(c.lo), a);
+        studs(dropG(g2, delay), c, yv(c.hi), a);
+      } else {
+        a = c.kind === 'past' ? { fill: C.past } : { fill: '#ffffff', stroke: C.ink, sw: 2, inset: 1 };
+        const ps = pieces(c.v, unit);
+        ps.forEach(([lo, hi], b) => brick(dropG(g1, delay + b * 55), c, yv(hi), yv(lo), a));
+        studs(dropG(g2, delay + (ps.length - 1) * 55), c, yv(c.v), a);
+      }
+      k++;
+    });
+    // 이음선: 요인 브릭이 끝난 높이를 다음 기둥까지 잇는다
+    const drv = cols.filter(c => c.kind === 'drv');
+    drv.forEach((c, q) => {
+      const nx = q < drv.length - 1 ? drv[q + 1] : plan, y = yv(c.d.end);
+      g3.append(sv('line', { x1: c.x + c.cw, x2: nx.x, y1: y, y2: y, stroke: C.conn, 'stroke-width': 1, 'stroke-dasharray': '2 2' }));
+    });
+    // 값: 지난 행사는 작게, 요인은 굵게, 계획은 30px에 노란 배지(행사 전체). 위 값끼리 겹치면 뒤 값을 위로
+    const placed = [];
+    cols.forEach(c => {
+      const fsV = fsOf(c), last = c.kind === 'past' && c.o.y === DATA.years[DATA.years.length - 1];
+      let top = yv(c.hi) - sh;
+      if (c.kind === 'plan') {
+        const by = vy - fsP * cap - bhP - 6;
+        g3.append(sv('text', { class: 'f1-v', 'data-k': c.key, x: pcx, y: vy, 'text-anchor': 'middle', 'font-size': fsP, 'font-weight': 800, fill: C.ink, text: KD(c.v) }));
+        badgeSvg(g3, pcx, by, bl, BADGE.plan, fsB, bhP, 'middle');
+        top = by;
+      } else if (c.v >= 0) {
+        const txt = KD(c.v), wt = c.kind === 'drv' ? 800 : last ? 700 : 600, w = textW(txt, fsV, wt);
+        let y = yv(c.hi) - sh - 6;
+        for (let moved = true, n = 0; moved && n < 6; n++) {
+          moved = false;
+          for (const o of placed) if (Math.abs(o.x - c.cx) < (o.w + w) / 2 + 2 && Math.abs(o.y - y) < o.h + 1) { y = o.y - o.h - 2; moved = true; }
+        }
+        placed.push({ x: c.cx, y, w, h: fsV * (KO() ? 1.4 : 1.15) });
+        g3.append(sv('text', { class: 'f1-v', 'data-k': c.key, x: c.cx, y, 'text-anchor': 'middle', 'font-size': fsV, 'font-weight': wt, fill: c.kind === 'drv' || last ? C.ink : C.mute, text: txt }));
+        top = y - fsV - 2;
+      } else {
+        g3.append(sv('text', { class: 'f1-v', 'data-k': c.key, x: c.cx, y: yv(c.lo) + fsV + 5, 'text-anchor': 'middle', 'font-size': fsV, 'font-weight': 800, fill: C.ink, text: KD(c.v) }));
+      }
+      geo.push({ x: c.x, cx: c.cx, cw: c.cw, top, bottom: base });
+    });
+    if (anim && !opt.layers) { g3.setAttribute('class', 'fade'); g3.style.animationDelay = (cols.length * 70 + 520) + 'ms'; }
+    // 아래 이름: 해, 요인(두 줄까지), 계획. 좁으면 비스듬히 한 줄
+    cols.forEach(c => {
+      const bold = c.kind === 'plan' || (c.kind === 'past' && c.o.y === DATA.years[DATA.years.length - 1]), wgt = bold ? 700 : 500, fill = c.kind === 'past' && !bold ? C.body : C.ink;
+      if (rot) {
+        const y = base + bpH + 12;
+        const maxR = padB / Math.sin(40 * Math.PI / 180) - 14, lab = c.kind === 'drv' && textW(c.label, fsL, wgt) > maxR ? t.namesS[c.d.id] : c.label;
+        g0.append(sv('text', { x: c.cx + 3, y, 'text-anchor': 'end', transform: `rotate(-40 ${c.cx + 3} ${y})`, 'font-size': fsL, 'font-weight': wgt, fill, text: fitText(lab, fsL, wgt, maxR) }));
+      } else {
+        // 이름이 잘리면 글자를 조금 줄이고, 그래도 잘리면 짧은 이름
+        const room = c.cw + gap - 2, tries = c.kind === 'drv' ? [[c.label, fsL], [c.label, fsL - 1.5], [t.namesS[c.d.id], fsL], [t.namesS[c.d.id], fsL - 1.5]] : [[c.label, fsL]];
+        let ls, fz;
+        for ([ls, fz] of tries.map(([l, f]) => [fitLines(l, f, wgt, room), f])) if (!ls.some(l => l.endsWith('…'))) break;
+        ls.forEach((l, q) => g0.append(sv('text', { x: c.cx, y: base + bpH + (tight ? 14 : 16) + q * (KO() ? fz * 1.48 : fz + 2), 'text-anchor': 'middle', 'font-size': fz, 'font-weight': wgt, fill, text: l })));
+      }
+    });
+    return { svg, geo, gsel, base, cols, n: cols.length, gap };
+  }
+  const f1Cur = { i: 0 };
+  function renderF1(animate) {
+    const F = facts(), t = L().f1, plot = $('#f1Plot'), host = $('#f1'), all = F.v === 'ALL';
+    $('#f1T').textContent = glue(t.title(F));
+    $('#f1 .cf').textContent = t.note(F.unit);
+    keys('#f1K', [['brick', C.past, t.keys[0]], ['brick', C.shop, t.keys[1]], ['brick', C.offer, t.keys[2]], ['brick', C.sets, t.keys[3]], ['obrick', C.offer, t.keys[4]], ['pbrick', null, t.keys[5]]]);
+    const W = Math.max(280, Math.round(plot.clientWidth)), H = Math.max(240, Math.round(plot.clientHeight));
+    plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight);
+    const R = towerSvg(F, W, H, { animate });
+    plot.replaceChildren(R.svg);
+    plot.setAttribute('aria-label', t.title(F).replace(/⁠/g, ''));
+    const split = o => all ? DATA.channels.map(c => ({ value: KD(o[c]), label: L().chans[c] })) : [];
+    const tipFor = i => {
+      const c = R.cols[i];
+      if (c.kind === 'past') return [t.event(c.o.y), [{ key: C.past, value: KD(c.v), label: t.tip.added(c.o.y - 1) }, { value: K(c.o.total), label: t.tip.total }].concat(split(c.o.by))];
+      if (c.kind === 'drv') return [t.names[c.d.id], [{ key: c.v >= 0 ? GROUP[c.d.g] : null, value: KD(c.v), label: t.tip.on25 }].concat(split(c.d.by), [{ value: t.groups[c.d.g] }])];
+      return [t.plan, [{ value: KD(F.add), label: t.tip.on25 }, { value: K(F.target), label: t.tip.total }].concat(split(F.addBy))];
+    };
+    f1Cur.say = i => { const [hd, rows] = tipFor(i); return hd + ': ' + rows.map(r => r.value + ' ' + (r.label || '')).join(', '); };
+    const sel = i => { R.gsel.replaceChildren(); if (i == null || i < 0) return; const g = R.geo[i], tp = Math.max(2, g.top - 4); R.gsel.append(sv('rect', { x: g.x - 5, y: tp, width: g.cw + 10, height: R.base - tp + 1, rx: 4, fill: 'none', stroke: C.ink, 'stroke-width': 1.5, 'stroke-dasharray': '3 3' })); };
+    wireItems(host, plot, R.n, f1Cur, x => { let best = 0; R.geo.forEach((g, q) => { if (Math.abs(x - g.cx) < Math.abs(x - R.geo[best].cx)) best = q; }); return best; },
+      i => { sel(i); const o = offsetIn(host, plot), g = R.geo[i], [hd, rows] = tipFor(i); placeTip(host, tipNodes(hd, rows), o.x + g.cx, o.y + Math.max(0, g.top), o.y + g.bottom); }, () => sel(-1));
+    $('#f1Table').replaceChildren(srTable(t.title(F), t.sr, F.adds.map(o => [t.event(o.y), KD(o.v), K(o.total)])
+      .concat(F.drivers.map(d => [t.names[d.id], KD(d.v), '—']), [[t.plan, KD(F.add), K(F.target)]])));
+  }
+
+  /* ================= 대표 장치 2 · 세일 태그: 혜택별 효과(그림 2) =================
+     lego.com 상품 칸의 배지(노랑 Gift with purchase, 빨강 % OFF, 흰 바탕 포인트, 회색 배송)를 이름표로 달고, 혜택 비용 1천 달러당
+     더 팔린 세트를 돌기 줄이 있는 긴 브릭으로 눕힌다(돌기 하나가 5세트). 계획에 넣은 혜택은 주황, 뺀 혜택은 회색. */
+  const f2Cur = { i: 0 };
+  function renderF2(animate) {
+    const F = facts(), t = L().f2, plot = $('#f2Plot'), host = $('#f2'), anim = animOK(animate);
+    $('#f2T').textContent = glue(t.title(F));
+    keys('#f2K', [['brick', C.offer, t.keys[0]], ['brick', C.past, t.keys[1]]]);
+    const rows = F.offers, n = rows.length, W = Math.max(260, Math.round(plot.clientWidth)), tight = W < 430;
+    const natural = n * (tight ? 58 : 64) + 8, flex = getComputedStyle(plot).flexGrow !== '0';
+    plot.style.minHeight = natural + 'px';
+    plot.style.height = flex ? '' : natural + 'px';
+    const H = Math.max(natural, Math.round(plot.clientHeight));
+    plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight);
+    const fsB = tight ? 11.5 : 12.5, bh = tight ? 22 : 24, padT = 4, rowH = Math.min(84, (H - padT - 4) / n);
+    const Lw = Math.ceil(Math.max(...rows.map(o => textW(t.names[o.id], fsB, BADGE[o.id].w) + Math.round(bh * .9)), ...rows.map(o => tight ? 0 : textW(t.detail[o.id], 12.5)))) + (tight ? 10 : 18);
+    const maxV = Math.max(...rows.map(o => o.v)), fsV = tight ? 20 : 26;
+    const valW = 10 + textW(N(maxV), fsV, 800) + 5 + textW(t.unit, 13, 500) + 4;
+    const scale = (W - Lw - valW) / maxV, sp = 5 * scale, sw = Math.min(14, sp * .46), sh = 5, barH = Math.min(30, rowH * .44);
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), gsel = sv('g');
+    const geo = [];
+    rows.forEach((o, i) => {
+      const y0 = padT + i * rowH, cy = y0 + rowH / 2, fill = o.plan ? C.offer : C.past;
+      const g = sv('g');
+      const blockH = bh + (tight ? 0 : 19), by = cy - blockH / 2;
+      badgeSvg(g, 0, by, t.names[o.id], BADGE[o.id], fsB, bh);
+      if (!tight) g.append(sv('text', { x: 0, y: by + bh + 15, 'font-size': 12.5, fill: C.mute, text: fitText(t.detail[o.id], 12.5, 400, Lw - 6) }));
+      // 긴 브릭: 바 끝까지가 값, 돌기는 5세트마다 하나
+      const x0 = Lw, w = o.v * scale, barY = cy - barH / 2 + 2;
+      const gb = sv('g', { class: anim ? 'growx' : null, style: anim ? { animationDelay: (i * 90) + 'ms' } : null });
+      gb.append(sv('rect', { class: 'f2-bar', 'data-id': o.id, x: x0, y: barY, width: w, height: barH, rx: 3, fill }));
+      for (let q = 0; q < Math.floor(o.v / 5 + 1e-9); q++) gb.append(sv('rect', { class: 'f2-stud', 'data-id': o.id, x: x0 + (q + .5) * sp - sw / 2, y: barY - sh, width: sw, height: sh + 1, rx: 1, fill }));
+      g.append(gb);
+      const tx = sv('text', { class: anim ? 'fade' : null, style: anim ? { animationDelay: (i * 90 + 380) + 'ms' } : null, x: x0 + w + 10, y: barY + barH / 2 + fsV * .36, 'font-size': fsV, 'font-weight': 800, fill: C.ink });
+      tx.append(sv('tspan', { text: N(o.v) }));
+      if (i === 0) tx.append(sv('tspan', { dx: 5, 'font-size': 13, 'font-weight': 500, fill: C.mute, text: t.unit }));
+      g.append(tx);
+      svg.append(g);
+      geo.push({ y0, y1: y0 + rowH, x: x0 + w, cy });
+    });
+    svg.append(gsel);
+    plot.replaceChildren(svg);
+    plot.setAttribute('aria-label', t.title(F).replace(/⁠/g, ''));
+    const tipFor = i => { const o = rows[i]; return [t.names[o.id], [{ key: o.plan ? C.offer : C.past, value: N(o.v), label: t.tip.per }, { value: USD(1000 / o.v), label: t.tip.cost }, { value: o.plan ? t.keys[0] : t.keys[1] }], t.detail[o.id]]; };
+    f2Cur.say = i => { const [hd, rr, sub] = tipFor(i); return `${hd} (${sub}): ` + rr.map(r => r.value + ' ' + (r.label || '')).join(', '); };
+    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const g = geo[i]; gsel.append(sv('rect', { x: 1, y: g.y0 + 1, width: W - 2, height: g.y1 - g.y0 - 2, rx: 6, fill: 'none', stroke: C.ink, 'stroke-width': 1.5, 'stroke-dasharray': '3 3' })); };
+    wireItems(host, plot, n, f2Cur, (x, y) => Math.max(0, Math.min(n - 1, Math.floor((y - padT) / rowH))),
+      i => { sel(i); const o = offsetIn(host, plot), g = geo[i], [hd, rr, sub] = tipFor(i); placeTip(host, tipNodes(hd, rr, sub), o.x + Math.min(g.x, W - 40), o.y + g.y0, o.y + g.y1); }, () => sel(-1));
+    $('#f2Table').replaceChildren(srTable(t.title(F), t.sr, rows.map(o => [t.names[o.id], t.detail[o.id], N(o.v), o.plan ? t.keys[0] : t.keys[1]])));
+  }
+
+  /* ================= 대표 장치 3 · 사은품 사다리(그림 3) =================
+     LEGO®의 블랙프라이데이 구매 사은품처럼 장바구니 금액 단계(40 · 100 · 200달러)마다 사은품이 하나씩 붙는다. 작년 행사 주문을 10달러
+     구간 막대로 세우고, 닿은 단계만큼 주황을 짙게 칠한다(못 닿으면 회색). 단계 바로 아래 20달러는 노란 띠를 깔아 '조금만 더'를 보이고,
+     단계마다 lego.com 노란 배지를 깃발처럼 달아 닿은 주문 비율을 적는다. */
+  const f3Cur = { i: 0 };
+  function renderF3(animate) {
+    const F = facts(), t = L().f3, plot = $('#f3Plot'), host = $('#f3'), anim = animOK(animate);
+    $('#f3T').textContent = glue(t.title(F));
+    keys('#f3K', [['chip', TIER[0], t.keys[0]], ['chip', TIER[1], t.keys[1]], ['chip', TIER[2], t.keys[2]], ['chip', TIER[3], t.keys[3]], ['band', null, t.keys[4]]]);
+    const W = Math.max(280, Math.round(plot.clientWidth)), H = Math.max(240, Math.round(plot.clientHeight)), tight = W < 480;
+    plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight);
+    const bins = F.bins, nb = bins.length, maxB = Math.max(...bins), at = i => i * 10;
+    // 마지막 막대(300달러 이상)는 열린 구간이라 반 칸 띄운다
+    const step = [100, 200, 250, 500, 1000].find(x => x >= maxB / 3.5) || 1000;
+    let tw = 8;
+    for (let v = step; v <= maxB + 1e-6; v += step) tw = Math.max(tw, textW(ORD(v), 12));
+    const padL = Math.ceil(tw) + 12, padR = 4, padT = tight ? 52 : 62, padB = 24;
+    const base = H - padB, ppk = (base - padT - 4) / maxB, yv = v => base - v * ppk, bw = (W - padL - padR) / (nb + .5), xb = i => padL + (i + (i >= nb - 1 ? .5 : 0)) * bw;
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g0 = sv('g'), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
+    svg.append(g0, g1, g2, gsel);
+    // 다음 단계까지 20달러 안: 노란 띠
+    DATA.tiers.forEach(tv => g0.append(sv('rect', { x: xb((tv - 20) / 10), y: padT - 8, width: bw * 2, height: base - padT + 8, fill: C.near })));
+    for (let v = step; v <= maxB + 1e-6; v += step) {
+      const y = yv(v);
+      g0.append(sv('line', { x1: padL - 4, x2: W - padR, y1: y, y2: y, stroke: C.hair }), sv('text', { x: padL - 8, y: y + 4, 'text-anchor': 'end', 'font-size': 12, fill: C.mute, text: ORD(v) }));
+    }
+    g0.append(sv('text', { x: padL - 8, y: base + 4, 'text-anchor': 'end', 'font-size': 12, fill: C.mute, text: '0' }));
+    // 막대: 닿은 단계의 주황, 사은품 없으면 회색
+    const geo = bins.map((v, i) => {
+      const y = yv(v), x = xb(i) + 1, w = Math.max(1, bw - 2);
+      g1.append(sv('rect', { class: 'f3-bar' + (anim ? ' drop' : ''), 'data-i': i, style: anim ? { animationDelay: (i * 18) + 'ms' } : null, x, y, width: w, height: Math.max(1, base - y), rx: Math.min(2, w / 3), fill: TIER[F.tierOf(i)] }));
+      return { x, cx: x + w / 2, top: y };
+    });
+    g1.append(sv('line', { x1: padL - 4, x2: W - padR, y1: base + .5, y2: base + .5, stroke: C.ink, 'stroke-width': 1 }));
+    // 아래 금액: 50달러마다(좁으면 100달러마다), 끝은 300달러 이상
+    const every = tight ? 10 : 5;
+    for (let i = 0; i < nb - 1; i += every) g0.append(sv('text', { x: xb(i), y: base + 17, 'text-anchor': i ? 'middle' : 'start', 'font-size': 12, fill: C.mute, text: t.axis(at(i)) }));
+    g0.append(sv('text', { x: Math.min(W - padR, xb(nb - 1) + bw / 2 + textW(t.axis(at(nb - 1), true), 12) / 2), y: base + 17, 'text-anchor': 'end', 'font-size': 12, fill: C.mute, text: t.axis(at(nb - 1), true) }));
+    // 단계 깃발: 선 위에 노란 배지, 아래에 닿은 주문 비율
+    DATA.tiers.forEach((tv, q) => {
+      const x = xb(tv / 10), room = (q < DATA.tiers.length - 1 ? xb(DATA.tiers[q + 1] / 10) : W - padR) - x - 6;
+      g2.append(sv('line', { x1: x, x2: x, y1: 2, y2: base, stroke: C.ink, 'stroke-width': 1.5 }));
+      const fsF = tight ? 11 : 12, long = t.step(q, tv), short = t.stepS(tv);
+      const lab = textW(long, fsF, 700) + 18 <= room ? long : short;
+      badgeSvg(g2, x, 2, lab, BADGE.plan, fsF, tight ? 20 : 22);
+      const ry = (tight ? 22 : 24) + (tight ? 22 : 26), big = pct(F.reach[q]), fsR = tight ? 16 : 20, tx = sv('text', { class: 'f3-r', x: x + 5, y: ry, 'font-size': fsR, 'font-weight': 800, fill: C.ink });
+      tx.append(sv('tspan', { text: big }));
+      if (textW(big, fsR, 800) + textW(' ' + t.reach, 12.5) + 8 <= room) tx.append(sv('tspan', { dx: 4, 'font-size': 12.5, 'font-weight': 500, fill: C.mute, text: t.reach }));
+      g2.append(tx);
+    });
+    svg.append(gsel);
+    plot.replaceChildren(svg);
+    plot.setAttribute('aria-label', t.title(F).replace(/⁠/g, ''));
+    const tipFor = i => {
+      const v = bins[i], tier = F.tierOf(i), nxt = DATA.tiers.find(tv => tv > at(i)), near = F.nearBin(i);
+      return [t.bin(at(i), i < nb - 1 ? at(i + 1) : null), [{ key: TIER[tier], value: ORD(v), label: t.tip.orders }, { value: pct1(v / F.orders * 100), label: t.tip.share },
+        { value: tier ? t.tip.gift(tier) : t.tip.none }, near ? { value: t.tip.toStep(nxt - at(i) - 9, nxt - at(i), DATA.tiers.indexOf(nxt) + 1) } : null]];
+    };
+    f3Cur.say = i => { const [hd, rr] = tipFor(i); return hd + ': ' + rr.filter(Boolean).map(r => r.value + ' ' + (r.label || '')).join(', '); };
+    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const g = geo[i]; gsel.append(sv('rect', { x: g.x - 2, y: Math.min(g.top, base - 6) - 3, width: bw + 2, height: base - Math.min(g.top, base - 6) + 4, rx: 3, fill: 'none', stroke: C.ink, 'stroke-width': 1.5 })); };
+    wireItems(host, plot, nb, f3Cur, x => { const u = (x - padL) / bw; return Math.max(0, Math.min(nb - 1, Math.floor(u >= nb - .5 ? u - .5 : u))); },
+      i => { sel(i); const o = offsetIn(host, plot), g = geo[i], [hd, rr] = tipFor(i); placeTip(host, tipNodes(hd, rr), o.x + g.cx, o.y + g.top, o.y + base); }, () => sel(-1));
+    $('#f3Table').replaceChildren(srTable(t.title(F), t.sr, bins.map((v, i) => [t.bin(at(i), i < nb - 1 ? at(i + 1) : null), ORD(v), F.tierOf(i) ? t.tip.gift(F.tierOf(i)) : t.tip.none])));
+  }
+
+  /* ================= 그림 4: 행사 날 × 시간 히트맵 =================
+     작년 행사의 시간대별 주문을 행사 주문에서 차지하는 비율로 파랑 다섯 단계에 칠한다(0.1% 미만은 옅은 회색). 칸은 2px 틈의 1×1 타일.
+     올해 계획(혜택 오픈, 매장 개장, 직원 추가, 마감 메일)은 잉크 테두리와 노란 번호 배지로 그 칸에 얹는다. */
+  const PLAN = [
+    { ch: 'ON', d: 0, h0: 8, h1: 8 }, { ch: 'ON', d: 2, h0: 0, h1: 0 }, { ch: 'ST', d: 2, h0: 6, h1: 6 },
+    { ch: 'ST', d: 3, h0: 12, h1: 15 }, { ch: 'ON', d: 5, h0: 19, h1: 19 }
+  ];
+  const heatBin = share => HEAT_CUT.filter(c => share >= c).length;
+  function heatKey() {
+    const t = L().f4, sw = 24, s = sv('svg', { width: sw * 6 + 4, height: 30, viewBox: `0 0 ${sw * 6 + 4} 30`, 'aria-hidden': 'true' });
+    HEAT.forEach((c, i) => s.append(sv('rect', { x: i * sw + 1, y: 1, width: sw - 2, height: 12, rx: 2, fill: c })));
+    HEAT_CUT.forEach((c, i) => s.append(sv('text', { x: (i + 1) * sw, y: 27, 'text-anchor': 'middle', 'font-size': 11, fill: C.mute, text: trim(NF(1).format(c)) + (i === HEAT_CUT.length - 1 ? '%' : '') })));
+    return h('li', { class: 'scale' }, s, h('span', { text: t.scale }));
+  }
+  const f4Cur = { i: 0 };
+  function renderF4(animate) {
+    const F = facts(), t = L().f4, plot = $('#f4Plot'), host = $('#f4'), anim = animOK(animate);
+    $('#f4T').textContent = glue(t.title[F.v]);
+    $('#f4K').replaceChildren(heatKey());
+    const plans = PLAN.map((p, q) => ({ ...p, q })).filter(p => F.v === 'ALL' || p.ch === F.v);
+    $('#f4P').replaceChildren(...plans.map((p, k) => h('li', null, h('span', { class: 'num-b', 'aria-hidden': 'true', text: k + 1 }), t.plan[p.q])));
+    const W = Math.max(280, Math.round(plot.clientWidth)), tight = W < 520, fsD = tight ? 11.5 : 12.5;
+    const padL = Math.ceil(Math.max(...t.days.map((d, i) => textW(d, fsD, i === 2 ? 700 : 500)))) + 10, padR = 10, padT = 10, padB = 22;
+    const cw = (W - padL - padR) / 24, natural = padT + 6 * 26 + padB;
+    plot.style.minHeight = natural + 'px';
+    const H = Math.max(natural, Math.round(plot.clientHeight)), rowH = Math.min(46, (H - padT - padB) / 6);
+    plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight);
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
+    svg.append(g1, g2, gsel);
+    const cx = hh => padL + hh * cw, cy = d => padT + d * rowH;
+    F.heat.forEach((r, d) => {
+      g1.append(sv('text', { x: padL - 10, y: cy(d) + rowH / 2 + fsD * .36, 'text-anchor': 'end', 'font-size': fsD, 'font-weight': d === 2 ? 700 : 500, fill: d === 2 ? C.ink : C.body, text: t.days[d] }));
+      r.forEach((v, hh) => g1.append(sv('rect', { class: 'f4-c' + (anim ? ' fade' : ''), 'data-d': d, 'data-h': hh, style: anim ? { animationDelay: (hh * 14 + d * 40) + 'ms' } : null, x: cx(hh) + 1, y: cy(d) + 1, width: cw - 2, height: rowH - 2, rx: 2, fill: HEAT[heatBin(v / F.heatTot * 100)] })));
+    });
+    for (let hh = 0; hh < 24; hh += tight ? 6 : 3) g1.append(sv('text', { x: cx(hh) + cw / 2, y: cy(6) + 16, 'text-anchor': 'middle', 'font-size': 12, fill: C.mute, text: t.hour(hh) }));
+    // 계획: 칸 둘레 잉크 테두리, 오른쪽 위 모서리에 노란 번호 배지
+    plans.forEach((p, k) => {
+      const x = cx(p.h0), y = cy(p.d), w = (p.h1 - p.h0 + 1) * cw;
+      g2.append(sv('rect', { x: x + .5, y: y + .5, width: w - 1, height: rowH - 1, rx: 3, fill: 'none', stroke: C.black, 'stroke-width': 2 }));
+      const bx = Math.min(W - 9.5, x + w - 1), by = Math.max(9.5, y + 1);
+      g2.append(sv('circle', { class: 'f4-m', 'data-q': p.q, cx: bx, cy: by, r: 8.5, fill: C.yellow, stroke: C.black, 'stroke-width': 1 }), sv('text', { x: bx, y: by + 3.8, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 800, fill: C.black, text: k + 1 }));
+    });
+    plot.style.height = H + 'px';
+    plot.replaceChildren(svg);
+    plot.setAttribute('aria-label', t.title[F.v]);
+    const n = 6 * 24, planAt = (d, hh) => plans.findIndex(p => p.d === d && hh >= p.h0 && hh <= p.h1);
+    const tipFor = i => {
+      const d = Math.floor(i / 24), hh = i % 24, v = F.heat[d][hh], share = v / F.heatTot * 100, k = planAt(d, hh);
+      return [`${t.days[d]} · ${t.hourLong(hh)}`, [{ key: HEAT[heatBin(share)], value: ORD(v), label: t.orders }, { value: pct1(share), label: t.ofEvent }, k >= 0 ? { value: `${k + 1}`, label: t.plan[plans[k].q] } : null]];
+    };
+    f4Cur.say = i => { const [hd, rr] = tipFor(i); return hd + ': ' + rr.filter(Boolean).map(r => r.value + ' ' + (r.label || '')).join(', '); };
+    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const d = Math.floor(i / 24), hh = i % 24; gsel.append(sv('rect', { x: cx(hh) - 1, y: cy(d) - 1, width: cw + 2, height: rowH + 2, rx: 3, fill: 'none', stroke: C.ink, 'stroke-width': 2, 'stroke-dasharray': '3 2' })); };
+    wireItems(host, plot, n, f4Cur, (x, y) => { const hh = Math.max(0, Math.min(23, Math.floor((x - padL) / cw))), d = Math.max(0, Math.min(5, Math.floor((y - padT) / rowH))); return d * 24 + hh; },
+      i => { sel(i); const o = offsetIn(host, plot), d = Math.floor(i / 24), hh = i % 24, [hd, rr] = tipFor(i); placeTip(host, tipNodes(hd, rr), o.x + cx(hh) + cw / 2, o.y + cy(d), o.y + cy(d) + rowH); }, () => sel(-1));
+    $('#f4Table').replaceChildren(srTable(t.title[F.v], t.sr, F.heat.map((r, d) => { const m = r.indexOf(Math.max(...r)); return [t.days[d], ORD(sum(r)), t.hourLong(m), ORD(r[m])]; })));
+  }
+
+  /* ================= 표 1: 대표 세트 =================
+     lego.com 상품 칸처럼 이름 아래 상자 정보 띠(연령 상자 | 세트 번호 | 부품 수), 혜택 배지와 가격(할인가 빨강 + 원래 가격 취소선).
+     채운 정도는 노란 막대(120%까지, 100% 눈금). 모자란 몫은 빨간 점선과 빨간 글자. 덜 채운 세트부터. */
+  const t1Cur = { i: 0 };
+  function covBar(s) {
+    const pc = v => (Math.max(0, Math.min(120, v)) / 120 * 100).toFixed(2) + '%';
+    return sv('svg', { 'aria-hidden': 'true' },
+      sv('rect', { x: 0, y: 3, width: '100%', height: 10, rx: 2, fill: C.pill }),
+      sv('rect', { x: 0, y: 3.5, width: pc(s.cover), height: 9, rx: 2, fill: C.sets, stroke: C.setsE, 'stroke-width': 1 }),
+      s.short && s.cover < 100 ? sv('rect', { x: pc(s.cover), y: 3.75, width: pc(100 - s.cover), height: 8.5, rx: 2, fill: 'none', stroke: C.saleT, 'stroke-width': 1.5, 'stroke-dasharray': '3 2' }) : null,
+      sv('line', { x1: pc(100), x2: pc(100), y1: 0, y2: 16, stroke: C.ink, 'stroke-width': 1.5 }));
+  }
+  function renderT1(animate) {
+    const F = facts(), t = L().t1, host = $('#t1');
+    $('#t1T').textContent = glue(t.title(F));
+    const few = F.sets.length <= 9, shown = state.showAll || few ? F.sets : F.sets.slice(0, 8);
+    const tb = h('table', { class: 'od' },
+      h('thead', null, h('tr', null, h('th', { text: t.cols[0] }), h('th', { text: t.cols[1] }), h('th', { class: 'r hide-s', text: t.cols[2] }), h('th', { class: 'r hide-m', text: t.cols[3] }), h('th', { text: t.cols[4] }))),
+      h('tbody', { class: animOK(animate) ? 'fade' : null, tabindex: 0, 'aria-label': t.title(F).replace(/⁠/g, '') }, shown.map(s => {
+        const bad = s.short > 0;
+        return h('tr', { 'data-id': s.id, 'data-say': `${setName(s)}: ${t.cols[2]} ${K(s.dem)}, ${t.cols[3]} ${K(s.st)}, ${pct(s.cover)}${bad ? ', ' + t.short(s.short) : ''}` },
+          h('td', { class: 'nm' }, h('b', { text: setName(s) }), h('div', { class: 'bx' }, h('span', null, h('span', { class: 'age', text: s.age })), h('span', { text: s.id }), h('span', { text: t.pcs(s.pcs) }))),
+          h('td', null, h('div', { class: 'offer' }, badgeEl(s.offer, t.offer[s.offer]), h('div', { class: 'price' }, s.offer === 'D20'
+            ? [h('span', { class: 'now sale', text: USD(salePrice(s)) }), h('span', { class: 'sr-only', text: KO() ? '원래 가격 ' : 'was ' }), h('s', { class: 'was', text: USD(s.price) })]
+            : h('span', { class: 'now', text: USD(s.price) })))),
+          h('td', { class: 'r hide-s' }, h('span', { class: 'num', text: K(s.dem) })),
+          h('td', { class: 'r hide-m' }, h('span', { class: 'num', text: K(s.st) })),
+          h('td', null, h('div', { class: 'cov' }, covBar(s), h('div', null, h('b', { class: bad ? 'bad' : null, text: pct(s.cover) }), h('small', { class: bad ? null : 'ok', text: bad ? t.short(s.short) : t.ready })))));
+      })));
+    $('#t1Wrap').replaceChildren(tb);
+    const btn = few ? null : h('button', { type: 'button', class: 'btn btn-sm btn-o', 'aria-expanded': state.showAll ? 'true' : 'false', text: state.showAll ? t.less : t.more(F.sets.length) });
+    if (btn) btn.addEventListener('click', () => {
+      state.showAll = !state.showAll; t1Cur.i = 0; renderT1(false);
+      if (!state.showAll) host.scrollIntoView({ block: 'nearest' });
+      const b = $('#t1More button'); if (b) b.focus({ preventScroll: true });
+    });
+    $('#t1More').replaceChildren(...(btn ? [btn] : []));
+    wireRows(host, $('tbody', tb), 'tr', t1Cur, (i, row) => {
+      const s = shown[i], o = offsetIn(host, row);
+      placeTip(host, tipNodes(setName(s), F.chs.map(c => ({ key: null, value: `${K(s.stock[c])} / ${K(s.demand[c])}`, label: `${L().chans[c]} · ${t.tip.split}`, tone: s.stock[c] < s.demand[c] ? 'bad' : null }))
+        .concat([s.short ? { value: K(s.short), label: t.tip.short, tone: 'bad' } : { value: t.ready }]), `${s.age} · ${t.pcs(s.pcs)} · ${USD(salePrice(s))}`), o.x + Math.min(o.w / 2, 260), o.y, o.y + o.h);
+    });
+  }
+
+  /* ================= 숫자를 세는 법 ================= */
+  function renderTerms() {
+    const t = L();
+    $('#terms').replaceChildren(...t.notes.items.map(([k, v]) => h('p', null, h('b', null, k, ': '), v)), h('p', { class: 'src', text: t.notes.src }));
+  }
+
+  /* ================= 만드는 법: 그림 1을 다시 그리는 작업대 ================= */
+  function drawBench() {
+    const F = facts(), plot = $('#wbPlot'), without = state.mode === 'without', W = Math.max(240, plot.clientWidth), Hh = Math.max(240, plot.clientHeight);
+    plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight);
+    let svg;
+    if (!without) svg = towerSvg(F, W, Hh, { layers: true, label: L().f1.title(F) }).svg;
+    else {
+      // 명세 없이: 모든 값을 0에서 세운 기본 막대, 기본 색을 돌려 쓰고, 모든 막대에 값
+      const items = F.adds.map(o => [String(o.y), o.v]).concat(F.drivers.map(d => [d.id, d.v]), [['2026', F.add]]);
+      const padL = 44, padR = 8, padT = 30, padB = 26, n = items.length, PW = W - padL - padR, PH = Hh - padT - padB, cw = PW / n, bw = Math.max(4, cw * .62);
+      const lo = Math.min(0, ...items.map(x => x[1])) * 1.15, hi = Math.max(...items.map(x => x[1])) * 1.12, y = v => padT + (hi - v) / (hi - lo) * PH;
+      const stepV = hi > 400 ? 100 : 50, font = { 'font-family': 'Arial, sans-serif' };
+      svg = sv('svg', { width: W, height: Hh, viewBox: `0 0 ${W} ${Hh}`, role: 'img', 'aria-label': L().build.generic });
+      const g1 = sv('g', { class: 'layer', 'data-step': 1 }), g2 = sv('g', { class: 'layer', 'data-step': 2 }), g4 = sv('g', { class: 'layer', 'data-step': 4 });
+      for (let v = Math.ceil(lo / stepV) * stepV; v <= hi; v += stepV) g1.append(sv('line', { x1: padL, x2: W - padR, y1: y(v), y2: y(v), stroke: v ? '#d0d0d0' : '#888' }), sv('text', { x: padL - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: '#666', ...font, text: v }));
+      g1.append(sv('rect', { x: padL, y: 6, width: 9, height: 9, fill: C.generic[0] }), sv('text', { x: padL + 13, y: 14, 'font-size': 11, fill: '#333', ...font, text: 'value' }));
+      items.forEach(([lab, v], j) => {
+        const x0 = padL + cw * j + (cw - bw) / 2, y0 = y(Math.max(0, v)), y1 = y(Math.min(0, v));
+        g2.append(sv('rect', { x: x0, y: y0, width: bw, height: Math.max(1, y1 - y0), fill: C.generic[j % C.generic.length] }));
+        g4.append(sv('text', { x: x0 + bw / 2, y: v >= 0 ? y0 - 4 : y1 + 11, 'text-anchor': 'middle', 'font-size': 9.5, fill: '#333', ...font, text: v }));
+        if (cw >= 34 || j % 2 === 0) g1.append(sv('text', { x: x0 + bw / 2, y: Hh - 8, 'text-anchor': 'middle', 'font-size': 10.5, fill: '#666', ...font, text: lab }));
+      });
+      svg.append(g1, g2, g4);
+    }
+    plot.replaceChildren(svg);
+    const win = $('#win');
+    if (win.classList.contains('building')) $$('.layer', svg).forEach(el => { if ($$(`.layer[data-step="${el.dataset.step}"].on`, win).some(o => !svg.contains(o))) el.classList.add('on'); });
+    else $$('.layer', svg).forEach(el => el.classList.add('on'));
+  }
+
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-1.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  function codeLines(kind) {
+    const ko = KO(), F = facts(), t1 = L().f1, ttl = t1.title(F).replace(/⁠/g, ''), sub = t1.sub, q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(16) + v;
+    const chan = L().chans[F.v], badge = t1.totalBadge(K(F.target)), u = F.unit;
+    const c = ko ? {
+      head: '그림 1 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 채널 필터',
+      s1: '1 · 틀: 0에 회색 바닥판, 기둥마다 한 칸, 계획은 끝에 넓게',
+      s2: `2 · 브릭: 지난 행사는 ${K(u)} 세트 브릭 탑, 요인은 앞 브릭 끝에서`,
+      s3: '3 · 2px 띄워 쌓고 위에 납작한 돌기, 빼는 몫은 점선',
+      s4: '4 · 기둥마다 값, 이음선, 계획은 30px에 합계 배지',
+      s5: '5 · 결과를 제목으로', once: '처음 한 번: lego.tps를 내 Tableau 리포지토리의 Preferences.tps에 넣기'
+    } : {
+      head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the channel filter above',
+      s1: '1 · frame: a grey baseplate at 0, a column a bar, the plan wide',
+      s2: `2 · bricks: past towers of ${K(u)} bricks, drivers from the last end`,
+      s3: '3 · 2px apart, flat studs on top; a brick taken off is dashed',
+      s4: '4 · a value on every column, connectors, the plan in 30px',
+      s5: '5 · the result as the title', once: 'once: add lego.tps to Preferences.tps in My Tableau Repository'
+    };
+    const J = {
+      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '미국 2026 블랙프라이데이 행사 기획 대시보드를 만들어 줘. 첫 화면에는 KPI 넷, 지난 행사마다 전년보다 더 판 세트를 브릭 탑으로 세우고 올해 계획을 요인 브릭으로 쌓아 올린 그림 1, 혜택마다 1천 달러당 더 팔린 세트를 세일 태그로 보인 그림 2. 그 아래에 작년 장바구니 금액과 사은품 단계(그림 3), 행사 엿새의 시간대별 주문에 올해 계획을 표시한 히트맵(그림 4), 대표 세트를 덜 채운 순서로 적은 표 1.'], [0, '데이터는 채널별 행사 판매, 계획 요인, 혜택 테스트, 작년 장바구니와 시간대별 주문, 대표 세트의 재고와 수요야. 채널 필터는 모든 카드에 적용하고, 결과를 제목으로 써 줘.']]
+        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, "Build our Black Friday 2026 plan dashboard for the US. First screen: four KPIs; Figure 1, the sets added at each past event as brick towers, then this year's drivers stacked brick by brick up to the plan; Figure 2, the offers as sale tags with the extra sets each brings per $1,000. Below: Figure 3, last year's baskets with the gift steps; Figure 4, orders by hour over the six days with this year's plan marked; Table 1, the hero sets, least covered first."], [0, "The data is event sales by channel, the plan drivers, offer tests, last year's baskets and orders by hour, and stock and demand for the hero sets. Apply the channel filter to every card and write each result as the title."]],
+      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 머리 · lego.com의 노란 띠, 회사와 보고서, EN/KO'], [0, kv('머리 띠', '#ffd502, 글자 #2c2c2c')], [0, kv('채널 필터', '#f2f2f2 알약, 고른 칸 #2c2c2c')], [0, kv('기준일 배지', '#ffd502, 모서리 4px')], [0, ''],
+        [0, '# 첫 화면 · 계획이 얼마나 크고, 무엇으로 쌓나'], [0, kv('KPI 줄', '지표명 → 52px 수치 → 증감, 비용은 작년 값 취소선')], [0, kv('그림 1', '쌓기: 더 판 세트를 브릭 탑으로, 요인은 브릭 하나씩')], [0, kv('그림 2', '세일 태그: lego.com 배지, 5세트마다 돌기 하나인 브릭')], [0, ''],
+        [0, '# 행사 운영 · 사은품 단계, 시간대, 재고'], [0, kv('그림 3', '사은품 사다리: 10달러 구간, 40·100·200달러 단계')], [0, kv('그림 4', '날 × 시간 히트맵, 파랑 다섯 단계, 계획은 번호 배지')], [0, kv('표 1', '대표 세트, 상자 정보 띠: 연령 | 세트 | 부품')]]
+        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Header · the lego.com yellow band, company and report, EN/KO'], [0, kv('Header band', '#ffd502, text #2c2c2c')], [0, kv('Channel filter', 'pills on #f2f2f2, selected #2c2c2c')], [0, kv('Date badge', '#ffd502, 4px corners')], [0, ''],
+        [0, '# First screen · how big is the plan, and what builds it'], [0, kv('KPI row', 'label → value 52px → change, last year struck out on cost')], [0, kv('Figure 1', 'stack: added sets as brick towers, a brick a driver')], [0, kv('Figure 2', 'sale tags: lego.com badges, a brick with a stud per 5 sets')], [0, ''],
+        [0, '# Running the event · gift steps, hours, stock'], [0, kv('Figure 3', 'gift ladder: $10 baskets, steps at $40, $100, $200')], [0, kv('Figure 4', 'day × hour heatmap in five blues, plan as numbered badges')], [0, kv('Table 1', 'hero sets with the box line: age | set | pieces')]],
+      js: [
+        [0, `// ${c.head}`], [0, 'import { tokens, plot, load } from "./dashboard.js";'],
+        [0, `const channel = ${q(chan)};${' '.repeat(Math.max(1, 20 - chan.length))}// ${c.filter}`], [0, 'const event = await load("event.csv", { channel });'], [0, ''],
+        [1, `// ${c.s1}`], [1, 'const fig = plot("#figure-1", {'], [1, '  surface: tokens.colors.card,           // #ffffff'], [1, '  rule: tokens.colors.hair,              // #ececec'], [1, '  x: { field: "bar", wide: { plan: 1.8 } },'], [1, '  baseplate: tokens.colors.baseplate }); // #c9c9c9'], [1, ''],
+        [2, `// ${c.s2}`], [2, `fig.towers(event.past, { value: "added_k_sets", brick: ${u},`], [2, '  fill: tokens.data.past });             // #a3a3a3'], [2, 'fig.bridge(event.drivers, { value: "added_k_sets",'], [2, '  fill: d => tokens.data[d.group] });'], [2, '  // #1e5aa8 shoppers · #e05a00 offers · #f7c600 new sets'],
+        [2, `fig.towers(event.plan, { value: "added_k_sets", brick: ${u},`], [2, '  fill: tokens.colors.card, edge: 2 });  // #2c2c2c'], [2, ''],
+        [3, `// ${c.s3}`], [3, 'fig.studs({ count: 2, flat: true, gap: 2 });'], [3, 'fig.removed({ dash: [5, 3] });          // #e05a00'], [3, ''],
+        [4, `// ${c.s4}`], [4, 'fig.label(event, { text: "added_k_sets", sign: true });'], [4, 'fig.connect(event.drivers, { dash: [2, 2] });'], [4, `fig.badge("plan", { text: ${q(badge)}, value: 30,`], [4, '  fill: tokens.colors.header });         // #ffd502'], [4, ''],
+        [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.subtitle(${q(sub)});`]
+      ],
+      tab: ko ? [
+        [0, '# Tableau · 그림 1 · LEGO® 스타일'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('데이터', 'event.csv, 채널과 기둥마다 한 줄')], [1, kv('열', '[bar], 불연속형, [order]로 정렬')], [1, kv('행', 'SUM([added_k_sets])')], [1, kv('격자선', '행, 실선, #ececec')], [1, ''],
+        [2, `# ${c.s2}`], [2, kv('마크', '간트 막대: 시작 [running_start], 크기 [added_k_sets]')], [2, kv('색상', '[group]: 팔레트 "LEGO bricks"')], [2, kv('', '#a3a3a3 · #1e5aa8 · #e05a00 · #f7c600')], [2, kv('계획', '채우기 #ffffff, 테두리 #2c2c2c 2px')], [2, ''],
+        [3, `# ${c.s3}`], [3, kv('돌기', '같은 축의 마크 하나 더: 모양(돌기), 꼭대기마다')], [3, kv('빼는 몫', '테두리 #e05a00 점선, 채우기 없음')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('레이블', 'SUM([added_k_sets]), 부호와 함께, 기둥마다')], [4, kv('주석', `계획: 30px 값, #ffd502 배지 "${badge}"`)], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('부제', q(sub))]
+      ] : [
+        [0, '# Tableau · Figure 1 · LEGO® style'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('Data', 'event.csv, one row per channel and bar')], [1, kv('Columns', '[bar], discrete, sorted by [order]')], [1, kv('Rows', 'SUM([added_k_sets])')], [1, kv('Grid lines', 'rows, solid, #ececec')], [1, ''],
+        [2, `# ${c.s2}`], [2, kv('Mark type', 'Gantt bar: start [running_start], size [added_k_sets]')], [2, kv('Color', '[group]: palette "LEGO bricks"')], [2, kv('', '#a3a3a3 · #1e5aa8 · #e05a00 · #f7c600')], [2, kv('Plan', 'fill #ffffff, border #2c2c2c 2px')], [2, ''],
+        [3, `# ${c.s3}`], [3, kv('Studs', 'one more mark on the same axis: shape (stud), at each top')], [3, kv('Taken off', 'border #e05a00 dashed, no fill')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('Labels', 'SUM([added_k_sets]) with its sign, on every column')], [4, kv('Annotation', `plan: 30px value, #ffd502 badge "${badge}"`)], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Subtitle', q(sub))]
+      ],
+      pbi: [
+        [0, ko ? '// Power BI · 그림 1 · LEGO® 스타일' : '// Power BI · Figure 1 · LEGO® style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
+        [1, `// ${c.s1}`], [1, ko ? '폭포 차트 · 범주 = bar · Y축 = added_k_sets · 지난 행사는 옆에 세로 막대형' : 'Waterfall chart · Category = bar · Y = added_k_sets · past events as a column chart beside it'], [1, '"categoryAxis": { "innerPadding": 30 }, "valueAxis": { "gridlineColor": "#ececec" },'], [1, ''],
+        [2, `// ${c.s2}`], [2, ko ? '증가 #1e5aa8 · #e05a00 · #f7c600(요인 그룹별), 합계 #ffffff에 테두리 #2c2c2c' : 'Increase #1e5aa8 · #e05a00 · #f7c600 by driver group, total #ffffff with a #2c2c2c border'], [2, ko ? '지난 행사: #a3a3a3' : 'Past events: #a3a3a3'], [2, ''],
+        [3, `// ${c.s3}`], [3, ko ? '돌기는 Power BI 기본 마크에 없으니 빼거나 돌기 그림을 이미지 표식으로' : 'Power BI has no stud mark: leave them out or use the stud image as a marker'], [3, ko ? '감소: 채우기 없음, 테두리 #e05a00 점선' : 'Decrease: no fill, #e05a00 dashed border'], [3, ''],
+        [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 켜기, 부호와 함께, 계획은 30px' : 'Data labels → on, with the sign; the plan in 30px'], [4, ko ? `계획 위 카드: #ffd502, "${badge}"` : `A card above the plan: #ffd502, "${badge}"`], [4, ''],
+        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(sub)}`]
+      ]
+    };
+    return J[kind];
+  }
+  const KW = { js: 'import|from|const|let|await|async|return|new|true|false' };
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const hexify = s => s.replace(/#[0-9a-fA-F]{6}\b/g, m => `<span class="tk-hex" style="--sw:${m}">${m}</span>`);
+  function commentAt(text, kind) {
+    let qq = null;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (qq) { if (ch === '\\') { i++; continue; } if (ch === qq) qq = null; continue; }
+      if (ch === '"' || ch === "'" || ch === '`') { qq = ch; continue; }
+      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
+      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+    }
+    return -1;
+  }
+  function highlight(text, kind) {
+    if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
+    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?|)\s{2,}(\S.*)$/.exec(text); if (m && !/^#/.test(text)) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? hexify(esc(m[2])) : highlightCode(m[2], kind)}`; }
+    return highlightCode(text, kind);
+  }
+  function highlightCode(text, kind) {
+    const ci = commentAt(text, kind), code = ci < 0 ? text : text.slice(0, ci), comment = ci < 0 ? '' : text.slice(ci), kw = KW[kind];
+    const re = new RegExp('("(?:[^"\\\\]|\\\\.)*"|\'(?:[^\'\\\\]|\\\\.)*\')|(#[0-9a-fA-F]{6}\\b)|(\\b\\d+(?:[._]\\d+)?\\b)' + (kw ? `|\\b(${kw})\\b` : '|(?!x)x()') + '|([A-Za-z_][\\w.]*)(?=\\s*\\()|(\\b[A-Za-z_]\\w*)(?=\\s*:(?!:))', 'g');
+    let out = '', last = 0, m;
+    while ((m = re.exec(code))) {
+      out += esc(code.slice(last, m.index));
+      const [all, str, hex, num, k, fn, prop] = m;
+      if (str) out += /^\s*:/.test(code.slice(m.index + all.length)) ? `<span class="tk-p">${esc(str)}</span>` : `<span class="tk-s">${hexify(esc(str))}</span>`;
+      else if (hex) out += hexify(hex);
+      else if (num) out += `<span class="tk-n">${num}</span>`;
+      else if (k) out += `<span class="tk-k">${k}</span>`;
+      else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
+      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else out += esc(all);
+      last = m.index + all.length;
+    }
+    out += esc(code.slice(last));
+    if (comment) out += `<span class="tk-c">${hexify(esc(comment))}</span>`;
+    return out;
+  }
+  function renderBuildStatic() {
+    const t = L();
+    $('#steps').replaceChildren(...t.build.steps.map(([b, p], i) => h('li', null, h('span', { class: 'bn', 'aria-hidden': 'true', text: i + 1 }), h('b', { text: b }), h('p', { text: p }))));
+    // 상자에 든 것: 설명서 뒤의 부품 목록처럼 1x
+    const item = (name, href, opt = {}) => {
+      const inner = [h('span', { class: 'q', text: opt.dir ? '' : '1x' }), h('div', null, h('b', { text: name }), t.build.files[name] ? h('span', { text: t.build.files[name] }) : null)];
+      const el = href ? h('a', { href, target: opt.dl ? null : '_blank', rel: opt.dl ? null : 'noopener', download: opt.dl ? name : null }, inner) : h('div', { class: 'fi' }, inner);
+      return h('li', { class: [opt.cls, opt.root ? 'root' : null].filter(Boolean).join(' ') || null }, el);
+    };
+    $('#tree').replaceChildren(
+      item('your-project/', null, { dir: 1, root: 1 }),
+      item('DASHBOARD.md', 'DASHBOARD.html', { cls: 'in' }),
+      item('.claude/skills/', null, { dir: 1, cls: 'in' }), item('dashboard-style/', null, { dir: 1, cls: 'in2' }),
+      item('SKILL.md', 'skill/SKILL.html', { cls: 'in3' }), item('tokens.css', 'tokens.css', { cls: 'in3' }),
+      item('lego.tps', 'lego.tps', { cls: 'in3', dl: 1 }), item('powerbi-theme.json', 'powerbi-theme.json', { cls: 'in3', dl: 1 }),
+      item('prompt.md', 'prompt.html', { cls: 'in3' }));
+    $('#modeSeg').replaceChildren(...t.build.modes.map((x, i) => {
+      const k = i ? 'with' : 'without';
+      const b = h('button', { type: 'button', role: 'tab', 'aria-selected': state.mode === k ? 'true' : 'false', tabindex: state.mode === k ? 0 : -1, text: x });
+      b.addEventListener('click', () => setMode(k));
+      return b;
+    }));
+    $('#modeSeg').setAttribute('aria-label', KO() ? '비교' : 'Compare');
+  }
+  const BENCH = { built: true, playing: false, token: 0 };
+  function setMode(k) { if (state.mode === k) return; if (BENCH.playing) finishBench(); state.mode = k; renderBuildStatic(); renderBench(); }
+  function setCode(k) { if (state.code === k) return; if (BENCH.playing) finishBench(); state.code = k; renderCodeTabs(); renderCode(); }
+  function renderCodeTabs() {
+    $('#ctabs').replaceChildren(...CODE_TABS.map(([k, label]) => {
+      const b = h('button', { type: 'button', class: 'ctab', role: 'tab', 'aria-selected': state.code === k ? 'true' : 'false', tabindex: state.code === k ? 0 : -1, text: label || (KO() ? '프롬프트' : 'Prompt') });
+      b.addEventListener('click', () => setCode(k));
+      return b;
+    }));
+  }
+  function renderCode() {
+    const lines = codeLines(state.code), pre = $('#code');
+    pre.classList.toggle('wrap', state.code === 'prompt');
+    pre.replaceChildren(...lines.map(([step, text]) => {
+      const ln = h('span', { class: 'ln' + (BENCH.built ? ' shown' : ''), 'data-step': step, html: highlight(text, state.code) || ' ' });
+      if (step) { ln.addEventListener('mouseenter', () => focusStep(step)); ln.addEventListener('mouseleave', () => focusStep(0)); }
+      return ln;
+    }));
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), BENCH.built ? L().build.built : L().build.drawing);
+    $('#cstatR').textContent = L().build.lines(lines.length);
+  }
+  function focusStep(step) {
+    const win = $('#win'), on = step > 0 && BENCH.built && state.mode === 'with';
+    $$('.code .ln', win).forEach(ln => ln.classList.toggle('hl', step > 0 && Number(ln.dataset.step) === step));
+    win.classList.toggle('focus-step', on);
+    $$('.layer', win).forEach(el => el.classList.toggle('focus', Number(el.dataset.step) === step));
+  }
+  function renderBench() {
+    const t = L(), without = state.mode === 'without', F = facts();
+    $('#wbScope').textContent = `channel = ${VQ[F.v]}`;
+    $('#wbTitle').textContent = glue(without ? t.build.generic : t.f1.title(F));
+    $('#wbSub').textContent = without ? t.build.genericSub : t.f1.sub;
+    $('#wbNote').textContent = without ? t.build.generated : t.build.wbNote;
+    const ok = $('#checksOk'); ok.textContent = without ? t.build.checksBad : t.build.checksOk; ok.classList.toggle('bad', without);
+    const ic = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' },
+      sv('circle', { cx: 7, cy: 7, r: 6.2, 'stroke-width': 1.2 }), sv('path', { d: without ? 'M4.8 4.8l4.4 4.4M9.2 4.8l-4.4 4.4' : 'M4.3 7.2 6.2 9l3.5-3.8' }));
+    $('#checks').replaceChildren(...t.build.checks.map(([step, txt]) => h('li', { class: 'layer' + (without ? ' no' : '') + (BENCH.built ? ' on' : ''), 'data-step': step }, ic(),
+      h('span', null, txt.split(/(#[0-9a-f]{6})/).map(part => /^#[0-9a-f]{6}$/.test(part) ? h('code', { class: 'tk-hex', style: { '--sw': part }, text: part }) : part)))));
+    $('#win').classList.toggle('without', without);
+    renderCodeTabs(); renderCode();
+    drawBench();
+    if (BENCH.built) $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+    if (BENCH.playing) playBench();
+  }
+  function flashScope() {
+    const lines = $$('.code .ln').filter(ln => ln.dataset.step === '0' && /channel/.test(ln.textContent));
+    lines.forEach(ln => ln.classList.add('hl'));
+    setTimeout(() => lines.forEach(ln => ln.classList.remove('hl')), 1400);
+  }
+  const sleep = ms => new Promise(res => setTimeout(res, ms));
+  async function playBench() {
+    const win = $('#win'), pre = $('#code'), token = ++BENCH.token;
+    if (REDUCE) { finishBench(); return; }
+    if (state.mode !== 'with') { state.mode = 'with'; renderBuildStatic(); }
+    BENCH.built = false; BENCH.playing = false;
+    win.classList.add('building');
+    renderBench();
+    BENCH.playing = true;
+    pre.scrollTop = 0;
+    $$('.layer', win).forEach(el => el.classList.remove('on'));
+    const lines = $$('.code .ln', win);
+    let prevStep = 0;
+    for (const ln of lines) {
+      if (token !== BENCH.token) return;
+      const step = Number(ln.dataset.step);
+      if (step !== prevStep && prevStep > 0) { revealStep(prevStep); await sleep(380); if (token !== BENCH.token) return; }
+      prevStep = step;
+      lines.forEach(x => x.classList.remove('caret'));
+      ln.classList.add('shown', 'caret');
+      const bottom = ln.offsetTop + ln.offsetHeight + 12;
+      if (bottom > pre.scrollTop + pre.clientHeight) pre.scrollTop = bottom - pre.clientHeight;
+      await sleep(ln.textContent.trim() ? 55 : 20);
+    }
+    if (token !== BENCH.token) return;
+    revealStep(prevStep);
+    await sleep(500);
+    if (token !== BENCH.token) return;
+    lines.forEach(x => x.classList.remove('caret'));
+    BENCH.built = true; BENCH.playing = false;
+    win.classList.remove('building');
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), L().build.built);
+  }
+  function finishBench() {
+    BENCH.token++; BENCH.playing = false; BENCH.built = true;
+    $('#win').classList.remove('building');
+    renderCode();
+    $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+  }
+  function revealStep(step) { $$(`.layer[data-step="${step}"]`, $('#win')).forEach(el => el.classList.add('on')); }
+  $('#btnRun').addEventListener('click', () => playBench());
+  async function copyText(txt) {
+    try { await navigator.clipboard.writeText(txt); } catch (e) { const ta = h('textarea', { class: 'sr-only', text: txt }); document.body.append(ta); ta.select(); try { document.execCommand('copy'); } catch (_) {} ta.remove(); }
+  }
+  let toastTimer = null;
+  function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('on'), 2200); }
+  const ICONS = {
+    copy: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/></svg>',
+    play: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 3.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5z"/></svg>'
+  };
+  $$('[data-icon]').forEach(b => b.insertAdjacentHTML('afterbegin', ICONS[b.dataset.icon]));
+  $$('.btnCmd').forEach(b => b.addEventListener('click', async () => { await copyText(b.previousElementSibling.textContent); toast(L().build.cmdCopied); }));
+  const cmdFade = () => $$('.cmd code').forEach(c => {
+    const ov = c.scrollWidth > c.clientWidth + 1;
+    c.classList.toggle('more-r', ov && c.scrollLeft + c.clientWidth < c.scrollWidth - 2);
+    if (ov) c.setAttribute('tabindex', '0'); else c.removeAttribute('tabindex');
+  });
+  $$('.cmd code').forEach(c => c.addEventListener('scroll', cmdFade, { passive: true }));
+  addEventListener('resize', cmdFade);
+  if (document.fonts) document.fonts.ready.then(cmdFade);
+  cmdFade();
+  $('#btnCopyCode').addEventListener('click', async () => { await copyText(codeLines(state.code).map(l => l[1]).join('\n').replace(/⁠/g, '')); toast(L().build.copied); });
+
+  /* ================= 필터: 채널. 고른 칸은 잉크 바탕 ================= */
+  const segEl = $('#chanSeg');
+  for (const v of VIEWS) { const b = h('button', { type: 'button', id: 'tab-' + v, role: 'tab', 'aria-controls': 'panel', 'data-k': v }); b.addEventListener('click', () => select(v)); segEl.append(b); }
+  const arrowNav = (el, keysList, cur, go) => el.addEventListener('keydown', e => {
+    const idx = keysList.indexOf(cur()), next = { ArrowRight: idx + 1, ArrowLeft: idx - 1, Home: 0, End: keysList.length - 1 }[e.key];
+    if (next == null) return;
+    e.preventDefault(); go(keysList[(next + keysList.length) % keysList.length]);
+  });
+  arrowNav(segEl, VIEWS, () => state.chan, k => { select(k); $('#tab-' + k).focus(); });
+  arrowNav($('#ctabs'), CODE_TABS.map(x => x[0]), () => state.code, k => { setCode(k); $$('.ctab')[CODE_TABS.findIndex(x => x[0] === k)].focus(); });
+  arrowNav($('#modeSeg'), ['without', 'with'], () => state.mode, k => { setMode(k); $$('#modeSeg button')[k === 'with' ? 1 : 0].focus(); });
+  function syncTabs() {
+    for (const b of $$('button', segEl)) {
+      const v = b.dataset.k, on = v === state.chan;
+      b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1;
+      b.textContent = L().chans[v];
+    }
+    $('#panel').setAttribute('aria-labelledby', 'tab-' + state.chan);
+  }
+
+  /* ================= 언어와 그리기 ================= */
+  function applyLang() {
+    const t = L();
+    document.documentElement.lang = state.lang;
+    document.title = t.docTitle;
+    for (const el of $$('[data-i18n]')) { const val = pick(t, el.dataset.i18n); if (typeof val === 'string') el.textContent = val; }
+    segEl.setAttribute('aria-label', t.chanLabel);
+    for (const b of $$('#langSeg button')) b.setAttribute('aria-pressed', b.dataset.lang === state.lang ? 'true' : 'false');
+    $('#ctaLink').href = BLOG[state.lang] + 'contact-us/';
+    const cc = $('#btnCopyCode'); cc.setAttribute('aria-label', KO() ? '코드 복사' : 'Copy code'); cc.title = cc.getAttribute('aria-label');
+    $$('.btnCmd').forEach(cm => { cm.setAttribute('aria-label', KO() ? '설치 명령 복사' : 'Copy install command'); cm.title = cm.getAttribute('aria-label'); });
+    $('.foot .ser').href = 'https://styles.vizney.com/?lang=' + state.lang;
+    $('.foot .cat a[data-i18n="catName"]').href = 'https://styles.vizney.com/lego/DASHBOARD.html';
+    const back = $('#backLink');
+    back.textContent = FROM_BLOG ? t.back.post : t.back.catalog;
+    back.href = FROM_BLOG ? BLOG[state.lang] + 'style-' + SLUG + '/' : 'https://styles.vizney.com/?lang=' + state.lang;
+    syncTabs(); renderBuildStatic(); renderTerms();
+  }
+  function renderAll(animate) {
+    renderHead(); renderF1(animate); renderF2(animate); renderF3(animate); renderF4(animate); renderT1(animate); renderBench();
+  }
+  function keepInUrl() {
+    try {
+      const u = new URL(location.href);
+      u.searchParams.set('lang', state.lang);
+      if (state.chan === 'ALL') u.searchParams.delete('channel'); else u.searchParams.set('channel', VQ[state.chan]);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* 주소를 못 바꾸는 환경에서는 화면만 바뀐다 */ }
+  }
+  function select(v) {
+    if (v === state.chan) return;
+    state.chan = v; state.showAll = false;
+    syncTabs(); renderAll(true); keepInUrl();
+    if (BENCH.built) flashScope();
+  }
+  for (const b of $$('#langSeg button')) b.addEventListener('click', () => { if (b.dataset.lang === state.lang) return; state.lang = b.dataset.lang; applyLang(); renderAll(false); keepInUrl(); });
+
+  applyLang();
+  renderAll(true);
+  if (!REDUCE && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); playBench(); } }, { threshold: .35 });
+    io.observe($('#win'));
+  }
+  // 처음 1.2초 안에 다시 그리면(서체가 늦게 오거나 칸 크기가 자리 잡을 때) 브릭을 다시 떨어뜨린다. 그 뒤로는 바로 그린다
+  const T0 = performance.now(), early = () => performance.now() - T0 < 1200;
+  const redraws = [['#f1Plot', () => renderF1(early())], ['#f2Plot', () => renderF2(early())], ['#f3Plot', () => renderF3(early())], ['#f4Plot', () => renderF4(early())], ['#wbPlot', drawBench]];
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(entries => {
+      for (const en of entries) {
+        const r = redraws.find(x => $(x[0]) === en.target);
+        if (!r) continue;
+        const el = en.target;
+        if (Math.round(el.clientWidth) !== el._w || (el._h != null && Math.round(el.clientHeight) !== el._h)) r[1]();
+      }
+    });
+    redraws.forEach(([sel]) => ro.observe($(sel)));
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => redraws.forEach(r => r[1]()));
+})();
+
+</script>
+</body>
+</html>
