@@ -26,8 +26,8 @@
      GO in green, NO-GO on red. */
   :root{
     --page:#000000; --card:#17171b; --raise:#2e2e32; --line:#2e2e32; --rule:#444447; --hair:rgba(255,255,255,.2);
-    --ink:#ffffff; --soft:#e3e3e3; --mute:#959599; --dim:#717173;
-    --band:#0b3d91; --red-ui:#f64137;
+    --ink:#ffffff; --soft:#e3e3e3; --sub:#b9b9bb; --mute:#959599; --dim:#717173;
+    --band:#0b3d91; --red-ui:#f64137; --screen:#061634;
     --go:#14a06a; --nogo:#f2473f; --go-t:#4cd493; --nogo-t:#ff9088;
     --focus:#ffffff;
     --display:'Inter','Pretendard Variable',Arial,sans-serif;
@@ -63,7 +63,7 @@
   .top .wrap{display:flex;align-items:center;gap:8px 24px;min-height:60px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
   .co{display:flex;align-items:baseline;gap:12px;min-width:0}
   .co b{font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:-.01em;color:var(--ink);white-space:nowrap}
-  .co span{font-size:15px;color:var(--mute);white-space:nowrap}
+  .co span{font-size:15px;color:var(--sub);white-space:nowrap}
   .tabs{display:flex;gap:2px 22px;flex-wrap:wrap;margin-left:12px;margin-right:auto}
   .tabs button{position:relative;display:inline-flex;align-items:center;gap:8px;height:44px;padding:0;border:0;background:none;font-family:var(--display);font-size:15.5px;font-weight:600;color:var(--mute);cursor:pointer;white-space:nowrap}
   .tabs button b{font-family:var(--mono);font-size:14px;font-weight:500;letter-spacing:.04em}
@@ -129,12 +129,12 @@
   .fig{display:block}
   .ct{margin-top:7px;font-family:var(--display);font-size:19px;font-weight:700;line-height:1.22;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
   html[lang="ko"] .ct{font-size:17.5px;letter-spacing:-.02em;line-height:1.32}
-  .cs{margin-top:4px;font-size:13.5px;line-height:1.4;color:var(--mute)}
+  .cs{margin-top:4px;font-size:13.5px;line-height:1.4;color:var(--sub)}
   .keys{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:7px}
-  .keys li{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--mute);white-space:nowrap}
+  .keys li{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--sub);white-space:nowrap}
   .keys svg{width:22px;height:12px;flex:none}
   .cb{position:relative;min-width:0}
-  .cf{padding-top:10px;font-size:12.5px;line-height:1.5;color:var(--mute)}
+  .cf{padding-top:10px;font-size:12.5px;line-height:1.5;color:var(--sub)}
   .cf b{font-weight:600;color:var(--soft)}
   .plot{position:relative;width:100%;min-width:0}
   .plot svg{display:block;overflow:visible}
@@ -177,14 +177,15 @@
   html[lang="ko"]{--needw:116px}
 
   /* ---------- 대표 장치 3: 관제실 앞 벽. 검은 화면 위에 시계 줄, 세계 지도와 궤적, 추적국 원 ---------- */
-  .fw{display:flex;flex-direction:column;height:100%;background:#000;border:1px solid var(--line)}
-  .fw-clk{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--line)}
+  .fw{display:flex;flex-direction:column;height:100%;background:var(--screen);border:1px solid var(--band)}
+  .fw-clk{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--band)}
   .fw-clk > div{padding:7px 14px 8px;min-width:0}
-  .fw-clk > div + div{border-left:1px solid var(--line)}
-  .fw-clk .lbl{display:block;font-size:10.5px;letter-spacing:.2em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fw-clk > div + div{border-left:1px solid var(--hair)}
+  .fw-clk .lbl{display:block;font-size:10.5px;letter-spacing:.2em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(255,255,255,.82)}
+  .fw .plot svg text.halo{stroke:var(--screen)}
   html[lang="ko"] .fw-clk .lbl{letter-spacing:0;font-size:11.5px}
   .fw-v{margin-top:5px;font-family:var(--mono);font-size:21px;font-weight:300;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .fw-v u{text-decoration:none;font-size:11.5px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-left:4px}
+  .fw-v u{text-decoration:none;font-size:11.5px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.82);margin-left:4px}
   html[lang="ko"] .fw-v u{letter-spacing:0}
   .fw-v.bad{color:var(--nogo-t)}
   #mapPlot{flex:1;min-height:250px}
@@ -198,13 +199,25 @@
   .fadein{animation:fade .9s var(--ease) both}
   .fadein.late{animation-delay:.45s}
 
+  /* ---------- 밝은 절: nasa.gov의 흰 면과 Earth Indicators 차트처럼 잉크와 회색. 01 미결 항목, 03 만드는 법, 04 용어.
+     검은 절(첫 화면, 02 궤도와 우주 교통)과 번갈아 놓는다. 띠는 화면 폭 끝까지(border-image 바깥 칸) ---------- */
+  .lt{--page:#f6f6f6;--card:#ffffff;--raise:#ededee;--line:#e3e3e3;--rule:#b9b9bb;--hair:rgba(0,0,0,.14);--ink:#1b1b1b;--soft:#2e2e32;--sub:#58585b;--mute:#717173;--dim:#8a8a8e;--go-t:#0a7a4c;--nogo-t:#b60109;--focus:#1b1b1b;color:var(--soft)}
+  .sec.lt{padding:40px 0 52px;border-image:linear-gradient(var(--page) 0 0) fill 0 / / 0 100vmax}
+  .sec.lt + .sec.lt{margin-top:0;padding-top:0}
+  .lt .sh{border-top:0;padding-top:0}
+  .sec.lt + .sec.lt .sh{padding-top:28px;border-top:1px solid var(--hair)}
+  .lt .panel .plot svg text.halo{stroke:#fff}
+  .lt .tip{background:#fff;color:var(--soft);border:1px solid #d1d1d1;border-top:2px solid var(--ink);box-shadow:0 6px 20px rgba(0,0,0,.14)}
+  /* a screen inside a light section keeps the dark set */
+  .lt .win{--page:#000000;--card:#17171b;--raise:#2e2e32;--line:#2e2e32;--rule:#444447;--hair:rgba(255,255,255,.2);--ink:#ffffff;--soft:#e3e3e3;--sub:#b9b9bb;--mute:#959599;--dim:#717173;--go-t:#4cd493;--nogo-t:#ff9088;--focus:#ffffff;color:var(--soft)}
+
   /* ---------- 절 머리 ---------- */
   .sec{margin-top:var(--sec)}
   .sh{display:flex;align-items:baseline;gap:6px 16px;flex-wrap:wrap;margin-bottom:14px;padding-top:14px;border-top:1px solid var(--hair)}
   .sh .no{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.1em;color:var(--mute)}
   .sh h2{font-family:var(--display);font-size:24px;font-weight:800;letter-spacing:-.015em;color:var(--ink)}
   html[lang="ko"] .sh h2{letter-spacing:-.03em;font-size:22px}
-  .sh p{font-size:14.5px;color:var(--mute)}
+  .sh p{font-size:14.5px;color:var(--sub)}
 
   /* ---------- 표 1: 닫아야 할 항목. 여유가 적은 순, 늦는 항목은 빨강과 부호 ---------- */
   .tb-wrap{overflow-x:auto;margin:0 -12px;padding:0 12px}
@@ -251,7 +264,7 @@
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:34px;padding:0 14px;border:1px solid var(--hair);background:none;font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);line-height:1;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .15s var(--ease),color .15s var(--ease)}
   html[lang="ko"] .btn{letter-spacing:0;font-size:13px;text-transform:none}
   .btn:hover{background:var(--raise)}
-  .btn-w{background:var(--ink);color:#000;border-color:var(--ink)}
+  .btn-w{background:var(--ink);color:var(--card);border-color:var(--ink)}
   .btn-w:hover{background:var(--soft)}
   .btn-sm{height:30px;padding:0 12px;font-size:12px;gap:6px}
   .btn-icon{width:30px;padding:0}
@@ -259,7 +272,7 @@
   .steps li{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;padding:14px 16px 16px;background:var(--card);border-top:1px solid var(--hair)}
   .steps .sn{grid-row:span 2;align-self:start;font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.1em;line-height:22px;color:var(--mute)}
   .steps b{font-family:var(--display);font-size:16px;font-weight:700;line-height:1.35;color:var(--ink)}
-  .steps p{margin-top:4px;font-size:14px;line-height:1.5;color:var(--mute)}
+  .steps p{margin-top:4px;font-size:14px;line-height:1.5;color:var(--sub)}
   .win{position:relative;display:grid;grid-template-columns:240px minmax(0,1fr) minmax(0,1.05fr);margin-top:var(--gap);background:var(--card)}
   .side{padding:16px 12px 14px;background:#000;border-right:1px solid var(--line);font-size:14px}
   .side-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 6px 10px}
@@ -272,7 +285,7 @@
   .tree svg{width:14px;height:14px;margin-top:3px;color:var(--mute)}
   .tree b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .tree a b{text-decoration:underline;text-decoration-color:var(--rule);text-decoration-thickness:1px;text-underline-offset:3px}
-  .tree span{display:block;font-size:12px;line-height:1.35;color:var(--mute)}
+  .tree span{display:block;font-size:12px;line-height:1.35;color:var(--sub)}
   .tree .root b{font-weight:400;color:var(--soft)}
   .tree .in{padding-left:14px} .tree .in2{padding-left:28px} .tree .in3{padding-left:42px}
   .get{margin-top:12px;padding:12px 6px 0;border-top:1px solid var(--line)}
@@ -286,7 +299,7 @@
   .cmd button{flex:none;width:22px;height:22px;display:grid;place-items:center;border:0;background:none;color:var(--mute);cursor:pointer}
   .cmd button:hover{background:var(--raise);color:var(--ink)}
   .cmd button svg{width:13px;height:13px}
-  .get-note{margin:6px 0 10px;font-size:12px;line-height:1.45;color:var(--mute)}
+  .get-note{margin:6px 0 10px;font-size:12px;line-height:1.45;color:var(--sub)}
   .figpane{position:relative;display:flex;flex-direction:column;min-width:0;padding:16px 18px 18px;border-right:1px solid var(--line)}
   .figbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
   .modes{display:inline-flex;border:1px solid var(--hair)}
@@ -296,9 +309,9 @@
   .chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border:1px solid var(--hair);font-family:var(--mono);font-size:11.5px;color:var(--soft);white-space:nowrap}
   .wb-l{align-self:flex-start}
   .wb-t{margin-top:8px;font-family:var(--display);font-size:16px;font-weight:700;line-height:1.3;color:var(--ink)}
-  .wb-s{margin:3px 0 10px;font-size:13px;color:var(--mute)}
+  .wb-s{margin:3px 0 10px;font-size:13px;color:var(--sub)}
   #wbPlot{flex:1;min-height:260px}
-  .wb-n{margin-top:8px;font-size:12px;color:var(--mute)}
+  .wb-n{margin-top:8px;font-size:12px;color:var(--sub)}
   .checks{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
   .checks-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;font-size:13px;font-weight:700;color:var(--ink)}
   .checks-h .ok{font-weight:600;color:var(--go-t)}
@@ -333,13 +346,13 @@
   .building .layer:not(.on){opacity:0}
   .focus-step .layer:not(.focus){opacity:.18}
   .focus-step .layer[data-step="1"]:not(.focus){opacity:.5}
-  .build-cap{margin-top:12px;max-width:64em;font-size:13px;line-height:1.5;color:var(--mute)}
+  .build-cap{margin-top:12px;max-width:64em;font-size:13px;line-height:1.5;color:var(--sub)}
 
   /* ---------- 용어 ---------- */
   .terms{columns:2 380px;column-gap:40px}
   .terms p{break-inside:avoid;margin:0 0 10px;font-size:13.5px;line-height:1.6;color:var(--soft)}
   .terms p b{font-weight:600;color:var(--ink)}
-  .terms p.src{color:var(--mute)}
+  .terms p.src{color:var(--sub)}
 
   /* ---------- 툴팁: 한 단계 밝은 판 #2e2e32, 네모 ---------- */
   .tip{position:absolute;z-index:8;left:0;top:0;pointer-events:none;min-width:180px;background:var(--raise);color:var(--soft);border-top:2px solid var(--ink);padding:9px 12px 10px;box-shadow:0 6px 20px rgba(0,0,0,.6);white-space:nowrap;opacity:0;transition:opacity .15s var(--ease)}
@@ -358,7 +371,7 @@
   .tip-p{max-width:300px;margin-top:4px;font-size:12.5px;line-height:1.4;color:var(--soft);white-space:normal}
 
   /* ---------- 바닥 ---------- */
-  .foot{margin-top:64px;border-top:1px solid var(--hair);color:var(--mute);font-size:13px;line-height:1.65}
+  .foot{margin-top:64px;border-top:1px solid var(--hair);color:var(--sub);font-size:13px;line-height:1.65}
   .foot .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 40px;padding-top:22px;padding-bottom:36px}
   .foot .back{flex:none;font-weight:600;color:var(--ink);white-space:nowrap;text-decoration:underline;text-decoration-color:var(--rule);text-decoration-thickness:1px;text-underline-offset:4px}
   .foot .back:hover{text-decoration-color:var(--ink)}
@@ -368,7 +381,7 @@
   .foot .cat a{color:inherit;text-underline-offset:3px;text-decoration-color:var(--rule)}
   .foot .cat a:hover{text-decoration-color:var(--ink)}
   .foot .cat .ser{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.12em;margin-right:10px}
-  .foot .cat .w{font-weight:400;color:var(--mute)}
+  .foot .cat .w{font-weight:400;color:var(--sub)}
   .toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,8px);padding:9px 16px;background:var(--ink);color:#000;font-family:var(--mono);font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease)}
   .toast.on{opacity:1;transform:translate(-50%,0)}
 
@@ -419,10 +432,10 @@
     .cd-v,.tm-s b,.tm-x{font-size:32px}
     .fw-clk{grid-template-columns:repeat(2,minmax(0,1fr))}
     .fw-clk > div:nth-child(3){border-left:0}
-    .fw-clk > div:nth-child(n+3){border-top:1px solid var(--line)}
+    .fw-clk > div:nth-child(n+3){border-top:1px solid var(--hair)}
     #cjClk{grid-template-columns:repeat(4,minmax(0,1fr))}
     #cjClk > div{padding:7px 10px 8px}
-    #cjClk > div:nth-child(3){border-left:1px solid var(--line)}
+    #cjClk > div:nth-child(3){border-left:1px solid var(--hair)}
     #cjClk > div:nth-child(n+3){border-top:0}
     .tm-l{line-height:32px;font-size:20px}
     .row.first{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
@@ -481,7 +494,7 @@
     #cjClk{grid-template-columns:repeat(2,minmax(0,1fr))}
     #cjClk > div{padding:7px 14px 8px}
     #cjClk > div:nth-child(3){border-left:0}
-    #cjClk > div:nth-child(n+3){border-top:1px solid var(--line)}
+    #cjClk > div:nth-child(n+3){border-top:1px solid var(--hair)}
     .ct{font-size:17px}
     html[lang="ko"] .ct{font-size:16px}
     .pb-r{grid-template-columns:44px minmax(0,1fr) 56px 46px;column-gap:8px;margin:0 -12px;padding:0 12px}
@@ -551,7 +564,7 @@
   </div>
 
   <!-- 01 미결 항목: 그림 3 계획 대비 미결 항목 | 표 1 닫아야 할 항목 -->
-  <section class="sec" id="s1" aria-labelledby="s1T">
+  <section class="sec lt" id="s1" aria-labelledby="s1T">
     <div class="sh"><span class="no" aria-hidden="true">01</span><h2 id="s1T" data-i18n="s1.t"></h2><p data-i18n="s1.k"></p></div>
     <div class="row wide">
       <figure class="panel" id="f3">
@@ -592,7 +605,7 @@
   </section>
 
   <!-- 03 만드는 법 -->
-  <section class="sec" id="s2" aria-labelledby="s2T">
+  <section class="sec lt" id="s2" aria-labelledby="s2T">
     <div class="sh"><span class="no" aria-hidden="true">03</span><h2 id="s2T" data-i18n="s2.t"></h2><p data-i18n="s2.k"></p></div>
     <div class="build-intro">
       <p data-i18n="build.p"></p>
@@ -641,7 +654,7 @@
   </section>
 
   <!-- 03 용어와 세는 법 -->
-  <section class="sec" id="notes" aria-labelledby="s3T">
+  <section class="sec lt" id="notes" aria-labelledby="s3T">
     <div class="sh"><span class="no" aria-hidden="true">04</span><h2 id="s3T" data-i18n="notes.t"></h2><p data-i18n="notes.k"></p></div>
     <div class="terms" id="terms"></div>
   </section>
@@ -675,9 +688,12 @@
     page: '#000000', card: '#17171b', raise: '#2e2e32', line: '#2e2e32', rule: '#444447',
     ink: '#ffffff', soft: '#e3e3e3', mute: '#959599', dim: '#717173', band: '#0b3d91', redUI: '#f64137',
     go: '#14a06a', nogo: '#f2473f', goT: '#4cd493', nogoT: '#ff9088',
-    land: '#2e2e32', grat: '#1b1b20', reach: 'rgba(255,255,255,.055)',
+    // the screens (front wall, orbit map, close approaches): navy, not black; gray marks one step brighter and a little cool
+    screen: '#061634', land: '#22365e', grat: '#11264e', equator: '#1a3366', edge: '#52648c', tl: '#15295a', dot: '#7d8496', reach: 'rgba(255,255,255,.06)',
     generic: ['#4e79a7', '#f28e2b', '#e15759', '#59a14f', '#edc948']
   };
+  // the light sections (01, 03, 04): nasa.gov's white pages and the Earth Indicators chart, ink and gray on white
+  const CL = Object.assign({}, C, { page: '#f6f6f6', card: '#ffffff', raise: '#ededee', line: '#e3e3e3', rule: '#b9b9bb', ink: '#1b1b1b', soft: '#2e2e32', mute: '#58585b', dim: '#8a8a8e', goT: '#0a7a4c', nogoT: '#b60109' });
 
   /* ================= 가상 데이터: Vizney Space, 다가오는 비행 3편, 2026-11-18 14:00 UTC 기준 =================
      자리별 폴의 미결 항목을 더하면 비행의 미결 항목 수, 제약 항목이 있는 자리만 NO-GO(빌드 때 Python으로 검산) */
@@ -1198,21 +1214,21 @@
   const arrowCircle = (dir = 'right') => { const s = sv('svg', { viewBox: '0 0 32 32', 'aria-hidden': 'true' }, sv('circle', { cx: 16, cy: 16, r: 16, fill: C.redUI }), sv('path', { d: 'M8 16.956h12.604l-3.844 4.106 1.252 1.338L24 16l-5.988-6.4-1.252 1.338 3.844 4.106H8v1.912z', fill: '#fff', transform: dir === 'down' ? 'rotate(90 16 16)' : dir === 'up' ? 'rotate(-90 16 16)' : null })); return s; };
   for (const el of $$('[data-icon]')) el.prepend(icon(el.dataset.icon));
   for (const el of $$('[data-arrow]')) el.append(arrowCircle());
-  function keySwatch(kind, color) {
+  function keySwatch(kind, color, P = C) {
     const g = sv('svg', { viewBox: '0 0 22 12', 'aria-hidden': 'true' });
     if (kind === 'line') g.append(sv('path', { d: 'M1 6h20', stroke: color, 'stroke-width': 2.5, 'stroke-linecap': 'round' }));
     else if (kind === 'dash') g.append(sv('path', { d: 'M1 6h20', stroke: color, 'stroke-width': 1.75, 'stroke-dasharray': '4 3' }));
     else if (kind === 'dots') g.append(sv('path', { d: 'M2 6h18', stroke: color, 'stroke-width': 2.5, 'stroke-dasharray': '0.1 4.5', 'stroke-linecap': 'round' }));
-    else if (kind === 'ring') g.append(sv('path', { d: 'M1 6h20', stroke: C.dim, 'stroke-width': 2 }), sv('circle', { cx: 11, cy: 6, r: 4, fill: C.card, stroke: color, 'stroke-width': 2 }));
+    else if (kind === 'ring') g.append(sv('path', { d: 'M1 6h20', stroke: P.dim, 'stroke-width': 2 }), sv('circle', { cx: 11, cy: 6, r: 4, fill: P.card, stroke: color, 'stroke-width': 2 }));
     else if (kind === 'reach') g.append(sv('circle', { cx: 11, cy: 6, r: 5, fill: C.reach, stroke: color, 'stroke-width': 1 }));
     else if (kind === 'out') g.append(sv('circle', { cx: 11, cy: 6, r: 5, fill: 'rgba(242,71,63,.12)', stroke: color, 'stroke-width': 1.3, 'stroke-dasharray': '2 1.6' }));
     else if (kind === 'diamond') g.append(sv('rect', { x: 7, y: 2, width: 8, height: 8, fill: color, transform: 'rotate(45 11 6)' }));
     else if (kind === 'dot') g.append(sv('circle', { cx: 11, cy: 6, r: 3.4, fill: color }));
-    else if (kind === 'redDot') g.append(sv('circle', { cx: 11, cy: 6, r: 5.6, fill: 'none', stroke: C.ink, 'stroke-width': 1 }), sv('circle', { cx: 11, cy: 6, r: 3.4, fill: color }));
+    else if (kind === 'redDot') g.append(sv('circle', { cx: 11, cy: 6, r: 5.6, fill: 'none', stroke: P.ink, 'stroke-width': 1 }), sv('circle', { cx: 11, cy: 6, r: 3.4, fill: color }));
     else if (kind === 'target') g.append(sv('circle', { cx: 11, cy: 6, r: 4, fill: 'none', stroke: color, 'stroke-width': 1.6 }), sv('path', { d: 'M11 0v1.4M11 10.6V12M5 6h1.4M15.6 6H17', stroke: color, 'stroke-width': 1.4 }));
     return g;
   }
-  const keyItems = (ul, items) => ul.replaceChildren(...items.map(([kind, color, label]) => h('li', null, keySwatch(kind, color), label)));
+  const keyItems = (ul, items, P = C) => ul.replaceChildren(...items.map(([kind, color, label]) => h('li', null, keySwatch(kind, color, P), label)));
 
   /* ================= 툴팁과 키보드 ================= */
   function tipNodes(head, rows, sub, para) {
@@ -1453,7 +1469,7 @@
     const X = facts(), F = X.F, t = L().f2;
     $('#f2T').textContent = glue(mapTitle(X));
     $('#f2S').textContent = t.sub({ site: F.site.code });
-    keyItems($('#f2K'), [['line', C.ink, t.keys[0]], ['dash', C.dim, t.keys[1]], ['reach', C.mute, t.keys[2]], X.down.size ? ['out', C.nogo, t.keys[3]] : null, ['diamond', C.ink, t.keys[4]]].filter(Boolean));
+    keyItems($('#f2K'), [['line', C.ink, t.keys[0]], ['dash', C.dot, t.keys[1]], ['reach', C.mute, t.keys[2]], X.down.size ? ['out', C.nogo, t.keys[3]] : null, ['diamond', C.ink, t.keys[4]]].filter(Boolean));
     $('#f2N').textContent = t.note({ alt: F.alt, down: t.down[F.id] });
     const clk = [[t.clk[0], hms(X.win), ''], [t.clk[1], X.pct, '%'], [t.clk[2], Math.round(X.longest), t.u.min], [t.clk[3], X.losEv.length, t.u.of(X.events.length)]];
     $('#fwClk').replaceChildren(...clk.map(([k, v, u], j) => h('div', null, h('span', { class: 'lbl', text: k }), h('p', { class: 'fw-v' + (j === 3 && X.losEv.length ? ' bad' : ''), text: v }, u ? h('u', { text: u }) : null))));
@@ -1471,7 +1487,7 @@
     const g = sv('g', { 'clip-path': `url(#${cid})` });
     // graticule every 30°
     for (let lo = -150; lo <= 150; lo += 30) g.append(sv('line', { x1: px(lo), x2: px(lo), y1: oy, y2: oy + mh, stroke: C.grat, 'stroke-width': 1 }));
-    for (let la = -60; la <= 60; la += 30) g.append(sv('line', { x1: ox, x2: ox + mw, y1: py(la), y2: py(la), stroke: la === 0 ? '#26262c' : C.grat, 'stroke-width': 1 }));
+    for (let la = -60; la <= 60; la += 30) g.append(sv('line', { x1: ox, x2: ox + mw, y1: py(la), y2: py(la), stroke: la === 0 ? C.equator : C.grat, 'stroke-width': 1 }));
     g.append(sv('path', { d: LAND, fill: C.land, transform: `translate(${ox} ${oy}) scale(${sc})` }));
     // station reach
     const stG = sv('g'), stDots = sv('g');
@@ -1480,7 +1496,7 @@
       const pts = circle(s.lat, s.lon, X.lam);
       for (const shift of [-360, 0, 360]) {
         const d = 'M' + pts.map(([la, lo]) => `${px(lo + shift).toFixed(1)} ${py(la).toFixed(1)}`).join('L') + 'Z';
-        stG.append(sv('path', { d, fill: out ? 'rgba(242,71,63,.10)' : C.reach, stroke: out ? C.nogo : '#4a4a50', 'stroke-width': out ? 1.4 : 1, 'stroke-dasharray': out ? '3 2.5' : null }));
+        stG.append(sv('path', { d, fill: out ? 'rgba(242,71,63,.12)' : C.reach, stroke: out ? C.nogo : C.edge, 'stroke-width': out ? 1.4 : 1, 'stroke-dasharray': out ? '3 2.5' : null }));
       }
       stDots.append(sv('circle', { cx: px(s.lon), cy: py(s.lat), r: 2.6, fill: out ? C.nogo : C.mute }), sv('text', { class: 'halo', x: px(s.lon) + 5, y: py(s.lat) + 3.5, 'font-size': 10, 'font-weight': 500, fill: out ? C.nogoT : C.mute, text: s.id }));
     });
@@ -1488,7 +1504,7 @@
     // the track: white where a ready station is in contact, gray dashed in loss of signal; break at the date line
     const trG = sv('g', { fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
     let seg = [], segLos = null;
-    const flush = () => { if (seg.length > 1) { const p = sv('path', { d: 'M' + seg.map(q => `${q[0].toFixed(1)} ${q[1].toFixed(1)}`).join('L'), stroke: segLos ? C.dim : C.ink, 'stroke-width': segLos ? 1.4 : 2, 'stroke-dasharray': segLos ? '4 3' : null }); trG.append(p); } seg = []; };
+    const flush = () => { if (seg.length > 1) { const p = sv('path', { d: 'M' + seg.map(q => `${q[0].toFixed(1)} ${q[1].toFixed(1)}`).join('L'), stroke: segLos ? C.dot : C.ink, 'stroke-width': segLos ? 1.4 : 2, 'stroke-dasharray': segLos ? '4 3' : null }); trG.append(p); } seg = []; };
     X.tr.forEach((p, k) => {
       const los = !p.inc.length, q = [px(p.lon), py(p.lat)];
       if (k && (Math.abs(p.lon - X.tr[k - 1].lon) > 180)) { flush(); }
@@ -1519,7 +1535,7 @@
     const labs = DATA.stations.map(s => [px(s.lon) + 3, py(s.lat) - 6, px(s.lon) + 19, py(s.lat) + 5]).concat([[px(F.site.lon) - 34, py(F.site.lat) - 6, px(F.site.lon) + 6, py(F.site.lat) + 6]]);
     X.events.forEach(e => {
       const x0 = px(e.lon), y0 = py(e.lat), bad = !e.inAOS;
-      if (e.name !== 'LIFTOFF') evG.append(sv('rect', { x: x0 - 4.5, y: y0 - 4.5, width: 9, height: 9, fill: bad ? C.nogo : C.ink, stroke: '#000', 'stroke-width': 1.5, transform: `rotate(45 ${x0} ${y0})` }));
+      if (e.name !== 'LIFTOFF') evG.append(sv('rect', { x: x0 - 4.5, y: y0 - 4.5, width: 9, height: 9, fill: bad ? C.nogo : C.ink, stroke: C.screen, 'stroke-width': 1.5, transform: `rotate(45 ${x0} ${y0})` }));
       if (e.name === 'LIFTOFF') return;
       const txt = `${L().evCode[e.name]} ${met(e.t)}`, tw = txt.length * 7 + 6;
       // try right, left, then a line below; keep clear of earlier labels and inside the map
@@ -1531,15 +1547,15 @@
       evG.append(sv('text', { class: 'halo', x: c[0], y: c[1], 'font-size': 10.5, 'font-weight': 500, 'letter-spacing': KO() ? 0 : '.06em', fill: bad ? C.nogoT : C.ink, 'text-anchor': c[2], text: txt }));
     });
     g.append(evG);
-    svg.append(g, sv('rect', { x: ox + .5, y: oy + .5, width: mw - 1, height: mh - 1, fill: 'none', stroke: C.line }));
+    svg.append(g, sv('rect', { x: ox + .5, y: oy + .5, width: mw - 1, height: mh - 1, fill: 'none', stroke: C.equator }));
     // contact timeline: MET across the map's width, white where a ready station is in contact
     const tmax = X.tr[X.tr.length - 1].t, ty = oy + mh + 14, tx = m => ox + m / tmax * mw;
     const tl = sv('g');
-    tl.append(sv('rect', { x: ox, y: ty, width: mw, height: 8, fill: '#26262c' }));
+    tl.append(sv('rect', { x: ox, y: ty, width: mw, height: 8, fill: C.tl }));
     X.tr.forEach((p, k) => { if (k && p.inc.length && X.tr[k - 1].inc.length) tl.append(sv('rect', { x: tx(X.tr[k - 1].t), y: ty, width: Math.max(.5, tx(p.t) - tx(X.tr[k - 1].t) + .3), height: 8, fill: C.ink })); });
     [1, 2].forEach(n => tl.append(sv('line', { x1: tx(n * X.Pmin), x2: tx(n * X.Pmin), y1: ty - 4, y2: ty + 12, stroke: C.rule })));
     for (let m = 0; m <= tmax; m += 60) tl.append(sv('text', { x: tx(m), y: ty + 24, 'font-size': 10, fill: C.mute, 'text-anchor': m === 0 ? 'start' : 'middle', text: met(m) }));
-    X.events.forEach(e => { if (e.name === 'LIFTOFF') return; const x0 = tx(e.t), bad = !e.inAOS; tl.append(sv('rect', { x: x0 - 4, y: ty - 8, width: 8, height: 8, fill: bad ? C.nogo : C.ink, stroke: C.card, 'stroke-width': 1.5, transform: `rotate(45 ${x0} ${ty - 4})` })); });
+    X.events.forEach(e => { if (e.name === 'LIFTOFF') return; const x0 = tx(e.t), bad = !e.inAOS; tl.append(sv('rect', { x: x0 - 4, y: ty - 8, width: 8, height: 8, fill: bad ? C.nogo : C.ink, stroke: C.screen, 'stroke-width': 1.5, transform: `rotate(45 ${x0} ${ty - 4})` })); });
     tl.append(sv('text', { x: ox + mw, y: ty + 24, 'font-size': 10, 'font-weight': 500, 'letter-spacing': KO() ? 0 : '.12em', fill: C.mute, 'text-anchor': 'end', text: 'MET' }));
     svg.append(tl);
     plot.replaceChildren(svg);
@@ -1599,6 +1615,7 @@
     return d > 0 ? t.title.behind({ d, proj: X.proj }) : X.proj === 0 ? t.title.clear({ d: -d }) : t.title.on({ d: -d, proj: X.proj });
   }
   function drawBurn(animate) {
+    const C = CL;   // 01 is a light section: ink on white, as in the Earth Indicators charts
     const X = facts(), F = X.F, t = L().f3, plot = $('#f3Plot'), host = $('#f3');
     const W = Math.max(280, plot.clientWidth), H = Math.max(240, plot.clientHeight);
     plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight);
@@ -1628,7 +1645,7 @@
     if (Math.abs(y(X.planEnd) - y(X.projRaw)) > 12) svg.append(sv('text', { x: x(2) + 8, y: y(X.planEnd) + 4, 'font-size': 12, fill: C.mute, text: (KO() ? '계획 ' : 'PLAN ') + X.planEnd }));
     plot.replaceChildren(svg);
     if (animOK(animate)) requestAnimationFrame(() => { const len = act.getTotalLength(); act.style.setProperty('--len', len); });
-    keyItems($('#f3K'), [['line', C.ink, t.keys[0]], ['ring', C.mute, t.keys[1]], ['dots', C.ink, t.keys[2]]]);
+    keyItems($('#f3K'), [['line', C.ink, t.keys[0]], ['ring', C.mute, t.keys[1]], ['dots', C.ink, t.keys[2]]], C);
     // hover: a day
     const days = []; for (let n = 45; n >= 2; n--) days.push(n);
     const hl = sv('g', { 'pointer-events': 'none' }); svg.append(hl);
@@ -1763,7 +1780,7 @@
     return r >= 1.05 ? t.title.more(Object.assign(v, { r: fix(r, 1) })) : r < .5 ? t.title.fewer(v) : t.title.some(v);
   }
   // family labels: [family, inclination, altitude, anchor]
-  const FAM_LBL = [['broadband', 48, 700, 'middle'], ['polar', 86.4, 1200, 'end'], ['sso', 96.3, 472, 'end'], ['breakup', 96.6, 1085, 'end']];
+  const FAM_LBL = [['broadband', 48, 700, 'middle'], ['polar', 86.4, 1200, 'end'], ['sso', 96.3, 520, 'end'], ['breakup', 96.6, 1085, 'end']];
   function drawOrb(animate) {
     const O = orbitFacts(), F = O.F, t = L().f4, plot = $('#orbPlot'), host = $('#f4');
     const W = Math.max(260, plot.clientWidth), H = Math.max(220, plot.clientHeight);
@@ -1780,7 +1797,7 @@
     for (let v = 0; v <= XM; v += 10) { const xx = Math.round(x(v)) + .5; g.beginPath(); g.moveTo(xx, PT); g.lineTo(xx, PT + PH); g.stroke(); }
     for (let v = 200; v <= 1400; v += 200) { const yy = Math.round(y(v)) + .5; g.beginPath(); g.moveTo(PL, yy); g.lineTo(PL + PW, yy); g.stroke(); }
     const r0 = narrow ? 1 : 1.15, r1 = narrow ? 1.35 : 1.55;
-    g.fillStyle = C.dim;
+    g.fillStyle = C.dot;
     for (let k = 0; k < CAT.n; k++) if (!inB(k)) { g.beginPath(); g.arc(x(CAT.inc[k]), y(CAT.alt[k]), r0, 0, 6.2832); g.fill(); }
     // canvas 2: the objects within ±25 km of the flight's orbit, white
     const [cv2, g2] = canvas(anim ? 'fadein late' : null);
@@ -1802,7 +1819,7 @@
     O.orbits.forEach(o => {
       const sel = o.ids.includes(F.id), cx = x(o.incl), cy = y(o.alt), col = sel ? C.ink : C.mute, right = cx < PL + PW * .7;
       const rr = sel ? 10 : 6;
-      svg.append(sv('circle', { cx, cy, r: rr, fill: 'none', stroke: sel ? '#000' : 'none', 'stroke-width': 4 }), sv('circle', { cx, cy, r: rr, fill: 'none', stroke: col, 'stroke-width': sel ? 2 : 1.5 }));
+      svg.append(sv('circle', { cx, cy, r: rr, fill: 'none', stroke: sel ? C.screen : 'none', 'stroke-width': 4 }), sv('circle', { cx, cy, r: rr, fill: 'none', stroke: col, 'stroke-width': sel ? 2 : 1.5 }));
       if (sel) svg.append(sv('path', { d: `M${cx} ${cy - 17}v5M${cx} ${cy + 12}v5M${cx - 17} ${cy}h5M${cx + 12} ${cy}h5`, stroke: C.ink, 'stroke-width': 1.5 }));
       const lx = cx + (right ? 18 : -18), ly = cy - (sel ? 13 : 8), txt = `${o.ids.join(' · ')} · ${o.alt}${KO() ? 'km' : ' KM'}`;
       svg.append(sv('text', { class: 'halo', x: lx, y: ly, 'font-size': 11, 'font-weight': 500, 'letter-spacing': '.06em', fill: col, 'text-anchor': right ? 'start' : 'end', text: txt }));
@@ -1890,8 +1907,8 @@
     const dg = sv('g', { class: animOK(animate) ? 'fadein' : null });
     for (const e of O.ev.slice().sort((a, b) => rank[a.st] - rank[b.st])) {
       const cx = x(e.t), cy = y(e.lp);
-      if (e.st === 'man') dg.append(sv('circle', { cx, cy, r: 8.5, fill: 'none', stroke: C.ink, 'stroke-width': 1.2 }), sv('circle', { cx, cy, r: 4.6, fill: C.nogo, stroke: '#000', 'stroke-width': 1.5 }));
-      else dg.append(sv('circle', { cx, cy, r: e.st === 'watch' ? 3.3 : 2.2, fill: e.st === 'watch' ? C.ink : C.dim }));
+      if (e.st === 'man') dg.append(sv('circle', { cx, cy, r: 8.5, fill: 'none', stroke: C.ink, 'stroke-width': 1.2 }), sv('circle', { cx, cy, r: 4.6, fill: C.nogo, stroke: C.screen, 'stroke-width': 1.5 }));
+      else dg.append(sv('circle', { cx, cy, r: e.st === 'watch' ? 3.3 : 2.2, fill: e.st === 'watch' ? C.ink : C.dot }));
     }
     svg.append(dg);
     // direct labels: the passes over the line, or the highest one when none is
@@ -1946,8 +1963,8 @@
     if (CJ.fid !== state.fid) { CJ.i = O.top.i; CJ.fid = state.fid; }
     $('#f4T').textContent = glue(orbTitle(O));
     $('#f5T').textContent = glue(cjTitle(O));
-    keyItems($('#f4K'), [['dot', C.ink, t4.keys[0]], ['dot', C.dim, t4.keys[1]], ['target', C.ink, t4.keys[2]]]);
-    keyItems($('#f5K'), [['redDot', C.nogo, t5.keys[0]], ['dot', C.ink, t5.keys[1]], ['dot', C.dim, t5.keys[2]]]);
+    keyItems($('#f4K'), [['dot', C.ink, t4.keys[0]], ['dot', C.dot, t4.keys[1]], ['target', C.ink, t4.keys[2]]]);
+    keyItems($('#f5K'), [['redDot', C.nogo, t5.keys[0]], ['dot', C.ink, t5.keys[1]], ['dot', C.dot, t5.keys[2]]]);
     $('#f4N').textContent = t4.note({ n: nf(O.nb), list: O.fams.slice(0, 2).map(x => t4.item(famName(x.gi), nf(x.c))).join(', ') });
     const clk = [[t5.clk[0], nf(O.ev.length), ''], [t5.clk[1], nf(O.watch.length), ''], [t5.clk[2], nf(O.man.length), ''], [t5.clk[3], missTxt(O.closest), t5.km]];
     $('#cjClk').replaceChildren(...clk.map(([k, v, u], j) => h('div', null, h('span', { class: 'lbl', text: k }), h('p', { class: 'fw-v' + (j === 2 && O.man.length ? ' bad' : ''), text: v }, u ? h('u', { text: u }) : null))));
