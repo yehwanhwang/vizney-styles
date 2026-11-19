@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>NASA style — DASHBOARD.md · Vizney Styles</title>
+<link rel="canonical" href="https://styles.vizney.com/nasa/DASHBOARD.html">
+<link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=1d2c1aa7de" as="font" type="font/woff" crossorigin>
+<!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site's Markdown pages (prompt.md, skill/SKILL.md: _config.yml defaults) and, through tools/package.py, <name>/DASHBOARD.html. Header, tabs and footer are the site's (index.html / 404.html). -->
+<style>
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=1d2c1aa7de) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=1d2c1aa7de) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=1d2c1aa7de) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=1d2c1aa7de) format('woff')}
+:root{
+  /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
+     The blog's Vizney header (scrolls away) and the site's sticky tabs under it; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
+     styles with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
+     built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
+     Single light theme on purpose, like Blocks and the style screens. */
+  color-scheme: light;
+  --page:#ffffff;
+  --soft:#f4f5f7;
+  --tile:#f6f7f9;
+  --ink:#1b1b1b;
+  --ink-2:#4a4a4a;
+  --muted:#616771;
+  --line:#e6e8ec;
+  --line-2:#eceef2;
+  --rule:#cfd2d8;
+  --btn-line:#e3e5ea;
+  --ink-hover:#3a3a3a;
+  /* Top bar: the blog's (kr.vizney.com · www.vizney.com) black header, so moving between the two reads as one site. */
+  --top-bg:#1b1b1b;
+  --top-ink:#ffffff;
+  --top-ink-2:rgba(255,255,255,.78);
+  --top-line:rgba(255,255,255,.22);
+  --top-soft:rgba(255,255,255,.10);
+  --top-rule:hsla(0,0%,100%,.15);
+  /* The one UI accent: the yellow of the blog's post images (#ffcc00). Buttons, active states, focus. Never a data color. */
+  --accent:#ffcc00;
+  --accent-hover:#f2c200;
+  --accent-ink:#1b1b1b;
+  --yellow:#ffcc00;
+  --pink:#ff2d55;
+  --font:'VZ Sans','Spoqa Han Sans Neo','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono','VZ Sans',monospace;
+  --shadow:0 12px 32px -12px rgba(17,24,39,.28);
+  --shadow-sm:0 1px 2px rgba(17,24,39,.12);
+  --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
+
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.7 var(--font);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--top-bg)}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{text-decoration-color:var(--ink)}
+/* Focus: the accent yellow as a halo around an ink ring, so it shows on white (yellow alone is 1.6:1 there) and on the black bar. */
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--accent);border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;white-space:nowrap}
+svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--page);font-size:14px;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}
+
+/* ---------- Vizney header (the common header of the blog, Vizney Blocks and Vizney Styles) ----------
+   Copied from the blog (kr.vizney.com · www.vizney.com): Ghost Casper, stacked navigation, with the blog's code injection
+   (black bar, Spoqa Han Sans Neo, globe language switch). 768px and up: two rows, wordmark centred over the menu.
+   767px and down: one row, wordmark left, globe · search · burger right, the menu as a full-screen sheet.
+   Not sticky: it scrolls away like the blog's. The site's own tabs stick below it. */
+.gh{position:relative;padding:0 max(4vmin, 20px);background:var(--top-bg);color:var(--top-ink);font-size:16px;line-height:1.3}
+.gh a{color:inherit;text-decoration:none}
+.gh-in{display:grid;grid-template-columns:1fr auto 1fr;grid-auto-flow:dense;column-gap:40px;align-items:center;max-width:1200px;margin:0 auto}
+.gh-brand{grid-row-start:1;grid-column-start:2;position:relative;display:flex;align-items:center;height:80px}
+.gh-logo{display:block}
+.gh-logo img{display:block;width:auto;max-height:40px}
+.gh-menu{grid-row-start:2;grid-column:1 / 4;display:flex;justify-content:center;align-items:center;height:56px;margin:0 48px;font-weight:500}
+.gh-menu::before{content:"";position:absolute;top:80px;left:0;width:100%;height:1px;background-color:var(--top-rule)}
+.gh-nav{display:inline-flex;flex-wrap:wrap;align-items:center;gap:32px;margin:0;padding:0;list-style:none}
+.gh-nav li{margin:0;padding:0}
+.gh-nav a{display:inline-flex;align-items:center;line-height:1.7}
+.gh-nav a:hover{opacity:.9}
+/* Where you are: aria-current on this site's item, with no underline (the blog and Vizney Blocks show none). */
+.gh-actions{grid-row-start:1;grid-column:1 / 4;display:flex;justify-content:flex-start;align-items:center;gap:8px}
+.gh-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;padding:0}
+.gh-icon svg{display:block}
+.gh-globe{opacity:.9;transition:opacity .2s ease}
+.gh-globe:hover{opacity:1}
+.gh-search:hover{opacity:.9}
+.gh-actions .gh-globe{margin-right:-4px}
+.gh-brand .gh-icon{display:none}
+/* The blog's overflow menu: items that do not fit on one line go under '…' (Casper's dropdown). */
+.gh-more{position:relative;display:inline-flex}
+.gh-more__toggle{position:relative;width:30px;height:30px;margin:0 -6px;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}
+.gh-more__toggle svg{display:block;width:24px;height:24px;margin:auto}
+.gh-dropdown{position:absolute;top:100%;right:-16px;z-index:90;width:200px;margin:24px 0 0;padding:12px 0;list-style:none;text-align:left;background:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 7px 20px -5px rgba(0,0,0,.15);opacity:0;visibility:hidden;transform:translate3d(0,6px,0);transition:opacity .3s,transform .2s}
+.gh-more.is-open .gh-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.gh-dropdown a{display:block;padding:6px 20px;color:#15171a;line-height:1.7}
+.gh-burger{position:relative;display:none;flex-shrink:0;width:30px;height:30px;margin-right:-3px;padding:0;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
+.gh-burger::before,.gh-burger::after{content:"";position:absolute;left:3px;width:24px;height:1px;background:#fff;transition:all .2s cubic-bezier(.04,.04,.12,.96) .1008s}
+.gh-burger::before{top:11px}
+.gh-burger::after{bottom:11px}
+.gh-open .gh-burger::before{top:15px;transform:rotate(45deg)}
+.gh-open .gh-burger::after{bottom:14px;transform:rotate(-45deg)}
+.gh :focus-visible{outline-color:var(--accent);box-shadow:none}
+.gh-dropdown :focus-visible{outline-color:var(--ink)}
+@media (max-width:767px){
+  .gh{height:64px}
+  .gh-in{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;gap:48px;height:100%}
+  .gh-brand{grid-column-start:1;width:100%;height:64px;flex-wrap:nowrap}
+  .gh-logo{margin-right:auto;flex-shrink:1}
+  .gh-brand .gh-icon{display:inline-flex}
+  .gh-brand .gh-globe{margin-right:8px}
+  .gh-brand .gh-search{margin-left:-6px;margin-right:8px}
+  .gh-burger{display:block}
+  .gh-menu,.gh-actions{grid-row-start:auto;grid-column:auto}
+  .gh-actions{display:none}
+  .gh-menu{position:fixed;justify-content:center;margin:0;visibility:hidden;opacity:0}
+  .gh-menu::before{content:none}
+  .gh-nav{gap:16px;line-height:1.4}
+  .gh-nav a{font-size:26px;font-weight:600}
+  .gh-nav li{opacity:0;transform:translateY(-4px)}
+  .gh-open .gh{position:fixed;inset:0;z-index:3999999;height:100%;overflow-y:auto;overscroll-behavior-y:contain}
+  .gh-open .gh-menu{position:static;visibility:visible;opacity:1}
+  .gh-open .gh-nav{display:flex;flex-direction:column}
+  .gh-open .gh-nav li{opacity:1;transform:translateY(0);transition:transform .2s,opacity .2s}
+  /* The blog keeps a footer row here for 'Sign in'; this site has no members, so the row stays empty to keep the menu where the blog's is. */
+  .gh-open .gh-actions{display:block;height:calc(max(4vmin, 20px) + max(4vmin, 28px) + 21px)}
+  .gh-open .gh-actions > *{display:none}
+}
+
+/* ---------- the site's tabs, under the Vizney header ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;padding:0 max(4vmin, 20px);background:var(--page);box-shadow:inset 0 -1px var(--line)}
+.tabs-in{display:flex;align-items:stretch;gap:28px;max-width:1200px;height:48px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs-in::-webkit-scrollbar{display:none}
+.tabs a{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;padding-top:2px;border-bottom:2px solid transparent;font-size:15px;font-weight:500;line-height:1;white-space:nowrap;color:var(--ink-2);text-decoration:none}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs .tabs__name{font-weight:700;color:var(--ink)}
+.tabs .tabs__git{margin-left:auto}
+.tabs :focus-visible{outline-offset:-2px;box-shadow:none}
+
+/* ---------- footer (as on Vizney Blocks) ---------- */
+.foot{margin-top:120px;border-top:1px solid var(--line-2)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
+.foot-in nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot-in a{color:var(--ink-2);text-decoration-color:currentColor;text-decoration-thickness:auto;text-underline-offset:auto}
+
+/* ---------- the spec (DASHBOARD.md rendered by GitHub Pages) ---------- */
+.doc{max-width:880px;margin:0 auto;padding:56px max(4vmin, 20px) 0;font-size:16px;line-height:1.75}
+.doc h1{font-size:clamp(30px, 4vw, 40px);line-height:1.2;font-weight:700;letter-spacing:-.025em}
+.doc h2{margin-top:64px;padding-top:28px;border-top:1px solid var(--line);font-size:26px;line-height:1.3;font-weight:700;letter-spacing:-.02em}
+.doc h3{margin-top:36px;font-size:19px;line-height:1.4;font-weight:700}
+.doc h4{margin-top:28px;font-size:16px;font-weight:700}
+.doc p,.doc ul,.doc ol,.doc pre,.doc blockquote,.doc table,.doc .highlighter-rouge{margin-top:16px}
+.doc .highlighter-rouge pre{margin-top:0}
+.doc ul{padding-left:22px;list-style:disc}
+.doc ol{padding-left:24px;list-style:decimal}
+.doc li + li{margin-top:6px}
+.doc li > ul,.doc li > ol{margin-top:6px}
+.doc strong{font-weight:700}
+.doc hr{margin:40px 0;border:0;border-top:1px solid var(--line)}
+.doc blockquote{padding-left:16px;border-left:3px solid var(--line);color:var(--ink-2)}
+.doc code{padding:.12em .36em;border-radius:5px;background:var(--soft);white-space:normal;overflow-wrap:anywhere}
+.doc pre{padding:16px 18px;border-radius:12px;background:var(--soft);overflow-x:auto;font-size:13.5px;line-height:1.6}
+.doc pre code{padding:0;background:none;font-size:inherit;white-space:pre;overflow-wrap:normal}
+.doc table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:14px;line-height:1.55}
+.doc th,.doc td{padding:9px 14px 9px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.doc th{font-weight:700;border-bottom-color:var(--rule);white-space:nowrap}
+.doc img{max-width:100%;height:auto}
+@media (max-width:720px){
+  .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  .doc{padding-top:36px;font-size:15px}
+  .doc h2{margin-top:48px;font-size:22px}
+  .foot-in nav{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body data-page="spec">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="gh" id="top">
+  <div class="gh-in">
+    <div class="gh-brand">
+      <a class="gh-logo" href="https://www.vizney.com/" data-href="v:home"><img src="/assets/brand/vizney-wordmark-white.png" width="106" height="40" alt="Vizney"></a>
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+      <button class="gh-burger" type="button" aria-label="Main Menu" aria-expanded="false" aria-controls="ghMenu" data-i18n-aria="ghMenu"></button>
+    </div>
+    <nav class="gh-menu" id="ghMenu" aria-label="Vizney">
+      <ul class="gh-nav">
+        <li><a href="https://www.vizney.com/chart-guide/" data-href="v:chart-guide">Chart Guide</a></li>
+        <li><a href="https://blocks.vizney.com/" data-href="v:blocks">Blocks</a></li>
+        <li><a href="https://styles.vizney.com/" data-href="v:styles" aria-current="page">Styles</a></li>
+        <li><a href="https://www.vizney.com/tips/" data-href="v:tips">Tips &amp; Tricks</a></li>
+        <li><a href="https://www.vizney.com/kb/" data-href="v:kb">Knowledge Base</a></li>
+        <li><a href="https://www.vizney.com/contact-us/" data-href="v:contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="gh-actions">
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Vizney Styles" data-i18n-aria="tabsAria">
+  <div class="tabs-in">
+    <a class="tabs__name" href="/" data-href="home" data-tab="top">Vizney Styles</a>
+    <a href="/#styles" data-href="home:styles" data-tab="styles" data-i18n="navStyles">Catalog</a>
+    <a href="/#custom" data-href="home:custom" data-tab="custom" data-i18n="navCustom">Your company</a>
+    <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true">↗</span></a>
+    <a class="tabs__git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="main" class="doc">
+<h1 id="nasa-style--dashboardmd">NASA style — DASHBOARD.md</h1>
+<p><strong>Space, Countdown, Calm</strong> · 우주, 카운트다운, 침착함</p>
+<p>A dashboard design spec read from the way NASA shows a number on launch day: the L-minus countdown with its built-in holds, the launch director's GO/NO-GO poll, the front wall of mission control with its world map, station circles and row of clocks, and the white Earth Indicators charts of science.nasa.gov. It turns those parts into a calm launch readiness review on black and white sections, with the values, rules and checks an AI coding agent, Tableau or Power BI needs to rebuild it.</p>
+<pre><code>npx @vizney/styles@latest add nasa
+# or, without Node:
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- nasa
+</code></pre>
+<p>That puts <code>DASHBOARD.md</code> in the project root and the <code>dashboard-style</code> agent skill (build, restyle, review) in <code>.claude/skills/dashboard-style/</code>, together with <code>tokens.css</code>, <code>tokens.json</code>, <code>nasa.tps</code>, <code>powerbi-theme.json</code> and <code>prompt.md</code>. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow <code>DASHBOARD.md</code>.</p>
+<ul>
+<li>Live sample: https://styles.vizney.com/nasa/?lang=en (Korean <code>?lang=ko</code>; one flight <code>&amp;flight=VS-13</code> or <code>&amp;flight=VS-14</code>)</li>
+<li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/nasa/DASHBOARD.md</li>
+<li>Package: <a href="nasa-dashboard-style.zip">nasa-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
+<li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="nasa.tps">nasa.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="poll.csv">poll.csv</a> (the data behind the sample's Figure 1)</li>
+<li>Catalog: VIZNEY STYLES · 09 · https://styles.vizney.com (Vizney Styles is a line of <a href="https://www.vizney.com">Vizney</a>)</li>
+</ul>
+<p>Not an official NASA design, and not affiliated with, endorsed or sponsored by NASA. A reference style read from the publicly visible design of nasa.gov and science.nasa.gov and from public touchpoints such as launch countdowns and mission control displays; it carries no NASA insignia, logotype, seal, photo or data, and its fonts are open-licence fonts (SIL OFL). Trademarks belong to their owners. The sample's company, Vizney Space, its flights, launch sites, stations and all its numbers are fictional; launch sites and stations are named by number and region only.</p>
+<h2 id="visual-theme--atmosphere">Visual Theme &amp; Atmosphere</h2>
+<p>A launch control room an hour before the poll. The first screen is black <code>#000000</code> with square <code>#17171b</code> panels, white digits in DM Mono and a band of countdown blue <code>#0b3d91</code>; the screens inside the panels are deep navy <code>#061634</code>, never black, framed by a 1px <code>#0b3d91</code> rule. Below the fold the page alternates as nasa.gov does: a light <code>#f6f6f6</code> band with white panels for open items, then black again for orbit and traffic, then light for how it's built and the terms. Colour is scarce and always a state: green for GO, red for NO-GO, blue only for the band and the clock rows, white for the subject. Everything else is the carbon gray ladder.</p>
+<p>Three devices carry the report, and each holds data:</p>
+<ul>
+<li><strong>Countdown band (the KPI row and the milestone strip).</strong> The nasa.gov countdown block becomes the KPI row: on <code>#0b3d91</code>, the flight, the window and backup days, then the L− clock (<code>L− 06 : 04 : 42</code>, DAYS · HRS · MINS) and four key figures in cells split by 1px rules (poll GO count, open items against plan, weather % GO, processing margin in days), each label → value → change. Under it a 48px milestone strip runs from now to liftoff, with the last 48 hours at a larger scale, built-in holds as white blocks and a NOW marker.</li>
+<li><strong>GO/NO-GO poll (Figure 1).</strong> The launch director's poll as a board: one row per position, NO-GO first with a 3px red rule on the left, the call sign in DM Mono, the position name, a dotted leader to the status word (GO in green, NO-GO on a red chip with black text), then the open-item bar and count, the constraints and the need-by L− day.</li>
+<li><strong>Mission control front wall (Figures 2, 4 and 5).</strong> Navy screens with a clock row on the countdown blue on top: the ground track of the first three orbits over a map with tracking-station circles and a contact timeline (Figure 2); every tracked object below 1,400 km by inclination and mean altitude, with the flight's band in white (Figure 4); every close approach in the first 72 hours by MET and chance of collision on a log axis (Figure 5).</li>
+</ul>
+<p>The light sections use the Earth Indicators chart grammar: the subject an ink line, the plan gray with hollow weekly rings, the title in capitals inside the plot, a <code>Data source:</code> line under it (Figure 3). No insignia, no photos of rockets or Earth, no starfields, no glow: the space feel comes from the clocks, the navy screens and the dots of the orbit map.</p>
+<p>Measured in a browser on November 18, 2026 on nasa.gov (home, a mission page with its countdown block) and on the science.nasa.gov Earth Indicators pages: the Horizon Design System (HDS) carbon ladder <code>#000000</code> <code>#17171b</code> <code>#2e2e32</code> <code>#444447</code> <code>#58585b</code> <code>#717173</code> <code>#959599</code> <code>#b9b9bb</code> <code>#e3e3e3</code> <code>#f6f6f6</code>; nasa-blue <code>#1c67e3</code> and its shade <code>#0b3d91</code> (the countdown block, 16px 24px padding, digits DM Mono 300, units DM Mono 400 11px capitals); nasa-red <code>#f64137</code>; headings Inter 700 and 800, body Public Sans 400 16px, labels DM Mono 500 11.2px capitals with 3.5px tracking; rules on dark <code>rgba(255,255,255,.2)</code>; corners square, round buttons 50%.</p>
+<h2 id="color-palette--roles">Color Palette &amp; Roles</h2>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td><code>#000000</code></td>
+<td>Dark sections (header, first screen, 02 Orbit and traffic) and the footer</td>
+</tr>
+<tr>
+<td>card</td>
+<td><code>#17171b</code></td>
+<td>Every panel on dark; square corners, no border, no shadow</td>
+</tr>
+<tr>
+<td>raise</td>
+<td><code>#2e2e32</code></td>
+<td>Tooltips (with a 2px white top rule), the hovered row, the highlighted code line</td>
+</tr>
+<tr>
+<td>hair</td>
+<td><code>#2e2e32</code></td>
+<td>Row rules and gridlines on dark</td>
+</tr>
+<tr>
+<td>rule</td>
+<td><code>#444447</code></td>
+<td>Axis baselines, the dashed L−2 review marker, the diverging midpoint</td>
+</tr>
+<tr>
+<td>divider</td>
+<td><code>#333333</code></td>
+<td>Section, header and footer rules (white at 20%); <code>#3c64a7</code> inside the band</td>
+</tr>
+<tr>
+<td>ink</td>
+<td><code>#ffffff</code></td>
+<td>Titles, values, clock digits, the subject line, the selected tab and its 2px underline, the focus ring</td>
+</tr>
+<tr>
+<td>body</td>
+<td><code>#e3e3e3</code></td>
+<td>Body text and table values (13.9:1 on the card)</td>
+</tr>
+<tr>
+<td>text-2</td>
+<td><code>#b9b9bb</code></td>
+<td>Subtitles, notes, keys and section kickers on dark (9.1:1)</td>
+</tr>
+<tr>
+<td>muted</td>
+<td><code>#959599</code></td>
+<td>Axis ticks, labels and table heads on dark (6.0:1)</td>
+</tr>
+<tr>
+<td>dim</td>
+<td><code>#717173</code></td>
+<td>Marks only, never text: the plan line, loss-of-signal dashes, open-item bars</td>
+</tr>
+<tr>
+<td>band</td>
+<td><code>#0b3d91</code></td>
+<td>The countdown band and the clock row on every screen; white 10.0:1, labels white at 82% (7.3:1)</td>
+</tr>
+<tr>
+<td>screen</td>
+<td><code>#061634</code></td>
+<td>The screens inside dark panels, framed by a 1px <code>#0b3d91</code> rule</td>
+</tr>
+<tr>
+<td>screen-land</td>
+<td><code>#22365e</code></td>
+<td>Land on the map; graticule <code>#11264e</code>, equator and frame <code>#1a3366</code></td>
+</tr>
+<tr>
+<td>light-page</td>
+<td><code>#f6f6f6</code></td>
+<td>Light sections, a band the full width of the window</td>
+</tr>
+<tr>
+<td>light-card</td>
+<td><code>#ffffff</code></td>
+<td>Panels in a light section; tooltips there are white with a 2px ink top rule</td>
+</tr>
+<tr>
+<td>light-ink</td>
+<td><code>#1b1b1b</code></td>
+<td>Titles, values and the subject line on white (17.2:1)</td>
+</tr>
+<tr>
+<td>light-text-2</td>
+<td><code>#58585b</code></td>
+<td>Subtitles, notes and ticks on white (7.1:1)</td>
+</tr>
+<tr>
+<td>light-muted</td>
+<td><code>#717173</code></td>
+<td>Labels and table heads on white (4.9:1)</td>
+</tr>
+<tr>
+<td>light-rule</td>
+<td><code>#e3e3e3</code></td>
+<td>Row rules and gridlines on white; baselines <code>#b9b9bb</code></td>
+</tr>
+<tr>
+<td>accent</td>
+<td><code>#f64137</code></td>
+<td>nasa-red, UI only: the circle behind the arrow of a primary text button. Never data</td>
+</tr>
+<tr>
+<td>go</td>
+<td><code>#14a06a</code></td>
+<td>GO and a good change as a mark; as text <code>#4cd493</code> on dark, <code>#0a7a4c</code> on white</td>
+</tr>
+<tr>
+<td>nogo</td>
+<td><code>#f2473f</code></td>
+<td>NO-GO: the status chip (black text 5.8:1), the 3px row rule, a station that is down, a pass over the maneuver line; as text <code>#ff9088</code> on dark, <code>#b60109</code> on white</td>
+</tr>
+<tr>
+<td>focus</td>
+<td><code>#ffffff</code></td>
+<td>Focus ring, 2px with a 2px offset (<code>#1b1b1b</code> in light sections)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-colors">Data Colors</h2>
+<p>Validated with the dataviz <code>validate_palette.js</code> (OKLab) on the dark card <code>#17171b</code> (<code>--mode dark</code>) and on the white card <code>#ffffff</code> (<code>--mode light</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Values</th>
+<th>Text step (≥ 4.5:1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subject and context</td>
+<td>subject <code>#ffffff</code> (white <code>#1b1b1b</code>) · context <code>#959599</code> · plan <code>#717173</code> (white <code>#8a8a8e</code>) with hollow rings <code>#959599</code> (white <code>#58585b</code>)</td>
+<td>ink · <code>#b9b9bb</code></td>
+</tr>
+<tr>
+<td>Categorical (for tools)</td>
+<td>blue <code>#3d8af7</code> · orange <code>#d5691f</code> · green <code>#14a06a</code> · other <code>#58585b</code></td>
+<td><code>#7fb0ff</code> · <code>#f2a46d</code> · <code>#4cd493</code></td>
+</tr>
+<tr>
+<td>Screens (Figures 2, 4, 5)</td>
+<td>catalog dots and loss-of-signal <code>#7d8496</code> · in band <code>#ffffff</code> · maneuver <code>#f2473f</code> in a white ring · station reach edge <code>#52648c</code></td>
+<td>ticks <code>#959599</code></td>
+</tr>
+<tr>
+<td>Sequential</td>
+<td><code>#1d52ad</code> <code>#2d6fd6</code> <code>#4a90f7</code> <code>#82b3ff</code> <code>#bcd6ff</code> (dim to bright: on a dark card a larger value is brighter)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Diverging</td>
+<td>ahead <code>#98bdf5</code> <code>#5189e0</code> <code>#2b5aa6</code> · <code>#444447</code> · <code>#91491a</code> <code>#c96a2b</code> <code>#f2a46d</code> behind</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>GO <code>#14a06a</code> · NO-GO <code>#f2473f</code> · neutral <code>#444447</code></td>
+<td><code>#4cd493</code> / <code>#ff9088</code> dark · <code>#0a7a4c</code> / <code>#b60109</code> white</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Blue, orange and green pass every check with <code>--pairs all</code> on both surfaces: worst colour-vision ΔE 9.4 (green and orange, deutan), worst normal-vision ΔE 24.1, each ≥ 3:1 on <code>#17171b</code> and <code>#ffffff</code>.</li>
+<li>GO and NO-GO pass on both surfaces (CVD ΔE 8.2, normal vision 31.9). Status is always a word, and NO-GO rows add a 3px rule, so colour is never alone.</li>
+<li>NO-GO red and the orange category are about ΔE 8 apart in normal vision: red appears only for NO-GO and never in a figure that also uses orange.</li>
+<li>The sequential ramp is one hue (spread 2°), monotone, every step ΔL ≥ 0.06; each diverging arm passes <code>--ordinal</code> on its own.</li>
+<li>On the navy screen white marks are 17.9:1, gray dots <code>#7d8496</code> 4.8:1 (3.7:1 under the white ones, so white still leads), the red maneuver dot 4.9:1 inside a white ring.</li>
+<li>Blue is the band, not a series colour on the sample: the figures use ink and gray, and colour only for GO and NO-GO.</li>
+</ul>
+<h2 id="typography-rules">Typography Rules</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>English</th>
+<th>Korean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result sentence, figure titles, business name, tabs, text buttons</td>
+<td>Inter 600–800</td>
+<td>Pretendard 600–700</td>
+</tr>
+<tr>
+<td>Body, notes, keys, names in the poll and the table</td>
+<td>Public Sans 400–700</td>
+<td>Pretendard 400–600</td>
+</tr>
+<tr>
+<td>Labels, clocks, every number, call signs, code</td>
+<td>DM Mono 300/400/500</td>
+<td>DM Mono for digits and call signs; Korean labels in Pretendard</td>
+</tr>
+</tbody>
+</table>
+<p>One body face and one display face per language, never mixed on one screen; DM Mono is the number face in both. Numerals are tabular everywhere.</p>
+<table>
+<thead>
+<tr>
+<th>Size</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headline</td>
+<td>27px/700 Inter (Korean 25px), line-height 1.12, one sentence</td>
+</tr>
+<tr>
+<td>L− clock and key figures</td>
+<td>38px/300 DM Mono; units 13px/400 capitals at 82% white (DAYS · HRS · MINS)</td>
+</tr>
+<tr>
+<td>Label</td>
+<td>11.2px/500 DM Mono capitals, letter-spacing .3125em (<code>FIG 1 · GO/NO-GO POLL</code>); Korean 12px without capitals</td>
+</tr>
+<tr>
+<td>Card title</td>
+<td>19px/700 Inter (Korean 17.5px), the finding as a sentence</td>
+</tr>
+<tr>
+<td>Poll rows</td>
+<td>22px high: call sign 12.5px/500 DM Mono, position 13.5px Public Sans, dotted leader, status word DM Mono 500</td>
+</tr>
+<tr>
+<td>Table</td>
+<td>13.5px, rows 34px high, numbers DM Mono</td>
+</tr>
+<tr>
+<td>Body</td>
+<td>15px/400 (Korean 14.5px)</td>
+</tr>
+<tr>
+<td>Notes</td>
+<td>12.5px/400, a data source line under every figure</td>
+</tr>
+</tbody>
+</table>
+<p>Load the fonts as in Tool Mapping. Never the NASA logotype or worm, never a "space" display face.</p>
+<h2 id="numbers-dates--units">Numbers, Dates &amp; Units</h2>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>English</th>
+<th>Korean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Countdown</td>
+<td><code>L− 06 : 04 : 42</code> (DAYS · HRS · MINS); in text <code>L−6</code>, <code>L−38H30M</code></td>
+<td>same; units <code>일 · 시간 · 분</code></td>
+</tr>
+<tr>
+<td>Milestones</td>
+<td><code>L−2 MMT</code> · <code>FRR</code> · <code>Hold 2H</code></td>
+<td><code>L−2 MMT</code> · <code>FRR</code> · <code>2시간 정지</code></td>
+</tr>
+<tr>
+<td>Window</td>
+<td><code>Window NOV 24, 2026 · 18:42 UTC</code> · <code>5 min · Backup Nov 25 · Nov 26</code></td>
+<td><code>발사 창 11월 24일 18:42 UTC</code></td>
+</tr>
+<tr>
+<td>Times</td>
+<td>UTC, 24-hour: <code>14:00 UTC</code>; MET <code>27:48</code> (hours:minutes from liftoff)</td>
+<td>same</td>
+</tr>
+<tr>
+<td>Dates</td>
+<td><code>Nov 22</code>; in the band capitals <code>NOV 24</code></td>
+<td><code>11월 22일</code></td>
+</tr>
+<tr>
+<td>Poll</td>
+<td><code>14/16 GO</code></td>
+<td><code>16자리 중 14 GO</code></td>
+</tr>
+<tr>
+<td>Weather</td>
+<td><code>70% GO</code>; change <code>▲ 10 pts</code></td>
+<td><code>70% GO</code>; <code>▲ 10%p</code></td>
+</tr>
+<tr>
+<td>Margin</td>
+<td><code>+1.5 days</code>; table <code>−2 d</code></td>
+<td><code>+1.5일</code>; <code>−2일</code></td>
+</tr>
+<tr>
+<td>Open items</td>
+<td>whole numbers: <code>23</code>, <code>8 under plan (31)</code></td>
+<td><code>23건</code>, <code>계획(31)보다 8건 적음</code></td>
+</tr>
+<tr>
+<td>Chance of collision</td>
+<td><code>1 in 42,000</code> (two significant figures)</td>
+<td><code>4만 2천분의 1</code> · <code>1만분의 1</code> · <code>1억분의 1</code></td>
+</tr>
+<tr>
+<td>Distances</td>
+<td><code>400 km</code> · <code>±25 km</code> · <code>97.6°</code></td>
+<td>same</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>▲ ▼ before every change, a true minus (−), the unit never wrapping away from the number (no-break space). Call signs and IDs never break at their hyphen (<code>VS-12</code>, <code>NO-GO</code>, <code>CR-1207</code> carry a word joiner).</li>
+<li>Percentages are whole numbers; margins and pace keep one decimal.</li>
+</ul>
+<h2 id="layout-principles">Layout Principles</h2>
+<ul>
+<li>Page 1400px wide at most, 32px side padding (24px under 1360px, 16px under 640px), 16px between panels, 56px between sections.</li>
+<li>Header: 60px, one line on black: business and report name, the flight tabs (call sign in DM Mono and the kind; the selected one white with a 2px underline; the one filter for every card, kept in the URL as <code>?flight=</code>), EN/KO.</li>
+<li>First screen (1440 × 810), dark: the result in one sentence, the countdown band, the milestone strip, then row 1 — Figure 1, the poll (584px) | Figure 2, the front wall (1fr). Bottoms on one line.</li>
+<li>01 Open items, light: Figure 3, open items against plan | Table 1, items to close.</li>
+<li>02 Orbit and traffic, dark (1.22fr | 1fr): Figure 4, the orbit map | Figure 5, close approaches.</li>
+<li>03 How it's built and 04 Terms and counts, light; the workbench window in 03 stays dark like a screen. Footer dark.</li>
+<li>Light sections run the full width of the window; their panels keep the page grid.</li>
+<li>Every figure and table is one panel with one anatomy: the DM Mono label (<code>FIG 3 · OPEN ITEMS AGAINST PLAN</code>) → the finding as the title → a subtitle with the method → keys → the view → a note with the data source.</li>
+</ul>
+<h2 id="component-stylings">Component Stylings</h2>
+<p><strong>Header and tabs.</strong> Black, a 1px white-20% rule under it. Tabs are text: <code>VS-12</code> in DM Mono 500 and the kind in Public Sans, 60px tall; the selected tab is white with a 2px white underline, the rest <code>#959599</code>.</p>
+<p><strong>Countdown band.</strong> <code>#0b3d91</code>, 12px 22px 11px padding, square. Top line: the flight and kind, the window, the backup days and the as-of time in DM Mono capitals at 82% white. Then five cells split by 1px <code>#3c64a7</code> rules: the L− clock (DAYS : HRS : MINS) and four key figures, each label (DM Mono 11.2px capitals) → value (38px/300) → change (12.5px). A good change is <code>#4cd493</code>, a bad one <code>#ff9088</code> (4.6:1 on the blue), with ▲ ▼.</p>
+<p><strong>Milestone strip.</strong> 48px on black under the band. Days from now to liftoff at one scale, the last 48 hours at a larger one, split by a thin rule. Milestones are 1px ticks with L− labels in DM Mono; built-in holds are white blocks; done milestones gray; NOW a white marker. Under 640px a list of the next milestones.</p>
+<p><strong>GO/NO-GO poll (Figure 1).</strong> Rows 22px on <code>#17171b</code> with <code>#2e2e32</code> rules; NO-GO first, then GO. A NO-GO row carries a 3px <code>#f2473f</code> rule on its left edge. Columns: call sign (DM Mono 12.5px/500), position, a dotted <code>#444447</code> leader to the status word (GO <code>#4cd493</code> DM Mono 500; NO-GO black on a <code>#f2473f</code> chip, square), open items as a <code>#717173</code> bar with its number, constraints in <code>#ff9088</code>, need by as <code>L−3 · Nov 21</code>. Weather shows <code>PENDING</code> until L−7.</p>
+<p><strong>Front wall (Figure 2).</strong> A navy <code>#061634</code> screen in a 1px <code>#0b3d91</code> frame. A clock row on <code>#0b3d91</code> across its top: liftoff UTC, % in contact, longest loss of signal, events out of contact, in four cells with white values and 82% labels. The map runs from 80°N to 70°S (land <code>#22365e</code>, graticule <code>#11264e</code>, equator <code>#1a3366</code>); station circles at 5° elevation as <code>#52648c</code> outlines with a 6% white fill and the station number; a station that is down in <code>#f2473f</code> dashes. The ground track of the first three orbits: white 2px in contact, <code>#7d8496</code> dashes out of contact; events as diamonds with their name. Under the map a contact timeline by MET with <code>ORBIT 1 2 3</code> labels.</p>
+<p><strong>Open items (Figure 3), light.</strong> On a white panel: the subject (open items, all positions) a 2px <code>#1b1b1b</code> line; the plan a 1.5px <code>#8a8a8e</code> line with hollow <code>#58585b</code> rings each week; last week's pace a dotted ink line to the L−2 review, marked by a dashed <code>#b9b9bb</code> rule labelled <code>L−2 MMT</code>. The chart's own title sits inside the plot in DM Mono capitals; values at the line ends (<code>23 OPEN</code>, <code>5 AT L−2</code>).</p>
+<p><strong>Items to close (Table 1), light.</strong> Head 11.2px DM Mono capitals over a 1px <code>#b9b9bb</code> rule; rows 34px with <code>#e3e3e3</code> rules. ID (DM Mono), item and type, position, need by, and margin as a bar diverging from zero (late to the left in <code>#b60109</code> text and the NO-GO red mark, early to the right in gray) with its value in days. Least margin first; six rows, then <code>Show N more</code>.</p>
+<p><strong>Orbit map (Figure 4).</strong> A navy screen with a clock row (objects, in band, the flight's orbit, against the other altitude). Every tracked object below 1,400 km is a 1.6px <code>#7d8496</code> dot by inclination (x, 0–110°) and mean altitude (y, km); the objects within ±25 km of the flight's first-week orbit are white; each flight orbit is a target (a white ring with a cross) labelled with its call sign. A few orbit families are named in <code>#959599</code> where no dot sits. Gridlines <code>#11264e</code>.</p>
+<p><strong>Close approaches (Figure 5).</strong> A navy screen with a clock row of four cells: passes, watch, maneuver, closest. MET 0–72h on x, chance of collision on a log y axis written <code>1 in 10,000</code> (<code>1만분의 1</code>). A red dashed line at 1 in 10,000 (plan a maneuver) and a gray dotted line at 1 in 10 million (watch), labelled at the right end. Passes are <code>#7d8496</code> dots; watched passes white; a pass over the red line is a <code>#f2473f</code> dot in a white ring with a two-line label (chance, object and MET).</p>
+<p><strong>Tooltip.</strong> On dark <code>#2e2e32</code> with a 2px white top rule; on white <code>#ffffff</code> with a 2px ink top rule and a 1px <code>#e3e3e3</code> line. Square, 10px 12px padding, a DM Mono head, rows of label and value. It adds detail and is never the only copy of a number.</p>
+<p><strong>Buttons.</strong> Text buttons in Inter 600 with a 28px round <code>#f64137</code> circle behind a white arrow (<code>Show more</code>, <code>Download .zip</code>); secondary buttons square with a 1px rule. Code windows on <code>#000000</code> in DM Mono 12.5px (keyword <code>#7fb0ff</code>, string <code>#4cd493</code>, number <code>#f2a46d</code>, function <code>#ff9088</code>, property <code>#e3e3e3</code>, highlight <code>#2e2e32</code>).</p>
+<h2 id="charts">Charts</h2>
+<ul>
+<li><strong>Choose by the question.</strong></li>
+<li>Is the flight ready, and how long until it goes → the result sentence and the countdown band.</li>
+<li>Which positions hold it up, and by when must they clear → the poll (Figure 1).</li>
+<li>Will the flight stay in contact through its first events → the front wall (Figure 2).</li>
+<li>Is the work closing fast enough → open items against plan (Figure 3).</li>
+<li>Which items to chase first → items to close, least margin first (Table 1).</li>
+<li>How crowded is the orbit, and must the flight maneuver → the orbit map (Figure 4) and close approaches (Figure 5).</li>
+<li><strong>Titles.</strong> The finding, recomputed for each flight: <code>Two of 16 positions are NO-GO, each on one constraint</code>; <code>With station 06 out, Burn 1 at MET 00:42 falls in a 33-minute loss of signal</code>; <code>Open items are 9 over plan; at last week's pace 36 would remain at the L−2 review</code>; <code>382 tracked objects fly within 25 km of VS-14's 600 km orbit, 2.1 times as many as at 400 km</code>; <code>One pass crosses the maneuver threshold: 1 in 5,600 with a rocket body at MET 31:24</code>.</li>
+<li><strong>Marks.</strong> The subject in ink, everything else gray; colour only for GO, NO-GO and a pass over the maneuver line. Lines 2px, dots ≥ 1.6px on the orbit map and ≥ 6px elsewhere, square bars starting at zero.</li>
+<li><strong>Axes.</strong> Row gridlines <code>#2e2e32</code> on dark, <code>#e3e3e3</code> on white; ticks DM Mono 11px. Log axes are written in words (<code>1 in 10,000</code>), never <code>1e-4</code>.</li>
+<li><strong>Labels.</strong> Values at line ends and on the few marks the title names; the scatters carry no number on their dots; the tooltip and table give them.</li>
+<li><strong>One axis.</strong> Never a dual axis. The countdown, open items and traffic are separate views.</li>
+<li><strong>Never:</strong> pie, donut, 3D, gauges, gradients, glow, starfields, photos of rockets, Earth or space, the insignia, patches, real missions, vehicles, pads, centers or people.</li>
+<li>Every figure and the table have a tooltip, keyboard control and a screen-reader table.</li>
+</ul>
+<h2 id="depth--elevation">Depth &amp; Elevation</h2>
+<p>Flat and square. Panels are <code>#17171b</code> on black with no border and no shadow; light panels white on <code>#f6f6f6</code> with no border. Screens are inset navy with a 1px blue frame. The tooltip has no shadow either; its top rule sets it apart.</p>
+<h2 id="interaction--motion">Interaction &amp; Motion</h2>
+<ul>
+<li>The flight tabs filter every card; the URL keeps <code>?lang=</code> and <code>?flight=</code>. Language switches in place and only the language's own fonts are used.</li>
+<li>Every view responds to hover and to the keyboard: Tab to focus, arrow keys to move (key figures, milestones, positions, events and stations, days, rows, dots), Home and End, Esc to close; a polite live region reads the focused item.</li>
+<li>Motion (<code>cubic-bezier(.4,0,.2,1)</code>): the clock digits and key figures turn over 0.34s, 90ms apart; open-item bars grow from the left 25ms apart; the open-items line and the ground track draw in over 1.4s, orbits 0.25s apart; the dots of Figures 4 and 5 fade in over 0.9s, the white band 0.45s later. The clock does not tick live; it shows the as-of time. With <code>prefers-reduced-motion</code> everything appears complete.</li>
+</ul>
+<h2 id="accessibility">Accessibility</h2>
+<ul>
+<li>Text ≥ 4.5:1: on the card white 17.9, body 13.9, subtitles 9.1, ticks 6.0, green 9.5, red 8.2; on the band white 10.0, labels 7.3, red 4.6, green 5.3; on white ink 17.2, subtitles 7.1, labels 4.9, red 7.0, green 5.4; black on the NO-GO chip 5.8.</li>
+<li>Dim marks (<code>#717173</code> 3.7:1, <code>#7d8496</code> on navy 4.8:1) always carry a value, a key or a table view.</li>
+<li>Status never relies on colour alone: GO and NO-GO are words, NO-GO rows add a 3px rule, changes carry ▲ ▼ and signs.</li>
+<li>Every view has a screen-reader table; the focus ring is 2px white (ink in light sections) with a 2px offset; targets at least 32px high.</li>
+</ul>
+<h2 id="responsive-behavior">Responsive Behavior</h2>
+<ul>
+<li>≥ 1360px: as described.</li>
+<li>1200–1359px: 24px padding; the band's top line runs across and the clock and four key figures sit under it at 36px; row 1 is 548px | 1fr.</li>
+<li>1024–1199px: values 32px; row 1 halves; the front wall's clock row becomes 2 × 2 and the poll drops the need-by column.</li>
+<li>Under 1024px: every row stacks (Figures 1 and 2, then 3 and Table 1, then 4 and 5); the poll gets its need-by column back.</li>
+<li>Under 900px: the band becomes two columns with the clock across the top; the flight tabs take their own line.</li>
+<li>Under 640px: 16px padding, values 30px; the tabs show only call signs; the close-approach clock row becomes 2 × 2; the poll keeps call sign, position, status and open items.</li>
+<li>Captured and checked at 1440, 1280, 1200, 1024 and 390px in both languages, with no horizontal scroll and no text over text.</li>
+</ul>
+<h2 id="tool-mapping">Tool Mapping</h2>
+<p><strong>Web and coding agents.</strong> Load <code>tokens.css</code> (installed in <code>.claude/skills/dashboard-style/</code>; or copy the <code>colors</code> block from the front matter) and the fonts:</p>
+<!--email_off-->
+
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&amp;family=Public+Sans:wght@400;500;600;700&amp;family=DM+Mono:wght@300;400;500&amp;display=swap&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css&quot;&gt;
+</code></pre>
+<!--/email_off-->
+
+<p>Each figure is one SVG drawn over its panel so the drawing never pushes the panel taller. Light sections are a wrapper with the light tokens (<code>.lt</code>) and a full-bleed background; a dark window inside one re-declares the dark tokens.</p>
+<p><strong>Tableau.</strong> Paste the <code>&lt;color-palette&gt;</code> elements of <code>nasa.tps</code> into <code>My Tableau Repository/Preferences.tps</code> and restart Tableau Desktop. The categorical palette runs blue, orange, green, then gray; status is GO and NO-GO.
+- Dashboard background <code>#000000</code>, each sheet on <code>#17171b</code> with no border, row dividers <code>#2e2e32</code>, text <code>#e3e3e3</code>, headers <code>#959599</code>; light sheets on <code>#ffffff</code> with <code>#e3e3e3</code> dividers. Title each sheet with the finding.
+- Countdown band: a <code>#0b3d91</code> container with text objects or BANs in DM Mono.
+- Poll: a text table from <code>poll.csv</code> sorted by status (NO-GO first), a shape or square mark coloured by status, a bar for <code>open_items</code>.
+- Open items: a line for actual in ink and plan in gray with circle marks each week; a reference line at the L−2 date.
+- Orbit map and close approaches: scatter plots on a <code>#061634</code> worksheet shading; a log axis for chance of collision with reference lines at 1e-4 and 1e-7, formatted as <code>"1 in "#,##0</code>.
+- Fonts: Tableau Book unless Inter, Public Sans and DM Mono are installed on every viewing machine and the server.</p>
+<p><strong>Power BI.</strong> View → Themes → Browse for themes → <code>powerbi-theme.json</code>. It sets the data colours, <code>#17171b</code> visuals with square corners and no border, axis and gridline colours and text classes. Install Public Sans on authoring and viewing machines or accept Segoe UI.
+- Countdown band: cards or a multi-row card on a <code>#0b3d91</code> shape.
+- Poll: a table with conditional formatting (background <code>#f2473f</code> on NO-GO, black text) and data bars for open items.
+- Open items: a line chart with the plan as a second, gray series and markers; a constant line at L−2.
+- Orbit map and close approaches: scatter charts with a <code>#061634</code> plot area; a log Y axis for chance of collision and constant lines at the thresholds.
+- Title each visual with the finding; the method in the subtitle.</p>
+<p><strong>Chart libraries (D3, Observable Plot, Vega-Lite, matplotlib).</strong> Background <code>#17171b</code> (screens <code>#061634</code>, light <code>#ffffff</code>); subject <code>#ffffff</code> (light <code>#1b1b1b</code>), context <code>#959599</code>, plan <code>#717173</code>; categorical <code>#3d8af7 #d5691f #14a06a</code>, other <code>#58585b</code>; GO <code>#14a06a</code>, NO-GO <code>#f2473f</code>; gridlines <code>#2e2e32</code> (light <code>#e3e3e3</code>); ticks <code>#959599</code> (light <code>#58585b</code>); sequential <code>#1d52ad #2d6fd6 #4a90f7 #82b3ff #bcd6ff</code>.</p>
+<h2 id="dos-and-donts">Do's and Don'ts</h2>
+<table>
+<thead>
+<tr>
+<th>Do</th>
+<th>Don't</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Count down in L− with DAYS · HRS · MINS on the countdown blue</td>
+<td>Put a ticking seconds clock or a progress ring on the page</td>
+</tr>
+<tr>
+<td>Make status a word (GO, NO-GO) and sort NO-GO first</td>
+<td>Use red and green without words, or traffic-light gauges</td>
+</tr>
+<tr>
+<td>Keep the subject in ink and the rest gray; colour only for a state</td>
+<td>Paint series in nasa-blue or nasa-red</td>
+</tr>
+<tr>
+<td>Draw screens in navy <code>#061634</code> with a blue frame and a clock row</td>
+<td>Draw space as black with stars, glow or nebula gradients</td>
+</tr>
+<tr>
+<td>Alternate black and light sections as nasa.gov does</td>
+<td>Run the whole report on black</td>
+</tr>
+<tr>
+<td>Name launch sites and stations by number and region</td>
+<td>Use real missions, vehicles, pads, centers or people</td>
+</tr>
+<tr>
+<td>Use the NASA name only to say where the look was read from, with the notice</td>
+<td>Use the insignia, logotype, seal, patches or photos</td>
+</tr>
+</tbody>
+</table>
+<h2 id="agent-prompt-guide">Agent Prompt Guide</h2>
+<p>Install the style (<code>npx @vizney/styles@latest add nasa</code>, <code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- nasa</code>, or unzip the package in the project root). Agents that read skills load <code>dashboard-style</code> on their own and work in one of three modes: <strong>Build</strong>, <strong>Restyle</strong> and <strong>Review</strong>. Other agents can be given this prompt:</p>
+<pre><code>Read DASHBOARD.md and follow it exactly. Build our launch readiness review as one self-contained HTML file with
+fictional data, in English and Korean (?lang=en|ko, English by default).
+Header: 60px on black with the business and report name, flight tabs (call sign in DM Mono, the selected one white
+with a 2px underline; the filter for every card, kept in the URL) and EN/KO. Then the result in one sentence and the
+countdown band on #0b3d91: the window and backup days, the L− clock (DAYS : HRS : MINS, DM Mono 300) and four key
+figures (poll GO, open items against plan, weather % GO, processing margin), then the milestone strip with holds.
+First screen: Figure 1, the GO/NO-GO poll (one row per position, NO-GO first with a 3px #f2473f rule, dotted leaders
+to the status word, open-item bars, need-by L− day); beside it Figure 2, the front wall: a navy #061634 screen with a
+clock row, the ground track of the first three orbits, station circles and a contact timeline.
+Below, a light #f6f6f6 section: Figure 3, open items against plan in the Earth Indicators grammar, and Table 1, items
+to close by margin. Then a black section: Figure 4, every tracked object by inclination and altitude with the flight's
+band in white, and Figure 5, close approaches by MET and chance of collision on a log axis with the maneuver line.
+Every view in the same panel: DM Mono label, finding title, subtitle, keys, view, data source note. Use only the
+values in Data Colors, the formats in Numbers, Dates &amp; Units and the components in Component Stylings. Every view
+needs a tooltip, keyboard control and a screen-reader table.
+</code></pre>
+<p>Before it is done, the agent checks:
+- [ ] The headline and every title state the finding and change with the flight tabs.
+- [ ] The countdown band is <code>#0b3d91</code> with the L− clock and four key figures, each label → value → change with ▲ ▼.
+- [ ] The poll lists NO-GO first; status is a word; NO-GO rows carry a 3px red rule.
+- [ ] Screens are navy <code>#061634</code> in a 1px <code>#0b3d91</code> frame with a clock row; land <code>#22365e</code>; out-of-contact track dashed.
+- [ ] The subject is ink and everything else gray; red appears only for NO-GO, a station down and a pass over the maneuver line.
+- [ ] Light sections run the full width; their charts follow the Earth Indicators grammar.
+- [ ] Panels side by side end on one line at 1440 and 1280px; nothing breaks or overlaps at 390px.
+- [ ] Text ≥ 4.5:1; every view has a tooltip, keyboard control and a data table.
+- [ ] No insignia, logotype, seal, patch, photo, real mission, vehicle, pad, center or person, and the NASA notice is on the screen.</p>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Vizney Styles · © 2026 <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener">Vizney</a></span>
+    <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
+    <nav aria-label="Footer" data-i18n-aria="footAria">
+      <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>
+      <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="navContact">Contact</a>
+      <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
+      <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  // The site's header, tabs and footer around a spec page. The spec itself is English; ?lang=ko switches the
+  // chrome (labels and Vizney links) like the other site pages. Same code as index.html / 404.html.
+  var STR = { "ko": {"skip": "본문으로 건너뛰기", "navStyles": "카탈로그", "navCustom": "우리 회사", "navRequest": "브랜드 요청", "navContact": "문의", "globeTitle": "Switch to English", "ghSearch": "Vizney 검색", "ghMenu": "메뉴", "ghMore": "더 보기", "tabsAria": "Vizney Styles 메뉴", "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)", "footAria": "바닥글", "footBlog": "블로그"}, "en": {"skip": "Skip to content", "navStyles": "Catalog", "navCustom": "Your company", "navRequest": "Request a brand", "navContact": "Contact", "globeTitle": "한글로 보기", "ghSearch": "Search Vizney", "ghMenu": "Main Menu", "ghMore": "More", "tabsAria": "Vizney Styles menu", "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)", "footAria": "Footer", "footBlog": "Blog"} };
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
+  const state = { lang: params.get('lang') === 'ko' ? 'ko' : 'en' };
+  const S = () => STR[state.lang];
+  const PAGE = 'spec';
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  // The Vizney header's menu, as on the blog (the same addresses on Vizney Blocks). Labels are English in both languages.
+  const VZ = {
+    ko: { home: 'https://kr.vizney.com/', 'chart-guide': 'https://kr.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/ko/', styles: 'https://styles.vizney.com/?lang=ko', tips: 'https://kr.vizney.com/tips/', kb: 'https://kr.vizney.com/kb/', contact: 'https://kr.vizney.com/contact-us/', search: 'https://kr.vizney.com/#/search' },
+    en: { home: 'https://www.vizney.com/', 'chart-guide': 'https://www.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/', styles: 'https://styles.vizney.com/', tips: 'https://www.vizney.com/tips/', kb: 'https://www.vizney.com/kb/', contact: 'https://www.vizney.com/contact-us/', search: 'https://www.vizney.com/#/search' }
+  };
+  function href(key) {
+    const L = state.lang;
+    const [kind, name] = key.split(':');
+    if (kind === 'home') return '/' + (L === 'ko' ? '?lang=ko' : '') + (name ? '#' + name : '');
+    if (kind === 'contact') return BLOG[L] + 'contact-us/';
+    if (kind === 'blog') return BLOG[L];
+    if (kind === 'v') return VZ[L][name];
+    if (kind === 'lang') {
+      try {
+        const u = new URL(location.href);
+        if (L === 'en') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+        return u.pathname + u.search + u.hash;
+      } catch (e) { return L === 'en' ? '?lang=ko' : '?'; }
+    }
+    return '#';
+  }
+  function applyLang() {
+    const s = S();
+    $$('[data-i18n]').forEach(el => { const v = s[el.dataset.i18n]; if (v != null) el.textContent = v; });
+    $$('[data-i18n-aria]').forEach(el => { const v = s[el.dataset.i18nAria]; if (v != null) el.setAttribute('aria-label', v); });
+    $$('[data-href]').forEach(a => { a.href = href(a.dataset.href); });
+    applyHeader();
+  }
+  function setLang(L) {
+    if (L === state.lang) return;
+    state.lang = L;
+    applyLang();
+    try {
+      const u = new URL(location.href);
+      if (L === 'ko') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* the page still switches */ }
+  }
+  /* ---------- Vizney header: menu overflow, burger, globe; the site's tabs ---------- */
+  const PHONE = window.matchMedia('(max-width:767px)');
+  const ghMenu = $('.gh-menu'), ghNav = $('.gh-nav');
+  const GH_ITEMS = $$('li', ghNav);
+  const MORE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM13.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM5.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0z"/></svg>';
+  let ghMoreEl = null;
+
+  function closeMore() {
+    if (!ghMoreEl || !ghMoreEl.classList.contains('is-open')) return;
+    ghMoreEl.classList.remove('is-open');
+    $('.gh-more__toggle', ghMoreEl).setAttribute('aria-expanded', 'false');
+  }
+  // As on the blog (Casper): items that do not fit one line move, from the end, under a '…' toggle.
+  function layoutMenu() {
+    ghMoreEl = null;
+    ghNav.replaceChildren(...GH_ITEMS);
+    GH_ITEMS.forEach((li, i) => { li.style.transitionDelay = PHONE.matches ? (0.03 * (i + 1)) + 's' : ''; });
+    if (PHONE.matches) return;
+    const sub = [];
+    while (ghNav.offsetWidth + 64 > ghMenu.offsetWidth && ghNav.lastElementChild) {
+      sub.unshift(ghNav.lastElementChild);
+      ghNav.lastElementChild.remove();
+    }
+    if (!sub.length) return;
+    const li = document.createElement('li');
+    li.className = 'gh-more';
+    li.innerHTML = '<button class="gh-more__toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="' + esc(S().ghMore) + '">' + MORE_SVG + '</button><ul class="gh-dropdown"></ul>';
+    $('.gh-dropdown', li).append(...sub);
+    ghNav.append(li);
+    ghMoreEl = li;
+  }
+  document.addEventListener('click', e => {
+    if (!ghMoreEl) return;
+    const toggle = $('.gh-more__toggle', ghMoreEl);
+    if (ghMoreEl.classList.contains('is-open')) closeMore();
+    else if (toggle.contains(e.target)) { ghMoreEl.classList.add('is-open'); toggle.setAttribute('aria-expanded', 'true'); }
+  });
+
+  const burger = $('.gh-burger');
+  function setMenuOpen(open) {
+    document.body.classList.toggle('gh-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', () => setMenuOpen(!document.body.classList.contains('gh-open')));
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (ghMoreEl && ghMoreEl.classList.contains('is-open')) { closeMore(); $('.gh-more__toggle', ghMoreEl).focus(); }
+    else if (document.body.classList.contains('gh-open')) { setMenuOpen(false); burger.focus(); }
+  });
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (!PHONE.matches) setMenuOpen(false); layoutMenu(); }, 1);
+  });
+
+  // The globe opens this page in the other language; here it switches in place, keeping the address right.
+  $$('.gh-globe').forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    setLang(state.lang === 'ko' ? 'en' : 'ko');
+  }));
+
+  // Tabs: on the home page the tab follows the section in view; elsewhere none is current.
+  const TAB_SECTIONS = PAGE === 'home' ? ['custom', 'styles'].map(id => [id, document.getElementById(id)]) : [];
+  function markTab() {
+    if (PAGE !== 'home') return;
+    const line = $('.tabs').getBoundingClientRect().bottom + 8;
+    let cur = 'top';
+    for (const [id, el] of TAB_SECTIONS) {
+      const sec = el && (el.closest('section') || el);
+      if (sec && sec.getBoundingClientRect().top <= line) { cur = id; break; }
+    }
+    $$('.tabs [data-tab]').forEach(a => { if (a.dataset.tab === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+  }
+  let tabFrame = 0;
+  window.addEventListener('scroll', () => { if (!tabFrame) tabFrame = requestAnimationFrame(() => { tabFrame = 0; markTab(); }); }, { passive: true });
+  markTab();
+
+  function applyHeader() {
+    const s = S();
+    $$('.gh-globe').forEach(a => { a.title = s.globeTitle; a.setAttribute('aria-label', s.globeTitle); });
+    $$('.gh-search').forEach(a => { a.title = s.ghSearch; });
+    layoutMenu();
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutMenu);
+  window.addEventListener('load', layoutMenu);
+  applyLang();
+})();
+</script>
+</body>
+</html>

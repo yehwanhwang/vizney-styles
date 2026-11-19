@@ -63,6 +63,14 @@
       "words": "Colorful, Stacked, Playful",
       "words_ko": "알록달록, 쌓기, 즐거움",
       "sample": "https://styles.vizney.com/lego/"
+    },
+    {
+      "number": 9,
+      "slug": "nasa",
+      "name": "NASA style",
+      "words": "Space, Countdown, Calm",
+      "words_ko": "우주, 카운트다운, 침착함",
+      "sample": "https://styles.vizney.com/nasa/"
     }
   ]
 }
