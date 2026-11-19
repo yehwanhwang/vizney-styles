@@ -1,0 +1,101 @@
+/* NASA style — Space, Countdown, Calm · VIZNEY STYLES · 09
+   Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
+:root{
+  --canvas:#000000; /* the dark sections' page (header, first screen, 02 Orbit and traffic) and the footer (HDS carbon-black, the nasa.gov header and dark sections, measured) */
+  --card:#17171b; /* every panel: figures, the table and the workbench sit on #17171b with square corners, no border and no shadow (HDS carbon-90, measured) */
+  --plot:#17171b; /* chart background: the card itself, never a second panel */
+  --raise:#2e2e32; /* tooltips (with a 2px white top rule), the hovered row, land on the front-wall map, the highlighted code line (HDS carbon-80) */
+  --hair:#2e2e32; /* row rules and gridlines (HDS carbon-80) */
+  --rule:#444447; /* axis baselines, the dashed L−2 review marker, the diverging midpoint (HDS carbon-70) */
+  --divider:#333333; /* section, header and footer rules: white at 20% (the HDS rule on dark surfaces, rgba(255,255,255,.2), measured); inside the countdown band the same rule reads #3c64a7 */
+  --ink:#ffffff; /* titles, values, clock digits, the subject line and the ground track in contact, the selected tab and its 2px underline, the focus ring (HDS spacesuit-white) */
+  --body:#e3e3e3; /* body text and table values (HDS carbon-10), 13.9:1 on the card */
+  --muted:#959599; /* axis ticks, labels and table heads on dark (HDS carbon-40), 6.0:1 on the card */
+  --text-2:#b9b9bb; /* subtitles, notes, keys and section kickers on dark, one step brighter than the ticks (HDS carbon-30), 9.1:1 on the card */
+  --dim:#717173; /* marks only, never text: the plan line, loss-of-signal dashes, open-item bars (HDS carbon-50, 3.7:1) */
+  --band:#0b3d91; /* the countdown band behind the L− clock and the four key figures, and the clock rows on top of every screen (the nasa.gov countdown block, nasa-blue shade, measured). White text 10.0:1; labels and units white at 82% (#d3dceb, 7.3:1) */
+  --screen:#061634; /* the screens inside dark cards (front-wall map, orbit map, close approaches): deep navy, not black, framed by a 1px #0b3d91 rule */
+  --screen-land:#22365e; /* land on the front-wall map, 1.5:1 on the screen; the graticule #11264e, the equator and map frame #1a3366 */
+  --light-page:#f6f6f6; /* light sections (01 Open items, 03 How it's built, 04 Terms): the band runs the full width of the window (HDS carbon-05) */
+  --light-card:#ffffff; /* panels and step cards in a light section; tooltips there are white with a 2px ink top rule */
+  --light-ink:#1b1b1b; /* titles, values and the subject line on white (the nasa.gov body text), 17.2:1 */
+  --light-text-2:#58585b; /* subtitles, notes and axis ticks on white (HDS carbon-60, the Earth Indicators tick colour), 7.1:1 */
+  --light-muted:#717173; /* labels and table heads on white (HDS carbon-50, the measured light label), 4.9:1 */
+  --light-rule:#e3e3e3; /* row rules and gridlines on white; axis baselines #b9b9bb */
+  --accent:#f64137; /* nasa-red, UI only: the circle behind the arrow of a primary text button (Show more, the zip download). Never a data color */
+  --go:#14a06a; /* GO and good change as a mark (dot, bar); as text #4cd493 on dark, #0a7a4c on white (5.4:1) */
+  --nogo:#f2473f; /* NO-GO: the status chip (black text, 5.8:1), the 3px rule on NO-GO rows, a station that is down, a pass over the maneuver line. As text #ff9088 on dark (4.6:1 on the countdown blue), #b60109 on white (HDS nasa-red shade, 7.0:1) */
+  --focus:#ffffff; /* focus ring, 2px with a 2px offset */
+  --cat-1:#3d8af7; /* blue (nasa-blue, data step) */
+  --cat-1-text:#7fb0ff; /* blue (nasa-blue, data step) for labels and text */
+  --cat-2:#d5691f; /* orange (international orange, data step) */
+  --cat-2-text:#f2a46d; /* orange (international orange, data step) for labels and text */
+  --cat-3:#14a06a; /* green (active green, data step) */
+  --cat-3-text:#4cd493; /* green (active green, data step) for labels and text */
+  --cat-other:#58585b;
+  --comparison:#959599;
+  --mark-subject:#ffffff;
+  --mark-context:#959599;
+  --mark-plan:#717173;
+  --mark-los:#7d8496;
+  --mark-grid:#2e2e32;
+  --mark-baseline:#444447;
+  --mark-land:#22365e;
+  --mark-graticule:#11264e;
+  --mark-reach-edge:#52648c;
+  --mark-down:#f2473f;
+  --mark-hold:#ffffff;
+  --mark-hover:#2e2e32;
+  --mark-catalog:#7d8496;
+  --mark-in-band:#ffffff;
+  --mark-maneuver:#f2473f;
+  --mark-watch-line:#959599;
+  --mark-dot:#7d8496;
+  --mark-screen-grid:#11264e;
+  --mark-light-subject:#1b1b1b;
+  --mark-light-plan:#8a8a8e;
+  --mark-light-ring:#58585b;
+  --mark-light-grid:#e3e3e3;
+  --mark-light-baseline:#b9b9bb;
+  --seq-1:#1d52ad;
+  --seq-2:#2d6fd6;
+  --seq-3:#4a90f7;
+  --seq-4:#82b3ff;
+  --seq-5:#bcd6ff;
+  --div-1:#98bdf5;
+  --div-2:#5189e0;
+  --div-3:#2b5aa6;
+  --div-4:#444447;
+  --div-5:#91491a;
+  --div-6:#c96a2b;
+  --div-7:#f2a46d;
+  --font-sans:'Public Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-display:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'DM Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-panel:0;
+  --radius-button:0;
+  --radius-chip:0;
+  --radius-tooltip:0;
+  --radius-bar:0;
+  --radius-circle:50%;
+  --space-page:32px;
+  --space-gap:16px;
+  --space-section:56px;
+  --space-card:16px 20px 12px;
+  --space-band:12px 22px 11px;
+  --space-poll-row:22px;
+  --space-cell:0 8px;
+  --space-footer:64px 0 0;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --code-background:#000000;
+  --code-comment:#959599;
+  --code-string:#4cd493;
+  --code-number:#f2a46d;
+  --code-keyword:#7fb0ff;
+  --code-function:#ff9088;
+  --code-property:#e3e3e3;
+  --code-line-number:#959599;
+  --code-highlight:#2e2e32;
+  --code-caret:#ffffff;
+}
+html[lang="ko"]{--font-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--font-display:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}

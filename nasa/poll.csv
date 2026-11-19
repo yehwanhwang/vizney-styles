@@ -1,0 +1,45 @@
+flight,call_sign,position,status,open_items,constraints,need_by_L,need_by_date
+VS-12,NET,Network,NO-GO,2,1,3,2026-11-21
+VS-12,GND,Ground systems,NO-GO,4,1,2,2026-11-22
+VS-12,SC,Spacecraft,GO,4,0,,
+VS-12,BSTR,Booster,GO,3,0,,
+VS-12,CREW,Crew systems,GO,2,0,,
+VS-12,USTG,Upper stage,GO,2,0,,
+VS-12,FDO,Flight dynamics,GO,1,0,,
+VS-12,LCS,Launch control,GO,1,0,,
+VS-12,MA,Mission assurance,GO,1,0,,
+VS-12,PROP,Propellants,GO,1,0,,
+VS-12,REC,Recovery,GO,1,0,,
+VS-12,RNG,Range,GO,1,0,,
+VS-12,COMM,Crew comm,GO,0,0,,
+VS-12,SAF,Safety,GO,0,0,,
+VS-12,SURG,Flight surgeon,GO,0,0,,
+VS-12,WX,Weather,GO,0,0,,
+VS-13,CRGO,Cargo,NO-GO,13,2,12,2026-11-27
+VS-13,SC,Spacecraft,NO-GO,16,2,9,2026-11-30
+VS-13,PROP,Propellants,NO-GO,9,1,7,2026-12-02
+VS-13,RNG,Range,NO-GO,5,1,7,2026-12-02
+VS-13,NET,Network,NO-GO,6,1,5,2026-12-04
+VS-13,WX,Weather,PENDING,0,0,,
+VS-13,BSTR,Booster,GO,12,0,,
+VS-13,USTG,Upper stage,GO,10,0,,
+VS-13,GND,Ground systems,GO,8,0,,
+VS-13,LCS,Launch control,GO,5,0,,
+VS-13,FDO,Flight dynamics,GO,3,0,,
+VS-13,REC,Recovery,GO,3,0,,
+VS-13,MA,Mission assurance,GO,2,0,,
+VS-13,SAF,Safety,GO,1,0,,
+VS-14,SC,Spacecraft,NO-GO,18,1,18,2026-11-29
+VS-14,PYLD,Payload,NO-GO,21,2,14,2026-12-03
+VS-14,MA,Mission assurance,NO-GO,9,1,10,2026-12-07
+VS-14,FDO,Flight dynamics,NO-GO,8,1,7,2026-12-10
+VS-14,WX,Weather,PENDING,0,0,,
+VS-14,BSTR,Booster,GO,13,0,,
+VS-14,USTG,Upper stage,GO,12,0,,
+VS-14,GND,Ground systems,GO,9,0,,
+VS-14,PROP,Propellants,GO,6,0,,
+VS-14,LCS,Launch control,GO,5,0,,
+VS-14,RNG,Range,GO,4,0,,
+VS-14,NET,Network,GO,3,0,,
+VS-14,REC,Recovery,GO,2,0,,
+VS-14,SAF,Safety,GO,2,0,,
