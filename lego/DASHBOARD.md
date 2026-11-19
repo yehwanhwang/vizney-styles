@@ -64,6 +64,7 @@ That puts `DASHBOARD.md` in the project root and the `dashboard-style` agent ski
 - Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/lego/DASHBOARD.md
 - Package: [lego-dashboard-style.zip](lego-dashboard-style.zip) (unzip in your project root) · the skill: [skill/SKILL.md](skill/SKILL.md)
 - Files in this folder: [tokens.json](tokens.json) (the source of every value here), [tokens.css](tokens.css), [lego.tps](lego.tps) (Tableau), [powerbi-theme.json](powerbi-theme.json), [prompt.md](prompt.md), [event.csv](event.csv) (the data behind the sample's Figure 1)
+- Blog post: [English](https://www.vizney.com/style-lego/) · [한국어](https://kr.vizney.com/style-lego/)
 - Catalog: VIZNEY STYLES · 08 · https://styles.vizney.com (Vizney Styles is a line of [Vizney](https://www.vizney.com))
 
 Not an official LEGO® design, and not affiliated with or endorsed by the LEGO Group. A reference style read from the publicly visible design of lego.com and public touchpoints such as the bricks, LEGO® stores, the Black Friday offers and annual reports; it carries no logo, typeface, photo or data of theirs. LEGO® is a trademark of the LEGO Group of companies which does not sponsor, authorize or endorse this site. The sample's company, Vizney Toys, its sets, offers and all its numbers are fictional. Trademarks belong to their owners.
