@@ -72,6 +72,7 @@ That puts `DASHBOARD.md` in the project root and the `dashboard-style` agent ski
 - Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/nasa/DASHBOARD.md
 - Package: [nasa-dashboard-style.zip](nasa-dashboard-style.zip) (unzip in your project root) · the skill: [skill/SKILL.md](skill/SKILL.md)
 - Files in this folder: [tokens.json](tokens.json) (the source of every value here), [tokens.css](tokens.css), [nasa.tps](nasa.tps) (Tableau), [powerbi-theme.json](powerbi-theme.json), [prompt.md](prompt.md), [poll.csv](poll.csv) (the data behind the sample's Figure 1)
+- Blog post: [English](https://www.vizney.com/style-nasa/) · [한국어](https://kr.vizney.com/style-nasa/)
 - Catalog: VIZNEY STYLES · 09 · https://styles.vizney.com (Vizney Styles is a line of [Vizney](https://www.vizney.com))
 
 Not an official NASA design, and not affiliated with, endorsed or sponsored by NASA. A reference style read from the publicly visible design of nasa.gov and science.nasa.gov and from public touchpoints such as launch countdowns and mission control displays; it carries no NASA insignia, logotype, seal, photo or data, and its fonts are open-licence fonts (SIL OFL). Trademarks belong to their owners. The sample's company, Vizney Space, its flights, launch sites, stations and all its numbers are fictional; launch sites and stations are named by number and region only.
