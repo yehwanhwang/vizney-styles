@@ -1445,7 +1445,7 @@
         [0, `// ${c.head}`], [0, 'import { tokens, plot, load } from "./dashboard.js";'],
         [0, `const line = ${q(line)};${' '.repeat(Math.max(1, 18 - line.length))}// ${c.filter}`], [0, 'const audit = await load("audit.csv", { line });'], [0, ''],
         [1, `// ${c.s1}`], [1, 'const fig = plot("#figure-1", {'], [1, '  screen: tokens.colors.screen,         // #000000'], [1, '  baseline: tokens.colors.screenRule,    // #3a3a3a'], [1, '  facet: "line" });'], [1, ''],
-        [2, `// ${c.s2}`], [2, 'fig.bars(audit, { x: "size", y: "share_of_allowance_pct",'], [2, '  fill: d => tokens.data.size[d.size] });'], [2, '  // #f5dc3c 0.3 · #e8641e 1 · #de3f9e 2.5 · #8462d8 10 µm'], [2, 'fig.rise({ ease: "out", ms: 1300 });   // fast, then slow'], [2, ''],
+        [2, `// ${c.s2}`], [2, 'fig.bars(audit, { x: "size", y: "share_of_allowance_pct",'], [2, '  fill: d => tokens.data.size[d.size] });'], [2, '  // #f5dc3c 0.3 · #e8641e 1 · #de3f9e 2.5 · #8462d8 10 µm'], [2, `fig.rise({ ease: "out", ms: 1300 });   // ${KO() ? '빠르게 올라 천천히 멈춘다' : 'fast, then slow'}`], [2, ''],
         [3, `// ${c.s3}`], [3, 'fig.rule(100, { stroke: tokens.data.limit, width: 2 }); // #c0183e'], [3, 'fig.tick(audit, { y: "last_week_share_pct",'], [3, '  stroke: tokens.colors.screenSub });  // #b9b9b9'], [3, ''],
         [4, `// ${c.s4}`], [4, 'fig.total({ field: "particles_per_litre", weight: 300, size: 40 });'], [4, 'fig.label(audit, { text: "particles_per_litre" });'], [4, 'fig.axis({ labels: [">0.3", ">1", ">2.5", ">10"], unit: "µm" });'], [4, ''],
         [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.subtitle(${q(sub)});`]
