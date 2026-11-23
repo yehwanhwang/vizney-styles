@@ -1,0 +1,1734 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>Dyson style · Test and ship quality sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<script src="/lib/embed.js" defer></script>
+<style>
+  /* Dyson style (VIZNEY STYLES · 10) — Technical, Microns, Clean · 테크니컬, 마이크론, 말끔함
+     Read from dyson.com (the black header, the Specifications panel, prices and badges, measured 2026-11-23),
+     the product screens (the cordless vacuum's particle count, the purifier's air quality bar) and the charts Dyson
+     publishes (Global Connected Air Quality Data). A reference style, not an official design; no logo, typeface,
+     photo, product shape or data of theirs.
+     Sample: Vizney Appliances, a fictional appliance maker, test and ship quality for its S7 cordless vacuum, week 47.
+     Three devices: the spec sheet (the KPI band: label, light number with a smaller unit, a hairline, "Was"),
+     the particle count (Figure 1: four size bars on a black screen, smallest first) and the level bar (Figure 2 and
+     the lots table: Good, Fair, Poor, Very poor with an arrow at the level now). The other figures follow the charts
+     Dyson publishes: a black panel, white lines, a red guideline with its label, values inside bars, "fig. 1." below. */
+  :root{
+    --page:#ffffff; --band:#fbfbfb; --ink:#333333; --body:#404040; --mute:#555555; --mute2:#919191;
+    --hair:#dadada; --line:#dcdcdc; --soft:#ebebeb; --black:#000000; --black2:#242424;
+    --blue:#0066cc; --green:#79b928; --green-h:#6ea924;
+    --scr:#000000; --scr-rule:#2e2e2e; --scr-base:#3a3a3a; --scr-tick:#919191; --scr-sub:#b9b9b9;
+    --s03:#f5dc3c; --s1:#e8641e; --s25:#de3f9e; --s10:#8462d8;
+    --good:#2fae5f; --fair:#f5dc3c; --poor:#e8641e; --vpoor:#c0183e; --vpoor-t:#ff6b7f;
+    --good-t:#1d7a43; --fair-t:#8a6d00; --poor-t:#b4490d; --bad-t:#b0122f;
+    --now:#c4307f; --was:#5c5c5c; --ctx:#8c8c8c;
+    --font:'Jost',Arial,sans-serif;
+    --mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.4,0,.2,1);
+    --pad:32px; --gap:32px; --sec:72px;
+  }
+  html[lang="ko"]{
+    --font:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    --mono:'Roboto Mono','Noto Sans KR',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--page);color:var(--body);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  html[lang="ko"] body{word-break:keep-all;font-size:15px}
+  p,h1,h2,h3,h4,ul,ol,figure,table{margin:0}
+  ul,ol{padding:0;list-style:none}
+  button{font:inherit;color:inherit}
+  a{color:var(--blue)}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .wrap{max-width:1400px;margin:0 auto;padding:0 var(--pad)}
+  .n{font-variant-numeric:tabular-nums}
+
+  /* ---------- 머리: dyson.com의 검정 머리. 위 줄은 회사·보고서·기간, 아래 줄은 메뉴 줄처럼 라인 필터 ---------- */
+  .top{background:var(--black);color:#fff}
+  .top .r1{display:flex;align-items:center;gap:8px 24px;min-height:64px}
+  .co{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 14px;min-width:0;margin-right:auto}
+  .co b{font-size:19px;font-weight:500;color:#fff;white-space:nowrap}
+  .co span{font-size:19px;font-weight:300;color:#fff;white-space:nowrap}
+  .co small{font-size:14.5px;font-weight:400;color:var(--scr-sub);white-space:nowrap}
+  html[lang="ko"] .co b,html[lang="ko"] .co span{font-size:17.5px}
+  html[lang="ko"] .co small{font-size:13.5px}
+  .lang{display:inline-flex;gap:0;border:1px solid #6b6b6b;border-radius:4px;overflow:hidden}
+  .lang button{height:30px;padding:0 12px;border:0;background:none;color:#fff;font-size:14px;font-weight:500;cursor:pointer}
+  .lang button[aria-pressed="true"]{background:#fff;color:var(--black)}
+  .lang button:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+  .nav{border-top:1px solid rgba(255,255,255,.15)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px 24px;min-height:52px}
+  .tabs{display:flex;gap:4px 30px;min-width:0;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{position:relative;flex:none;height:52px;padding:0;border:0;background:none;color:#fff;font-size:16px;font-weight:300;cursor:pointer;white-space:nowrap}
+  .tabs button:hover{opacity:.9}
+  .tabs button[aria-selected="true"]{font-weight:500}
+  .tabs button[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:10px;height:2px;background:#fff}
+  .tabs button:focus-visible{outline:2px solid #fff;outline-offset:-6px}
+  .asof{font-size:14px;color:var(--mute2);white-space:nowrap}
+
+  /* ---------- 결과 문장: dyson.com 제목처럼 가는 32px ---------- */
+  .head{padding:22px 0 16px}
+  .head h1{font-size:31px;font-weight:300;line-height:1.25;color:var(--ink);text-wrap:balance}
+  html[lang="ko"] .head h1{font-size:27px;line-height:1.35;letter-spacing:-.02em}
+
+  /* ---------- KPI: dyson.com의 Specifications 패널. #fbfbfb 띠(창 폭 끝까지), 라벨 → 가는 큰 숫자와 작은 단위 → 선 → Was ---------- */
+  .spec{position:relative;padding:20px 0 14px;border-image:linear-gradient(var(--band),var(--band)) fill 0/0/0 100vw}
+  .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:var(--gap);row-gap:20px}
+  .kpi{min-width:0}
+  .k-l{font-size:16px;font-weight:500;line-height:1.4;color:var(--mute)}
+  .k-l sup,.kf sup{font-size:.72em;margin-left:1px}
+  .k-v{padding-bottom:10px;border-bottom:1px solid var(--hair);font-size:42px;font-weight:300;line-height:1.15;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .k-v .u{margin-left:3px;font-size:23px;font-weight:400;letter-spacing:0}
+  html[lang="ko"] .k-v{font-size:38px}
+  html[lang="ko"] .k-v .u{font-size:21px}
+  .k-d{margin-top:7px;font-size:14.5px;line-height:1.4;color:var(--mute)}
+  .k-d .good{color:var(--good-t);font-weight:500} .k-d .bad{color:var(--bad-t);font-weight:500}
+  .kfoot{margin-top:12px;font-size:12.5px;line-height:1.55;color:var(--mute)}
+  .kfoot span + span::before{content:"";margin-left:14px}
+
+  /* ---------- 그림: 다이슨 발행 차트처럼 결과 제목 → 부제 → 검은 패널(범례는 안쪽 아래) → 아래 'fig. 1.' 캡션 ---------- */
+  .fg{position:relative;display:flex;flex-direction:column;min-width:0}
+  .ct{font-size:19px;font-weight:500;line-height:1.35;color:var(--ink);text-wrap:balance}
+  html[lang="ko"] .ct{font-size:18px;letter-spacing:-.015em}
+  .cs{margin-top:3px;font-size:14.5px;line-height:1.45;color:var(--mute)}
+  html[lang="ko"] .cs{font-size:14px}
+  .scr{position:relative;flex:1;display:flex;flex-direction:column;min-height:0;margin-top:12px;padding:16px 20px 12px;background:var(--scr);color:#fff}
+  .plot{position:relative;width:100%;min-width:0}
+  .plot > svg{position:absolute;left:0;top:0;display:block;overflow:visible}
+  .plot:focus-visible{outline:2px solid #fff;outline-offset:4px}
+  .keys{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;margin-top:10px;font-size:13px;color:var(--scr-sub)}
+  .keys li{display:flex;align-items:center;gap:7px;white-space:nowrap}
+  .keys svg{flex:none;display:block}
+  .tag{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:2px;background:var(--c);color:#000;font-size:12px;font-weight:600;line-height:1}
+  .cap{margin-top:9px;font-size:13px;line-height:1.5;color:var(--mute)}
+  .cap .fig{font-weight:500;color:var(--ink);margin-right:4px}
+
+  /* ---------- 첫 화면: KPI 아래 그림 1(입자 카운트) | 그림 2(단계 막대) ---------- */
+  /* 나란한 두 그림은 subgrid로 제목·패널·캡션 줄을 맞춘다(패널 위와 아래 끝이 한 선) */
+  .first,.row2{display:grid;grid-template-rows:auto 1fr auto;column-gap:var(--gap);row-gap:0;align-items:stretch}
+  .first > .fg,.row2 > .fg{display:grid;grid-template-rows:subgrid;grid-row:span 3}
+  .first{grid-template-columns:minmax(0,1fr) 560px;margin-top:22px}
+  #f1Plot{flex:1;min-height:250px}
+  #f2Plot{flex:1;min-height:250px}
+
+  /* ---------- 절 ---------- */
+  .sec{margin-top:var(--sec)}
+  .sh{display:flex;align-items:baseline;gap:4px 16px;flex-wrap:wrap;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid var(--hair)}
+  .sh h2{font-size:30px;font-weight:300;line-height:1.2;color:var(--ink)}
+  .sh h2 .no{margin-right:14px;color:var(--mute2)}
+  html[lang="ko"] .sh h2{font-size:27px;letter-spacing:-.02em}
+  .sh p{font-size:15px;color:var(--mute)}
+  .row2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  #f3Plot{flex:1;min-height:300px}
+  #f4Plot{flex:1;min-height:300px}
+
+  /* ---------- 표 1: dyson.com 스펙 칸처럼 라벨 머리, 줄 사이 머리카락 선. 판정은 dyson.com 배지 ---------- */
+  .tw{overflow-x:auto;scrollbar-width:thin;margin-top:14px}
+  table.lots{width:100%;border-collapse:collapse;font-size:15px}
+  .lots th{padding:0 12px 10px;border-bottom:1px solid var(--ink);font-size:14px;font-weight:500;color:var(--mute);text-align:left;white-space:nowrap}
+  .lots th.r,.lots td.r{text-align:right}
+  /* 열 너비: 남는 폭은 첫 통과율 막대가 받는다 */
+  .lots th:nth-child(1){width:16%}.lots th:nth-child(2){width:9%}.lots th:nth-child(3){width:31%}
+  .lots th:nth-child(4){width:11%}.lots th:nth-child(5){width:21%}.lots th:nth-child(6){width:12%}
+  .lots td{padding:11px 12px;border-bottom:1px solid var(--hair);vertical-align:middle;white-space:nowrap}
+  .lots tbody tr:last-child td{border-bottom:0}
+  .lots tbody tr.on td{background:var(--band)}
+  .lots td:first-child,.lots th:first-child{padding-left:0}
+  .lots td:last-child,.lots th:last-child{padding-right:0}
+  .lots .id b{display:block;font-size:16px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+  .lots .id > span{display:block;font-size:13px;color:var(--mute)}
+  .lots .num{font-size:16px;font-weight:400;color:var(--ink);font-variant-numeric:tabular-nums}
+  .lots .num .u{margin-left:2px;font-size:12.5px;color:var(--mute)}
+  .lots .num.bad{color:var(--bad-t);font-weight:500}
+  .fpyc{display:grid;grid-template-columns:52px minmax(0,1fr);align-items:center;gap:12px;max-width:380px}
+  .fpyc svg{display:block;width:100%;height:14px;overflow:visible}
+  .lvc{display:inline-flex;align-items:center;gap:9px}
+  .lvc svg{display:block;flex:none}
+  .lvc b{font-weight:500;font-variant-numeric:tabular-nums}
+  .lvc small{font-size:13px;color:var(--mute)}
+  .badge{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:2px;background:var(--black);color:#fff;font-size:14px;font-weight:500;line-height:1;white-space:nowrap}
+  .badge.hold{background:var(--vpoor)}
+  .more{display:flex;justify-content:center;padding-top:16px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border:1px solid transparent;border-radius:4px;font-size:16px;font-weight:500;line-height:1;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease)}
+  .btn-p{background:var(--green);color:var(--black)}
+  .btn-p:hover{background:var(--green-h)}
+  .btn-o{background:#fff;color:var(--ink);border-color:var(--ink)}
+  .btn-o:hover{background:var(--ink);color:#fff}
+  .btn-sm{height:34px;padding:0 14px;font-size:14.5px;gap:6px}
+  .btn-icon{width:34px;padding:0}
+  .btn svg{width:15px;height:15px;flex:none}
+
+  /* ---------- 만드는 법 ---------- */
+  .build-intro{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px 40px;align-items:end}
+  .build-intro p{max-width:46em;font-size:16px;line-height:1.6;color:var(--body)}
+  .build-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+  .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin-top:22px}
+  .steps li{display:grid;grid-template-columns:auto minmax(0,1fr);align-content:start;column-gap:16px;padding-top:14px;border-top:1px solid var(--hair)}
+  .steps .bn{grid-row:span 2;align-self:start;font-size:36px;font-weight:300;line-height:.95;color:var(--ink)}
+  .steps b{font-size:17px;font-weight:500;line-height:1.35;color:var(--ink)}
+  .steps p{margin-top:4px;font-size:14.5px;line-height:1.5;color:var(--mute)}
+  .win{position:relative;display:grid;grid-template-columns:250px minmax(0,1fr) minmax(0,1.05fr);margin-top:28px;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
+  .side{padding:16px 14px;background:var(--band);border-right:1px solid var(--line);font-size:14px}
+  .side-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 6px 8px}
+  .side-h b{font-size:15px;font-weight:500;color:var(--ink)}
+  .side-h span{font-size:12.5px;color:var(--mute)}
+  .tree li{display:block}
+  .tree a,.tree .fi{display:grid;grid-template-columns:minmax(0,1fr);padding:4px 6px;border-radius:4px;text-decoration:none;color:inherit}
+  .tree a:hover{background:var(--soft)}
+  .tree b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tree a b{text-decoration:underline;text-decoration-color:#b5b5b5;text-decoration-thickness:1px;text-underline-offset:3px}
+  .tree span{display:block;font-size:12px;line-height:1.35;color:var(--mute)}
+  .tree .root b{font-weight:400;color:var(--body)}
+  .tree .in{padding-left:12px} .tree .in2{padding-left:24px} .tree .in3{padding-left:36px}
+  .get{margin-top:12px;padding:12px 6px 0;border-top:1px solid var(--line)}
+  .get-h{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:6px}
+  .cmds{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;min-width:0}
+  .cmd{display:flex;align-items:center;gap:6px;padding:6px 6px 6px 10px;border:1px solid var(--line);border-radius:4px;background:#fff}
+  .cmd code{flex:1;min-width:0;font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--ink);white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+  .cmd code::-webkit-scrollbar{display:none}
+  .cmd code.more-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
+  .cmd button{flex:none;width:22px;height:22px;display:grid;place-items:center;border:0;border-radius:4px;background:none;color:var(--mute);cursor:pointer}
+  .cmd button:hover{background:var(--soft);color:var(--ink)}
+  .cmd button svg{width:13px;height:13px}
+  .get-note{margin:6px 0 10px;font-size:12px;line-height:1.45;color:var(--mute)}
+  .figpane{position:relative;display:flex;flex-direction:column;min-width:0;padding:16px 18px 18px;border-right:1px solid var(--line)}
+  .figbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .modes{display:inline-flex;border:1px solid var(--ink);border-radius:4px;overflow:hidden}
+  .modes button{height:30px;padding:0 12px;border:0;background:#fff;font-size:13.5px;font-weight:500;color:var(--ink);cursor:pointer;white-space:nowrap}
+  .modes button + button{border-left:1px solid var(--ink)}
+  .modes button[aria-selected="true"]{background:var(--ink);color:#fff}
+  .modes button:focus-visible{outline-offset:-4px}
+  .scope{display:inline-flex;align-items:center;height:24px;padding:0 9px;border:1px solid var(--line);border-radius:2px;font-family:var(--mono);font-size:11.5px;color:var(--body);white-space:nowrap}
+  .wb-t{font-size:16px;font-weight:500;line-height:1.35;color:var(--ink)}
+  .wb-s{margin:2px 0 10px;font-size:13px;color:var(--mute)}
+  .wb-scr{flex:1;display:flex;flex-direction:column;padding:14px 16px 10px;background:var(--scr)}
+  .win.without .wb-scr{background:#fff;padding:0}
+  #wbPlot{flex:1;min-height:250px}
+  .wb-n{margin-top:6px;font-size:12px;color:var(--mute)}
+  .checks{margin-top:14px;padding-top:12px;border-top:1px solid var(--soft)}
+  .checks-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;font-size:14px;font-weight:500;color:var(--ink)}
+  .checks-h .ok{color:var(--good-t)}
+  .checks-h .ok.bad{color:var(--bad-t)}
+  .checks ul{display:grid;gap:3px}
+  .checks li{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.45;color:var(--body)}
+  .checks li svg{width:14px;height:14px;flex:none;margin-top:2px;color:var(--good-t)}
+  .checks li.no svg{color:var(--bad-t)}
+  .checks code{font-family:var(--mono);font-size:12px;color:var(--ink);white-space:nowrap}
+  .codepane{display:flex;flex-direction:column;min-width:0;background:var(--band);contain:size;container-type:inline-size}
+  .cbar{display:flex;align-items:center;gap:10px;height:48px;padding:0 12px 0 16px;border-bottom:1px solid var(--line);background:#fff}
+  .ctabs{flex:1;min-width:0;align-self:stretch;display:flex;gap:20px;overflow-x:auto;scrollbar-width:none}
+  .ctabs::-webkit-scrollbar{display:none}
+  /* 코드 칸이 좁으면 단추를 위 줄로 올리고 탭을 한 줄에 다 보인다(잘린 탭이 숨지 않게) */
+  @container (max-width:600px){
+    .cbar{flex-wrap:wrap;height:auto;padding:0 12px}
+    .cbtns{order:1;margin-left:auto;padding-top:8px}
+    .ctabs{order:2;flex:1 1 100%;height:44px;gap:16px}
+  }
+  @container (max-width:400px){.ctabs{gap:12px}.ctabs button{font-size:13.5px}}
+  .cbtns{flex:none;display:flex;gap:6px}
+  .ctab{flex:none;display:flex;align-items:center;border:0;border-bottom:2px solid transparent;border-top:2px solid transparent;background:none;padding:0;font-size:14.5px;font-weight:300;color:var(--mute);cursor:pointer;white-space:nowrap}
+  .ctab[aria-selected="true"]{border-bottom-color:var(--ink);color:var(--ink);font-weight:500}
+  .code{position:relative;flex:1;margin:0;padding:10px 0;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.62;color:var(--ink);counter-reset:ln;tab-size:2;scrollbar-width:thin;scrollbar-color:#b0b0b0 transparent}
+  .code .ln{display:block;position:relative;min-height:1.62em;padding:0 16px 0 46px;white-space:pre;transition:background-color .2s ease}
+  .code.wrap .ln{white-space:pre-wrap}
+  .code .ln::before{counter-increment:ln;content:counter(ln);position:absolute;left:0;width:30px;text-align:right;color:var(--mute2)}
+  .code .ln.hl{background:#ececec}
+  .building .code .ln:not(.shown){visibility:hidden}
+  .code .caret::after{content:"";display:inline-block;width:7px;height:1.2em;margin-left:1px;vertical-align:-.22em;background:var(--ink);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  /* 코드 색: 화면의 글자 단계(tokens.json code). 모두 #fbfbfb에서 4.5:1 이상 */
+  .tk-c{color:var(--mute)} .tk-s{color:#1d7a43} .tk-n{color:#b4490d} .tk-k{color:#7a3fb8} .tk-f{color:#b0122f} .tk-p{color:#0066cc;font-weight:500}
+  .code .kv{display:inline-block;min-width:15ch;color:var(--mute)}
+  .tk-hex::before{content:"";display:inline-block;width:.78em;height:.78em;margin-right:4px;border-radius:1px;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(0,0,0,.35);vertical-align:-.04em}
+  .cstat{display:flex;justify-content:space-between;gap:12px;padding:8px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--mute);background:#fff}
+  .cstat .dot{display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--good);vertical-align:1px}
+  .layer{transition:opacity .3s ease}
+  .building .layer:not(.on){opacity:0}
+  .focus-step .layer:not(.focus){opacity:.18}
+  .focus-step .layer[data-step="1"]:not(.focus){opacity:.5}
+  .build-cap{margin-top:12px;max-width:64em;font-size:13px;line-height:1.5;color:var(--mute)}
+
+  /* ---------- 숫자를 세는 법 ---------- */
+  .terms{columns:2 380px;column-gap:48px}
+  .terms p{break-inside:avoid;margin:0 0 12px;font-size:14.5px;line-height:1.6;color:var(--body)}
+  .terms p b{font-weight:500;color:var(--ink)}
+  .terms p.src{color:var(--mute)}
+
+  /* ---------- 툴팁: dyson.com 장바구니 카드처럼 흰 판, 1px #eeeeee, 모서리 4px, 옅은 그림자 ---------- */
+  .tip{position:absolute;z-index:8;left:0;top:0;pointer-events:none;min-width:190px;background:#fff;color:var(--body);border:1px solid #eeeeee;border-radius:4px;padding:10px 13px 11px;box-shadow:rgba(0,0,0,.18) 0 2px 10px 2px;white-space:nowrap;opacity:0;transition:opacity .15s var(--ease)}
+  .tip.on{opacity:1}
+  .tip-h{font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:3px}
+  .tip-s{font-size:12.5px;color:var(--mute);margin:-1px 0 5px;white-space:normal;max-width:300px}
+  .tip-r{display:flex;align-items:center;gap:8px;font-size:13.5px;line-height:1.6}
+  .tip-r i{width:10px;height:10px;flex:none;border-radius:1px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.3)}
+  .tip-r i.ln{width:14px;height:0;border-radius:0;background:none;box-shadow:none;border-top:2px solid var(--c)}
+  .tip-r b{font-size:15px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+  .tip-r span{color:var(--mute)}
+  .tip-r .bad{color:var(--bad-t);font-weight:500} .tip-r .good{color:var(--good-t);font-weight:500} .tip-r .poor{color:var(--poor-t);font-weight:500} .tip-r .fair{color:var(--fair-t);font-weight:500}
+
+  /* ---------- 바닥 ---------- */
+  .foot{margin-top:88px;border-top:1px solid var(--hair);color:var(--body);font-size:13.5px;line-height:1.65}
+  .foot .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 40px;padding-top:24px;padding-bottom:40px}
+  .foot .back{flex:none;font-weight:500;color:var(--ink);white-space:nowrap;text-decoration:underline;text-decoration-color:#b5b5b5;text-decoration-thickness:1px;text-underline-offset:4px}
+  .foot .back:hover{text-decoration-color:var(--ink)}
+  .foot p{max-width:108ch}
+  .foot p + p{margin-top:6px}
+  .foot .cat{font-weight:500;color:var(--ink)}
+  .foot .cat a{color:inherit;text-underline-offset:3px;text-decoration-color:#b5b5b5}
+  .foot .cat a:hover{text-decoration-color:var(--ink)}
+  .foot .cat .ser{font-size:12px;font-weight:500;letter-spacing:.08em;margin-right:10px}
+  .foot .cat .w{font-weight:300;color:var(--body)}
+  .toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,8px);padding:10px 18px;border-radius:4px;background:var(--black);color:#fff;font-size:15px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease)}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  /* ---------- 움직임: 입자 막대는 LCD처럼 빨리 오르다 느려진다 ---------- */
+  .fade{animation:fade .35s ease both}
+  @keyframes fade{from{opacity:0}}
+  .rise{transform-box:fill-box;transform-origin:50% 100%;animation:rise 1.3s cubic-bezier(.16,.84,.3,1) both}
+  @keyframes rise{from{transform:scaleY(0)}}
+  .growx{transform-box:fill-box;transform-origin:left;animation:growx .6s var(--ease) both}
+  @keyframes growx{from{transform:scaleX(0)}}
+  .draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 1s var(--ease) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.draw{stroke-dasharray:none;stroke-dashoffset:0}}
+
+  /* ---------- 임베드(?embed=1 · lib/embed.js): 고지는 포스트가 싣는다 ---------- */
+  html.vz-embed .foot{display:none}
+  html.vz-embed main{padding-bottom:24px}
+  @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.lang,.cbtns,.build-cta,.foot .back,.more{display:none}.building .code .ln{visibility:visible!important}.building .layer{opacity:1!important}.fg{break-inside:avoid}}
+
+  /* ---------- 반응형 ---------- */
+  @media (max-width:1359px){
+    :root{--pad:24px;--gap:24px}
+    .first{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    .k-v{font-size:40px}
+    .win{grid-template-columns:230px minmax(0,1fr) minmax(0,1fr)}
+  }
+  @media (max-width:1199px){
+    .k-d{font-size:13.5px}
+    /* 그림 1·2, 그림 3·4를 세로로 쌓는다 */
+    .first,.row2{grid-template-columns:minmax(0,1fr);row-gap:0}
+    .row2 > .fg + .fg,.first > .fg + .fg{margin-top:36px}
+    #f2Plot{flex:none}
+    .k-v{font-size:36px}
+    .k-v .u{font-size:21px}
+    .win{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    .side{grid-column:1 / -1;border-right:0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 24px}
+    .side-h{grid-column:1 / -1}
+    .get{margin-top:0;border-top:0;padding-top:0}
+    .codepane{contain:none;min-height:440px}
+  }
+  @media (max-width:1023px){
+    .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .build-intro{grid-template-columns:minmax(0,1fr)}
+    .build-cta{justify-content:flex-start}
+    .steps{grid-template-columns:minmax(0,1fr)}
+  }
+  @media (max-width:899px){
+    .top .r1{flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+    .win{grid-template-columns:minmax(0,1fr)}
+    .side{grid-template-columns:minmax(0,1fr)}
+    .figpane{border-right:0;border-bottom:1px solid var(--line)}
+    .lots .hide-m{display:none}
+  }
+  @media (max-width:639px){
+    :root{--pad:16px;--sec:52px;--gap:16px}
+    .co b,.co span{font-size:17px}
+    .asof{display:none}
+    .tabs{gap:4px 22px}
+    .tabs button{font-size:15px}
+    .head{padding:20px 0 16px}
+    .head h1{font-size:24px}
+    html[lang="ko"] .head h1{font-size:22px}
+    .kpis{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}
+    .kpi:last-child{grid-column:1 / -1}
+    .k-l{font-size:14px}
+    .k-v{font-size:32px;padding-bottom:8px}
+    html[lang="ko"] .k-v{font-size:30px}
+    .k-v .u{font-size:17px}
+    .k-d{font-size:13px}
+    .scr{padding:14px 12px 12px}
+    .ct{font-size:18px}
+    .sh h2{font-size:25px}
+    .lots td,.lots th{padding-left:6px;padding-right:6px}
+    .lots .hide-s{display:none}
+    .lots th{width:auto!important}
+    .badge{height:26px;padding:0 9px;font-size:13px}
+    .fpyc{grid-template-columns:auto}
+    .fpyc svg{display:none}
+    .modes{display:grid;grid-template-columns:1fr 1fr;width:100%}
+    .modes button{padding:0 8px;font-size:12.5px}
+    .cbar{flex-wrap:wrap;height:auto;padding:0 12px}
+    .cbtns{order:1;margin-left:auto;padding-top:8px}
+    .ctabs{order:2;flex:1 1 100%;height:44px;gap:14px}
+    .foot .wrap{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap r1">
+    <p class="co"><b data-i18n="brand"></b><span data-i18n="report"></span><small id="period"></small></p>
+    <div class="lang" id="langSeg" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+    </div>
+  </div>
+  <!-- 라인 필터: dyson.com 메뉴 줄처럼 흰 글자 -->
+  <div class="nav"><div class="wrap">
+    <div class="tabs" id="lineSeg" role="tablist"></div>
+    <span class="asof" id="asof"></span>
+  </div></div>
+</header>
+
+<main class="wrap" id="panel" role="tabpanel">
+  <div class="head"><h1 id="h1"></h1></div>
+
+  <!-- 스펙 시트: KPI 다섯, 시험 조건은 각주로 -->
+  <section class="spec" aria-label="Key figures">
+    <ul class="kpis" id="kpis"></ul>
+    <p class="kfoot" id="kfoot"></p>
+  </section>
+
+  <!-- 첫 화면: 그림 1 입자 카운트 | 그림 2 단계 막대 -->
+  <section class="first" aria-label="This week">
+    <figure class="fg" id="f1">
+      <figcaption><h2 class="ct" id="f1T"></h2><p class="cs" data-i18n="f1.sub"></p></figcaption>
+      <div class="scr"><div class="plot" id="f1Plot" tabindex="0" role="group"></div><ul class="keys" id="f1K" aria-hidden="true"></ul></div>
+      <p class="cap"><span class="fig" data-i18n="f1.label"></span><span data-i18n="f1.note"></span></p>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="f1Table"></div>
+    </figure>
+    <figure class="fg" id="f2">
+      <figcaption><h2 class="ct" id="f2T"></h2><p class="cs" data-i18n="f2.sub"></p></figcaption>
+      <div class="scr"><div class="plot" id="f2Plot" tabindex="0" role="group"></div><ul class="keys" id="f2K" aria-hidden="true"></ul></div>
+      <p class="cap"><span class="fig" data-i18n="f2.label"></span><span data-i18n="f2.note"></span></p>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="f2Table"></div>
+    </figure>
+  </section>
+
+  <!-- 01 출하와 보류: 표 1 로트 -->
+  <section class="sec" id="s1" aria-labelledby="s1T">
+    <div class="sh"><h2 id="s1T"><span class="no">01</span><span data-i18n="s1.t"></span></h2><p data-i18n="s1.k"></p></div>
+    <figure class="fg" id="t1">
+      <figcaption><h3 class="ct" id="t1T"></h3><p class="cs" data-i18n="t1.sub"></p></figcaption>
+      <div class="tw" id="t1Wrap"></div><div class="more" id="t1More"></div>
+      <p class="cap"><span class="fig" data-i18n="t1.label"></span><span data-i18n="t1.note"></span></p>
+      <div class="tip" aria-hidden="true"></div>
+    </figure>
+  </section>
+
+  <!-- 02 추세와 반품: 그림 3 첫 통과율 | 그림 4 반품 원인 -->
+  <section class="sec" id="s2" aria-labelledby="s2T">
+    <div class="sh"><h2 id="s2T"><span class="no">02</span><span data-i18n="s2.t"></span></h2><p data-i18n="s2.k"></p></div>
+    <div class="row2">
+      <figure class="fg" id="f3">
+        <figcaption><h3 class="ct" id="f3T"></h3><p class="cs" data-i18n="f3.sub"></p></figcaption>
+        <div class="scr"><div class="plot" id="f3Plot" tabindex="0" role="group"></div><ul class="keys" id="f3K" aria-hidden="true"></ul></div>
+        <p class="cap"><span class="fig" data-i18n="f3.label"></span><span data-i18n="f3.note"></span></p>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f3Table"></div>
+      </figure>
+      <figure class="fg" id="f4">
+        <figcaption><h3 class="ct" id="f4T"></h3><p class="cs" data-i18n="f4.sub"></p></figcaption>
+        <div class="scr"><div class="plot" id="f4Plot" tabindex="0" role="group"></div><ul class="keys" id="f4K" aria-hidden="true"></ul></div>
+        <p class="cap"><span class="fig" data-i18n="f4.label"></span><span data-i18n="f4.note"></span></p>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f4Table"></div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 03 만드는 법 -->
+  <section class="sec" id="s5" aria-labelledby="s5T">
+    <div class="sh"><h2 id="s5T"><span class="no">03</span><span data-i18n="build.t"></span></h2><p data-i18n="build.k"></p></div>
+    <div class="build-intro">
+      <p data-i18n="build.p"></p>
+      <div class="build-cta"><a class="btn btn-o" href="DASHBOARD.html" target="_blank" rel="noopener" data-i18n="build.spec"></a><a class="btn btn-p" id="ctaLink" href="https://www.vizney.com/contact-us/" target="_blank" rel="noopener" data-i18n="build.cta"></a></div>
+    </div>
+    <ol class="steps" id="steps"></ol>
+    <div class="win" id="win">
+      <aside class="side" aria-label="Package">
+        <div class="side-h"><b data-i18n="build.pkg"></b><span data-i18n="build.pkgSub"></span></div>
+        <ul class="tree" id="tree"></ul>
+        <div class="get">
+          <p class="get-h" data-i18n="build.get"></p>
+          <div class="cmds">
+            <div class="cmd"><code>npx @vizney/styles@latest add dyson</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+            <div class="cmd"><code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- dyson</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+          </div>
+          <p class="get-note" data-i18n="build.getNote"></p>
+          <a class="btn btn-sm btn-o" href="dyson-dashboard-style.zip" download data-i18n="build.zip"></a>
+        </div>
+      </aside>
+      <div class="figpane">
+        <div class="figbar"><div class="modes" id="modeSeg" role="tablist"></div><span class="scope" id="wbScope"></span></div>
+        <p class="wb-t layer" data-step="5" id="wbTitle"></p>
+        <p class="wb-s layer" data-step="5" id="wbSub"></p>
+        <div class="wb-scr"><div class="plot" id="wbPlot"></div></div>
+        <p class="wb-n layer" data-step="5" id="wbNote"></p>
+        <div class="checks">
+          <p class="checks-h"><span data-i18n="build.checksT"></span><span class="ok layer" data-step="5" id="checksOk"></span></p>
+          <ul id="checks"></ul>
+        </div>
+        <div class="tip" aria-hidden="true"></div>
+      </div>
+      <div class="codepane">
+        <div class="cbar">
+          <div class="ctabs" id="ctabs" role="tablist" aria-label="Code"></div>
+          <div class="cbtns">
+            <button type="button" class="btn btn-sm btn-o btn-icon" id="btnCopyCode" data-icon="copy"></button>
+            <button type="button" class="btn btn-sm btn-p" id="btnRun" data-icon="play"><span data-i18n="build.run"></span></button>
+          </div>
+        </div>
+        <pre class="code" id="code" tabindex="0" aria-label="Code"></pre>
+        <div class="cstat"><span id="cstatL"></span><span id="cstatR"></span></div>
+      </div>
+    </div>
+    <p class="build-cap" data-i18n="build.cap"></p>
+  </section>
+
+  <!-- 04 숫자를 세는 법 -->
+  <section class="sec" id="notes" aria-labelledby="s6T">
+    <div class="sh"><h2 id="s6T"><span class="no">04</span><span data-i18n="notes.t"></span></h2><p data-i18n="notes.k"></p></div>
+    <div class="terms" id="terms"></div>
+  </section>
+  <p class="sr-only" id="live" aria-live="polite"></p>
+  <div class="toast" id="toast" role="status"></div>
+</main>
+<footer class="foot"><div class="wrap">
+  <div>
+  <p class="cat"><a class="ser" href="https://styles.vizney.com/">VIZNEY STYLES · 10</a> <a href="https://styles.vizney.com/dyson/DASHBOARD.html" data-i18n="catName"></a> <span class="w" data-i18n="words"></span></p>
+  <p data-i18n="note"></p>
+  <p data-i18n="notice"></p>
+  </div>
+  <a class="back" id="backLink" href="https://styles.vizney.com/">← Back to the catalog</a>
+</div></footer>
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 데이터 색. validate_palette.js(OKLab), 2026-11-23:
+     입자 크기(검은 화면 #000000, dark, 모든 쌍): 노랑 #f5dc3c · 주황 #e8641e · 분홍 #de3f9e · 보라 #8462d8,
+       색각 이상 최소 ΔE 9.5(protan, 보라↔분홍), 일반 시각 18.6, 모두 3:1 이상. 노랑은 제품 화면처럼 일부러 밝아 명도 범위 밖이고, 늘 µm 라벨과 함께.
+     단계(검은 화면, 이웃 쌍): Good #2fae5f · Fair #f5dc3c · Poor #e8641e · Very poor #c0183e, 색각 이상 최소 15.1, 일반 16.4.
+       떨어진 초록↔주황은 6.9라 막대 위치와 단계 이름으로 받친다. 입자 크기 색과 단계 색은 노랑·주황이 겹쳐 한 그림에 같이 쓰지 않는다.
+     발행 차트 문법: 주인공 흰 선, 맥락 회색 #8c8c8c, 기준선 빨강 #c0183e(글자 #ff6b7f), 올해 #c4307f · 작년 #5c5c5c(안의 흰 글자 5.2:1 · 6.7:1). */
+  const C = {
+    ink: '#333333', body: '#404040', mute: '#555555', mute2: '#919191', hair: '#dadada', line: '#dcdcdc', band: '#fbfbfb',
+    scr: '#000000', rule: '#2e2e2e', base: '#3a3a3a', guide: '#262626', tick: '#919191', sub: '#b9b9b9', white: '#ffffff',
+    size: ['#f5dc3c', '#e8641e', '#de3f9e', '#8462d8'],
+    lv: ['#2fae5f', '#f5dc3c', '#e8641e', '#c0183e'], lvT: ['#2fae5f', '#f5dc3c', '#e8641e', '#ff6b7f'], lvTW: ['#1d7a43', '#8a6d00', '#b4490d', '#b0122f'],
+    limit: '#c0183e', limitT: '#ff6b7f', now: '#c4307f', was: '#5c5c5c', ctx: '#8c8c8c',
+    goodT: '#1d7a43', badT: '#b0122f', blue: '#0066cc',
+    generic: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2']
+  };
+
+  /* ================= 가상 데이터: Vizney Appliances, S7 무선청소기, 47주차(2026년 11월 16~22일) =================
+     라인 셋이 같은 모델을 만든다. 로트는 라인마다 하루 하나(월~금). 출하 시험 자리 여섯의 지난 24시간(금 오전 6시~토 오전 6시,
+     4시간 이동 불합격률), 라인마다 12대의 주간 여과 감사(배기의 리터당 입자 수, 크기 넷), 36~47주차 첫 통과율, 원인별 초기 반품.
+     Python(gen.py)으로 만들고 합계·비율·단계를 검산했다. */
+  const DATA = {"week":47,"from":"2026-11-16","to":"2026-11-22","asOf":"2026-11-21T06:00","model":"S7","lines":["L1","L2","L3"],"sizes":["p03","p1","p25","p10"],"allow":[40,12,4,1],"auditUnits":12,"challenge":100000,"stations":["MOTOR","SUCTION","NOISE","SEAL","BATT","COSM"],"levels":[0.5,1.0,2.0],"window":4,"weeks":[36,37,38,39,40,41,42,43,44,45,46,47],"target":97.0,"causes":["BATT","HEAD","MOTOR","SEAL","DOCK","TRIG","SCREEN"],"holdSeal":2.0,"suctionSpec":230,"filtSpec":99.97,"audit":{"L1":{"now":[22.0,5.1,1.2,0.2],"last":[21.0,4.9,1.1,0.2]},"L2":{"now":[27.0,9.6,8.8,3.4],"last":[21.0,4.8,1.1,0.2]},"L3":{"now":[24.0,5.6,1.4,0.3],"last":[23.0,5.5,1.3,0.3]}},"uph":{"L1":118,"L2":85,"L3":117},"raw":{"L1":{"MOTOR":[0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0],"SUCTION":[0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0],"NOISE":[0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,1,0],"SEAL":[0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,0,1],"BATT":[0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0],"COSM":[1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1,1,1,1,1]},"L2":{"MOTOR":[0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0],"SUCTION":[1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,2,1,1,2,1,1,2,1,1,2,1,1],"NOISE":[1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,1,0,1,1,0,1,1,0,1,1,0],"SEAL":[3,4,3,3,4,3,3,4,4,3,4,4,3,4,4,4,4,4,4,4,4,4,4,5,4,4,5],"BATT":[0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0],"COSM":[0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0]},"L3":{"MOTOR":[0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],"SUCTION":[0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0],"NOISE":[0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0],"SEAL":[0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,1],"BATT":[0,1,0,0,1,0,0,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1],"COSM":[0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0]}},"returnsLine":{"L1":{"BATT":[26,16],"HEAD":[22,24],"MOTOR":[12,13],"SEAL":[9,9],"DOCK":[8,10],"TRIG":[6,7],"SCREEN":[4,5]},"L2":{"BATT":[24,17],"HEAD":[23,25],"MOTOR":[13,12],"SEAL":[10,9],"DOCK":[7,9],"TRIG":[6,8],"SCREEN":[5,5]},"L3":{"BATT":[41,15],"HEAD":[21,23],"MOTOR":[11,14],"SEAL":[8,9],"DOCK":[9,10],"TRIG":[7,7],"SCREEN":[4,6]}},"sold":{"L1":41200,"L2":40800,"L3":41000},"fpyLines":{"L1":[97.6,97.9,97.7,98.0,97.8,97.9,97.6,97.8,98.0,97.7,97.8,97.9],"L2":[97.5,97.8,97.6,97.7,97.9,97.6,97.7,97.5,97.8,97.6,97.6,94.7],"L3":[97.4,97.6,97.8,97.5,97.7,97.6,97.4,97.7,97.5,97.6,97.5,97.7]},"lots":[{"id":"L1-1116","line":"L1","day":"2026-11-16","units":2810,"fpy":97.9,"suction":237,"seal":0.3,"noise":0.3,"hold":false},{"id":"L1-1117","line":"L1","day":"2026-11-17","units":2840,"fpy":98.1,"suction":238,"seal":0.2,"noise":0.2,"hold":false},{"id":"L1-1118","line":"L1","day":"2026-11-18","units":2790,"fpy":97.6,"suction":236,"seal":0.4,"noise":0.3,"hold":false},{"id":"L1-1119","line":"L1","day":"2026-11-19","units":2860,"fpy":97.8,"suction":237,"seal":0.3,"noise":0.2,"hold":false},{"id":"L1-1120","line":"L1","day":"2026-11-20","units":2830,"fpy":98.0,"suction":237,"seal":0.2,"noise":0.2,"hold":false},{"id":"L2-1116","line":"L2","day":"2026-11-16","units":2780,"fpy":97.7,"suction":238,"seal":0.3,"noise":0.2,"hold":false},{"id":"L2-1117","line":"L2","day":"2026-11-17","units":2760,"fpy":97.4,"suction":237,"seal":0.4,"noise":0.3,"hold":false},{"id":"L2-1118","line":"L2","day":"2026-11-18","units":2450,"fpy":94.6,"suction":236,"seal":2.4,"noise":0.5,"hold":true},{"id":"L2-1119","line":"L2","day":"2026-11-19","units":2060,"fpy":91.2,"suction":235,"seal":4.1,"noise":0.7,"hold":true},{"id":"L2-1120","line":"L2","day":"2026-11-20","units":2040,"fpy":90.6,"suction":235,"seal":4.6,"noise":0.7,"hold":true},{"id":"L3-1116","line":"L3","day":"2026-11-16","units":2800,"fpy":97.6,"suction":238,"seal":0.3,"noise":0.2,"hold":false},{"id":"L3-1117","line":"L3","day":"2026-11-17","units":2820,"fpy":97.9,"suction":238,"seal":0.2,"noise":0.3,"hold":false},{"id":"L3-1118","line":"L3","day":"2026-11-18","units":2780,"fpy":97.5,"suction":237,"seal":0.3,"noise":0.2,"hold":false},{"id":"L3-1119","line":"L3","day":"2026-11-19","units":2790,"fpy":97.8,"suction":238,"seal":0.4,"noise":0.3,"hold":false},{"id":"L3-1120","line":"L3","day":"2026-11-20","units":2810,"fpy":97.7,"suction":239,"seal":0.2,"noise":0.2,"hold":false}],"views":{"ALL":{"built":40220,"plan":42000,"released":33670,"held":6550,"heldLots":3,"lots":15,"fpy":96.9,"fpyLast":97.6,"suction":237,"suctionLast":238,"filt":99.98,"filtLast":99.98,"audit":[24.3,6.8,3.8,1.3],"auditLast":[21.7,5.1,1.2,0.2],"stations":{"MOTOR":[0.23,0.23,0.23,0.23,0.16,0.16,0.23,0.08,0.23,0.23,0.16,0.16,0.0,0.23,0.23,0.23,0.23,0.08,0.16,0.23,0.23,0.16,0.16,0.16],"SUCTION":[0.47,0.7,0.55,0.55,0.55,0.47,0.47,0.55,0.7,0.55,0.55,0.47,0.55,0.55,0.55,0.78,0.55,0.55,0.7,0.55,0.55,0.62,0.62,0.55],"NOISE":[0.31,0.31,0.31,0.31,0.31,0.31,0.31,0.31,0.39,0.31,0.39,0.31,0.31,0.47,0.31,0.39,0.39,0.31,0.39,0.39,0.31,0.31,0.39,0.31],"SEAL":[1.17,1.41,1.17,1.17,1.25,1.25,1.25,1.33,1.33,1.25,1.33,1.33,1.48,1.41,1.41,1.48,1.41,1.41,1.41,1.41,1.48,1.48,1.48,1.64],"BATT":[0.23,0.39,0.23,0.23,0.31,0.23,0.23,0.23,0.39,0.31,0.39,0.39,0.31,0.47,0.47,0.55,0.47,0.47,0.47,0.39,0.39,0.31,0.47,0.47],"COSM":[0.39,0.47,0.31,0.31,0.39,0.31,0.31,0.23,0.31,0.31,0.31,0.39,0.31,0.31,0.39,0.31,0.39,0.39,0.39,0.39,0.31,0.47,0.47,0.47]},"returns":{"BATT":[30.3,16.0],"HEAD":[22.0,24.0],"MOTOR":[12.0,13.0],"SEAL":[9.0,9.0],"DOCK":[8.0,9.7],"TRIG":[6.3,7.3],"SCREEN":[4.3,5.3]},"fpyHist":[97.5,97.8,97.7,97.7,97.8,97.7,97.6,97.7,97.8,97.6,97.6,96.9]},"L1":{"built":14130,"plan":14000,"released":14130,"held":0,"heldLots":0,"lots":5,"fpy":97.9,"fpyLast":97.8,"suction":237,"suctionLast":237,"filt":99.98,"filtLast":99.98,"audit":[22.0,5.1,1.2,0.2],"auditLast":[21.0,4.9,1.1,0.2],"stations":{"MOTOR":[0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.0,0.21,0.21,0.21,0.21,0.0,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.0,0.21,0.21],"SUCTION":[0.21,0.42,0.21,0.21,0.21,0.21,0.21,0.21,0.42,0.21,0.21,0.21,0.21,0.21,0.21,0.42,0.21,0.21,0.42,0.21,0.21,0.21,0.21,0.21],"NOISE":[0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.42,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.0,0.21,0.21],"SEAL":[0.21,0.42,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.42,0.21,0.21,0.42,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21],"BATT":[0.21,0.42,0.21,0.21,0.21,0.21,0.21,0.21,0.42,0.21,0.21,0.21,0.21,0.21,0.21,0.42,0.21,0.21,0.42,0.21,0.21,0.21,0.21,0.21],"COSM":[0.64,0.64,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.64,0.64,0.64,0.64,0.64,0.64,0.85,0.85]},"returns":{"BATT":[26.0,16.0],"HEAD":[22.0,24.0],"MOTOR":[12.0,13.0],"SEAL":[9.0,9.0],"DOCK":[8.0,10.0],"TRIG":[6.0,7.0],"SCREEN":[4.0,5.0]},"fpyHist":[97.6,97.9,97.7,98.0,97.8,97.9,97.6,97.8,98.0,97.7,97.8,97.9]},"L2":{"built":12090,"plan":14000,"released":5540,"held":6550,"heldLots":3,"lots":5,"fpy":94.7,"fpyLast":97.6,"suction":236,"suctionLast":238,"filt":99.97,"filtLast":99.98,"audit":[27.0,9.6,8.8,3.4],"auditLast":[21.0,4.8,1.1,0.2],"stations":{"MOTOR":[0.29,0.29,0.29,0.29,0.0,0.0,0.29,0.29,0.29,0.29,0.0,0.0,0.0,0.29,0.29,0.29,0.29,0.0,0.0,0.29,0.29,0.29,0.29,0.0],"SUCTION":[1.18,1.47,1.47,1.47,1.47,1.18,1.18,1.47,1.47,1.47,1.47,1.18,1.47,1.47,1.47,1.76,1.47,1.47,1.76,1.47,1.47,1.76,1.47,1.47],"NOISE":[0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.59,0.88,0.59,0.88,0.59,0.59,0.88,0.59,0.88,0.88,0.59,0.88,0.88,0.59,0.88,0.88,0.59],"SEAL":[3.82,4.12,3.82,3.82,4.12,4.12,4.12,4.41,4.41,4.12,4.41,4.41,4.41,4.71,4.71,4.71,4.71,4.71,4.71,4.71,5.0,5.0,5.0,5.29],"BATT":[0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.0,0.29,0.29,0.29,0.29,0.0,0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.0,0.29,0.29],"COSM":[0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.0,0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.29,0.0,0.29,0.29,0.29]},"returns":{"BATT":[24.0,17.0],"HEAD":[23.0,25.0],"MOTOR":[13.0,12.0],"SEAL":[10.0,9.0],"DOCK":[7.0,9.0],"TRIG":[6.0,8.0],"SCREEN":[5.0,5.0]},"fpyHist":[97.5,97.8,97.6,97.7,97.9,97.6,97.7,97.5,97.8,97.6,97.6,94.7]},"L3":{"built":14000,"plan":14000,"released":14000,"held":0,"heldLots":0,"lots":5,"fpy":97.7,"fpyLast":97.5,"suction":238,"suctionLast":238,"filt":99.98,"filtLast":99.98,"audit":[24.0,5.6,1.4,0.3],"auditLast":[23.0,5.5,1.3,0.3],"stations":{"MOTOR":[0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.0,0.21,0.21,0.21,0.21,0.0,0.21,0.21,0.21,0.21,0.0,0.21,0.21,0.21,0.21,0.0,0.21],"SUCTION":[0.21,0.43,0.21,0.21,0.21,0.21,0.21,0.21,0.43,0.21,0.21,0.21,0.21,0.21,0.21,0.43,0.21,0.21,0.21,0.21,0.21,0.21,0.43,0.21],"NOISE":[0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21],"SEAL":[0.21,0.43,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.43,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.21,0.43],"BATT":[0.21,0.43,0.21,0.21,0.43,0.21,0.21,0.43,0.43,0.43,0.64,0.64,0.64,0.85,0.85,0.85,0.85,0.85,0.64,0.64,0.64,0.64,0.85,0.85],"COSM":[0.21,0.43,0.21,0.21,0.43,0.21,0.21,0.21,0.21,0.21,0.21,0.43,0.21,0.21,0.43,0.21,0.21,0.21,0.21,0.21,0.21,0.43,0.21,0.21]},"returns":{"BATT":[41.0,15.0],"HEAD":[21.0,23.0],"MOTOR":[11.0,14.0],"SEAL":[8.0,9.0],"DOCK":[9.0,10.0],"TRIG":[7.0,7.0],"SCREEN":[4.0,6.0]},"fpyHist":[97.4,97.6,97.8,97.5,97.7,97.6,97.4,97.7,97.5,97.6,97.5,97.7]}}};
+  const VIEWS = ['ALL', 'L1', 'L2', 'L3'];
+  const QV = { all: 'ALL', 1: 'L1', 2: 'L2', 3: 'L3' }, VQ = { ALL: 'all', L1: '1', L2: '2', L3: '3' };
+  const qs = new URLSearchParams(location.search);
+  const state = { lang: qs.get('lang') === 'ko' ? 'ko' : 'en', line: QV[(qs.get('line') || '').toLowerCase()] || 'ALL', mode: 'with', code: 'js', showAll: false };
+
+  /* ================= 문구 ================= */
+  const T = {
+    en: {
+      docTitle: 'Dyson style · Test and ship quality sample',
+      brand: 'Vizney Appliances', report: 'Test & ship quality',
+      period: 'S7 cordless vacuum · Week 47, Nov 16–22, 2026', asof: 'Stations as of Sat, Nov 21, 6 am',
+      lineLabel: 'Assembly line', lines: { ALL: 'All lines', L1: 'Line 1', L2: 'Line 2', L3: 'Line 3' },
+      head: {
+        ALL: "Hold Line 2's last three lots: the new seal batch leaks, the filter does not",
+        L1: 'Ship all five Line 1 lots: every test is within spec',
+        L2: "Hold Line 2's last three lots: the new seal batch leaks, the filter does not",
+        L3: 'Ship all five Line 3 lots, and watch the battery test since the new cell lot'
+      },
+      kpi: F => [
+        { l: 'First-pass yield', fn: '*', v: NF(1).format(F.V.fpy), u: '%', d: [`Was ${NF(1).format(F.V.fpyLast)}% `, delta(F.V.fpy - F.V.fpyLast, 1, ' pts')] },
+        { l: 'Released to ship', v: KU(F.V.released), u: ' units', d: [[`${pct0(F.V.released / F.V.plan * 100)} of the ${KU(F.V.plan)} plan`, F.V.released >= F.V.plan ? 'good' : F.V.released < F.V.plan * .95 ? 'bad' : null]] },
+        { l: 'On hold', fn: '‡', v: NF(0).format(F.V.held), u: ' units', d: F.V.heldLots ? [[`${F.V.heldLots} lots`, 'bad'], F.v === 'ALL' ? `, all from ${F.heldFrom.map(x => T.en.lines[x]).join(' and ')}` : ''] : [['No lots held', 'good']] },
+        { l: 'Suction', fn: '*', v: NF(0).format(F.V.suction), u: ' AW', d: [`Was ${F.V.suctionLast} AW · min. ${DATA.suctionSpec} AW`] },
+        { l: 'Filtration at 0.3 µm', fn: '†', v: NF(2).format(F.V.filt), u: '%', d: F.V.filt !== F.V.filtLast ? [`Was ${NF(2).format(F.V.filtLast)}% `, delta(F.V.filt - F.V.filtLast, 2, ' pts')] : [`Was ${NF(2).format(F.V.filtLast)}% · spec ${NF(2).format(DATA.filtSpec)}%`] }
+      ],
+      kfoot: ['* Every unit on the end-of-line rig, Max mode.', '† Weekly audit of 12 units a line, with test dust fed in at 100,000 particles a litre.', '‡ A lot is held when 2% or more of its units fail the seal test.'],
+      f1: {
+        label: 'fig. 1.',
+        title: F => {
+          const over = F.audit.filter(a => a.over.length);
+          if (F.audit.length > 1) {
+            const a = over[0], others = F.audit.filter(x => !x.over.length).map(x => x.name);
+            return `Only ${a.name} is over the allowance, at ${a.over.map(k => SIZE_UM[k]).join(' and ')} µm, up to ${NF(1).format(a.maxShare)} times`;
+          }
+          const a = F.audit[0];
+          if (a.over.length) return `10 µm particles rose ${NF(0).format(a.now[3] / a.last[3])} times on last week, 0.3 µm only ${NF(1).format(a.now[0] / a.last[0])} times: the seal leaks, the filter holds`;
+          return `${a.name} is within the allowance at every size; 0.3 µm is the closest at ${pct0(a.share[0] * 100)}`;
+        },
+        sub: "Particles a litre in the exhaust by size, from this week's filtration audit, against the allowance",
+        note: "Particle count, 12 units a line. A bar's height is its share of the allowance; the grey tick beside it is last week.",
+        sizes: ['>0.3 µm', '>1 µm', '>2.5 µm', '>10 µm'], sizesS: ['>0.3', '>1', '>2.5', '>10'],
+        what: ['smoke, bacteria', 'fine dust', 'mould spores', 'pollen, coarse dust'],
+        allowance: 'Allowance', lastWeek: 'Last week', unit: 'particles/L', perL: 'a litre', um: 'µm',
+        audited: n => `${n} units audited`, within: 'Within allowance', over: n => `Over at ${n} size${n > 1 ? 's' : ''}`, withinS: 'Within', overS: 'Over',
+        ofAllow: v => `${v} of allowance`, was: v => `was ${v}`,
+        tip: { now: 'a litre this week', share: a => `of the ${a} a litre allowance`, last: 'a litre last week' },
+        sr: ['Line', 'Size', 'Particles a litre', 'Share of allowance', 'Last week']
+      },
+      f2: {
+        label: 'fig. 2.',
+        title: F => {
+          if (F.v === 'ALL') return `Line 2's seal test is Very poor at ${pct1(F.cell('L2', 'SEAL').now)} and its suction Poor; the rest are Good or Fair`;
+          if (F.v === 'L2') { const r = F.cell('L2', 'SEAL').r; return `The seal test has been Very poor all day and got worse, ${pct1(r[0])} to ${pct1(r[r.length - 1])}: send the line engineer there first`; }
+          if (F.v === 'L1') return `Line 1 is Good at five stations; cosmetic turns Fair on the night shift, at ${pct1(F.cell('L1', 'COSM').now)}`;
+          return `Line 3 is Good at five stations; battery has been Fair since the new cell lot at 2 pm, at ${pct1(F.cell('L3', 'BATT').now)}`;
+        },
+        sub: 'Fail rate over the last 4 hours at each end-of-line station, through the last 24 hours',
+        note: 'Station levels, Fri 6 am to Sat 6 am. The coloured bar is the scale; the arrow marks the level now.',
+        stations: { MOTOR: 'Motor run-in', SUCTION: 'Suction', NOISE: 'Noise', SEAL: 'Seal', BATT: 'Battery & charge', COSM: 'Cosmetic' },
+        stationsS: { MOTOR: 'Motor', SUCTION: 'Suction', NOISE: 'Noise', SEAL: 'Seal', BATT: 'Battery', COSM: 'Cosmetic' },
+        levels: ['Good', 'Fair', 'Poor', 'Very poor'], ranges: ['<0.5%', '0.5–1%', '1–2%', '≥2%'], nowKey: 'Now',
+        hourS: [['6a', 0], ['6p', 12], ['6a', 24]], hourL: [['6 am', 0], ['12 pm', 6], ['6 pm', 12], ['12 am', 18], ['6 am', 24]],
+        hour: k => { const hh = (6 + k) % 24; return `${hh % 12 || 12} ${hh < 12 ? 'am' : 'pm'}`; },
+        tip: { rate: 'failed, last 4 hours', of: (f, u) => `${f} of ${u}`, units: 'units' },
+        sr: ['Line', 'Station', 'Fail rate now', 'Level', 'Lowest in 24 hours', 'Highest in 24 hours']
+      },
+      s1: { t: 'Ship or hold', k: 'Every lot this week and what decides it' },
+      t1: {
+        label: 'Table 1.',
+        title: F => {
+          const held = F.lots.filter(l => l.hold), units = NF(0).format(sum(held.map(l => l.units)));
+          if (F.v === 'ALL') return `Hold ${held.length} of ${F.lots.length} lots, ${units} units, all from Line 2 since Wednesday's seal batch; ship the other ${F.lots.length - held.length}`;
+          if (held.length) return `Hold Line 2's lots from Wednesday to Friday, ${units} units; Monday's and Tuesday's ship`;
+          return `Ship all ${F.lots.length} ${T.en.lines[F.v]} lots: every lot is within spec`;
+        },
+        sub: 'Lots by day, with the end-of-line results that decide them',
+        note: 'A lot is held when 2% or more of its units fail the seal test. Suction is the lot mean in Max mode; the tick on first-pass yield is the 97% target.',
+        cols: ['Lot', 'Units', 'First-pass yield', 'Suction', 'Seal test', 'Decision'],
+        dec: { rel: 'Release', hold: 'Hold' }, day: d => DAYFMT.en(d),
+        more: n => `Show all ${n} lots`, less: 'Show fewer',
+        tip: { units: 'units built', fpy: 'first-pass yield', target: 'target 97%', suction: 'mean suction, Max mode', seal: 'failed the seal test', noise: 'failed the noise test', why: 'held: 2% or more fail the seal test', ok: 'within spec' }
+      },
+      s2: { t: 'Trend and returns', k: 'Twelve weeks of yield, and what comes back from customers' },
+      f3: {
+        label: 'fig. 3.',
+        title: F => ({
+          ALL: `First-pass yield fell to ${pct1(F.fpy.hero.at(-1))}, under the 97% target for the first time in 12 weeks, all of it from Line 2`,
+          L1: `Line 1 has stayed above the 97% target for 12 weeks, at ${pct1(F.fpy.hero.at(-1))} this week`,
+          L2: `Line 2 fell from ${pct1(F.fpy.hero.at(-2))} to ${pct1(F.fpy.hero.at(-1))} in the week the new seal batch went in`,
+          L3: `Line 3 has stayed above the 97% target for 12 weeks, at ${pct1(F.fpy.hero.at(-1))} this week`
+        })[F.v],
+        sub: 'First-pass yield by week, weeks 36 to 47',
+        note: 'The red line is the 97% target. Grey lines are the other lines; the dashed line is the plant.',
+        months: ['Sep', 'Oct', 'Nov'], week: w => `Week ${w}`, weekRange: w => WEEKFMT.en(w), plant: 'Plant', target: 'Target 97%',
+        event: 'New seal batch on Line 2, Nov 18', keys: ['This view', 'Other lines', 'Plant', 'Target'],
+        sr: ['Week', 'First-pass yield']
+      },
+      f4: {
+        label: 'fig. 4.',
+        title: F => ({
+          ALL: `Battery returns are ${NF(1).format(F.ret[0].ratio)} times last year's, most of the rise from Line 3; the other causes are flat or lower`,
+          L1: `Line 1's battery returns are ${NF(1).format(F.ret[0].ratio)} times last year's; the other causes are flat or lower`,
+          L2: `Line 2's battery returns are ${NF(1).format(F.ret[0].ratio)} times last year's; its seal returns are about level, ${NF(0).format(F.ret.find(r => r.c === 'SEAL').n)} against ${NF(0).format(F.ret.find(r => r.c === 'SEAL').w)}`,
+          L3: `Line 3's battery returns are ${NF(1).format(F.ret[0].ratio)} times last year's: the cell supplier needs a look`
+        })[F.v],
+        sub: 'Units returned within 90 days of sale, per 10,000 sold, this year against last year',
+        note: 'Early returns. This year: units sold Jun–Aug 2026; last year: Jun–Aug 2025. The dotted line is no change.',
+        causes: { BATT: 'Battery', HEAD: 'Cleaner head', MOTOR: 'Motor', SEAL: 'Filter & seal', DOCK: 'Charging dock', TRIG: 'Trigger', SCREEN: 'Screen' },
+        keys: ['This year', 'Last year', 'No change'], stat: c => [`${c.toLowerCase()} returns`, 'against last year'],
+        times: r => `${NF(1).format(r)}×`, tip: { now: 'this year', was: 'last year', per: 'per 10,000 sold' },
+        sr: ['Cause', 'This year', 'Last year', 'Change']
+      },
+      build: {
+        t: 'Build it yourself', k: 'What you get and how an agent uses it',
+        p: 'DASHBOARD.md writes down the spec sheet, the particle count and the level bar as rules, down to colours and number formats. An agent that reads it draws Figure 1 like this.',
+        spec: 'Read DASHBOARD.md', cta: 'Get one made for your company',
+        steps: [['Add the package', 'One command puts DASHBOARD.md and the skill in your project.'], ['Ask in words', 'Describe the report and its questions; the agent plans the cards from the spec.'], ['Check against the spec', 'The checklist under the figure is the one in DASHBOARD.md.']],
+        pkg: 'In the box', pkgSub: '6 files',
+        files: { 'DASHBOARD.md': 'the spec', 'SKILL.md': 'how an agent uses the spec', 'tokens.css': 'CSS variables', 'dyson.tps': 'Tableau palettes', 'powerbi-theme.json': 'Power BI theme', 'prompt.md': 'the prompt' },
+        get: 'Add it to your project', getNote: 'npm or the install script. Both put the same files in the same place.', zip: 'Download the zip',
+        modes: ['Without DASHBOARD.md', 'With DASHBOARD.md'],
+        checksT: 'DASHBOARD.md checks', checksOk: 'All 5 pass', checksBad: '0 of 5 pass',
+        checks: [[1, 'One black #000000 screen a line: no bezel, glow or round display'], [2, 'Four bars by size, smallest first: #f5dc3c · #e8641e · #de3f9e · #8462d8, sizes in µm under them'], [3, "A bar's height is its share of the allowance; the allowance is one #c0183e line at 100%"], [4, 'The total a litre on top in light 40px, values above the bars, last week as a grey tick'], [5, 'The title says the result: which line, which sizes, and what it means']],
+        run: 'Draw again', built: 'Done', drawing: 'Drawing…', lines: n => `${n} lines`, copied: 'Code copied', cmdCopied: 'Command copied',
+        generic: 'Particles by size and line', genericSub: 'A default chart drawn without the spec', generated: 'Drawn without DASHBOARD.md',
+        wbNote: "Particles a litre against the allowance, this week's audit.",
+        cap: "The code is a short version of an agent working from DASHBOARD.md. The package's prompt.md has the full prompt."
+      },
+      notes: {
+        t: 'How we count', k: 'Definitions and sources',
+        items: [
+          ['First-pass yield', 'Units that pass every end-of-line test the first time, as a share of the units tested. The target is 97%.'],
+          ['End-of-line stations', 'Six tests every unit goes through before it is boxed: motor run-in, suction, noise, seal, battery and charge, cosmetic.'],
+          ['Levels', 'The fail rate over the last 4 hours at a station: Good under 0.5%, Fair 0.5–1%, Poor 1–2%, Very poor 2% and over.'],
+          ['Suction', 'Air watts (AW) at the cleaner head on the end-of-line rig, in Max mode. Every unit must reach 230 AW.'],
+          ['Filtration audit', 'Each week 12 units a line run in a test chamber with test dust fed in at 100,000 particles a litre at 0.3 µm. A counter sizes and counts the particles in the exhaust: 0.3–1, 1–2.5, 2.5–10, and 10 µm and over. Filtration at 0.3 µm is 1 minus out over in.'],
+          ['Allowance', 'The particles a litre each size may reach: 40 from 0.3 µm, 12 from 1 µm, 4 from 2.5 µm, 1 from 10 µm. A seal leak lets big particles through; a filter fault lets small ones through.'],
+          ['Lots', 'One a line a day. A lot is held when 2% or more of its units fail the seal test, and released when its tests are within spec.'],
+          ['Early returns', 'Units returned for a fault within 90 days of sale, per 10,000 sold. This year: units sold June to August 2026; last year: June to August 2025.']
+        ],
+        src: 'Sources: end-of-line test records, the weekly filtration audit, lot records and returns, Nov 16–22, 2026.'
+      },
+      catName: 'Dyson style', words: 'Technical, Microns, Clean',
+      note: 'A sample screen built from a fictional company, product and data.',
+      notice: 'Not an official Dyson design, and not affiliated with or endorsed by Dyson. A reference style read from the publicly visible design of dyson.com and public touchpoints such as the product screens and the charts Dyson publishes; it carries no logo, typeface, photo or data of theirs. Trademarks belong to their owners.',
+      back: { post: '← Back to the post', catalog: '← Back to the catalog' }
+    },
+    ko: {
+      docTitle: 'Dyson 스타일 · 시험·출하 품질 샘플',
+      brand: 'Vizney Appliances', report: '시험·출하 품질',
+      period: 'S7 무선청소기 · 47주차, 2026년 11월 16~22일', asof: '시험 자리는 11월 21일(토) 오전 6시 기준',
+      lineLabel: '조립 라인', lines: { ALL: '모든 라인', L1: '라인 1', L2: '라인 2', L3: '라인 3' },
+      head: {
+        ALL: '라인 2의 마지막 로트 3개를 보류합니다: 새 밀봉 부품이 새고, 필터는 문제없습니다',
+        L1: '라인 1의 로트 5개를 모두 출하합니다: 모든 시험이 규격 안입니다',
+        L2: '라인 2의 마지막 로트 3개를 보류합니다: 새 밀봉 부품이 새고, 필터는 문제없습니다',
+        L3: '라인 3의 로트 5개를 모두 출하하고, 새 셀 로트 뒤의 배터리 시험을 지켜봅니다'
+      },
+      kpi: F => [
+        { l: '첫 통과율', fn: '*', v: NF(1).format(F.V.fpy), u: '%', d: [`지난주 ${NF(1).format(F.V.fpyLast)}% `, delta(F.V.fpy - F.V.fpyLast, 1, '%p')] },
+        { l: '출하 승인', v: KU(F.V.released), u: '대', d: [`계획 ${KU(F.V.plan)}대의 `, [pct0(F.V.released / F.V.plan * 100), F.V.released >= F.V.plan ? 'good' : F.V.released < F.V.plan * .95 ? 'bad' : null]] },
+        { l: '보류', fn: '‡', v: NF(0).format(F.V.held), u: '대', d: F.V.heldLots ? [[`로트 ${F.V.heldLots}개`, 'bad'], F.v === 'ALL' ? `, 모두 ${F.heldFrom.map(x => T.ko.lines[x]).join('·')}` : ''] : [['보류 없음', 'good']] },
+        { l: '흡입력', fn: '*', v: NF(0).format(F.V.suction), u: ' AW', d: [`지난주 ${F.V.suctionLast} AW · 최소 ${DATA.suctionSpec} AW`] },
+        { l: '0.3 µm 여과율', fn: '†', v: NF(2).format(F.V.filt), u: '%', d: F.V.filt !== F.V.filtLast ? [`지난주 ${NF(2).format(F.V.filtLast)}% `, delta(F.V.filt - F.V.filtLast, 2, '%p')] : [`지난주 ${NF(2).format(F.V.filtLast)}% · 규격 ${NF(2).format(DATA.filtSpec)}%`] }
+      ],
+      kfoot: ['* 출하 시험대에서 모든 대수, Max 모드.', '† 라인마다 12대를 주마다 감사, 시험 먼지는 리터당 10만 개를 넣습니다.', '‡ 로트의 2% 이상이 밀봉 시험에 떨어지면 보류합니다.'],
+      f1: {
+        label: '그림 1.',
+        title: F => {
+          const over = F.audit.filter(a => a.over.length);
+          if (F.audit.length > 1) {
+            const a = over[0], others = F.audit.filter(x => !x.over.length).map(x => x.name.replace('라인 ', ''));
+            return `${a.name}만 ${a.over.map(k => SIZE_UM[k]).join('·')} µm에서 허용치를 넘습니다(최대 ${NF(1).format(a.maxShare)}배)`;
+          }
+          const a = F.audit[0];
+          if (a.over.length) return `10 µm 입자는 지난주의 ${NF(0).format(a.now[3] / a.last[3])}배, 0.3 µm는 ${NF(1).format(a.now[0] / a.last[0])}배입니다: 밀봉이 새고 필터는 버팁니다`;
+          return `${a.name}은 모든 크기에서 허용치 안이고, 0.3 µm가 ${pct0(a.share[0] * 100)}로 가장 가깝습니다`;
+        },
+        sub: '이번 주 여과 감사에서 배기로 나온 리터당 입자 수, 크기별로 허용치와 견줘',
+        note: '입자 카운트, 라인마다 12대. 막대 높이는 허용치 대비 비율이고, 옆의 회색 눈금은 지난주입니다.',
+        sizes: ['>0.3 µm', '>1 µm', '>2.5 µm', '>10 µm'], sizesS: ['>0.3', '>1', '>2.5', '>10'],
+        what: ['연기, 세균', '미세 먼지', '곰팡이 포자', '꽃가루, 굵은 먼지'],
+        allowance: '허용치', lastWeek: '지난주', unit: '개/L', perL: '리터당', um: 'µm',
+        audited: n => `${n}대 감사`, within: '허용치 안', over: n => `${n}개 크기 초과`, withinS: '허용치 안', overS: '초과',
+        ofAllow: v => `허용치의 ${v}`, was: v => `지난주 ${v}`,
+        tip: { now: '이번 주 리터당', share: a => `허용치(리터당 ${a}개) 대비`, last: '지난주 리터당' },
+        sr: ['라인', '크기', '리터당 입자', '허용치 대비', '지난주']
+      },
+      f2: {
+        label: '그림 2.',
+        title: F => {
+          if (F.v === 'ALL') return `라인 2는 밀봉 시험이 ${pct1(F.cell('L2', 'SEAL').now)}로 매우 나쁨, 흡입력이 나쁨이고 나머지는 좋음이나 보통입니다`;
+          if (F.v === 'L2') { const r = F.cell('L2', 'SEAL').r; return `밀봉 시험은 하루 내내 매우 나쁨이고 ${pct1(r[0])}에서 ${pct1(r[r.length - 1])}로 더 나빠졌습니다: 라인 엔지니어를 먼저 보냅니다`; }
+          if (F.v === 'L1') return `라인 1은 다섯 자리가 좋음이고, 외관은 야간 조에 ${pct1(F.cell('L1', 'COSM').now)}로 보통입니다`;
+          return `라인 3은 다섯 자리가 좋음이고, 배터리는 오후 2시 새 셀 로트 뒤로 ${pct1(F.cell('L3', 'BATT').now)}로 보통입니다`;
+        },
+        sub: '출하 시험 자리마다 최근 4시간 불합격률, 지난 24시간',
+        note: '시험 자리 단계, 금요일 오전 6시~토요일 오전 6시. 색 막대가 눈금이고 화살표가 지금 단계입니다.',
+        stations: { MOTOR: '모터 런인', SUCTION: '흡입력', NOISE: '소음', SEAL: '밀봉', BATT: '배터리·충전', COSM: '외관' },
+        stationsS: { MOTOR: '모터', SUCTION: '흡입력', NOISE: '소음', SEAL: '밀봉', BATT: '배터리', COSM: '외관' },
+        levels: ['좋음', '보통', '나쁨', '매우 나쁨'], ranges: ['0.5% 미만', '0.5~1%', '1~2%', '2% 이상'], nowKey: '지금',
+        hourS: [['6', 0], ['18', 12], ['6시', 24]], hourL: [['오전 6시', 0], ['낮 12시', 6], ['오후 6시', 12], ['자정', 18], ['오전 6시', 24]],
+        hour: k => { const hh = (6 + k) % 24; return hh === 0 ? '자정' : hh < 12 ? `오전 ${hh}시` : hh === 12 ? '낮 12시' : `오후 ${hh - 12}시`; },
+        tip: { rate: '최근 4시간 불합격', of: (f, u) => `${u}대 중 ${f}대`, units: '' },
+        sr: ['라인', '시험 자리', '지금 불합격률', '단계', '24시간 최저', '24시간 최고']
+      },
+      s1: { t: '출하와 보류', k: '이번 주의 모든 로트와 판정 근거' },
+      t1: {
+        label: '표 1.',
+        title: F => {
+          const held = F.lots.filter(l => l.hold), units = NF(0).format(sum(held.map(l => l.units)));
+          if (F.v === 'ALL') return `${F.lots.length}개 로트 중 수요일 밀봉 부품 뒤로 만든 라인 2의 ${held.length}개(${units}대)를 보류하고 나머지 ${F.lots.length - held.length}개를 출하합니다`;
+          if (held.length) return `라인 2의 수~금요일 로트(${units}대)를 보류하고 월·화요일 로트는 출하합니다`;
+          return `${T.ko.lines[F.v]}의 로트 ${F.lots.length}개를 모두 출하합니다: 모든 로트가 규격 안입니다`;
+        },
+        sub: '날마다의 로트와 판정에 쓰는 출하 시험 결과',
+        note: '로트의 2% 이상이 밀봉 시험에 떨어지면 보류합니다. 흡입력은 로트 평균(Max 모드), 첫 통과율의 눈금은 목표 97%입니다.',
+        cols: ['로트', '대수', '첫 통과율', '흡입력', '밀봉 시험', '판정'],
+        dec: { rel: '출하', hold: '보류' }, day: d => DAYFMT.ko(d),
+        more: n => `로트 ${n}개 모두 보기`, less: '접기',
+        tip: { units: '만든 대수', fpy: '첫 통과율', target: '목표 97%', suction: '평균 흡입력, Max 모드', seal: '밀봉 시험 불합격', noise: '소음 시험 불합격', why: '보류: 밀봉 불합격 2% 이상', ok: '규격 안' }
+      },
+      s2: { t: '추세와 반품', k: '12주의 첫 통과율과 고객에게서 돌아온 것' },
+      f3: {
+        label: '그림 3.',
+        title: F => ({
+          ALL: `첫 통과율이 ${pct1(F.fpy.hero.at(-1))}로 12주 만에 처음 목표 97% 아래로 내려갔고, 모두 라인 2에서입니다`,
+          L1: `라인 1은 12주 내내 목표 97% 위이고, 이번 주 ${pct1(F.fpy.hero.at(-1))}입니다`,
+          L2: `라인 2는 새 밀봉 부품이 들어온 주에 ${pct1(F.fpy.hero.at(-2))}에서 ${pct1(F.fpy.hero.at(-1))}로 떨어졌습니다`,
+          L3: `라인 3은 12주 내내 목표 97% 위이고, 이번 주 ${pct1(F.fpy.hero.at(-1))}입니다`
+        })[F.v],
+        sub: '주별 첫 통과율, 36~47주차',
+        note: '빨간 선이 목표 97%입니다. 회색 선은 다른 라인, 점선은 공장 전체입니다.',
+        months: ['9월', '10월', '11월'], week: w => `${w}주차`, weekRange: w => WEEKFMT.ko(w), plant: '공장 전체', target: '목표 97%',
+        event: '라인 2 새 밀봉 부품, 11월 18일', keys: ['이 보기', '다른 라인', '공장 전체', '목표'],
+        sr: ['주', '첫 통과율']
+      },
+      f4: {
+        label: '그림 4.',
+        title: F => ({
+          ALL: `배터리 반품이 작년의 ${NF(1).format(F.ret[0].ratio)}배이고 늘어난 몫의 대부분이 라인 3입니다. 다른 원인은 그대로이거나 줄었습니다`,
+          L1: `라인 1의 배터리 반품이 작년의 ${NF(1).format(F.ret[0].ratio)}배이고, 다른 원인은 그대로이거나 줄었습니다`,
+          L2: `라인 2의 배터리 반품은 작년의 ${NF(1).format(F.ret[0].ratio)}배이고, 밀봉 반품은 ${NF(0).format(F.ret.find(r => r.c === 'SEAL').n)} 대 ${NF(0).format(F.ret.find(r => r.c === 'SEAL').w)}로 비슷합니다`,
+          L3: `라인 3의 배터리 반품이 작년의 ${NF(1).format(F.ret[0].ratio)}배입니다: 셀 공급사를 점검합니다`
+        })[F.v],
+        sub: '판매 90일 안에 고장으로 돌아온 대수, 1만 대당, 올해와 작년',
+        note: '초기 반품. 올해는 2026년 6~8월 판매분, 작년은 2025년 6~8월 판매분입니다. 점선은 변화 없음입니다.',
+        causes: { BATT: '배터리', HEAD: '청소기 헤드', MOTOR: '모터', SEAL: '필터·밀봉', DOCK: '충전 거치대', TRIG: '트리거', SCREEN: '화면' },
+        keys: ['올해', '작년', '변화 없음'], stat: c => [`${c} 반품`, '작년 대비'],
+        times: r => `${NF(1).format(r)}배`, tip: { now: '올해', was: '작년', per: '1만 대당' },
+        sr: ['원인', '올해', '작년', '변화']
+      },
+      build: {
+        t: '만드는 법', k: '받는 것과 에이전트가 쓰는 법',
+        p: 'DASHBOARD.md는 스펙 시트, 입자 카운트, 단계 막대를 색과 숫자 표기까지 규칙으로 적습니다. 이 파일을 읽은 에이전트가 그림 1을 이렇게 그립니다.',
+        spec: 'DASHBOARD.md 읽기', cta: '우리 회사 것 의뢰하기',
+        steps: [['패키지 넣기', '명령 한 줄로 DASHBOARD.md와 스킬을 프로젝트에 넣습니다.'], ['말로 요청하기', '보고서와 질문을 말하면 에이전트가 명세로 카드를 짭니다.'], ['명세로 점검하기', '그림 아래 점검 목록이 DASHBOARD.md의 것입니다.']],
+        pkg: '상자에 든 것', pkgSub: '파일 6개',
+        files: { 'DASHBOARD.md': '명세', 'SKILL.md': '에이전트가 명세를 쓰는 법', 'tokens.css': 'CSS 변수', 'dyson.tps': 'Tableau 팔레트', 'powerbi-theme.json': 'Power BI 테마', 'prompt.md': '프롬프트' },
+        get: '프로젝트에 넣기', getNote: 'npm이나 설치 스크립트. 둘 다 같은 파일을 같은 자리에 넣습니다.', zip: 'zip 내려받기',
+        modes: ['DASHBOARD.md 없이', 'DASHBOARD.md와 함께'],
+        checksT: 'DASHBOARD.md 점검', checksOk: '5개 모두 통과', checksBad: '5개 중 0개 통과',
+        checks: [[1, '라인마다 검은 #000000 화면 하나: 테두리·빛 번짐·둥근 화면 없음'], [2, '크기 넷의 막대, 작은 것부터: #f5dc3c · #e8641e · #de3f9e · #8462d8, 아래에 µm'], [3, '막대 높이는 허용치 대비 비율, 허용치는 100%의 #c0183e 선 하나'], [4, '위에 리터당 합계를 가는 40px로, 막대 위에 값, 지난주는 회색 눈금'], [5, '제목이 결과를 말한다: 어느 라인, 어느 크기, 무슨 뜻']],
+        run: '다시 그리기', built: '완성', drawing: '그리는 중…', lines: n => `${n}줄`, copied: '코드를 복사했습니다', cmdCopied: '명령을 복사했습니다',
+        generic: '라인과 크기별 입자', genericSub: '명세 없이 그린 기본 차트', generated: 'DASHBOARD.md 없이 그림',
+        wbNote: '이번 주 감사의 리터당 입자를 허용치와 견줘.',
+        cap: '코드는 에이전트가 DASHBOARD.md로 일하는 모습을 줄인 것입니다. 패키지의 prompt.md에 전체 프롬프트가 있습니다.'
+      },
+      notes: {
+        t: '숫자를 세는 법', k: '정의와 출처',
+        items: [
+          ['첫 통과율', '출하 시험을 한 번에 모두 통과한 대수를 시험한 대수로 나눈 비율. 목표는 97%입니다.'],
+          ['출하 시험 자리', '상자에 넣기 전에 모든 대수가 거치는 시험 여섯: 모터 런인, 흡입력, 소음, 밀봉, 배터리·충전, 외관.'],
+          ['단계', '시험 자리의 최근 4시간 불합격률: 좋음 0.5% 미만, 보통 0.5~1%, 나쁨 1~2%, 매우 나쁨 2% 이상.'],
+          ['흡입력', '출하 시험대에서 Max 모드로 잰 청소기 헤드의 흡입 일률(AW). 모든 대수가 230 AW를 넘어야 합니다.'],
+          ['여과 감사', '라인마다 주에 12대를 시험실에서 돌리고, 0.3 µm 시험 먼지를 리터당 10만 개 넣습니다. 계수기가 배기 속 입자를 크기별로 셉니다: 0.3~1, 1~2.5, 2.5~10, 10 µm 이상. 0.3 µm 여과율은 1에서 나온 것을 넣은 것으로 나눈 값을 뺀 것입니다.'],
+          ['허용치', '크기마다 리터당 넘지 말아야 할 입자 수: 0.3 µm부터 40개, 1 µm부터 12개, 2.5 µm부터 4개, 10 µm부터 1개. 밀봉이 새면 큰 입자가, 필터에 문제가 있으면 작은 입자가 빠져나옵니다.'],
+          ['로트', '라인마다 하루 하나. 로트의 2% 이상이 밀봉 시험에 떨어지면 보류하고, 시험이 모두 규격 안이면 출하합니다.'],
+          ['초기 반품', '판매 90일 안에 고장으로 돌아온 대수를 판매 1만 대당으로. 올해는 2026년 6~8월, 작년은 2025년 6~8월 판매분입니다.']
+        ],
+        src: '출처: 출하 시험 기록, 주간 여과 감사, 로트 기록과 반품, 2026년 11월 16~22일.'
+      },
+      catName: 'Dyson 스타일', words: '테크니컬, 마이크론, 말끔함',
+      note: '가상의 회사와 제품, 가상 데이터로 구성한 샘플 화면입니다.',
+      notice: 'Dyson의 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 공개된 웹사이트(dyson.com, dyson.co.kr)와 제품 화면·다이슨이 발행한 차트 등 공개된 접점에서 보이는 디자인을 읽어 낸 참고용 스타일이며 로고·서체·사진·데이터는 포함하지 않습니다. 상표는 각 소유자의 것입니다.',
+      back: { post: '← 포스트로', catalog: '← 카탈로그로' }
+    }
+  };
+  const L = () => T[state.lang];
+  const KO = () => state.lang === 'ko';
+  const pick = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  const FROM_BLOG = (() => {
+    const hosts = ['kr.vizney.com', 'www.vizney.com', 'vizney.com'];
+    const host = v => { try { return new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v).hostname.toLowerCase(); } catch (e) { return ''; } };
+    return hosts.includes(host(qs.get('ref') || '')) || (!!document.referrer && hosts.includes(host(document.referrer)));
+  })();
+  const SLUG = location.pathname.split('/').filter(Boolean)[0] || 'dyson';
+
+  /* ================= 도우미 ================= */
+  const sum = a => a.reduce((s, x) => s + x, 0);
+  function setAttrs(e, a) {
+    if (!a) return;
+    for (const k in a) {
+      const v = a[k];
+      if (v == null || v === false) continue;
+      if (k === 'text') e.textContent = v;
+      else if (k === 'html') e.innerHTML = v;
+      else if (k === 'style') for (const p in v) { if (v[p] == null) continue; if (p.startsWith('--')) e.style.setProperty(p, v[p]); else e.style[p] = v[p]; }
+      else e.setAttribute(k, v);
+    }
+  }
+  function add(e, kids) { for (const k of kids.flat()) { if (k == null || k === false) continue; e.append(k instanceof Node ? k : document.createTextNode(String(k))); } }
+  function h(tag, attrs, ...kids) { const e = document.createElement(tag); setAttrs(e, attrs); add(e, kids); return e; }
+  function sv(tag, attrs, ...kids) { const e = document.createElementNS(SVGNS, tag); setAttrs(e, attrs); add(e, kids); return e; }
+  const animOK = a => a && !REDUCE;
+  // 숫자와 단위는 한 덩어리로(0.3 µm, 237 AW), 한국어는 숫자 뒤 조사가 떨어지지 않게
+  const glue = str => { const s = String(str).replace(/(\d) (µm|AW|%)/g, '$1\u00a0$2'); return KO() ? s.replace(/([0-9%])(?=[가-힣])/g, '$1⁠') : s; };
+  const NF = d => new Intl.NumberFormat('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const trim = s => s.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
+  const pct0 = v => NF(0).format(v) + '%';
+  const pct1 = v => NF(1).format(v) + '%';
+  // 대수: 영어 33.7K, 한국어 3.4만(1만 미만은 그대로)
+  const KU = n => KO() ? (n >= 10000 ? trim(NF(1).format(n / 10000)) + '만' : NF(0).format(n)) : (n >= 1000 ? NF(1).format(n / 1000) + 'K' : NF(0).format(n));
+  // 리터당 입자: 10 이상은 정수, 아래는 소수 한 자리
+  const PL = v => v >= 10 ? NF(0).format(v) : NF(1).format(v);
+  const arrow = v => v < 0 ? '▼ ' : '▲ ';
+  // 증감: 값이 움직인 방향이 아니라 좋은 변화인지로 색을 정한다(여기서는 모두 높을수록 좋다)
+  function delta(dv, d, unit) { const r = Math.round(dv * 10 ** d) / 10 ** d; if (!r) return ['= ' + NF(d).format(0) + unit, null]; return [arrow(r) + NF(d).format(Math.abs(r)) + unit, r > 0 ? 'good' : 'bad']; }
+  const SIZE_UM = ['0.3', '1', '2.5', '10'];
+  const DOW = { en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], ko: ['일', '월', '화', '수', '목', '금', '토'] };
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const dt = s => { const [y, m, d] = s.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+  const DAYFMT = {
+    en: s => { const x = dt(s); return `${DOW.en[x.getUTCDay()]} ${MON[x.getUTCMonth()]} ${x.getUTCDate()}`; },
+    ko: s => { const x = dt(s); return `${x.getUTCMonth() + 1}월 ${x.getUTCDate()}일(${DOW.ko[x.getUTCDay()]})`; }
+  };
+  // 주: ISO 주의 월요일부터 일요일까지
+  const weekStart = w => { const jan4 = Date.UTC(2026, 0, 4), d = new Date(jan4); const mon = jan4 - ((d.getUTCDay() + 6) % 7) * 864e5; return new Date(mon + (w - 1) * 7 * 864e5); };
+  const WEEKFMT = {
+    en: w => { const a = weekStart(w), b = new Date(a.getTime() + 6 * 864e5); return a.getUTCMonth() === b.getUTCMonth() ? `${MON[a.getUTCMonth()]} ${a.getUTCDate()}–${b.getUTCDate()}` : `${MON[a.getUTCMonth()]} ${a.getUTCDate()} – ${MON[b.getUTCMonth()]} ${b.getUTCDate()}`; },
+    ko: w => { const a = weekStart(w), b = new Date(a.getTime() + 6 * 864e5); return a.getUTCMonth() === b.getUTCMonth() ? `${a.getUTCMonth() + 1}월 ${a.getUTCDate()}~${b.getUTCDate()}일` : `${a.getUTCMonth() + 1}월 ${a.getUTCDate()}일~${b.getUTCMonth() + 1}월 ${b.getUTCDate()}일`; }
+  };
+  // 글자 폭: 그 언어의 본문 서체로 잰다
+  const TW = document.createElement('canvas').getContext('2d');
+  const textW = (str, size, weight = 400) => { TW.font = `${weight} ${size}px ${getComputedStyle(document.documentElement).getPropertyValue('--font')}`; return TW.measureText(String(str)).width; };
+  function fitText(str, size, weight, maxW) {
+    if (textW(str, size, weight) <= maxW) return str;
+    let s = str;
+    while (s.length > 1 && textW(s + '…', size, weight) > maxW) s = s.slice(0, -1);
+    return s.length > 2 ? s.trimEnd() + '…' : '';
+  }
+  const lvOf = v => DATA.levels.filter(c => v >= c).length;   // 0 좋음 · 1 보통 · 2 나쁨 · 3 매우 나쁨
+  const LV_TONE = ['good', 'fair', 'poor', 'bad'];
+
+  /* ================= 사실: 라인 필터마다 ================= */
+  const FCACHE = {};
+  function facts(v = state.line) {
+    const key = v + state.lang;
+    if (FCACHE[key]) return FCACHE[key];
+    const V = DATA.views[v], lines = v === 'ALL' ? DATA.lines : [v], lnName = x => T[state.lang].lines[x];
+    // 표 1: 보류부터(늦은 날부터), 그다음 늦은 날, 라인 순서
+    const lots = DATA.lots.filter(l => lines.includes(l.line)).slice().sort((a, b) => (b.hold - a.hold) || b.day.localeCompare(a.day) || a.line.localeCompare(b.line));
+    // 그림 1: 라인마다 크기 넷, 허용치 대비 비율
+    const audit = lines.map(ln => {
+      const a = DATA.audit[ln], share = a.now.map((x, k) => x / DATA.allow[k]), lastShare = a.last.map((x, k) => x / DATA.allow[k]);
+      const over = share.map((s, k) => s > 1 ? k : -1).filter(k => k >= 0);
+      return { ln, name: lnName(ln), now: a.now, last: a.last, share, lastShare, over, maxShare: Math.max(...share), total: sum(a.now) };
+    });
+    // 그림 2: 라인 × 시험 자리, 4시간 이동 불합격률 24점
+    const cells = {};
+    for (const ln of lines) for (const st of DATA.stations) {
+      const r = DATA.views[ln].stations[st], raw = DATA.raw[ln][st], uph = DATA.uph[ln], w = DATA.window;
+      cells[ln + st] = { ln, st, r, now: r[r.length - 1], lv: lvOf(r[r.length - 1]), fails: r.map((x, i) => sum(raw.slice(i, i + w))), units: uph * w };
+    }
+    const cell = (ln, st) => cells[ln + st];
+    const stRows = DATA.stations.slice().sort((a, b) => {
+      const la = Math.max(...lines.map(ln => cell(ln, a).lv)), lb = Math.max(...lines.map(ln => cell(ln, b).lv));
+      return lb - la || Math.max(...lines.map(ln => cell(ln, b).now)) - Math.max(...lines.map(ln => cell(ln, a).now));
+    });
+    // 그림 3: 이 보기가 주인공, 다른 라인과 공장 전체는 회색
+    const hero = v === 'ALL' ? V.fpyHist : DATA.fpyLines[v];
+    const ctx = (v === 'ALL' ? DATA.lines : DATA.lines.filter(x => x !== v)).map(x => ({ id: x, name: lnName(x), s: DATA.fpyLines[x] }));
+    const fpy = { hero, heroName: v === 'ALL' ? T[state.lang].f3.plant : lnName(v), ctx, plant: v === 'ALL' ? null : DATA.views.ALL.fpyHist };
+    // 그림 4: 원인별 반품, 작년 대비 배수 순서
+    const ret = DATA.causes.map(c => { const [n, w] = V.returns[c]; return { c, n, w, ratio: n / w }; }).sort((a, b) => b.ratio - a.ratio);
+    const heldFrom = [...new Set(lots.filter(l => l.hold).map(l => l.line))];
+    const F = { v, V, lines, lots, audit, cell, stRows, fpy, ret, heldFrom };
+    FCACHE[key] = F;
+    return F;
+  }
+
+  /* ================= 툴팁·키보드·스크린 리더 ================= */
+  function tipNodes(head, rows, sub) {
+    return [h('div', { class: 'tip-h', text: glue(head) }), sub ? h('div', { class: 'tip-s', text: glue(sub) }) : null].concat(rows.filter(Boolean).map(r => h('div', { class: 'tip-r' },
+      r.key ? h('i', { class: r.line ? 'ln' : null, style: { '--c': r.key } }) : null,
+      h('b', null, r.value), r.label ? h('span', { class: r.tone || null, text: glue(r.label) }) : null)));
+  }
+  function placeTip(host, nodes, ax, ayTop, ayBottom) {
+    const tip = $(':scope > .tip', host);
+    tip.replaceChildren(...nodes.filter(Boolean));
+    const cw = host.clientWidth, ch = host.clientHeight, tw = tip.offsetWidth, th = tip.offsetHeight, gap = 12, mid = (ayTop + ayBottom) / 2;
+    const cx = l => Math.max(6, Math.min(cw - tw - 6, l)), cy = y => Math.max(6, Math.min(ch - th - 6, y));
+    const options = [
+      [cx(ax - tw / 2), ayTop - gap - th, ayTop - gap - th >= 6],
+      [ax + gap, cy(mid - th / 2), ax + gap + tw <= cw - 6],
+      [ax - gap - tw, cy(mid - th / 2), ax - gap - tw >= 6],
+      [cx(ax - tw / 2), ayBottom + gap, ayBottom + gap + th <= ch - 6]
+    ];
+    const [left, top] = options.find(o => o[2]) || options[1];
+    tip.style.left = Math.round(left) + 'px';
+    tip.style.top = Math.round(top) + 'px';
+    tip.classList.add('on');
+  }
+  const hideTip = host => { const tip = $(':scope > .tip', host); if (tip) tip.classList.remove('on'); };
+  const offsetIn = (host, el) => { const a = host.getBoundingClientRect(), b = el.getBoundingClientRect(); return { x: b.left - a.left, y: b.top - a.top, w: b.width, h: b.height }; };
+  function keyStep(e, cur, n) {
+    const k = e.key;
+    let i = null;
+    if (k === 'ArrowRight' || k === 'ArrowDown') i = cur + 1;
+    else if (k === 'ArrowLeft' || k === 'ArrowUp') i = cur - 1;
+    else if (k === 'Home') i = 0;
+    else if (k === 'End') i = n - 1;
+    else if (k === 'Escape') i = -1;
+    if (i === null) return null;
+    e.preventDefault();
+    return k === 'Escape' ? -1 : Math.max(0, Math.min(n - 1, i));
+  }
+  function srTable(caption, head, rows) {
+    return h('table', null, h('caption', { text: caption }),
+      h('thead', null, h('tr', null, head.map(x => h('th', { scope: 'col', text: x })))),
+      h('tbody', null, rows.map(r => h('tr', null, r.map((c, j) => h(j ? 'td' : 'th', j ? { text: c } : { scope: 'row', text: c }))))));
+  }
+  const say = msg => { $('#live').textContent = String(msg).replace(/⁠/g, ''); };
+  function wireRows(host, list, rowSel, cur, show) {
+    const rows = () => $$(rowSel, list);
+    const pickRow = i => { rows().forEach((r, k) => r.classList.toggle('on', k === i)); if (i == null || i < 0) { hideTip(host); return; } cur.i = i; show(i, rows()[i]); };
+    list.onpointermove = e => { const r = e.target.closest(rowSel); if (r && list.contains(r)) pickRow(rows().indexOf(r)); };
+    list.onpointerleave = e => { if (e.pointerType === 'mouse' && document.activeElement !== list) pickRow(-1); };
+    list.onfocus = () => pickRow(Math.min(cur.i, rows().length - 1));
+    list.onblur = () => pickRow(-1);
+    list.onkeydown = e => { const i = keyStep(e, cur.i, rows().length); if (i === null) return; pickRow(i); if (i >= 0) say(rows()[i].dataset.say || rows()[i].textContent); };
+  }
+  function wireItems(host, plot, n, cur, nearest, show, clear) {
+    const go = i => { if (i == null || i < 0) { clear(); hideTip(host); return; } cur.i = i; show(i); };
+    plot.onpointermove = e => { const b = plot.getBoundingClientRect(); go(nearest(e.clientX - b.left, e.clientY - b.top)); };
+    plot.onpointerleave = e => { if (e.pointerType === 'mouse' && document.activeElement !== plot) go(-1); };
+    plot.onfocus = () => go(Math.min(cur.i, n - 1));
+    plot.onblur = () => go(-1);
+    plot.onkeydown = e => { const i = keyStep(e, cur.i, n); if (i === null) return; go(i); if (i >= 0 && cur.say) say(cur.say(i)); };
+  }
+  const plotSize = (plot, minW = 260, minH = 220) => { const W = Math.max(minW, Math.round(plot.clientWidth)), H = Math.max(minH, Math.round(plot.clientHeight)); plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight); return [W, H]; };
+
+  /* ================= 머리와 스펙 시트(KPI) =================
+     dyson.com의 Specifications 패널: 라벨(16px 500 #555) → 가는 큰 숫자와 작은 단위(44px 300 + 24px) → 1px #dadada 선.
+     그 아래에 제품 페이지의 'Was'처럼 지난주 값과 증감. 시험 조건은 숫자 주장마다 각주 기호로 달고 띠 아래에 모은다. */
+  function renderHead() {
+    const t = L(), F = facts();
+    $('#period').textContent = t.period;
+    $('#asof').textContent = t.asof;
+    $('#h1').textContent = glue(t.head[F.v]);
+    $('#kpis').replaceChildren(...t.kpi(F).map(k => h('li', { class: 'kpi' },
+      h('p', { class: 'k-l' }, k.l, k.fn ? h('sup', { text: k.fn }) : null),
+      h('p', { class: 'k-v' }, k.v, k.u ? h('span', { class: 'u', text: k.u }) : null),
+      h('p', { class: 'k-d' }, ...k.d.map(p => !Array.isArray(p) ? glue(p) : h('span', { class: p[1] || null, style: { whiteSpace: 'nowrap' }, text: p[0] }))))));
+    $('#kfoot').replaceChildren(...t.kfoot.map(x => h('span', { text: x })));
+  }
+
+  /* ================= 대표 장치 1 · 입자 카운트(그림 1) =================
+     무선청소기 LCD의 입자 카운트처럼 검은 화면에 크기 넷의 막대를 작은 것부터(노랑 → 주황 → 분홍 → 보라) 세우고, 위에 합계,
+     아래에 µm. 여기서는 여과 감사에서 배기로 빠져나온 입자라 막대 높이는 허용치 대비 비율이고, 허용치는 빨간 선 하나(100%).
+     지난주는 막대 옆의 회색 눈금. 모든 라인이면 라인마다 화면 하나, 한 라인이면 화면 하나와 오른쪽 크기 이름표. */
+  const STACK_W = 440, stackH = n => n * 150 + (n - 1) * 14;
+  function particleSvg(F, W, H, opt = {}) {
+    const t = L().f1, anim = animOK(opt.animate), A = F.audit, multi = A.length > 1;
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: opt.layers ? 'img' : null, 'aria-label': opt.label || null, 'aria-hidden': opt.layers ? null : 'true' });
+    const lay = k => sv('g', opt.layers ? { class: 'layer', 'data-step': k } : null);
+    const g1 = lay(1), g2 = lay(2), g3 = lay(3), g4 = lay(4), gsel = sv('g');
+    svg.append(g1, g2, g3, g4, gsel);
+    // 좁으면(모든 라인, 폭 440 미만) 화면을 위아래로 쌓는다: 이름과 상태 한 줄, 왼쪽에 합계, 오른쪽에 막대
+    const n = A.length, stack = multi && W < STACK_W, gapS = 14, Hs = stack ? (H - gapS * (n - 1)) / n : H;
+    const tags = !multi && W >= 500, tagW = tags ? Math.min(330, Math.round(W * .46)) : 0;
+    const scrW = stack ? W : multi ? W / n : W - tagW, small = !stack && scrW < 230;
+    const fsTot = stack ? 30 : small ? 28 : W < 520 ? 32 : 40, fsName = small ? 12.5 : 13.5;
+    const topH = 20 + 6 + fsTot, padB = stack ? 26 : 36, barsTop = stack ? 40 : topH + 30, base = Hs - padB;
+    const maxShare = Math.max(1.3, ...A.flatMap(a => a.share.concat(a.lastShare))) * 1.08;
+    const geo = [];
+    A.forEach((a, si) => {
+      const oy = stack ? si * (Hs + gapS) : 0, B = oy + base, yv = s => B - s / maxShare * (base - barsTop);
+      const x0 = stack ? 0 : si * scrW, x1 = x0 + scrW, padX = stack ? 0 : multi ? (small ? 10 : 18) : 8;
+      const bL = stack ? Math.max(124, Math.round(W * .4)) : x0 + padX, inner = stack ? x1 - 4 - bL : x1 - x0 - padX * 2 - (multi ? 0 : 10);
+      const slot = inner / 4, bw = Math.max(9, Math.min(34, slot * .46)), bx = k => bL + slot * (k + .5) - bw / 2;
+      const lx0 = bx(0) - 8, lx1 = bx(3) + bw + 14;
+      // 틀: 화면 사이 선, 라인 이름과 상태, 바닥선, 크기
+      if (multi && si) g1.append(stack ? sv('line', { x1: 0, x2: W, y1: oy - gapS / 2 + .5, y2: oy - gapS / 2 + .5, stroke: C.rule })
+        : sv('line', { x1: x0 + .5, x2: x0 + .5, y1: 0, y2: H, stroke: C.rule }));
+      g1.append(sv('text', { x: x0 + padX, y: oy + 14, 'font-size': fsName, 'font-weight': 500, fill: C.white, text: a.name }));
+      g1.append(sv('line', { x1: lx0, x2: lx1, y1: B + .5, y2: B + .5, stroke: C.base }));
+      a.share.forEach((s, k) => g1.append(sv('text', { x: bx(k) + bw / 2, y: B + (stack ? 16 : 17), 'text-anchor': 'middle', 'font-size': small ? 11 : 12, fill: C.sub, text: (multi || W < 420) ? t.sizesS[k] : t.sizes[k] })));
+      // 막대: 바닥에서 솟아 빨리 오르다 느려진다
+      a.share.forEach((s, k) => {
+        const y = yv(s), hh = Math.max(2, B - y);
+        g2.append(sv('rect', { class: 'f1-b' + (anim ? ' rise' : ''), style: anim ? { animationDelay: (si * 120 + k * 70) + 'ms' } : null, x: bx(k), y: B - hh, width: bw, height: hh, rx: 1, fill: C.size[k] }));
+        geo.push({ si, k, x: bx(k), cx: bx(k) + bw / 2, bw, top: B - hh, bottom: B, oy, hs: Hs });
+      });
+      // 허용치(100%)와 지난주 눈금
+      g3.append(sv('line', { x1: lx0, x2: lx1, y1: yv(1), y2: yv(1), stroke: C.limit, 'stroke-width': 2 }));
+      a.lastShare.forEach((s, k) => g3.append(sv('line', { x1: bx(k) + bw + 2, x2: bx(k) + bw + 9, y1: yv(s), y2: yv(s), stroke: C.sub, 'stroke-width': 2 })));
+      // 값: 위에 리터당 합계(가는 큰 숫자), 오른쪽에 상태, 막대 위에 리터당 값, 아래에 감사 대수
+      const tot = sv('text', { x: x0 + padX, y: oy + 20 + 6 + fsTot * .82, 'font-size': fsTot, 'font-weight': 300, fill: C.white });
+      tot.append(sv('tspan', { text: PL(a.total) }), sv('tspan', { dx: 5, 'font-size': 12.5, 'font-weight': 400, fill: C.sub, text: t.unit }));
+      g4.append(tot);
+      const fsSt = small ? 11.5 : 12.5, room = scrW - padX * 2 - textW(a.name, fsName, 500) - 12, stL = a.over.length ? t.over(a.over.length) : t.within;
+      const st = textW(stL, fsSt, 500) <= room ? stL : (a.over.length ? t.overS : t.withinS);
+      g4.append(sv('text', { x: x1 - padX, y: oy + 14, 'text-anchor': 'end', 'font-size': fsSt, 'font-weight': 500, fill: a.over.length ? C.limitT : C.lv[0], text: st }));
+      a.now.forEach((v, k) => g4.append(sv('text', { class: anim ? 'fade' : null, style: anim ? { animationDelay: (si * 120 + k * 70 + 700) + 'ms' } : null, x: bx(k) + bw / 2, y: yv(a.share[k]) - 7, 'text-anchor': 'middle', 'font-size': small ? 11.5 : 12.5, 'font-weight': 500, fill: C.white, text: PL(v) })));
+      g4.append(sv('text', { x: x0 + padX, y: stack ? B + 16 : H - 3, 'font-size': 11.5, fill: C.tick, text: t.audited(DATA.auditUnits) }));
+      // 허용치 이름: 한 화면일 때 선 왼쪽 위에(막대 값과 겹치지 않을 때만)
+      if (!multi) {
+        const ly = yv(1) - 7, lw = textW(t.allowance, 12, 500), clash = geo.filter(g => g.si === si).some(g => g.x < lx0 + lw + 6 && Math.abs(g.top - 7 - ly) < 15);
+        if (!clash) g3.append(sv('text', { x: lx0, y: ly, 'font-size': 12, 'font-weight': 500, fill: C.limitT, text: t.allowance }));
+      }
+      // 크기 이름표: 한 화면일 때 오른쪽에, 큰 크기부터(제품 화면 설명의 색 꼬리표)
+      if (tags) {
+        // 한 줄에 꼬리표와 이름, 다음 줄에 리터당 값 · 허용치 대비 · 지난주
+        const tx = x1 + 18, rowH = Math.max(46, Math.min(64, (base - 4) / 4)), y00 = Math.max(4, (base - rowH * 4) / 2);
+        [3, 2, 1, 0].forEach((k, q) => {
+          const y = y00 + q * rowH, lab = t.sizes[k], cw = textW(lab, 12, 600) + 14;
+          g4.append(sv('rect', { x: tx, y, width: cw, height: 20, rx: 2, fill: C.size[k] }), sv('text', { x: tx + 7, y: y + 14, 'font-size': 12, 'font-weight': 600, fill: '#000', text: lab }));
+          g4.append(sv('text', { x: tx + cw + 9, y: y + 14, 'font-size': 12.5, fill: C.sub, text: fitText(t.what[k], 12.5, 400, W - tx - cw - 12) }));
+          const v = sv('text', { x: tx, y: y + 41, 'font-size': 20, 'font-weight': 300, fill: C.white });
+          const sh = pct0(a.share[k] * 100), over = a.share[k] > 1;
+          v.append(sv('tspan', { text: PL(a.now[k]) }), sv('tspan', { dx: 4, 'font-size': 12.5, 'font-weight': 400, fill: C.sub, text: t.perL }),
+            sv('tspan', { dx: 10, 'font-size': 12.5, 'font-weight': over ? 500 : 400, fill: over ? C.limitT : C.sub, text: t.ofAllow(sh) }),
+            sv('tspan', { dx: 10, 'font-size': 12, 'font-weight': 400, fill: C.tick, text: t.was(PL(a.last[k])) }));
+          g4.append(v);
+        });
+      }
+    });
+    return { svg, geo, gsel, stack, hs: Hs, gapS, n: geo.length };
+  }
+  const f1Cur = { i: 0 };
+  function renderF1(animate) {
+    const F = facts(), t = L().f1, plot = $('#f1Plot'), host = $('#f1');
+    $('#f1T').textContent = glue(t.title(F));
+    const nat = F.audit.length > 1 && plot.clientWidth < STACK_W ? stackH(F.audit.length) : 250;
+    plot.style.minHeight = nat + 'px';
+    const [W, H] = plotSize(plot, 260, nat);
+    const R = particleSvg(F, W, H, { animate });
+    plot.replaceChildren(R.svg);
+    plot.setAttribute('aria-label', t.title(F).replace(/⁠/g, ''));
+    const multi = F.audit.length > 1, allowKey = h('li', null, sv('svg', { width: 18, height: 10, 'aria-hidden': 'true' }, sv('line', { x1: 0, x2: 18, y1: 5, y2: 5, stroke: C.limit, 'stroke-width': 2 })), t.allowance + ' (100%)');
+    const lastKey = h('li', null, sv('svg', { width: 14, height: 12, 'aria-hidden': 'true' }, sv('rect', { x: 0, y: 1, width: 6, height: 11, fill: '#5a5a5a' }), sv('line', { x1: 7, x2: 14, y1: 4, y2: 4, stroke: C.sub, 'stroke-width': 2 })), t.lastWeek);
+    $('#f1K').replaceChildren(...(multi || W < 500 ? t.sizes.map((s, k) => h('li', null, h('span', { class: 'tag', style: { '--c': C.size[k] }, text: s }), multi ? null : t.what[k])) : []), allowKey, lastKey);
+    const tipFor = i => {
+      const g = R.geo[i], a = F.audit[g.si], k = g.k;
+      return [`${a.name} · ${t.sizes[k]}`, [{ key: C.size[k], value: PL(a.now[k]), label: t.tip.now }, { value: pct0(a.share[k] * 100), label: t.tip.share(PL(DATA.allow[k])), tone: a.share[k] > 1 ? 'bad' : null }, { value: PL(a.last[k]), label: t.tip.last }], t.what[k]];
+    };
+    f1Cur.say = i => { const [hd, rows] = tipFor(i); return hd + ': ' + rows.map(r => r.value + ' ' + (r.label || '')).join(', '); };
+    const sel = i => { R.gsel.replaceChildren(); if (i == null || i < 0) return; const g = R.geo[i], tp = Math.min(g.top, g.bottom - 4) - 26; R.gsel.append(sv('rect', { x: g.x - 6, y: tp, width: g.bw + 20, height: g.bottom - tp + 4, rx: 2, fill: 'none', stroke: C.white, 'stroke-width': 1.2, 'stroke-dasharray': '3 3' })); };
+    // 가장 가까운 막대: 쌓인 화면이면 먼저 높이로 화면을 고른다
+    wireItems(host, plot, R.n, f1Cur, (x, y) => {
+      const si = R.stack ? Math.max(0, Math.min(F.audit.length - 1, Math.floor(y / (R.hs + R.gapS)))) : null;
+      let best = -1; R.geo.forEach((g, q) => { if (si !== null && g.si !== si) return; if (best < 0 || Math.abs(x - g.cx) < Math.abs(x - R.geo[best].cx)) best = q; }); return best;
+    },
+      i => { sel(i); const o = offsetIn(host, plot), g = R.geo[i], [hd, rows, sub] = tipFor(i); placeTip(host, tipNodes(hd, rows, sub), o.x + g.cx, o.y + g.top - 24, o.y + g.bottom); }, () => sel(-1));
+    $('#f1Table').replaceChildren(srTable(t.title(F), t.sr, F.audit.flatMap(a => a.now.map((v, k) => [a.name, t.sizes[k], PL(v), pct0(a.share[k] * 100), PL(a.last[k])]))));
+  }
+
+  /* ================= 대표 장치 2 · 단계 막대(그림 2) =================
+     공기청정기 화면처럼 왼쪽에 색 막대(아래부터 좋음 초록 · 보통 노랑 · 나쁨 주황 · 매우 나쁨 빨강), 지금 단계 칸만 밝히고 화살표로 가리킨다.
+     그 막대가 그대로 오른쪽 24시간 선의 눈금이다: 값이 든 단계의 칸 높이 안에 그리고, 선 조각도 그 단계 색. 나쁜 자리부터. */
+  const LV_LO = [0, .5, 1, 2], LV_HI = [.5, 1, 2, 6];
+  function levelGlyph(g, x, top, hgt, lv, opt = {}) {
+    const gap = 2, segH = (hgt - gap * 3) / 4, w = opt.w || 8, ys = [];
+    for (let k = 0; k < 4; k++) {
+      const y = top + (3 - k) * (segH + gap);
+      ys.push([y, y + segH]);
+      g.append(sv('rect', { x, y, width: w, height: segH, rx: 1, fill: C.lv[k], 'fill-opacity': k === lv ? 1 : (opt.dim || .36) }));
+    }
+    if (opt.arrow !== false) { const [y0, y1] = ys[lv], m = (y0 + y1) / 2; g.append(sv('path', { d: `M${x - 7} ${m - 4.5}L${x - 2} ${m}L${x - 7} ${m + 4.5}Z`, fill: opt.arrowFill || C.white })); }
+    return ys;
+  }
+  const bandY = (ys, v) => { const k = lvOf(v), f = Math.max(0, Math.min(1, (v - LV_LO[k]) / (LV_HI[k] - LV_LO[k]))); return ys[k][1] - f * (ys[k][1] - ys[k][0]); };
+  const f2Cur = { i: 0 };
+  function renderF2(animate) {
+    const F = facts(), t = L().f2, plot = $('#f2Plot'), host = $('#f2'), anim = animOK(animate);
+    $('#f2T').textContent = glue(t.title(F));
+    const lines = F.lines, multi = lines.length > 1, rows = F.stRows, n = rows.length;
+    const Wp = Math.max(260, Math.round(plot.clientWidth)), narrow = Wp < 420, compact = multi && Wp < 640, fsN = compact ? 13.5 : 14.5;
+    // 칸이 좁으면 자리 이름을 줄여 쓴다(배터리·충전 → 배터리). 정식 이름은 툴팁과 표에
+    const names = compact && !narrow ? t.stationsS : t.stations;
+    const nameW = narrow ? 0 : Math.ceil(Math.max(...rows.map(st => textW(names[st], fsN, 500)))) + 14;
+    const valW = multi ? (compact || narrow ? 52 : 60) : 92, cp = compact || narrow ? 8 : 14;
+    // 시간 눈금은 선이 46px 이상일 때만(그보다 짧으면 작은 추이선만)
+    const hours = (Wp - nameW) / lines.length - cp - valW - 28 >= 46;
+    const headH = multi ? 22 : 0, axisH = hours ? 22 : 6, rowNat = narrow ? 68 : 40;
+    const natural = headH + n * rowNat + axisH;
+    plot.style.minHeight = natural + 'px';
+    const [W, H] = plotSize(plot, 260, natural);
+    const rowH = narrow ? rowNat : Math.max(40, Math.min(64, (H - headH - axisH) / n));
+    const cx0 = nameW, colW = (W - cx0) / lines.length, gh = narrow ? 36 : Math.min(40, rowH - 8);
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
+    svg.append(g1, g2, gsel);
+    if (multi) lines.forEach((ln, c) => g1.append(sv('text', { x: cx0 + c * colW + cp + 8, y: 13, 'font-size': 12.5, 'font-weight': 500, fill: C.sub, text: L().lines[ln] })));
+    const geo = [];
+    rows.forEach((st, r) => {
+      const y0 = headH + r * rowH, top = narrow ? y0 + 22 : y0 + (rowH - gh) / 2;
+      if (r) g1.append(sv('line', { x1: 0, x2: W, y1: y0 + .5, y2: y0 + .5, stroke: C.rule }));
+      g1.append(sv('text', { x: 0, y: narrow ? y0 + 16 : top + gh / 2 + 5, 'font-size': fsN, 'font-weight': 500, fill: C.white, text: narrow ? names[st] : fitText(names[st], fsN, 500, nameW - 8) }));
+      lines.forEach((ln, c) => {
+        const ce = F.cell(ln, st), x0 = cx0 + c * colW + cp + 8, tx0 = x0 + 14, tx1 = x0 + colW - cp - 8 - valW - 6, tw = tx1 - tx0;
+        const ys = levelGlyph(g1, x0, top, gh, ce.lv);
+        // 단계 칸 사이의 옅은 안내선
+        ys.slice(0, 3).forEach(([yy]) => g1.append(sv('line', { x1: tx0, x2: tx1, y1: yy - 1, y2: yy - 1, stroke: C.guide })));
+        const px = k => tx0 + (k + 1) / 24 * tw, pts = ce.r.map((v, k) => [px(k), bandY(ys, v)]);
+        const gl = sv('g', { class: anim ? 'fade' : null, style: anim ? { animationDelay: (r * 60 + c * 40) + 'ms' } : null });
+        pts.slice(1).forEach((p, k) => gl.append(sv('line', { x1: pts[k][0], y1: pts[k][1], x2: p[0], y2: p[1], stroke: C.lv[lvOf(ce.r[k + 1])], 'stroke-width': 2, 'stroke-linecap': 'round' })));
+        const last = pts[pts.length - 1];
+        gl.append(sv('circle', { cx: last[0], cy: last[1], r: 3.2, fill: C.lv[ce.lv], stroke: C.scr, 'stroke-width': 1.2 }));
+        g2.append(gl);
+        // 값과 단계 이름
+        const vx = x0 + colW - cp - 8;
+        g2.append(sv('text', { x: vx, y: top + gh / 2 - 1, 'text-anchor': 'end', 'font-size': multi ? (compact ? 14 : 15) : 18, 'font-weight': multi ? 500 : 300, fill: C.white, text: pct1(ce.now) }),
+          sv('text', { x: vx, y: top + gh / 2 + 14, 'text-anchor': 'end', 'font-size': 11.5, 'font-weight': 500, fill: C.lvT[ce.lv], text: fitText(t.levels[ce.lv], 11.5, 500, valW) }));
+        geo.push({ r, c, ln, st, x0, tx0, tw, y0, top, ys, pts });
+      });
+    });
+    // 시간 축: 맨 아래 줄 밑에
+    const ay = headH + n * rowH + 15;
+    if (hours) lines.forEach((ln, c) => {
+      const x0 = cx0 + c * colW + cp + 8, tx0 = x0 + 14, tx1 = x0 + colW - cp - 8 - valW - 6, tw = tx1 - tx0;
+      (multi || narrow || tw < 240 ? t.hourS : t.hourL).forEach(([lab, hh], q, arr) => g1.append(sv('text', { x: tx0 + hh / 24 * tw, y: ay, 'text-anchor': q === 0 ? 'start' : q === arr.length - 1 ? 'end' : 'middle', 'font-size': 11.5, fill: C.tick, text: lab })));
+    });
+    svg.append(gsel);
+    plot.replaceChildren(svg);
+    plot.setAttribute('aria-label', t.title(F).replace(/⁠/g, ''));
+    // 범례: 단계 칸과 범위, 화살표
+    const chip = k => sv('svg', { width: 8, height: 12, 'aria-hidden': 'true' }, sv('rect', { x: 0, y: 0, width: 8, height: 12, rx: 1, fill: C.lv[k] }));
+    $('#f2K').replaceChildren(...t.levels.map((lab, k) => h('li', null, chip(k), `${lab} ${t.ranges[k]}`)),
+      h('li', null, sv('svg', { width: 8, height: 10, 'aria-hidden': 'true' }, sv('path', { d: 'M0 0.5L6 5L0 9.5Z', fill: C.white })), t.nowKey));
+    // 툴팁: 칸과 시간
+    const per = 24, nItems = geo.length * per;
+    const tipFor = i => {
+      const g = geo[Math.floor(i / per)], k = i % per, ce = F.cell(g.ln, g.st), v = ce.r[k], lv = lvOf(v);
+      return [`${L().lines[g.ln]} · ${t.stations[g.st]} · ${t.hour(k + 1)}`, [{ key: C.lv[lv], value: pct1(v), label: t.tip.rate }, { value: t.tip.of(ce.fails[k], ce.units), label: t.tip.units }, { value: t.levels[lv], tone: LV_TONE[lv] === 'bad' ? 'bad' : LV_TONE[lv] }]];
+    };
+    f2Cur.say = i => { const [hd, rr] = tipFor(i); return hd + ': ' + rr.map(r => r.value + ' ' + (r.label || '')).join(', '); };
+    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const g = geo[Math.floor(i / per)], p = g.pts[i % per]; gsel.append(sv('line', { x1: p[0], x2: p[0], y1: g.top - 3, y2: g.top + gh + 3, stroke: C.white, 'stroke-width': 1, 'stroke-dasharray': '2 2' }), sv('circle', { cx: p[0], cy: p[1], r: 4.5, fill: 'none', stroke: C.white, 'stroke-width': 1.5 })); };
+    wireItems(host, plot, nItems, f2Cur, (x, y) => {
+      const r = Math.max(0, Math.min(n - 1, Math.floor((y - headH) / rowH))), c = Math.max(0, Math.min(lines.length - 1, Math.floor((x - cx0) / colW)));
+      const g = geo[r * lines.length + c], k = Math.max(0, Math.min(per - 1, Math.round((x - g.tx0) / g.tw * 24) - 1));
+      return (r * lines.length + c) * per + k;
+    }, i => { sel(i); const o = offsetIn(host, plot), g = geo[Math.floor(i / per)], p = g.pts[i % per]; placeTip(host, tipNodes(...tipFor(i)), o.x + p[0], o.y + g.top, o.y + g.top + gh); }, () => sel(-1));
+    f2Cur.i = Math.min(f2Cur.i, nItems - 1);
+    $('#f2Table').replaceChildren(srTable(t.title(F), t.sr, geo.map(g => { const ce = F.cell(g.ln, g.st); return [L().lines[g.ln], t.stations[g.st], pct1(ce.now), t.levels[ce.lv], pct1(Math.min(...ce.r)), pct1(Math.max(...ce.r))]; })));
+  }
+
+  /* ================= 표 1: 로트 =================
+     dyson.com 스펙 칸처럼 라벨 머리와 머리카락 선. 첫 통과율은 막대와 목표 눈금(97%), 밀봉 시험은 단계 막대 그림과 값,
+     판정은 dyson.com 배지(출하 검정, 보류 빨강). 보류부터. */
+  const t1Cur = { i: 0 };
+  function fpyBar(v) {
+    const lo = 85, hi = 100, pc = x => ((Math.max(lo, Math.min(hi, x)) - lo) / (hi - lo) * 100).toFixed(2) + '%', bad = v < DATA.target;
+    return sv('svg', { 'aria-hidden': 'true' },
+      sv('rect', { x: 0, y: 4, width: '100%', height: 7, fill: '#ececec' }),
+      sv('rect', { x: 0, y: 4, width: pc(v), height: 7, fill: bad ? C.badT : C.ink }),
+      sv('line', { x1: pc(DATA.target), x2: pc(DATA.target), y1: 0, y2: 15, stroke: C.ink, 'stroke-width': 1.5 }));
+  }
+  function glyphSvg(lv) {
+    const s = sv('svg', { width: 18, height: 24, viewBox: '0 0 18 24', 'aria-hidden': 'true' });
+    levelGlyph(s, 9, 1, 22, lv, { w: 7, dim: .22, arrowFill: C.ink });
+    // 흰 바탕에서 노랑 칸은 짙은 테두리로 받친다
+    if (lv === 1) s.append(sv('rect', { x: 9.5, y: 1 + 2 * ((22 - 6) / 4 + 2) + .5, width: 6, height: (22 - 6) / 4 - 1, rx: 1, fill: 'none', stroke: C.lvTW[1], 'stroke-width': 1 }));
+    return s;
+  }
+  function renderT1(animate) {
+    const F = facts(), t = L().t1, host = $('#t1');
+    $('#t1T').textContent = glue(t.title(F));
+    const few = F.lots.length <= 8, shown = state.showAll || few ? F.lots : F.lots.slice(0, 8);
+    const tb = h('table', { class: 'lots' },
+      h('thead', null, h('tr', null, h('th', { text: t.cols[0] }), h('th', { class: 'r hide-s', text: t.cols[1] }), h('th', { text: t.cols[2] }), h('th', { class: 'r hide-m', text: t.cols[3] }), h('th', { text: t.cols[4] }), h('th', { text: t.cols[5] }))),
+      h('tbody', { class: animOK(animate) ? 'fade' : null, tabindex: 0, 'aria-label': t.title(F).replace(/⁠/g, '') }, shown.map(l => {
+        const lv = lvOf(l.seal), bad = l.fpy < DATA.target;
+        return h('tr', { 'data-id': l.id, 'data-say': `${l.id}, ${t.day(l.day)}: ${t.cols[1]} ${NF(0).format(l.units)}, ${t.cols[2]} ${pct1(l.fpy)}, ${t.cols[3]} ${l.suction} AW, ${t.cols[4]} ${pct1(l.seal)} ${L().f2.levels[lv]}, ${l.hold ? t.dec.hold : t.dec.rel}` },
+          h('td', { class: 'id' }, h('b', { text: l.id }), h('span', null, h('span', { class: 'hide-s', text: `${L().lines[l.line]} · ` }), t.day(l.day))),
+          h('td', { class: 'r hide-s' }, h('span', { class: 'num', text: NF(0).format(l.units) })),
+          h('td', null, h('div', { class: 'fpyc' }, h('span', { class: 'num' + (bad ? ' bad' : ''), text: pct1(l.fpy) }), fpyBar(l.fpy))),
+          h('td', { class: 'r hide-m' }, h('span', { class: 'num' }, String(l.suction), h('span', { class: 'u', text: 'AW' }))),
+          h('td', null, h('span', { class: 'lvc' }, glyphSvg(lv), h('b', { style: { color: C.lvTW[lv] }, text: pct1(l.seal) }), h('small', { class: 'hide-s', text: L().f2.levels[lv] }))),
+          h('td', null, h('span', { class: 'badge' + (l.hold ? ' hold' : ''), text: l.hold ? t.dec.hold : t.dec.rel })));
+      })));
+    $('#t1Wrap').replaceChildren(tb);
+    const btn = few ? null : h('button', { type: 'button', class: 'btn btn-sm btn-o', 'aria-expanded': state.showAll ? 'true' : 'false', text: state.showAll ? t.less : t.more(F.lots.length) });
+    if (btn) btn.addEventListener('click', () => {
+      state.showAll = !state.showAll; t1Cur.i = 0; renderT1(false);
+      if (!state.showAll) host.scrollIntoView({ block: 'nearest' });
+      const b = $('#t1More button'); if (b) b.focus({ preventScroll: true });
+    });
+    $('#t1More').replaceChildren(...(btn ? [btn] : []));
+    wireRows(host, $('tbody', tb), 'tr', t1Cur, (i, row) => {
+      const l = shown[i], o = offsetIn(host, row), lv = lvOf(l.seal);
+      placeTip(host, tipNodes(`${l.id} · ${t.day(l.day)}`, [
+        { value: NF(0).format(l.units), label: t.tip.units },
+        { value: pct1(l.fpy), label: `${t.tip.fpy} · ${t.tip.target}`, tone: l.fpy < DATA.target ? 'bad' : null },
+        { value: `${l.suction} AW`, label: t.tip.suction },
+        { key: C.lv[lv], value: pct1(l.seal), label: `${t.tip.seal} · ${L().f2.levels[lv]}`, tone: LV_TONE[lv] },
+        { value: pct1(l.noise), label: t.tip.noise },
+        { value: l.hold ? t.dec.hold : t.dec.rel, label: l.hold ? t.tip.why : t.tip.ok, tone: l.hold ? 'bad' : 'good' }
+      ]), o.x + Math.min(o.w / 2, 300), o.y, o.y + o.h);
+    });
+  }
+
+  /* ================= 그림 3: 첫 통과율 12주 =================
+     다이슨이 발행한 차트처럼 검은 패널에 흰 선(이 보기)과 회색 선(다른 라인), 공장 전체는 회색 점선. 목표는 빨간 선과 왼쪽의 빨간 이름.
+     위에는 달 이름과 달 경계의 세로선, 아래에는 주 번호, 선 끝에 값. */
+  const MONTH_OF = [0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2];   // 36~39주 9월 · 40~44주 10월 · 45~47주 11월
+  const f3Cur = { i: 11 };
+  function renderF3(animate) {
+    const F = facts(), t = L().f3, plot = $('#f3Plot'), host = $('#f3'), anim = animOK(animate), S = F.fpy, wk = DATA.weeks, n = wk.length;
+    $('#f3T').textContent = glue(t.title(F));
+    const [W, H] = plotSize(plot, 260, 260), tight = W < 480;
+    const lo = 93.5, hi = 98.5, fsE = tight ? 11.5 : 12.5;
+    const endLabels = [{ id: 'hero', name: S.heroName, v: S.hero.at(-1), hero: true }].concat(S.ctx.map(c => ({ id: c.id, name: c.name, v: c.s.at(-1) })), S.plant ? [{ id: 'plant', name: t.plant, v: S.plant.at(-1) }] : []);
+    const padR = Math.ceil(Math.max(...endLabels.map(e => textW(`${e.name} ${pct1(e.v)}`, e.hero ? 14 : fsE, e.hero ? 500 : 400)))) + 14;
+    const padL = Math.ceil(textW('98%', 12)) + 12, padT = 26, padB = 24, base = H - padB;
+    const x = i => padL + i / (n - 1) * (W - padL - padR), y = v => padT + (hi - v) / (hi - lo) * (base - padT);
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g0 = sv('g'), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
+    svg.append(g0, g1, g2, gsel);
+    for (let v = 94; v <= 98; v++) g0.append(sv('text', { x: padL - 10, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 12, fill: C.tick, text: v + '%' }), sv('line', { x1: padL - 4, x2: W - padR, y1: y(v), y2: y(v), stroke: C.guide }));
+    // 달: 경계 세로선과 위의 이름
+    [0, 4, 9].forEach((i0, m) => {
+      const i1 = [3, 8, 11][m], xm = (x(i0) + x(i1)) / 2;
+      g0.append(sv('text', { x: xm, y: 13, 'text-anchor': 'middle', 'font-size': 12.5, 'font-weight': 500, fill: C.sub, text: t.months[m] }));
+      if (m) g0.append(sv('line', { x1: (x(i0) + x(i0 - 1)) / 2, x2: (x(i0) + x(i0 - 1)) / 2, y1: 20, y2: base, stroke: C.base }));
+    });
+    wk.forEach((w, i) => { if (!tight || i % 2 === 1 || i === n - 1) g0.append(sv('text', { x: x(i), y: base + 17, 'text-anchor': 'middle', 'font-size': 11.5, fill: C.tick, text: String(w) })); });
+    // 목표: 빨간 선, 왼쪽 위에 빨간 이름
+    g0.append(sv('line', { x1: padL, x2: W - padR, y1: y(DATA.target), y2: y(DATA.target), stroke: C.limit, 'stroke-width': 2 }),
+      sv('text', { x: padL + 6, y: y(DATA.target) + 16, 'font-size': 12.5, 'font-weight': 500, fill: C.limitT, text: t.target }));
+    const path = s => s.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join('');
+    const line = (s, a) => { const p = sv('path', { d: path(s), fill: 'none', 'stroke-linejoin': 'round', 'stroke-linecap': 'round', ...a }); if (anim) { p.setAttribute('class', 'draw'); p.style.setProperty('--len', '2000'); } return p; };
+    S.ctx.forEach(c => g1.append(line(c.s, { stroke: C.ctx, 'stroke-width': 1.5 })));
+    if (S.plant) g1.append(line(S.plant, { stroke: C.ctx, 'stroke-width': 1.5, 'stroke-dasharray': '5 4' }));
+    g1.append(line(S.hero, { stroke: C.white, 'stroke-width': 2.5 }));
+    g1.append(sv('circle', { cx: x(n - 1), cy: y(S.hero.at(-1)), r: 3.5, fill: C.white }));
+    // 끝 이름: 겹치면 아래위로 민다
+    const ends = endLabels.map(e => ({ ...e, y: y(e.v) + 4 })).sort((a, b) => a.y - b.y);
+    for (let it = 0; it < 6; it++) for (let q = 1; q < ends.length; q++) if (ends[q].y - ends[q - 1].y < 16) { const d = (16 - (ends[q].y - ends[q - 1].y)) / 2; ends[q].y += d; ends[q - 1].y -= d; }
+    ends.forEach(e => {
+      const tx = sv('text', { x: x(n - 1) + 10, y: e.y, 'font-size': e.hero ? 14 : fsE, 'font-weight': e.hero ? 500 : 400, fill: e.hero ? C.white : C.sub });
+      tx.append(sv('tspan', { text: e.name + ' ' }), sv('tspan', { 'font-weight': e.hero ? 300 : 400, text: pct1(e.v) }));
+      g2.append(tx);
+    });
+    // 사건: 라인 2가 보이는 보기에서, 떨어진 점 왼쪽 아래에
+    const l2 = F.v === 'L2' ? S.hero : (S.ctx.find(c => c.id === 'L2') || {}).s;
+    if (l2 && (F.v === 'ALL' || F.v === 'L2')) {
+      const px = x(n - 1), py = y(l2.at(-1)), lw = textW(t.event, 12, 400);
+      g2.append(sv('line', { x1: px - 4, x2: px - 22, y1: py + 2, y2: py + 12, stroke: C.sub, 'stroke-width': 1 }),
+        sv('text', { x: Math.max(padL, px - 26 - lw), y: py + 17, 'font-size': 12, fill: C.sub, text: t.event }));
+    }
+    svg.append(gsel);
+    plot.replaceChildren(svg);
+    plot.setAttribute('aria-label', t.title(F).replace(/⁠/g, ''));
+    $('#f3K').replaceChildren(...[
+      h('li', null, sv('svg', { width: 18, height: 10 }, sv('line', { x1: 0, x2: 18, y1: 5, y2: 5, stroke: C.white, 'stroke-width': 2.5 })), S.heroName),
+      h('li', null, sv('svg', { width: 18, height: 10 }, sv('line', { x1: 0, x2: 18, y1: 5, y2: 5, stroke: C.ctx, 'stroke-width': 1.5 })), t.keys[1]),
+      S.plant ? h('li', null, sv('svg', { width: 18, height: 10 }, sv('line', { x1: 0, x2: 18, y1: 5, y2: 5, stroke: C.ctx, 'stroke-width': 1.5, 'stroke-dasharray': '5 4' })), t.plant) : null,
+      h('li', null, sv('svg', { width: 18, height: 10 }, sv('line', { x1: 0, x2: 18, y1: 5, y2: 5, stroke: C.limit, 'stroke-width': 2 })), t.target)].filter(Boolean));
+    const tipFor = i => [`${t.week(wk[i])} · ${t.weekRange(wk[i])}`, [{ key: C.white, line: true, value: pct1(S.hero[i]), label: S.heroName }].concat(S.ctx.map(c => ({ key: C.ctx, line: true, value: pct1(c.s[i]), label: c.name })), S.plant ? [{ key: C.ctx, line: true, value: pct1(S.plant[i]), label: t.plant }] : [], [{ key: C.limit, line: true, value: pct1(DATA.target), label: t.keys[3] }])];
+    f3Cur.say = i => { const [hd, rr] = tipFor(i); return hd + ': ' + rr.map(r => r.value + ' ' + (r.label || '')).join(', '); };
+    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; gsel.append(sv('line', { x1: x(i), x2: x(i), y1: padT - 4, y2: base, stroke: C.white, 'stroke-width': 1, 'stroke-dasharray': '2 3' }), sv('circle', { cx: x(i), cy: y(S.hero[i]), r: 5, fill: 'none', stroke: C.white, 'stroke-width': 1.5 })); };
+    wireItems(host, plot, n, f3Cur, xx => Math.max(0, Math.min(n - 1, Math.round((xx - padL) / (W - padL - padR) * (n - 1)))),
+      i => { sel(i); const o = offsetIn(host, plot); placeTip(host, tipNodes(...tipFor(i)), o.x + x(i), o.y + y(Math.max(S.hero[i], ...S.ctx.map(c => c.s[i]))) - 6, o.y + base); }, () => sel(-1));
+    $('#f3Table').replaceChildren(srTable(t.title(F), [t.sr[0], S.heroName].concat(S.ctx.map(c => c.name), S.plant ? [t.plant] : []), wk.map((w, i) => [t.week(w), pct1(S.hero[i])].concat(S.ctx.map(c => pct1(c.s[i])), S.plant ? [pct1(S.plant[i])] : []))));
+  }
+
+  /* ================= 그림 4: 원인별 초기 반품 =================
+     다이슨이 발행한 실내·실외 비율 막대처럼 원인마다 올해와 작년을 한 줄 100% 막대로 나누고, 값은 막대 안 흰 글자, 가운데 점선은 변화 없음.
+     오른쪽에 가는 큰 배수. 작년 대비 배수가 큰 원인부터. */
+  const f4Cur = { i: 0 };
+  function renderF4(animate) {
+    const F = facts(), t = L().f4, plot = $('#f4Plot'), host = $('#f4'), anim = animOK(animate), R = F.ret, n = R.length;
+    $('#f4T').textContent = glue(t.title(F));
+    const [W, H] = plotSize(plot, 260, 260);
+    const statSide = W >= 600, statW = statSide ? Math.min(230, Math.round(W * .3)) : 0, statH = statSide ? 0 : 76;
+    const nameW = Math.ceil(Math.max(...R.map(r => textW(t.causes[r.c], 13.5, 400)))) + 14;
+    const bx0 = nameW, bx1 = W - statW - (statSide ? 26 : 0), bw = bx1 - bx0;
+    const rowH = Math.max(26, Math.min(40, (H - statH - 8) / n)), barH = Math.min(26, rowH - 8), top0 = statH + 4;
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
+    svg.append(g1, g2, gsel);
+    const geo = [];
+    R.forEach((r, i) => {
+      const yc = top0 + i * rowH + rowH / 2, y0 = yc - barH / 2, share = r.n / (r.n + r.w), xm = bx0 + share * bw;
+      g1.append(sv('text', { x: nameW - 12, y: yc + 4.5, 'text-anchor': 'end', 'font-size': 13.5, 'font-weight': i === 0 ? 500 : 400, fill: C.white, text: t.causes[r.c] }));
+      const gb = sv('g', { class: anim ? 'growx' : null, style: anim ? { animationDelay: (i * 70) + 'ms' } : null });
+      gb.append(sv('rect', { x: bx0, y: y0, width: Math.max(1, xm - bx0 - 1), height: barH, fill: C.now }), sv('rect', { x: xm + 1, y: y0, width: Math.max(1, bx1 - xm - 1), height: barH, fill: C.was }));
+      g1.append(gb);
+      g2.append(sv('text', { x: bx0 + 8, y: yc + 4.5, 'font-size': 12.5, 'font-weight': 500, fill: C.white, text: NF(0).format(r.n) }),
+        sv('text', { x: bx1 - 8, y: yc + 4.5, 'text-anchor': 'end', 'font-size': 12.5, 'font-weight': 500, fill: C.white, text: NF(0).format(r.w) }));
+      geo.push({ y0: top0 + i * rowH, y1: top0 + (i + 1) * rowH, yc, xm });
+    });
+    // 변화 없음: 가운데 흰 점선
+    g2.append(sv('line', { x1: bx0 + bw / 2, x2: bx0 + bw / 2, y1: top0 - 2, y2: top0 + n * rowH + 2, stroke: C.white, 'stroke-width': 1, 'stroke-dasharray': '2 3', 'stroke-opacity': .85 }));
+    // 가는 큰 배수
+    const top = R[0], [s1, s2] = t.stat(t.causes[top.c]);
+    if (statSide) {
+      const sx = bx1 + 26, sy = top0 + Math.min(96, (n * rowH) * .42);
+      g2.append(sv('text', { x: sx, y: sy, 'font-size': 64, 'font-weight': 300, fill: C.white, text: t.times(top.ratio) }),
+        sv('text', { x: sx, y: sy + 30, 'font-size': 16, 'font-weight': 300, fill: C.sub, text: fitText(s1, 16, 300, statW) }),
+        sv('text', { x: sx, y: sy + 52, 'font-size': 16, 'font-weight': 300, fill: C.sub, text: fitText(s2, 16, 300, statW) }));
+    } else {
+      g2.append(sv('text', { x: 0, y: 46, 'font-size': 48, 'font-weight': 300, fill: C.white, text: t.times(top.ratio) }));
+      const tw0 = textW(t.times(top.ratio), 48, 300) + 14;
+      g2.append(sv('text', { x: tw0, y: 28, 'font-size': 14.5, 'font-weight': 300, fill: C.sub, text: s1 }), sv('text', { x: tw0, y: 47, 'font-size': 14.5, 'font-weight': 300, fill: C.sub, text: s2 }));
+    }
+    svg.append(gsel);
+    plot.replaceChildren(svg);
+    plot.setAttribute('aria-label', t.title(F).replace(/⁠/g, ''));
+    const dot = c => sv('svg', { width: 10, height: 10, 'aria-hidden': 'true' }, sv('circle', { cx: 5, cy: 5, r: 4.5, fill: c }));
+    $('#f4K').replaceChildren(h('li', null, dot(C.now), t.keys[0]), h('li', null, dot(C.was), t.keys[1]),
+      h('li', null, sv('svg', { width: 10, height: 14, 'aria-hidden': 'true' }, sv('line', { x1: 5, x2: 5, y1: 0, y2: 14, stroke: C.white, 'stroke-dasharray': '2 3' })), t.keys[2]));
+    const tipFor = i => { const r = R[i]; return [t.causes[r.c], [{ key: C.now, value: NF(1).format(r.n), label: `${t.tip.now} · ${t.tip.per}` }, { key: C.was, value: NF(1).format(r.w), label: `${t.tip.was} · ${t.tip.per}` }, { value: t.times(r.ratio), tone: r.ratio > 1.05 ? 'bad' : r.ratio < .95 ? 'good' : null }]]; };
+    f4Cur.say = i => { const [hd, rr] = tipFor(i); return hd + ': ' + rr.map(r => r.value + ' ' + (r.label || '')).join(', '); };
+    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const g = geo[i]; gsel.append(sv('rect', { x: 1, y: g.y0 + 1, width: bx1 - 1, height: g.y1 - g.y0 - 2, fill: 'none', stroke: C.white, 'stroke-width': 1.2, 'stroke-dasharray': '3 3' })); };
+    wireItems(host, plot, n, f4Cur, (xx, yy) => Math.max(0, Math.min(n - 1, Math.floor((yy - top0) / rowH))),
+      i => { sel(i); const o = offsetIn(host, plot), g = geo[i]; placeTip(host, tipNodes(...tipFor(i)), o.x + g.xm, o.y + g.y0, o.y + g.y1); }, () => sel(-1));
+    $('#f4Table').replaceChildren(srTable(t.title(F), t.sr, R.map(r => [t.causes[r.c], NF(1).format(r.n), NF(1).format(r.w), t.times(r.ratio)])));
+  }
+
+  /* ================= 숫자를 세는 법 ================= */
+  function renderTerms() {
+    const t = L();
+    $('#terms').replaceChildren(...t.notes.items.map(([k, v]) => h('p', null, h('b', null, k, ': '), v)), h('p', { class: 'src', text: t.notes.src }));
+  }
+
+  /* ================= 만드는 법: 그림 1을 다시 그리는 작업대 ================= */
+  function drawBench() {
+    const F = facts(), plot = $('#wbPlot'), without = state.mode === 'without';
+    // 좁은 작업대에서 모든 라인이면 화면을 쌓으므로 높이를 늘린다
+    plot.style.minHeight = !without && F.audit.length > 1 && plot.clientWidth < STACK_W ? stackH(F.audit.length) + 'px' : '';
+    const W = Math.max(240, plot.clientWidth), Hh = Math.max(250, plot.clientHeight);
+    plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight);
+    let svg;
+    if (!without) svg = particleSvg(F, W, Hh, { layers: true, label: L().f1.title(F) }).svg;
+    else {
+      // 명세 없이: 라인과 크기를 묶은 기본 막대, 기본 색을 돌려 쓰고, 날값(리터당 입자)을 0부터. 큰 입자 막대는 보이지 않는다
+      const items = F.audit.flatMap(a => a.now.map((v, k) => [a.name, k, v]));
+      const padL = 40, padR = 8, padT = 30, padB = 26, PW = W - padL - padR, PH = Hh - padT - padB, groups = F.audit.length;
+      const gw = PW / groups, bw = Math.max(4, gw / 5.4), hi = Math.max(...items.map(x => x[2])) * 1.12, y = v => padT + (hi - v) / hi * PH;
+      const font = { 'font-family': 'Arial, sans-serif' };
+      svg = sv('svg', { width: W, height: Hh, viewBox: `0 0 ${W} ${Hh}`, role: 'img', 'aria-label': L().build.generic });
+      const g1 = sv('g', { class: 'layer', 'data-step': 1 }), g2 = sv('g', { class: 'layer', 'data-step': 2 }), g4 = sv('g', { class: 'layer', 'data-step': 4 });
+      for (let v = 0; v <= hi; v += 5) g1.append(sv('line', { x1: padL, x2: W - padR, y1: y(v), y2: y(v), stroke: v ? '#d0d0d0' : '#888' }), sv('text', { x: padL - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: '#666', ...font, text: v }));
+      ['0.3', '1', '2.5', '10'].forEach((s, k) => g1.append(sv('rect', { x: padL + k * 56, y: 6, width: 9, height: 9, fill: C.generic[k] }), sv('text', { x: padL + 13 + k * 56, y: 14, 'font-size': 11, fill: '#333', ...font, text: s })));
+      items.forEach(([name, k, v], j) => {
+        const gi = Math.floor(j / 4), x0 = padL + gi * gw + (gw - bw * 4 - 6) / 2 + k * (bw + 2), y0 = y(v);
+        g2.append(sv('rect', { x: x0, y: y0, width: bw, height: Math.max(.5, padT + PH - y0), fill: C.generic[k] }));
+        g4.append(sv('text', { x: x0 + bw / 2, y: y0 - 4, 'text-anchor': 'middle', 'font-size': 9.5, fill: '#333', ...font, text: v }));
+        if (k === 0) g1.append(sv('text', { x: padL + gi * gw + gw / 2, y: Hh - 8, 'text-anchor': 'middle', 'font-size': 10.5, fill: '#666', ...font, text: name }));
+      });
+      svg.append(g1, g2, g4);
+    }
+    plot.replaceChildren(svg);
+    const win = $('#win');
+    if (win.classList.contains('building')) $$('.layer', svg).forEach(el => { if ($$(`.layer[data-step="${el.dataset.step}"].on`, win).some(o => !svg.contains(o))) el.classList.add('on'); });
+    else $$('.layer', svg).forEach(el => el.classList.add('on'));
+  }
+
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-1.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  function codeLines(kind) {
+    const ko = KO(), F = facts(), t1 = L().f1, ttl = t1.title(F).replace(/⁠/g, ''), sub = t1.sub, q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(16) + v;
+    const line = L().lines[F.v];
+    const c = ko ? {
+      head: '그림 1 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 라인 필터',
+      s1: '1 · 틀: 라인마다 검은 화면 하나, 테두리·빛 번짐 없이',
+      s2: '2 · 막대: 크기 넷, 작은 것부터, 높이는 허용치 대비 비율',
+      s3: '3 · 허용치는 100%의 빨간 선 하나, 지난주는 회색 눈금',
+      s4: '4 · 값: 리터당 합계는 가는 40px, 막대 위 값, 아래 µm',
+      s5: '5 · 결과를 제목으로', once: '처음 한 번: dyson.tps를 내 Tableau 리포지토리의 Preferences.tps에 넣기'
+    } : {
+      head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the line filter above',
+      s1: '1 · frame: one black screen a line, no bezel or glow',
+      s2: '2 · bars: four sizes, smallest first, height = share of allowance',
+      s3: '3 · the allowance as one red line at 100%, last week as a tick',
+      s4: '4 · labels: the total in light 40px, values, sizes in µm',
+      s5: '5 · the result as the title', once: 'once: add dyson.tps to Preferences.tps in My Tableau Repository'
+    };
+    const J = {
+      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, 'S7 무선청소기의 주간 시험·출하 품질 대시보드를 만들어 줘. 첫 화면에는 스펙 시트처럼 KPI 다섯(첫 통과율, 출하 승인, 보류, 흡입력, 0.3 µm 여과율), 라인마다 여과 감사의 입자 수를 크기 넷의 막대로 보인 그림 1, 출하 시험 자리마다 단계 막대와 24시간 선을 보인 그림 2. 그 아래에 로트 판정 표 1, 12주 첫 통과율(그림 3), 원인별 초기 반품을 작년과 견준 그림 4.'], [0, '데이터는 로트별 시험 결과, 시험 자리의 시간별 불합격, 주간 여과 감사, 주별 첫 통과율, 반품이야. 라인 필터는 모든 카드에 적용하고, 결과를 제목으로 써 줘.']]
+        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build our weekly test and ship quality dashboard for the S7 cordless vacuum. First screen: five KPIs as a spec sheet (first-pass yield, released to ship, on hold, suction, filtration at 0.3 µm); Figure 1, the filtration audit as four size bars a line; Figure 2, every end-of-line station as a level bar with its last 24 hours. Below: Table 1, the lots and what decides them; Figure 3, twelve weeks of first-pass yield; Figure 4, early returns by cause against last year.'], [0, 'The data is test results by lot, hourly fails by station, the weekly filtration audit, weekly first-pass yield and returns. Apply the line filter to every card and write each result as the title.']],
+      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 머리 · dyson.com의 검정 머리, 회사와 보고서, EN/KO'], [0, kv('머리 띠', '#000000, 글자 흰색 300·500')], [0, kv('라인 필터', '메뉴 줄처럼 흰 16px, 고른 칸은 500과 밑줄')], [0, ''],
+        [0, '# 첫 화면 · 출하해도 되나, 왜 아닌가'], [0, kv('KPI 줄', '스펙 시트: 라벨 → 가는 44px 수치와 24px 단위 → 선')], [0, kv('그림 1', '입자 카운트: 라인마다 검은 화면, 크기 넷의 막대')], [0, kv('그림 2', '단계 막대: 좋음·보통·나쁨·매우 나쁨과 24시간 선')], [0, ''],
+        [0, '# 출하와 보류 · 로트, 추세, 반품'], [0, kv('표 1', '로트: 첫 통과율 막대, 밀봉 단계, 배지')], [0, kv('그림 3', '첫 통과율 12주, 흰 선과 빨간 목표선')], [0, kv('그림 4', '원인별 반품, 올해 · 작년 100% 막대, 큰 배수')]]
+        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Header · the dyson.com black header, company and report, EN/KO'], [0, kv('Header band', '#000000, white text at 300 and 500')], [0, kv('Line filter', 'like the menu row: white 16px, selected 500 underlined')], [0, ''],
+        [0, '# First screen · can it ship, and if not, why'], [0, kv('KPI row', 'spec sheet: label → light 44px value, 24px unit → rule')], [0, kv('Figure 1', 'particle count: a black screen a line, four size bars')], [0, kv('Figure 2', 'level bars: Good, Fair, Poor, Very poor, last 24 hours')], [0, ''],
+        [0, '# Ship or hold · lots, trend, returns'], [0, kv('Table 1', 'lots: yield bar, seal level, Release or Hold badge')], [0, kv('Figure 3', 'twelve weeks of yield, white line, red target')], [0, kv('Figure 4', 'returns by cause, this year · last year bars, the big ×')]],
+      js: [
+        [0, `// ${c.head}`], [0, 'import { tokens, plot, load } from "./dashboard.js";'],
+        [0, `const line = ${q(line)};${' '.repeat(Math.max(1, 18 - line.length))}// ${c.filter}`], [0, 'const audit = await load("audit.csv", { line });'], [0, ''],
+        [1, `// ${c.s1}`], [1, 'const fig = plot("#figure-1", {'], [1, '  screen: tokens.colors.screen,         // #000000'], [1, '  baseline: tokens.colors.screenRule,    // #3a3a3a'], [1, '  facet: "line" });'], [1, ''],
+        [2, `// ${c.s2}`], [2, 'fig.bars(audit, { x: "size", y: "share_of_allowance_pct",'], [2, '  fill: d => tokens.data.size[d.size] });'], [2, '  // #f5dc3c 0.3 · #e8641e 1 · #de3f9e 2.5 · #8462d8 10 µm'], [2, 'fig.rise({ ease: "out", ms: 1300 });   // fast, then slow'], [2, ''],
+        [3, `// ${c.s3}`], [3, 'fig.rule(100, { stroke: tokens.data.limit, width: 2 }); // #c0183e'], [3, 'fig.tick(audit, { y: "last_week_share_pct",'], [3, '  stroke: tokens.colors.screenSub });  // #b9b9b9'], [3, ''],
+        [4, `// ${c.s4}`], [4, 'fig.total({ field: "particles_per_litre", weight: 300, size: 40 });'], [4, 'fig.label(audit, { text: "particles_per_litre" });'], [4, 'fig.axis({ labels: [">0.3", ">1", ">2.5", ">10"], unit: "µm" });'], [4, ''],
+        [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.subtitle(${q(sub)});`]
+      ],
+      tab: ko ? [
+        [0, '# Tableau · 그림 1 · Dyson 스타일'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('데이터', 'audit.csv, 라인과 크기마다 한 줄')], [1, kv('열', '[line] (화면), [size] 불연속형')], [1, kv('서식', '워크시트 음영 #000000, 격자선 없음')], [1, ''],
+        [2, `# ${c.s2}`], [2, kv('행', 'SUM([share_of_allowance_pct])')], [2, kv('마크', '막대, 색상 [size]: 팔레트 "Dyson particles"')], [2, kv('', '#f5dc3c · #e8641e · #de3f9e · #8462d8')], [2, ''],
+        [3, `# ${c.s3}`], [3, kv('참조선', '상수 100, 실선 #c0183e 2px, 레이블 "허용치"')], [3, kv('지난주', '같은 축의 마크 하나 더: 모양(눈금), #b9b9b9')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('레이블', 'SUM([particles_per_litre]), 막대 위, 흰색')], [4, kv('합계', '라인마다 텍스트 마크, 300 굵기 40px')], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('부제', q(sub))]
+      ] : [
+        [0, '# Tableau · Figure 1 · Dyson style'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('Data', 'audit.csv, one row per line and size')], [1, kv('Columns', '[line] (a screen each), [size] discrete')], [1, kv('Format', 'worksheet shading #000000, no grid lines')], [1, ''],
+        [2, `# ${c.s2}`], [2, kv('Rows', 'SUM([share_of_allowance_pct])')], [2, kv('Mark type', 'bar, color [size]: palette "Dyson particles"')], [2, kv('', '#f5dc3c · #e8641e · #de3f9e · #8462d8')], [2, ''],
+        [3, `# ${c.s3}`], [3, kv('Reference line', 'constant 100, solid #c0183e 2px, label "Allowance"')], [3, kv('Last week', 'one more mark on the same axis: shape (tick), #b9b9b9')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('Labels', 'SUM([particles_per_litre]), above the bar, white')], [4, kv('Total', 'a text mark a line, weight 300, 40px')], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Subtitle', q(sub))]
+      ],
+      pbi: [
+        [0, ko ? '// Power BI · 그림 1 · Dyson 스타일' : '// Power BI · Figure 1 · Dyson style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
+        [1, `// ${c.s1}`], [1, ko ? '묶은 세로 막대형 · 작은 여러 개 = line · X축 = size · Y축 = share_of_allowance_pct' : 'Clustered column chart · Small multiples = line · X = size · Y = share_of_allowance_pct'], [1, '"background": { "color": "#000000" }, "valueAxis": { "gridlineShow": false },'], [1, ''],
+        [2, `// ${c.s2}`], [2, ko ? '데이터 색: 크기마다 #f5dc3c · #e8641e · #de3f9e · #8462d8' : 'Data colors by size: #f5dc3c · #e8641e · #de3f9e · #8462d8'], [2, ''],
+        [3, `// ${c.s3}`], [3, ko ? '분석 → 상수 선 100, #c0183e 2px, 데이터 레이블 "허용치"' : 'Analytics → constant line 100, #c0183e 2px, data label "Allowance"'], [3, ko ? '지난주: 오차 막대나 꺾은선 표식(선 없음), #b9b9b9' : 'Last week: error bars or line markers with no line, #b9b9b9'], [3, ''],
+        [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 켜기, particles_per_litre, 흰색' : 'Data labels → on, particles_per_litre, white'], [4, ko ? '합계: 위에 카드, 300 굵기 40px' : 'Total: a card above, weight 300, 40px'], [4, ''],
+        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(sub)}`]
+      ]
+    };
+    return J[kind];
+  }
+  const KW = { js: 'import|from|const|let|await|async|return|new|true|false' };
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const hexify = s => s.replace(/#[0-9a-fA-F]{6}\b/g, m => `<span class="tk-hex" style="--sw:${m}">${m}</span>`);
+  function commentAt(text, kind) {
+    let qq = null;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (qq) { if (ch === '\\') { i++; continue; } if (ch === qq) qq = null; continue; }
+      if (ch === '"' || ch === "'" || ch === '`') { qq = ch; continue; }
+      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
+      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+    }
+    return -1;
+  }
+  function highlight(text, kind) {
+    if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
+    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?|)\s{2,}(\S.*)$/.exec(text); if (m && !/^#/.test(text)) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? hexify(esc(m[2])) : highlightCode(m[2], kind)}`; }
+    return highlightCode(text, kind);
+  }
+  function highlightCode(text, kind) {
+    const ci = commentAt(text, kind), code = ci < 0 ? text : text.slice(0, ci), comment = ci < 0 ? '' : text.slice(ci), kw = KW[kind];
+    const re = new RegExp('("(?:[^"\\\\]|\\\\.)*"|\'(?:[^\'\\\\]|\\\\.)*\')|(#[0-9a-fA-F]{6}\\b)|(\\b\\d+(?:[._]\\d+)?\\b)' + (kw ? `|\\b(${kw})\\b` : '|(?!x)x()') + '|([A-Za-z_][\\w.]*)(?=\\s*\\()|(\\b[A-Za-z_]\\w*)(?=\\s*:(?!:))', 'g');
+    let out = '', last = 0, m;
+    while ((m = re.exec(code))) {
+      out += esc(code.slice(last, m.index));
+      const [all, str, hex, num, k, fn, prop] = m;
+      if (str) out += /^\s*:/.test(code.slice(m.index + all.length)) ? `<span class="tk-p">${esc(str)}</span>` : `<span class="tk-s">${hexify(esc(str))}</span>`;
+      else if (hex) out += hexify(hex);
+      else if (num) out += `<span class="tk-n">${num}</span>`;
+      else if (k) out += `<span class="tk-k">${k}</span>`;
+      else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
+      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else out += esc(all);
+      last = m.index + all.length;
+    }
+    out += esc(code.slice(last));
+    if (comment) out += `<span class="tk-c">${hexify(esc(comment))}</span>`;
+    return out;
+  }
+  function renderBuildStatic() {
+    const t = L();
+    $('#steps').replaceChildren(...t.build.steps.map(([b, p], i) => h('li', null, h('span', { class: 'bn', 'aria-hidden': 'true', text: i + 1 }), h('b', { text: b }), h('p', { text: p }))));
+    const item = (name, href, opt = {}) => {
+      const inner = [h('div', null, h('b', { text: name }), t.build.files[name] ? h('span', { text: t.build.files[name] }) : null)];
+      const el = href ? h('a', { href, target: opt.dl ? null : '_blank', rel: opt.dl ? null : 'noopener', download: opt.dl ? name : null }, inner) : h('div', { class: 'fi' }, inner);
+      return h('li', { class: [opt.cls, opt.root ? 'root' : null].filter(Boolean).join(' ') || null }, el);
+    };
+    $('#tree').replaceChildren(
+      item('your-project/', null, { root: 1 }),
+      item('DASHBOARD.md', 'DASHBOARD.html', { cls: 'in' }),
+      item('.claude/skills/', null, { cls: 'in' }), item('dashboard-style/', null, { cls: 'in2' }),
+      item('SKILL.md', 'skill/SKILL.html', { cls: 'in3' }), item('tokens.css', 'tokens.css', { cls: 'in3' }),
+      item('dyson.tps', 'dyson.tps', { cls: 'in3', dl: 1 }), item('powerbi-theme.json', 'powerbi-theme.json', { cls: 'in3', dl: 1 }),
+      item('prompt.md', 'prompt.html', { cls: 'in3' }));
+    $('#modeSeg').replaceChildren(...t.build.modes.map((x, i) => {
+      const k = i ? 'with' : 'without';
+      const b = h('button', { type: 'button', role: 'tab', 'aria-selected': state.mode === k ? 'true' : 'false', tabindex: state.mode === k ? 0 : -1, text: x });
+      b.addEventListener('click', () => setMode(k));
+      return b;
+    }));
+    $('#modeSeg').setAttribute('aria-label', KO() ? '비교' : 'Compare');
+  }
+  const BENCH = { built: true, playing: false, token: 0 };
+  function setMode(k) { if (state.mode === k) return; if (BENCH.playing) finishBench(); state.mode = k; renderBuildStatic(); renderBench(); }
+  function setCode(k) { if (state.code === k) return; if (BENCH.playing) finishBench(); state.code = k; renderCodeTabs(); renderCode(); }
+  function renderCodeTabs() {
+    $('#ctabs').replaceChildren(...CODE_TABS.map(([k, label]) => {
+      const b = h('button', { type: 'button', class: 'ctab', role: 'tab', 'aria-selected': state.code === k ? 'true' : 'false', tabindex: state.code === k ? 0 : -1, text: label || (KO() ? '프롬프트' : 'Prompt') });
+      b.addEventListener('click', () => setCode(k));
+      return b;
+    }));
+  }
+  function renderCode() {
+    const lines = codeLines(state.code), pre = $('#code');
+    pre.classList.toggle('wrap', state.code === 'prompt');
+    pre.replaceChildren(...lines.map(([step, text]) => {
+      const ln = h('span', { class: 'ln' + (BENCH.built ? ' shown' : ''), 'data-step': step, html: highlight(text, state.code) || ' ' });
+      if (step) { ln.addEventListener('mouseenter', () => focusStep(step)); ln.addEventListener('mouseleave', () => focusStep(0)); }
+      return ln;
+    }));
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), BENCH.built ? L().build.built : L().build.drawing);
+    $('#cstatR').textContent = L().build.lines(lines.length);
+  }
+  function focusStep(step) {
+    const win = $('#win'), on = step > 0 && BENCH.built && state.mode === 'with';
+    $$('.code .ln', win).forEach(ln => ln.classList.toggle('hl', step > 0 && Number(ln.dataset.step) === step));
+    win.classList.toggle('focus-step', on);
+    $$('.layer', win).forEach(el => el.classList.toggle('focus', Number(el.dataset.step) === step));
+  }
+  function renderBench() {
+    const t = L(), without = state.mode === 'without', F = facts();
+    $('#wbScope').textContent = `line = ${VQ[F.v]}`;
+    $('#wbTitle').textContent = glue(without ? t.build.generic : t.f1.title(F));
+    $('#wbSub').textContent = without ? t.build.genericSub : t.f1.sub;
+    $('#wbNote').textContent = without ? t.build.generated : t.build.wbNote;
+    const ok = $('#checksOk'); ok.textContent = without ? t.build.checksBad : t.build.checksOk; ok.classList.toggle('bad', without);
+    const ic = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' },
+      sv('circle', { cx: 7, cy: 7, r: 6.2, 'stroke-width': 1.2 }), sv('path', { d: without ? 'M4.8 4.8l4.4 4.4M9.2 4.8l-4.4 4.4' : 'M4.3 7.2 6.2 9l3.5-3.8' }));
+    $('#checks').replaceChildren(...t.build.checks.map(([step, txt]) => h('li', { class: 'layer' + (without ? ' no' : '') + (BENCH.built ? ' on' : ''), 'data-step': step }, ic(),
+      h('span', null, txt.split(/(#[0-9a-f]{6})/).map(part => /^#[0-9a-f]{6}$/.test(part) ? h('code', { class: 'tk-hex', style: { '--sw': part }, text: part }) : part)))));
+    $('#win').classList.toggle('without', without);
+    renderCodeTabs(); renderCode();
+    drawBench();
+    if (BENCH.built) $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+    if (BENCH.playing) playBench();
+  }
+  function flashScope() {
+    const lines = $$('.code .ln').filter(ln => ln.dataset.step === '0' && /line/.test(ln.textContent) && /const line/.test(ln.textContent));
+    lines.forEach(ln => ln.classList.add('hl'));
+    setTimeout(() => lines.forEach(ln => ln.classList.remove('hl')), 1400);
+  }
+  const sleep = ms => new Promise(res => setTimeout(res, ms));
+  async function playBench() {
+    const win = $('#win'), pre = $('#code'), token = ++BENCH.token;
+    if (REDUCE) { finishBench(); return; }
+    if (state.mode !== 'with') { state.mode = 'with'; renderBuildStatic(); }
+    BENCH.built = false; BENCH.playing = false;
+    win.classList.add('building');
+    renderBench();
+    BENCH.playing = true;
+    pre.scrollTop = 0;
+    $$('.layer', win).forEach(el => el.classList.remove('on'));
+    const lines = $$('.code .ln', win);
+    let prevStep = 0;
+    for (const ln of lines) {
+      if (token !== BENCH.token) return;
+      const step = Number(ln.dataset.step);
+      if (step !== prevStep && prevStep > 0) { revealStep(prevStep); await sleep(380); if (token !== BENCH.token) return; }
+      prevStep = step;
+      lines.forEach(x => x.classList.remove('caret'));
+      ln.classList.add('shown', 'caret');
+      const bottom = ln.offsetTop + ln.offsetHeight + 12;
+      if (bottom > pre.scrollTop + pre.clientHeight) pre.scrollTop = bottom - pre.clientHeight;
+      await sleep(ln.textContent.trim() ? 55 : 20);
+    }
+    if (token !== BENCH.token) return;
+    revealStep(prevStep);
+    await sleep(500);
+    if (token !== BENCH.token) return;
+    lines.forEach(x => x.classList.remove('caret'));
+    BENCH.built = true; BENCH.playing = false;
+    win.classList.remove('building');
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), L().build.built);
+  }
+  function finishBench() {
+    BENCH.token++; BENCH.playing = false; BENCH.built = true;
+    $('#win').classList.remove('building');
+    renderCode();
+    $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+  }
+  function revealStep(step) { $$(`.layer[data-step="${step}"]`, $('#win')).forEach(el => el.classList.add('on')); }
+  $('#btnRun').addEventListener('click', () => playBench());
+  async function copyText(txt) {
+    try { await navigator.clipboard.writeText(txt); } catch (e) { const ta = h('textarea', { class: 'sr-only', text: txt }); document.body.append(ta); ta.select(); try { document.execCommand('copy'); } catch (_) {} ta.remove(); }
+  }
+  let toastTimer = null;
+  function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('on'), 2200); }
+  const ICONS = {
+    copy: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/></svg>',
+    play: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 3.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5z"/></svg>'
+  };
+  $$('[data-icon]').forEach(b => b.insertAdjacentHTML('afterbegin', ICONS[b.dataset.icon]));
+  $$('.btnCmd').forEach(b => b.addEventListener('click', async () => { await copyText(b.previousElementSibling.textContent); toast(L().build.cmdCopied); }));
+  const cmdFade = () => $$('.cmd code').forEach(c => {
+    const ov = c.scrollWidth > c.clientWidth + 1;
+    c.classList.toggle('more-r', ov && c.scrollLeft + c.clientWidth < c.scrollWidth - 2);
+    if (ov) c.setAttribute('tabindex', '0'); else c.removeAttribute('tabindex');
+  });
+  $$('.cmd code').forEach(c => c.addEventListener('scroll', cmdFade, { passive: true }));
+  addEventListener('resize', cmdFade);
+  if (document.fonts) document.fonts.ready.then(cmdFade);
+  cmdFade();
+  $('#btnCopyCode').addEventListener('click', async () => { await copyText(codeLines(state.code).map(l => l[1]).join('\n').replace(/⁠/g, '')); toast(L().build.copied); });
+
+  /* ================= 필터: 라인. dyson.com 메뉴 줄처럼 흰 글자, 고른 칸은 500과 밑줄 ================= */
+  const segEl = $('#lineSeg');
+  for (const v of VIEWS) { const b = h('button', { type: 'button', id: 'tab-' + v, role: 'tab', 'aria-controls': 'panel', 'data-k': v }); b.addEventListener('click', () => select(v)); segEl.append(b); }
+  const arrowNav = (el, keysList, cur, go) => el.addEventListener('keydown', e => {
+    const idx = keysList.indexOf(cur()), next = { ArrowRight: idx + 1, ArrowLeft: idx - 1, Home: 0, End: keysList.length - 1 }[e.key];
+    if (next == null) return;
+    e.preventDefault(); go(keysList[(next + keysList.length) % keysList.length]);
+  });
+  arrowNav(segEl, VIEWS, () => state.line, k => { select(k); $('#tab-' + k).focus(); });
+  arrowNav($('#ctabs'), CODE_TABS.map(x => x[0]), () => state.code, k => { setCode(k); $$('.ctab')[CODE_TABS.findIndex(x => x[0] === k)].focus(); });
+  arrowNav($('#modeSeg'), ['without', 'with'], () => state.mode, k => { setMode(k); $$('#modeSeg button')[k === 'with' ? 1 : 0].focus(); });
+  function syncTabs() {
+    for (const b of $$('button', segEl)) {
+      const v = b.dataset.k, on = v === state.line;
+      b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1;
+      b.textContent = L().lines[v];
+    }
+    $('#panel').setAttribute('aria-labelledby', 'tab-' + state.line);
+  }
+
+  /* ================= 언어와 그리기 ================= */
+  function applyLang() {
+    const t = L();
+    document.documentElement.lang = state.lang;
+    document.title = t.docTitle;
+    for (const el of $$('[data-i18n]')) { const val = pick(t, el.dataset.i18n); if (typeof val === 'string') el.textContent = val; }
+    segEl.setAttribute('aria-label', t.lineLabel);
+    for (const b of $$('#langSeg button')) b.setAttribute('aria-pressed', b.dataset.lang === state.lang ? 'true' : 'false');
+    $('#ctaLink').href = BLOG[state.lang] + 'contact-us/';
+    const cc = $('#btnCopyCode'); cc.setAttribute('aria-label', KO() ? '코드 복사' : 'Copy code'); cc.title = cc.getAttribute('aria-label');
+    $$('.btnCmd').forEach(cm => { cm.setAttribute('aria-label', KO() ? '설치 명령 복사' : 'Copy install command'); cm.title = cm.getAttribute('aria-label'); });
+    $('.foot .ser').href = 'https://styles.vizney.com/?lang=' + state.lang;
+    $('.foot .cat a[data-i18n="catName"]').href = 'https://styles.vizney.com/dyson/DASHBOARD.html';
+    const back = $('#backLink');
+    back.textContent = FROM_BLOG ? t.back.post : t.back.catalog;
+    back.href = FROM_BLOG ? BLOG[state.lang] + 'style-' + SLUG + '/' : 'https://styles.vizney.com/?lang=' + state.lang;
+    syncTabs(); renderBuildStatic(); renderTerms();
+  }
+  function renderAll(animate) {
+    renderHead(); renderF1(animate); renderF2(animate); renderT1(animate); renderF3(animate); renderF4(animate); renderBench();
+  }
+  function keepInUrl() {
+    try {
+      const u = new URL(location.href);
+      u.searchParams.set('lang', state.lang);
+      if (state.line === 'ALL') u.searchParams.delete('line'); else u.searchParams.set('line', VQ[state.line]);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* 주소를 못 바꾸는 환경에서는 화면만 바뀐다 */ }
+  }
+  function select(v) {
+    if (v === state.line) return;
+    state.line = v; state.showAll = false;
+    syncTabs(); renderAll(true); keepInUrl();
+    if (BENCH.built) flashScope();
+  }
+  for (const b of $$('#langSeg button')) b.addEventListener('click', () => { if (b.dataset.lang === state.lang) return; state.lang = b.dataset.lang; applyLang(); renderAll(false); keepInUrl(); });
+
+  applyLang();
+  renderAll(true);
+  if (!REDUCE && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); playBench(); } }, { threshold: .35 });
+    io.observe($('#win'));
+  }
+  // 처음 1.2초 안에 다시 그리면(서체가 늦게 오거나 칸 크기가 자리 잡을 때) 막대를 다시 올린다. 그 뒤로는 바로 그린다
+  const T0 = performance.now(), early = () => performance.now() - T0 < 1200;
+  const redraws = [['#f1Plot', () => renderF1(early())], ['#f2Plot', () => renderF2(early())], ['#f3Plot', () => renderF3(early())], ['#f4Plot', () => renderF4(early())], ['#wbPlot', drawBench]];
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(entries => {
+      for (const en of entries) {
+        const r = redraws.find(x => $(x[0]) === en.target);
+        if (!r) continue;
+        const el = en.target;
+        if (Math.round(el.clientWidth) !== el._w || (el._h != null && Math.round(el.clientHeight) !== el._h)) r[1]();
+      }
+    });
+    redraws.forEach(([sel]) => ro.observe($(sel)));
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => redraws.forEach(r => r[1]()));
+})();
+</script>
+</body>
+</html>
