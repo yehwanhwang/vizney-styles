@@ -8,13 +8,13 @@
 <link rel="canonical" href="https://styles.vizney.com/nasa/DASHBOARD.html">
 <link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=1d2c1aa7de" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=6be562f9b1" as="font" type="font/woff" crossorigin>
 <!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site's Markdown pages (prompt.md, skill/SKILL.md: _config.yml defaults) and, through tools/package.py, <name>/DASHBOARD.html. Header, tabs and footer are the site's (index.html / 404.html). -->
 <style>
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=1d2c1aa7de) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=1d2c1aa7de) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=1d2c1aa7de) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=1d2c1aa7de) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=6be562f9b1) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=6be562f9b1) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=6be562f9b1) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=6be562f9b1) format('woff')}
 :root{
   /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
      The blog's Vizney header (scrolls away) and the site's sticky tabs under it; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
@@ -221,8 +221,8 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
   <div class="tabs-in">
     <a class="tabs__name" href="/" data-href="home" data-tab="top">Vizney Styles</a>
     <a href="/#styles" data-href="home:styles" data-tab="styles" data-i18n="navStyles">Catalog</a>
+    <a href="/#use" data-href="home:use" data-tab="use" data-i18n="navUse">How to use</a>
     <a href="/#custom" data-href="home:custom" data-tab="custom" data-i18n="navCustom">Your company</a>
-    <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true">↗</span></a>
     <a class="tabs__git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>
   </div>
 </nav>
@@ -756,7 +756,7 @@ needs a tooltip, keyboard control and a screen-reader table.
   'use strict';
   // The site's header, tabs and footer around a spec page. The spec itself is English; ?lang=ko switches the
   // chrome (labels and Vizney links) like the other site pages. Same code as index.html / 404.html.
-  var STR = { "ko": {"skip": "본문으로 건너뛰기", "navStyles": "카탈로그", "navCustom": "우리 회사", "navRequest": "브랜드 요청", "navContact": "문의", "globeTitle": "Switch to English", "ghSearch": "Vizney 검색", "ghMenu": "메뉴", "ghMore": "더 보기", "tabsAria": "Vizney Styles 메뉴", "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)", "footAria": "바닥글", "footBlog": "블로그"}, "en": {"skip": "Skip to content", "navStyles": "Catalog", "navCustom": "Your company", "navRequest": "Request a brand", "navContact": "Contact", "globeTitle": "한글로 보기", "ghSearch": "Search Vizney", "ghMenu": "Main Menu", "ghMore": "More", "tabsAria": "Vizney Styles menu", "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)", "footAria": "Footer", "footBlog": "Blog"} };
+  var STR = { "ko": {"skip": "본문으로 건너뛰기", "navStyles": "카탈로그", "navCustom": "우리 회사", "navUse": "쓰는 법", "navContact": "문의", "globeTitle": "Switch to English", "ghSearch": "Vizney 검색", "ghMenu": "메뉴", "ghMore": "더 보기", "tabsAria": "Vizney Styles 메뉴", "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)", "footAria": "바닥글", "footBlog": "블로그"}, "en": {"skip": "Skip to content", "navStyles": "Catalog", "navCustom": "Your company", "navUse": "How to use", "navContact": "Contact", "globeTitle": "한글로 보기", "ghSearch": "Search Vizney", "ghMenu": "Main Menu", "ghMore": "More", "tabsAria": "Vizney Styles menu", "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)", "footAria": "Footer", "footBlog": "Blog"} };
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));

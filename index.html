@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <title>Vizney Styles · DASHBOARD.md for your company's dashboards</title>
-<meta name="description" content="Dashboard design specs that AI coding agents, Tableau and Power BI can follow. Each brand style ships as DASHBOARD.md, a live sample, validated data colors and tool files. Request a brand, or get one for your company.">
+<meta name="description" content="Dashboard design specs that AI coding agents, Tableau and Power BI can follow. Each brand style ships as DASHBOARD.md, a live sample, validated data colors and tool files. Copy one for your AI, or get one made for your company.">
 <link rel="canonical" href="https://styles.vizney.com/">
 <link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -20,14 +20,14 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=177523b909" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=6be562f9b1" as="font" type="font/woff" crossorigin>
 <style>
 /* VZ Sans, as on Vizney Blocks: Spoqa Han Sans Neo cut down to these pages' characters. tools/font.py builds it;
    rebuild after changing any text here or on the other site page (index.html / 404.html). */
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=177523b909) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=177523b909) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=177523b909) format('woff')}
-@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=177523b909) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=6be562f9b1) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=6be562f9b1) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=6be562f9b1) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=6be562f9b1) format('woff')}
 :root{
   /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
      Home: the blog's Vizney header (scrolls away), then the title area of a blog category page with the main buttons on its
@@ -219,6 +219,15 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
 .sec h2{font-size:32px;line-height:1.25;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
 .sec-hd p{margin-top:10px;max-width:640px;font-size:16px;color:var(--muted)}
 
+/* ---------- how to use a style: copy the spec, paste it into an AI, ask for the dashboard. Numbered like the eight
+   rules; the note under the steps says what the Download zip is for. ---------- */
+.uses{margin-top:40px;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:36px 28px;counter-reset:use}
+.uses li{padding-top:14px;border-top:1px solid var(--line)}
+.uses li::before{counter-increment:use;content:counter(use, decimal-leading-zero);display:block;margin-bottom:8px;font-size:13px;font-weight:700;line-height:1;color:var(--muted)}
+.uses h3{font-size:16px;font-weight:700;line-height:1.45}
+.uses p{margin-top:6px;font-size:14.5px;line-height:1.7;color:var(--ink-2)}
+.use-note{margin-top:32px;max-width:720px;font-size:15px;line-height:1.7;color:var(--ink-2)}
+
 /* ---------- interpretation: three devices from the catalog, cropped from the samples (assets/home/device-*.webp) ---------- */
 .devs{margin-top:40px;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:32px 24px}
 .dev{min-width:0}
@@ -290,13 +299,12 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
   .gal-more .btn{width:100%}
   .sec{padding-top:80px}
   .sec h2{font-size:26px}
-  .rules,.gets{grid-template-columns:minmax(0, 1fr)}
-  .rules{gap:28px}
+  .rules,.gets,.uses{grid-template-columns:minmax(0, 1fr)}
+  .rules,.uses{gap:28px}
   .plan-note{padding-left:0}
   .closing{margin-top:56px;padding:32px 20px;border-radius:22px}
   .closing h3{font-size:22px}
-  .closing .acts{display:grid;grid-template-columns:1fr 1fr}
-  .closing .acts .btn{padding:0 12px}
+  .closing .acts{display:grid}
   .foot-in nav{margin-left:0}
 }
 @media (prefers-reduced-motion:reduce){
@@ -340,7 +348,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     </div>
     <div class="ghead-acts">
       <a class="btn is-primary is-lg" href="#custom" data-href="home:custom" data-i18n="ctaCompany">Get yours made</a>
-      <a class="btn is-lg" href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener" data-i18n="ctaRequest">Request a brand ↗</a>
+      <a class="btn is-lg" href="#use" data-href="home:use" data-i18n="ctaUse">How to use</a>
     </div>
   </section>
 
@@ -394,6 +402,19 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     </ul>
     <div class="gal-more" hidden><button type="button" class="btn is-lg" aria-expanded="true" aria-controls="galGrid"><span data-fold>Show fewer</span><svg class="ic" width="16" height="16" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M3.5 5.5 7 9l3.5-3.5"/></svg></button></div>
     <p class="gal-note" data-i18n="galNote">Every style is a reference reading of public websites and real-world touchpoints: not an official design, and not affiliated with or endorsed by the company. The sample companies and their numbers are fictional.</p>
+  </section>
+
+  <section class="wrap sec" aria-labelledby="useTitle">
+    <div class="sec-hd" id="use">
+      <h2 id="useTitle" data-i18n="useTitle">Copy a spec, paste it into your AI</h2>
+      <p data-i18n="useLead">A style is one spec file, DASHBOARD.md. Hand it to the AI you use and it builds dashboards in that style, down to the colors, charts and number formats.</p>
+    </div>
+    <ol class="uses">
+      <li><h3 data-i18n="u1t">Copy the spec</h3><p data-i18n="u1p">Pick a style in the catalog and press Copy spec. The whole DASHBOARD.md goes to your clipboard.</p></li>
+      <li><h3 data-i18n="u2t">Paste it into your AI</h3><p data-i18n="u2p">Paste it into a chat with the AI you use, such as Claude or ChatGPT, and add your data or a screenshot of a dashboard you have.</p></li>
+      <li><h3 data-i18n="u3t">Ask for the dashboard</h3><p data-i18n="u3p">Ask it to build a dashboard to this spec. You can also ask it to restyle a screen you already have.</p></li>
+    </ol>
+    <p class="use-note" data-i18n-html="useNote_html">For Tableau, Power BI or a coding agent, press Download: the zip holds a Tableau palette (<code>.tps</code>), a Power BI theme (<code>.json</code>) and the agent skill.</p>
   </section>
 
   <section class="wrap sec" id="how" aria-labelledby="howTitle">
@@ -466,10 +487,9 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
     </div>
     <div class="closing">
       <h3 data-i18n="ctaTitle">Ask for your company's style</h3>
-      <p data-i18n="ctaText">Send your website or brand guide and a few screenshots of the dashboards you use now. Public brands for the catalog can be requested on GitHub.</p>
+      <p data-i18n="ctaText">Send your website or brand guide and a few screenshots of the dashboards you use now.</p>
       <div class="acts">
         <a class="btn is-primary is-lg" href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="ctaBtn">Contact us</a>
-        <a class="btn is-lg" href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener" data-i18n="ctaRequest">Request a brand ↗</a>
       </div>
     </div>
   </section>
@@ -498,7 +518,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "navAria": "주 메뉴",
       "navStyles": "카탈로그",
       "navCustom": "우리 회사",
-      "navRequest": "브랜드 요청",
+      "navUse": "쓰는 법",
       "navContact": "문의",
       "langAria": "언어",
       "globeTitle": "Switch to English",
@@ -510,7 +530,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "docTitle_404": "페이지를 찾을 수 없습니다 · Vizney Styles",
       "gDesc": "AI가 만들어도 우리 회사 대시보드처럼. 기업이 가격표, 영수증, 계기판으로 숫자를 보여 주는 방식을 읽어 명세 DASHBOARD.md와 Tableau·Power BI 파일로 옮겼습니다.",
       "ctaCompany": "우리 회사 것 만들기",
-      "ctaRequest": "브랜드 요청 ↗",
+      "ctaUse": "쓰는 법",
       "ctaBrowse": "카탈로그 보기",
       "galAria": "스타일 카탈로그",
       "coverAlt": "{name} 스타일 샘플 화면",
@@ -525,6 +545,15 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "foldMore": "스타일 {n}개 모두 보기",
       "foldLess": "접기",
       "galNote": "모든 스타일은 공개된 웹사이트와 매장·인쇄물에서 읽어 낸 참고용 해석입니다. 해당 기업의 공식 디자인이 아니며 제휴·승인 관계가 없고, 샘플의 회사와 숫자는 모두 가상입니다.",
+      "useTitle": "복사해서 AI에 붙여 넣으면 됩니다",
+      "useLead": "스타일 하나는 명세 파일 DASHBOARD.md 하나입니다. 쓰고 있는 AI에 건네면 색과 차트, 숫자 표기까지 그 스타일대로 대시보드를 만듭니다.",
+      "u1t": "명세 복사",
+      "u1p": "카탈로그에서 스타일을 고르고 '명세\u00a0복사'를 누릅니다. DASHBOARD.md 전문이 클립보드에 담깁니다.",
+      "u2t": "AI에 붙여 넣기",
+      "u2p": "Claude, ChatGPT처럼 쓰고 있는 AI의 대화창에 붙여 넣고, 데이터나 지금 쓰는 대시보드 화면을 함께 올립니다.",
+      "u3t": "대시보드 요청",
+      "u3p": "'이 명세대로 대시보드를 만들어 줘'라고 요청합니다. 이미\u00a0있는 화면을 이 스타일로 고쳐 달라고 해도 됩니다.",
+      "useNote_html": "Tableau·Power BI나 코딩 에이전트에서 쓰려면 '파일\u00a0받기'를 누르세요. Tableau 팔레트(<code>.tps</code>), Power BI 테마(<code>.json</code>), 에이전트 스킬이 함께 들어 있습니다.",
       "howTitle": "색을 입히지 않고, 숫자를 보여 주는 방식을 옮깁니다",
       "howLead": "대표색을 막대와 버튼에 칠한 화면은 테마입니다. 스타일은 그 회사가 매장과 인쇄물, 현장에서 숫자를 보여 주는 방식을 읽어 대시보드 부품으로 옮긴 해석입니다. 스타일마다 이런 대표 장치를 세\u00a0개 고르고, 모든 장치는 데이터를 담습니다.",
       "dev1t": "온보드 계기판 → 핵심 지표",
@@ -574,7 +603,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "s4p": "확정한 화면에서 DASHBOARD.md와 스킬, 도구 파일을 만들어 약\u00a01주일 안에 드립니다.",
       "planNote": "어떤 질문을 어떤 카드로 답할지 정하는 대시보드 화면 기획도 함께 맡길 수 있습니다.",
       "ctaTitle": "우리 회사 스타일을 의뢰하세요",
-      "ctaText": "웹사이트나 브랜드 가이드, 지금 쓰는 대시보드 화면 몇 장을 보내 주세요. 카탈로그에 올릴 공개 브랜드는 GitHub에서 요청할 수 있습니다.",
+      "ctaText": "웹사이트나 브랜드 가이드, 지금 쓰는 대시보드 화면 몇 장을 보내 주세요.",
       "ctaBtn": "제작 문의하기",
       "nfTitle": "페이지를 찾을 수 없습니다",
       "nfLead": "주소가 바뀌었거나 없는 페이지입니다. 첫 화면의 카탈로그에서 골라 보세요.",
@@ -597,7 +626,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "navAria": "Main menu",
       "navStyles": "Catalog",
       "navCustom": "Your company",
-      "navRequest": "Request a brand",
+      "navUse": "How to use",
       "navContact": "Contact",
       "langAria": "Language",
       "globeTitle": "한글로 보기",
@@ -609,7 +638,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "docTitle_404": "Page not found · Vizney Styles",
       "gDesc": "Dashboards that look like your company, even when an AI builds them. Read from price tags, receipts and gauges, each style is DASHBOARD.md plus Tableau and Power BI files.",
       "ctaCompany": "Get yours made",
-      "ctaRequest": "Request a brand ↗",
+      "ctaUse": "How to use",
       "ctaBrowse": "Browse the catalog",
       "galAria": "Style catalog",
       "coverAlt": "{name} style sample screen",
@@ -624,6 +653,15 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "foldMore": "Show all {n} styles",
       "foldLess": "Show fewer",
       "galNote": "Every style is a reference reading of public websites and real-world touchpoints: not an official design, and not affiliated with or endorsed by the company. The sample companies and their numbers are fictional.",
+      "useTitle": "Copy a spec, paste it into your AI",
+      "useLead": "A style is one spec file, DASHBOARD.md. Hand it to the AI you use and it builds dashboards in that style, down to the colors, charts and number formats.",
+      "u1t": "Copy the spec",
+      "u1p": "Pick a style in the catalog and press Copy spec. The whole DASHBOARD.md goes to your clipboard.",
+      "u2t": "Paste it into your AI",
+      "u2p": "Paste it into a chat with the AI you use, such as Claude or ChatGPT, and add your data or a screenshot of a dashboard you have.",
+      "u3t": "Ask for the dashboard",
+      "u3p": "Ask it to build a dashboard to this spec. You can also ask it to restyle a screen you already have.",
+      "useNote_html": "For Tableau, Power BI or a coding agent, press Download: the zip holds a Tableau palette (<code>.tps</code>), a Power BI theme (<code>.json</code>) and the agent skill.",
       "howTitle": "Not a color theme: the way a company shows its numbers",
       "howLead": "Painting bars and buttons in the brand color makes a theme. A style reads how a company shows numbers in its stores, print and operations, and turns that into dashboard parts. Each style picks three such devices, and every device carries data.",
       "dev1t": "Onboard display → key figures",
@@ -673,7 +711,7 @@ svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:r
       "s4p": "From the settled screen we make DASHBOARD.md, the skill and the tool files, in about a week.",
       "planNote": "We can also plan the dashboards themselves: which questions each screen answers, with which cards.",
       "ctaTitle": "Ask for your company's style",
-      "ctaText": "Send your website or brand guide and a few screenshots of the dashboards you use now. Public brands for the catalog can be requested on GitHub.",
+      "ctaText": "Send your website or brand guide and a few screenshots of the dashboards you use now.",
       "ctaBtn": "Contact us",
       "nfTitle": "Page not found",
       "nfLead": "This page has moved or doesn't exist. Pick a style from the catalog on the home page.",
