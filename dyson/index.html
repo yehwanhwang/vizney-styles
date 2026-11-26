@@ -169,10 +169,10 @@
   #s1 .row2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   #s2 .row2{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
   .fbody{position:relative;display:flex;flex-direction:column;min-height:0;margin-top:12px}
-  #f3Plot{flex:1;min-height:420px}
-  #fqPlot{flex:1;min-height:430px}
-  #fbPlot{flex:1;min-height:340px}
-  .row2 + .row2{margin-top:64px}
+  /* 그림 3: 빌드 비교. 기계 줄과 그 아래 표가 같은 열을 쓴다 */
+  #lu .fbody{margin-top:20px}
+  #luPlot{min-height:320px}
+  #luPlot svg{display:block}
   #f4Plot{flex:1;min-height:360px}
 
   /* ---------- 표: dyson.com 비교 표처럼 라벨 열, 그룹 머리, 머리카락 선 ---------- */
@@ -188,7 +188,12 @@
   .tb .num.bad{color:var(--red-t);font-weight:500}
   .tb .num .x{margin-left:3px;font-size:12px}
   .tb .u{font-size:12px;color:var(--mute);font-weight:400;margin-left:3px}
-  /* 표 1: 빌드 비교. 지금 빌드 열은 굵게, 바꾼 부품 줄은 번호 풍선 */
+  /* 그림 3의 표: 빌드 비교. 열 너비를 고정해 위의 기계와 맞춘다. 값은 열 가운데. 지금 빌드 열은 굵게, 바꾼 부품 줄은 번호 풍선 */
+  .t1{table-layout:fixed}
+  .t1 thead th:first-child{width:190px}
+  .t1 thead th:nth-child(2){width:150px}
+  .t1 thead th{padding-top:12px}
+  .t1 thead th:nth-child(n+2),.t1 td,.t1 .r{text-align:center}
   .t1 thead th.cur{color:var(--ink)}
   .t1 thead th small{display:block;font-size:12px;font-weight:400;color:var(--mute)}
   .t1 .grp th{padding-top:14px;padding-bottom:6px;font-size:12.5px;font-weight:500;color:var(--mute);letter-spacing:.06em;border-bottom:1px solid var(--hair)}
@@ -200,8 +205,7 @@
   .t1 .dash{color:var(--mute2)}
   .t1 .num.ok{color:var(--good-t);font-weight:500}
   /* 표 1: 지금(빌드 41) 열은 판 회색 띠 */
-  .t1 .cur{background:var(--panel);padding-right:10px!important}
-  .t1 th.cur{padding-left:10px}
+  .t1 .cur{background:var(--panel)}
   .t1 .grp td{border-bottom:1px solid var(--hair)}
   .t1 .chg .bal{cursor:default}
   /* 표 2: 열린 문제 */
@@ -217,7 +221,7 @@
   .t2 .du{white-space:nowrap;color:var(--ink);font-variant-numeric:tabular-nums}
   .t2 .du small{display:block;font-size:12.5px;color:var(--mute)}
   .t2 .fx small{display:block;margin-top:2px;font-size:12.5px;color:var(--mute)}
-  .show-s{display:none!important}
+  .show-s,.only-m{display:none!important}
 
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border:1px solid transparent;border-radius:4px;font-size:16px;font-weight:500;line-height:1;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease)}
   .btn-p{background:var(--green);color:var(--black)}
@@ -357,8 +361,6 @@
   @keyframes explode{from{transform:translateY(var(--dy))}}
   .growx{transform-box:fill-box;transform-origin:left;animation:growx .7s var(--ease) both}
   @keyframes growx{from{transform:scaleX(0)}}
-  .growy{transform-box:fill-box;animation:growy .7s var(--ease) both}
-  @keyframes growy{from{transform:scaleY(0)}}
   .draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 1s var(--ease) forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   .sweep{animation:sweep 1.1s cubic-bezier(.4,0,.6,1) both}
@@ -422,6 +424,9 @@
     .figpane{border-right:0;border-bottom:1px solid var(--line)}
     .t1 .hide-m{display:none}
     .t2 .hide-m{display:none}
+    .t1 thead th:first-child{width:150px}
+    .t1 thead th:nth-child(2){width:112px}
+    .t1 .only-m{display:inline-grid!important}
   }
   @media (max-width:639px){
     :root{--pad:16px;--sec:56px;--gap:16px;--dial:calc((100vw - 32px - 20px) / 3)}
@@ -448,6 +453,11 @@
     .sh h2{font-size:25px}
     .tb th,.tb td{padding-left:6px;padding-right:6px}
     .t1 .hide-s,.t2 .hide-s{display:none}
+    .t1 thead th:first-child{width:132px}
+    .t1 thead th:nth-child(2){width:72px}
+    .t1 td.tgt{font-size:11.5px}
+    .t1 .only-m{display:none!important}
+    .t1 .show-s{display:inline-grid!important}
     .t2 .show-s{display:block!important}
     .sp-list{grid-template-columns:minmax(0,1fr)!important;row-gap:8px}
     .t2 .pt{min-width:0}
@@ -507,45 +517,21 @@
     </figure>
   </section>
 
-  <!-- 01 빌드별: 그림 3 추이 | 표 1 빌드 비교 -->
+  <!-- 01 빌드별: 그림 3 빌드 비교(빌드마다 기계 한 대, 그 아래 사양 줄) -->
   <section class="sec" id="s1" aria-labelledby="s1T">
     <div class="sh"><h2 id="s1T"><span class="no">01</span><span data-i18n="s1.t"></span></h2><p data-i18n="s1.k"></p></div>
-    <!-- 그림 3 목표와의 거리 | 그림 4 무게 다리 -->
-    <div class="row2">
-      <figure class="fg" id="fq">
-        <figcaption><p class="eb" data-i18n="fq.label"></p><h3 class="ct" id="fqT"></h3><p class="cs" data-i18n="fq.sub"></p><ul class="keys" id="fqK" aria-hidden="true"></ul></figcaption>
-        <div class="fbody"><div class="plot" id="fqPlot" tabindex="0" role="group"></div></div>
-        <p class="cap" data-i18n="fq.note"></p>
-        <div class="tip" aria-hidden="true"></div>
-        <div class="sr-only" id="fqTable"></div>
-      </figure>
-      <figure class="fg" id="fb">
-        <figcaption><p class="eb" data-i18n="fb.label"></p><h3 class="ct" id="fbT"></h3><p class="cs" data-i18n="fb.sub"></p><ul class="keys" id="fbK" aria-hidden="true"></ul></figcaption>
-        <div class="fbody"><div class="plot" id="fbPlot" tabindex="0" role="group"></div></div>
-        <p class="cap" data-i18n="fb.note"></p>
-        <div class="tip" aria-hidden="true"></div>
-        <div class="sr-only" id="fbTable"></div>
-      </figure>
-    </div>
-    <!-- 그림 5 빌드별 세 지표 | 표 1 빌드 비교 -->
-    <div class="row2">
-      <figure class="fg" id="f3">
-        <figcaption><p class="eb" data-i18n="f3.label"></p><h3 class="ct" id="f3T"></h3><p class="cs" data-i18n="f3.sub"></p><ul class="keys" id="f3K" aria-hidden="true"></ul></figcaption>
-        <div class="fbody"><div class="plot" id="f3Plot" tabindex="0" role="group"></div></div>
-        <p class="cap" data-i18n="f3.note"></p>
-        <div class="tip" aria-hidden="true"></div>
-        <div class="sr-only" id="f3Table"></div>
-      </figure>
-      <figure class="fg" id="t1">
-        <figcaption><p class="eb" data-i18n="t1.label"></p><h3 class="ct" id="t1T"></h3><p class="cs" data-i18n="t1.sub"></p></figcaption>
-        <div class="fbody"><div class="tw" id="t1Wrap"></div></div>
-        <p class="cap" data-i18n="t1.note"></p>
-        <div class="tip" aria-hidden="true"></div>
-      </figure>
-    </div>
+    <figure class="fg" id="lu">
+      <figcaption><p class="eb" data-i18n="lu.label"></p><h3 class="ct" id="luT"></h3><p class="cs" data-i18n="lu.sub"></p><ul class="keys" id="luK" aria-hidden="true"></ul></figcaption>
+      <div class="fbody">
+        <div class="plot" id="luPlot" tabindex="0" role="group"></div>
+        <div class="tw" id="t1Wrap"></div>
+      </div>
+      <p class="cap" data-i18n="lu.note"></p>
+      <div class="tip" aria-hidden="true"></div>
+    </figure>
   </section>
 
-  <!-- 02 시험과 남은 일: 그림 6 내구 시험 | 표 2 열린 문제 -->
+  <!-- 02 시험과 남은 일: 그림 4 내구 시험 | 표 1 열린 문제 -->
   <section class="sec" id="s2" aria-labelledby="s2T">
     <div class="sh"><h2 id="s2T"><span class="no">02</span><span data-i18n="s2.t"></span></h2><p data-i18n="s2.k"></p></div>
     <div class="row2">
@@ -646,7 +632,7 @@
   const C = {
     ink: '#333333', body: '#404040', mute: '#555555', mute2: '#919191', hair: '#dadada', line: '#dcdcdc', panel: '#f7f7f7', white: '#ffffff', black: '#000000',
     nickel: '#d9dbdd', nickelE: '#7d8083', purple: '#6b46c1', purpleT: '#5a3fb0', red: '#d0273b', redT: '#b0122f', goodT: '#1d7a43',
-    mode: ['#3fd24a', '#2aa3ef', '#f0403a'], laser: '#5fe04a', sub: '#b9b9b9', other: '#9e9e9e',
+    mode: ['#3fd24a', '#2aa3ef', '#f0403a'], laser: '#5fe04a', sub: '#b9b9b9',
     generic: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2']
   };
 
@@ -744,69 +730,31 @@
       },
       s1: { t: 'By build', k: 'Since the design review at build 37' },
       s2: { t: 'Tests and what is left', k: 'Before design freeze on Fri, Dec 11' },
-      fq: {
+      lu: {
         label: 'FIG. 3',
         title: {
-          C45: () => 'The lighter motor in build 38 brought the C45 inside both targets',
-          C60: () => 'The new head in build 38 took the C60 outside both targets',
-          C90: F => `The bigger battery won Eco back at build 40, but left the C90 ${F.over} g over`
+          C45: () => 'The lighter motor in build 38 put the C45 inside all seven targets',
+          C60: F => `The new head cleans the edge, but build 41 is ${mmss(F.modes[0].min - F.modes[0].v)} short in Eco and ${F.over} g over`,
+          C90: F => `Three new parts since build 37: Eco is back and the edge is clean, but the C90 is ${F.over} g over`
         },
-        sub: 'Eco run time against its MIN and weight against its MAX, builds 32 to 41, all three models',
-        keys: { others: 'other models', inside: 'inside both targets', miss: 'misses a target', chg: 'part changed' },
-        ax: { x: 'Eco run time against the MIN', y: 'Weight against the MAX' },
-        inside: 'INSIDE BOTH TARGETS', min: 'MIN', max: 'MAX', g: 'g',
-        zone: { inside: 'INSIDE BOTH TARGETS' },
-        note: 'Each dot is one build, joined in order. Right of the MIN line the machine runs longer than its target; below the MAX line it is lighter than its limit.',
-        tEco: 'Eco run time', tW: 'Weight', short: 'short', spare: 'to spare', over: 'over', under: 'under',
-        sr: 'Eco run time and weight against their targets, by model and build', srHead: ['Model', 'Build', 'Eco run time', 'Against the MIN', 'Weight (g)', 'Against the MAX (g)']
-      },
-      fb: {
-        label: 'FIG. 4',
-        title: {
-          C45: F => `The lighter motor took ${-F.bridge.added} g off; the C45 is ${-F.over} g under its MAX`,
-          C60: F => `The new head added ${F.bridge.added} g; the fixes in build 42 would leave the C60 ${-F.bridge.plan} g under`,
-          C90: F => `Three new parts added ${F.bridge.added} g; the fixes take back ${F.fixSave} g and leave it ${F.bridge.plan} g over`
-        },
-        sub: 'Weight against the MAX: the parts changed since build 37, then the fixes planned for build 42',
-        keys: { chg: 'part changed', over: 'over the MAX', under: 'under the MAX', fix: 'planned fix' },
-        review: 'review', now: 'now', planned: 'planned', planHead: 'PLANNED FOR BUILD 42', noFix: 'no weight fix planned',
-        over: g => `${gr(g)} g over`, under: g => `${gr(g)} g under`, on: 'on the MAX', max: 'MAX',
-        note: 'Each bar starts where the one above it ends. Planned fixes are estimates until build 42 is weighed.',
-        tWas: 'build 37', tNow: 'build 41', tChange: 'change', tFix: 'planned fix', tTotal: 'weight', tOwner: 'owner',
-        sr: 'Weight against the MAX from build 37 to the fixes planned for build 42', srHead: ['Step', 'Change (g)', 'Against the MAX (g)']
-      },
-      f3: {
-        label: 'FIG. 5',
-        title: {
-          C45: () => 'Since the lighter motor in build 38, Eco and weight are both inside their targets',
-          C60: () => 'Edge pick-up reached its target at build 41; Eco has been short since build 38',
-          C90: () => 'The bigger battery brought Eco back at build 40; the weight has been over since build 39'
-        },
-        sub: 'Builds 32 to 41, one a week. Each bar is the gap to the target',
-        panels: { edge: 'Edge pick-up', eco: 'Eco run time', weight: 'Weight' },
-        keys: { meet: 'meets the target', miss: 'misses', chg: 'part changed' }, pts: 'pts',
-        axis: 'Build', review: 'review',
-        note: 'Build 37 was the last design review. A part changed in a build is marked by its number from Figure 1.',
-        sr: 'Edge pick-up, Eco run time and weight by build', srHead: ['Build', 'Edge pick-up (%)', 'Eco run time', 'Weight (kg)', 'Part changed']
+        sub: 'Builds 37 to 41 side by side, each drawn as one machine: Eco run time on the screen, weight by part, dust left by the wall',
+        keys: { part: 'part, as long as it is heavy', chg: 'changed since build 37', over: 'over its budget', dust: 'dust left, 1 dot = 0.05%', target: 'target' },
+        cap: { eco: 'Eco run time', weight: 'Weight', dust: 'Dust left by the wall', dustS: 'Dust left' },
+        min: 'MIN', max: 'MAX', miss: 'misses the target',
+        tEco: 'Eco run time', tWeight: 'Weight', tDust: 'Dust left by the wall', tPicked: 'edge pick-up', tChg: 'part changed',
+        note: 'Each machine is stacked from the floor to the hand, and a part is as long as it is heavy. Dust is what is left after one pass along a wall in Auto. Run time from full charge until the machine stops, at 21 °C. Carpet pick-up and the bin have no target.',
+        sr: 'Builds 37 to 41 drawn as machines: Eco run time, weight by part and dust left by the wall. The table below gives the same values.'
       },
       t1: {
-        label: 'TABLE 1',
-        title: {
-          C45: F => `Build 41 meets all 7 targets; build 37 met ${F.met37}`,
-          C60: F => `Build 41 meets ${F.met} of 7 targets; build 37 met ${F.met37}`,
-          C90: F => `Build 41 meets ${F.met} of 7 targets, as build 37 did, but not the same ${F.met}`
-        },
-        sub: 'From build 37, the last design review, to build 41. Values that miss the target in red',
         target: 'Target', build: b => `Build ${b}`, now: 'now', review: 'review',
         groups: { run: 'RUN TIME', clean: 'CLEANING', size: 'NOISE AND SIZE' },
         vs: 'against the target', measure: 'Measure', pts: 'pts',
         rows: { eco: 'Eco', auto: 'Auto', boost: 'Boost', suction: 'Suction · Boost', edge: 'Edge pick-up', carpet: 'Carpet pick-up', noise: 'Noise · Boost', weight: 'Weight', bin: 'Bin' },
         units: { suction: 'AW', edge: '%', carpet: '%', noise: 'dB(A)', weight: 'kg', bin: 'L' },
-        changed: 'Part changed', met: 'Targets met', none: 'no target',
-        note: 'Run time from full charge until the machine stops, at 21 °C. Carpet pick-up and the bin have no target.'
+        changed: 'Part changed', met: 'Targets met', none: 'no target'
       },
       f4: {
-        label: 'FIG. 6',
+        label: 'FIG. 4',
         title: {
           C45: F => `Only the drop test is still running, and it ends ${DAY.en(F.run[0].end)}`,
           C60: F => `The brush bar test ends ${DAY.en(F.lateT.end)}, ${F.lateT.late} days after design freeze`,
@@ -823,7 +771,7 @@
         sr: 'Durability tests', srHead: ['Test', 'Done', 'Target', 'Ends', 'Days after freeze']
       },
       t2: {
-        label: 'TABLE 2',
+        label: 'TABLE 1',
         title: {
           C45: () => 'Nothing blocks freeze; two small fixes go into build 42',
           C60: () => 'The fixes planned for build 42 would meet all seven targets',
@@ -880,7 +828,6 @@
           ['Noise', 'A-weighted sound level in Boost, 1 m from the machine, in dB(A).'],
           ['Edge pick-up', 'Test dust spread evenly along 2 m of wall on hard floor, one pass in Auto: the share picked up across the width of the cleaner head.'],
           ['Weight and budget', 'Weighed with the cleaner head and wand fitted, no tools. Each part has a budget, and the budgets add up to the MAX.'],
-          ['Against the target', 'Run time minus its MIN, and weight minus its MAX. Run time above zero and weight below zero are inside the target.'],
           ['Durability tests', 'Rigs run each test to its target count. The projected finish is what is left at the rate so far. Changing a part restarts its tests.'],
           ['Design freeze', 'After freeze the parts go to tooling. Every target must be met and every test complete.']
         ],
@@ -948,69 +895,31 @@
       },
       s1: { t: '빌드별', k: '빌드 37 설계 검토 이후' },
       s2: { t: '시험과 남은 일', k: '12월 11일(금) 설계 확정까지' },
-      fq: {
+      lu: {
         label: '그림 3',
         title: {
-          C45: () => '빌드 38의 가벼운 모터로 C45가 두 목표 안에 들어왔습니다',
-          C60: () => '빌드 38의 새 헤드로 C60이 두 목표를 모두 벗어났습니다',
-          C90: F => `빌드 40의 큰 배터리로 Eco는 되찾았지만 C90은 ${F.over} g 넘습니다`
+          C45: () => '빌드 38의 가벼운 모터로 C45는 목표 일곱을 모두 채웠습니다',
+          C60: F => `새 헤드로 벽 쪽 먼지는 줄었지만, 빌드 41은 Eco가 ${mmss(F.modes[0].min - F.modes[0].v)} 모자라고 ${F.over} g 넘습니다`,
+          C90: F => `검토 뒤 부품 셋을 바꿔 Eco와 가장자리 집진은 채웠지만, C90은 ${F.over} g 넘습니다`
         },
-        sub: '모델 셋의 빌드 32~41. Eco 런타임은 최소와, 무게는 최대와 견줘',
-        keys: { others: '다른 모델', inside: '두 목표 안', miss: '목표 미달', chg: '부품 교체' },
-        ax: { x: 'Eco 런타임, 최소 대비', y: '무게, 최대 대비' },
-        inside: '두 목표 안', min: '최소', max: '최대', g: 'g',
-        zone: { inside: '두 목표 안' },
-        note: '점 하나가 빌드 하나이고 순서대로 이었습니다. 최소 선 오른쪽이면 목표보다 오래 가고, 최대 선 아래면 한도보다 가볍습니다.',
-        tEco: 'Eco 런타임', tW: '무게', short: '부족', spare: '여유', over: '초과', under: '여유',
-        sr: '모델과 빌드별 Eco 런타임과 무게, 목표 대비', srHead: ['모델', '빌드', 'Eco 런타임', '최소 대비', '무게(g)', '최대 대비(g)']
-      },
-      fb: {
-        label: '그림 4',
-        title: {
-          C45: F => `가벼운 모터가 ${-F.bridge.added} g을 덜어 C45는 최대보다 ${-F.over} g 가볍습니다`,
-          C60: F => `새 헤드가 ${F.bridge.added} g을 더했고, 빌드 42의 수정이면 최대보다 ${-F.bridge.plan} g 가벼워집니다`,
-          C90: F => `새 부품 셋이 ${F.bridge.added} g을 더했고, 수정으로 ${F.fixSave} g을 덜어도 ${F.bridge.plan} g 넘습니다`
-        },
-        sub: '최대 대비 무게: 빌드 37 이후 바꾼 부품, 이어서 빌드 42에 넣을 수정',
-        keys: { chg: '바꾼 부품', over: '최대 초과', under: '최대 이하', fix: '넣을 수정' },
-        review: '검토', now: '지금', planned: '계획', planHead: '빌드 42에 넣을 수정', noFix: '무게 수정 없음',
-        over: g => `${gr(g)} g 초과`, under: g => `${gr(g)} g 여유`, on: '최대와 같음', max: '최대',
-        note: '막대마다 위 막대가 끝난 자리에서 시작합니다. 넣을 수정은 빌드 42의 무게를 재기 전까지 추정입니다.',
-        tWas: '빌드 37', tNow: '빌드 41', tChange: '변화', tFix: '넣을 수정', tTotal: '무게', tOwner: '담당',
-        sr: '빌드 37부터 빌드 42에 넣을 수정까지 최대 대비 무게', srHead: ['단계', '변화(g)', '최대 대비(g)']
-      },
-      f3: {
-        label: '그림 5',
-        title: {
-          C45: () => '빌드 38의 가벼운 모터부터 Eco와 무게가 모두 목표 안입니다',
-          C60: () => '가장자리 집진은 빌드 41에서 목표에 닿았고, Eco는 빌드 38부터 모자랍니다',
-          C90: () => '빌드 40의 큰 배터리로 Eco를 되찾았고, 무게는 빌드 39부터 넘습니다'
-        },
-        sub: '빌드 32~41, 한 주에 하나. 막대는 목표와의 차이',
-        panels: { edge: '가장자리 집진', eco: 'Eco 런타임', weight: '무게' },
-        keys: { meet: '목표 달성', miss: '목표 미달', chg: '부품 교체' }, pts: '%p',
-        axis: '빌드', review: '검토',
-        note: '빌드 37이 마지막 설계 검토입니다. 빌드에서 바꾼 부품은 그림 1의 번호로 적었습니다.',
-        sr: '빌드별 가장자리 집진, Eco 런타임, 무게', srHead: ['빌드', '가장자리 집진(%)', 'Eco 런타임', '무게(kg)', '바꾼 부품']
+        sub: '빌드 37~41을 기계 한 대씩 나란히. 화면은 Eco 런타임, 몸은 부품별 무게, 바닥은 벽 쪽에 남은 먼지',
+        keys: { part: '부품, 길이가 무게', chg: '빌드 37 이후 바꾼 부품', over: '예산 초과', dust: '남은 먼지, 점 하나 = 0.05%', target: '목표' },
+        cap: { eco: 'Eco 런타임', weight: '무게', dust: '벽 쪽에 남은 먼지', dustS: '남은 먼지' },
+        min: '최소', max: '최대', miss: '목표 미달',
+        tEco: 'Eco 런타임', tWeight: '무게', tDust: '벽 쪽에 남은 먼지', tPicked: '가장자리 집진', tChg: '부품 교체',
+        note: '기계는 바닥에서 손까지 부품을 쌓았고, 부품의 길이가 무게입니다. 남은 먼지는 Auto로 벽을 따라 한 번 지나간 뒤입니다. 런타임은 완충에서 멈출 때까지, 21 °C. 카펫 집진과 먼지통은 목표가 없습니다.',
+        sr: '빌드 37~41을 기계로 그린 그림: Eco 런타임, 부품별 무게, 벽 쪽에 남은 먼지. 같은 값이 아래 표에 있습니다.'
       },
       t1: {
-        label: '표 1',
-        title: {
-          C45: F => `빌드 41은 목표 7개를 모두 채웠습니다. 빌드 37은 ${F.met37}개였습니다`,
-          C60: F => `빌드 41은 목표 7개 중 ${F.met}개, 빌드 37은 ${F.met37}개를 채웠습니다`,
-          C90: F => `빌드 41도 빌드 37처럼 7개 중 ${F.met}개를 채웠지만, 채운 목표가 다릅니다`
-        },
-        sub: '마지막 설계 검토인 빌드 37부터 빌드 41까지. 목표에 못 미친 값은 빨강',
         target: '목표', build: b => `빌드 ${b}`, now: '지금', review: '검토',
         groups: { run: '런타임', clean: '청소', size: '소음과 크기' },
         vs: '목표와의 차이', measure: '지표', pts: '%p',
         rows: { eco: 'Eco', auto: 'Auto', boost: 'Boost', suction: '흡입력 · Boost', edge: '가장자리 집진', carpet: '카펫 집진', noise: '소음 · Boost', weight: '무게', bin: '먼지통' },
         units: { suction: 'AW', edge: '%', carpet: '%', noise: 'dB(A)', weight: 'kg', bin: 'L' },
-        changed: '바꾼 부품', met: '목표 달성', none: '목표 없음',
-        note: '완충에서 멈출 때까지의 런타임, 21 °C. 카펫 집진과 먼지통은 목표가 없습니다.'
+        changed: '바꾼 부품', met: '목표 달성', none: '목표 없음'
       },
       f4: {
-        label: '그림 6',
+        label: '그림 4',
         title: {
           C45: F => `낙하 시험만 남았고 ${DAY.ko(F.run[0].end)}에 끝납니다`,
           C60: F => `브러시 바 시험은 ${DAY.ko(F.lateT.end)}에 끝나 설계 확정보다 ${F.lateT.late}일 늦습니다`,
@@ -1027,7 +936,7 @@
         sr: '내구 시험', srHead: ['시험', '한 양', '목표', '끝나는 날', '설계 확정 뒤(일)']
       },
       t2: {
-        label: '표 2',
+        label: '표 1',
         title: {
           C45: () => '설계 확정을 막는 것은 없고, 작은 수정 둘이 빌드 42에 들어갑니다',
           C60: () => '빌드 42에 넣을 수정으로 목표 일곱 개를 모두 채웁니다',
@@ -1083,7 +992,6 @@
           ['소음', 'Boost에서 기계로부터 1 m 떨어져 잰 A 가중 소음, dB(A).'],
           ['가장자리 집진', '단단한 바닥에서 벽을 따라 2 m에 시험 먼지를 고르게 뿌리고 Auto로 한 번 지나갔을 때, 헤드 폭에서 빨아들인 비율.'],
           ['무게와 예산', '클리너 헤드와 연장관을 끼우고 툴 없이 잰 무게. 부품마다 예산이 있고, 예산을 더하면 MAX입니다.'],
-          ['목표 대비', '런타임에서 최소를, 무게에서 최대를 뺀 값. 런타임은 0보다 크고 무게는 0보다 작으면 목표 안입니다.'],
           ['내구 시험', '시험대가 시험마다 정한 횟수까지 돌립니다. 끝나는 날은 남은 양을 지금까지의 속도로 나눠 셉니다. 부품을 바꾸면 그 부품의 시험을 다시 시작합니다.'],
           ['설계 확정', '확정 뒤에는 부품이 금형으로 넘어갑니다. 모든 목표를 채우고 모든 시험이 끝나 있어야 합니다.']
         ],
@@ -1150,18 +1058,7 @@
     const floor = ['37', '41'].map(b => { const z = X.floor[b]; return { b: +b, z, pct: Math.round(sum(z) * 10) / 10, head: X.floorHead[b], picked: S.edge[bIx(+b)] }; });
     const tests = X.tests, run = tests.filter(q => !q.complete), lateT = tests.find(q => q.late) || null;
     const fixSave = -sum(X.issues.filter(q => q.kind === 'weight').map(q => q.fix_g || 0));   // 빌드 42의 무게 수정으로 줄일 g
-    // 무게 다리: 빌드 37의 최대 대비 → 바꾼 부품 → 빌드 41 → 빌드 42에 넣을 수정
-    const w37 = sum(PARTS.map(p => X.pw[p][I37]));
-    const steps = []; let acc = w37 - t.weight;
-    steps.push({ k: 'total', b: 37, v: acc, w: w37 });
-    PARTS.forEach((p, i) => { const d = X.pw[p][IX] - X.pw[p][I37]; if (d) { steps.push({ k: 'chg', i, d, a: acc, z: acc + d, chg: X.changed[i] || null, w0: X.pw[p][I37], w1: X.pw[p][IX] }); acc += d; } });
-    steps.push({ k: 'total', b: 41, v: acc, w: sum(X.weights) });
-    const wf = X.issues.filter(q => q.kind === 'weight' && q.fix_g);
-    steps.push({ k: 'head' });
-    wf.forEach(q => { steps.push({ k: 'fix', i: q.part, d: q.fix_g, a: acc, z: acc + q.fix_g, q }); acc += q.fix_g; });
-    steps.push({ k: 'plan', b: 42, v: acc, w: t.weight + acc, none: !wf.length });
-    const bridge = { steps, added: sum(steps.filter(x => x.k === 'chg').map(x => x.d)), plan: acc };
-    const F = { m, X, S, t, modes, spec, met: X.met[IX], met37: X.met[I37], parts, total, budget, over: total - budget, floor, tests, run, lateT, issues: X.issues, fixSave, bridge, name: L().models[m], t4: L().f4 };
+    const F = { m, X, S, t, modes, spec, met: X.met[IX], met37: X.met[I37], parts, total, budget, over: total - budget, floor, tests, run, lateT, issues: X.issues, fixSave, name: L().models[m], t4: L().f4 };
     FCACHE[key] = F;
     return F;
   }
@@ -1516,354 +1413,158 @@
   }
   function redrawDots(anim) { const F = facts(); $$('#f2Floor .lf-s').forEach((s, i) => drawDots(s, F, F.floor[i], anim, i)); }
 
-  /* ================= 그림 3: 목표와의 거리 =================
-     모델 셋의 빌드를 점 하나씩. 가로는 Eco 런타임 − 최소(오른쪽이 오래 감), 세로는 무게 − 최대(위가 무거움).
-     바탕은 판 회색 하나, 두 목표 안(최소 선 오른쪽, 최대 선 아래)만 흰 칸으로 비운다. 색은 점과 선에만.
-     고른 모델은 잉크 선, 다른 둘은 회색.
-     목표를 벗어난 빌드는 빨간 점, 부품을 바꾼 빌드로 가는 길에는 그림 1의 보라 번호 풍선. */
-  const fqCur = { i: 0 };
-  const sgnT = s => (s < 0 ? '−' : '+') + mmss(Math.abs(s));
-  const sgnG = g => (g < 0 ? '−' : '+') + gr(Math.abs(g)) + ' g';
-  function renderFQ(animate) {
-    const F = facts(), t = L().fq, plot = $('#fqPlot'), host = $('#fq'), anim = animOK(animate), B = DATA.builds, n = B.length;
-    $('#fqT').textContent = glue(t.title[F.m](F));
-    $('#fqK').replaceChildren(
-      h('li', null, sv('svg', { width: 22, height: 10 }, sv('line', { x1: 0, x2: 22, y1: 5, y2: 5, stroke: C.ink, 'stroke-width': 1.5 }), sv('circle', { cx: 11, cy: 5, r: 3.2, fill: '#fff', stroke: C.ink, 'stroke-width': 1.3 })), F.name),
-      h('li', null, sv('svg', { width: 22, height: 10 }, sv('line', { x1: 0, x2: 22, y1: 5, y2: 5, stroke: C.other, 'stroke-width': 1.2 })), t.keys.others),
-      h('li', null, sv('svg', { width: 10, height: 10 }, sv('circle', { cx: 5, cy: 5, r: 4, fill: C.red })), t.keys.miss),
-      h('li', null, sv('svg', { width: 14, height: 14 }, sv('circle', { cx: 7, cy: 7, r: 6.3, fill: '#fff', stroke: C.purpleT })), t.keys.chg));
-    const [W, H] = plotSize(plot, 260, 300);
-    const P = MODELS.map(m => { const X = DATA.M[m]; return B.map((b, i) => ({ m, i, b, x: X.series.eco[i] - X.targets.eco, y: X.series.weight[i] - X.targets.weight, X })); });
-    const all = P.flat();
-    let x0 = Math.min(0, ...all.map(p => p.x)), x1 = Math.max(0, ...all.map(p => p.x)), y0 = Math.min(0, ...all.map(p => p.y)), y1 = Math.max(0, ...all.map(p => p.y));
-    x0 = Math.floor((x0 - 25) / 60) * 60; x1 = Math.ceil((x1 + 25) / 60) * 60; y0 = Math.floor((y0 - 15) / 50) * 50; y1 = Math.ceil((y1 + 15) / 50) * 50;
-    const padL = Math.ceil(textW('+150 g', 12)) + 12, padR = Math.ceil(textW('+3:00', 12) / 2) + 4, padT = 28, padB = 46;
-    const X = v => padL + (v - x0) / (x1 - x0) * (W - padL - padR), Y = v => padT + (y1 - v) / (y1 - y0) * (H - padT - padB);
-    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g0 = sv('g'), g1 = sv('g'), g2 = sv('g'), g3 = sv('g'), gsel = sv('g');
-    svg.append(g0, g1, g2, g3, gsel);
-    // 바탕: 판 회색 하나, 두 목표 안만 흰 칸(판의 테두리 선 안쪽)
-    const PX0 = padL, PX1 = W - padR, PY0 = padT, PY1 = H - padB, X0 = X(0), Y0 = Y(0);
-    g0.append(sv('rect', { x: PX0, y: PY0, width: PX1 - PX0, height: PY1 - PY0, fill: C.panel }),
-      sv('rect', { x: X0, y: Y0, width: PX1 - X0, height: PY1 - Y0, fill: '#fff' }),
-      sv('rect', { x: PX0 + .5, y: PY0 + .5, width: PX1 - PX0 - 1, height: PY1 - PY0 - 1, fill: 'none', stroke: '#e6e6e6', 'stroke-width': 1 }));
-    const inWin = (px, py) => px >= X0 && py >= Y0;
-    const zoneAt = (px, py) => px < PX0 || px > PX1 || py < PY0 || py > PY1 || inWin(px, py) ? '#fff' : C.panel;
-    const halo = (px, py) => ({ stroke: zoneAt(px, py), 'stroke-width': 4, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
-    // 눈금: 가로 1분, 세로 50 g(바탕 위 흰 선)
-    const every = X(60) - X(0) < 46 ? 120 : 60;   // 좁으면 2분마다 숫자
-    for (let v = x0; v <= x1; v += 60) {
-      if (v) g0.append(sv('line', { x1: X(v), x2: X(v), y1: padT, y2: v > 0 ? Y0 : H - padB, stroke: '#fff', 'stroke-width': 1 }));
-      if (v > 0) g0.append(sv('line', { x1: X(v), x2: X(v), y1: Y0, y2: H - padB, stroke: C.panel, 'stroke-width': 1 }));   // 흰 칸 안은 회색 선
-      if (v % every) continue;
-      g0.append(sv('text', { x: X(v), y: H - padB + 17, 'text-anchor': 'middle', 'font-size': 12, fill: v ? C.mute : C.ink, 'font-weight': v ? 400 : 500, text: v ? sgnT(v) : t.min }));
-    }
-    for (let v = y0; v <= y1; v += 50) {
-      if (v) g0.append(sv('line', { x1: padL, x2: v < 0 ? X0 : W - padR, y1: Y(v), y2: Y(v), stroke: '#fff', 'stroke-width': 1 }));
-      if (v < 0) g0.append(sv('line', { x1: X0, x2: W - padR, y1: Y(v), y2: Y(v), stroke: C.panel, 'stroke-width': 1 }));
-      g0.append(sv('text', { x: padL - 8, y: Y(v) + 4, 'text-anchor': 'end', 'font-size': 12, fill: v ? C.mute : C.ink, 'font-weight': v ? 400 : 500, text: v ? sgnG(v) : t.max }));
-    }
-    // 최소 선과 최대 선: 1점 쇄선
-    g0.append(sv('line', { x1: X(0), x2: X(0), y1: padT - 6, y2: H - padB, stroke: C.ink, 'stroke-width': 1, 'stroke-dasharray': '10 3 2 3' }),
-      sv('line', { x1: padL, x2: W - padR, y1: Y(0), y2: Y(0), stroke: C.ink, 'stroke-width': 1, 'stroke-dasharray': '10 3 2 3' }));
-    // 축 이름
-    g0.append(sv('text', { x: 0, y: 12, 'font-size': 12.5, fill: C.mute, text: `↑ ${t.ax.y}` }),
-      sv('text', { x: W - padR, y: H - 6, 'text-anchor': 'end', 'font-size': 12.5, fill: C.mute, text: `${t.ax.x} →` }));
-    const path = pts => pts.map((p, k) => `${k ? 'L' : 'M'}${X(p.x).toFixed(1)} ${Y(p.y).toFixed(1)}`).join('');
-    // 다른 모델: 회색 선과 점, 끝에 모델 이름
-    P.forEach(pts => {
-      if (pts[0].m === F.m) return;
-      g1.append(sv('path', { d: path(pts), fill: 'none', stroke: C.other, 'stroke-width': 1.2, 'stroke-linejoin': 'round' }));
-      pts.forEach(p => g1.append(sv('circle', { cx: X(p.x), cy: Y(p.y), r: 2.6, fill: '#fff', stroke: C.other, 'stroke-width': 1.2 })));
-    });
-    const taken = [];
-    const fits = r => r.x0 >= 0 && r.x1 <= W && r.y0 >= 0 && !taken.some(q => r.x0 < q.x1 && q.x0 < r.x1 && r.y0 < q.y1 && q.y0 < r.y1);
-    const S0 = P[MODELS.indexOf(F.m)];
-    S0.forEach(p => taken.push({ x0: X(p.x) - 6, x1: X(p.x) + 6, y0: Y(p.y) - 6, y1: Y(p.y) + 6 }));
-    // 부품을 바꾼 빌드로 가는 길의 풍선 자리부터 잡는다
-    const bals = F.parts.filter(p => p.chg).map(p => {
-      const k = bIx(p.chg), a = S0[k - 1], b = S0[k], ax = X(a.x), ay = Y(a.y), bx = X(b.x), by = Y(b.y), len = Math.hypot(bx - ax, by - ay) || 1;
-      let nx = -(by - ay) / len, ny = (bx - ax) / len; if (ny > 0) { nx = -nx; ny = -ny; }
-      const cx = (ax + bx) / 2 + nx * 15, cy = (ay + by) / 2 + ny * 15;
-      taken.push({ x0: cx - 10, x1: cx + 10, y0: cy - 10, y1: cy + 10 });
-      return { p, cx, cy };
-    });
-    // 흰 칸의 이름: 모서리 가운데 점(모든 모델)과 겹치지 않는 곳, 없으면 생략
-    const dots = all.map(p => [X(p.x), Y(p.y)]), ls = KO() ? 0 : .06, zw = s => textW(s, 11.5, 500) * (1 + ls * 1.4) + 2;
-    [[t.zone.inside, C.mute, X0, PX1, Y0, PY1, [['e', 'b'], ['e', 't'], ['s', 'b']]]].forEach(([txt, col, qx0, qx1, qy0, qy1, spots]) => {
-      const w = zw(txt);
-      if (qx1 - qx0 < w + 16 || qy1 - qy0 < 22) return;
-      for (const [hz, vt] of spots) {
-        const lx = hz === 's' ? qx0 + 8 : qx1 - 8, ly = vt === 't' ? qy0 + 17 : qy1 - 9, rx0 = hz === 's' ? lx : lx - w;
-        const r = { x0: rx0, x1: rx0 + w, y0: ly - 12, y1: ly + 3 };
-        if (dots.some(([dx, dy]) => dx > r.x0 - 6 && dx < r.x1 + 6 && dy > r.y0 - 6 && dy < r.y1 + 6) || !fits(r)) continue;
-        taken.push(r);
-        g0.append(sv('text', { x: lx, y: ly, 'text-anchor': hz === 's' ? 'start' : 'end', 'font-size': 11.5, 'font-weight': 500, fill: col, 'letter-spacing': KO() ? 0 : '.06em', text: txt }));
-        break;
-      }
-    });
-    // 다른 모델의 이름: 끝점 둘레 네 자리 가운데 빈 곳
-    P.forEach(pts => {
-      if (pts[0].m === F.m) return;
-      const e = pts[IX], w = textW(e.m, 12.5, 500) + 2;
-      for (const [dx, dy, an] of [[8, -7, 'start'], [8, 17, 'start'], [-8, -7, 'end'], [-8, 17, 'end']]) {
-        const lx = X(e.x) + dx, x0 = an === 'start' ? lx : lx - w, r = { x0, x1: x0 + w, y0: Y(e.y) + dy - 12, y1: Y(e.y) + dy + 2 };
-        if (!fits(r)) continue;
-        taken.push(r);
-        g1.append(sv('text', { x: lx, y: Y(e.y) + dy, 'text-anchor': an, 'font-size': 12.5, 'font-weight': 500, fill: C.mute, ...halo(lx, Y(e.y) + dy - 4), text: e.m }));
-        break;
-      }
-    });
-    // 고른 모델
-    const S = P[MODELS.indexOf(F.m)];
-    const line = sv('path', { d: path(S), fill: 'none', stroke: C.ink, 'stroke-width': 1.6, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
-    if (anim) { line.setAttribute('class', 'draw'); line.style.setProperty('--len', '1600'); }
-    g2.append(line);
-    // 긴 구간에는 방향 화살표
-    for (let k = 1; k < n; k++) {
-      const ax = X(S[k - 1].x), ay = Y(S[k - 1].y), bx = X(S[k].x), by = Y(S[k].y), len = Math.hypot(bx - ax, by - ay);
-      if (len < 30) continue;
-      const ux = (bx - ax) / len, uy = (by - ay) / len, mx = ax + (bx - ax) * .55, my = ay + (by - ay) * .55;
-      g2.append(sv('path', { d: `M${mx + ux * 5} ${my + uy * 5}L${mx - ux * 4 - uy * 4} ${my - uy * 4 + ux * 4}L${mx - ux * 4 + uy * 4} ${my - uy * 4 - ux * 4}Z`, fill: C.ink, class: anim ? 'fade' : null, style: anim ? { animationDelay: '700ms' } : null }));
-    }
-    const outside = p => p.x < 0 || p.y > 0;
-    S.forEach((p, k) => g2.append(sv('circle', { cx: X(p.x), cy: Y(p.y), r: k === IX ? 5 : 3.8, fill: outside(p) ? C.red : '#fff', stroke: outside(p) ? C.red : C.ink, 'stroke-width': 1.5, class: anim ? 'fade' : null, style: anim ? { animationDelay: (300 + k * 50) + 'ms' } : null })));
-    // 빌드 번호: 41 · 37 · 부품을 바꾼 빌드 · 32만, 이미 놓인 번호 · 점 · 풍선과 겹치면 다른 자리로
-    const chgB = F.parts.filter(p => p.chg).map(p => p.chg);
-    const order = [DATA.now, DATA.review, ...chgB, B[0]].filter((b, k, a) => a.indexOf(b) === k);
-    order.forEach(b => {
-      const p = S[bIx(b)], txt = String(b), w = textW(txt, 12, 600) + 2;
-      for (const [dx, dy, an] of [[9, 16, 'start'], [9, -8, 'start'], [-9, 16, 'end'], [-9, -8, 'end'], [0, 22, 'middle'], [0, -12, 'middle']]) {
-        const lx = X(p.x) + dx, x0 = an === 'start' ? lx : an === 'end' ? lx - w : lx - w / 2, r = { x0, x1: x0 + w, y0: Y(p.y) + dy - 11, y1: Y(p.y) + dy + 2 };
-        if (!fits(r)) continue;
-        taken.push(r);
-        g3.append(sv('text', { x: lx, y: Y(p.y) + dy, 'text-anchor': an, 'font-size': 12, 'font-weight': b === DATA.now ? 600 : 500, fill: C.ink, ...halo(lx, Y(p.y) + dy - 4), text: txt }));
-        break;
-      }
-    });
-    // 부품을 바꾼 빌드로 가는 길: 보라 번호 풍선
-    bals.forEach(({ p, cx, cy }) => g3.append(sv('circle', { cx, cy, r: 9.5, fill: '#fff', stroke: C.purpleT, 'stroke-width': 1 }),
-      sv('text', { x: cx, y: cy + 4, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 500, fill: C.purpleT, 'font-family': 'Jost, sans-serif', text: p.i + 1 })));
-    plot.replaceChildren(svg);
-    plot.setAttribute('aria-label', t.sr);
-    // 고른 모델 열 빌드가 먼저, 그다음 다른 모델
-    const items = [...S, ...P.filter(x => x[0].m !== F.m).flat()];
-    const tipFor = i => {
-      const p = items[i], X2 = p.X, eco = X2.series.eco[p.i], w = X2.series.weight[p.i];
-      const rows = [
-        { value: mmss(eco), label: `${t.tEco} · ${sgnT(p.x)} ${p.x < 0 ? t.short : t.spare}`, tone: p.x < 0 ? 'bad' : null },
-        { value: glue(`${kg(w)} kg`), label: `${t.tW} · ${sgnG(p.y)} ${p.y > 0 ? t.over : t.under}`, tone: p.y > 0 ? 'bad' : null }
-      ];
-      PARTS.forEach((pp, j) => { if (X2.changed[j] === p.b) rows.push({ value: '', label: `${j + 1} ${L().f1.parts[j]} · ${t.keys.chg}`, tone: 'chg' }); });
-      return tipNodes([`${L().models[p.m]} · ${L().t1.build(p.b)}`], rows);
-    };
-    fqCur.say = i => { const p = items[i]; return glue(`${p.m}, ${L().t1.build(p.b)}: ${t.tEco} ${sgnT(p.x)}, ${t.tW} ${sgnG(p.y)}`); };
-    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const p = items[i]; gsel.append(sv('circle', { cx: X(p.x), cy: Y(p.y), r: 8, fill: 'none', stroke: C.ink, 'stroke-width': 1.5 })); };
-    wireItems(host, plot, items.length, fqCur, (xx, yy) => { let best = 0, bd = Infinity; items.forEach((p, k) => { const d = Math.hypot(X(p.x) - xx, Y(p.y) - yy) - (p.m === F.m ? 6 : 0); if (d < bd) { bd = d; best = k; } }); return best; },
-      i => { sel(i); const p = items[i], o = offsetIn(host, plot); placeTip(host, tipFor(i), o.x + X(p.x), o.y + Y(p.y) - 8, o.y + Y(p.y) + 8); }, () => sel(-1));
-    $('#fqTable').replaceChildren(srTable(t.sr, t.srHead, P.flat().map(p => [p.m, String(p.b), mmss(p.X.series.eco[p.i]), sgnT(p.x), gr(p.X.series.weight[p.i]), (p.y > 0 ? '+' : '') + p.y])));
-  }
-
-  /* ================= 그림 4: 무게 다리 =================
-     최대 대비 무게를 빌드 37에서 시작해 바꾼 부품(보라)을 하나씩 얹고 빌드 41, 이어서 빌드 42에 넣을 수정(점선)과 계획.
-     합계 막대는 최대 선(1점 쇄선)에서 시작해 넘으면 빨강. 막대마다 위 막대가 끝난 자리에서 시작한다.
-     바탕은 판 회색 하나. 색은 막대에만. */
-  const fbCur = { i: 0 };
-  function renderFB(animate) {
-    const F = facts(), t = L().fb, plot = $('#fbPlot'), host = $('#fb'), anim = animOK(animate), st = F.bridge.steps, n = st.length;
-    $('#fbT').textContent = glue(t.title[F.m](F));
-    $('#fbK').replaceChildren(
-      h('li', null, sv('svg', { width: 14, height: 10 }, sv('rect', { width: 14, height: 10, fill: C.purple })), t.keys.chg),
-      h('li', null, sv('svg', { width: 14, height: 10 }, sv('rect', { width: 14, height: 10, fill: C.red })), t.keys.over),
-      h('li', null, sv('svg', { width: 14, height: 10 }, sv('rect', { x: .5, y: .5, width: 13, height: 9, fill: C.nickel, stroke: C.nickelE })), t.keys.under),
-      h('li', null, sv('svg', { width: 14, height: 10 }, sv('rect', { x: .5, y: .5, width: 13, height: 9, fill: '#fff', stroke: C.ink, 'stroke-dasharray': '3 2' })), t.keys.fix));
-    // 줄 수만큼 높이를 잡는다(줄마다 44px 이상): 줄이 많은 C90과 좁은 화면에서 이름과 설명이 겹치지 않게
-    const footH = 6;
-    plot.style.minHeight = (26 + 26 + (n - 1) * 44 + 6 + footH) + 'px';
-    const [W, H] = plotSize(plot, 260, 240);
-    const name = s => s.k === 'total' ? L().t1.build(s.b) : s.k === 'plan' ? L().t1.build(s.b) : L().f1.parts[s.i];
-    const sub = s => s.k === 'total' ? `${s.b === 37 ? t.review : t.now} · ${gr(s.w)} g` : s.k === 'plan' ? `${s.none ? t.noFix : t.planned} · ${gr(s.w)} g`
-      : s.k === 'chg' ? `${gr(s.w0)} → ${gr(s.w1)} g` : (() => { const fx = L().t2.fix[`${F.m}:weight:${s.i}`]; return fx ? fx[0].replace(/,\s*$/, '') : t.tFix; })();
-    const balW = 24;
-    const nameW = Math.min(Math.round(W * .44), Math.ceil(Math.max(...st.filter(s => s.k !== 'head').map(s => Math.max(textW(name(s), 13.5, 500) + (s.i != null ? balW : 0), textW(sub(s), 12) )))) + 14);
-    const valTxt = s => s.k === 'total' || s.k === 'plan' ? (s.v > 0 ? t.over(s.v) : s.v < 0 ? t.under(-s.v) : t.on) : sgnG(s.d).replace(' ', ' ');
-    const valW = Math.ceil(Math.max(...st.filter(s => s.k !== 'head').map(s => textW(valTxt(s), 13, 500)))) + 10;
-    const lo = Math.min(0, ...st.filter(s => s.k !== 'head').map(s => s.k === 'total' || s.k === 'plan' ? s.v : Math.min(s.a, s.z)));
-    const hi = Math.max(0, ...st.filter(s => s.k !== 'head').map(s => s.k === 'total' || s.k === 'plan' ? s.v : Math.max(s.a, s.z)));
-    const span = Math.max(40, hi - lo), x0v = lo - span * .06, x1v = hi + span * .06;
-    const top = 26, headH = 26, unit = (H - top - 4 - headH - footH) / (n - 1), rowH = Math.max(44, Math.min(56, unit));
-    const X = v => nameW + 8 + (v - x0v) / (x1v - x0v) * (W - nameW - 8 - valW - 6);
-    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g0 = sv('g'), gsel = sv('g'), g1 = sv('g'), g2 = sv('g');
-    svg.append(g0, gsel, g1, g2);
-    let y = top; const geo = [];
-    st.forEach(s => { const hh = s.k === 'head' ? headH : rowH; geo.push({ y0: y, y1: y + hh, yc: y + hh / 2, s }); y += hh; });
-    const bottom = y;
-    // 바탕: 판 회색 하나(값 글자 자리까지)
-    const zx0 = X(x0v) - 8, zy0 = top - 8, zy1 = bottom + footH;
-    g0.append(sv('rect', { x: zx0, y: zy0, width: W - zx0, height: zy1 - zy0, fill: C.panel }));
-    // 최대 선
-    g0.append(sv('line', { x1: X(0), x2: X(0), y1: top - 8, y2: zy1, stroke: C.ink, 'stroke-width': 1, 'stroke-dasharray': '10 3 2 3' }),
-      sv('text', { x: X(0), y: 12, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 500, fill: C.ink, text: `${t.max} ${gr(F.budget)} g` }));
-    const rowsIdx = [];
-    geo.forEach((g, k) => {
-      const s = g.s;
-      if (s.k === 'head') {
-        g0.append(sv('line', { x1: 0, x2: W, y1: g.yc + 2, y2: g.yc + 2, stroke: C.hair }),
-          sv('text', { x: 0, y: g.yc - 3, 'font-size': 11.5, 'font-weight': 500, fill: C.mute, 'letter-spacing': KO() ? 0 : '.06em', text: t.planHead }));
-        return;
-      }
-      rowsIdx.push(k);
-      const tot = s.k === 'total' || s.k === 'plan', bh = tot ? 22 : 18, by = g.yc - bh / 2;
-      // 이름
-      let tx = 0;
-      if (s.i != null) {
-        const chg = !!F.parts[s.i].chg;
-        g1.append(sv('circle', { cx: 10, cy: g.yc - 6, r: 9.5, fill: '#fff', stroke: chg ? C.purpleT : C.ink, 'stroke-width': 1 }),
-          sv('text', { x: 10, y: g.yc - 2, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 500, fill: chg ? C.purpleT : C.ink, 'font-family': 'Jost, sans-serif', text: s.i + 1 }));
-        tx = balW;
-      }
-      g1.append(sv('text', { x: tx, y: g.yc - 2, 'font-size': 13.5, 'font-weight': 500, fill: C.ink, text: fitText(name(s), 13.5, 500, nameW - tx - 6) }),
-        sv('text', { x: 0, y: g.yc + 14, 'font-size': 12, fill: s.k === 'chg' ? C.purpleT : C.mute, text: fitText(sub(s), 12, 400, nameW - 6) }));
-      // 막대
-      const a = tot ? 0 : s.a, z = tot ? s.v : s.z, xa = Math.min(X(a), X(z)), xz = Math.max(X(a), X(z)), w = Math.max(1.5, xz - xa);
-      const attrs = s.k === 'chg' ? { fill: C.purple } : s.k === 'fix' ? { fill: '#fff', stroke: C.ink, 'stroke-width': 1, 'stroke-dasharray': '3 2' }
-        : s.k === 'plan' ? { fill: '#fff', stroke: s.v > 0 ? C.red : C.nickelE, 'stroke-width': 1.5, 'stroke-dasharray': '5 3' }
-        : { fill: s.v > 0 ? C.red : C.nickel, stroke: s.v > 0 ? C.red : C.nickelE, 'stroke-width': 1 };
-      const bar = sv('rect', { x: xa, y: by, width: w, height: bh, ...attrs });
-      if (anim) { bar.setAttribute('class', 'growx'); bar.style.animationDelay = (k * 90) + 'ms'; bar.style.transformOrigin = `${X(a)}px 0`; }
-      g1.append(bar);
-      // 이어지는 선: 이 막대가 끝난 자리에서 다음 막대까지
-      const nx = geo.slice(k + 1).find(q => q.s.k !== 'head');
-      if (nx) g0.append(sv('line', { x1: X(z), x2: X(z), y1: by + bh, y2: nx.yc - (nx.s.k === 'total' || nx.s.k === 'plan' ? 11 : 9), stroke: C.mute, 'stroke-width': 1, 'stroke-dasharray': '2 2' }));
-      // 값
-      const vt = valTxt(s), bad = tot && s.v > 0;
-      g2.append(sv('text', { x: Math.max(xz, X(0)) + 7, y: g.yc + 4.5, 'font-size': 13, 'font-weight': 500, fill: s.k === 'chg' ? C.purpleT : bad ? C.redT : C.ink, 'stroke': C.panel, 'stroke-width': 4, 'paint-order': 'stroke', text: vt }));
-    });
-    plot.replaceChildren(svg);
-    plot.setAttribute('aria-label', t.sr);
-    const tipFor = j => {
-      const s = geo[rowsIdx[j]].s, b = L().t1.build;
-      if (s.k === 'total' || s.k === 'plan') return tipNodes([s.k === 'plan' ? `${b(42)} · ${t.planned}` : b(s.b)], [
-        { value: glue(`${gr(s.w)} g`), label: t.tTotal }, { value: valTxt(s), label: '', tone: s.v > 0 ? 'bad' : null }]);
-      if (s.k === 'chg') return tipNodes(headOf(L().f1.parts[s.i], s.i, true), [
-        { value: glue(`${gr(s.w0)} g`), label: t.tWas }, { value: glue(`${gr(s.w1)} g`), label: t.tNow },
-        { value: sgnG(s.d), label: t.tChange, tone: s.d > 0 ? 'bad' : 'good' }, s.chg ? { value: '', label: L().f1.changedIn(s.chg), tone: 'chg' } : null]);
-      const q = s.q;
-      return tipNodes(headOf(L().f1.parts[s.i], s.i, !!F.parts[s.i].chg), [
-        { value: sgnG(s.d), label: t.tFix, tone: 'good' }, { value: '', label: sub(s) }, { value: L().t2.owner[q.owner || 'lab'], label: t.tOwner }]);
-    };
-    fbCur.say = j => { const s = geo[rowsIdx[j]].s; return glue(`${name(s)}: ${valTxt(s)}`); };
-    const sel = j => { gsel.replaceChildren(); if (j == null || j < 0) return; const g = geo[rowsIdx[j]]; gsel.append(sv('rect', { x: 0, y: g.y0 + 1, width: W, height: g.y1 - g.y0 - 2, fill: 'rgba(0,0,0,.05)' })); };
-    wireItems(host, plot, rowsIdx.length, fbCur, (xx, yy) => { let best = 0; rowsIdx.forEach((k, j) => { if (Math.abs(geo[k].yc - yy) < Math.abs(geo[rowsIdx[best]].yc - yy)) best = j; }); return best; },
-      j => { sel(j); const g = geo[rowsIdx[j]], o = offsetIn(host, plot), s = g.s, z = s.k === 'total' || s.k === 'plan' ? s.v : s.z; placeTip(host, tipFor(j), o.x + Math.min(X(z), W - 30), o.y + g.y0, o.y + g.y1); }, () => sel(-1));
-    $('#fbTable').replaceChildren(srTable(t.sr, t.srHead, st.filter(s => s.k !== 'head').map(s => [`${s.i != null ? (s.i + 1) + ' ' : ''}${name(s)} (${sub(s)})`, s.d != null ? String(s.d) : '—', String(s.k === 'total' || s.k === 'plan' ? s.v : s.z)])));
-  }
-
-  /* ================= 그림 5: 빌드별 세 지표 =================
-     가장자리 집진, Eco 런타임, 무게를 빌드 32~41의 작은 그림 셋으로. 막대는 목표와의 차이(목표선이 바닥).
-     바탕은 판 회색 하나. 목표를 채운 빌드는 잉크, 못 채운 빌드는 빨강.
-     부품을 바꾼 빌드에는 그림 1의 번호 풍선(보라)과 세로 점선. 빌드 41의 값과 차이는 오른쪽에. */
-  const F3K = ['edge', 'eco', 'weight'];
-  const F3MIN = { edge: 2, eco: 240, weight: 120 };   // 작은 흔들림을 부풀리지 않는 최소 범위
-  const f3Fmt = { edge: v => NF(1).format(v) + '%', eco: mmss, weight: v => kg(v) + ' kg' };
+  /* ================= 그림 3: 빌드 비교 =================
+     dyson.com 비교 표처럼 빌드 37(검토)부터 41(지금)까지 나란히 세운다. 열마다 기계 한 대:
+     위는 둥근 화면(Eco 런타임, 최소 대비 배터리), 가운데는 분해도(바닥에서 손까지 쌓은 부품, 길이 = 무게,
+     빌드 37 이후 바꾼 부품은 보라, 예산을 넘은 만큼 빨간 끝, 최대는 1점 쇄선), 아래는 레이저 바닥(벽 쪽에 남은 먼지, 점 하나 = 0.05%).
+     맨 왼쪽 열은 목표를 점선으로. 열의 자리는 바로 아래 표의 머리 칸을 재서 맞춘다. */
   const limWord = k => LOWER[k] ? (KO() ? '최대' : 'MAX') : (KO() ? '최소' : 'MIN');
-  const f3Cur = { i: IX };
   function weekRange(b) {
     const w = DATA.buildWeek[b], mon = new Date(Date.UTC(2025, 11, 29 + 7 * (w - 1))), sun = new Date(mon.getTime() + 6 * 864e5);
     const iso = d => d.toISOString().slice(0, 10);
     return KO() ? `${DAY.ko(iso(mon))}~${DAY.ko(iso(sun))}` : `${DAY.en(iso(mon))} – ${DAY.en(iso(sun))}`;
   }
-  function renderF3(animate) {
-    const F = facts(), t = L().f3, plot = $('#f3Plot'), host = $('#f3'), anim = animOK(animate), S = F.S, B = DATA.builds, n = B.length;
-    $('#f3T').textContent = glue(t.title[F.m](F));
-    $('#f3K').replaceChildren(
-      h('li', null, sv('svg', { width: 10, height: 12 }, sv('rect', { width: 10, height: 12, fill: C.ink })), t.keys.meet),
-      h('li', null, sv('svg', { width: 10, height: 12 }, sv('rect', { width: 10, height: 12, fill: C.red })), t.keys.miss),
-      h('li', null, sv('svg', { width: 14, height: 14 }, sv('circle', { cx: 7, cy: 7, r: 6.3, fill: '#fff', stroke: C.purpleT })), t.keys.chg));
-    const [W, H] = plotSize(plot, 260, 300);
-    const topS = 28, axisH = 36, head = 22, pg = 14, ph = (H - topS - axisH - 3 * head - 2 * pg) / 3;
-    const dfmt = (k, d) => k === 'eco' ? (d < 0 ? '−' : '+') + mmss(Math.abs(d)) : k === 'edge' ? `${d < 0 ? '−' : '+'}${NF(1).format(Math.abs(d))} ${t.pts}` : `${d < 0 ? '−' : '+'}${gr(Math.abs(d))} g`;
-    const tgtTxt = k => f3Fmt[k](F.t[k]), last = k => f3Fmt[k](S[k][IX]);
-    const padL = Math.ceil(Math.max(...F3K.map(k => textW(tgtTxt(k), 12.5)))) + 12;
-    const padR = Math.ceil(Math.max(...F3K.map(k => Math.max(textW(last(k), 14, 500), textW(dfmt(k, S[k][IX] - F.t[k]), 12.5, 500))))) + 14;
-    const slot = (W - padL - padR) / n, x = i => padL + slot * (i + .5), bw = Math.max(5, Math.min(30, slot * .56));
+  const luCur = { i: 0 };
+  // 빌드의 남은 먼지 세 구역(벽 쪽 · 가운데 · 바깥쪽): 잰 두 빌드(37 · 41) 사이를 남은 양으로 잇는다
+  function luZones(X, b) {
+    const a = X.floor[DATA.review], c = X.floor[DATA.now], left = 100 - X.series.edge[bIx(b)];
+    const la = sum(a), lc = sum(c), u = la === lc ? 0 : (left - lc) / (la - lc);
+    const z = c.map((v, i) => Math.max(0, v + u * (a[i] - v))), s = sum(z) || 1;
+    return z.map(v => v * left / s);
+  }
+  function renderLU(animate) {
+    const F = facts(), t = L().lu, t1 = L().t1, plot = $('#luPlot'), host = $('#lu'), anim = animOK(animate), X = F.X, P = F.parts, n = P.length;
+    $('#luT').textContent = glue(t.title[F.m](F));
+    $('#luK').replaceChildren(
+      h('li', null, sv('svg', { width: 10, height: 14 }, sv('rect', { x: .5, y: .5, width: 9, height: 13, rx: 2, fill: C.nickel, stroke: C.nickelE })), t.keys.part),
+      h('li', null, sv('svg', { width: 10, height: 14 }, sv('rect', { width: 10, height: 14, rx: 2, fill: C.purple })), t.keys.chg),
+      h('li', null, sv('svg', { width: 10, height: 14 }, sv('rect', { x: .5, y: .5, width: 9, height: 13, rx: 2, fill: C.nickel, stroke: C.nickelE }), sv('path', { d: 'M0,5 V2 A2,2 0 0 1 2,0 H8 A2,2 0 0 1 10,2 V5 Z', fill: C.red })), t.keys.over),
+      h('li', null, sv('svg', { width: 22, height: 12 }, sv('rect', { width: 22, height: 12, rx: 2, fill: C.black }), [[4, 4], [8, 8], [13, 5], [18, 7]].map(([x, y]) => sv('circle', { cx: x, cy: y, r: 1.3, fill: C.laser }))), t.keys.dust),
+      h('li', null, sv('svg', { width: 10, height: 14 }, sv('rect', { x: .5, y: .5, width: 9, height: 13, rx: 2, fill: '#fff', stroke: C.mute, 'stroke-dasharray': '3 2' })), t.keys.target));
+    // 열: 아래 표의 머리 칸과 같은 자리
+    const pb = plot.getBoundingClientRect(), ths = $$('#t1Wrap thead th').filter(th => th.getClientRects().length);
+    if (ths.length < 3) { plot.replaceChildren(); return; }
+    const col = th => { const r = th.getBoundingClientRect(); return { x0: r.left - pb.left, x1: r.right - pb.left, w: r.width, cx: (r.left + r.right) / 2 - pb.left }; };
+    const cl = col(ths[0]), ct = col(ths[1]), cb = ths.slice(2).map(th => ({ ...col(th), b: +th.dataset.b }));
+    const W = Math.max(260, Math.round(plot.clientWidth)), bw = Math.min(...cb.map(c => c.w)), small = bw < 110;
+    // 세로 자리: 화면 → 런타임 차이 → 무게 → 분해도 → 바닥 → 남은 먼지
+    const D = Math.round(Math.min(124, Math.max(bw * .62, Math.min(bw - 14, 66))));
+    const y0 = 4, ySt = y0 + D + (small ? 16 : 19), yW = ySt + (small ? 28 : 36), yTop = yW + 15 + 16;
+    const Hs = Math.round(Math.max(170, Math.min(250, bw * 1.25))), gap = small ? 4 : 6, yBot = yTop + Hs;
+    const th = small ? 30 : 38, yTile = yBot + 6, yL = yTile + th + 20, H = yL + 10;
+    const pw = Math.round(Math.max(24, Math.min(54, bw * .27))), tw = Math.round(Math.max(56, Math.min(160, bw - (small ? 14 : 40))));
+    const wOf = (i, b) => X.pw[P[i].p][bIx(b)], total = b => sum(P.map((p, i) => wOf(i, b)));
+    const MAXW = F.t.weight, k = (Hs - gap * (n - 1) - 8) / Math.max(MAXW, sum(P.map(p => p.b)), ...cb.map(c => total(c.b)));
+    const yMax = yBot - (MAXW * k + gap * (n - 1));
+    const jost = { 'font-family': 'Jost, sans-serif' };
     const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g0 = sv('g'), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
     svg.append(g0, g1, g2, gsel);
-    const bottom = topS + 3 * (head + ph) + 2 * pg;
-    const chgIx = F.parts.filter(p => p.chg).map(p => bIx(p.chg));
-    const panels = F3K.map((k, p) => {
-      const vals = S[k], tgt = F.t[k], d = vals.map(v => v - tgt), y0 = topS + p * (head + ph + pg), py0 = y0 + head + 4, py1 = y0 + head + ph;
-      let lo = Math.min(0, ...d), hi = Math.max(0, ...d);
-      if (hi - lo < F3MIN[k]) { const c = (hi + lo) / 2; lo = c - F3MIN[k] / 2; hi = c + F3MIN[k] / 2; }
-      const pad = (hi - lo) * .16; lo -= pad; hi += pad;
-      const y = v => py0 + (hi - v) / (hi - lo) * (py1 - py0), yb = y(0);
-      // 바탕: 판 회색 하나
-      const zUp = C.panel, zDn = C.panel;
-      g0.append(sv('rect', { x: padL, y: py0, width: W - padL - padR, height: py1 - py0, fill: C.panel }));
-      // 패널 이름과 목표
-      const ht = sv('text', { x: 0, y: y0 + 13, 'font-size': 13.5, 'font-weight': 500, fill: C.ink });
-      ht.append(sv('tspan', { text: t.panels[k] }), sv('tspan', { dx: 8, 'font-size': 12.5, 'font-weight': 400, fill: C.mute, text: `${limWord(k)} ${tgtTxt(k)}` }));
-      g0.append(ht);
-      // 목표선(막대의 바닥)과 왼쪽의 목표 값
-      g1.append(sv('line', { x1: padL, x2: W - padR, y1: yb, y2: yb, stroke: C.ink, 'stroke-width': 1 }));
-      g2.append(sv('text', { x: padL - 8, y: yb + 4, 'text-anchor': 'end', 'font-size': 12.5, fill: C.mute, text: tgtTxt(k) }));
-      // 막대
-      vals.forEach((v, i) => {
-        const ok = passes(k, v, tgt), ye = y(d[i]), r = sv('rect', { x: x(i) - bw / 2, y: Math.min(yb, ye), width: bw, height: Math.max(1, Math.abs(ye - yb)), fill: ok ? C.ink : C.red });
-        if (anim) { r.setAttribute('class', 'growy'); r.style.transformOrigin = d[i] >= 0 ? 'center bottom' : 'center top'; r.style.animationDelay = (p * 120 + i * 35) + 'ms'; }
-        g1.append(r);
+    // 지금(빌드 41) 열은 표와 이어지는 판 회색 띠
+    cb.filter(c => c.b === DATA.now).forEach(c => g0.append(sv('rect', { x: c.x0, y: 0, width: c.w, height: H, fill: C.panel })));
+    // 최대: 목표 열에서 마지막 빌드까지 1점 쇄선
+    g2.append(sv('line', { x1: ct.x0 + 4, x2: cb[cb.length - 1].x1 - 4, y1: yMax, y2: yMax, stroke: C.ink, 'stroke-width': 1, 'stroke-dasharray': '10 3 2 3' }));
+    // 부품 쌓기(바닥에서 위로). 돌려주는 값은 부품마다의 자리
+    const stack = (cx, hOf) => { let y = yBot; return P.map((p, i) => { const hg = Math.max(1, hOf(i) * k), g = { i, y0: y - hg, y1: y, hg, cy: y - hg / 2 }; y = g.y0 - gap; return g; }); };
+    const mv = i => anim ? { class: 'explode', style: { '--dy': (gap * i) + 'px' } } : {};
+    const fadeAt = ms => anim ? { class: 'fade', style: { animationDelay: ms + 'ms' } } : {};
+    const bal = (x, y, num, col, r = 8) => [sv('circle', { cx: x, cy: y, r, fill: '#fff', stroke: col, 'stroke-width': 1 }), sv('text', { x, y: y + 3.6, 'text-anchor': 'middle', 'font-size': r > 7.5 ? 10.5 : 10, 'font-weight': 500, fill: col, ...jost, text: num })];
+
+    // ---- 목표 열: 점선으로 그린 기계
+    {
+      const cx = ct.cx, Dt = Math.min(D, ct.w - 12), cy = y0 + D / 2, left = 100 - F.t.edge, ttw = Math.min(tw, ct.w - 12);
+      g1.append(sv('line', { x1: cx, x2: cx, y1: yTop - 8, y2: yTile, stroke: C.nickelE, 'stroke-width': 1, 'stroke-dasharray': '10 3 2 3' }),
+        sv('circle', { cx, cy, r: Dt / 2 - .5, fill: '#fff', stroke: C.mute, 'stroke-width': 1, 'stroke-dasharray': '3 3' }),
+        sv('text', { x: cx, y: cy - Dt * .15, 'text-anchor': 'middle', 'font-size': Math.max(10, Dt * .1), 'font-weight': 500, fill: C.mute, ...jost, text: t.min }),
+        sv('text', { x: cx, y: cy + Dt * .13, 'text-anchor': 'middle', 'font-size': Dt * .25, 'font-weight': 300, fill: C.ink, ...jost, text: mmss(F.t.eco) }));
+      g2.append(sv('text', { x: cx, y: yW, 'text-anchor': 'middle', 'font-size': small ? 13.5 : 15, 'font-weight': 300, fill: C.ink, text: glue(`${gr(MAXW)} g`) }),
+        sv('text', { x: cx, y: yW + 15, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 500, fill: C.mute, text: t.max }));
+      const G = stack(cx, i => P[i].b);
+      G.forEach(g => g1.append(sv('rect', { x: cx - pw / 2, y: g.y0, width: pw, height: g.hg, rx: Math.min(4, g.hg / 2), fill: '#fff', stroke: C.mute, 'stroke-width': 1, 'stroke-dasharray': '3 2' })));
+      g1.append(sv('rect', { x: cx - ttw / 2 + .5, y: yTile + .5, width: ttw - 1, height: th - 1, rx: 4, fill: '#fff', stroke: C.mute, 'stroke-width': 1, 'stroke-dasharray': '3 3' }));
+      const r = rng(F.m.charCodeAt(1) * 77 + 5), nd = Math.round(left / 0.05);
+      for (let q = 0; q < nd; q++) g1.append(sv('circle', { cx: (cx - ttw / 2 + 4 + r() * (ttw - 8)).toFixed(1), cy: (yTile + 4 + r() * (th - 8)).toFixed(1), r: small ? .9 : 1.1, fill: C.sub }));
+      g2.append(sv('text', { x: cx, y: yL, 'text-anchor': 'middle', 'font-size': small ? 13.5 : 15, 'font-weight': 300, fill: C.ink, text: `${NF(1).format(left)}%` }));
+      // 라벨 열: 줄 이름과 부품 이름(번호 풍선, 지시선)
+      const cap = (txt, y) => g2.append(sv('text', { x: cl.x0, y, 'font-size': 13.5, 'font-weight': 500, fill: C.ink, text: txt }));
+      cap(t.cap.eco, cy + 5); cap(t.cap.weight, yW + 8);
+      cap(textW(t.cap.dust, 13.5, 500) <= cl.w - 8 ? t.cap.dust : t.cap.dustS, yTile + th / 2 + 5);
+      const names = L().f1.parts, room = cl.w - 34, fsN = small ? 12 : 12.5, showNames = Math.max(...names.map(s => textW(s, fsN))) <= room, step = small ? 15 : 16;
+      const lab = G.slice().reverse().map(g => ({ g, y: g.cy }));               // 위에서 아래로
+      lab.forEach((q, j) => { if (j) q.y = Math.max(q.y, lab[j - 1].y + step); });
+      for (let j = lab.length - 1, lim = yBot - 4; j >= 0; j--) { if (lab[j].y > lim) lab[j].y = lim; lim = lab[j].y - step; }
+      const bx = cl.x1 - 16;
+      lab.forEach(({ g, y }) => {
+        g1.append(sv('path', { d: `M${bx + 8},${y} L${cx - pw / 2 - 3},${g.cy}`, fill: 'none', stroke: C.mute2, 'stroke-width': .8, ...fadeAt(500) }));
+        g2.append(...bal(bx, y, g.i + 1, C.ink, small ? 6.5 : 7.5));
+        if (showNames) g2.append(sv('text', { x: bx - 13, y: y + 4, 'text-anchor': 'end', 'font-size': fsN, fill: C.body, text: names[g.i] }));
       });
-      // 차이: 빌드 37과 부품을 바꾼 빌드, 막대 끝에(다른 글자나 막대와 겹치면 뺀다)
-      const taken = vals.map((v, i) => { const ye = y(d[i]); return { x0: x(i) - bw / 2, x1: x(i) + bw / 2, y0: Math.min(yb, ye), y1: Math.max(yb, ye) }; });
-      [...chgIx, I37].filter((i, j, a) => a.indexOf(i) === j && i !== IX).forEach(i => {
-        const txt = dfmt(k, d[i]), w = textW(txt, 12, 500) + 4, up = d[i] >= 0, ty = up ? y(d[i]) - 5 : y(d[i]) + 14;
-        const r = { x0: x(i) - w / 2, x1: x(i) + w / 2, y0: ty - 11, y1: ty + 2 };
-        if (r.y0 < py0 - 2 || r.y1 > py1 + 2 || r.x1 > W - padR || taken.some(q => r.x0 < q.x1 && q.x0 < r.x1 && r.y0 < q.y1 && q.y0 < r.y1)) return;
-        taken.push(r);
-        const ok = passes(k, vals[i], tgt);
-        // 글자 뒤에 바탕색 칸: 보라 세로 점선이 글자를 지나지 않게
-        g2.append(sv('rect', { x: r.x0, y: r.y0, width: r.x1 - r.x0, height: r.y1 - r.y0 + 2, fill: up ? zUp : zDn }),
-          sv('text', { x: x(i), y: ty, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 500, fill: ok ? C.ink : C.redT, text: txt }));
+    }
+
+    // ---- 빌드 열: 기계 한 대씩
+    const info = cb.map((c, j) => {
+      const b = c.b, bi = bIx(b), cx = c.cx, cy = y0 + D / 2, eco = X.series.eco[bi], dEco = eco - F.t.eco, tot = total(b), dW = tot - MAXW;
+      const edge = X.series.edge[bi], left = 100 - edge, okE = passes('edge', edge, F.t.edge), prev = j ? cb[j - 1].b : null;
+      // 축
+      g0.append(sv('line', { x1: cx, x2: cx, y1: yTop - 8, y2: yTile, stroke: C.nickelE, 'stroke-width': 1, 'stroke-dasharray': '10 3 2 3' }));
+      // 둥근 화면
+      const R = D * .454, len = 2 * Math.PI * R, fs = D * .27, bwid = D * .4, bh = Math.max(6, D * .085), by = cy + D * .2, fill = Math.max(0, Math.min(1, eco / F.t.eco));
+      g1.append(sv('circle', { cx, cy, r: D / 2, fill: C.black }),
+        sv('circle', { cx, cy, r: R, fill: 'none', stroke: C.mode[0], 'stroke-width': Math.max(1.2, D * .0185), transform: `rotate(-90 ${cx} ${cy})`, class: anim ? 'ring' : null, style: anim ? { '--len': len.toFixed(1), animationDelay: (j * 90) + 'ms' } : null }),
+        sv('text', { x: cx, y: cy - D * .17, 'text-anchor': 'middle', 'font-size': Math.max(10, D * .095), 'font-weight': 500, fill: C.mode[0], ...jost, text: L().modeNames[0] }),
+        sv('text', { x: cx, y: cy + D * .105, 'text-anchor': 'middle', 'font-size': fs, 'font-weight': 300, fill: '#fff', 'letter-spacing': '.01em', ...jost, text: mmss(eco) }),
+        sv('rect', { x: cx - bwid / 2, y: by, width: bwid, height: bh, rx: 2, fill: 'none', stroke: '#fff', 'stroke-width': small ? 1 : 1.3 }),
+        sv('rect', { x: cx + bwid / 2 + 1.5, y: by + bh * .3, width: 2, height: bh * .4, fill: '#fff' }),
+        sv('rect', { x: cx - bwid / 2 + 2, y: by + 2, width: Math.max(0, (bwid - 4) * fill), height: bh - 4, rx: .8, fill: C.mode[0], class: anim ? 'growx' : null, style: anim ? { animationDelay: (250 + j * 90) + 'ms' } : null }));
+      g2.append(sv('text', { x: cx, y: ySt, 'text-anchor': 'middle', 'font-size': 12.5, 'font-weight': 500, fill: dEco < 0 ? C.redT : C.mute, text: (dEco < 0 ? '−' : '+') + mmss(Math.abs(dEco)) + (dEco < 0 ? ' ✗' : '') }));
+      // 무게
+      g2.append(sv('text', { x: cx, y: yW, 'text-anchor': 'middle', 'font-size': small ? 13.5 : 15, 'font-weight': b === DATA.now ? 400 : 300, fill: C.ink, text: glue(`${gr(tot)} g`) }),
+        sv('text', { x: cx, y: yW + 15, 'text-anchor': 'middle', 'font-size': 12.5, 'font-weight': 500, fill: dW > 0 ? C.redT : C.mute, text: glue(`${dW > 0 ? '+' : '−'}${gr(Math.abs(dW))} g`) + (dW > 0 ? ' ✗' : '') }));
+      // 분해도: 니켈 부품, 바꾼 부품은 보라, 예산을 넘은 만큼 빨간 끝
+      const G = stack(cx, i => wOf(i, b)), changes = [];
+      G.forEach(g => {
+        const p = P[g.i], chg = p.chg && p.chg <= b, d = wOf(g.i, b) - p.b, x = cx - pw / 2, rx = Math.min(4, g.hg / 2);
+        g1.append(sv('rect', { x, y: g.y0, width: pw, height: g.hg, rx, fill: chg ? C.purple : C.nickel, stroke: chg ? C.purple : C.nickelE, 'stroke-width': 1, ...mv(g.i) }));
+        if (d > 0) { const ch = Math.min(g.hg, Math.max(2, d * k)), r = Math.min(rx, ch); g1.append(sv('path', { d: `M${x},${g.y0 + ch} V${g.y0 + r} A${r},${r} 0 0 1 ${x + r},${g.y0} H${x + pw - r} A${r},${r} 0 0 1 ${x + pw},${g.y0 + r} V${g.y0 + ch} Z`, fill: C.red, ...mv(g.i) })); }
+        // 이 열에서 처음 보이는 교체(가려진 빌드의 교체는 다음에 보이는 열에)
+        if (p.chg && p.chg <= b && (prev == null ? false : p.chg > prev)) {
+          const dd = wOf(g.i, b) - wOf(g.i, prev); changes.push({ i: g.i, d: dd });
+          const rb = small ? 6.5 : 8, bxr = cx + pw / 2 + 5 + rb;
+          g2.append(sv('g', fadeAt(700 + j * 60), sv('line', { x1: cx + pw / 2, x2: bxr - rb, y1: g.cy, y2: g.cy, stroke: C.purpleT, 'stroke-width': 1 }), ...bal(bxr, g.cy, g.i + 1, C.purpleT, rb),
+            sv('text', { x: cx - pw / 2 - 5, y: g.cy + 4, 'text-anchor': 'end', 'font-size': small ? 11.5 : 12.5, 'font-weight': 500, fill: C.purpleT, text: glue(`${dd < 0 ? '−' : '+'}${gr(Math.abs(dd))} g`) })));
+        }
       });
-      // 빌드 41: 오른쪽에 값과 차이
-      const endOk = passes(k, vals[IX], tgt), ly = Math.max(py0 + 12, Math.min(py1 - 16, y(d[IX]) + (d[IX] >= 0 ? 4 : -4)));
-      g2.append(sv('text', { x: W - padR + 10, y: ly, 'font-size': 14, 'font-weight': 500, fill: endOk ? C.ink : C.redT, text: last(k) }),
-        sv('text', { x: W - padR + 10, y: ly + 15, 'font-size': 12.5, 'font-weight': 500, fill: endOk ? C.mute : C.redT, text: dfmt(k, d[IX]) }));
-      return { k, y, py0, py1 };
+      // 레이저 바닥
+      g1.append(sv('rect', { x: cx - tw / 2, y: yTile, width: tw, height: th, rx: 4, fill: C.black }));
+      dotsFor(F.m, { b, z: luZones(X, b) }).forEach(d => {
+        const rr = Math.max(.8, d.rr * (small ? .5 : .62)), x = cx - tw / 2 + Math.max(rr + 1.5, Math.min(tw - rr - 1.5, d.xm / 250 * tw)), y = yTile + 3.5 + d.v * (th - 7);
+        g1.append(sv('circle', { cx: x.toFixed(1), cy: y.toFixed(1), r: rr.toFixed(2), fill: C.laser, class: anim ? 'lit' : null, style: anim ? { animationDelay: Math.round(350 + j * 110 + d.xm / 250 * 500) + 'ms' } : null }));
+      });
+      g2.append(sv('text', { x: cx, y: yL, 'text-anchor': 'middle', 'font-size': small ? 13.5 : 15, 'font-weight': okE ? (b === DATA.now ? 400 : 300) : 500, fill: okE ? C.ink : C.redT, text: `${NF(1).format(left)}%` + (okE ? '' : ' ✗') }));
+      return { c, b, eco, dEco, tot, dW, edge, left, okE, changes };
     });
-    // 부품을 바꾼 빌드: 보라 번호 풍선과 세로 점선(막대 뒤)
-    F.parts.filter(p => p.chg).forEach(p => {
-      const xx = x(bIx(p.chg));
-      g1.insertBefore(sv('line', { x1: xx, x2: xx, y1: 22, y2: bottom, stroke: C.purpleT, 'stroke-width': 1, 'stroke-dasharray': '3 3' }), g1.firstChild);
-      g2.append(sv('circle', { cx: xx, cy: 11, r: 10, fill: '#fff', stroke: C.purpleT, 'stroke-width': 1 }),
-        sv('text', { x: xx, y: 15, 'text-anchor': 'middle', 'font-size': 11.5, 'font-weight': 500, fill: C.purpleT, 'font-family': 'Jost, sans-serif', text: p.i + 1 }));
-    });
-    // 빌드 번호와 검토
-    B.forEach((b, i) => {
-      if (W < 420 && i % 2 === 1 && i !== IX && i !== I37) return;
-      g0.append(sv('text', { x: x(i), y: bottom + 17, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': i === IX ? 500 : 400, fill: i === IX ? C.ink : C.mute, text: b }));
-    });
-    g0.append(sv('text', { x: x(I37), y: bottom + 31, 'text-anchor': 'middle', 'font-size': 11.5, fill: C.mute, text: t.review }));
+    plot.style.height = H + 'px';
     plot.replaceChildren(svg);
+    plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight);
     plot.setAttribute('aria-label', t.sr);
-    const chgAt = i => F.parts.filter(p => p.chg === B[i]);
+    const names = L().f1.parts, sg = d => `${d < 0 ? '−' : '+'}${gr(Math.abs(d))} g`;
     const tipFor = i => {
-      const rows = F3K.map(k => { const v = S[k][i], ok = passes(k, v, F.t[k]); return { value: glue(f3Fmt[k](v)), label: `${t.panels[k]} · ${dfmt(k, v - F.t[k])}` + (ok ? '' : ' · ' + t.keys.miss), tone: ok ? null : 'bad' }; });
-      chgAt(i).forEach(p => rows.push({ value: '', label: `${p.i + 1} ${L().f1.parts[p.i]} · ${t.keys.chg}`, tone: 'chg' }));
-      return tipNodes([`${L().t1.build(B[i])}`], rows, weekRange(B[i]) + (i === I37 ? ` · ${t.review}` : ''));
+      const q = info[i];
+      const rows = [
+        { key: C.mode[0], value: mmss(q.eco), label: `${t.tEco} · ${q.dEco < 0 ? '−' : '+'}${mmss(Math.abs(q.dEco))}` + (q.dEco < 0 ? ' · ' + t.miss : ''), tone: q.dEco < 0 ? 'bad' : null },
+        { value: glue(`${gr(q.tot)} g`), label: `${t.tWeight} · ${glue(sg(q.dW))}` + (q.dW > 0 ? ' · ' + t.miss : ''), tone: q.dW > 0 ? 'bad' : null },
+        { key: C.laser, value: `${NF(1).format(q.left)}%`, label: `${t.tDust} · ${t.tPicked} ${NF(1).format(q.edge)}%` + (q.okE ? '' : ' · ' + t.miss), tone: q.okE ? null : 'bad' },
+        ...q.changes.map(ch => ({ value: glue(sg(ch.d)), label: `${ch.i + 1} ${names[ch.i]} · ${t.tChg}`, tone: 'chg' }))];
+      return tipNodes([t1.build(q.b)], rows, weekRange(q.b) + (q.b === DATA.review ? ` · ${t1.review}` : q.b === DATA.now ? ` · ${t1.now}` : ''));
     };
-    f3Cur.say = i => `${L().t1.build(B[i])}: ` + F3K.map(k => `${t.panels[k]} ${f3Fmt[k](S[k][i])}`).join(', ');
-    const sel = i => {
-      gsel.replaceChildren();
-      if (i == null || i < 0) return;
-      gsel.append(sv('rect', { x: x(i) - slot / 2 + 1, y: topS - 2, width: slot - 2, height: bottom - topS + 4, fill: 'none', stroke: C.ink, 'stroke-width': 1.2 }));
-    };
-    wireItems(host, plot, n, f3Cur, xx => Math.max(0, Math.min(n - 1, Math.floor((xx - padL) / slot))),
-      i => { sel(i); const o = offsetIn(host, plot); placeTip(host, tipFor(i), o.x + x(i), o.y + topS, o.y + bottom); }, () => sel(-1));
-    $('#f3Table').replaceChildren(srTable(t.sr, t.srHead, B.map((b, i) => [L().t1.build(b), NF(1).format(S.edge[i]), mmss(S.eco[i]), kg(S.weight[i]), chgAt(i).map(p => `${p.i + 1} ${L().f1.parts[p.i]}`).join(', ') || '—'])));
+    luCur.say = i => { const q = info[i]; return glue(`${t1.build(q.b)}: ${t.tEco} ${mmss(q.eco)}, ${t.tWeight} ${gr(q.tot)} g, ${t.tDust} ${NF(1).format(q.left)}%` + (q.changes.length ? ', ' + q.changes.map(ch => `${names[ch.i]} ${sg(ch.d)}`).join(', ') : '')); };
+    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const c = cb[i]; gsel.append(sv('rect', { x: c.x0 + 1, y: 1, width: c.w - 2, height: H - 2, fill: 'none', stroke: C.ink, 'stroke-width': 1.2 })); };
+    const nearest = x => { if (x < cb[0].x0 - 4) return -1; let best = 0; cb.forEach((c, i) => { if (Math.abs(x - c.cx) < Math.abs(x - cb[best].cx)) best = i; }); return best; };
+    luCur.i = Math.min(luCur.i, cb.length - 1);
+    wireItems(host, plot, cb.length, luCur, nearest, i => { sel(i); const o = offsetIn(host, plot), c = cb[i]; placeTip(host, tipFor(i), o.x + c.cx, o.y + y0, o.y + y0 + D); }, () => sel(-1));
   }
 
-  /* ================= 표 1: 빌드 비교 =================
-     dyson.com 비교 표처럼 왼쪽 라벨 열, 묶음 머리, 머리카락 선. 목표 열, 빌드 37(검토)부터 41(지금)까지.
+  /* ================= 그림 3의 표: 빌드 비교 =================
+     그림 3의 기계 아래로 이어지는 사양 줄. dyson.com 비교 표처럼 왼쪽 라벨 열, 묶음 머리, 머리카락 선. 목표 열, 빌드 37(검토)부터 41(지금)까지.
      목표에 못 미친 값은 빨강과 ✗. 아래에 바꾼 부품(그림 1의 번호)과 목표 달성 수. */
   const T1G = [['run', ['eco', 'auto', 'boost']], ['clean', ['suction', 'edge', 'carpet']], ['size', ['noise', 'weight', 'bin']]];
   const T1B = [37, 38, 39, 40, 41];
@@ -1879,11 +1580,10 @@
     return `${s}${NF(0).format(a)} AW`;
   }
   function renderT1(animate) {
-    const F = facts(), t = L().t1, host = $('#t1'), S = F.S;
-    $('#t1T').textContent = glue(t.title[F.m](F));
+    const F = facts(), t = L().t1, host = $('#lu'), S = F.S;
     const cls = (b, base) => [base, T1HIDE[b], b === DATA.now ? 'cur' : null].filter(Boolean).join(' ');
     const head = h('tr', null, h('th', { scope: 'col' }, h('span', { class: 'sr-only', text: t.measure })), h('th', { scope: 'col', text: t.target }),
-      T1B.map(b => h('th', { scope: 'col', class: cls(b, 'r') }, t.build(b), b === DATA.review ? h('small', { text: t.review }) : b === DATA.now ? h('small', { text: t.now }) : null)));
+      T1B.map(b => h('th', { scope: 'col', class: cls(b, 'r'), 'data-b': b }, t.build(b), b === DATA.review ? h('small', { text: t.review }) : b === DATA.now ? h('small', { text: t.now }) : null)));
     const dataRows = [];
     const body = [];
     T1G.forEach(([g, keys]) => {
@@ -1903,11 +1603,20 @@
     });
     // 바꾼 부품과 목표 달성 수
     body.push(h('tr', { class: 'grp' }, h('th', { colspan: 2, scope: 'colgroup', text: KO() ? '빌드' : 'BUILD' }), T1B.map(b => h('td', { class: cls(b, 'r'), 'aria-hidden': 'true' }))));
+    // 바꾼 부품: 좁은 화면에서 가려지는 빌드(38 · 39, 폰은 40도)의 교체는 다음에 보이는 열에 적는다
+    const balOf = (p, extra) => h('span', { class: 'bal p' + (extra ? ' ' + extra : ''), title: L().f1.parts[p.i], text: p.i + 1 });
     body.push(h('tr', { class: 'chg-row' }, h('th', { scope: 'row', text: t.changed }), h('td', { class: 'tgt' }),
-      T1B.map(b => { const ps = F.parts.filter(p => p.chg === b); return h('td', { class: cls(b, 'r') }, ps.length ? h('span', { class: 'chg' }, ps.map(p => h('span', { class: 'bal p', title: L().f1.parts[p.i], text: p.i + 1 })), h('span', { class: 'sr-only', text: ps.map(p => L().f1.parts[p.i]).join(', ') })) : h('span', { class: 'dash', text: '—' })); })));
+      T1B.map(b => {
+        const own = F.parts.filter(p => p.chg === b);
+        const m = b === 40 ? F.parts.filter(p => T1HIDE[p.chg] === 'hide-m') : [];                                  // 640~899px: 38 · 39의 교체는 40에
+        const sm = b === DATA.now ? F.parts.filter(p => p.chg && p.chg > DATA.review && p.chg < b) : [];           // 폰: 38 · 39 · 40의 교체는 41에
+        const kids = [...own.map(p => balOf(p)), ...m.map(p => balOf(p, 'only-m')), ...sm.map(p => balOf(p, 'show-s'))];
+        return h('td', { class: cls(b, 'r') }, kids.length ? h('span', { class: 'chg' }, kids, h('span', { class: 'sr-only', text: own.map(p => L().f1.parts[p.i]).join(', ') })) : null,
+          own.length ? null : h('span', { class: 'dash' + (sm.length ? ' hide-s' : '') + (m.length ? ' hide-m' : ''), text: '—' }));
+      })));
     body.push(h('tr', { class: 'met-row' }, h('th', { scope: 'row', text: t.met }), h('td', { class: 'tgt', text: '7' }),
       T1B.map(b => { const m = F.X.met[bIx(b)]; return h('td', { class: cls(b, 'r') }, h('span', { class: 'num' + (m === 7 ? ' ok' : '') }, String(m), h('span', { class: 'u', text: '/ 7' }))); })));
-    const tb = h('table', { class: 'tb t1' }, h('thead', null, head), h('tbody', { class: animOK(animate) ? 'fade' : null, tabindex: 0, 'aria-label': glue(t.title[F.m](F)).replace(/⁠/g, '') }, body));
+    const tb = h('table', { class: 'tb t1' }, h('thead', null, head), h('tbody', { class: animOK(animate) ? 'fade' : null, tabindex: 0, 'aria-label': glue(L().lu.title[F.m](F)).replace(/⁠/g, '') }, body));
     $('#t1Wrap').replaceChildren(tb);
     wireRows(host, $('tbody', tb), 'tr.dr', t1Cur, (i, row) => {
       const k = dataRows[i], v = S[k][IX], v37 = S[k][I37], tg = F.t[k], u = t.units[k], unit = x => glue(u ? (u === '%' ? `${FMT[k](x)}%` : `${FMT[k](x)} ${u}`) : FMT[k](x));
@@ -1921,7 +1630,7 @@
     });
   }
 
-  /* ================= 그림 6: 내구 시험 =================
+  /* ================= 그림 4: 내구 시험 =================
      시험마다 시작부터 끝나는 날까지 한 줄. 한 양은 진한 막대, 남은 양은 니켈, 설계 확정 뒤로 넘친 만큼은 빨강.
      부품을 바꿔 다시 시작한 시험은 그 부품의 번호 풍선(보라). 오늘은 실선, 설계 확정은 1점 쇄선. 늦게 끝나는 것부터.
      바탕은 판 회색 하나(끝나는 날 글자 자리까지). */
@@ -2004,7 +1713,7 @@
     $('#f4Table').replaceChildren(srTable(t.sr, t.srHead, R.map(q => [t.tests[q.id], NF(0).format(q.done), `${NF(0).format(q.target)} ${unit(q)}`, DAY[state.lang](q.end), String(q.late)])));
   }
 
-  /* ================= 표 2: 설계 확정까지 남은 것 =================
+  /* ================= 표 1: 설계 확정까지 남은 것 =================
      부품은 그림 1의 번호 풍선과 이름, 문제의 핵심 숫자는 굵게(나쁘면 빨강), 수정의 효과는 굵게. 줄마다 툴팁에 자세한 값. */
   const t2Cur = { i: 0 };
   function fixOf(q, F) {
@@ -2112,16 +1821,16 @@
       s5: '5 · the result as the title, the assembled bar to MAX', once: 'once: add dyson.tps to Preferences.tps in My Tableau Repository'
     };
     const J = {
-      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '무선청소기 플랫폼의 빌드 41 시제품 시험 보고를 만들어 줘. 첫 화면에는 Eco·Auto·Boost 런타임을 최소 기준만큼 채운 배터리가 든 둥근 화면 셋으로, 흡입력·소음·가장자리 집진·무게를 사양 줄로, 그림 1은 부품별 무게를 예산과 견준 분해도로, 그림 2는 벽을 따라 한 번 지나간 뒤 남은 먼지를 빌드 37과 41의 레이저 바닥으로 보여 줘. 그 아래에 빌드별 가장자리 집진·Eco·무게(그림 3), 빌드 37~41을 목표와 견준 표 1, 설계 확정까지의 내구 시험(그림 4), 설계 확정까지 남은 문제(표 2).'], [0, '데이터는 부품 무게와 예산, 빌드별 시험 결과, 바닥 시험, 시험대 기록이야. 모델 필터는 모든 카드에 적용하고, 결과를 제목으로 써 줘.']]
-        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build the prototype review of our cordless vacuum platform, build 41. First screen: run time in Eco, Auto and Boost as three round screens, each with a battery filled against the minimum; suction, noise, edge pick-up and weight as spec rows; Figure 1, the weight of each part as an exploded view against its budget; Figure 2, the dust left after one pass along a wall, as a laser floor for builds 37 and 41. Below: Figure 3, edge pick-up, Eco and weight by build; Table 1, builds 37 to 41 against the targets; Figure 4, the durability tests against design freeze; Table 2, what is left before freeze.'], [0, 'The data is part weights and budgets, test results by build, the floor test and the test rigs. Apply the model filter to every card and write each result as the title.']],
+      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '무선청소기 플랫폼의 빌드 41 시제품 시험 보고를 만들어 줘. 첫 화면에는 Eco·Auto·Boost 런타임을 최소 기준만큼 채운 배터리가 든 둥근 화면 셋으로, 흡입력·소음·가장자리 집진·무게를 사양 줄로, 그림 1은 부품별 무게를 예산과 견준 분해도로, 그림 2는 벽을 따라 한 번 지나간 뒤 남은 먼지를 빌드 37과 41의 레이저 바닥으로 보여 줘. 그 아래에 빌드 37~41을 기계 한 대씩 나란히 세우고 사양 줄을 이은 빌드 비교(그림 3), 설계 확정까지의 내구 시험(그림 4), 설계 확정까지 남은 문제(표 1).'], [0, '데이터는 부품 무게와 예산, 빌드별 시험 결과, 바닥 시험, 시험대 기록이야. 모델 필터는 모든 카드에 적용하고, 결과를 제목으로 써 줘.']]
+        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build the prototype review of our cordless vacuum platform, build 41. First screen: run time in Eco, Auto and Boost as three round screens, each with a battery filled against the minimum; suction, noise, edge pick-up and weight as spec rows; Figure 1, the weight of each part as an exploded view against its budget; Figure 2, the dust left after one pass along a wall, as a laser floor for builds 37 and 41. Below: Figure 3, builds 37 to 41 side by side, each drawn as one machine with the spec rows under it; Figure 4, the durability tests against design freeze; Table 1, what is left before freeze.'], [0, 'The data is part weights and budgets, test results by build, the floor test and the test rigs. Apply the model filter to every card and write each result as the title.']],
       plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 머리 · dyson.com의 검정 머리, 회사와 보고서, EN/KO'], [0, kv('머리 띠', '#000000, 글자 흰색 300·500')], [0, kv('모델 필터', '메뉴 줄처럼 흰 16px, 고른 칸은 500과 밑줄')], [0, ''],
         [0, '# 첫 화면 · 설계를 확정해도 되나, 아니면 왜'], [0, kv('KPI 줄', '둥근 화면: 모드, 런타임, MIN 대비 배터리')], [0, kv('사양 줄', '라벨과 한계 → 가는 25px 수치, 작은 단위 → 선')], [0, kv('그림 1', '분해도: 부품 무게, 예산 괄호, 번호 풍선')], [0, kv('그림 2', '레이저 바닥: 검은 띠에 남은 먼지 초록 점')], [0, ''],
-        [0, '# 빌드별 · 설계 검토 이후'], [0, kv('그림 3', '작은 선 셋: 가장자리 집진, Eco, 무게와 목표')], [0, kv('표 1', '빌드 37~41과 목표, 미달은 빨강')], [0, ''],
-        [0, '# 시험과 남은 일 · 설계 확정까지'], [0, kv('그림 4', '내구 시험, 설계 확정 뒤는 빨강')], [0, kv('표 2', '문제, 수정, 담당, 기한, 큰 것부터')]]
+        [0, '# 빌드별 · 설계 검토 이후'], [0, kv('그림 3', '빌드 비교: 빌드마다 화면 · 분해도 · 바닥, 아래 사양 줄')], [0, ''],
+        [0, '# 시험과 남은 일 · 설계 확정까지'], [0, kv('그림 4', '내구 시험, 설계 확정 뒤는 빨강')], [0, kv('표 1', '문제, 수정, 담당, 기한, 큰 것부터')]]
         : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Header · the dyson.com black header, company and report, EN/KO'], [0, kv('Header band', '#000000, white text at 300 and 500')], [0, kv('Model filter', 'like the menu row: white 16px, selected 500 underlined')], [0, ''],
         [0, '# First screen · is the build ready for freeze, and if not, why'], [0, kv('KPI row', 'round screens: mode, run time, battery against the MIN')], [0, kv('Spec rows', 'label and limit → light 25px value, small unit → rule')], [0, kv('Figure 1', 'exploded view: part weights, budget brackets, balloons')], [0, kv('Figure 2', 'laser floor: dust left as green dots on black')], [0, ''],
-        [0, '# By build · since the design review'], [0, kv('Figure 3', 'three small lines: edge pick-up, Eco, weight to target')], [0, kv('Table 1', 'builds 37–41 against the targets, misses in red')], [0, ''],
-        [0, '# Tests and what is left · before design freeze'], [0, kv('Figure 4', 'durability tests, after freeze in red')], [0, kv('Table 2', 'issue, fix, owner, due, biggest first')]],
+        [0, '# By build · since the design review'], [0, kv('Figure 3', 'builds compared: screen, exploded view, floor, then spec rows')], [0, ''],
+        [0, '# Tests and what is left · before design freeze'], [0, kv('Figure 4', 'durability tests, after freeze in red')], [0, kv('Table 1', 'issue, fix, owner, due, biggest first')]],
       js: [
         [0, `// ${c.head}`], [0, 'import { tokens, plot, load } from "./dashboard.js";'],
         [0, `const model = ${q(F.m)};${' '.repeat(16)}// ${c.filter}`], [0, 'const parts = await load("parts.csv", { model, build: 41 });'], [0, ''],
@@ -2371,7 +2080,7 @@
     syncTabs(); renderBuildStatic(); renderTerms();
   }
   function renderAll(animate) {
-    renderHead(); renderKpi(animate); renderF1(animate); renderF2(animate); renderFQ(animate); renderFB(animate); renderF3(animate); renderT1(animate); renderF4(animate); renderT2(animate); renderBench();
+    renderHead(); renderKpi(animate); renderF1(animate); renderF2(animate); renderT1(animate); renderLU(animate); renderF4(animate); renderT2(animate); renderBench();
   }
   function keepInUrl() {
     try {
@@ -2397,7 +2106,7 @@
   }
   // 처음 1.2초 안에 다시 그리면(서체가 늦게 오거나 칸 크기가 자리 잡을 때) 움직임을 다시 보인다. 그 뒤로는 바로 그린다
   const T0 = performance.now(), early = () => performance.now() - T0 < 1200;
-  const redraws = [['#f1Plot', () => renderF1(early())], ['#f2Floor', () => redrawDots(early())], ['#fqPlot', () => renderFQ(early())], ['#fbPlot', () => renderFB(early())], ['#f3Plot', () => renderF3(early())], ['#f4Plot', () => renderF4(early())], ['#wbPlot', drawBench]];
+  const redraws = [['#f1Plot', () => renderF1(early())], ['#f2Floor', () => redrawDots(early())], ['#luPlot', () => renderLU(early())], ['#f4Plot', () => renderF4(early())], ['#wbPlot', drawBench]];
   if ('ResizeObserver' in window) {
     const ro = new ResizeObserver(entries => {
       for (const en of entries) {
