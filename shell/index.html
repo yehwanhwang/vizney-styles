@@ -952,7 +952,7 @@
         checksT: '점검 · DASHBOARD.md', checksOk: '6개 모두 통과', checksBad: '6개 중 0개 통과',
         checks: [[1, '틀: 격자 #e4e4e4, 축은 천 달러, 단계 이름은 아래'], [2, '합계: 계획과 실적은 회색 #818181, 아래는 물결로 끊고 숫자는 위에'], [3, '단계: 늘어남 #008443, 줄어듦 #e03a35, 레버 순서대로'], [4, '값: 음수는 괄호, 단계의 합이 맞게 반올림'], [5, '제목은 결과를 말하고, 빨간 차트 제목 #dd1d21에 단위'], [5, '흰 판 #ffffff에서 글자 대비 4.5:1 이상, 툴팁·키보드·표']],
         run: '다시 실행', copied: '코드를 복사했습니다', lines: n => `${n}줄`, built: 'DASHBOARD.md로 그림', drawing: '그리는 중…', generated: '명세 없이 만든 첫 초안',
-        cap: '그림 2를 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 같은 그림의 Tableau·Power BI 설정을 봅니다. 위의 구간 필터를 바꾸면 코드와 그림이 함께 바뀝니다.'
+        cap: '그림 2를 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 그 그림을 그리는 코드를 봅니다. 위의 구간 필터를 바꾸면 코드와 그림이 함께 바뀝니다.'
       },
       notes: {
         k: '방법과 출처', t: '숫자를 센 방법',
@@ -1116,7 +1116,7 @@
         checksT: 'Checks · DASHBOARD.md', checksOk: 'All 6 passed', checksBad: '0 of 6 passed',
         checks: [[1, 'Frame: grid #e4e4e4, $ thousand on the axis, step names below'], [2, 'Totals: plan and actual in gray #818181, cut at a break, figures on top'], [3, 'Steps: increase #008443, decrease #e03a35, in lever order'], [4, 'Values: negatives in parentheses, rounded so steps add up'], [5, 'The title states the finding; red chart title #dd1d21 with the unit'], [5, 'Text at 4.5:1 or more on #ffffff; tooltip, keys and table']],
         run: 'Run again', copied: 'Code copied', lines: n => `${n} lines`, built: 'Drawn from DASHBOARD.md', drawing: 'Drawing…', generated: 'A first draft without a spec',
-        cap: 'Figure 2, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the same figure as Tableau and Power BI settings. The corridor filter at the top changes the code and the figure together.'
+        cap: 'Figure 2, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the code that draws the figure. The corridor filter at the top changes the code and the figure together.'
       },
       notes: {
         k: 'Method and sources', t: 'How the numbers are counted',
@@ -2279,11 +2279,11 @@
   }
 
   /* ================= 만드는 법: 프로젝트 폴더 · 그림 2와 점검 · 코드 ================= */
-  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-2.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-2.js']];
   function codeLines(kind) {
     const ko = KO(), cor = state.scope, t = L().f2, ttl = t.title(bridgeFacts()), rt = t.rt;
-    const c = ko ? { head: '그림 2 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 구간 필터', s1: '1 · 틀: 격자, 천 달러 축, 아래에 단계 이름', s2: '2 · 합계: 계획과 실적은 회색, 아래는 물결로 끊는다', s3: '3 · 단계: 늘어남 초록, 줄어듦 빨강, 레버 순서대로', s4: '4 · 값: 음수는 괄호, 단계의 합이 맞게 반올림', s5: '5 · 제목은 결과를 말하고, 빨간 차트 제목에 단위', once: '처음 한 번: shell.tps를 Preferences.tps에' }
-      : { head: 'Figure 2 · drawn by an agent from DASHBOARD.md', filter: 'the corridor filter above', s1: '1 · frame: grid, $ thousand, step names below', s2: '2 · totals: plan and actual in gray, cut at a break', s3: '3 · steps: green up, red down, in lever order', s4: '4 · values: negatives in parentheses, steps add up', s5: '5 · the title states the finding; red chart title with the unit', once: 'once: paste shell.tps into Preferences.tps' };
+    const c = ko ? { head: '그림 2 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 구간 필터', s1: '1 · 틀: 격자, 천 달러 축, 아래에 단계 이름', s2: '2 · 합계: 계획과 실적은 회색, 아래는 물결로 끊는다', s3: '3 · 단계: 늘어남 초록, 줄어듦 빨강, 레버 순서대로', s4: '4 · 값: 음수는 괄호, 단계의 합이 맞게 반올림', s5: '5 · 제목은 결과를 말하고, 빨간 차트 제목에 단위' }
+      : { head: 'Figure 2 · drawn by an agent from DASHBOARD.md', filter: 'the corridor filter above', s1: '1 · frame: grid, $ thousand, step names below', s2: '2 · totals: plan and actual in gray, cut at a break', s3: '3 · steps: green up, red down, in lever order', s4: '4 · values: negatives in parentheses, steps add up', s5: '5 · the title states the finding; red chart title with the unit' };
     const q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(14) + v;
     const J = {
       prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '모빌리티 주간 보고 대시보드를 만들어 줘. 결과를 말하는 머리 문장, 등급 다섯 줄의 가격 기둥, 비교 상자 KPI 5개, 작은 그림 셋의 시세 그림, 계획에서 실적까지의 총이익 브리지, 계획 대비 사이트 순위, 시간대별 주유, 탱크와 충전기, 사이트별 실적 표로, 구간 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 2부터 bridge.csv의 corridor "${cor}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
@@ -2299,29 +2299,6 @@
         [4, `// ${c.s4}`], [4, 'fig.labels({ format: fmt.thousands1,'], [4, '  negative: "parens", round: "largest-remainder" });'], [4, ''],
         [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.chartTitle(${q(rt)}, { unit: ${q(t.unit)},`], [5, '  color: tokens.colors.red });                   // #dd1d21']
       ],
-      tab: ko ? [
-        [0, '# Tableau · 그림 2 · Shell 스타일'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('워크시트 음영', '#ffffff')], [1, kv('격자선', '행, 실선, #e4e4e4')], [1, kv('축', '고정 시작(물결 위치), #,##0')], [1, ''],
-        [2, `# ${c.s2}`], [2, kv('마크', '간트 막대, 크기 = −SUM([usd])')], [2, kv('색상', '[kind] = "total" → #818181')], [2, ''],
-        [3, `# ${c.s3}`], [3, kv('행', 'RUNNING_SUM(SUM([usd]))')], [3, kv('색상', '늘어남 #008443, 줄어듦 #e03a35')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('레이블', 'SUM([usd]) / 1000')], [4, kv('숫자 형식', '#,##0.0;(#,##0.0)')], [4, ''],
-        [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('부제', `${q(rt)}, #dd1d21`)]
-      ] : [
-        [0, '# Tableau · Figure 2 · Shell style'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('Shading', '#ffffff')], [1, kv('Grid lines', 'rows, solid, #e4e4e4')], [1, kv('Axis', 'fixed start at the break, #,##0')], [1, ''],
-        [2, `# ${c.s2}`], [2, kv('Mark type', 'Gantt Bar, size = −SUM([usd])')], [2, kv('Color', '[kind] = "total" → #818181')], [2, ''],
-        [3, `# ${c.s3}`], [3, kv('Rows', 'RUNNING_SUM(SUM([usd]))')], [3, kv('Color', 'increase #008443, decrease #e03a35')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('Label', 'SUM([usd]) / 1000')], [4, kv('Number format', '#,##0.0;(#,##0.0)')], [4, ''],
-        [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Subtitle', `${q(rt)}, #dd1d21`)]
-      ],
-      pbi: [
-        [0, ko ? '// Power BI · 그림 2 · Shell 스타일' : '// Power BI · Figure 2 · Shell style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
-        [1, `// ${c.s1}`], [1, ko ? '폭포 차트 · 범주 = step · Y축 = usd' : 'Waterfall chart · Category = step · Y = usd'], [1, '"valueAxis": { "gridlineColor": "#e4e4e4", "gridlineStyle": "solid" },'], [1, ''],
-        [2, `// ${c.s2}`], [2, '"sentimentColors": [{ "totalFill": { "solid": { "color": "#818181" } },'], [2, ''],
-        [3, `// ${c.s3}`], [3, '  "increaseFill": { "solid": { "color": "#008443" } },'], [3, '  "decreaseFill": { "solid": { "color": "#e03a35" } } }],'], [3, ''],
-        [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 켜기 · 표시 단위 천 · 형식 "#,0.0;(#,0.0)"' : 'Data labels → on · Display units: Thousands · "#,0.0;(#,0.0)"'], [4, ''],
-        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(rt)} · #dd1d21`]
-      ]
     };
     return J[kind];
   }
@@ -2334,14 +2311,14 @@
       const ch = text[i];
       if (q) { if (ch === '\\') { i++; continue; } if (ch === q) q = null; continue; }
       if (ch === '"' || ch === "'" || ch === '`') { q = ch; continue; }
-      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
-      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+      if (kind === 'js' && ch === '/' && text[i + 1] === '/') return i;
+      if (kind === 'plan' && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
     }
     return -1;
   }
   function highlight(text, kind) {
     if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
-    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? hexify(esc(m[2])) : highlightCode(m[2], kind)}`; }
+    if (kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${hexify(esc(m[2]))}`; }
     return highlightCode(text, kind);
   }
   function highlightCode(text, kind) {
@@ -2356,7 +2333,7 @@
       else if (num) out += `<span class="tk-n">${num}</span>`;
       else if (k) out += `<span class="tk-k">${k}</span>`;
       else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
-      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else if (prop && kind === 'js') out += `<span class="tk-p">${esc(prop)}</span>`;
       else out += esc(all);
       last = m.index + all.length;
     }

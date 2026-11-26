@@ -884,7 +884,7 @@
         checksT: '점검 · DASHBOARD.md', checksOk: '6개 모두 통과', checksBad: '6개 중 0개 통과',
         checks: [[1, '단위 %는 축 위에, 격자 없이 기준선 #a6b4cd, 10월 굵게'], [2, '비교를 먼저: 지난해 #c4c9d4, 계획은 점선 #868ba0'], [3, '주인공은 실적 탑승률: 청록 실선 #0096ae'], [4, '범례 대신 선 끝 라벨, 글자 #00788c'], [5, '제목은 결과를 말하고, 주석은 보도자료처럼 ‘주 1:’'], [5, '흰 카드 #ffffff에서 글자 대비 4.5:1 이상, 툴팁·키보드·표']],
         run: '다시 실행', copied: '코드를 복사했습니다', lines: n => `${n}줄`, built: 'DASHBOARD.md로 그림', drawing: '그리는 중…', generated: '명세 없이 만든 첫 초안',
-        cap: '탑승권 쪽지의 월별 탑승률을 크게, 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 같은 그림의 Tableau·Power BI 설정을 봅니다. 위의 노선 지역 탭을 바꾸면 코드와 그림이 함께 바뀝니다.'
+        cap: '탑승권 쪽지의 월별 탑승률을 크게, 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 그 그림을 그리는 코드를 봅니다. 위의 노선 지역 탭을 바꾸면 코드와 그림이 함께 바뀝니다.'
       },
       notes: {
         t: '방법과 출처', p: '숫자를 어떻게 셌는지, 보도자료 끝의 주처럼',
@@ -1009,7 +1009,7 @@
         checksT: 'Checks · DASHBOARD.md', checksOk: 'All 6 passed', checksBad: '0 of 6 passed',
         checks: [[1, 'Unit % above the axis, no grid, base #a6b4cd, October in bold'], [2, 'Comparison first: last year #c4c9d4, plan dashed #868ba0'], [3, 'The subject is the actual load factor: solid #0096ae'], [4, 'End labels instead of a legend, text #00788c'], [5, 'Title states the finding; notes numbered like the release'], [5, 'Text at 4.5:1 or more on #ffffff; tooltip, keys and table']],
         run: 'Run again', copied: 'Code copied', lines: n => `${n} lines`, built: 'Built from DASHBOARD.md', drawing: 'Drawing…', generated: 'A typical first draft without a spec',
-        cap: 'The load factor by month from the boarding pass stub, drawn full size one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the same chart as Tableau and Power BI settings. The route region tabs at the top change the code and the chart together.'
+        cap: 'The load factor by month from the boarding pass stub, drawn full size one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the code that draws the chart. The route region tabs at the top change the code and the chart together.'
       },
       notes: {
         t: 'Method and sources', p: 'How the numbers were counted, in the notes of the monthly release',
@@ -1969,11 +1969,11 @@
   }
 
   /* ================= 만드는 법: 프로젝트 폴더 · 쪽지의 월별 탑승률과 점검 · 코드 ================= */
-  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'month-chart.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'month-chart.js']];
   function codeLines(kind) {
     const ko = KO(), region = state.scope, ttl = L().mo.title(monthFacts()), note = L().mo.note;
-    const c = ko ? { head: '월별 탑승률 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 노선 지역 탭', s1: '1 · 틀: 단위는 축 위, 격자 없이 기준선, 10월 굵게', s2: '2 · 비교를 먼저: 지난해, 계획은 점선', s3: '3 · 주인공: 실적 탑승률, 청록 실선', s4: '4 · 범례 대신 선 끝에 라벨', s5: '5 · 제목은 결과를 말하고, 주석은 ‘주 1:’', once: '처음 한 번: singapore-airlines.tps를 Preferences.tps에' }
-      : { head: 'Load factor by month · drawn by an agent from DASHBOARD.md', filter: 'the route region tabs above', s1: '1 · frame: unit above the axis, no grid, October in bold', s2: '2 · comparison first: last year, plan dashed', s3: '3 · the subject: actual load factor, solid teal', s4: '4 · label the line ends instead of a legend', s5: '5 · the title states the finding; notes numbered', once: 'once: paste singapore-airlines.tps into Preferences.tps' };
+    const c = ko ? { head: '월별 탑승률 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 노선 지역 탭', s1: '1 · 틀: 단위는 축 위, 격자 없이 기준선, 10월 굵게', s2: '2 · 비교를 먼저: 지난해, 계획은 점선', s3: '3 · 주인공: 실적 탑승률, 청록 실선', s4: '4 · 범례 대신 선 끝에 라벨', s5: '5 · 제목은 결과를 말하고, 주석은 ‘주 1:’' }
+      : { head: 'Load factor by month · drawn by an agent from DASHBOARD.md', filter: 'the route region tabs above', s1: '1 · frame: unit above the axis, no grid, October in bold', s2: '2 · comparison first: last year, plan dashed', s3: '3 · the subject: actual load factor, solid teal', s4: '4 · label the line ends instead of a legend', s5: '5 · the title states the finding; notes numbered' };
     const q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(14) + v;
     const J = {
       prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '월간 운항 통계 대시보드를 만들어 줘. 보도자료처럼 결과를 말하는 머리 문장, 탑승권 모양의 KPI(남색 쪽지에 탑승률과 올해 월별 탑승률, 바코드 자리에 하루 평균 대비 날짜별 여객), 객실별 탑승률을 보여 주는 좌석 배치도, 시카고 출발 노선도, 손익분기 대비 노선 순위, 시카고 시간대별 출발, 그리고 노선별 운항 통계표로, 노선 지역 탭 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `쪽지의 월별 탑승률부터 monthly.csv의 region "${region}"로 크게 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
@@ -1989,29 +1989,6 @@
         [4, `// ${c.s4}`], [4, 'fig.endLabels({ name: true, value: fmt.pct,'], [4, '  color: tokens.data.subjectText });        // #00788c'], [4, ''],
         [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.note(${q(note)});`]
       ],
-      tab: ko ? [
-        [0, '# Tableau · 월별 탑승률 · Singapore Airlines 스타일'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('워크시트 음영', '#ffffff')], [1, kv('격자선', '없음, 축 선 #a6b4cd')], [1, kv('축 제목', '숨기고 “%”를 축 위 텍스트로')], [1, ''],
-        [2, '# 2 · 비교: last_year_pct, plan_pct'], [2, kv('색상', '#c4c9d4 · #868ba0')], [2, kv('선 패턴', '계획은 파선')], [2, ''],
-        [3, '# 3 · 주인공: load_factor_pct'], [3, kv('색상', '#0096ae')], [3, kv('크기', '3단계, 마지막 점에만 마커')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('마크 레이블', '선 끝, 글자 #00788c')], [4, kv('범례', '숨기기')], [4, ''],
-        [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('캡션', q(note))]
-      ] : [
-        [0, '# Tableau · Load factor by month · Singapore Airlines style'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('Shading', '#ffffff')], [1, kv('Grid lines', 'none; axis rulers #a6b4cd')], [1, kv('Axis title', 'hide; put “%” above the axis')], [1, ''],
-        [2, '# 2 · comparison: last_year_pct, plan_pct'], [2, kv('Color', '#c4c9d4 · #868ba0')], [2, kv('Line pattern', 'dashed for plan')], [2, ''],
-        [3, '# 3 · subject: load_factor_pct'], [3, kv('Color', '#0096ae')], [3, kv('Size', '3rd step, marker on last point')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('Mark labels', 'line ends, text #00788c')], [4, kv('Legend', 'hide')], [4, ''],
-        [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Caption', q(note))]
-      ],
-      pbi: [
-        [0, ko ? '// Power BI · 월별 탑승률 · Singapore Airlines 스타일' : '// Power BI · Load factor by month · Singapore Airlines style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
-        [1, `// ${c.s1}`], [1, '"valueAxis": { "gridlineShow": false, "axisLineColor": "#a6b4cd" },'], [1, '"plotArea": { "color": "#ffffff" },'], [1, ''],
-        [2, ko ? '// 2 · 비교: last_year_pct, plan_pct' : '// 2 · comparison: last_year_pct, plan_pct'], [2, ko ? '선 → last_year → #c4c9d4 · plan → #868ba0, 파선' : 'Lines → last_year → #c4c9d4 · plan → #868ba0, dashed'], [2, ''],
-        [3, ko ? '// 3 · 주인공: load_factor_pct' : '// 3 · subject: load_factor_pct'], [3, ko ? '선 → load_factor → 색 #0096ae, 너비 3' : 'Lines → load_factor → #0096ae, width 3'], [3, ''],
-        [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 마지막 점 · 범례 → 끔' : 'Data labels → last point · Legend → off'], [4, ''],
-        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(note)}`]
-      ]
     };
     return J[kind];
   }
@@ -2024,14 +2001,14 @@
       const ch = text[i];
       if (q) { if (ch === '\\') { i++; continue; } if (ch === q) q = null; continue; }
       if (ch === '"' || ch === "'" || ch === '`') { q = ch; continue; }
-      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
-      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+      if (kind === 'js' && ch === '/' && text[i + 1] === '/') return i;
+      if (kind === 'plan' && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
     }
     return -1;
   }
   function highlight(text, kind) {
     if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
-    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? hexify(esc(m[2])) : highlightCode(m[2], kind)}`; }
+    if (kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${hexify(esc(m[2]))}`; }
     return highlightCode(text, kind);
   }
   function highlightCode(text, kind) {
@@ -2046,7 +2023,7 @@
       else if (num) out += `<span class="tk-n">${num}</span>`;
       else if (k) out += `<span class="tk-k">${k}</span>`;
       else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
-      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else if (prop && kind === 'js') out += `<span class="tk-p">${esc(prop)}</span>`;
       else out += esc(all);
       last = m.index + all.length;
     }

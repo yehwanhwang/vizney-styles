@@ -1374,7 +1374,7 @@
     else $$('.layer', svg).forEach(el => el.classList.add('on'));
   }
 
-  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-1.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-1.js']];
   function codeLines(kind) {
     const ko = KO(), F = facts(), t1 = L().f1, ttl = t1.title(F).replace(/⁠/g, ''), sub = t1.sub, q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(16) + v;
     const chan = L().chans[F.v], badge = t1.totalBadge(K(F.target)), u = F.unit;
@@ -1384,14 +1384,14 @@
       s2: `2 · 브릭: 지난 행사는 ${K(u)} 세트 브릭 탑, 요인은 앞 브릭 끝에서`,
       s3: '3 · 2px 띄워 쌓고 위에 납작한 돌기, 빼는 몫은 점선',
       s4: '4 · 기둥마다 값, 이음선, 계획은 30px에 합계 배지',
-      s5: '5 · 결과를 제목으로', once: '처음 한 번: lego.tps를 내 Tableau 리포지토리의 Preferences.tps에 넣기'
+      s5: '5 · 결과를 제목으로'
     } : {
       head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the channel filter above',
       s1: '1 · frame: a grey baseplate at 0, a column a bar, the plan wide',
       s2: `2 · bricks: past towers of ${K(u)} bricks, drivers from the last end`,
       s3: '3 · 2px apart, flat studs on top; a brick taken off is dashed',
       s4: '4 · a value on every column, connectors, the plan in 30px',
-      s5: '5 · the result as the title', once: 'once: add lego.tps to Preferences.tps in My Tableau Repository'
+      s5: '5 · the result as the title'
     };
     const J = {
       prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '미국 2026 블랙프라이데이 행사 기획 대시보드를 만들어 줘. 첫 화면에는 KPI 넷, 지난 행사마다 전년보다 더 판 세트를 브릭 탑으로 세우고 올해 계획을 요인 브릭으로 쌓아 올린 그림 1, 혜택마다 1천 달러당 더 팔린 세트를 세일 태그로 보인 그림 2. 그 아래에 작년 장바구니 금액과 사은품 단계(그림 3), 행사 엿새의 시간대별 주문에 올해 계획을 표시한 히트맵(그림 4), 대표 세트를 덜 채운 순서로 적은 표 1.'], [0, '데이터는 채널별 행사 판매, 계획 요인, 혜택 테스트, 작년 장바구니와 시간대별 주문, 대표 세트의 재고와 수요야. 채널 필터는 모든 카드에 적용하고, 결과를 제목으로 써 줘.']]
@@ -1412,29 +1412,6 @@
         [4, `// ${c.s4}`], [4, 'fig.label(event, { text: "added_k_sets", sign: true });'], [4, 'fig.connect(event.drivers, { dash: [2, 2] });'], [4, `fig.badge("plan", { text: ${q(badge)}, value: 30,`], [4, '  fill: tokens.colors.header });         // #ffd502'], [4, ''],
         [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.subtitle(${q(sub)});`]
       ],
-      tab: ko ? [
-        [0, '# Tableau · 그림 1 · LEGO® 스타일'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('데이터', 'event.csv, 채널과 기둥마다 한 줄')], [1, kv('열', '[bar], 불연속형, [order]로 정렬')], [1, kv('행', 'SUM([added_k_sets])')], [1, kv('격자선', '행, 실선, #ececec')], [1, ''],
-        [2, `# ${c.s2}`], [2, kv('마크', '간트 막대: 시작 [running_start], 크기 [added_k_sets]')], [2, kv('색상', '[group]: 팔레트 "LEGO bricks"')], [2, kv('', '#a3a3a3 · #1e5aa8 · #e05a00 · #f7c600')], [2, kv('계획', '채우기 #ffffff, 테두리 #2c2c2c 2px')], [2, ''],
-        [3, `# ${c.s3}`], [3, kv('돌기', '같은 축의 마크 하나 더: 모양(돌기), 꼭대기마다')], [3, kv('빼는 몫', '테두리 #e05a00 점선, 채우기 없음')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('레이블', 'SUM([added_k_sets]), 부호와 함께, 기둥마다')], [4, kv('주석', `계획: 30px 값, #ffd502 배지 "${badge}"`)], [4, ''],
-        [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('부제', q(sub))]
-      ] : [
-        [0, '# Tableau · Figure 1 · LEGO® style'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('Data', 'event.csv, one row per channel and bar')], [1, kv('Columns', '[bar], discrete, sorted by [order]')], [1, kv('Rows', 'SUM([added_k_sets])')], [1, kv('Grid lines', 'rows, solid, #ececec')], [1, ''],
-        [2, `# ${c.s2}`], [2, kv('Mark type', 'Gantt bar: start [running_start], size [added_k_sets]')], [2, kv('Color', '[group]: palette "LEGO bricks"')], [2, kv('', '#a3a3a3 · #1e5aa8 · #e05a00 · #f7c600')], [2, kv('Plan', 'fill #ffffff, border #2c2c2c 2px')], [2, ''],
-        [3, `# ${c.s3}`], [3, kv('Studs', 'one more mark on the same axis: shape (stud), at each top')], [3, kv('Taken off', 'border #e05a00 dashed, no fill')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('Labels', 'SUM([added_k_sets]) with its sign, on every column')], [4, kv('Annotation', `plan: 30px value, #ffd502 badge "${badge}"`)], [4, ''],
-        [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Subtitle', q(sub))]
-      ],
-      pbi: [
-        [0, ko ? '// Power BI · 그림 1 · LEGO® 스타일' : '// Power BI · Figure 1 · LEGO® style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
-        [1, `// ${c.s1}`], [1, ko ? '폭포 차트 · 범주 = bar · Y축 = added_k_sets · 지난 행사는 옆에 세로 막대형' : 'Waterfall chart · Category = bar · Y = added_k_sets · past events as a column chart beside it'], [1, '"categoryAxis": { "innerPadding": 30 }, "valueAxis": { "gridlineColor": "#ececec" },'], [1, ''],
-        [2, `// ${c.s2}`], [2, ko ? '증가 #1e5aa8 · #e05a00 · #f7c600(요인 그룹별), 합계 #ffffff에 테두리 #2c2c2c' : 'Increase #1e5aa8 · #e05a00 · #f7c600 by driver group, total #ffffff with a #2c2c2c border'], [2, ko ? '지난 행사: #a3a3a3' : 'Past events: #a3a3a3'], [2, ''],
-        [3, `// ${c.s3}`], [3, ko ? '돌기는 Power BI 기본 마크에 없으니 빼거나 돌기 그림을 이미지 표식으로' : 'Power BI has no stud mark: leave them out or use the stud image as a marker'], [3, ko ? '감소: 채우기 없음, 테두리 #e05a00 점선' : 'Decrease: no fill, #e05a00 dashed border'], [3, ''],
-        [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 켜기, 부호와 함께, 계획은 30px' : 'Data labels → on, with the sign; the plan in 30px'], [4, ko ? `계획 위 카드: #ffd502, "${badge}"` : `A card above the plan: #ffd502, "${badge}"`], [4, ''],
-        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(sub)}`]
-      ]
     };
     return J[kind];
   }
@@ -1447,14 +1424,14 @@
       const ch = text[i];
       if (qq) { if (ch === '\\') { i++; continue; } if (ch === qq) qq = null; continue; }
       if (ch === '"' || ch === "'" || ch === '`') { qq = ch; continue; }
-      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
-      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+      if (kind === 'js' && ch === '/' && text[i + 1] === '/') return i;
+      if (kind === 'plan' && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
     }
     return -1;
   }
   function highlight(text, kind) {
     if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
-    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?|)\s{2,}(\S.*)$/.exec(text); if (m && !/^#/.test(text)) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? hexify(esc(m[2])) : highlightCode(m[2], kind)}`; }
+    if (kind === 'plan') { const m = /^([^#\s].*?|)\s{2,}(\S.*)$/.exec(text); if (m && !/^#/.test(text)) return `<span class="kv">${esc(m[1])}</span>${hexify(esc(m[2]))}`; }
     return highlightCode(text, kind);
   }
   function highlightCode(text, kind) {
@@ -1469,7 +1446,7 @@
       else if (num) out += `<span class="tk-n">${num}</span>`;
       else if (k) out += `<span class="tk-k">${k}</span>`;
       else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
-      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else if (prop && kind === 'js') out += `<span class="tk-p">${esc(prop)}</span>`;
       else out += esc(all);
       last = m.index + all.length;
     }
