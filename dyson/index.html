@@ -167,7 +167,10 @@
   .row2{display:grid;grid-template-rows:auto 1fr auto;column-gap:var(--gap);row-gap:0;align-items:stretch}
   .row2 > .fg{display:grid;grid-template-rows:subgrid;grid-row:span 3}
   #s1 .row2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  #s2 .row2{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+  #s2 .row2{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+  /* 02는 표가 왼쪽, 검은 화면이 오른쪽(01의 검은 화면과 지그재그). 좁으면 원래 순서대로 쌓는다 */
+  #s2 #f4{grid-column:2;grid-row:1 / span 3}
+  #s2 #t2{grid-column:1;grid-row:1 / span 3}
   .fbody{position:relative;display:flex;flex-direction:column;min-height:0;margin-top:12px}
   #f3Plot{flex:1;min-height:524px}
   #f3Plot svg{display:block}
@@ -392,6 +395,7 @@
     .rs-row{column-gap:16px}
     /* 그림 3·표 1, 그림 4·표 2를 세로로 쌓는다 */
     #s1 .row2,#s2 .row2{grid-template-columns:minmax(0,1fr)}
+    #s2 #f4,#s2 #t2{grid-column:auto;grid-row:auto / span 3}
     .row2 > .fg + .fg{margin-top:44px}
     .win{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
     .side{grid-column:1 / -1;border-right:0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 24px}
@@ -747,7 +751,7 @@
           C60: F => `Build 41 meets ${F.met} of 7 targets; build 37 met ${F.met37}`,
           C90: F => `Build 41 meets ${F.met} of 7 targets, as build 37 did, but not the same ${F.met}`
         },
-        sub: 'From build 37, the last design review, to build 41. Values that miss the target in red',
+        sub: 'The other measures, build 37 (the last design review) to build 41. Edge pick-up, Eco and weight are in Figure 3',
         target: 'Target', build: b => `Build ${b}`, now: 'now', review: 'review',
         groups: { run: 'RUN TIME', clean: 'CLEANING', size: 'NOISE AND SIZE' },
         vs: 'against the target', measure: 'Measure', pts: 'pts',
@@ -920,7 +924,7 @@
           C60: F => `빌드 41은 목표 7개 중 ${F.met}개, 빌드 37은 ${F.met37}개를 채웠습니다`,
           C90: F => `빌드 41도 빌드 37처럼 7개 중 ${F.met}개를 채웠지만, 채운 목표가 다릅니다`
         },
-        sub: '마지막 설계 검토인 빌드 37부터 빌드 41까지. 목표에 못 미친 값은 빨강',
+        sub: '나머지 지표, 마지막 설계 검토인 빌드 37부터 빌드 41까지. 가장자리 집진 · Eco · 무게는 그림 3에',
         target: '목표', build: b => `빌드 ${b}`, now: '지금', review: '검토',
         groups: { run: '런타임', clean: '청소', size: '소음과 크기' },
         vs: '목표와의 차이', measure: '지표', pts: '%p',
@@ -1530,7 +1534,7 @@
   /* ================= 표 1: 빌드 비교 =================
      dyson.com 비교 표처럼 왼쪽 라벨 열, 묶음 머리, 머리카락 선. 목표 열, 빌드 37(검토)부터 41(지금)까지.
      목표에 못 미친 값은 빨강과 ✗. 아래에 바꾼 부품(그림 1의 번호)과 목표 달성 수. */
-  const T1G = [['run', ['eco', 'auto', 'boost']], ['clean', ['suction', 'edge', 'carpet']], ['size', ['noise', 'weight', 'bin']]];
+  const T1G = [['run', ['auto', 'boost']], ['clean', ['suction', 'carpet']], ['size', ['noise', 'bin']]];   // 가장자리 집진 · Eco · 무게는 그림 3이 맡는다
   const T1B = [37, 38, 39, 40, 41];
   const T1HIDE = { 38: 'hide-m', 39: 'hide-m', 40: 'hide-s' };
   const t1Cur = { i: 0 };
