@@ -71,6 +71,14 @@
       "words": "Space, Countdown, Calm",
       "words_ko": "우주, 카운트다운, 침착함",
       "sample": "https://styles.vizney.com/nasa/"
+    },
+    {
+      "number": 10,
+      "slug": "dyson",
+      "name": "Dyson style",
+      "words": "Technical, Exploded View, Clean",
+      "words_ko": "테크니컬, 분해도, 말끔함",
+      "sample": "https://styles.vizney.com/dyson/"
     }
   ]
 }

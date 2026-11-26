@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Dyson style — DASHBOARD.md · Vizney Styles</title>
+<link rel="canonical" href="https://styles.vizney.com/dyson/DASHBOARD.html">
+<link rel="icon" href="/assets/brand/vizney-icon.png" type="image/png" sizes="256x256">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/vz-sans-400.woff?v=1d2c1aa7de" as="font" type="font/woff" crossorigin>
+<!-- Built by tools/package.py from DASHBOARD.md with _layouts/spec.html. Layout for the site's Markdown pages (prompt.md, skill/SKILL.md: _config.yml defaults) and, through tools/package.py, <name>/DASHBOARD.html. Header, tabs and footer are the site's (index.html / 404.html). -->
+<style>
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/vz-sans-300.woff?v=1d2c1aa7de) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/vz-sans-400.woff?v=1d2c1aa7de) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/vz-sans-500.woff?v=1d2c1aa7de) format('woff')}
+@font-face{font-family:'VZ Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/vz-sans-700.woff?v=1d2c1aa7de) format('woff')}
+:root{
+  /* Layout: the Vizney Blocks frame. One 1200px column with 40px gutters (16px on phones), left-aligned.
+     The blog's Vizney header (scrolls away) and the site's sticky tabs under it; a hero with a fact pill, two buttons and an AI hint; the catalog of brand
+     styles with a dashed slot for a company's own at the end; a soft rounded panel comparing two screens
+     built from one fictional brand guide; text grids; a closing panel; the Blocks footer.
+     Single light theme on purpose, like Blocks and the style screens. */
+  color-scheme: light;
+  --page:#ffffff;
+  --soft:#f4f5f7;
+  --tile:#f6f7f9;
+  --ink:#1b1b1b;
+  --ink-2:#4a4a4a;
+  --muted:#616771;
+  --line:#e6e8ec;
+  --line-2:#eceef2;
+  --rule:#cfd2d8;
+  --btn-line:#e3e5ea;
+  --ink-hover:#3a3a3a;
+  /* Top bar: the blog's (kr.vizney.com · www.vizney.com) black header, so moving between the two reads as one site. */
+  --top-bg:#1b1b1b;
+  --top-ink:#ffffff;
+  --top-ink-2:rgba(255,255,255,.78);
+  --top-line:rgba(255,255,255,.22);
+  --top-soft:rgba(255,255,255,.10);
+  --top-rule:hsla(0,0%,100%,.15);
+  /* The one UI accent: the yellow of the blog's post images (#ffcc00). Buttons, active states, focus. Never a data color. */
+  --accent:#ffcc00;
+  --accent-hover:#f2c200;
+  --accent-ink:#1b1b1b;
+  --yellow:#ffcc00;
+  --pink:#ff2d55;
+  --font:'VZ Sans','Spoqa Han Sans Neo','Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Liberation Mono','VZ Sans',monospace;
+  --shadow:0 12px 32px -12px rgba(17,24,39,.28);
+  --shadow-sm:0 1px 2px rgba(17,24,39,.12);
+  --shadow-card:0 14px 30px -22px rgba(17,24,39,.32);
+
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--page);color:var(--ink);font:400 15px/1.7 var(--font);-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:41;background:var(--top-bg)}
+h1,h2,h3,h4,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit}
+a{color:var(--ink);text-decoration-line:underline;text-decoration-color:var(--yellow);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{text-decoration-color:var(--ink)}
+/* Focus: the accent yellow as a halo around an ink ring, so it shows on white (yellow alone is 1.6:1 there) and on the black bar. */
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;box-shadow:0 0 0 6px var(--accent);border-radius:4px}
+code{font-family:var(--mono);font-size:.88em;white-space:nowrap}
+svg.ic{flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--ink);color:var(--page);font-size:14px;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1280px;margin-inline:auto;padding-left:max(40px, env(safe-area-inset-left, 0px));padding-right:max(40px, env(safe-area-inset-right, 0px))}
+
+/* ---------- Vizney header (the common header of the blog, Vizney Blocks and Vizney Styles) ----------
+   Copied from the blog (kr.vizney.com · www.vizney.com): Ghost Casper, stacked navigation, with the blog's code injection
+   (black bar, Spoqa Han Sans Neo, globe language switch). 768px and up: two rows, wordmark centred over the menu.
+   767px and down: one row, wordmark left, globe · search · burger right, the menu as a full-screen sheet.
+   Not sticky: it scrolls away like the blog's. The site's own tabs stick below it. */
+.gh{position:relative;padding:0 max(4vmin, 20px);background:var(--top-bg);color:var(--top-ink);font-size:16px;line-height:1.3}
+.gh a{color:inherit;text-decoration:none}
+.gh-in{display:grid;grid-template-columns:1fr auto 1fr;grid-auto-flow:dense;column-gap:40px;align-items:center;max-width:1200px;margin:0 auto}
+.gh-brand{grid-row-start:1;grid-column-start:2;position:relative;display:flex;align-items:center;height:80px}
+.gh-logo{display:block}
+.gh-logo img{display:block;width:auto;max-height:40px}
+.gh-menu{grid-row-start:2;grid-column:1 / 4;display:flex;justify-content:center;align-items:center;height:56px;margin:0 48px;font-weight:500}
+.gh-menu::before{content:"";position:absolute;top:80px;left:0;width:100%;height:1px;background-color:var(--top-rule)}
+.gh-nav{display:inline-flex;flex-wrap:wrap;align-items:center;gap:32px;margin:0;padding:0;list-style:none}
+.gh-nav li{margin:0;padding:0}
+.gh-nav a{display:inline-flex;align-items:center;line-height:1.7}
+.gh-nav a:hover{opacity:.9}
+/* Where you are: aria-current on this site's item, with no underline (the blog and Vizney Blocks show none). */
+.gh-actions{grid-row-start:1;grid-column:1 / 4;display:flex;justify-content:flex-start;align-items:center;gap:8px}
+.gh-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:32px;height:32px;padding:0}
+.gh-icon svg{display:block}
+.gh-globe{opacity:.9;transition:opacity .2s ease}
+.gh-globe:hover{opacity:1}
+.gh-search:hover{opacity:.9}
+.gh-actions .gh-globe{margin-right:-4px}
+.gh-brand .gh-icon{display:none}
+/* The blog's overflow menu: items that do not fit on one line go under '…' (Casper's dropdown). */
+.gh-more{position:relative;display:inline-flex}
+.gh-more__toggle{position:relative;width:30px;height:30px;margin:0 -6px;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}
+.gh-more__toggle svg{display:block;width:24px;height:24px;margin:auto}
+.gh-dropdown{position:absolute;top:100%;right:-16px;z-index:90;width:200px;margin:24px 0 0;padding:12px 0;list-style:none;text-align:left;background:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 7px 20px -5px rgba(0,0,0,.15);opacity:0;visibility:hidden;transform:translate3d(0,6px,0);transition:opacity .3s,transform .2s}
+.gh-more.is-open .gh-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+.gh-dropdown a{display:block;padding:6px 20px;color:#15171a;line-height:1.7}
+.gh-burger{position:relative;display:none;flex-shrink:0;width:30px;height:30px;margin-right:-3px;padding:0;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
+.gh-burger::before,.gh-burger::after{content:"";position:absolute;left:3px;width:24px;height:1px;background:#fff;transition:all .2s cubic-bezier(.04,.04,.12,.96) .1008s}
+.gh-burger::before{top:11px}
+.gh-burger::after{bottom:11px}
+.gh-open .gh-burger::before{top:15px;transform:rotate(45deg)}
+.gh-open .gh-burger::after{bottom:14px;transform:rotate(-45deg)}
+.gh :focus-visible{outline-color:var(--accent);box-shadow:none}
+.gh-dropdown :focus-visible{outline-color:var(--ink)}
+@media (max-width:767px){
+  .gh{height:64px}
+  .gh-in{grid-template-columns:1fr;grid-template-rows:auto 1fr auto;gap:48px;height:100%}
+  .gh-brand{grid-column-start:1;width:100%;height:64px;flex-wrap:nowrap}
+  .gh-logo{margin-right:auto;flex-shrink:1}
+  .gh-brand .gh-icon{display:inline-flex}
+  .gh-brand .gh-globe{margin-right:8px}
+  .gh-brand .gh-search{margin-left:-6px;margin-right:8px}
+  .gh-burger{display:block}
+  .gh-menu,.gh-actions{grid-row-start:auto;grid-column:auto}
+  .gh-actions{display:none}
+  .gh-menu{position:fixed;justify-content:center;margin:0;visibility:hidden;opacity:0}
+  .gh-menu::before{content:none}
+  .gh-nav{gap:16px;line-height:1.4}
+  .gh-nav a{font-size:26px;font-weight:600}
+  .gh-nav li{opacity:0;transform:translateY(-4px)}
+  .gh-open .gh{position:fixed;inset:0;z-index:3999999;height:100%;overflow-y:auto;overscroll-behavior-y:contain}
+  .gh-open .gh-menu{position:static;visibility:visible;opacity:1}
+  .gh-open .gh-nav{display:flex;flex-direction:column}
+  .gh-open .gh-nav li{opacity:1;transform:translateY(0);transition:transform .2s,opacity .2s}
+  /* The blog keeps a footer row here for 'Sign in'; this site has no members, so the row stays empty to keep the menu where the blog's is. */
+  .gh-open .gh-actions{display:block;height:calc(max(4vmin, 20px) + max(4vmin, 28px) + 21px)}
+  .gh-open .gh-actions > *{display:none}
+}
+
+/* ---------- the site's tabs, under the Vizney header ---------- */
+.tabs{position:sticky;top:env(safe-area-inset-top, 0px);z-index:40;padding:0 max(4vmin, 20px);background:var(--page);box-shadow:inset 0 -1px var(--line)}
+.tabs-in{display:flex;align-items:stretch;gap:28px;max-width:1200px;height:48px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.tabs-in::-webkit-scrollbar{display:none}
+.tabs a{display:inline-flex;align-items:center;gap:4px;flex-shrink:0;padding-top:2px;border-bottom:2px solid transparent;font-size:15px;font-weight:500;line-height:1;white-space:nowrap;color:var(--ink-2);text-decoration:none}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-current]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs .tabs__name{font-weight:700;color:var(--ink)}
+.tabs .tabs__git{margin-left:auto}
+.tabs :focus-visible{outline-offset:-2px;box-shadow:none}
+
+/* ---------- footer (as on Vizney Blocks) ---------- */
+.foot{margin-top:120px;border-top:1px solid var(--line-2)}
+.foot-in{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;padding-block:28px 40px;font-size:13px;color:var(--muted)}
+.foot-in nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot-in a{color:var(--ink-2);text-decoration-color:currentColor;text-decoration-thickness:auto;text-underline-offset:auto}
+
+/* ---------- the spec (DASHBOARD.md rendered by GitHub Pages) ---------- */
+.doc{max-width:880px;margin:0 auto;padding:56px max(4vmin, 20px) 0;font-size:16px;line-height:1.75}
+.doc h1{font-size:clamp(30px, 4vw, 40px);line-height:1.2;font-weight:700;letter-spacing:-.025em}
+.doc h2{margin-top:64px;padding-top:28px;border-top:1px solid var(--line);font-size:26px;line-height:1.3;font-weight:700;letter-spacing:-.02em}
+.doc h3{margin-top:36px;font-size:19px;line-height:1.4;font-weight:700}
+.doc h4{margin-top:28px;font-size:16px;font-weight:700}
+.doc p,.doc ul,.doc ol,.doc pre,.doc blockquote,.doc table,.doc .highlighter-rouge{margin-top:16px}
+.doc .highlighter-rouge pre{margin-top:0}
+.doc ul{padding-left:22px;list-style:disc}
+.doc ol{padding-left:24px;list-style:decimal}
+.doc li + li{margin-top:6px}
+.doc li > ul,.doc li > ol{margin-top:6px}
+.doc strong{font-weight:700}
+.doc hr{margin:40px 0;border:0;border-top:1px solid var(--line)}
+.doc blockquote{padding-left:16px;border-left:3px solid var(--line);color:var(--ink-2)}
+.doc code{padding:.12em .36em;border-radius:5px;background:var(--soft);white-space:normal;overflow-wrap:anywhere}
+.doc pre{padding:16px 18px;border-radius:12px;background:var(--soft);overflow-x:auto;font-size:13.5px;line-height:1.6}
+.doc pre code{padding:0;background:none;font-size:inherit;white-space:pre;overflow-wrap:normal}
+.doc table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:14px;line-height:1.55}
+.doc th,.doc td{padding:9px 14px 9px 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.doc th{font-weight:700;border-bottom-color:var(--rule);white-space:nowrap}
+.doc img{max-width:100%;height:auto}
+@media (max-width:720px){
+  .wrap{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  .doc{padding-top:36px;font-size:15px}
+  .doc h2{margin-top:48px;font-size:22px}
+  .foot-in nav{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+}
+</style>
+</head>
+<body data-page="spec">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="gh" id="top">
+  <div class="gh-in">
+    <div class="gh-brand">
+      <a class="gh-logo" href="https://www.vizney.com/" data-href="v:home"><img src="/assets/brand/vizney-wordmark-white.png" width="106" height="40" alt="Vizney"></a>
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+      <button class="gh-burger" type="button" aria-label="Main Menu" aria-expanded="false" aria-controls="ghMenu" data-i18n-aria="ghMenu"></button>
+    </div>
+    <nav class="gh-menu" id="ghMenu" aria-label="Vizney">
+      <ul class="gh-nav">
+        <li><a href="https://www.vizney.com/chart-guide/" data-href="v:chart-guide">Chart Guide</a></li>
+        <li><a href="https://blocks.vizney.com/" data-href="v:blocks">Blocks</a></li>
+        <li><a href="https://styles.vizney.com/" data-href="v:styles" aria-current="page">Styles</a></li>
+        <li><a href="https://www.vizney.com/tips/" data-href="v:tips">Tips &amp; Tricks</a></li>
+        <li><a href="https://www.vizney.com/kb/" data-href="v:kb">Knowledge Base</a></li>
+        <li><a href="https://www.vizney.com/contact-us/" data-href="v:contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="gh-actions">
+      <a class="gh-icon gh-globe" href="?lang=ko" data-href="lang" title="한글로 보기" aria-label="한글로 보기"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></a>
+      <a class="gh-icon gh-search" href="https://www.vizney.com/#/search" data-href="v:search" title="Search Vizney" aria-label="Search Vizney" data-i18n-aria="ghSearch"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></a>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Vizney Styles" data-i18n-aria="tabsAria">
+  <div class="tabs-in">
+    <a class="tabs__name" href="/" data-href="home" data-tab="top">Vizney Styles</a>
+    <a href="/#styles" data-href="home:styles" data-tab="styles" data-i18n="navStyles">Catalog</a>
+    <a href="/#custom" data-href="home:custom" data-tab="custom" data-i18n="navCustom">Your company</a>
+    <a href="https://github.com/yehwanhwang/vizney-styles/issues/new?template=request.yml" target="_blank" rel="noopener"><span data-i18n="navRequest">Request a brand</span><span aria-hidden="true">↗</span></a>
+    <a class="tabs__git" href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>
+  </div>
+</nav>
+
+<main id="main" class="doc">
+<h1 id="dyson-style--dashboardmd">Dyson style — DASHBOARD.md</h1>
+<p><strong>Technical, Exploded View, Clean</strong> · 테크니컬, 분해도, 말끔함</p>
+<p>A dashboard design spec read from the way Dyson shows what is inside a machine: the round screen on its cordless vacuums (the power mode by name in its colour, the run time left, a battery), the exploded views it uses to explain its technology, the green light on the cleaner head that shows the dust a floor still holds, and the Specifications panel of dyson.com. It turns those parts into a prototype test review on white with black screens, with the values, rules and checks an AI coding agent, Tableau or Power BI needs to rebuild it.</p>
+<pre><code>npx @vizney/styles@latest add dyson
+# or, without Node:
+curl -fsSL https://styles.vizney.com/install.sh | sh -s -- dyson
+</code></pre>
+<p>That puts <code>DASHBOARD.md</code> in the project root and the <code>dashboard-style</code> agent skill (build, restyle, review) in <code>.claude/skills/dashboard-style/</code>, together with <code>tokens.css</code>, <code>tokens.json</code>, <code>dyson.tps</code>, <code>powerbi-theme.json</code> and <code>prompt.md</code>. Coding agents that read skills pick it up whenever a task touches a dashboard or a chart; any other agent can be told to follow <code>DASHBOARD.md</code>.</p>
+<ul>
+<li>Live sample: https://styles.vizney.com/dyson/?lang=en (Korean <code>?lang=ko</code>; one model <code>&amp;model=c45</code> or <code>&amp;model=c90</code>, C60 by default)</li>
+<li>Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/dyson/DASHBOARD.md</li>
+<li>Package: <a href="dyson-dashboard-style.zip">dyson-dashboard-style.zip</a> (unzip in your project root) · the skill: <a href="skill/SKILL.md">skill/SKILL.md</a></li>
+<li>Files in this folder: <a href="tokens.json">tokens.json</a> (the source of every value here), <a href="tokens.css">tokens.css</a>, <a href="dyson.tps">dyson.tps</a> (Tableau), <a href="powerbi-theme.json">powerbi-theme.json</a>, <a href="prompt.md">prompt.md</a>, <a href="parts.csv">parts.csv</a> (the data behind the sample's Figure 1)</li>
+<li>Catalog: VIZNEY STYLES · 10 · https://styles.vizney.com (Vizney Styles is a line of <a href="https://www.vizney.com">Vizney</a>)</li>
+</ul>
+<p>Not an official Dyson design, and not affiliated with or endorsed by Dyson. A reference style read from the publicly visible design of dyson.com and dyson.co.kr and from public touchpoints such as the machines' screens and Dyson's exploded technology views; it carries no Dyson logo, typeface, photo, product name or data. Trademarks belong to their owners. The sample's company, Vizney Appliances, its models, parts, tests and all its numbers are fictional.</p>
+<h2 id="visual-theme--atmosphere">Visual Theme &amp; Atmosphere</h2>
+<p>An engineering review on a clean bench. The page is white <code>#ffffff</code> under a black header; the one panel is the light grey <code>#f7f7f7</code> of the dyson.com Specifications panel; text is the site's soft ink <code>#333333</code>, never pure black. Everything that measures sits on black: the round screens, the laser floor strips and the graph screens are <code>#000000</code> with white Light numerals, exactly like the displays on the machines. Colour is rare and always carries one meaning:</p>
+<ul>
+<li>Mode colours (Eco <code>#3fd24a</code>, Auto <code>#2aa3ef</code>, Boost <code>#f0403a</code>) only on the round screens, always beside the mode's name.</li>
+<li>Purple <code>#6b46c1</code> for a part changed since the last design review, with its numbered balloon.</li>
+<li>Red <code>#d0273b</code> (text <code>#b0122f</code>, <code>#f0403a</code> on black) for anything that misses a target or a budget, always with ✗ or the word.</li>
+<li>Laser green <code>#5fe04a</code> only for dust on the laser floor.</li>
+</ul>
+<p>Three devices carry the report, and each holds data:</p>
+<ul>
+<li><strong>Round screen (the KPIs).</strong> One black circle per power mode: the mode's name in its colour, the run time left in minutes and seconds in Light, a battery filled by run time ÷ the MIN, 'MIN 60:00' under it, and a ring in the mode colour. Under each screen, the gap to the MIN (red when short, ✓ when not) and the last build's value.</li>
+<li><strong>Exploded view (Figure 1).</strong> The machine's parts pulled apart along one dash-dot axis from the floor to the hand, at even gaps, each part as long as it is heavy; a budget bracket on the other side; a red tip for the grams over budget; purple for a part changed since the review; numbered balloons ① to ⑧ on leader lines to the name, weight and gap. Under it the assembled weight as one bar against the MAX.</li>
+<li><strong>Laser floor (Figure 2).</strong> A black strip per build with one green dot for every 0.05% of the dust laid down that is still on the floor after one pass along a wall, wall on the left. Build 37 against build 41 shows the new head at a glance.</li>
+</ul>
+<p>The Specifications panel grammar gives the spec rows beside the screens (label → large Light value with a small unit → ✓ or ✗ → hairline), and the figure labels read like a patent drawing: 'FIG. 1'. The later sections put their charts on the same black screens the machines have: wide graph screens with bars from a white dash-dot target line (Figure 3) and a test timeline (Figure 4), white for what passes, grey for what is left, red for what misses. No product photos, renders, drawings of cyclones or loops, screen icons, product or technology names.</p>
+<p>Measured in a browser on November 23–24, 2026 at 1440×900 on dyson.com (home, the cordless vacuum list, a product page with Specifications open, a support guide on the screen and power modes), dyson.co.kr and the terms of use: header <code>#000000</code> with a 16px Light white menu; text <code>#333333</code>, labels <code>#555555</code>, tertiary <code>#919191</code>, bullets <code>#404040</code>; hairlines <code>#dadada</code> under spec values, card borders <code>#dcdcdc</code>; panels <code>#fbfbfb</code> (the sample uses <code>#f7f7f7</code> so the panel holds against white on more screens); price blue <code>#0066cc</code>; deal button green <code>#79b928</code> with black text; Specifications label 16/24 500 <code>#555555</code> → value 36/44 Light 300 <code>#333333</code> with the unit 24/32 400 → 1px <code>#dadada</code>.</p>
+<h2 id="color-palette--roles">Color Palette &amp; Roles</h2>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td><code>#ffffff</code></td>
+<td>The page</td>
+</tr>
+<tr>
+<td>panel</td>
+<td><code>#f7f7f7</code></td>
+<td>The one panel (Figure 1), the build 41 column band in Table 1, row hover, the code background</td>
+</tr>
+<tr>
+<td>header</td>
+<td><code>#000000</code></td>
+<td>The header (two lines), with white text and <code>#b9b9b9</code> secondary text</td>
+</tr>
+<tr>
+<td>screen</td>
+<td><code>#000000</code></td>
+<td>Round screens, laser floor strips, graph screens; white text, <code>#b9b9b9</code> secondary</td>
+</tr>
+<tr>
+<td>ink</td>
+<td><code>#333333</code></td>
+<td>Titles, values, the selected tab's underline, table head rule, balloons</td>
+</tr>
+<tr>
+<td>body</td>
+<td><code>#404040</code></td>
+<td>Body text and part names</td>
+</tr>
+<tr>
+<td>muted</td>
+<td><code>#555555</code></td>
+<td>Labels, subtitles, keys, captions, limits (7.5:1; 6.96:1 on the panel)</td>
+</tr>
+<tr>
+<td>faint</td>
+<td><code>#919191</code></td>
+<td>Only large section numbers and dashes for missing values</td>
+</tr>
+<tr>
+<td>hair</td>
+<td><code>#dadada</code></td>
+<td>Table rules and the hairline under a spec value</td>
+</tr>
+<tr>
+<td>line</td>
+<td><code>#dcdcdc</code></td>
+<td>Card and window borders</td>
+</tr>
+<tr>
+<td>nickel</td>
+<td><code>#d9dbdd</code></td>
+<td>A part's fill, with a <code>#7d8083</code> edge (3.71:1 on the panel)</td>
+</tr>
+<tr>
+<td>link · focus</td>
+<td><code>#0066cc</code></td>
+<td>Links and the 2px focus ring</td>
+</tr>
+<tr>
+<td>accent</td>
+<td><code>#79b928</code></td>
+<td>One primary button only ("Ask for your company's style"), black text</td>
+</tr>
+</tbody>
+</table>
+<h2 id="data-colors">Data Colors</h2>
+<table>
+<thead>
+<tr>
+<th>Use</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Part states (Figure 1)</td>
+<td>changed <code>#6b46c1</code> (text <code>#5a3fb0</code>), over budget <code>#d0273b</code> (text <code>#b0122f</code>), otherwise nickel <code>#d9dbdd</code> with a <code>#7d8083</code> edge</td>
+</tr>
+<tr>
+<td>Power modes (round screens only, on black)</td>
+<td>Eco <code>#3fd24a</code>, Auto <code>#2aa3ef</code>, Boost <code>#f0403a</code>, always with the mode's name</td>
+</tr>
+<tr>
+<td>Laser floor</td>
+<td>dust <code>#5fe04a</code> on <code>#000000</code> (12.3:1); the count of dots is the data</td>
+</tr>
+<tr>
+<td>Graph screens (on black)</td>
+<td>met <code>#ffffff</code>, missed <code>#f0403a</code>, to go <code>#5c5c5c</code>; target line <code>#ffffff</code> dash-dot 10 3 2 3; change balloons white with a <code>#5a3fb0</code> number</td>
+</tr>
+<tr>
+<td>Categorical (for your own charts)</td>
+<td>purple <code>#6b46c1</code>, green <code>#1a8a6e</code>, copper <code>#c26a12</code>, then other in nickel <code>#d9dbdd</code>; text steps <code>#5a3fb0</code>, <code>#176f59</code>, <code>#9a520c</code></td>
+</tr>
+<tr>
+<td>Sequential</td>
+<td><code>#b3a0e9</code> <code>#977cdb</code> <code>#7d5fcf</code> <code>#6b46c1</code> <code>#4b2d91</code></td>
+</tr>
+<tr>
+<td>Diverging</td>
+<td><code>#2a64b0</code> <code>#5b8bd4</code> <code>#8fb0e4</code> <code>#e3e3e3</code> <code>#ec9aa1</code> <code>#d9555f</code> <code>#a8142c</code></td>
+</tr>
+<tr>
+<td>Status text</td>
+<td>good <code>#1d7a43</code>, bad <code>#b0122f</code></td>
+</tr>
+</tbody>
+</table>
+<p>Rules:</p>
+<ul>
+<li>The subject of a title takes purple; everything else stays nickel or grey. Red is never a series colour; it only marks a miss.</li>
+<li>On white, a miss is a red value with ✗; a table cell is never filled with colour. On black, a miss is a red bar or a red end, and the side of the target line plus ✓ or ✗ say the same thing.</li>
+<li>Mode colours never leave the round screens. A graph screen uses white, grey and one red.</li>
+<li>Checked with the dataviz <code>validate_palette.js</code> (OKLab) on <code>#ffffff</code> and <code>#f7f7f7</code>, screen colours on <code>#000000</code>: categorical passes every check with <code>--pairs all</code> (worst CVD pair copper↔green ΔE 9.6, normal vision 21.3); changed purple against over red ΔE 22.2 (CVD) and 27.6; modes ΔE 11.2 and 29.0, all ≥ 3:1 (Eco and Auto sit above the lightness band on purpose, as on the product, and always come with the mode's name); white against red on black ΔE 36.7 and 42.4; sequential and both diverging arms pass <code>--ordinal</code>. Text: ink 12.6:1, muted 7.5:1, red text 7.1:1, good 5.4:1.</li>
+</ul>
+<h2 id="typography-rules">Typography Rules</h2>
+<ul>
+<li><strong>One geometric sans.</strong> dyson.com sets a geometric sans in Light 300, Book 400 and Medium 500; the stand-in is <strong>Jost</strong> (SIL OFL) for English and <strong>Noto Sans KR</strong> for Korean, the face dyson.co.kr sets beside it. Code only in <strong>Roboto Mono</strong>. Numbers stay in the sans with tabular figures.</li>
+<li>Light 300 is the voice of a measurement: the result sentence, section names, the run times on the round screens (Jost in both languages, like a product screen), spec values, part weights, the dust left, and the large build 41 value on a graph screen.</li>
+<li>Medium 500 for labels, titles, tabs, buttons and the figure number; 400 for text.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Size and weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result sentence</td>
+<td>34px/300 (Korean 30px), line-height 1.22, two sentences on two lines: what the build did, then what it costs</td>
+</tr>
+<tr>
+<td>Kicker</td>
+<td>14px/500 <code>#555555</code>: model · build · targets met, the count in red (green at 7 of 7)</td>
+</tr>
+<tr>
+<td>Round screen</td>
+<td>164px circle (150 under 1360px, 142 under 1200px, a third of the width on phones): the mode at 9% of the width in 500, the run time at 27% in 300, 'MIN 60:00' at 7.2% in <code>#b9b9b9</code>; under it the gap 15.5px/500 and the last build 13px</td>
+</tr>
+<tr>
+<td>Spec row</td>
+<td>label 14px/500 with its limit 12.5px <code>#555555</code> → value 25px/300 with the unit 14px → ✓ or ✗ → 1px <code>#dadada</code> hairline</td>
+</tr>
+<tr>
+<td>Figure number</td>
+<td>'FIG. 1' 12.5px/500 <code>#555555</code>, letter-spaced .06em (Korean '그림 1')</td>
+</tr>
+<tr>
+<td>Card title</td>
+<td>19px/500 (Korean 17.5px), the finding as a sentence; subtitle 14px <code>#555555</code></td>
+</tr>
+<tr>
+<td>Section</td>
+<td>30px/300 with its number in <code>#919191</code> ('01  By build') and a 15px kicker</td>
+</tr>
+<tr>
+<td>Part label</td>
+<td>name 14px/500 above the weight 21px/300 with 'g' 12.5px; the gap 12.5px (500 red when over)</td>
+</tr>
+<tr>
+<td>Balloon</td>
+<td>19–21px circle, 1px <code>#333333</code> (purple for a changed part), the number 11–12px/500 Jost</td>
+</tr>
+<tr>
+<td>Graph screen</td>
+<td>measure name 14px/500 white with its limit 12.5px <code>#b9b9b9</code>; build numbers 11.5px <code>#b9b9b9</code> (review and now white); the build 41 value 40px/300 white with a small unit, its gap 13px/500</td>
+</tr>
+<tr>
+<td>Table</td>
+<td>14.5px rows, 1px <code>#dadada</code> rules, a 1px <code>#333333</code> rule under the head, group rows 12.5px/500 letter-spaced</td>
+</tr>
+<tr>
+<td>Body</td>
+<td>16px/400 (Korean 15px)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="numbers-dates--units">Numbers, Dates &amp; Units</h2>
+<table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>English</th>
+<th>Korean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run time</td>
+<td><code>56:40</code> (minutes:seconds, the same on screens in both languages)</td>
+<td><code>56:40</code>; in text <code>3분 20초</code></td>
+</tr>
+<tr>
+<td>Gap to a run-time MIN</td>
+<td><code>3:20 short</code> · <code>+1:10</code></td>
+<td><code>3분 20초 부족</code> · <code>1분 10초 여유</code></td>
+</tr>
+<tr>
+<td>Weight of a machine</td>
+<td><code>2.94 kg</code>, the MAX <code>2.90 kg</code></td>
+<td><code>2.94 kg</code></td>
+</tr>
+<tr>
+<td>Weight of a part, a gap</td>
+<td><code>610 g</code>, <code>+50 g</code>, <code>40 g over</code>, <code>30 g under</code></td>
+<td><code>610 g</code>, <code>50 g 초과</code>, <code>30 g 여유</code></td>
+</tr>
+<tr>
+<td>Suction</td>
+<td><code>253 AW</code></td>
+<td><code>253 AW</code></td>
+</tr>
+<tr>
+<td>Noise</td>
+<td><code>79.2 dB(A)</code></td>
+<td><code>79.2 dB(A)</code></td>
+</tr>
+<tr>
+<td>Edge and carpet pick-up</td>
+<td><code>98.1%</code>, a change <code>+1.1 pts</code></td>
+<td><code>98.1%</code>, <code>+1.1%p</code></td>
+</tr>
+<tr>
+<td>Dust left</td>
+<td><code>1.9%</code></td>
+<td><code>1.9%</code></td>
+</tr>
+<tr>
+<td>Bin</td>
+<td><code>0.60 L</code></td>
+<td><code>0.60 L</code></td>
+</tr>
+<tr>
+<td>Date</td>
+<td><code>Nov 21</code>, with weekday <code>Fri, Dec 11</code></td>
+<td><code>11월 21일</code>, <code>12월 11일(금)</code></td>
+</tr>
+<tr>
+<td>Build and week</td>
+<td><code>Build 41 · Week 47, Nov 16–22, 2026</code></td>
+<td><code>빌드 41 · 47주차, 2026년 11월 16~22일</code></td>
+</tr>
+<tr>
+<td>Targets met</td>
+<td><code>5 of 7</code> · <code>5 / 7</code></td>
+<td><code>7개 중 5개</code> · <code>5 / 7</code></td>
+</tr>
+<tr>
+<td>Pass, miss</td>
+<td>✓ · ✗ next to the value, never alone</td>
+<td>same</td>
+</tr>
+</tbody>
+</table>
+<p>Minus is the true minus sign <code>−</code>. Numbers are tabular. Missing values are an em dash <code>—</code> in <code>#919191</code>. A limit is written as the word and the value: <code>MIN 60:00</code>, <code>MAX 2.90 kg</code> (Korean <code>최소</code>, <code>최대</code>).</p>
+<h2 id="layout-principles">Layout Principles</h2>
+<ul>
+<li>Width up to 1400px, 32px page padding, 32px gaps, 76px between sections, a 12-column grid. At most four views on one screen.</li>
+<li><strong>Header, black, two lines (104px).</strong> Line one: business and report name, the build and week, EN/KO. Line two: the model tabs (C45 Compact · C60 Standard · C90 Large) set like the dyson.com menu row (16px Light white, the selected one Medium with a 2px white underline), and the test date and design freeze on the right.</li>
+<li><strong>First screen (1fr | 478px).</strong> Left: the kicker, the result in two Light sentences, the three round screens beside the four spec rows (suction, noise, edge pick-up, weight), then Figure 2 laser floor at the foot of the column. Right: Figure 1 exploded view on the <code>#f7f7f7</code> panel with the assembled bar against the MAX. Figure 2 sits at the bottom of its row so both captions end on one line.</li>
+<li><strong>01 By build (1fr | 1fr, subgrid).</strong> Figure 3, three black graph screens stacked (edge pick-up, Eco run time, weight) | Table 1, the other measures from build 37 (review) to 41 (now), so nothing in Figure 3 is repeated.</li>
+<li><strong>02 Tests and what is left (7fr | 5fr).</strong> Table 2, the issues, on the left | Figure 4, durability tests on a graph screen, on the right, so the black screens zigzag down the page. Stacked layouts put the figure first.</li>
+<li><strong>03 Build it yourself</strong> (the workbench) and <strong>04 How we count</strong> (definitions in two columns).</li>
+<li>Side-by-side cards share a subgrid so their title, body and caption rows line up and their bottoms end on one line.</li>
+<li>Every card: figure number → finding title → subtitle → keys → view → caption. No card exists only to show a colour or a typeface.</li>
+</ul>
+<h2 id="component-stylings">Component Stylings</h2>
+<p><strong>Round screen.</strong> A black circle; a ring at 45.4% of the diameter, 1.85% thick, in the mode colour, drawn round from the top; the mode's name above, the run time in the middle (Light, white), a white battery outline 40% wide filled in the mode colour by run time ÷ MIN (full at or above the MIN) with a small terminal, 'MIN 60:00' under it in <code>#b9b9b9</code>. Below the circle, outside it: the gap to the MIN (15.5px/500, red with the word 'short' when under, ✓ and 'spare' when not) and the last build's value (13px <code>#555555</code>).</p>
+<p><strong>Spec row.</strong> Label and limit on the left, the value and unit on the right, ✓ or ✗ after the unit, a 1px <code>#dadada</code> hairline under it. A miss turns the limit and the value red <code>#b0122f</code>. Four rows beside the screens; under 1280px they move under the screens in a 2×2 grid, under 640px one column.</p>
+<p><strong>Exploded view (Figure 1).</strong> On the <code>#f7f7f7</code> panel. A vertical dash-dot axis (<code>#7d8083</code>, 14 4 2 4). Parts stacked from the floor (cleaner head) to the hand (battery) at even gaps, centred on the axis, each a rounded rectangle (5px) as long as its weight on one shared scale: nickel <code>#d9dbdd</code> with a <code>#7d8083</code> edge; purple <code>#6b46c1</code> when changed since build 37; the grams over budget as a red <code>#d0273b</code> cap at the top of the part. A 1px <code>#555555</code> budget bracket on the opposite side of each part. Numbered balloons ① to ⑧ on leader lines; the label shows the name, the weight and the gap to budget (red when over; purple 'changed in build 38' when changed). Under the stack, the assembled weight as one bar, each part a segment in stack order, with the MAX as a dotted line and the total and gap at the right. When the panel is narrower than 420px, labels gather on one side; when it is short, labels go to one line.</p>
+<p><strong>Laser floor (Figure 2).</strong> A black strip per build (56px tall, the full width of the column), the wall on the left; green dots, one per 0.05% of the dust laid down that is still on the floor, denser towards the wall. Each strip has its label (build and head) on the left and the share left on the right in 28px Light with '% left behind' under it. A green sweep crosses the strip as the dots light up.</p>
+<p><strong>Graph screen (Figures 3 and 4).</strong> <code>#000000</code> with 8px corners, the only rounded rectangles on the page besides buttons and the code window. Measure name and limit at top left, 'BUILD 41' at top right in letter-spaced <code>#b9b9b9</code> capitals. Square-ended bars from a white dash-dot target line (10 3 2 3): white when the target is met, <code>#f0403a</code> when missed. The gap printed (12px/500) only on build 37 and the builds that changed a part; those builds also carry a white balloon with the part number in purple and a dotted <code>#6b6b6b</code> line down through the bars. Build numbers along the bottom. The build 41 value sits at the right in 40px Light white with a small unit, its gap below in the bar's colour with ✓ or ✗. On a test timeline (Figure 4): done white, to go <code>#5c5c5c</code>, past design freeze <code>#f0403a</code>; a solid white TODAY line and a white dash-dot DESIGN FREEZE line; month lines <code>#333333</code>; test names white and amounts <code>#b9b9b9</code>.</p>
+<p><strong>Tables.</strong> No vertical rules, no zebra, no filled cells. Head 13.5px/500 <code>#555555</code> with a 1px ink rule under it; group rows in letter-spaced 12.5px/500; rows 14.5px with 1px <code>#dadada</code> rules. The current build's column on a <code>#f7f7f7</code> band with its value in 500. A miss is a red value with ✗. Parts are named by their balloon and name; the issue table puts the number that matters in red inside the sentence ('50 g over budget') and the fix's effect in the fix column ('−45 g').</p>
+<p><strong>Balloon.</strong> A 19–21px circle with a 1px ink border and the number in Jost 500; purple when the part changed. The same number means the same part on every view.</p>
+<p><strong>Tooltip.</strong> White, 1px <code>#eeeeee</code> border, 4px corners, a soft shadow; head 14.5px/500, a grey sub-line (the week), then rows of value (15px/500) and label (<code>#555555</code>), a miss in red 500, a change in purple 500.</p>
+<p><strong>Buttons.</strong> 4px corners, 40px tall; the one primary button <code>#79b928</code> with black 500 text; secondary buttons a 1px <code>#333333</code> border on white. Focus is a 2px <code>#0066cc</code> ring.</p>
+<p><strong>Header tabs.</strong> As the dyson.com menu row: no boxes, 16px Light white, the selected tab 500 with a 2px white underline 9px above the line's foot; arrow keys move between tabs.</p>
+<h2 id="charts">Charts</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>View</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Does each power mode last long enough?</td>
+<td>Round screens with the gap to the MIN</td>
+</tr>
+<tr>
+<td>Which targets block the review?</td>
+<td>Spec rows with ✓ or ✗</td>
+</tr>
+<tr>
+<td>Where does the weight go, part by part?</td>
+<td>Exploded view against budgets, the assembled bar against the MAX</td>
+</tr>
+<tr>
+<td>Does the new part change what the machine leaves behind?</td>
+<td>Laser floor, review build against now</td>
+</tr>
+<tr>
+<td>How did a measure move against its target, build by build?</td>
+<td>A graph screen of bars from the target line</td>
+</tr>
+<tr>
+<td>Every other measure, review to now</td>
+<td>Table with the current column on the panel band</td>
+</tr>
+<tr>
+<td>Will the tests finish before freeze?</td>
+<td>A test timeline on a graph screen</td>
+</tr>
+<tr>
+<td>Who fixes what, by when?</td>
+<td>Issue table, biggest first</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>A title states the finding ('The new cleaner head clears the edge but leaves Eco 3:20 short'), never the chart type.</li>
+<li>Bars grow from a meaningful line: zero, or the target when the question is the gap to the target. Never a dual axis, pie, donut, gauge or 3D.</li>
+<li>The exploded view is honest about scale: one length scale for every part. Because small weight changes are hard to see as length, every part carries its weight and gap in numbers, and the assembled bar holds the total.</li>
+<li>A part changed since the review is purple everywhere it appears, with the same balloon number.</li>
+<li>Do not repeat the same numbers in a chart and the table beside it: a table holds what the charts do not.</li>
+</ul>
+<h2 id="depth--elevation">Depth &amp; Elevation</h2>
+<p>Flat. No card shadows, no gradients, no glow. Depth comes from the black screens on white and the one grey panel. The tooltip is the only element with a shadow. Rules are 1px; the only 2px lines are the selected tab, the focus ring and the hover outline on a graph screen.</p>
+<h2 id="interaction--motion">Interaction &amp; Motion</h2>
+<ul>
+<li>One filter: the model tabs (C45 · C60 · C90), kept in the URL (<code>?model=</code>), with <code>?lang=en|ko</code>. Every card follows the model.</li>
+<li>Every view has a tooltip on hover and focus, arrow-key and Home/End control with Esc to leave, a polite live region that reads the item, and a visually hidden data table.</li>
+<li>Motion, eased <code>cubic-bezier(.4,0,.2,1)</code>, all of it under 1.2s and none of it repeating:</li>
+<li>Exploded view: the parts start assembled and slide apart along the axis to their even gaps (0.9s, 40ms a part); brackets fade in at 0.65s, balloons and labels at 0.75s.</li>
+<li>Round screens: each ring draws round (0.9s, 120ms apart); the battery fills from the left 0.25s later.</li>
+<li>Laser floor: a green line sweeps each strip (1.1s) and the dust lights up behind it.</li>
+<li>Graph screens: bars grow from the target line, 35ms apart; test bars grow from the left, 70ms apart.</li>
+<li><code>prefers-reduced-motion</code> shows the final state at once.</li>
+</ul>
+<h2 id="accessibility">Accessibility</h2>
+<ul>
+<li>Text ≥ 4.5:1: ink 12.6:1, muted 7.5:1 (6.96:1 on the panel), red text 7.1:1, good 5.4:1; on black, white 21:1, <code>#b9b9b9</code> 10.4:1, red <code>#f0403a</code> 5.5:1. <code>#919191</code> only for large section numbers and dashes.</li>
+<li>Pass and miss are never colour alone: ✓ and ✗, the words 'short', 'over', 'spare', and the side of the target line.</li>
+<li>Mode colours always come with the mode's name; the dust count is also written as a percentage.</li>
+<li>Balloon numbers tie parts across views without colour.</li>
+<li>Each view's container is focusable with a label that states the finding; the hidden table carries the same values.</li>
+</ul>
+<h2 id="responsive-behavior">Responsive Behavior</h2>
+<table>
+<thead>
+<tr>
+<th>Width</th>
+<th>Layout</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>≥ 1360px</td>
+<td>First screen 1fr | 478px</td>
+</tr>
+<tr>
+<td>1280–1359px</td>
+<td>Right column 430px</td>
+</tr>
+<tr>
+<td>1200–1279px</td>
+<td>Spec rows move under the round screens (2×2)</td>
+</tr>
+<tr>
+<td>1024–1199px</td>
+<td>Right column 390px; sections 01 and 02 stack</td>
+</tr>
+<tr>
+<td>900–1023px</td>
+<td>One column; the first screen stacks</td>
+</tr>
+<tr>
+<td>640–899px</td>
+<td>Table 1 drops builds 38 and 39</td>
+</tr>
+<tr>
+<td>&lt; 640px</td>
+<td>Round screens a third of the width each, spec rows in one column, Table 1 shows builds 37 and 41 only, Table 2's due date goes under the fix, graph screens put the build 41 value at top right in 26px</td>
+</tr>
+</tbody>
+</table>
+<p>Nothing overflows or overlaps at 390px; long labels shorten ('DESIGN FREEZE' → 'FREEZE', one-line part labels).</p>
+<h2 id="tool-mapping">Tool Mapping</h2>
+<p><strong>Tableau.</strong> Paste the palettes from <code>dyson.tps</code> into <code>Preferences.tps</code>. Dashboard <code>#ffffff</code>, sheets on white, the exploded view on a <code>#f7f7f7</code> container. Round screens: a dual-mark sheet is not needed; use a BAN (big number) on a black container with the mode name in its colour above it. Exploded view: a Gantt bar on one axis, <code>[Start] = running sum of weights + gap</code>, size = weight, colour by state (changed, over, other). Graph screens: a black worksheet shading, bars of <code>[Value] − [Target]</code> from a zero reference line drawn white dash-dot, colour by met/missed. Laser floor: a scatter of dust points on a black sheet. Fonts: Tableau Book unless Jost and Noto Sans KR are installed on every viewing machine and the server.</p>
+<p><strong>Power BI.</strong> Import <code>powerbi-theme.json</code> (white visuals, no border, square corners, Jost with Segoe UI fallback). Graph screens: a column chart of the gap to target on a <code>#000000</code> plot area with a white constant line at zero, conditional colour white/<code>#f0403a</code>. Exploded view: a stacked bar of parts with a transparent spacer series, or a custom visual. Misses: conditional font colour <code>#b0122f</code> with ✗ in the value.</p>
+<p><strong>Web.</strong> <code>tokens.css</code> gives every value as CSS variables. Draw with SVG; keep numbers as text, not baked into images.</p>
+<h2 id="dos-and-donts">Do's and Don'ts</h2>
+<p><strong>Do</strong></p>
+<ul>
+<li>Put every measurement on black, like the machine's own screens, and keep the page white.</li>
+<li>Use Light numerals for measurements and Medium for labels; tabular figures.</li>
+<li>Say pass and miss with ✓ and ✗ next to the value.</li>
+<li>Keep one panel colour <code>#f7f7f7</code>; leave the rest white.</li>
+<li>Number parts with balloons and keep the numbers across views.</li>
+<li>Write the finding as the title.</li>
+</ul>
+<p><strong>Don't</strong></p>
+<ul>
+<li>Don't fill table cells or chart backgrounds with green or red zones; a page of pastel zones reads as clutter.</li>
+<li>Don't use mode colours (Eco green, Auto blue, Boost red) outside the round screens, or as series colours.</li>
+<li>Don't repeat the first screen's devices (round screens, exploded view, laser floor) in smaller copies further down; later sections use graph screens and tables.</li>
+<li>Don't show the same numbers twice in a chart and the table beside it.</li>
+<li>Don't use the Dyson logo or typeface, photos, renders, drawings of cyclones or loops, screen icons, product or technology names, or real specifications.</li>
+<li>No dual axes, pies, donuts, gauges, gradients, glow or shadows on cards.</li>
+</ul>
+<h2 id="agent-prompt-guide">Agent Prompt Guide</h2>
+<p>Start from the prompts in <code>prompt.md</code>. Before you finish, check:</p>
+<ol>
+<li>The header is black in two lines with model (or product) tabs set like a menu row, and the page is white with one <code>#f7f7f7</code> panel.</li>
+<li>KPIs are round screens (or spec rows) with the gap to the limit and ✓ or ✗.</li>
+<li>Every chart that measures sits on a <code>#000000</code> screen with white Light values; colours there are white, grey <code>#5c5c5c</code> and red <code>#f0403a</code> only, except mode colours on round screens.</li>
+<li>A changed part is purple with its balloon number on every view; red only marks a miss.</li>
+<li>Titles state findings; captions say how it was measured.</li>
+<li>No table cell or plot background is filled with a status colour; no numbers are repeated between a chart and its neighbouring table.</li>
+<li>Text contrast ≥ 4.5:1; pass and miss never rely on colour alone.</li>
+<li>Every view has a tooltip, keyboard control and a hidden data table; nothing overlaps at 390px.</li>
+<li>No Dyson logo, typeface, photo, render, product or technology name, or real number.</li>
+</ol>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Vizney Styles · © 2026 <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener">Vizney</a></span>
+    <span><span data-i18n="footFont">Font VZ Sans (subset of Spoqa Han Sans Neo)</span> · <a href="/OFL.txt">SIL Open Font License</a></span>
+    <nav aria-label="Footer" data-i18n-aria="footAria">
+      <a href="https://www.vizney.com/" data-href="blog" target="_blank" rel="noopener" data-i18n="footBlog">Blog</a>
+      <a href="https://www.vizney.com/contact-us/" data-href="contact" target="_blank" rel="noopener" data-i18n="navContact">Contact</a>
+      <a href="https://blocks.vizney.com/" target="_blank" rel="noopener">Vizney Blocks</a>
+      <a href="https://github.com/yehwanhwang/vizney-styles" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  // The site's header, tabs and footer around a spec page. The spec itself is English; ?lang=ko switches the
+  // chrome (labels and Vizney links) like the other site pages. Same code as index.html / 404.html.
+  var STR = { "ko": {"skip": "본문으로 건너뛰기", "navStyles": "카탈로그", "navCustom": "우리 회사", "navRequest": "브랜드 요청", "navContact": "문의", "globeTitle": "Switch to English", "ghSearch": "Vizney 검색", "ghMenu": "메뉴", "ghMore": "더 보기", "tabsAria": "Vizney Styles 메뉴", "footFont": "글꼴 VZ Sans(Spoqa Han Sans Neo 부분 글꼴)", "footAria": "바닥글", "footBlog": "블로그"}, "en": {"skip": "Skip to content", "navStyles": "Catalog", "navCustom": "Your company", "navRequest": "Request a brand", "navContact": "Contact", "globeTitle": "한글로 보기", "ghSearch": "Search Vizney", "ghMenu": "Main Menu", "ghMore": "More", "tabsAria": "Vizney Styles menu", "footFont": "Font VZ Sans (subset of Spoqa Han Sans Neo)", "footAria": "Footer", "footBlog": "Blog"} };
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let params;
+  try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
+  const state = { lang: params.get('lang') === 'ko' ? 'ko' : 'en' };
+  const S = () => STR[state.lang];
+  const PAGE = 'spec';
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  // The Vizney header's menu, as on the blog (the same addresses on Vizney Blocks). Labels are English in both languages.
+  const VZ = {
+    ko: { home: 'https://kr.vizney.com/', 'chart-guide': 'https://kr.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/ko/', styles: 'https://styles.vizney.com/?lang=ko', tips: 'https://kr.vizney.com/tips/', kb: 'https://kr.vizney.com/kb/', contact: 'https://kr.vizney.com/contact-us/', search: 'https://kr.vizney.com/#/search' },
+    en: { home: 'https://www.vizney.com/', 'chart-guide': 'https://www.vizney.com/chart-guide/', blocks: 'https://blocks.vizney.com/', styles: 'https://styles.vizney.com/', tips: 'https://www.vizney.com/tips/', kb: 'https://www.vizney.com/kb/', contact: 'https://www.vizney.com/contact-us/', search: 'https://www.vizney.com/#/search' }
+  };
+  function href(key) {
+    const L = state.lang;
+    const [kind, name] = key.split(':');
+    if (kind === 'home') return '/' + (L === 'ko' ? '?lang=ko' : '') + (name ? '#' + name : '');
+    if (kind === 'contact') return BLOG[L] + 'contact-us/';
+    if (kind === 'blog') return BLOG[L];
+    if (kind === 'v') return VZ[L][name];
+    if (kind === 'lang') {
+      try {
+        const u = new URL(location.href);
+        if (L === 'en') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+        return u.pathname + u.search + u.hash;
+      } catch (e) { return L === 'en' ? '?lang=ko' : '?'; }
+    }
+    return '#';
+  }
+  function applyLang() {
+    const s = S();
+    $$('[data-i18n]').forEach(el => { const v = s[el.dataset.i18n]; if (v != null) el.textContent = v; });
+    $$('[data-i18n-aria]').forEach(el => { const v = s[el.dataset.i18nAria]; if (v != null) el.setAttribute('aria-label', v); });
+    $$('[data-href]').forEach(a => { a.href = href(a.dataset.href); });
+    applyHeader();
+  }
+  function setLang(L) {
+    if (L === state.lang) return;
+    state.lang = L;
+    applyLang();
+    try {
+      const u = new URL(location.href);
+      if (L === 'ko') u.searchParams.set('lang', 'ko'); else u.searchParams.delete('lang');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* the page still switches */ }
+  }
+  /* ---------- Vizney header: menu overflow, burger, globe; the site's tabs ---------- */
+  const PHONE = window.matchMedia('(max-width:767px)');
+  const ghMenu = $('.gh-menu'), ghNav = $('.gh-nav');
+  const GH_ITEMS = $$('li', ghNav);
+  const MORE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false"><path d="M21.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM13.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0zM5.333 16c0-1.473 1.194-2.667 2.667-2.667v0c1.473 0 2.667 1.194 2.667 2.667v0c0 1.473-1.194 2.667-2.667 2.667v0c-1.473 0-2.667-1.194-2.667-2.667v0z"/></svg>';
+  let ghMoreEl = null;
+
+  function closeMore() {
+    if (!ghMoreEl || !ghMoreEl.classList.contains('is-open')) return;
+    ghMoreEl.classList.remove('is-open');
+    $('.gh-more__toggle', ghMoreEl).setAttribute('aria-expanded', 'false');
+  }
+  // As on the blog (Casper): items that do not fit one line move, from the end, under a '…' toggle.
+  function layoutMenu() {
+    ghMoreEl = null;
+    ghNav.replaceChildren(...GH_ITEMS);
+    GH_ITEMS.forEach((li, i) => { li.style.transitionDelay = PHONE.matches ? (0.03 * (i + 1)) + 's' : ''; });
+    if (PHONE.matches) return;
+    const sub = [];
+    while (ghNav.offsetWidth + 64 > ghMenu.offsetWidth && ghNav.lastElementChild) {
+      sub.unshift(ghNav.lastElementChild);
+      ghNav.lastElementChild.remove();
+    }
+    if (!sub.length) return;
+    const li = document.createElement('li');
+    li.className = 'gh-more';
+    li.innerHTML = '<button class="gh-more__toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="' + esc(S().ghMore) + '">' + MORE_SVG + '</button><ul class="gh-dropdown"></ul>';
+    $('.gh-dropdown', li).append(...sub);
+    ghNav.append(li);
+    ghMoreEl = li;
+  }
+  document.addEventListener('click', e => {
+    if (!ghMoreEl) return;
+    const toggle = $('.gh-more__toggle', ghMoreEl);
+    if (ghMoreEl.classList.contains('is-open')) closeMore();
+    else if (toggle.contains(e.target)) { ghMoreEl.classList.add('is-open'); toggle.setAttribute('aria-expanded', 'true'); }
+  });
+
+  const burger = $('.gh-burger');
+  function setMenuOpen(open) {
+    document.body.classList.toggle('gh-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', () => setMenuOpen(!document.body.classList.contains('gh-open')));
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (ghMoreEl && ghMoreEl.classList.contains('is-open')) { closeMore(); $('.gh-more__toggle', ghMoreEl).focus(); }
+    else if (document.body.classList.contains('gh-open')) { setMenuOpen(false); burger.focus(); }
+  });
+  let resizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (!PHONE.matches) setMenuOpen(false); layoutMenu(); }, 1);
+  });
+
+  // The globe opens this page in the other language; here it switches in place, keeping the address right.
+  $$('.gh-globe').forEach(a => a.addEventListener('click', e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    setLang(state.lang === 'ko' ? 'en' : 'ko');
+  }));
+
+  // Tabs: on the home page the tab follows the section in view; elsewhere none is current.
+  const TAB_SECTIONS = PAGE === 'home' ? ['custom', 'styles'].map(id => [id, document.getElementById(id)]) : [];
+  function markTab() {
+    if (PAGE !== 'home') return;
+    const line = $('.tabs').getBoundingClientRect().bottom + 8;
+    let cur = 'top';
+    for (const [id, el] of TAB_SECTIONS) {
+      const sec = el && (el.closest('section') || el);
+      if (sec && sec.getBoundingClientRect().top <= line) { cur = id; break; }
+    }
+    $$('.tabs [data-tab]').forEach(a => { if (a.dataset.tab === cur) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+  }
+  let tabFrame = 0;
+  window.addEventListener('scroll', () => { if (!tabFrame) tabFrame = requestAnimationFrame(() => { tabFrame = 0; markTab(); }); }, { passive: true });
+  markTab();
+
+  function applyHeader() {
+    const s = S();
+    $$('.gh-globe').forEach(a => { a.title = s.globeTitle; a.setAttribute('aria-label', s.globeTitle); });
+    $$('.gh-search').forEach(a => { a.title = s.ghSearch; });
+    layoutMenu();
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutMenu);
+  window.addEventListener('load', layoutMenu);
+  applyLang();
+})();
+</script>
+</body>
+</html>
