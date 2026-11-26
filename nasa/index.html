@@ -863,7 +863,7 @@
         checks: [[1, 'Frame: positions as rows, NO-GO first, call signs in DM Mono, rules #2e2e32'], [2, 'Status is a word: GO in #4cd493, NO-GO on a #f2473f chip with black text'], [3, 'Open items: one #717173 bar per row with its number'], [4, 'Constraints in #ff9088 and the need-by date as L− and day'], [4, 'NO-GO rows carry a 3px #f2473f rule on the left'], [5, 'The title states the finding; text at 4.5:1 or more on #17171b']],
         run: 'Run again', copied: 'Code copied', lines: n => `${n} lines`, built: 'Drawn from DASHBOARD.md', drawing: 'Drawing…', generated: 'A first draft without a spec',
         wbSub: 'GO/NO-GO poll by position, NO-GO first', wbNote: 'Note: one row per position; need by is the earliest constraint date.', generic: 'Team readiness status', genericSub: 'Status by team',
-        cap: 'Figure 1’s poll board, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the same figure as Tableau and Power BI settings. The flight filter at the top changes the code and the figure together.'
+        cap: 'Figure 1’s poll board, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the code that draws the figure. The flight filter at the top changes the code and the figure together.'
       },
       notes: {
         t: 'Terms and counts', k: 'How the countdown, the poll, contact and traffic are counted',
@@ -1039,7 +1039,7 @@
         checks: [[1, '틀: 자리마다 한 줄, NO-GO부터, 호출 부호는 DM Mono, 괘선 #2e2e32'], [2, '상태는 낱말로: GO는 #4cd493, NO-GO는 #f2473f 칩에 검은 글자'], [3, '미결 항목: 줄마다 #717173 막대 하나와 숫자'], [4, '제약 항목은 #ff9088, 필요일은 L−와 날짜로'], [4, 'NO-GO 줄은 왼쪽에 #f2473f 3px 선'], [5, '제목은 결과를 말하고, #17171b에서 글자 대비 4.5:1 이상']],
         run: '다시 그리기', copied: '코드를 복사했습니다', lines: n => `${n}줄`, built: 'DASHBOARD.md로 그림', drawing: '그리는 중…', generated: '명세 없이 만든 첫 초안',
         wbSub: '자리별 GO/NO-GO 폴, NO-GO부터', wbNote: '주: 자리마다 한 줄. 필요일은 가장 이른 제약 항목 마감입니다.', generic: '팀별 준비 상태', genericSub: '팀별 상태',
-        cap: '그림 1의 폴판을 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그리는 부분이 보이고, 명세 없이로 바꾸면 흔한 첫 초안을 볼 수 있습니다. 탭에는 프롬프트, 에이전트가 세운 그림 계획, 같은 그림의 Tableau·Power BI 설정이 있습니다. 위쪽 비행 필터를 바꾸면 코드와 그림이 함께 바뀝니다.'
+        cap: '그림 1의 폴판을 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그리는 부분이 보이고, 명세 없이로 바꾸면 흔한 첫 초안을 볼 수 있습니다. 탭에는 프롬프트, 에이전트가 세운 그림 계획, 그 그림을 그리는 코드가 있습니다. 위쪽 비행 필터를 바꾸면 코드와 그림이 함께 바뀝니다.'
       },
       notes: {
         t: '용어와 세는 법', k: '카운트다운, 폴, 교신, 우주 교통을 세는 법',
@@ -2013,11 +2013,11 @@
     else $$('.layer', svg).forEach(el => el.classList.add('on'));
   }
 
-  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-1.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-1.js']];
   function codeLines(kind) {
     const ko = KO(), X = facts(), fid = X.F.id, ttl = pollTitle(X), sub = L().build.wbSub, q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(16) + v;
-    const c = ko ? { head: '그림 1 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 비행 필터', s1: '1 · 틀: 자리마다 한 줄, NO-GO부터, 호출 부호는 DM Mono', s2: '2 · 상태는 낱말로: GO는 초록 글자, NO-GO는 빨강 칩', s3: '3 · 미결 항목: 줄마다 회색 막대 하나와 숫자', s4: '4 · 제약 항목과 필요일, NO-GO 줄의 왼쪽 선', s5: '5 · 제목은 결과를 말한다', once: '처음 한 번: nasa.tps를 Preferences.tps에' }
-      : { head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the flight filter above', s1: '1 · frame: a row per position, NO-GO first, call signs in DM Mono', s2: '2 · status is a word: GO in green text, NO-GO on a red chip', s3: '3 · open items: one gray bar per row with its number', s4: '4 · constraints, need-by, and a rule on NO-GO rows', s5: '5 · the title states the finding', once: 'once: paste nasa.tps into Preferences.tps' };
+    const c = ko ? { head: '그림 1 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 비행 필터', s1: '1 · 틀: 자리마다 한 줄, NO-GO부터, 호출 부호는 DM Mono', s2: '2 · 상태는 낱말로: GO는 초록 글자, NO-GO는 빨강 칩', s3: '3 · 미결 항목: 줄마다 회색 막대 하나와 숫자', s4: '4 · 제약 항목과 필요일, NO-GO 줄의 왼쪽 선', s5: '5 · 제목은 결과를 말한다' }
+      : { head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the flight filter above', s1: '1 · frame: a row per position, NO-GO first, call signs in DM Mono', s2: '2 · status is a word: GO in green text, NO-GO on a red chip', s3: '3 · open items: one gray bar per row with its number', s4: '4 · constraints, need-by, and a rule on NO-GO rows', s5: '5 · the title states the finding' };
     const J = {
       prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '발사 준비 점검 대시보드를 만들어 줘. 남색 카운트다운 띠에 L− 시계와 핵심 수치 4개, 홀드가 들어간 이정표 줄, GO/NO-GO 폴판, 첫 세 궤도의 궤적과 추적국 교신을 그린 관제실 지도, 계획 대비 미결 항목, 언제까지 닫을 항목 표로 짜고, 비행 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 1부터 poll.csv의 flight ${fid}로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
         : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build our launch readiness review: an L-minus clock and four key figures on the countdown band, a milestone strip with the built-in holds, the GO/NO-GO poll board, a mission control map of the first three orbits with station contact, open items against plan, and the items to close by when. One flight filter for every view.'], [0, ''], [0, `Start with Figure 1 from poll.csv for flight ${fid}.`], [0, 'Before you finish, run the checks in DASHBOARD.md and list what passed and what to fix.']],
@@ -2032,29 +2032,6 @@
         [4, `// ${c.s4}`], [4, 'fig.text("constraints", { fill: tokens.data.nogoText }); // #ff9088'], [4, 'fig.text("need_by", { format: "L−{need_by_L} · {need_by_date}" });'], [4, 'fig.rule(r => r.status === "NO-GO", { left: 3, fill: tokens.data.nogo });'], [4, ''],
         [5, `// ${c.s5}`], [5, `fig.title(${q(ttl)});`], [5, `fig.subtitle(${q(sub)});`]
       ],
-      tab: ko ? [
-        [0, '# Tableau · 그림 1 · NASA 스타일'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('행', '[call_sign], [position]')], [1, kv('정렬', '[status_rank] 오름차순, [need_by_L] 내림차순')], [1, kv('글꼴', '호출 부호·숫자 DM Mono, 이름 Pretendard')], [1, kv('행 구분선', '실선, #2e2e32')], [1, ''],
-        [2, `# ${c.s2}`], [2, kv('상태 열', '텍스트 [status]: GO #4cd493')], [2, kv('NO-GO', '모양 사각형 #f2473f, 레이블 #000000')], [2, ''],
-        [3, `# ${c.s3}`], [3, kv('미결 항목', '막대, SUM([open_items]), #717173')], [3, kv('레이블', '막대 끝, #ffffff')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('제약', '텍스트, 0보다 크면 #ff9088')], [4, kv('필요일', '"L−" + STR([need_by_L]) + " · " + [need_by_date]')], [4, ''],
-        [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('부제', q(sub))]
-      ] : [
-        [0, '# Tableau · Figure 1 · NASA style'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('Rows', '[call_sign], [position]')], [1, kv('Sort', '[status_rank] asc, then [need_by_L] desc')], [1, kv('Font', 'DM Mono for call signs and numbers')], [1, kv('Row dividers', 'solid, #2e2e32')], [1, ''],
-        [2, `# ${c.s2}`], [2, kv('Status column', 'text [status]: GO #4cd493')], [2, kv('NO-GO', 'square shape #f2473f, label #000000')], [2, ''],
-        [3, `# ${c.s3}`], [3, kv('Open items', 'bar, SUM([open_items]), #717173')], [3, kv('Label', 'at the end of the bar, #ffffff')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('Constraints', 'text, #ff9088 when above 0')], [4, kv('Need by', '"L−" + STR([need_by_L]) + " · " + [need_by_date]')], [4, ''],
-        [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Subtitle', q(sub))]
-      ],
-      pbi: [
-        [0, ko ? '// Power BI · 그림 1 · NASA 스타일' : '// Power BI · Figure 1 · NASA style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
-        [1, `// ${c.s1}`], [1, ko ? '테이블 · 열 = call_sign, position, status, open_items, constraints, need_by' : 'Table · columns = call_sign, position, status, open_items, constraints, need_by'], [1, ko ? '정렬 → status_rank 오름차순' : 'Sort → status_rank, ascending'], [1, '"grid": { "gridHorizontalColor": "#2e2e32" },'], [1, ''],
-        [2, `// ${c.s2}`], [2, ko ? '조건부 서식 → status: GO 글자 #4cd493 · NO-GO 배경 #f2473f, 글자 #000000' : 'Conditional formatting → status: GO text #4cd493 · NO-GO background #f2473f, text #000000'], [2, ''],
-        [3, `// ${c.s3}`], [3, ko ? '조건부 서식 → open_items → 데이터 막대 #717173' : 'Conditional formatting → open_items → data bars #717173'], [3, ''],
-        [4, `// ${c.s4}`], [4, ko ? '조건부 서식 → constraints > 0 → 글자 #ff9088' : 'Conditional formatting → constraints > 0 → text #ff9088'], [4, ''],
-        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(sub)}`]
-      ]
     };
     return J[kind];
   }
@@ -2067,14 +2044,14 @@
       const ch = text[i];
       if (q) { if (ch === '\\') { i++; continue; } if (ch === q) q = null; continue; }
       if (ch === '"' || ch === "'" || ch === '`') { q = ch; continue; }
-      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
-      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+      if (kind === 'js' && ch === '/' && text[i + 1] === '/') return i;
+      if (kind === 'plan' && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
     }
     return -1;
   }
   function highlight(text, kind) {
     if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
-    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? hexify(esc(m[2])) : highlightCode(m[2], kind)}`; }
+    if (kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${hexify(esc(m[2]))}`; }
     return highlightCode(text, kind);
   }
   function highlightCode(text, kind) {
@@ -2089,7 +2066,7 @@
       else if (num) out += `<span class="tk-n">${num}</span>`;
       else if (k) out += `<span class="tk-k">${k}</span>`;
       else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
-      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else if (prop && kind === 'js') out += `<span class="tk-p">${esc(prop)}</span>`;
       else out += esc(all);
       last = m.index + all.length;
     }

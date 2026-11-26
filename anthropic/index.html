@@ -704,7 +704,7 @@
         checksT: '점검 · DASHBOARD.md', checksOk: '6개 모두 통과', checksBad: '6개 중 0개 통과',
         checks: [[1, '연한 격자 #dedcd1, 눈금 4개, 만 단위'], [2, '비교선을 먼저: 회색 점선 #b0aea5'], [3, '색은 주인공 선 하나만: #eb6834'], [4, '범례 대신 선 끝 라벨'], [5, '제목은 결과를 말하고, 주석은 “주:”로 시작'], [5, '라벨 대비 4.5:1 이상, 툴팁·키보드·표']],
         run: '다시 실행', copied: '코드를 복사했습니다', lines: n => `${n}줄`, built: 'DASHBOARD.md로 그림', drawing: '그리는 중…', generated: '명세 없이 만든 첫 초안',
-        cap: '그림 2를 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 같은 그림의 Tableau·Power BI 설정을 봅니다. 위의 지역 필터를 바꾸면 코드와 그림이 함께 바뀝니다.',
+        cap: '그림 2를 한 단계씩 그립니다. 코드 줄에 마우스를 올리면 그 줄이 그린 부분이 강조되고, ‘명세 없이’를 누르면 흔히 나오는 첫 초안을 볼 수 있습니다. 탭에서는 요청 프롬프트, 에이전트가 세운 그림 계획, 그 그림을 그리는 코드를 봅니다. 위의 지역 필터를 바꾸면 코드와 그림이 함께 바뀝니다.',
         aria: (s, p) => `월 주문 추이. 최근 12개월 ${s}, 지난해 ${p}. 좌우 화살표 키로 달을 옮깁니다.`
       },
       notes: {
@@ -795,7 +795,7 @@
         checksT: 'Checks · DASHBOARD.md', checksOk: 'All 6 passed', checksBad: '0 of 6 passed',
         checks: [[1, 'Light grid #dedcd1, four ticks, compact units'], [2, 'Comparison drawn first: dashed #b0aea5'], [3, 'Only the subject is colored: #eb6834'], [4, 'End labels instead of a legend'], [5, 'Title states the finding; note starts with “Note:”'], [5, 'Labels at 4.5:1 or more; tooltip, keys and table']],
         run: 'Run again', copied: 'Code copied', lines: n => `${n} lines`, built: 'Built from DASHBOARD.md', drawing: 'Drawing…', generated: 'A typical first draft without a spec',
-        cap: 'Figure 2, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the same figure as Tableau and Power BI settings. The region filter at the top changes the code and the figure together.',
+        cap: 'Figure 2, built one step at a time. Hover over a line of code to see what it draws, or switch to Without a spec to see a typical first draft. The tabs show the prompt, the agent’s plan of views, and the code that draws the figure. The region filter at the top changes the code and the figure together.',
         aria: (s, p) => `Monthly orders. ${s} in the last 12 months, ${p} a year earlier. Left and right arrow keys move between months.`
       },
       notes: {
@@ -1475,11 +1475,11 @@
   }
 
   /* ================= 만드는 법: 프로젝트 폴더 · 그림 2와 점검 · 코드 ================= */
-  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-2.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-2.js']];
   function codeLines(kind) {
     const ko = KO(), region = state.region, title = L().f2.title(ordersGrew()), note = L().f2.note.split(/(?<=\.)\s/)[0];
-    const c = ko ? { head: '그림 2 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 필터 줄', s1: '1 · 틀: 연한 격자, 월, 기준선', s2: '2 · 비교를 먼저: 지난해, 회색 점선', s3: '3 · 주인공: 올해, 주황 실선', s4: '4 · 범례 대신 선 끝에 라벨', s5: '5 · 제목은 결과를 말한다', once: '처음 한 번: anthropic.tps를 Preferences.tps에' }
-      : { head: 'Figure 2 · drawn by an agent from DASHBOARD.md', filter: 'the filter row above', s1: '1 · frame: light grid, months, the base line', s2: '2 · comparison first: last year, dashed gray', s3: '3 · the subject: this year, solid orange', s4: '4 · label the line ends instead of a legend', s5: '5 · the title states the finding', once: 'once: paste anthropic.tps into Preferences.tps' };
+    const c = ko ? { head: '그림 2 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 필터 줄', s1: '1 · 틀: 연한 격자, 월, 기준선', s2: '2 · 비교를 먼저: 지난해, 회색 점선', s3: '3 · 주인공: 올해, 주황 실선', s4: '4 · 범례 대신 선 끝에 라벨', s5: '5 · 제목은 결과를 말한다' }
+      : { head: 'Figure 2 · drawn by an agent from DASHBOARD.md', filter: 'the filter row above', s1: '1 · frame: light grid, months, the base line', s2: '2 · comparison first: last year, dashed gray', s3: '3 · the subject: this year, solid orange', s4: '4 · label the line ends instead of a legend', s5: '5 · the title states the finding' };
     const q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(14) + v;
     const J = {
       prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '10월 운영 대시보드를 만들어 줘. 개요(핵심 수치, 서비스 등급, 경쟁사, 주문, 허브)와 운영(경로 변경, 배차, 제안 경로, 기사 설문) 두 부분으로, 지역 필터 하나를 모든 그림에 적용해 줘.'], [0, ''], [0, `그림 2부터 orders.csv의 region "${region}"로 그려 줘.`], [0, '끝내기 전에 DASHBOARD.md의 점검 목록을 돌려서 통과한 것과 고칠 것을 알려 줘.']]
@@ -1495,29 +1495,6 @@
         [4, `// ${c.s4}`], [4, 'fig.endLabels({ name: true, value: fmt.compact });'], [4, ''],
         [5, `// ${c.s5}`], [5, `fig.title(${q(title)});`], [5, `fig.note(${q(note)});`]
       ],
-      tab: ko ? [
-        [0, '# Tableau · 그림 2 · Anthropic 스타일'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('워크시트 음영', '#f5f4ed')], [1, kv('격자선', '행, 실선, #dedcd1')], [1, kv('축 눈금', 'Tableau Book 9, #5e5d59')], [1, ''],
-        [2, '# 2 · 비교: orders_last_year'], [2, kv('색상', '#b0aea5')], [2, kv('선 패턴', '파선')], [2, ''],
-        [3, '# 3 · 주인공: orders'], [3, kv('색상', '#eb6834')], [3, kv('크기', '3단계, 마지막 점에만 마커')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('마크 레이블', '선 끝, 마크 색상과 같게')], [4, kv('범례', '숨기기')], [4, ''],
-        [5, `# ${c.s5}`], [5, kv('제목', q(title))], [5, kv('캡션', q(note))]
-      ] : [
-        [0, '# Tableau · Figure 2 · Anthropic style'], [0, `# ${c.once}`], [0, ''],
-        [1, `# ${c.s1}`], [1, kv('Shading', '#f5f4ed')], [1, kv('Grid lines', 'rows, solid, #dedcd1')], [1, kv('Axis ticks', 'Tableau Book 9, #5e5d59')], [1, ''],
-        [2, '# 2 · comparison: orders_last_year'], [2, kv('Color', '#b0aea5')], [2, kv('Line pattern', 'dashed')], [2, ''],
-        [3, '# 3 · subject: orders'], [3, kv('Color', '#eb6834')], [3, kv('Size', '3rd step, marker on last point')], [3, ''],
-        [4, `# ${c.s4}`], [4, kv('Mark labels', 'line ends, match mark color')], [4, kv('Legend', 'hide')], [4, ''],
-        [5, `# ${c.s5}`], [5, kv('Title', q(title))], [5, kv('Caption', q(note))]
-      ],
-      pbi: [
-        [0, ko ? '// Power BI · 그림 2 · Anthropic 스타일' : '// Power BI · Figure 2 · Anthropic style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
-        [1, `// ${c.s1}`], [1, '"valueAxis": { "gridlineColor": "#dedcd1" },'], [1, '"plotArea": { "color": "#f5f4ed" },'], [1, ''],
-        [2, ko ? '// 2 · 비교: orders_last_year' : '// 2 · comparison: orders_last_year'], [2, ko ? '선 → orders_last_year → 색 #b0aea5, 파선' : 'Lines → orders_last_year → #b0aea5, dashed'], [2, ''],
-        [3, ko ? '// 3 · 주인공: orders' : '// 3 · subject: orders'], [3, ko ? '선 → orders → 색 #eb6834, 너비 3' : 'Lines → orders → #eb6834, width 3'], [3, ''],
-        [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 마지막 점 · 범례 → 끔' : 'Data labels → last point · Legend → off'], [4, ''],
-        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(title)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(note)}`]
-      ]
     };
     return J[kind];
   }
@@ -1530,14 +1507,14 @@
       const ch = text[i];
       if (q) { if (ch === '\\') { i++; continue; } if (ch === q) q = null; continue; }
       if (ch === '"' || ch === "'" || ch === '`') { q = ch; continue; }
-      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
-      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+      if (kind === 'js' && ch === '/' && text[i + 1] === '/') return i;
+      if (kind === 'plan' && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
     }
     return -1;
   }
   function highlight(text, kind) {
     if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
-    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? esc(m[2]) : highlightCode(m[2], kind)}`; }
+    if (kind === 'plan') { const m = /^([^#\s].*?)\s{2,}(\S.*)$/.exec(text); if (m) return `<span class="kv">${esc(m[1])}</span>${esc(m[2])}`; }
     return highlightCode(text, kind);
   }
   function highlightCode(text, kind) {
@@ -1552,7 +1529,7 @@
       else if (num) out += `<span class="tk-n">${num}</span>`;
       else if (k) out += `<span class="tk-k">${k}</span>`;
       else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
-      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else if (prop && kind === 'js') out += `<span class="tk-p">${esc(prop)}</span>`;
       else out += esc(all);
       last = m.index + all.length;
     }
