@@ -69,6 +69,7 @@ That puts `DASHBOARD.md` in the project root and the `dashboard-style` agent ski
 - Raw file for your project: https://raw.githubusercontent.com/yehwanhwang/vizney-styles/main/dyson/DASHBOARD.md
 - Package: [dyson-dashboard-style.zip](dyson-dashboard-style.zip) (unzip in your project root) · the skill: [skill/SKILL.md](skill/SKILL.md)
 - Files in this folder: [tokens.json](tokens.json) (the source of every value here), [tokens.css](tokens.css), [dyson.tps](dyson.tps) (Tableau), [powerbi-theme.json](powerbi-theme.json), [prompt.md](prompt.md), [parts.csv](parts.csv) (the data behind the sample's Figure 1)
+- Blog post: [English](https://www.vizney.com/style-dyson/) · [한국어](https://kr.vizney.com/style-dyson/)
 - Catalog: VIZNEY STYLES · 10 · https://styles.vizney.com (Vizney Styles is a line of [Vizney](https://www.vizney.com))
 
 Not an official Dyson design, and not affiliated with or endorsed by Dyson. A reference style read from the publicly visible design of dyson.com and dyson.co.kr and from public touchpoints such as the machines' screens and Dyson's exploded technology views; it carries no Dyson logo, typeface, photo, product name or data. Trademarks belong to their owners. The sample's company, Vizney Appliances, its models, parts, tests and all its numbers are fictional.
