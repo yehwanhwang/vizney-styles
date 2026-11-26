@@ -1,0 +1,2084 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>Dyson style · Prototype review sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<script src="/lib/embed.js" defer></script>
+<style>
+  /* Dyson style (VIZNEY STYLES · 10) — Technical, Exploded View, Clean · 테크니컬, 분해도, 말끔함
+     Read from dyson.com (the black header, the Specifications panel, measured 2026-11-23), the machines' round
+     screens (mode, run time and battery; Eco green, Auto blue, Boost red) and Dyson's exploded technology views.
+     A reference style, not an official design; no logo, typeface, photo, machine drawing or data of theirs.
+     Sample: Vizney Appliances, a fictional appliance maker: the prototype review of its cordless platform, build 41.
+     Three devices: the round screen (the KPI row: mode, run time, a battery filled against the MIN),
+     the exploded view (Figure 1: parts pulled apart on one axis, length is weight, a bracket for each budget,
+     numbered balloons) and the laser floor (Figure 2: dust left behind, green dots on a black strip).
+     Everything else stays quiet: white page, light numbers, 1px rules, nickel grey for parts. */
+  :root{
+    --page:#ffffff; --panel:#f7f7f7; --ink:#333333; --body:#404040; --mute:#555555; --mute2:#919191;
+    --hair:#dadada; --line:#dcdcdc; --soft:#ebebeb; --black:#000000;
+    --nickel:#d9dbdd; --nickel-e:#7d8083; --purple:#6b46c1; --purple-t:#5a3fb0; --red:#d0273b; --red-t:#b0122f; --good-t:#1d7a43;
+    --eco:#3fd24a; --auto:#2aa3ef; --boost:#f0403a; --laser:#5fe04a; --scr-sub:#b9b9b9;
+    --blue:#0066cc; --green:#79b928; --green-h:#6ea924;
+    --font:'Jost',Arial,sans-serif;
+    --mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.4,0,.2,1);
+    --pad:32px; --gap:32px; --sec:76px; --dial:164px; --exw:478px;
+  }
+  html[lang="ko"]{
+    --font:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    --mono:'Roboto Mono','Noto Sans KR',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--page);color:var(--body);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  html[lang="ko"] body{word-break:keep-all;font-size:15px}
+  p,h1,h2,h3,h4,ul,ol,figure,table{margin:0}
+  ul,ol{padding:0;list-style:none}
+  button{font:inherit;color:inherit}
+  a{color:var(--blue)}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .wrap{max-width:1400px;margin:0 auto;padding:0 var(--pad)}
+  .n{font-variant-numeric:tabular-nums}
+
+  /* ---------- 머리: dyson.com의 검정 머리. 위 줄은 회사·보고서·기간, 아래 줄은 메뉴 줄처럼 모델 필터 ---------- */
+  .top{background:var(--black);color:#fff}
+  .top .r1{display:flex;align-items:center;gap:8px 24px;min-height:56px}
+  .co{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 14px;min-width:0;margin-right:auto}
+  .co b{font-size:18px;font-weight:500;color:#fff;white-space:nowrap}
+  .co span{font-size:18px;font-weight:300;color:#fff;white-space:nowrap}
+  .co small{font-size:14px;font-weight:400;color:var(--scr-sub);white-space:nowrap}
+  html[lang="ko"] .co b,html[lang="ko"] .co span{font-size:16.5px}
+  html[lang="ko"] .co small{font-size:13.5px}
+  .lang{display:inline-flex;gap:0;border:1px solid #6b6b6b;border-radius:4px;overflow:hidden}
+  .lang button{height:30px;padding:0 12px;border:0;background:none;color:#fff;font-size:14px;font-weight:500;cursor:pointer}
+  .lang button[aria-pressed="true"]{background:#fff;color:var(--black)}
+  .lang button:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+  .nav{border-top:1px solid rgba(255,255,255,.15)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px 24px;min-height:48px}
+  .tabs{display:flex;gap:4px 30px;min-width:0;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tabs button{position:relative;flex:none;height:48px;padding:0;border:0;background:none;color:#fff;font-size:16px;font-weight:300;cursor:pointer;white-space:nowrap}
+  .tabs button:hover{opacity:.9}
+  .tabs button[aria-selected="true"]{font-weight:500}
+  .tabs button[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:9px;height:2px;background:#fff}
+  .tabs button:focus-visible{outline:2px solid #fff;outline-offset:-6px}
+  .asof{font-size:14px;color:var(--scr-sub);white-space:nowrap}
+
+  /* ---------- 첫 화면: 왼쪽에 결과·둥근 화면·사양 줄·그림 2, 오른쪽에 그림 1(분해도) ---------- */
+  .first{display:grid;grid-template-columns:minmax(0,1fr) var(--exw);grid-template-areas:"lead ex" "kpi ex" "floor ex";grid-template-rows:auto auto 1fr;column-gap:44px;padding-top:24px}
+  .lead{grid-area:lead}
+  .kick{font-size:14px;font-weight:500;line-height:1.4;color:var(--mute)}
+  .kick b{font-weight:500;color:var(--red-t)}
+  .kick b.ok{color:var(--good-t)}
+  .first h1{margin-top:6px;font-size:34px;font-weight:300;line-height:1.22;color:var(--ink)}
+  .first h1 span{display:block;text-wrap:balance}
+  html[lang="ko"] .first h1{font-size:30px;line-height:1.34;letter-spacing:-.025em}
+
+  /* 둥근 화면(rs-): 검은 원, 모드 색 고리, 모드 이름 → 남은 시간(가는 큰 숫자) → 목표 대비 채운 배터리 → MIN */
+  .kpi{position:relative;grid-area:kpi;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:30px;margin-top:22px;align-items:start}
+  .rs-row{display:grid;grid-template-columns:repeat(3,var(--dial));column-gap:24px;outline:none}
+  .rs-row:focus-visible{outline:2px solid var(--blue);outline-offset:6px}
+  .rs{display:grid;grid-template-rows:auto auto auto;justify-items:center;min-width:0;cursor:default}
+  .rs-dial{position:relative;width:var(--dial);height:var(--dial);border-radius:50%;background:var(--black);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .2s var(--ease)}
+  .rs.on .rs-dial{transform:scale(1.03)}
+  .rs-dial svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .rs-m{position:relative;font-size:max(11px,calc(var(--dial) * .09));font-weight:500;line-height:1.1;color:var(--c)}
+  html[lang="ko"] .rs-m,html[lang="ko"] .rs-t,html[lang="ko"] .rs-min{font-family:'Jost',var(--font)}
+  .rs-t{position:relative;margin-top:2px;font-size:calc(var(--dial) * .27);font-weight:300;line-height:1.05;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+  .rs-bat{position:relative;margin-top:calc(var(--dial) * .05);width:calc(var(--dial) * .46);height:calc(var(--dial) * .09);padding:2px;border:1.5px solid #fff;border-radius:3px}
+  .rs-bat::after{content:"";position:absolute;right:-5.5px;top:50%;width:3px;height:40%;transform:translateY(-50%);background:#fff;border-radius:0 1.5px 1.5px 0}
+  .rs-bat i{display:block;height:100%;width:var(--w);background:var(--c);border-radius:1px;transform-origin:left;transition:width .5s var(--ease)}
+  .rs-min{position:relative;margin-top:calc(var(--dial) * .035);font-size:max(9.5px,calc(var(--dial) * .072));font-weight:400;color:var(--scr-sub);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+  .rs-st{margin-top:10px;font-size:15.5px;font-weight:500;line-height:1.3;color:var(--ink);white-space:nowrap}
+  .rs-st.bad{color:var(--red-t)}
+  .rs-sub{margin-top:1px;font-size:13px;color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* 사양 줄(sp-): dyson.com Specifications 패널처럼 라벨 → 가는 숫자와 작은 단위 → 머리카락 선 */
+  .sp-list{align-self:stretch;display:flex;flex-direction:column;justify-content:space-between;gap:8px;outline:none;padding-top:2px}
+  .sp-list:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+  .sp{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;column-gap:10px;padding-bottom:7px;border-bottom:1px solid var(--hair)}
+  .sp.on{border-bottom-color:var(--ink)}
+  .sp-l{font-size:14px;font-weight:500;line-height:1.25;color:var(--ink);min-width:0}
+  .sp-l small{display:block;margin-top:1px;font-size:12.5px;font-weight:400;color:var(--mute);white-space:nowrap}
+  .sp-v{font-size:25px;font-weight:300;line-height:1.05;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .sp-v .u{margin-left:2px;font-size:14px;font-weight:400}
+  .sp-v .mk{display:inline-block;width:14px;margin-left:5px;font-size:14px;font-weight:500;text-align:center}
+  .sp.bad .sp-v,.sp-l small.miss{color:var(--red-t)}
+  .sp-l small.miss{font-weight:500}
+
+  /* ---------- 그림 카드: 그림 번호 → 결과 제목 → 부제 → 범례 → 그림 → 주석 ---------- */
+  .fg{position:relative;display:flex;flex-direction:column;min-width:0}
+  .eb{font-size:12.5px;font-weight:500;line-height:1.3;color:var(--mute);letter-spacing:.06em}
+  html[lang="ko"] .eb{letter-spacing:0}
+  .ct{margin-top:3px;font-size:19px;font-weight:500;line-height:1.35;color:var(--ink);text-wrap:balance}
+  html[lang="ko"] .ct{font-size:17.5px;letter-spacing:-.015em}
+  .cs{margin-top:3px;font-size:14px;line-height:1.45;color:var(--mute)}
+  html[lang="ko"] .cs{font-size:13.5px}
+  .keys{display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px;margin-top:8px;font-size:12.5px;color:var(--mute)}
+  .keys li{display:flex;align-items:center;gap:6px;white-space:nowrap}
+  .keys svg{flex:none;display:block}
+  .plot{position:relative;width:100%;min-width:0;outline:none}
+  .plot > svg{position:absolute;left:0;top:0;display:block;overflow:visible}
+  .plot:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+  .cap{margin-top:10px;font-size:12.5px;line-height:1.5;color:var(--mute)}
+  .bal{display:inline-grid;place-items:center;flex:none;width:19px;height:19px;border:1px solid var(--ink);border-radius:50%;background:#fff;font-size:11px;font-weight:500;line-height:1;color:var(--ink);font-family:'Jost',var(--font);font-variant-numeric:tabular-nums}
+  .bal.p{border-color:var(--purple-t);color:var(--purple-t)}
+
+  /* 그림 1: 분해도(ex-). Specifications 패널 같은 옅은 판 위에 */
+  .ex-card{grid-area:ex;padding:20px 24px 18px;background:var(--panel)}
+  #f1Plot{flex:1;min-height:380px;margin-top:6px}
+  .ex-asm{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:12px;margin-top:10px;padding-top:12px;border-top:1px solid var(--hair);font-size:13.5px;color:var(--mute)}
+  .ex-asm svg{display:block;width:100%;height:40px;overflow:visible}
+  .ex-asm b{display:block;font-size:22px;font-weight:300;line-height:1.1;color:var(--ink);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .ex-asm b .u{font-size:13px;font-weight:400}
+  .ex-asm em{display:block;font-style:normal;font-size:12.5px;font-weight:500;text-align:right;white-space:nowrap}
+  .ex-asm em.bad{color:var(--red-t)} .ex-asm em.ok{color:var(--mute);font-weight:400}
+
+  /* 그림 2: 레이저 바닥(lf-). 검은 띠 위 초록 점이 남은 먼지 */
+  #f2{grid-area:floor;align-self:end;margin-top:26px;padding-bottom:18px}
+  .lf{display:grid;grid-template-columns:116px minmax(0,1fr) 96px;column-gap:14px;row-gap:8px;margin-top:10px;align-items:center;outline:none}
+  .lf:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+  .lf-l{font-size:14px;font-weight:500;line-height:1.25;color:var(--ink)}
+  .lf-l small{display:block;font-size:12.5px;font-weight:400;color:var(--mute)}
+  .lf-s{position:relative;height:var(--lfh,56px);background:var(--black);overflow:hidden}
+  .lf-s svg{position:absolute;inset:0;display:block}
+  .lf-row.on .lf-s{box-shadow:0 0 0 2px var(--ink)}
+  .lf-n{font-size:28px;font-weight:300;line-height:1;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .lf-n .u{font-size:14px;font-weight:400}
+  .lf-n small{display:block;margin-top:3px;font-size:12.5px;font-weight:400;color:var(--mute)}
+  .lf-row{display:contents}
+  .lf-ax{grid-column:2;display:flex;justify-content:space-between;margin-top:-2px;font-size:12px;color:var(--mute)}
+
+  /* ---------- 절 ---------- */
+  .sec{margin-top:var(--sec)}
+  .sh{display:flex;align-items:baseline;gap:4px 16px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--hair)}
+  .sh h2{font-size:30px;font-weight:300;line-height:1.2;color:var(--ink)}
+  .sh h2 .no{margin-right:14px;color:var(--mute2)}
+  html[lang="ko"] .sh h2{font-size:27px;letter-spacing:-.02em}
+  .sh p{font-size:15px;color:var(--mute)}
+  /* 나란한 두 카드는 subgrid로 머리·몸·주석 줄을 맞춘다(아래 끝이 한 선) */
+  .row2{display:grid;grid-template-rows:auto 1fr auto;column-gap:var(--gap);row-gap:0;align-items:stretch}
+  .row2 > .fg{display:grid;grid-template-rows:subgrid;grid-row:span 3}
+  #s1 .row2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  #s2 .row2{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+  /* 02는 표가 왼쪽, 검은 화면이 오른쪽(01의 검은 화면과 지그재그). 좁으면 원래 순서대로 쌓는다 */
+  #s2 #f4{grid-column:2;grid-row:1 / span 3}
+  #s2 #t2{grid-column:1;grid-row:1 / span 3}
+  .fbody{position:relative;display:flex;flex-direction:column;min-height:0;margin-top:12px}
+  #f3Plot{flex:1;min-height:524px}
+  #f3Plot svg{display:block}
+  #f4Plot{flex:1;min-height:360px}
+
+  /* ---------- 표: dyson.com 비교 표처럼 라벨 열, 그룹 머리, 머리카락 선 ---------- */
+  .tw{overflow-x:auto;scrollbar-width:thin}
+  table.tb{width:100%;border-collapse:collapse;font-size:14.5px}
+  .tb th,.tb td{padding:8px 10px;border-bottom:1px solid var(--hair);text-align:left;vertical-align:middle}
+  .tb thead th{padding-top:0;padding-bottom:9px;border-bottom:1px solid var(--ink);font-size:13.5px;font-weight:500;color:var(--mute);white-space:nowrap;vertical-align:bottom}
+  .tb th:first-child,.tb td:first-child{padding-left:0}
+  .tb th:last-child,.tb td:last-child{padding-right:0}
+  .tb .r{text-align:right}
+  .tb tbody tr.on td,.tb tbody tr.on th{background:var(--panel)}
+  .tb .num{font-size:15px;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .tb .num.bad{color:var(--red-t);font-weight:500}
+  .tb .num .x{margin-left:3px;font-size:12px}
+  .tb .u{font-size:12px;color:var(--mute);font-weight:400;margin-left:3px}
+  /* 표 1: 빌드 비교. 지금 빌드 열은 굵게, 바꾼 부품 줄은 번호 풍선 */
+  .t1 thead th.cur{color:var(--ink)}
+  .t1 thead th small{display:block;font-size:12px;font-weight:400;color:var(--mute)}
+  .t1 .grp th{padding-top:14px;padding-bottom:6px;font-size:12.5px;font-weight:500;color:var(--mute);letter-spacing:.06em;border-bottom:1px solid var(--hair)}
+  html[lang="ko"] .t1 .grp th{letter-spacing:0}
+  .t1 tbody th{font-size:14.5px;font-weight:500;color:var(--ink);white-space:nowrap}
+  .t1 td.tgt{font-size:12.5px;color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .t1 td.cur .num{font-weight:500}
+  .t1 .chg{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--purple-t);white-space:nowrap}
+  .t1 .dash{color:var(--mute2)}
+  .t1 .num.ok{color:var(--good-t);font-weight:500}
+  /* 표 1: 지금(빌드 41) 열은 판 회색 띠 */
+  .t1 .cur{background:var(--panel);padding-right:10px!important}
+  .t1 th.cur{padding-left:10px}
+  .t1 .grp td{border-bottom:1px solid var(--hair)}
+  .t1 .chg .bal{cursor:default}
+  /* 표 2: 열린 문제 */
+  .t2 td{padding-top:10px;padding-bottom:10px;line-height:1.4}
+  .t2 .pt{display:flex;align-items:flex-start;gap:7px;font-weight:500;color:var(--ink);min-width:128px}
+  .t2 .pt .bal{margin-top:1px}
+  .t2 .is{color:var(--ink)}
+  .t2 .is b{font-weight:500;color:var(--red-t)}
+  .t2 .is b.ok{color:var(--ink)}
+  .t2 .fx{color:var(--body)}
+  .t2 .fx b{font-weight:500;color:var(--ink);white-space:nowrap}
+  .t2 .ow{color:var(--mute);white-space:nowrap}
+  .t2 .du{white-space:nowrap;color:var(--ink);font-variant-numeric:tabular-nums}
+  .t2 .du small{display:block;font-size:12.5px;color:var(--mute)}
+  .t2 .fx small{display:block;margin-top:2px;font-size:12.5px;color:var(--mute)}
+  .show-s{display:none!important}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border:1px solid transparent;border-radius:4px;font-size:16px;font-weight:500;line-height:1;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease)}
+  .btn-p{background:var(--green);color:var(--black)}
+  .btn-p:hover{background:var(--green-h)}
+  .btn-o{background:#fff;color:var(--ink);border-color:var(--ink)}
+  .btn-o:hover{background:var(--ink);color:#fff}
+  .btn-sm{height:34px;padding:0 14px;font-size:14.5px;gap:6px}
+  .btn-icon{width:34px;padding:0}
+  .btn svg{width:15px;height:15px;flex:none}
+
+  /* ---------- 만드는 법 ---------- */
+  .build-intro{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px 40px;align-items:end}
+  .build-intro p{max-width:46em;font-size:16px;line-height:1.6;color:var(--body)}
+  .build-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+  .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);margin-top:22px}
+  .steps li{display:grid;grid-template-columns:auto minmax(0,1fr);align-content:start;column-gap:16px;padding-top:14px;border-top:1px solid var(--hair)}
+  .steps .bn{grid-row:span 2;align-self:start;font-size:36px;font-weight:300;line-height:.95;color:var(--ink)}
+  .steps b{font-size:17px;font-weight:500;line-height:1.35;color:var(--ink)}
+  .steps p{margin-top:4px;font-size:14.5px;line-height:1.5;color:var(--mute)}
+  .win{position:relative;display:grid;grid-template-columns:250px minmax(0,1fr) minmax(0,1.05fr);margin-top:28px;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
+  .side{padding:16px 14px;background:var(--panel);border-right:1px solid var(--line);font-size:14px}
+  .side-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 6px 8px}
+  .side-h b{font-size:15px;font-weight:500;color:var(--ink)}
+  .side-h span{font-size:12.5px;color:var(--mute)}
+  .tree li{display:block}
+  .tree a,.tree .fi{display:grid;grid-template-columns:minmax(0,1fr);padding:4px 6px;border-radius:4px;text-decoration:none;color:inherit}
+  .tree a:hover{background:var(--soft)}
+  .tree b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .tree a b{text-decoration:underline;text-decoration-color:#b5b5b5;text-decoration-thickness:1px;text-underline-offset:3px}
+  .tree span{display:block;font-size:12px;line-height:1.35;color:var(--mute)}
+  .tree .root b{font-weight:400;color:var(--body)}
+  .tree .in{padding-left:12px} .tree .in2{padding-left:24px} .tree .in3{padding-left:36px}
+  .get{margin-top:12px;padding:12px 6px 0;border-top:1px solid var(--line)}
+  .get-h{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:6px}
+  .cmds{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;min-width:0}
+  .cmd{display:flex;align-items:center;gap:6px;padding:6px 6px 6px 10px;border:1px solid var(--line);border-radius:4px;background:#fff}
+  .cmd code{flex:1;min-width:0;font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--ink);white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+  .cmd code::-webkit-scrollbar{display:none}
+  .cmd code.more-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 24px),transparent)}
+  .cmd button{flex:none;width:22px;height:22px;display:grid;place-items:center;border:0;border-radius:4px;background:none;color:var(--mute);cursor:pointer}
+  .cmd button:hover{background:var(--soft);color:var(--ink)}
+  .cmd button svg{width:13px;height:13px}
+  .get-note{margin:6px 0 10px;font-size:12px;line-height:1.45;color:var(--mute)}
+  .figpane{position:relative;display:flex;flex-direction:column;min-width:0;padding:16px 18px 18px;border-right:1px solid var(--line)}
+  .figbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .modes{display:inline-flex;border:1px solid var(--ink);border-radius:4px;overflow:hidden}
+  .modes button{height:30px;padding:0 12px;border:0;background:#fff;font-size:13.5px;font-weight:500;color:var(--ink);cursor:pointer;white-space:nowrap}
+  .modes button + button{border-left:1px solid var(--ink)}
+  .modes button[aria-selected="true"]{background:var(--ink);color:#fff}
+  .modes button:focus-visible{outline-offset:-4px}
+  .scope{display:inline-flex;align-items:center;height:24px;padding:0 9px;border:1px solid var(--line);border-radius:2px;font-family:var(--mono);font-size:11.5px;color:var(--body);white-space:nowrap}
+  .wb-t{font-size:16px;font-weight:500;line-height:1.35;color:var(--ink)}
+  .wb-s{margin:2px 0 10px;font-size:13px;color:var(--mute)}
+  .wb-scr{flex:1;display:flex;flex-direction:column;padding:12px 14px;background:var(--panel)}
+  .win.without .wb-scr{background:#fff;padding:0}
+  #wbPlot{flex:1;min-height:380px}
+  .wb-n{margin-top:6px;font-size:12px;color:var(--mute)}
+  .checks{margin-top:14px;padding-top:12px;border-top:1px solid var(--soft)}
+  .checks-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;font-size:14px;font-weight:500;color:var(--ink)}
+  .checks-h .ok{color:var(--good-t)}
+  .checks-h .ok.bad{color:var(--red-t)}
+  .checks ul{display:grid;gap:3px}
+  .checks li{display:flex;align-items:flex-start;gap:8px;font-size:13px;line-height:1.45;color:var(--body)}
+  .checks li svg{width:14px;height:14px;flex:none;margin-top:2px;color:var(--good-t)}
+  .checks li.no svg{color:var(--red-t)}
+  .checks code{font-family:var(--mono);font-size:12px;color:var(--ink);white-space:nowrap}
+  .codepane{display:flex;flex-direction:column;min-width:0;background:var(--panel);contain:size;container-type:inline-size}
+  .cbar{display:flex;align-items:center;gap:10px;height:48px;padding:0 12px 0 16px;border-bottom:1px solid var(--line);background:#fff}
+  .ctabs{flex:1;min-width:0;align-self:stretch;display:flex;gap:20px;overflow-x:auto;scrollbar-width:none}
+  .ctabs::-webkit-scrollbar{display:none}
+  /* 코드 칸이 좁으면 단추를 위 줄로 올리고 탭을 한 줄에 다 보인다(잘린 탭이 숨지 않게) */
+  @container (max-width:600px){
+    .cbar{flex-wrap:wrap;height:auto;padding:0 12px}
+    .cbtns{order:1;margin-left:auto;padding-top:8px}
+    .ctabs{order:2;flex:1 1 100%;height:44px;gap:16px}
+  }
+  @container (max-width:400px){.ctabs{gap:12px}.ctabs button{font-size:13.5px}}
+  .cbtns{flex:none;display:flex;gap:6px}
+  .ctab{flex:none;display:flex;align-items:center;border:0;border-bottom:2px solid transparent;border-top:2px solid transparent;background:none;padding:0;font-size:14.5px;font-weight:300;color:var(--mute);cursor:pointer;white-space:nowrap}
+  .ctab[aria-selected="true"]{border-bottom-color:var(--ink);color:var(--ink);font-weight:500}
+  .code{position:relative;flex:1;margin:0;padding:10px 0;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.62;color:var(--ink);counter-reset:ln;tab-size:2;scrollbar-width:thin;scrollbar-color:#b0b0b0 transparent}
+  .code .ln{display:block;position:relative;min-height:1.62em;padding:0 16px 0 46px;white-space:pre;transition:background-color .2s ease}
+  .code.wrap .ln{white-space:pre-wrap}
+  .code .ln::before{counter-increment:ln;content:counter(ln);position:absolute;left:0;width:30px;text-align:right;color:var(--mute2)}
+  .code .ln.hl{background:#ececec}
+  .building .code .ln:not(.shown){visibility:hidden}
+  .code .caret::after{content:"";display:inline-block;width:7px;height:1.2em;margin-left:1px;vertical-align:-.22em;background:var(--ink);animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  /* 코드 색: 화면의 글자 단계(tokens.json code). 모두 #f7f7f7에서 4.5:1 이상 */
+  .tk-c{color:var(--mute)} .tk-s{color:#1d7a43} .tk-n{color:#9a4510} .tk-k{color:#5a3fb0} .tk-f{color:#b0122f} .tk-p{color:#0066cc;font-weight:500}
+  .code .kv{display:inline-block;min-width:15ch;color:var(--mute)}
+  .tk-hex::before{content:"";display:inline-block;width:.78em;height:.78em;margin-right:4px;border-radius:1px;background:var(--sw);box-shadow:inset 0 0 0 1px rgba(0,0,0,.35);vertical-align:-.04em}
+  .cstat{display:flex;justify-content:space-between;gap:12px;padding:8px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--mute);background:#fff}
+  .cstat .dot{display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--good-t);vertical-align:1px}
+  .layer{transition:opacity .3s ease}
+  .building .layer:not(.on){opacity:0}
+  .focus-step .layer:not(.focus){opacity:.18}
+  .focus-step .layer[data-step="1"]:not(.focus){opacity:.5}
+  .build-cap{margin-top:12px;max-width:64em;font-size:13px;line-height:1.5;color:var(--mute)}
+
+  /* ---------- 숫자를 세는 법 ---------- */
+  .terms{columns:2 380px;column-gap:48px}
+  .terms p{break-inside:avoid;margin:0 0 12px;font-size:14.5px;line-height:1.6;color:var(--body)}
+  .terms p b{font-weight:500;color:var(--ink)}
+  .terms p.src{color:var(--mute)}
+
+  /* ---------- 툴팁: dyson.com 장바구니 카드처럼 흰 판, 1px #eeeeee, 모서리 4px, 옅은 그림자 ---------- */
+  .tip{position:absolute;z-index:8;left:0;top:0;pointer-events:none;min-width:180px;background:#fff;color:var(--body);border:1px solid #eeeeee;border-radius:4px;padding:10px 13px 11px;box-shadow:rgba(0,0,0,.18) 0 2px 10px 2px;white-space:nowrap;opacity:0;transition:opacity .15s var(--ease)}
+  .tip.on{opacity:1}
+  .tip-h{display:flex;align-items:center;gap:7px;font-size:14.5px;font-weight:500;color:var(--ink);margin-bottom:3px}
+  .tip-s{font-size:12.5px;color:var(--mute);margin:-1px 0 5px;white-space:normal;max-width:300px}
+  .tip-r{display:flex;align-items:center;gap:8px;font-size:13.5px;line-height:1.6}
+  .tip-r i{width:10px;height:10px;flex:none;border-radius:1px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.3)}
+  .tip-r b{font-size:15px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+  .tip-r span{color:var(--mute)}
+  .tip-r .bad{color:var(--red-t);font-weight:500} .tip-r .good{color:var(--good-t);font-weight:500} .tip-r .chg{color:var(--purple-t);font-weight:500}
+
+  /* ---------- 바닥 ---------- */
+  .foot{margin-top:88px;border-top:1px solid var(--hair);color:var(--body);font-size:13.5px;line-height:1.65}
+  .foot .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 40px;padding-top:24px;padding-bottom:40px}
+  .foot .back{flex:none;font-weight:500;color:var(--ink);white-space:nowrap;text-decoration:underline;text-decoration-color:#b5b5b5;text-decoration-thickness:1px;text-underline-offset:4px}
+  .foot .back:hover{text-decoration-color:var(--ink)}
+  .foot p{max-width:108ch}
+  .foot p + p{margin-top:6px}
+  .foot .cat{font-weight:500;color:var(--ink)}
+  .foot .cat a{color:inherit;text-underline-offset:3px;text-decoration-color:#b5b5b5}
+  .foot .cat a:hover{text-decoration-color:var(--ink)}
+  .foot .cat .ser{font-size:12px;font-weight:500;letter-spacing:.08em;margin-right:10px}
+  .foot .cat .w{font-weight:300;color:var(--body)}
+  .toast{position:fixed;left:50%;bottom:24px;z-index:9;transform:translate(-50%,8px);padding:10px 18px;border-radius:4px;background:var(--black);color:#fff;font-size:15px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s var(--ease)}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  /* ---------- 움직임: 부품이 축을 따라 벌어지고, 레이저가 바닥을 훑는다 ---------- */
+  .fade{animation:fade .4s ease both}
+  @keyframes fade{from{opacity:0}}
+  .explode{animation:explode .9s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes explode{from{transform:translateY(var(--dy))}}
+  .growx{transform-box:fill-box;transform-origin:left;animation:growx .7s var(--ease) both}
+  @keyframes growx{from{transform:scaleX(0)}}
+  .growy{transform-box:fill-box;animation:growy .7s var(--ease) both}
+  @keyframes growy{from{transform:scaleY(0)}}
+  .draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 1s var(--ease) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .sweep{animation:sweep 1.1s cubic-bezier(.4,0,.6,1) both}
+  @keyframes sweep{from{transform:translateX(0)}to{transform:translateX(var(--sw))}}
+  .lit{animation:lit .25s ease both}
+  @keyframes lit{from{opacity:0}}
+  .ring{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw .9s var(--ease) forwards}
+  @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.draw,.ring{stroke-dasharray:none;stroke-dashoffset:0}}
+
+  /* ---------- 임베드(?embed=1 · lib/embed.js): 고지는 포스트가 싣는다 ---------- */
+  html.vz-embed .foot{display:none}
+  html.vz-embed main{padding-bottom:24px}
+  @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.lang,.cbtns,.build-cta,.foot .back{display:none}.building .code .ln{visibility:visible!important}.building .layer{opacity:1!important}.fg{break-inside:avoid}}
+
+  /* ---------- 반응형 ---------- */
+  @media (max-width:1359px){
+    :root{--pad:24px;--gap:24px;--dial:150px;--exw:430px}
+    .first{column-gap:32px}
+    .first h1{font-size:32px}
+    .kpi{column-gap:24px}
+    .rs-row{column-gap:18px}
+    .win{grid-template-columns:230px minmax(0,1fr) minmax(0,1fr)}
+  }
+  @media (max-width:1279px){
+    /* 사양 줄은 둥근 화면 아래 2×2로(왼쪽 열이 좁아 숫자가 라벨과 겹치지 않게) */
+    .kpi{grid-template-columns:minmax(0,1fr);row-gap:20px}
+    .sp-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;row-gap:10px}
+  }
+  @media (max-width:1199px){
+    :root{--dial:142px;--exw:390px}
+    .first h1{font-size:29px}
+    html[lang="ko"] .first h1{font-size:27px}
+    .rs-row{column-gap:16px}
+    /* 그림 3·표 1, 그림 4·표 2를 세로로 쌓는다 */
+    #s1 .row2,#s2 .row2{grid-template-columns:minmax(0,1fr)}
+    #s2 #f4,#s2 #t2{grid-column:auto;grid-row:auto / span 3}
+    .row2 > .fg + .fg{margin-top:44px}
+    .win{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+    .side{grid-column:1 / -1;border-right:0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 24px}
+    .side-h{grid-column:1 / -1}
+    .get{margin-top:0;border-top:0;padding-top:0}
+    .codepane{contain:none;min-height:440px}
+  }
+  @media (max-width:1023px){
+    /* 한 열: 결과 → 둥근 화면과 사양 줄 → 그림 1 → 그림 2 */
+    .first{grid-template-columns:minmax(0,1fr);grid-template-areas:"lead" "kpi" "ex" "floor";grid-template-rows:auto}
+    .kpi{grid-template-columns:auto minmax(0,1fr);column-gap:28px}
+    .sp-list{display:flex}
+    .ex-card{margin-top:30px}
+    #f1Plot{flex:none;height:460px}
+    .build-intro{grid-template-columns:minmax(0,1fr)}
+    .build-cta{justify-content:flex-start}
+    .steps{grid-template-columns:minmax(0,1fr)}
+  }
+  @media (max-width:899px){
+    .top .r1{flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+    .kpi{grid-template-columns:minmax(0,1fr)}
+    .rs-row{grid-template-columns:repeat(3,minmax(0,var(--dial)));justify-content:space-between}
+    .sp-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:20px}
+    .win{grid-template-columns:minmax(0,1fr)}
+    .side{grid-template-columns:minmax(0,1fr)}
+    .figpane{border-right:0;border-bottom:1px solid var(--line)}
+    .t1 .hide-m{display:none}
+    .t2 .hide-m{display:none}
+  }
+  @media (max-width:639px){
+    :root{--pad:16px;--sec:56px;--gap:16px;--dial:calc((100vw - 32px - 20px) / 3)}
+    .co b,.co span{font-size:16px}
+    .asof{display:none}
+    .tabs{gap:4px 22px}
+    .tabs button{font-size:15px}
+    .first{padding-top:18px}
+    .first h1{font-size:24px}
+    html[lang="ko"] .first h1{font-size:22px}
+    .rs-st{font-size:13px}
+    .rs-sub{font-size:11.5px}
+    .rs-bat{border-width:1px;padding:1.5px}
+    .sp-v{font-size:22px}
+    .sp-l small{white-space:normal}
+    .ex-card{padding:16px 16px 14px}
+    #f1Plot{height:430px}
+    .lf{grid-template-columns:minmax(0,1fr) auto;column-gap:12px}
+    .lf-l{grid-column:1 / -1;display:flex;gap:6px;align-items:baseline}
+    .lf-l small{display:inline}
+    .lf-n{font-size:22px}
+    .lf-ax{grid-column:1}
+    .ct{font-size:18px}
+    .sh h2{font-size:25px}
+    .tb th,.tb td{padding-left:6px;padding-right:6px}
+    .t1 .hide-s,.t2 .hide-s{display:none}
+    #f3Plot{min-height:596px}
+    .t2 .show-s{display:block!important}
+    .sp-list{grid-template-columns:minmax(0,1fr)!important;row-gap:8px}
+    .t2 .pt{min-width:0}
+    .modes{display:grid;grid-template-columns:1fr 1fr;width:100%}
+    .modes button{padding:0 8px;font-size:12.5px}
+    .cbar{flex-wrap:wrap;height:auto;padding:0 12px}
+    .cbtns{order:1;margin-left:auto;padding-top:8px}
+    .ctabs{order:2;flex:1 1 100%;height:44px;gap:14px}
+    .foot .wrap{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap r1">
+    <p class="co"><b data-i18n="brand"></b><span data-i18n="report"></span><small data-i18n="period"></small></p>
+    <div class="lang" id="langSeg" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ko" aria-pressed="false">KO</button>
+    </div>
+  </div>
+  <!-- 모델 필터: dyson.com 메뉴 줄처럼 흰 글자 -->
+  <div class="nav"><div class="wrap">
+    <div class="tabs" id="modelSeg" role="tablist"></div>
+    <span class="asof" data-i18n="asof"></span>
+  </div></div>
+</header>
+
+<main class="wrap" id="panel" role="tabpanel">
+  <!-- 첫 화면 -->
+  <section class="first" aria-label="Build 41">
+    <div class="lead">
+      <p class="kick" id="kick"></p>
+      <h1 id="h1"></h1>
+    </div>
+    <!-- 둥근 화면 셋(모드별 런타임) + 사양 줄 넷: 목표 일곱 -->
+    <div class="kpi">
+      <ul class="rs-row" id="rsRow" tabindex="0" role="group"></ul>
+      <ul class="sp-list" id="spList" tabindex="0" role="group"></ul>
+      <div class="tip" aria-hidden="true"></div>
+    </div>
+    <figure class="fg ex-card" id="f1">
+      <figcaption><p class="eb" data-i18n="f1.label"></p><h2 class="ct" id="f1T"></h2><p class="cs" data-i18n="f1.sub"></p></figcaption>
+      <ul class="keys" id="f1K" aria-hidden="true"></ul>
+      <div class="plot" id="f1Plot" tabindex="0" role="group"></div>
+      <div class="ex-asm" id="f1Asm"></div>
+      <p class="cap" data-i18n="f1.note"></p>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="f1Table"></div>
+    </figure>
+    <figure class="fg" id="f2">
+      <figcaption><p class="eb" data-i18n="f2.label"></p><h2 class="ct" id="f2T"></h2><p class="cs" data-i18n="f2.sub"></p></figcaption>
+      <div class="lf" id="f2Floor" tabindex="0" role="group"></div>
+      <p class="cap" data-i18n="f2.note"></p>
+      <div class="tip" aria-hidden="true"></div>
+      <div class="sr-only" id="f2Table"></div>
+    </figure>
+  </section>
+
+  <!-- 01 빌드별: 그림 3 검은 그래프 화면 | 표 1 빌드 비교 -->
+  <section class="sec" id="s1" aria-labelledby="s1T">
+    <div class="sh"><h2 id="s1T"><span class="no">01</span><span data-i18n="s1.t"></span></h2><p data-i18n="s1.k"></p></div>
+    <!-- 그림 3 빌드별 세 지표(검은 그래프 화면) | 표 1 빌드 비교 -->
+    <div class="row2">
+      <figure class="fg" id="f3">
+        <figcaption><p class="eb" data-i18n="f3.label"></p><h3 class="ct" id="f3T"></h3><p class="cs" data-i18n="f3.sub"></p><ul class="keys" id="f3K" aria-hidden="true"></ul></figcaption>
+        <div class="fbody"><div class="plot" id="f3Plot" tabindex="0" role="group"></div></div>
+        <p class="cap" data-i18n="f3.note"></p>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f3Table"></div>
+      </figure>
+      <figure class="fg" id="t1">
+        <figcaption><p class="eb" data-i18n="t1.label"></p><h3 class="ct" id="t1T"></h3><p class="cs" data-i18n="t1.sub"></p></figcaption>
+        <div class="fbody"><div class="tw" id="t1Wrap"></div></div>
+        <p class="cap" data-i18n="t1.note"></p>
+        <div class="tip" aria-hidden="true"></div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 02 시험과 남은 일: 그림 4 내구 시험 | 표 2 열린 문제 -->
+  <section class="sec" id="s2" aria-labelledby="s2T">
+    <div class="sh"><h2 id="s2T"><span class="no">02</span><span data-i18n="s2.t"></span></h2><p data-i18n="s2.k"></p></div>
+    <div class="row2">
+      <figure class="fg" id="f4">
+        <figcaption><p class="eb" data-i18n="f4.label"></p><h3 class="ct" id="f4T"></h3><p class="cs" data-i18n="f4.sub"></p><ul class="keys" id="f4K" aria-hidden="true"></ul></figcaption>
+        <div class="fbody"><div class="plot" id="f4Plot" tabindex="0" role="group"></div></div>
+        <p class="cap" data-i18n="f4.note"></p>
+        <div class="tip" aria-hidden="true"></div>
+        <div class="sr-only" id="f4Table"></div>
+      </figure>
+      <figure class="fg" id="t2">
+        <figcaption><p class="eb" data-i18n="t2.label"></p><h3 class="ct" id="t2T"></h3><p class="cs" data-i18n="t2.sub"></p></figcaption>
+        <div class="fbody"><div class="tw" id="t2Wrap"></div></div>
+        <p class="cap" data-i18n="t2.note"></p>
+        <div class="tip" aria-hidden="true"></div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 03 만드는 법 -->
+  <section class="sec" id="s5" aria-labelledby="s5T">
+    <div class="sh"><h2 id="s5T"><span class="no">03</span><span data-i18n="build.t"></span></h2><p data-i18n="build.k"></p></div>
+    <div class="build-intro">
+      <p data-i18n="build.p"></p>
+      <div class="build-cta"><a class="btn btn-o" href="DASHBOARD.html" target="_blank" rel="noopener" data-i18n="build.spec"></a><a class="btn btn-p" id="ctaLink" href="https://www.vizney.com/contact-us/" target="_blank" rel="noopener" data-i18n="build.cta"></a></div>
+    </div>
+    <ol class="steps" id="steps"></ol>
+    <div class="win" id="win">
+      <aside class="side" aria-label="Package">
+        <div class="side-h"><b data-i18n="build.pkg"></b><span data-i18n="build.pkgSub"></span></div>
+        <ul class="tree" id="tree"></ul>
+        <div class="get">
+          <p class="get-h" data-i18n="build.get"></p>
+          <div class="cmds">
+            <div class="cmd"><code>npx @vizney/styles@latest add dyson</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+            <div class="cmd"><code>curl -fsSL https://styles.vizney.com/install.sh | sh -s -- dyson</code><button type="button" class="btnCmd" data-icon="copy"></button></div>
+          </div>
+          <p class="get-note" data-i18n="build.getNote"></p>
+          <a class="btn btn-sm btn-o" href="dyson-dashboard-style.zip" download data-i18n="build.zip"></a>
+        </div>
+      </aside>
+      <div class="figpane">
+        <div class="figbar"><div class="modes" id="modeSeg" role="tablist"></div><span class="scope" id="wbScope"></span></div>
+        <p class="wb-t layer" data-step="5" id="wbTitle"></p>
+        <p class="wb-s layer" data-step="5" id="wbSub"></p>
+        <div class="wb-scr"><div class="plot" id="wbPlot"></div></div>
+        <p class="wb-n layer" data-step="5" id="wbNote"></p>
+        <div class="checks">
+          <p class="checks-h"><span data-i18n="build.checksT"></span><span class="ok layer" data-step="5" id="checksOk"></span></p>
+          <ul id="checks"></ul>
+        </div>
+      </div>
+      <div class="codepane">
+        <div class="cbar">
+          <div class="ctabs" id="ctabs" role="tablist" aria-label="Code"></div>
+          <div class="cbtns">
+            <button type="button" class="btn btn-sm btn-o btn-icon" id="btnCopyCode" data-icon="copy"></button>
+            <button type="button" class="btn btn-sm btn-p" id="btnRun" data-icon="play"><span data-i18n="build.run"></span></button>
+          </div>
+        </div>
+        <pre class="code" id="code" tabindex="0" aria-label="Code"></pre>
+        <div class="cstat"><span id="cstatL"></span><span id="cstatR"></span></div>
+      </div>
+    </div>
+    <p class="build-cap" data-i18n="build.cap"></p>
+  </section>
+
+  <!-- 04 숫자를 세는 법 -->
+  <section class="sec" id="notes" aria-labelledby="s6T">
+    <div class="sh"><h2 id="s6T"><span class="no">04</span><span data-i18n="notes.t"></span></h2><p data-i18n="notes.k"></p></div>
+    <div class="terms" id="terms"></div>
+  </section>
+  <p class="sr-only" id="live" aria-live="polite"></p>
+  <div class="toast" id="toast" role="status"></div>
+</main>
+<footer class="foot"><div class="wrap">
+  <div>
+  <p class="cat"><a class="ser" href="https://styles.vizney.com/">VIZNEY STYLES · 10</a> <a href="https://styles.vizney.com/dyson/DASHBOARD.html" data-i18n="catName"></a> <span class="w" data-i18n="words"></span></p>
+  <p data-i18n="note"></p>
+  <p data-i18n="notice"></p>
+  </div>
+  <a class="back" id="backLink" href="https://styles.vizney.com/">← Back to the catalog</a>
+</div></footer>
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 색. validate_palette.js(OKLab), 2026-11-24~25:
+     부품(흰 #ffffff와 판 #f7f7f7, light, 모든 쌍): 바꾼 부품 보라 #6b46c1 · 한계를 넘은 곳 빨강 #d0273b,
+       색각 이상 ΔE 22.2(protan), 일반 시각 27.6, 둘 다 3:1 이상. 나머지 부품은 니켈 #d9dbdd(테두리 #7d8083, 3.97:1).
+     모드(둥근 화면 #000000, dark, 모든 쌍): Eco #3fd24a · Auto #2aa3ef · Boost #f0403a, 색각 이상 최소 11.2(deutan),
+       일반 29.0, 모두 3:1 이상. 초록·파랑은 제품 화면처럼 일부러 밝아 명도 범위 밖이고, 늘 모드 이름과 함께 원 안에서만 쓴다.
+     레이저 바닥의 먼지 점 #5fe04a(검정 위 12.3:1). 글자: 빨강 #b0122f(7.1:1), 보라 #5a3fb0(7.6:1), 초록 #1d7a43(5.4:1). */
+  const C = {
+    ink: '#333333', body: '#404040', mute: '#555555', mute2: '#919191', hair: '#dadada', line: '#dcdcdc', panel: '#f7f7f7', white: '#ffffff', black: '#000000',
+    nickel: '#d9dbdd', nickelE: '#7d8083', purple: '#6b46c1', purpleT: '#5a3fb0', red: '#d0273b', redT: '#b0122f', goodT: '#1d7a43',
+    mode: ['#3fd24a', '#2aa3ef', '#f0403a'], laser: '#5fe04a', sub: '#b9b9b9',
+    generic: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2']
+  };
+
+  /* ================= 가상 데이터: Vizney Appliances, 무선청소기 플랫폼 시제품 시험, 빌드 32~41(2026년 9월 14일~11월 21일) =================
+     모델 셋(C45 소형 · C60 표준 · C90 대형)을 한 주에 한 빌드씩 함께 만들어 시험한다. 빌드 37이 마지막 설계 검토,
+     설계 확정은 12월 11일(금). 부품 무게와 예산, 빌드별 성능, 바닥에 남은 먼지, 내구 시험, 열린 문제.
+     Python(gen.py)으로 만들고 합계·목표 달성 수·시험 끝나는 날·제목의 숫자를 검산했다. */
+  const DATA = {"asof":"2026-11-21","freeze":"2026-12-11","builds":[32,33,34,35,36,37,38,39,40,41],"now":41,"review":37,"buildWeek":{"32":38,"33":39,"34":40,"35":41,"36":42,"37":43,"38":44,"39":45,"40":46,"41":47},"models":["C45","C60","C90"],"parts":["head","wand","bin","cyclones","motor","filter","handle","battery"],"tests":["brush","pushpull","charge","bin","drop","button"],"units":{"brush":"h","pushpull":"km","charge":"cycles","bin":"cycles","drop":"drops","button":"presses"},"M":{"C45":{"targets":{"eco":2700,"auto":1800,"boost":480,"suction":165,"noise":79.0,"edge":95.0,"weight":2250},"budget":[430,260,180,260,160,70,430,460],"weights":[420,260,180,250,160,70,430,450],"diff":[-10,0,0,-10,0,0,0,-10],"series":{"eco":[2650,2660,2640,2670,2660,2650,2720,2730,2720,2730],"auto":[1850,1840,1850,1850,1840,1850,1890,1900,1890,1900],"boost":[470,460,470,470,470,470,490,500,490,500],"suction":[158,157,158,158,157,158,170,171,172,172],"noise":[79.4,79.5,79.4,79.4,79.3,79.4,77.8,77.6,77.7,77.6],"edge":[95.2,95.5,95.4,95.6,95.4,95.4,95.7,95.8,95.6,95.9],"carpet":[97.6,97.8,97.7,97.9,97.8,97.8,98.0,98.1,98.0,98.1],"bin":[0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4],"weight":[2262,2262,2262,2262,2262,2262,2220,2220,2220,2220]},"met":[2,2,2,2,2,2,7,7,7,7],"pw":{"head":[420,420,420,420,420,420,420,420,420,420],"wand":[260,260,260,260,260,260,260,260,260,260],"bin":[180,180,180,180,180,180,180,180,180,180],"cyclones":[250,250,250,250,250,250,250,250,250,250],"motor":[202,202,202,202,202,202,160,160,160,160],"filter":[70,70,70,70,70,70,70,70,70,70],"handle":[430,430,430,430,430,430,430,430,430,430],"battery":[450,450,450,450,450,450,450,450,450,450]},"changed":{"4":38},"modes":{"suction":[30,70,172],"noise":[64.0,70.8,77.6]},"floor":{"37":[2.0,1.6,1.0],"41":[1.7,1.5,0.9]},"floorHead":{"37":"same","41":"same"},"tests":[{"id":"drop","target":400,"start":"2026-11-09","rate":18,"done":216,"end":"2026-12-02","complete":false,"late":0,"endTwoRigs":"2026-11-28","restart":4},{"id":"brush","target":900,"start":"2026-10-05","rate":20,"done":900,"end":"2026-11-19","complete":true,"late":0,"endTwoRigs":null,"restart":null},{"id":"bin","target":15000,"start":"2026-10-19","rate":750,"done":15000,"end":"2026-11-08","complete":true,"late":0,"endTwoRigs":null,"restart":null},{"id":"charge","target":800,"start":"2026-10-05","rate":25,"done":800,"end":"2026-11-06","complete":true,"late":0,"endTwoRigs":null,"restart":null},{"id":"pushpull","target":800,"start":"2026-10-05","rate":30,"done":800,"end":"2026-11-01","complete":true,"late":0,"endTwoRigs":null,"restart":null},{"id":"button","target":120000,"start":"2026-10-12","rate":6000,"done":120000,"end":"2026-11-01","complete":true,"late":0,"endTwoRigs":null,"restart":null}],"issues":[{"part":null,"test":"drop","kind":"test","done":216,"target":400,"end":"2026-12-02","late":0,"endTwoRigs":"2026-11-28"},{"part":0,"kind":"hair","owner":"floor","due":"b42"},{"part":2,"kind":"latch","owner":"id","due":"b42"}]},"C60":{"targets":{"eco":3600,"auto":2400,"boost":600,"suction":245,"noise":80.0,"edge":97.0,"weight":2900},"budget":[560,300,260,330,200,90,540,620],"weights":[610,300,250,330,190,90,550,620],"diff":[50,0,-10,0,-10,0,10,0],"series":{"eco":[3710,3730,3700,3680,3690,3700,3430,3380,3360,3400],"auto":[2610,2630,2620,2610,2620,2620,2460,2450,2460,2470],"boost":[670,680,670,660,670,670,620,610,620,620],"suction":[249,250,249,248,249,249,254,253,253,253],"noise":[78.6,78.5,78.6,78.7,78.6,78.6,79.4,79.3,79.2,79.2],"edge":[91.5,91.9,91.6,92.0,91.7,91.8,94.2,95.6,96.6,98.1],"carpet":[98.7,98.8,98.7,98.8,98.8,98.8,99.0,99.1,99.0,99.1],"bin":[0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6],"weight":[2878,2880,2882,2882,2880,2882,2948,2944,2942,2940]},"met":[6,6,6,6,6,6,4,4,4,5],"pw":{"head":[548,550,552,552,550,552,618,614,612,610],"wand":[300,300,300,300,300,300,300,300,300,300],"bin":[250,250,250,250,250,250,250,250,250,250],"cyclones":[330,330,330,330,330,330,330,330,330,330],"motor":[190,190,190,190,190,190,190,190,190,190],"filter":[90,90,90,90,90,90,90,90,90,90],"handle":[550,550,550,550,550,550,550,550,550,550],"battery":[620,620,620,620,620,620,620,620,620,620]},"changed":{"0":38},"modes":{"suction":[36,84,253],"noise":[66.1,72.5,79.2]},"floor":{"37":[5.6,1.0,1.6],"41":[0.5,0.9,0.5]},"floorHead":{"37":"old","41":"new"},"tests":[{"id":"brush","target":900,"start":"2026-11-02","rate":20,"done":380,"end":"2026-12-17","complete":false,"late":6,"endTwoRigs":"2026-12-06","restart":0},{"id":"pushpull","target":800,"start":"2026-11-02","rate":30,"done":570,"end":"2026-11-29","complete":false,"late":0,"endTwoRigs":"2026-11-27","restart":0},{"id":"bin","target":15000,"start":"2026-10-19","rate":750,"done":15000,"end":"2026-11-08","complete":true,"late":0,"endTwoRigs":null,"restart":null},{"id":"charge","target":800,"start":"2026-10-05","rate":25,"done":800,"end":"2026-11-06","complete":true,"late":0,"endTwoRigs":null,"restart":null},{"id":"button","target":120000,"start":"2026-10-12","rate":6000,"done":120000,"end":"2026-11-01","complete":true,"late":0,"endTwoRigs":null,"restart":null},{"id":"drop","target":400,"start":"2026-10-05","rate":20,"done":400,"end":"2026-10-25","complete":true,"late":0,"endTwoRigs":null,"restart":null}],"issues":[{"part":0,"kind":"weight","fix_g":-45,"owner":"floor","due":"b42","over":50},{"part":0,"kind":"eco","fix_s":210,"owner":"floorfw","due":"b42"},{"part":null,"test":"brush","kind":"late","owner":"lab","due":"rig","done":380,"target":900,"end":"2026-12-17","late":6,"endTwoRigs":"2026-12-06"},{"part":6,"kind":"weight","fix_g":-12,"owner":"id","due":"b42","over":10}]},"C90":{"targets":{"eco":4200,"auto":3000,"boost":720,"suction":270,"noise":81.0,"edge":97.0,"weight":3260},"budget":[680,320,280,380,230,110,560,700],"weights":[680,320,340,380,230,110,560,780],"diff":[0,0,60,0,0,0,0,80],"series":{"eco":[4300,4310,4290,4300,4310,4300,4010,4000,4330,4350],"auto":[3150,3160,3140,3150,3160,3150,2950,2940,3120,3130],"boost":[770,770,760,770,770,770,710,700,750,760],"suction":[276,277,276,275,276,276,279,278,278,278],"noise":[79.8,79.7,79.8,79.9,79.8,79.8,80.6,80.5,80.4,80.4],"edge":[92.4,92.6,92.3,92.7,92.5,92.6,94.8,96.2,97.1,98.4],"carpet":[98.9,99.0,98.9,99.0,99.0,99.0,99.2,99.2,99.3,99.2],"bin":[0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.9,0.9,0.9],"weight":[3220,3221,3219,3220,3222,3220,3258,3320,3400,3400]},"met":[6,6,6,6,6,6,3,2,6,6],"pw":{"head":[640,641,639,640,642,640,678,680,680,680],"wand":[320,320,320,320,320,320,320,320,320,320],"bin":[280,280,280,280,280,280,280,340,340,340],"cyclones":[380,380,380,380,380,380,380,380,380,380],"motor":[230,230,230,230,230,230,230,230,230,230],"filter":[110,110,110,110,110,110,110,110,110,110],"handle":[560,560,560,560,560,560,560,560,560,560],"battery":[700,700,700,700,700,700,700,700,780,780]},"changed":{"0":38,"2":39,"7":40},"modes":{"suction":[40,92,278],"noise":[67.0,73.6,80.4]},"floor":{"37":[5.0,0.9,1.5],"41":[0.4,0.8,0.4]},"floorHead":{"37":"old","41":"new"},"tests":[{"id":"charge","target":800,"start":"2026-11-09","rate":22,"done":264,"end":"2026-12-16","complete":false,"late":5,"endTwoRigs":"2026-12-05","restart":7},{"id":"brush","target":900,"start":"2026-11-02","rate":30,"done":570,"end":"2026-12-02","complete":false,"late":0,"endTwoRigs":"2026-11-28","restart":0},{"id":"bin","target":15000,"start":"2026-11-02","rate":700,"done":13300,"end":"2026-11-24","complete":false,"late":0,"endTwoRigs":"2026-11-24","restart":2},{"id":"pushpull","target":800,"start":"2026-11-02","rate":40,"done":760,"end":"2026-11-22","complete":false,"late":0,"endTwoRigs":"2026-11-23","restart":0},{"id":"button","target":120000,"start":"2026-10-12","rate":6000,"done":120000,"end":"2026-11-01","complete":true,"late":0,"endTwoRigs":null,"restart":null},{"id":"drop","target":400,"start":"2026-10-05","rate":20,"done":400,"end":"2026-10-25","complete":true,"late":0,"endTwoRigs":null,"restart":null}],"issues":[{"part":7,"kind":"weight","fix_g":-30,"owner":"battery","due":"b42","over":80},{"part":2,"kind":"weight","fix_g":-35,"owner":"id","due":"b42","over":60},{"part":null,"test":"charge","kind":"late","owner":"lab","due":"rig","done":264,"target":800,"end":"2026-12-16","late":5,"endTwoRigs":"2026-12-05"},{"part":null,"kind":"budget","owner":"lead","due":"dec4"}]}}};
+  const MODELS = DATA.models, PARTS = DATA.parts;
+  const IX = DATA.builds.indexOf(DATA.now), I37 = DATA.builds.indexOf(DATA.review);
+  const bIx = b => DATA.builds.indexOf(b);
+  const qs = new URLSearchParams(location.search);
+  const QM = { c45: 'C45', c60: 'C60', c90: 'C90' };
+  const state = { lang: qs.get('lang') === 'ko' ? 'ko' : 'en', model: QM[(qs.get('model') || '').toLowerCase()] || 'C60', mode: 'with', code: 'js' };
+
+  /* ================= 시간·날짜·숫자 표기 ================= */
+  const NF = d => new Intl.NumberFormat('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const mmss = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+  // 한국어 문장 속 시간: 3분 20초, 20초, 3분
+  const mmssKO = s => { const m = Math.floor(s / 60), r = s % 60; return [m ? `${m}분` : '', r ? `${r}초` : ''].filter(Boolean).join(' ') || '0초'; };
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const DOW = { en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], ko: ['일', '월', '화', '수', '목', '금', '토'] };
+  const dt = s => { const [y, m, d] = s.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)); };
+  const DAY = {
+    en: s => { const x = dt(s); return `${MON[x.getUTCMonth()]} ${x.getUTCDate()}`; },
+    ko: s => { const x = dt(s); return `${x.getUTCMonth() + 1}월 ${x.getUTCDate()}일`; }
+  };
+  const DAYW = {
+    en: s => { const x = dt(s); return `${DOW.en[x.getUTCDay()]}, ${MON[x.getUTCMonth()]} ${x.getUTCDate()}`; },
+    ko: s => { const x = dt(s); return `${x.getUTCMonth() + 1}월 ${x.getUTCDate()}일(${DOW.ko[x.getUTCDay()]})`; }
+  };
+  const gr = g => NF(0).format(g);                      // 2,940
+  const kg = g => NF(2).format(g / 1000);               // 2.94
+  // 지표마다 한 가지 표기: 런타임 56:40, 흡입력 253, 집진 98.1, 소음 79.2, 무게 2.94, 먼지통 0.60
+  const FMT = { eco: mmss, auto: mmss, boost: mmss, suction: v => NF(0).format(v), edge: v => NF(1).format(v), carpet: v => NF(1).format(v), noise: v => NF(1).format(v), weight: kg, bin: v => NF(2).format(v) };
+  const LOWER = { noise: 1, weight: 1 };
+  const passes = (k, v, lim) => LOWER[k] ? v <= lim : v >= lim;
+
+  /* ================= 문구 ================= */
+  const T = {
+    en: {
+      docTitle: 'Dyson style · Prototype review sample',
+      brand: 'Vizney Appliances', report: 'Prototype review',
+      period: 'Cordless platform · Build 41 · Week 47, Nov 16–22, 2026',
+      asof: 'Tests as of Sat, Nov 21 · Design freeze Fri, Dec 11',
+      modelLabel: 'Model', models: { C45: 'C45 Compact', C60: 'C60 Standard', C90: 'C90 Large' },
+      kick: F => [`${F.name} · Build 41 · `, `${F.met} of 7 targets met`],
+      h1: {
+        C45: () => ['The lighter motor put the C45 within all seven targets.', 'Only the drop test is left before freeze.'],
+        C60: F => ['The new cleaner head finally clears the edges.', `It leaves Eco ${mmss(F.modes[0].min - F.modes[0].v)} short and the machine ${F.over} g over.`],
+        C90: F => ['The bigger battery won back the run time.', `With the bigger bin, the machine is ${F.over} g over.`]
+      },
+      modeNames: ['Eco', 'Auto', 'Boost'],
+      rs: {
+        label: 'Run time by mode, build 41', min: 'MIN',
+        short: s => `${mmss(s)} short`, spare: s => `✓ ${mmss(s)} to spare`, last: v => `Build 40: ${mmss(v)}`,
+        tipH: m => `${m} · run time`, now: 'build 41', target: 'target', shortL: 'short', spareL: 'to spare', b37: 'build 37', power: m => `suction and noise in ${m}`
+      },
+      sp: {
+        label: 'Suction, noise, edge pick-up and weight, build 41',
+        rows: { suction: 'Suction · Boost', noise: 'Noise · Boost', edge: 'Edge pick-up', weight: 'Weight' },
+        units: { suction: 'AW', noise: 'dB(A)', edge: '%', weight: 'kg' },
+        lim: (k, v) => `${LOWER[k] ? 'MAX' : 'MIN'} ${FMT[k](v)}${k === 'edge' ? '%' : ' ' + ({ suction: 'AW', noise: 'dB(A)', weight: 'kg' })[k]}`,
+        miss: (k, gap) => k === 'weight' ? `${gr(gap)} g over` : k === 'noise' ? `${NF(1).format(gap)} dB over` : k === 'edge' ? `${NF(1).format(gap)} pts short` : `${NF(0).format(gap)} AW short`,
+        now: 'build 41', target: 'target', b40: 'build 40', b37: 'build 37'
+      },
+      f1: {
+        label: 'FIG. 1',
+        title: {
+          C45: F => `Every part is within its budget, ${-F.over} g to spare in all`,
+          C60: F => `The cleaner head is ${F.parts[0].d} g over its budget, so the machine is ${F.over} g over`,
+          C90: F => `The battery is ${F.parts[7].d} g over and the bin ${F.parts[2].d} g, so the machine is ${F.over} g over`
+        },
+        sub: 'Weight by part from the floor to the hand, each against its budget',
+        keys: { budget: 'budget', over: 'over budget', changed: 'changed since build 37' },
+        parts: ['Cleaner head', 'Wand', 'Bin', 'Cyclones', 'Motor', 'Filter', 'Handle & screen', 'Battery'],
+        over: g => `${g} g over`, under: g => `${g} g under`, on: 'on budget', changedIn: b => `changed in build ${b}`,
+        asm: 'Assembled', max: 'MAX', note: 'Weighed with the cleaner head and wand fitted, no tools. The part budgets add up to the MAX.',
+        tw: 'build 41', tb: 'budget', t37: 'build 37', tUnder: 'under budget',
+        sr: 'Weight by part, build 41', srHead: ['Part', 'Weight (g)', 'Budget (g)', 'Over budget (g)', 'Changed in build']
+      },
+      f2: {
+        label: 'FIG. 2',
+        title: {
+          C45: F => `The compact head leaves ${NF(1).format(F.floor[1].pct)}% behind, much as in build 37 (${NF(1).format(F.floor[0].pct)}%)`,
+          C60: F => `The new head leaves ${NF(1).format(F.floor[1].pct)}% of the dust behind, down from ${NF(1).format(F.floor[0].pct)}%`,
+          C90: F => `The new head leaves ${NF(1).format(F.floor[1].pct)}% of the dust behind, down from ${NF(1).format(F.floor[0].pct)}%`
+        },
+        sub: 'Dust left after one pass along a wall on hard floor, across the cleaner head. One dot is 0.05% of the dust laid',
+        build: b => `Build ${b}`, head: { old: 'old head', new: 'new head', same: 'same head' }, left: 'left behind',
+        ax: ['wall', 'cleaner head, 250 mm', 'open side'],
+        note: 'Test dust spread evenly along 2 m of wall, one pass in Auto. Edge pick-up is 100% minus what is left.',
+        tLeft: 'left behind', tPicked: 'picked up', tWall: 'left in the 20 mm by the wall', tOpen: 'left in the 20 mm on the open side',
+        sr: 'Dust left behind, builds 37 and 41', srHead: ['Build', 'Left behind (%)', 'By the wall (%)', 'Middle (%)', 'Open side (%)']
+      },
+      s1: { t: 'By build', k: 'Since the design review at build 37' },
+      s2: { t: 'Tests and what is left', k: 'Before design freeze on Fri, Dec 11' },
+      f3: {
+        label: 'FIG. 3',
+        title: {
+          C45: () => 'Since the lighter motor in build 38, Eco and weight are both inside their targets',
+          C60: () => 'Edge pick-up reached its target at build 41; Eco has been short since build 38',
+          C90: () => 'The bigger battery brought Eco back at build 40; the weight has been over since build 39'
+        },
+        sub: 'Builds 32 to 41, one a week. Each bar is the gap to the target line',
+        panels: { edge: 'Edge pick-up', eco: 'Eco run time', weight: 'Weight' },
+        keys: { meet: 'meets the target', miss: 'misses', target: 'target', chg: 'part changed' }, pts: 'pts', now: b => `BUILD ${b}`,
+        axis: 'Build', review: 'review',
+        note: 'Build 37 was the last design review. A part changed in a build is marked by its number from Figure 1.',
+        sr: 'Edge pick-up, Eco run time and weight by build', srHead: ['Build', 'Edge pick-up (%)', 'Eco run time', 'Weight (kg)', 'Part changed']
+      },
+      t1: {
+        label: 'TABLE 1',
+        title: {
+          C45: F => `Build 41 meets all 7 targets; build 37 met ${F.met37}`,
+          C60: F => `Build 41 meets ${F.met} of 7 targets; build 37 met ${F.met37}`,
+          C90: F => `Build 41 meets ${F.met} of 7 targets, as build 37 did, but not the same ${F.met}`
+        },
+        sub: 'The other measures, build 37 (the last design review) to build 41. Edge pick-up, Eco and weight are in Figure 3',
+        target: 'Target', build: b => `Build ${b}`, now: 'now', review: 'review',
+        groups: { run: 'RUN TIME', clean: 'CLEANING', size: 'NOISE AND SIZE' },
+        vs: 'against the target', measure: 'Measure', pts: 'pts',
+        rows: { eco: 'Eco', auto: 'Auto', boost: 'Boost', suction: 'Suction · Boost', edge: 'Edge pick-up', carpet: 'Carpet pick-up', noise: 'Noise · Boost', weight: 'Weight', bin: 'Bin' },
+        units: { suction: 'AW', edge: '%', carpet: '%', noise: 'dB(A)', weight: 'kg', bin: 'L' },
+        changed: 'Part changed', met: 'Targets met', none: 'no target',
+        note: 'Run time from full charge until the machine stops, at 21 °C. Carpet pick-up and the bin have no target.'
+      },
+      f4: {
+        label: 'FIG. 4',
+        title: {
+          C45: F => `Only the drop test is still running, and it ends ${DAY.en(F.run[0].end)}`,
+          C60: F => `The brush bar test ends ${DAY.en(F.lateT.end)}, ${F.lateT.late} days after design freeze`,
+          C90: F => `Charge cycles end ${DAY.en(F.lateT.end)} with the bigger battery, ${F.lateT.late} days after freeze`
+        },
+        sub: 'Durability tests: done so far and the projected finish at the pace so far, latest first',
+        tests: { brush: 'Brush bar run', pushpull: 'Push-pull on carpet', charge: 'Charge cycles', bin: 'Bin emptying', drop: 'Drop, 1 m', button: 'Power button' },
+        units: { h: 'h', km: 'km', cycles: 'cycles', drops: 'drops', presses: 'presses' },
+        of: (d, t, u) => `${d} of ${t} ${u}`, whole: (t, u) => `✓ ${t} ${u}`,
+        today: 'TODAY', freeze: 'DESIGN FREEZE', freezeS: 'FREEZE', done: d => `✓ ${d}`, late: n => `${n} days late`,
+        keys: { done: 'done', togo: 'to go', after: 'after freeze', restart: 'restarted for a changed part' },
+        tStart: 'started', tRestart: 'restarted', tRate: r => `${r} a day`, tEnds: 'ends', tEnded: 'complete', tLate: 'after freeze',
+        note: 'Projected finish = what is left ÷ the rate so far. Every test must be complete at design freeze.',
+        sr: 'Durability tests', srHead: ['Test', 'Done', 'Target', 'Ends', 'Days after freeze']
+      },
+      t2: {
+        label: 'TABLE 2',
+        title: {
+          C45: () => 'Nothing blocks freeze; two small fixes go into build 42',
+          C60: () => 'The fixes planned for build 42 would meet all seven targets',
+          C90: F => `The fixes in build 42 save ${F.fixSave} g; the C90 would still be ${F.over - F.fixSave} g over`
+        },
+        sub: 'What stands between build 41 and design freeze, biggest first',
+        head: ['Part', 'Issue', 'Fix', 'Owner', 'Due'], test: 'Test', budget: 'Weight budget',
+        // [앞, 굵게, 뒤, 굵은 글자의 색]
+        issue: {
+          weight: q => ['', `${q.over} g`, ' over budget', 'bad'],
+          eco: (q, F) => ['Eco run time ', mmss(F.modes[0].min - F.modes[0].v), ' short', 'bad'],
+          late: (q, F) => [`${F.t4.tests[q.test]} ends ${DAY.en(q.end)}, `, `${q.late} days`, ' after freeze', 'bad'],
+          test: q => [`${NF(0).format(q.done)} of ${NF(0).format(q.target)} drops, ends `, DAY.en(q.end), '', null],
+          hair: () => ['Long hair wraps around the brush bar', '', '', null],
+          latch: () => ['The bin door takes ', '32 N', ' to open; the aim is 25 N', 'bad'],
+          budget: (q, F) => ['Still ', `${F.over - F.fixSave} g`, ' over after both fixes', 'bad']
+        },
+        tip: { now: 'build 41', budget: 'budget', fix: 'the fix', after: 'after the fix', afterAll: 'after both fixes', max: 'MAX', min: 'MIN', done: 'done', rate: r => `${r} a day`, ends: 'ends', two: 'with a second rig', owner: 'owner', due: 'due' },
+        fix: {
+          'C60:weight:0': ['Hollow brush bar and thinner end caps, ', '−45 g'], 'C60:eco': ['Slower brush bar on hard floor in Eco, ', '+3:30'],
+          'C60:weight:6': ['Screen bracket in glass-filled nylon, ', '−12 g'],
+          'C90:weight:7': ['Lighter cell holder and shorter leads, ', '−30 g'], 'C90:weight:2': ['Thinner bin walls with ribs, ', '−35 g'],
+          'late:brush': q => ['A second rig from Nov 24 ends it ', DAY.en(q.endTwoRigs)], 'late:charge': q => ['A second charger rack from Nov 24 ends it ', DAY.en(q.endTwoRigs)],
+          'C90:budget': (q, F) => ['Decide: raise the MAX to 3.35 kg, or find ', `${F.over - F.fixSave} g more`],
+          'C45:test': () => ['On track', ''], 'C45:hair': () => ['Comb strip along the brush bar', ''], 'C45:latch': () => ['Softer latch spring', '']
+        },
+        owner: { floor: 'Floor tools', floorfw: 'Floor tools · Firmware', lab: 'Test lab', id: 'Industrial design', battery: 'Battery', lead: 'Programme lead' },
+        due: { b42: ['Build 42', 'Fri, Nov 27'], rig: ['Nov 24', 'Mon'], dec4: ['Dec 4', 'Fri, decision'], test: q => [DAY.en(q.end), 'test ends'] },
+        note: 'Effects are engineering estimates until build 42 is tested.'
+      },
+      build: {
+        t: 'Build it yourself', k: 'What you get and how an agent uses it',
+        p: 'DASHBOARD.md writes down the round screens, the exploded view and the laser floor as rules, down to colours and number formats. An agent that reads it draws Figure 1 like this.',
+        spec: 'Read DASHBOARD.md', cta: 'Get one made for your company',
+        steps: [['Add the package', 'One command puts DASHBOARD.md and the skill in your project.'], ['Ask in words', 'Describe the report and its questions; the agent plans the cards from the spec.'], ['Check against the spec', 'The checklist under the figure is the one in DASHBOARD.md.']],
+        pkg: 'In the box', pkgSub: '6 files',
+        files: { 'DASHBOARD.md': 'the spec', 'SKILL.md': 'how an agent uses the spec', 'tokens.css': 'CSS variables', 'dyson.tps': 'Tableau palettes', 'powerbi-theme.json': 'Power BI theme', 'prompt.md': 'the prompt' },
+        get: 'Add it to your project', getNote: 'npm or the install script. Both put the same files in the same place.', zip: 'Download the zip',
+        modes: ['Without DASHBOARD.md', 'With DASHBOARD.md'],
+        checksT: 'DASHBOARD.md checks', checksOk: 'All 5 pass', checksBad: '0 of 5 pass',
+        checks: [[1, 'Parts from the floor to the hand on one dash-dot axis: #d9dbdd with a #7d8083 edge'], [2, 'Pulled apart with an even gap; length is weight; the budget is a bracket on the far side'], [3, 'Over budget is a #d0273b cap; a part changed since the review is #6b46c1'], [4, 'A numbered balloon and leader for each part: name, weight in g, the gap to its budget'], [5, 'The title says the result, and the assembled bar ends against the MAX']],
+        run: 'Draw again', built: 'Done', drawing: 'Drawing…', lines: n => `${n} lines`, copied: 'Code copied', cmdCopied: 'Command copied',
+        generic: 'Weight by part (g)', genericSub: 'A default chart drawn without the spec', generated: 'Drawn without DASHBOARD.md',
+        wbNote: 'Weight by part against its budget, build 41.',
+        cap: "The code is a short version of an agent working from DASHBOARD.md. The package's prompt.md has the full prompt."
+      },
+      notes: {
+        t: 'How we count', k: 'Definitions and sources',
+        items: [
+          ['Build', 'A batch of prototypes of all three models, built and tested in one week. Build 41 was tested Nov 16–21. Build 37 was the last design review.'],
+          ['Targets', 'The seven numbers a model must reach before design freeze: run time in Eco, Auto and Boost (MIN), suction in Boost (MIN), noise in Boost (MAX), edge pick-up (MIN) and weight (MAX).'],
+          ['Run time', 'Minutes and seconds from full charge until the machine stops, cleaner head on hard floor, at 21 °C.'],
+          ['Suction', 'Air watts (AW) at the cleaner head inlet in Boost.'],
+          ['Noise', 'A-weighted sound level in Boost, 1 m from the machine, in dB(A).'],
+          ['Edge pick-up', 'Test dust spread evenly along 2 m of wall on hard floor, one pass in Auto: the share picked up across the width of the cleaner head.'],
+          ['Weight and budget', 'Weighed with the cleaner head and wand fitted, no tools. Each part has a budget, and the budgets add up to the MAX.'],
+          ['Against the target', 'Figure 3 draws each build as its gap to the target: the value minus its MIN (edge pick-up, run time) or its MAX (weight). A green bar meets the target, a red bar misses it.'],
+          ['Durability tests', 'Rigs run each test to its target count. The projected finish is what is left at the rate so far. Changing a part restarts its tests.'],
+          ['Design freeze', 'After freeze the parts go to tooling. Every target must be met and every test complete.']
+        ],
+        src: 'Sources: prototype test records and the part weight log, builds 32–41, Sep 14 – Nov 21, 2026.'
+      },
+      catName: 'Dyson style', words: 'Technical, Exploded View, Clean',
+      note: 'A sample screen built from a fictional company, product and data.',
+      notice: "Not an official Dyson design, and not affiliated with or endorsed by Dyson. A reference style read from the publicly visible design of dyson.com and public touchpoints such as the machines' screens and Dyson's exploded technology views; it carries no logo, typeface, photo or data of theirs. Trademarks belong to their owners.",
+      back: { post: '← Back to the post', catalog: '← Back to the catalog' }
+    },
+    ko: {
+      docTitle: 'Dyson 스타일 · 시제품 시험 보고 샘플',
+      brand: '비즈니 어플라이언스', report: '시제품 시험 보고',
+      period: '무선청소기 플랫폼 · 빌드 41 · 47주차, 2026년 11월 16~22일',
+      asof: '시험 기준 11월 21일(토) · 설계 확정 12월 11일(금)',
+      modelLabel: '모델', models: { C45: 'C45 소형', C60: 'C60 표준', C90: 'C90 대형' },
+      kick: F => [`${F.name} · 빌드 41 · `, `목표 7개 중 ${F.met}개 달성`],
+      h1: {
+        C45: () => ['가벼운 모터로 C45가 목표 일곱 개를 모두 채웠습니다.', '설계 확정까지 낙하 시험만 남았습니다.'],
+        C60: F => ['새 클리너 헤드가 드디어 가장자리까지 치웁니다.', `대신 Eco가 ${mmssKO(F.modes[0].min - F.modes[0].v)} 모자라고 무게가 ${F.over} g 넘습니다.`],
+        C90: F => ['큰 배터리로 런타임을 되찾았습니다.', `큰 먼지통과 함께 무게가 ${F.over} g 넘습니다.`]
+      },
+      modeNames: ['Eco', 'Auto', 'Boost'],
+      rs: {
+        label: '빌드 41의 모드별 런타임', min: 'MIN',
+        short: s => `${mmssKO(s)} 부족`, spare: s => `✓ ${mmssKO(s)} 여유`, last: v => `빌드 40: ${mmss(v)}`,
+        tipH: m => `${m} · 런타임`, now: '빌드 41', target: '목표', shortL: '부족', spareL: '여유', b37: '빌드 37', power: m => `${m}의 흡입력과 소음`
+      },
+      sp: {
+        label: '빌드 41의 흡입력, 소음, 가장자리 집진, 무게',
+        rows: { suction: '흡입력 · Boost', noise: '소음 · Boost', edge: '가장자리 집진', weight: '무게' },
+        units: { suction: 'AW', noise: 'dB(A)', edge: '%', weight: 'kg' },
+        lim: (k, v) => `${LOWER[k] ? '최대' : '최소'} ${FMT[k](v)}${k === 'edge' ? '%' : ' ' + ({ suction: 'AW', noise: 'dB(A)', weight: 'kg' })[k]}`,
+        miss: (k, gap) => k === 'weight' ? `${gr(gap)} g 초과` : k === 'noise' ? `${NF(1).format(gap)} dB 초과` : k === 'edge' ? `${NF(1).format(gap)}%p 부족` : `${NF(0).format(gap)} AW 부족`,
+        now: '빌드 41', target: '목표', b40: '빌드 40', b37: '빌드 37'
+      },
+      f1: {
+        label: '그림 1',
+        title: {
+          C45: F => `모든 부품이 예산 안이고, 모두 합쳐 ${-F.over} g 여유입니다`,
+          C60: F => `클리너 헤드 ${F.parts[0].d} g 초과로 기계가 ${F.over} g을 넘습니다`,
+          C90: F => `배터리 ${F.parts[7].d} g, 먼지통 ${F.parts[2].d} g 초과로 기계가 ${F.over} g을 넘습니다`
+        },
+        sub: '바닥에서 손까지 부품별 무게와 부품마다 정한 예산',
+        keys: { budget: '예산', over: '예산 초과', changed: '빌드 37 이후 바꾼 부품' },
+        parts: ['클리너 헤드', '연장관', '먼지통', '사이클론', '모터', '필터', '손잡이·화면', '배터리'],
+        over: g => `${g} g 초과`, under: g => `${g} g 여유`, on: '예산대로', changedIn: b => `빌드 ${b}에서 바꿈`,
+        asm: '조립한 무게', max: 'MAX', note: '클리너 헤드와 연장관을 끼우고 툴 없이 잰 무게. 부품 예산을 더하면 MAX입니다.',
+        tw: '빌드 41', tb: '예산', t37: '빌드 37', tUnder: '예산보다 덜',
+        sr: '빌드 41의 부품별 무게', srHead: ['부품', '무게(g)', '예산(g)', '예산 초과(g)', '바꾼 빌드']
+      },
+      f2: {
+        label: '그림 2',
+        title: {
+          C45: F => `소형 헤드는 먼지를 ${NF(1).format(F.floor[1].pct)}% 남깁니다(빌드 37은 ${NF(1).format(F.floor[0].pct)}%)`,
+          C60: F => `새 헤드는 먼지를 ${NF(1).format(F.floor[1].pct)}%만 남깁니다(전에는 ${NF(1).format(F.floor[0].pct)}%)`,
+          C90: F => `새 헤드는 먼지를 ${NF(1).format(F.floor[1].pct)}%만 남깁니다(전에는 ${NF(1).format(F.floor[0].pct)}%)`
+        },
+        sub: '단단한 바닥에서 벽을 따라 한 번 지나간 뒤 헤드 폭에 남은 먼지. 점 하나는 뿌린 먼지의 0.05%',
+        build: b => `빌드 ${b}`, head: { old: '이전 헤드', new: '새 헤드', same: '같은 헤드' }, left: '남음',
+        ax: ['벽 쪽', '클리너 헤드 250 mm', '바깥쪽'],
+        note: '벽을 따라 2 m에 시험 먼지를 고르게 뿌리고 Auto 모드로 한 번 지나갑니다. 가장자리 집진은 100%에서 남은 양을 뺀 값입니다.',
+        tLeft: '남음', tPicked: '집진', tWall: '벽 쪽 20 mm에 남음', tOpen: '바깥쪽 20 mm에 남음',
+        sr: '빌드 37과 41에 남은 먼지', srHead: ['빌드', '남음(%)', '벽 쪽(%)', '가운데(%)', '바깥쪽(%)']
+      },
+      s1: { t: '빌드별', k: '빌드 37 설계 검토 이후' },
+      s2: { t: '시험과 남은 일', k: '12월 11일(금) 설계 확정까지' },
+      f3: {
+        label: '그림 3',
+        title: {
+          C45: () => '빌드 38의 가벼운 모터부터 Eco와 무게가 모두 목표 안입니다',
+          C60: () => '가장자리 집진은 빌드 41에서 목표에 닿았고, Eco는 빌드 38부터 모자랍니다',
+          C90: () => '빌드 40의 큰 배터리로 Eco를 되찾았고, 무게는 빌드 39부터 넘습니다'
+        },
+        sub: '빌드 32~41, 한 주에 하나. 막대는 목표선과의 차이',
+        panels: { edge: '가장자리 집진', eco: 'Eco 런타임', weight: '무게' },
+        keys: { meet: '목표 달성', miss: '목표 미달', target: '목표', chg: '부품 교체' }, pts: '%p', now: b => `빌드 ${b}`,
+        axis: '빌드', review: '검토',
+        note: '빌드 37이 마지막 설계 검토입니다. 빌드에서 바꾼 부품은 그림 1의 번호로 적었습니다.',
+        sr: '빌드별 가장자리 집진, Eco 런타임, 무게', srHead: ['빌드', '가장자리 집진(%)', 'Eco 런타임', '무게(kg)', '바꾼 부품']
+      },
+      t1: {
+        label: '표 1',
+        title: {
+          C45: F => `빌드 41은 목표 7개를 모두 채웠습니다. 빌드 37은 ${F.met37}개였습니다`,
+          C60: F => `빌드 41은 목표 7개 중 ${F.met}개, 빌드 37은 ${F.met37}개를 채웠습니다`,
+          C90: F => `빌드 41도 빌드 37처럼 7개 중 ${F.met}개를 채웠지만, 채운 목표가 다릅니다`
+        },
+        sub: '나머지 지표, 마지막 설계 검토인 빌드 37부터 빌드 41까지. 가장자리 집진 · Eco · 무게는 그림 3에',
+        target: '목표', build: b => `빌드 ${b}`, now: '지금', review: '검토',
+        groups: { run: '런타임', clean: '청소', size: '소음과 크기' },
+        vs: '목표와의 차이', measure: '지표', pts: '%p',
+        rows: { eco: 'Eco', auto: 'Auto', boost: 'Boost', suction: '흡입력 · Boost', edge: '가장자리 집진', carpet: '카펫 집진', noise: '소음 · Boost', weight: '무게', bin: '먼지통' },
+        units: { suction: 'AW', edge: '%', carpet: '%', noise: 'dB(A)', weight: 'kg', bin: 'L' },
+        changed: '바꾼 부품', met: '목표 달성', none: '목표 없음',
+        note: '완충에서 멈출 때까지의 런타임, 21 °C. 카펫 집진과 먼지통은 목표가 없습니다.'
+      },
+      f4: {
+        label: '그림 4',
+        title: {
+          C45: F => `낙하 시험만 남았고 ${DAY.ko(F.run[0].end)}에 끝납니다`,
+          C60: F => `브러시 바 시험은 ${DAY.ko(F.lateT.end)}에 끝나 설계 확정보다 ${F.lateT.late}일 늦습니다`,
+          C90: F => `큰 배터리의 충전 사이클 시험은 ${DAY.ko(F.lateT.end)}에 끝나 설계 확정보다 ${F.lateT.late}일 늦습니다`
+        },
+        sub: '내구 시험: 지금까지 한 양과 지금 속도로 본 끝나는 날, 늦게 끝나는 것부터',
+        tests: { brush: '브러시 바 연속 운전', pushpull: '카펫 밀고 당기기', charge: '충전 사이클', bin: '먼지통 비우기', drop: '낙하 1 m', button: '전원 버튼' },
+        units: { h: '시간', km: 'km', cycles: '회', drops: '회', presses: '회' },
+        of: (d, t, u) => `${d} / ${t}${u === 'km' ? ' km' : u}`, whole: (t, u) => `✓ ${t}${u === 'km' ? ' km' : u}`,
+        today: '오늘', freeze: '설계 확정', freezeS: '확정', done: d => `✓ ${d}`, late: n => `${n}일 늦음`,
+        keys: { done: '한 양', togo: '남은 양', after: '설계 확정 뒤', restart: '부품 교체로 다시 시작' },
+        tStart: '시작', tRestart: '다시 시작', tRate: r => `하루 ${r}`, tEnds: '끝나는 날', tEnded: '끝남', tLate: '설계 확정 뒤',
+        note: '끝나는 날 = 남은 양 ÷ 지금까지의 속도. 설계 확정 때 모든 시험이 끝나 있어야 합니다.',
+        sr: '내구 시험', srHead: ['시험', '한 양', '목표', '끝나는 날', '설계 확정 뒤(일)']
+      },
+      t2: {
+        label: '표 2',
+        title: {
+          C45: () => '설계 확정을 막는 것은 없고, 작은 수정 둘이 빌드 42에 들어갑니다',
+          C60: () => '빌드 42에 넣을 수정으로 목표 일곱 개를 모두 채웁니다',
+          C90: F => `빌드 42의 수정으로 ${F.fixSave} g을 줄여도 ${F.over - F.fixSave} g이 넘습니다`
+        },
+        sub: '빌드 41과 설계 확정 사이에 남은 것, 큰 것부터',
+        head: ['부품', '문제', '수정', '담당', '기한'], test: '시험', budget: '무게 예산',
+        issue: {
+          weight: q => ['예산보다 ', `${q.over} g`, ' 초과', 'bad'],
+          eco: (q, F) => ['Eco 런타임 ', mmssKO(F.modes[0].min - F.modes[0].v), ' 부족', 'bad'],
+          late: (q, F) => [`${F.t4.tests[q.test]} ${DAY.ko(q.end)} 끝, 설계 확정보다 `, `${q.late}일`, ' 늦음', 'bad'],
+          test: q => [`${NF(0).format(q.done)} / ${NF(0).format(q.target)}회, `, DAY.ko(q.end), ' 끝', null],
+          hair: () => ['긴 머리카락이 브러시 바에 감김', '', '', null],
+          latch: () => ['먼지통 문을 여는 데 ', '32 N', ', 목표는 25 N', 'bad'],
+          budget: (q, F) => ['두 수정 뒤에도 ', `${F.over - F.fixSave} g`, ' 초과', 'bad']
+        },
+        tip: { now: '빌드 41', budget: '예산', fix: '수정', after: '수정 뒤', afterAll: '두 수정 뒤', max: '최대', min: '최소', done: '한 양', rate: r => `하루 ${r}`, ends: '끝나는 날', two: '시험대 하나 더', owner: '담당', due: '기한' },
+        fix: {
+          'C60:weight:0': ['속이 빈 브러시 바와 얇은 끝 캡, ', '−45 g'], 'C60:eco': ['Eco에서 단단한 바닥이면 브러시 바를 느리게, ', '+3분 30초'],
+          'C60:weight:6': ['유리섬유 나일론 화면 브래킷, ', '−12 g'],
+          'C90:weight:7': ['가벼운 셀 홀더와 짧은 배선, ', '−30 g'], 'C90:weight:2': ['얇은 먼지통 벽과 보강 리브, ', '−35 g'],
+          'late:brush': q => ['11월 24일부터 시험대를 하나 더 두면 ', `${DAY.ko(q.endTwoRigs)} 끝`], 'late:charge': q => ['11월 24일부터 충전대를 하나 더 두면 ', `${DAY.ko(q.endTwoRigs)} 끝`],
+          'C90:budget': (q, F) => ['결정: MAX를 3.35 kg으로 올리거나 ', `${F.over - F.fixSave} g 더 줄이기`],
+          'C45:test': () => ['예정대로', ''], 'C45:hair': () => ['브러시 바를 따라 빗살 띠', ''], 'C45:latch': () => ['약한 걸쇠 스프링', '']
+        },
+        owner: { floor: '바닥 툴', floorfw: '바닥 툴 · 펌웨어', lab: '시험실', id: '산업 디자인', battery: '배터리', lead: '프로그램 리드' },
+        due: { b42: ['빌드 42', '11월 27일(금)'], rig: ['11월 24일', '월요일'], dec4: ['12월 4일', '금요일, 결정'], test: q => [DAY.ko(q.end), '시험 끝'] },
+        note: '효과는 빌드 42를 시험하기 전까지 설계 추정입니다.'
+      },
+      build: {
+        t: '만드는 법', k: '받는 것과 에이전트가 쓰는 법',
+        p: 'DASHBOARD.md는 둥근 화면, 분해도, 레이저 바닥을 색과 숫자 표기까지 규칙으로 적습니다. 이 파일을 읽은 에이전트가 그림 1을 이렇게 그립니다.',
+        spec: 'DASHBOARD.md 읽기', cta: '우리 회사 것 의뢰하기',
+        steps: [['패키지 넣기', '명령 한 줄로 DASHBOARD.md와 스킬을 프로젝트에 넣습니다.'], ['말로 요청하기', '보고서와 질문을 말하면 에이전트가 명세로 카드를 짭니다.'], ['명세로 점검하기', '그림 아래 점검 목록이 DASHBOARD.md의 것입니다.']],
+        pkg: '상자에 든 것', pkgSub: '파일 6개',
+        files: { 'DASHBOARD.md': '명세', 'SKILL.md': '에이전트가 명세를 쓰는 법', 'tokens.css': 'CSS 변수', 'dyson.tps': 'Tableau 팔레트', 'powerbi-theme.json': 'Power BI 테마', 'prompt.md': '프롬프트' },
+        get: '프로젝트에 넣기', getNote: 'npm이나 설치 스크립트. 둘 다 같은 파일을 같은 자리에 넣습니다.', zip: 'zip 내려받기',
+        modes: ['DASHBOARD.md 없이', 'DASHBOARD.md와 함께'],
+        checksT: 'DASHBOARD.md 점검', checksOk: '5개 모두 통과', checksBad: '5개 중 0개 통과',
+        checks: [[1, '바닥에서 손까지 부품을 1점 쇄선 축 하나에: #d9dbdd, 테두리 #7d8083'], [2, '같은 간격으로 벌리고 길이는 무게, 예산은 반대쪽 괄호'], [3, '예산 초과는 #d0273b 끝, 검토 이후 바꾼 부품은 #6b46c1'], [4, '부품마다 번호 풍선과 지시선: 이름, g 단위 무게, 예산과의 차이'], [5, '제목이 결과를 말하고, 조립한 무게 막대가 MAX에 닿는다']],
+        run: '다시 그리기', built: '완성', drawing: '그리는 중…', lines: n => `${n}줄`, copied: '코드를 복사했습니다', cmdCopied: '명령을 복사했습니다',
+        generic: '부품별 무게(g)', genericSub: '명세 없이 그린 기본 차트', generated: 'DASHBOARD.md 없이 그림',
+        wbNote: '빌드 41의 부품별 무게와 예산.',
+        cap: '코드는 에이전트가 DASHBOARD.md로 일하는 모습을 줄인 것입니다. 패키지의 prompt.md에 전체 프롬프트가 있습니다.'
+      },
+      notes: {
+        t: '숫자를 세는 법', k: '정의와 출처',
+        items: [
+          ['빌드', '세 모델의 시제품을 한 주에 함께 만들어 시험하는 묶음. 빌드 41은 11월 16~21일에 시험했고, 빌드 37이 마지막 설계 검토였습니다.'],
+          ['목표', '설계 확정 전에 모델이 닿아야 할 숫자 일곱: Eco·Auto·Boost 런타임(최소), Boost 흡입력(최소), Boost 소음(최대), 가장자리 집진(최소), 무게(최대).'],
+          ['런타임', '완충에서 멈출 때까지의 분과 초. 클리너 헤드를 단단한 바닥에 두고 21 °C에서 잽니다.'],
+          ['흡입력', 'Boost에서 클리너 헤드 입구의 흡입 일률(AW).'],
+          ['소음', 'Boost에서 기계로부터 1 m 떨어져 잰 A 가중 소음, dB(A).'],
+          ['가장자리 집진', '단단한 바닥에서 벽을 따라 2 m에 시험 먼지를 고르게 뿌리고 Auto로 한 번 지나갔을 때, 헤드 폭에서 빨아들인 비율.'],
+          ['무게와 예산', '클리너 헤드와 연장관을 끼우고 툴 없이 잰 무게. 부품마다 예산이 있고, 예산을 더하면 MAX입니다.'],
+          ['목표 대비', '그림 3은 빌드마다 목표와의 차이를 그립니다. 값에서 최소(가장자리 집진, 런타임)나 최대(무게)를 뺀 값입니다. 초록 막대는 목표를 채웠고 빨간 막대는 못 채웠습니다.'],
+          ['내구 시험', '시험대가 시험마다 정한 횟수까지 돌립니다. 끝나는 날은 남은 양을 지금까지의 속도로 나눠 셉니다. 부품을 바꾸면 그 부품의 시험을 다시 시작합니다.'],
+          ['설계 확정', '확정 뒤에는 부품이 금형으로 넘어갑니다. 모든 목표를 채우고 모든 시험이 끝나 있어야 합니다.']
+        ],
+        src: '출처: 시제품 시험 기록과 부품 무게 기록, 빌드 32~41(2026년 9월 14일~11월 21일).'
+      },
+      catName: 'Dyson 스타일', words: '테크니컬, 분해도, 말끔함',
+      note: '가상의 회사와 제품, 가상 데이터로 구성한 샘플 화면입니다.',
+      notice: 'Dyson의 공식 디자인이 아니며 제휴·승인 관계가 없습니다. 공개된 웹사이트(dyson.com, dyson.co.kr)와 제품 화면·분해도 등 공개된 접점에서 보이는 디자인을 읽어 낸 참고용 스타일이며 로고·서체·사진·데이터는 포함하지 않습니다. 상표는 각 소유자의 것입니다.',
+      back: { post: '← 포스트로', catalog: '← 카탈로그로' }
+    }
+  };
+  const L = () => T[state.lang];
+  const KO = () => state.lang === 'ko';
+  const pick = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
+  const BLOG = { ko: 'https://kr.vizney.com/', en: 'https://www.vizney.com/' };
+  const FROM_BLOG = (() => {
+    const hosts = ['kr.vizney.com', 'www.vizney.com', 'vizney.com'];
+    const host = v => { try { return new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v).hostname.toLowerCase(); } catch (e) { return ''; } };
+    return hosts.includes(host(qs.get('ref') || '')) || (!!document.referrer && hosts.includes(host(document.referrer)));
+  })();
+  const SLUG = location.pathname.split('/').filter(Boolean)[0] || 'dyson';
+
+  /* ================= 도우미 ================= */
+  const sum = a => a.reduce((s, x) => s + x, 0);
+  function setAttrs(e, a) {
+    if (!a) return;
+    for (const k in a) {
+      const v = a[k];
+      if (v == null || v === false) continue;
+      if (k === 'text') e.textContent = v;
+      else if (k === 'html') e.innerHTML = v;
+      else if (k === 'style') for (const p in v) { if (v[p] == null) continue; if (p.startsWith('--')) e.style.setProperty(p, v[p]); else e.style[p] = v[p]; }
+      else e.setAttribute(k, v);
+    }
+  }
+  function add(e, kids) { for (const k of kids.flat()) { if (k == null || k === false) continue; e.append(k instanceof Node ? k : document.createTextNode(String(k))); } }
+  function h(tag, attrs, ...kids) { const e = document.createElement(tag); setAttrs(e, attrs); add(e, kids); return e; }
+  function sv(tag, attrs, ...kids) { const e = document.createElementNS(SVGNS, tag); setAttrs(e, attrs); add(e, kids); return e; }
+  const animOK = a => a && !REDUCE;
+  // 숫자와 단위는 한 덩어리로(610 g, 253 AW, 2.94 kg), 한국어는 숫자 뒤 조사가 떨어지지 않게
+  const glue = str => { const s = String(str).replace(/(\d) (?=(AW|kg|g|km|h|L|mm|dB|N)\b)/g, '$1 '); return KO() ? s.replace(/([0-9%])(?=[가-힣])/g, '$1⁠') : s; };
+  const bal = (i, p) => h('span', { class: 'bal' + (p ? ' p' : ''), 'aria-hidden': 'true', text: i + 1 });
+  // 글자 폭: 그 언어의 본문 서체로 잰다
+  const TW = document.createElement('canvas').getContext('2d');
+  const FONT = () => getComputedStyle(document.documentElement).getPropertyValue('--font');
+  const textW = (str, size, weight = 400) => { TW.font = `${weight} ${size}px ${FONT()}`; return TW.measureText(String(str)).width; };
+  function fitText(str, size, weight, maxW) {
+    if (textW(str, size, weight) <= maxW) return str;
+    let s = str;
+    while (s.length > 1 && textW(s + '…', size, weight) > maxW) s = s.slice(0, -1);
+    return s.length > 2 ? s.trimEnd() + '…' : '';
+  }
+
+  /* ================= 사실: 모델 필터마다 ================= */
+  const FCACHE = {};
+  function facts(m = state.model) {
+    const key = m + state.lang;
+    if (FCACHE[key]) return FCACHE[key];
+    const X = DATA.M[m], S = X.series, t = X.targets;
+    const modes = ['eco', 'auto', 'boost'].map((k, j) => ({ k, j, v: S[k][IX], min: t[k], last: S[k][IX - 1], b37: S[k][I37], suction: X.modes.suction[j], noise: X.modes.noise[j] }));
+    const spec = ['suction', 'noise', 'edge', 'weight'].map(k => { const v = S[k][IX], lim = t[k]; return { k, v, lim, ok: passes(k, v, lim), gap: Math.abs(v - lim), last: S[k][IX - 1], b37: S[k][I37] }; });
+    const parts = PARTS.map((p, i) => ({ i, p, w: X.weights[i], b: X.budget[i], d: X.diff[i], chg: X.changed[i] || null, w37: X.pw[p][I37] }));
+    const total = sum(X.weights), budget = t.weight;
+    const floor = ['37', '41'].map(b => { const z = X.floor[b]; return { b: +b, z, pct: Math.round(sum(z) * 10) / 10, head: X.floorHead[b], picked: S.edge[bIx(+b)] }; });
+    const tests = X.tests, run = tests.filter(q => !q.complete), lateT = tests.find(q => q.late) || null;
+    const fixSave = -sum(X.issues.filter(q => q.kind === 'weight').map(q => q.fix_g || 0));   // 빌드 42의 무게 수정으로 줄일 g
+    const F = { m, X, S, t, modes, spec, met: X.met[IX], met37: X.met[I37], parts, total, budget, over: total - budget, floor, tests, run, lateT, issues: X.issues, fixSave, name: L().models[m], t4: L().f4 };
+    FCACHE[key] = F;
+    return F;
+  }
+
+  /* ================= 툴팁·키보드·스크린 리더 ================= */
+  function tipNodes(head, rows, sub) {
+    return [h('div', { class: 'tip-h' }, head), sub ? h('div', { class: 'tip-s', text: glue(sub) }) : null].concat(rows.filter(Boolean).map(r => h('div', { class: 'tip-r' },
+      r.key ? h('i', { style: { '--c': r.key } }) : null,
+      h('b', null, r.value), r.label ? h('span', { class: r.tone || null, text: glue(r.label) }) : null)));
+  }
+  const headOf = (txt, i, p) => [i != null ? bal(i, p) : null, glue(txt)];
+  function placeTip(host, nodes, ax, ayTop, ayBottom) {
+    const tip = $(':scope > .tip', host);
+    tip.replaceChildren(...nodes.filter(Boolean));
+    const cw = host.clientWidth, ch = host.clientHeight, tw = tip.offsetWidth, th = tip.offsetHeight, gap = 12, mid = (ayTop + ayBottom) / 2;
+    const cx = l => Math.max(6, Math.min(cw - tw - 6, l)), cy = y => Math.max(6, Math.min(ch - th - 6, y));
+    const options = [
+      [cx(ax - tw / 2), ayTop - gap - th, ayTop - gap - th >= 6],
+      [ax + gap, cy(mid - th / 2), ax + gap + tw <= cw - 6],
+      [ax - gap - tw, cy(mid - th / 2), ax - gap - tw >= 6],
+      [cx(ax - tw / 2), ayBottom + gap, ayBottom + gap + th <= ch - 6]
+    ];
+    const [left, top] = options.find(o => o[2]) || options[1];
+    tip.style.left = Math.round(left) + 'px';
+    tip.style.top = Math.round(top) + 'px';
+    tip.classList.add('on');
+  }
+  const hideTip = host => { const tip = $(':scope > .tip', host); if (tip) tip.classList.remove('on'); };
+  const offsetIn = (host, el) => { const a = host.getBoundingClientRect(), b = el.getBoundingClientRect(); return { x: b.left - a.left, y: b.top - a.top, w: b.width, h: b.height }; };
+  function keyStep(e, cur, n) {
+    const k = e.key;
+    let i = null;
+    if (k === 'ArrowRight' || k === 'ArrowDown') i = cur + 1;
+    else if (k === 'ArrowLeft' || k === 'ArrowUp') i = cur - 1;
+    else if (k === 'Home') i = 0;
+    else if (k === 'End') i = n - 1;
+    else if (k === 'Escape') i = -1;
+    if (i === null) return null;
+    e.preventDefault();
+    return k === 'Escape' ? -1 : Math.max(0, Math.min(n - 1, i));
+  }
+  function srTable(caption, head, rows) {
+    return h('table', null, h('caption', { text: caption }),
+      h('thead', null, h('tr', null, head.map(x => h('th', { scope: 'col', text: x })))),
+      h('tbody', null, rows.map(r => h('tr', null, r.map((c, j) => h(j ? 'td' : 'th', j ? { text: c } : { scope: 'row', text: c }))))));
+  }
+  const say = msg => { $('#live').textContent = String(msg).replace(/⁠/g, ''); };
+  // 목록형(줄, 화면, 띠): 가리킨 항목에 'on'을 달고 툴팁을 띄운다. 방향키·Home·End·Esc
+  function wireRows(host, list, rowSel, cur, show) {
+    const rows = () => $$(rowSel, list);
+    const pickRow = i => { rows().forEach((r, k) => r.classList.toggle('on', k === i)); if (i == null || i < 0) { hideTip(host); return; } cur.i = i; show(i, rows()[i]); };
+    list.onpointermove = e => { const r = e.target.closest(rowSel); if (r && list.contains(r)) pickRow(rows().indexOf(r)); };
+    list.onpointerleave = e => { if (e.pointerType === 'mouse' && document.activeElement !== list) pickRow(-1); };
+    list.onfocus = () => pickRow(Math.min(cur.i, rows().length - 1));
+    list.onblur = () => pickRow(-1);
+    list.onkeydown = e => { const i = keyStep(e, cur.i, rows().length); if (i === null) return; pickRow(i); if (i >= 0) say(rows()[i].dataset.say || rows()[i].textContent); };
+  }
+  // 그림형: 포인터에서 가장 가까운 항목을 고른다
+  function wireItems(host, plot, n, cur, nearest, show, clear) {
+    const go = i => { if (i == null || i < 0) { clear(); hideTip(host); return; } cur.i = i; show(i); };
+    plot.onpointermove = e => { const b = plot.getBoundingClientRect(); go(nearest(e.clientX - b.left, e.clientY - b.top)); };
+    plot.onpointerleave = e => { if (e.pointerType === 'mouse' && document.activeElement !== plot) go(-1); };
+    plot.onfocus = () => go(Math.min(cur.i, n - 1));
+    plot.onblur = () => go(-1);
+    plot.onkeydown = e => { const i = keyStep(e, cur.i, n); if (i === null) return; go(i); if (i >= 0 && cur.say) say(cur.say(i)); };
+  }
+  const plotSize = (plot, minW = 260, minH = 220) => { const W = Math.max(minW, Math.round(plot.clientWidth)), H = Math.max(minH, Math.round(plot.clientHeight)); plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight); return [W, H]; };
+  // 시드를 둔 난수: 같은 모델·빌드는 늘 같은 먼지 점
+  function rng(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  /* ================= 머리: 결과 문장 ================= */
+  function renderHead() {
+    const F = facts(), t = L(), k = t.kick(F);
+    $('#kick').replaceChildren(k[0], h('b', { class: F.met === 7 ? 'ok' : null, text: k[1] }));
+    $('#h1').replaceChildren(...t.h1[F.m](F).map(s => h('span', { text: glue(s) })));
+  }
+
+  /* ================= KPI: 둥근 화면 셋(모드별 런타임)과 사양 줄 넷 =================
+     둥근 화면: 검은 원에 모드 색 고리, 모드 이름 → 남은 시간(가는 큰 숫자) → 배터리(목표 대비 채움, 목표를 채우면 가득) → MIN.
+     아래에 목표와의 차이와 지난 빌드. 사양 줄: 라벨과 한계 → 가는 숫자와 작은 단위 → ✓ · ✗ → 머리카락 선. */
+  const rsCur = { i: 0 }, spCur = { i: 0 };
+  const limText = (k, v) => k === 'eco' ? `${KO() ? '최소' : 'MIN'} ${mmss(v)}` : L().sp.lim(k, v);
+  function renderKpi(animate) {
+    const F = facts(), t = L().rs, s = L().sp, anim = animOK(animate), host = $('.kpi'), names = L().modeNames;
+    const row = $('#rsRow');
+    row.setAttribute('aria-label', t.label);
+    row.replaceChildren(...F.modes.map((m, j) => {
+      const fill = Math.min(1, m.v / m.min), bad = m.v < m.min, R = 45.4, len = 2 * Math.PI * R;
+      const ring = sv('svg', { viewBox: '0 0 100 100', 'aria-hidden': 'true' },
+        sv('circle', { cx: 50, cy: 50, r: R, fill: 'none', stroke: C.mode[j], 'stroke-width': 1.85, transform: 'rotate(-90 50 50)', class: anim ? 'ring' : null, style: anim ? { '--len': len.toFixed(1), animationDelay: (j * 120) + 'ms' } : null }));
+      const st = bad ? t.short(m.min - m.v) : t.spare(m.v - m.min);
+      return h('li', { class: 'rs', 'data-say': glue(`${names[j]} ${mmss(m.v)}, ${t.min} ${mmss(m.min)}, ${st.replace('✓ ', '')}`) },
+        h('div', { class: 'rs-dial', style: { '--c': C.mode[j] } }, ring,
+          h('span', { class: 'rs-m', text: names[j] }),
+          h('span', { class: 'rs-t', text: mmss(m.v) }),
+          h('span', { class: 'rs-bat', 'aria-hidden': 'true' }, h('i', { class: anim ? 'growx' : null, style: { '--w': (fill * 100).toFixed(1) + '%', animationDelay: anim ? (250 + j * 120) + 'ms' : null } })),
+          h('span', { class: 'rs-min', text: `${t.min} ${mmss(m.min)}` })),
+        h('div', { class: 'rs-st' + (bad ? ' bad' : ''), text: glue(st) }),
+        h('div', { class: 'rs-sub', text: glue(t.last(m.last)) }));
+    }));
+    wireRows(host, row, '.rs', rsCur, (i, el) => {
+      const m = F.modes[i], bad = m.v < m.min, o = offsetIn(host, $('.rs-dial', el));
+      placeTip(host, tipNodes(headOf(t.tipH(names[i])), [
+        { key: C.mode[i], value: mmss(m.v), label: t.now },
+        { value: `${t.min} ${mmss(m.min)}`, label: t.target },
+        { value: (bad ? '−' : '+') + mmss(Math.abs(m.v - m.min)), label: bad ? t.shortL : t.spareL, tone: bad ? 'bad' : 'good' },
+        { value: mmss(m.b37), label: t.b37 },
+        { value: glue(`${m.suction} AW · ${NF(1).format(m.noise)} dB(A)`), label: t.power(names[i]) }
+      ]), o.x + o.w / 2, o.y, o.y + o.h);
+    });
+    const sl = $('#spList');
+    sl.setAttribute('aria-label', s.label);
+    sl.replaceChildren(...F.spec.map(r => {
+      const lim = limText(r.k, r.lim), miss = r.ok ? null : s.miss(r.k, r.gap);
+      return h('li', { class: 'sp' + (r.ok ? '' : ' bad'), 'data-say': glue(`${s.rows[r.k]} ${FMT[r.k](r.v)} ${s.units[r.k]}, ${lim}${miss ? ', ' + miss : ''}`) },
+        h('div', { class: 'sp-l' }, s.rows[r.k], h('small', { text: glue(lim) }), miss ? h('small', { class: 'miss', text: glue(miss) }) : null),
+        h('div', { class: 'sp-v' }, FMT[r.k](r.v), h('span', { class: 'u', text: s.units[r.k] }), h('span', { class: 'mk', 'aria-hidden': 'true', text: r.ok ? '✓' : '✗' })));
+    }));
+    wireRows(host, sl, '.sp', spCur, (i, el) => {
+      const r = F.spec[i], u = s.units[r.k], v = x => glue(`${FMT[r.k](x)}${u === '%' ? '%' : ' ' + u}`), o = offsetIn(host, el);
+      placeTip(host, tipNodes(headOf(s.rows[r.k]), [
+        { value: v(r.v), label: s.now },
+        { value: glue(limText(r.k, r.lim)), label: s.target },
+        r.ok ? null : { value: glue(s.miss(r.k, r.gap)), tone: 'bad' },
+        { value: v(r.last), label: s.b40 },
+        { value: v(r.b37), label: s.b37 }
+      ]), o.x + o.w * .7, o.y, o.y + o.h);
+    });
+  }
+
+  /* ================= 그림 1: 분해도 =================
+     바닥(아래)에서 손(위)까지 부품을 1점 쇄선 축 하나에 같은 간격으로 벌려 세운다. 길이는 무게.
+     반대쪽 괄호는 예산, 예산을 넘은 만큼 빨간 끝, 검토(빌드 37) 이후 바꾼 부품은 보라. 부품마다 번호 풍선과 지시선. */
+  function exSvg(F, W, H, opt = {}) {
+    const t = L().f1, anim = animOK(opt.animate), P = F.parts, n = P.length, layers = !!opt.layers;
+    const single = W < 420, gap = H < 400 ? 7 : 9, cw = single ? 44 : 56;
+    const asmH = opt.asm ? 78 : 0, top = 4, bot = H - 4 - asmH;
+    const lastSlack = Math.max(0, P[n - 1].b - P[n - 1].w);
+    const k = (bot - top - gap * (n - 1)) / (sum(P.map(p => p.w)) + lastSlack);
+    const cx = single ? 22 + cw / 2 : Math.round(W * .46);
+    const fsN = KO() ? 13.5 : 14, fsW = single ? 19 : 21;
+    let y = bot;
+    const G = P.map((p, i) => {
+      const hg = p.w * k, y0 = y - hg, g = { ...p, y0, y1: y, hg, cy: y0 + hg / 2, side: single ? 1 : (i % 2 === 0 ? 1 : -1), dy: gap * i };
+      y = y0 - gap;
+      return g;
+    });
+    // 이름표: 쪽마다 위에서 아래로 겹치지 않게 밀고, 아래 끝을 넘으면 다시 올린다.
+    // 두 줄(이름 / 가는 큰 무게)이 들어갈 높이가 없으면 한 줄(이름 무게 차이)로 줄인다
+    const tall = g => (g.chg ? 52 : 36);
+    // 한 줄 이름표의 폭: 넘치면 예산과의 차이를 둘째 줄(바꾼 빌드와 함께)로 내린다
+    const room = sd => sd > 0 ? W - (cx + cw / 2 + 26 + 17) - 2 : (cx - cw / 2 - 26 - 17) - 2;
+    const noteTxt = g => g.d ? (g.d > 0 ? t.over(g.d) : t.under(-g.d)) : '';
+    const lineW = g => textW(t.parts[g.i], 13, 500) + 6 + textW(gr(g.w), 15, 300) + 2 + textW('g', 11.5) + (g.d ? 6 + textW(noteTxt(g), 12, 500) : 0);
+    G.forEach(g => { g.note2 = !!g.d && lineW(g) > room(g.side); });
+    const short = g => (g.chg || g.note2 ? 32 : 18);
+    const need = f => Math.max(...[1, -1].map(sd => { const it = G.filter(g => g.side === sd); return sum(it.map(f)) + 4 * Math.max(0, it.length - 1); }));
+    const compact = need(tall) > bot - top;
+    const lh = compact ? short : tall;
+    for (const side of [1, -1]) {
+      const items = G.filter(g => g.side === side).sort((a, b) => a.cy - b.cy);
+      let prev = -Infinity;
+      items.forEach(g => { g.ly = Math.max(g.cy, prev + lh(g) / 2 + 4); prev = g.ly + lh(g) / 2; });
+      let limit = bot;
+      for (let q = items.length - 1; q >= 0; q--) { const g = items[q]; if (g.ly + lh(g) / 2 > limit) g.ly = limit - lh(g) / 2; limit = g.ly - lh(g) / 2 - 4; }
+      items.forEach(g => { if (g.ly - lh(g) / 2 < top) g.ly = top + lh(g) / 2; });
+    }
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}` });
+    const grp = (step) => sv('g', layers ? { class: 'layer', 'data-step': step } : null);
+    const g1 = grp(1), g2 = grp(2), g3 = grp(3), g4 = grp(4), g5 = grp(5), gsel = sv('g');
+    const fadeAt = ms => anim ? { class: 'fade', style: { animationDelay: ms + 'ms' } } : {};
+    // 1 · 틀: 축과 부품(니켈 회색)
+    g1.append(sv('line', { x1: cx, x2: cx, y1: 0, y2: bot + 3, stroke: C.nickelE, 'stroke-width': 1, 'stroke-dasharray': '14 4 2 4' }));
+    const mv = g => anim ? { class: 'explode', style: { '--dy': g.dy + 'px' } } : {};
+    G.forEach(g => g1.append(sv('rect', { x: cx - cw / 2, y: g.y0, width: cw, height: Math.max(1, g.hg), rx: Math.min(5, g.hg / 2), fill: C.nickel, stroke: C.nickelE, 'stroke-width': 1, ...mv(g) })));
+    // 2 · 예산: 반대쪽 괄호, 바닥에서 예산만큼
+    G.forEach(g => {
+      const sd = g.side, bx = cx - sd * (cw / 2 + 7), hb = g.b * k;
+      g2.append(sv('path', { d: `M${bx - sd * 4},${g.y1} H${bx} V${g.y1 - hb} H${bx - sd * 4}`, fill: 'none', stroke: C.mute, 'stroke-width': 1, ...fadeAt(650) }));
+    });
+    // 3 · 바꾼 부품은 보라, 예산을 넘은 만큼은 빨간 끝
+    G.forEach(g => {
+      if (g.chg) g3.append(sv('rect', { x: cx - cw / 2, y: g.y0, width: cw, height: Math.max(1, g.hg), rx: Math.min(5, g.hg / 2), fill: C.purple, stroke: C.purple, 'stroke-width': 1, ...mv(g) }));
+      if (g.d > 0) {
+        const ch = Math.min(g.hg, g.d * k), r = Math.min(5, ch, g.hg / 2), x = cx - cw / 2;
+        g3.append(sv('path', { d: `M${x},${g.y0 + ch} V${g.y0 + r} A${r},${r} 0 0 1 ${x + r},${g.y0} H${x + cw - r} A${r},${r} 0 0 1 ${x + cw},${g.y0 + r} V${g.y0 + ch} Z`, fill: C.red, ...mv(g) }));
+      }
+    });
+    // 4 · 번호 풍선과 지시선, 이름, 무게, 예산과의 차이
+    G.forEach(g => {
+      const sd = g.side, top0 = g.ly - lh(g) / 2, ex = cx + sd * (cw / 2 + (single ? 26 : 30)), by = top0 + 9, tx = ex + sd * 17, an = sd > 0 ? 'start' : 'end';
+      if (compact) {
+        const f = fadeAt(750 + g.i * 40), vx = cx + sd * (cw / 2 - 8) - ex, vy = g.cy - by, vl = Math.hypot(vx, vy) || 1;
+        const line = sv('text', { x: tx, y: top0 + 13, 'text-anchor': an, 'font-size': 13, 'font-weight': 500, fill: C.ink });
+        line.append(sv('tspan', { text: t.parts[g.i] }), sv('tspan', { dx: 6, 'font-size': 15, 'font-weight': 300, text: gr(g.w) }), sv('tspan', { dx: 2, 'font-size': 11.5, 'font-weight': 400, text: 'g' }));
+        if (g.d && !g.note2) line.append(sv('tspan', { dx: 6, 'font-size': 12, 'font-weight': g.d > 0 ? 500 : 400, fill: g.d > 0 ? C.redT : C.mute, text: noteTxt(g) }));
+        const l2 = g.note2 || g.chg ? sv('text', { x: tx, y: top0 + 28, 'text-anchor': an, 'font-size': 11.5 }) : null;
+        if (l2 && g.note2) l2.append(sv('tspan', { 'font-weight': g.d > 0 ? 500 : 400, fill: g.d > 0 ? C.redT : C.mute, text: noteTxt(g) }));
+        if (l2 && g.chg) l2.append(sv('tspan', { dx: g.note2 ? 6 : 0, 'font-weight': 500, fill: C.purpleT, text: t.changedIn(g.chg) }));
+        g4.append(sv('g', f.class ? f : null,
+          sv('circle', { cx: cx + sd * (cw / 2 - 8), cy: g.cy, r: 2.4, fill: g.chg ? C.white : C.ink }),
+          sv('line', { x1: cx + sd * (cw / 2 - 8), y1: g.cy, x2: ex + vx / vl * 9.5, y2: by + vy / vl * 9.5, stroke: C.ink, 'stroke-width': 1 }),
+          sv('circle', { cx: ex, cy: by, r: 9.5, fill: C.white, stroke: g.chg ? C.purpleT : C.ink, 'stroke-width': 1 }),
+          sv('text', { x: ex, y: by + 4, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 500, fill: g.chg ? C.purpleT : C.ink, 'font-family': 'Jost, sans-serif', text: g.i + 1 }),
+          line, l2));
+        return;
+      }
+      const dx = cx + sd * (cw / 2 - 8), vx = dx - ex, vy = g.cy - by, vl = Math.hypot(vx, vy) || 1;
+      const f = fadeAt(750 + g.i * 40);
+      g4.append(sv('g', f.class ? f : null,
+        sv('circle', { cx: dx, cy: g.cy, r: 2.4, fill: g.chg ? C.white : C.ink }),
+        sv('line', { x1: dx, y1: g.cy, x2: ex + vx / vl * 10.5, y2: by + vy / vl * 10.5, stroke: C.ink, 'stroke-width': 1 }),
+        sv('circle', { cx: ex, cy: by, r: 10.5, fill: C.white, stroke: g.chg ? C.purpleT : C.ink, 'stroke-width': 1 }),
+        sv('text', { x: ex, y: by + 4.2, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 500, fill: g.chg ? C.purpleT : C.ink, 'font-family': 'Jost, sans-serif', text: g.i + 1 }),
+        sv('text', { x: tx, y: top0 + 14, 'text-anchor': an, 'font-size': fsN, 'font-weight': 500, fill: C.ink, text: fitText(t.parts[g.i], fsN, 500, sd > 0 ? W - tx - 2 : tx - 2) }),
+        (() => {
+          const v = sv('text', { x: tx, y: top0 + 33, 'text-anchor': an, fill: C.ink });
+          v.append(sv('tspan', { 'font-size': fsW, 'font-weight': 300, text: gr(g.w) }), sv('tspan', { dx: 2, 'font-size': 12.5, text: 'g' }));
+          if (g.d) v.append(sv('tspan', { dx: 7, 'font-size': 12.5, 'font-weight': g.d > 0 ? 500 : 400, fill: g.d > 0 ? C.redT : C.mute, text: g.d > 0 ? t.over(g.d) : t.under(-g.d) }));
+          return v;
+        })(),
+        g.chg ? sv('text', { x: tx, y: top0 + 49, 'text-anchor': an, 'font-size': 12, 'font-weight': 500, fill: C.purpleT, text: t.changedIn(g.chg) }) : null));
+    });
+    // 5 · 조립한 무게: 같은 부품을 이어 붙인 막대가 MAX에 닿는다(만드는 법에서만 그림 안에)
+    if (opt.asm) g5.append(asmSvg(F, W, H - asmH + 22, 'bench'));
+    svg.append(g1, g2, g3, g4, g5, gsel);
+    const nearest = (x, yy) => {
+      const inStack = Math.abs(x - cx) < cw / 2 + 14 || (single && x < cx);
+      if (inStack) { let best = 0; G.forEach((g, i) => { if (Math.abs(yy - g.cy) - g.hg / 2 < Math.abs(yy - G[best].cy) - G[best].hg / 2) best = i; }); return best; }
+      const sd = x > cx ? 1 : -1, cand = G.filter(g => g.side === sd);
+      let best = cand[0]; cand.forEach(g => { if (Math.abs(yy - g.ly) < Math.abs(yy - best.ly)) best = g; });
+      return best.i;
+    };
+    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const g = G[i]; gsel.append(sv('rect', { x: cx - cw / 2 - 3.5, y: g.y0 - 3.5, width: cw + 7, height: g.hg + 7, rx: 7, fill: 'none', stroke: C.ink, 'stroke-width': 1.5 })); };
+    return { svg, G, cx, cw, nearest, sel };
+  }
+  // 조립한 무게 막대: 부품을 바닥부터 이어 붙이고, MAX에 눈금, 넘은 만큼 빨강
+  function asmSvg(F, W, y0, mode) {
+    const t = L().f1, sc = W / (Math.max(F.total, F.budget) * 1.07), standalone = mode === true, g = sv('g', standalone ? null : { transform: `translate(0 ${y0})` });
+    if (mode === 'bench') {
+      const over = F.total - F.budget, tx = sv('text', { x: 0, y: -6, 'font-size': 12.5, fill: C.mute });
+      tx.append(sv('tspan', { text: t.asm + ' ' }), sv('tspan', { dx: 4, 'font-size': 16, 'font-weight': 300, fill: C.ink, text: `${gr(F.total)} g` }),
+        sv('tspan', { dx: 8, 'font-weight': 500, fill: over > 0 ? C.redT : C.mute, text: over > 0 ? t.over(over) : t.under(-over) }));
+      g.append(tx);
+    }
+    let x = 0;
+    F.parts.forEach((p, i) => { const w = p.w * sc; g.append(sv('rect', { x: x + .5, y: 8, width: Math.max(.5, w - 1), height: 12, fill: p.chg ? C.purple : C.nickel, stroke: p.chg ? C.purple : C.nickelE, 'stroke-width': .8, 'data-i': i })); x += w; });
+    const mx = F.budget * sc;
+    if (F.total > F.budget) g.append(sv('rect', { x: mx, y: 8, width: (F.total - F.budget) * sc, height: 12, fill: C.red }));
+    g.append(sv('line', { x1: mx, x2: mx, y1: 1, y2: 27, stroke: C.ink, 'stroke-width': 1.5 }),
+      sv('text', { x: Math.min(mx - 5, W - 2), y: 39, 'text-anchor': 'end', 'font-size': 11.5, 'font-weight': 500, fill: C.ink, text: `${t.max} ${gr(F.budget)} g` }));
+    return g;
+  }
+
+  const f1Cur = { i: 0 };
+  function partTip(F, i) {
+    const t = L().f1, p = F.parts[i];
+    return tipNodes(headOf(t.parts[i], i, !!p.chg), [
+      { value: glue(`${gr(p.w)} g`), label: t.tw },
+      { value: glue(`${gr(p.b)} g`), label: t.tb },
+      p.d ? { value: glue(`${p.d > 0 ? '+' : '−'}${Math.abs(p.d)} g`), label: p.d > 0 ? t.keys.over : t.tUnder, tone: p.d > 0 ? 'bad' : null } : { value: '0 g', label: t.on },
+      { value: glue(`${gr(p.w37)} g`), label: t.t37 },
+      p.chg ? { value: '', label: t.changedIn(p.chg), tone: 'chg' } : null
+    ]);
+  }
+  function renderF1(animate) {
+    const F = facts(), t = L().f1, host = $('#f1'), plot = $('#f1Plot');
+    $('#f1T').textContent = glue(t.title[F.m](F));
+    $('#f1K').replaceChildren(
+      h('li', null, sv('svg', { width: 9, height: 13 }, sv('path', { d: 'M8,.5 H1.5 V12.5 H8', fill: 'none', stroke: C.mute })), t.keys.budget),
+      h('li', null, sv('svg', { width: 11, height: 11 }, sv('rect', { width: 11, height: 11, rx: 2, fill: C.red })), t.keys.over),
+      h('li', null, sv('svg', { width: 11, height: 11 }, sv('rect', { width: 11, height: 11, rx: 2, fill: C.purple })), t.keys.changed));
+    const [W, H] = plotSize(plot, 260, 300);
+    const R = exSvg(F, W, H, { animate });
+    R.svg.setAttribute('role', 'img');
+    R.svg.setAttribute('aria-label', glue(t.title[F.m](F)));
+    plot.replaceChildren(R.svg);
+    plot.setAttribute('aria-label', t.sr);
+    renderAsm(F);
+    const show = i => { R.sel(i); const g = R.G[i], o = offsetIn(host, plot); placeTip(host, partTip(F, i), o.x + R.cx + g.side * (R.cw / 2 + 4), o.y + g.y0, o.y + g.y1); };
+    f1Cur.say = i => glue(`${i + 1} ${t.parts[i]}: ${gr(F.parts[i].w)} g, ${t.tb} ${gr(F.parts[i].b)} g`);
+    wireItems(host, plot, F.parts.length, f1Cur, R.nearest, show, () => R.sel(-1));
+    // 조립한 무게 막대에서도 같은 툴팁
+    const bar = $('#f1Asm svg');
+    if (bar) {
+      bar.onpointermove = e => { const el = e.target.closest('rect[data-i]'); if (!el) return; const i = +el.dataset.i, o = offsetIn(host, el); R.sel(i); placeTip(host, partTip(F, i), o.x + o.w / 2, o.y, o.y + o.h); };
+      bar.onpointerleave = () => { R.sel(-1); hideTip(host); };
+    }
+    $('#f1Table').replaceChildren(srTable(t.sr, t.srHead, F.parts.map((p, i) => [`${i + 1} ${t.parts[i]}`, gr(p.w), gr(p.b), String(p.d), p.chg ? String(p.chg) : '—'])));
+  }
+  function renderAsm(F) {
+    const t = L().f1, el = $('#f1Asm'), over = F.total - F.budget;
+    const box = h('div');
+    el.replaceChildren(h('span', { text: t.asm }), box,
+      h('div', null, h('b', null, gr(F.total), h('span', { class: 'u', text: ' g' })), h('em', { class: over > 0 ? 'bad' : 'ok', text: glue(over > 0 ? t.over(over) : t.under(-over)) })));
+    const W = Math.max(120, Math.round(box.clientWidth));
+    box.replaceChildren(sv('svg', { width: W, height: 40, viewBox: `0 0 ${W} 40`, 'aria-hidden': 'true' }, asmSvg(F, W, 0, true)));
+    el._w = Math.round(el.clientWidth);
+  }
+
+  /* ================= 그림 2: 레이저 바닥 =================
+     검은 띠가 클리너 헤드 폭(250 mm), 초록 점 하나가 뿌린 먼지의 0.05%. 벽 쪽 20 mm · 가운데 · 바깥쪽 20 mm에 나눠 찍는다. */
+  const f2Cur = { i: 1 };
+  const DOTS = {};
+  function dotsFor(m, f) {
+    const key = m + f.b;
+    if (DOTS[key]) return DOTS[key];
+    const r = rng(m.charCodeAt(1) * 1000 + m.charCodeAt(2) * 37 + f.b), out = [];
+    f.z.forEach((share, zi) => {
+      const n = Math.round(share / 0.05);
+      for (let q = 0; q < n; q++) {
+        const u = r(), v = r(), rr = 1.4 + r() * .9;
+        const xm = zi === 0 ? 20 * Math.pow(u, 1.8) : zi === 2 ? 250 - 20 * Math.pow(u, 1.8) : 20 + u * 210;
+        out.push({ xm, v, rr });
+      }
+    });
+    return (DOTS[key] = out);
+  }
+  function drawDots(el, F, f, anim, row) {
+    const W = Math.max(60, Math.round(el.clientWidth)), H = Math.max(30, Math.round(el.clientHeight)), mm = W / 250;
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' });
+    dotsFor(F.m, f).forEach(d => {
+      const x = Math.max(d.rr + 1, Math.min(W - d.rr - 1, d.xm * mm)), y = 5 + d.v * (H - 10);
+      svg.append(sv('circle', { cx: x.toFixed(1), cy: y.toFixed(1), r: d.rr.toFixed(2), fill: C.laser, class: anim ? 'lit' : null, style: anim ? { animationDelay: Math.round(x / W * 900 + 150 + row * 160) + 'ms' } : null }));
+    });
+    // 레이저가 바닥을 한 번 훑는다(움직일 때만)
+    if (anim) svg.append(sv('rect', { x: -2, y: 0, width: 2, height: H, fill: C.laser, class: 'sweep', style: { '--sw': (W + 4) + 'px', animationDelay: (row * 160) + 'ms' } }));
+    el.replaceChildren(svg);
+    el._w = W; el._h = H;
+  }
+  function renderF2(animate) {
+    const F = facts(), t = L().f2, host = $('#f2'), box = $('#f2Floor'), anim = animOK(animate);
+    $('#f2T').textContent = glue(t.title[F.m](F));
+    box.setAttribute('aria-label', t.sr);
+    box.replaceChildren(...F.floor.map(f => h('div', { class: 'lf-row', 'data-say': glue(`${t.build(f.b)}, ${t.head[f.head]}: ${NF(1).format(f.pct)}% ${t.left}`) },
+      h('div', { class: 'lf-l' }, t.build(f.b), h('small', { text: t.head[f.head] })),
+      h('div', { class: 'lf-s' }),
+      h('div', { class: 'lf-n' }, NF(1).format(f.pct), h('span', { class: 'u', text: '%' }), h('small', { text: t.left })))),
+      h('div', { class: 'lf-ax', 'aria-hidden': 'true' }, ...t.ax.map(a => h('span', { text: a }))));
+    redrawDots(anim);
+    box._w = Math.round(box.clientWidth); box._h = Math.round(box.clientHeight);
+    wireRows(host, box, '.lf-row', f2Cur, (i, el) => {
+      const f = F.floor[i], s = $('.lf-s', el), o = offsetIn(host, s);
+      placeTip(host, tipNodes(headOf(`${t.build(f.b)} · ${t.head[f.head]}`), [
+        { key: C.laser, value: `${NF(1).format(f.pct)}%`, label: t.tLeft },
+        { value: `${NF(1).format(f.picked)}%`, label: t.tPicked },
+        { value: `${NF(1).format(f.z[0])}%`, label: t.tWall },
+        { value: `${NF(1).format(f.z[2])}%`, label: t.tOpen }
+      ]), o.x + o.w / 2, o.y, o.y + o.h);
+    });
+    $('#f2Table').replaceChildren(srTable(t.sr, t.srHead, F.floor.map(f => [`${t.build(f.b)} (${t.head[f.head]})`, NF(1).format(f.pct), NF(1).format(f.z[0]), NF(1).format(f.z[1]), NF(1).format(f.z[2])])));
+  }
+  function redrawDots(anim) { const F = facts(); $$('#f2Floor .lf-s').forEach((s, i) => drawDots(s, F, F.floor[i], anim, i)); }
+
+  /* ================= 그림 3: 빌드별 세 지표, 검은 그래프 화면 =================
+     제품의 그래프 화면처럼 가로로 긴 검은 화면 셋(가장자리 집진, Eco 런타임, 무게). 빌드 32~41을 막대로.
+     막대는 목표와의 차이(흰 1점 쇄선이 목표). 목표를 채운 빌드는 흰색, 못 채운 빌드만 빨강.
+     부품을 바꾼 빌드에는 그림 1의 번호 풍선과 세로 점선. 오른쪽에 빌드 41의 값(가는 큰 숫자)과 목표와의 차이. */
+  const F3K = ['edge', 'eco', 'weight'];
+  const F3MIN = { edge: 2, eco: 240, weight: 120 };   // 작은 흔들림을 부풀리지 않는 최소 범위
+  const f3Fmt = { edge: v => NF(1).format(v) + '%', eco: mmss, weight: v => kg(v) + ' kg' };
+  const f3Big = { edge: v => [NF(1).format(v), '%'], eco: v => [mmss(v), ''], weight: v => [kg(v), 'kg'] };
+  const limWord = k => LOWER[k] ? (KO() ? '최대' : 'MAX') : (KO() ? '최소' : 'MIN');
+  const f3Cur = { i: IX };
+  const SCR = { bg: C.black, ok: '#ffffff', bad: C.mode[2], sub: '#b9b9b9', guide: '#6b6b6b', togo: '#5c5c5c' };
+  function weekRange(b) {
+    const w = DATA.buildWeek[b], mon = new Date(Date.UTC(2025, 11, 29 + 7 * (w - 1))), sun = new Date(mon.getTime() + 6 * 864e5);
+    const iso = d => d.toISOString().slice(0, 10);
+    return KO() ? `${DAY.ko(iso(mon))}~${DAY.ko(iso(sun))}` : `${DAY.en(iso(mon))} – ${DAY.en(iso(sun))}`;
+  }
+  function renderF3(animate) {
+    const F = facts(), t = L().f3, plot = $('#f3Plot'), host = $('#f3'), anim = animOK(animate), S = F.S, B = DATA.builds, n = B.length;
+    $('#f3T').textContent = glue(t.title[F.m](F));
+    $('#f3K').replaceChildren(
+      h('li', null, sv('svg', { width: 12, height: 12 }, sv('rect', { width: 12, height: 12, fill: SCR.bg }), sv('rect', { x: 3.5, y: 2, width: 5, height: 8, fill: SCR.ok })), t.keys.meet),
+      h('li', null, sv('svg', { width: 12, height: 12 }, sv('rect', { width: 12, height: 12, fill: SCR.bg }), sv('rect', { x: 3.5, y: 2, width: 5, height: 8, fill: SCR.bad })), t.keys.miss),
+      h('li', null, sv('svg', { width: 24, height: 12 }, sv('rect', { width: 24, height: 12, fill: SCR.bg }), sv('line', { x1: 2, x2: 22, y1: 6, y2: 6, stroke: '#fff', 'stroke-dasharray': '8 2 2 2' })), t.keys.target),
+      h('li', null, sv('svg', { width: 14, height: 14 }, sv('circle', { cx: 7, cy: 7, r: 6.3, fill: '#fff', stroke: C.purpleT })), t.keys.chg));
+    const [W, H] = plotSize(plot, 260, 300);
+    const sh = Math.min(184, (H - 20) / 3), gapS = (H - 3 * sh) / 2, wide = W >= 520, pad = wide ? 18 : 14, rw = wide ? 158 : 0;
+    const dfmt = (k, d) => k === 'eco' ? (d < 0 ? '−' : '+') + mmss(Math.abs(d)) : k === 'edge' ? `${d < 0 ? '−' : '+'}${NF(1).format(Math.abs(d))} ${t.pts}` : `${d < 0 ? '−' : '+'}${gr(Math.abs(d))} g`;
+    const gx0 = pad, gx1 = W - pad - rw, slot = (gx1 - gx0) / n, x = i => gx0 + slot * (i + .5), bw = Math.max(5, Math.min(26, slot * .5));
+    const jost = { 'font-family': 'Jost, sans-serif' };
+    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g0 = sv('g'), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
+    svg.append(g0, gsel, g1, g2);
+    const chg = F.parts.filter(p => p.chg), chgIx = chg.map(p => bIx(p.chg));
+    const scr = F3K.map((k, p) => {
+      const vals = S[k], tgt = F.t[k], d = vals.map(v => v - tgt), y0 = p * (sh + gapS), gy0 = y0 + (wide ? 60 : 94), gy1 = y0 + sh - 30;
+      let lo = Math.min(0, ...d), hi = Math.max(0, ...d);
+      if (hi - lo < F3MIN[k]) { const c = (hi + lo) / 2; lo = c - F3MIN[k] / 2; hi = c + F3MIN[k] / 2; }
+      const m = (hi - lo) * .2; lo -= m; hi += m;
+      const y = v => gy0 + (hi - v) / (hi - lo) * (gy1 - gy0), yb = y(0);
+      // 화면
+      g0.append(sv('rect', { x: 0, y: y0, width: W, height: sh, rx: 8, fill: SCR.bg }));
+      // 머리: 지표 이름과 목표
+      const ht = sv('text', { x: pad, y: y0 + 27, 'font-size': 14, 'font-weight': 500, fill: '#fff' });
+      ht.append(sv('tspan', { text: t.panels[k] }), sv('tspan', { dx: 10, 'font-size': 12.5, 'font-weight': 400, fill: SCR.sub, text: `${limWord(k)} ${f3Fmt[k](tgt)}` }));
+      g2.append(ht);
+      // 빌드 41의 값: 가는 큰 숫자와 목표와의 차이(넓으면 오른쪽 칸, 좁으면 머리 오른쪽)
+      const endOk = passes(k, vals[IX], tgt), [big, unit] = f3Big[k](vals[IX]), vx = W - pad;
+      const fsB = wide ? 40 : 26, vy = wide ? y0 + sh / 2 + 8 : y0 + 34;
+      const bt = sv('text', { x: vx, y: vy, 'text-anchor': 'end', 'font-size': fsB, 'font-weight': 300, fill: '#fff', 'letter-spacing': '.01em', ...jost });
+      bt.append(sv('tspan', { text: big })); if (unit) bt.append(sv('tspan', { dx: 3, 'font-size': fsB * .42, 'font-weight': 400, text: unit }));
+      g2.append(bt, sv('text', { x: vx, y: vy + (wide ? 27 : 20), 'text-anchor': 'end', 'font-size': 13, 'font-weight': 500, fill: endOk ? SCR.ok : SCR.bad, text: glue(dfmt(k, d[IX])) + (endOk ? ' ✓' : ' ✗') }));
+      if (wide) g2.append(sv('text', { x: vx, y: y0 + 27, 'text-anchor': 'end', 'font-size': 12, 'font-weight': 500, fill: SCR.sub, 'letter-spacing': KO() ? 0 : '.06em', text: t.now(DATA.now) }));
+      // 부품을 바꾼 빌드: 세로 점선과 번호 풍선
+      chg.forEach(pt => {
+        const xx = x(bIx(pt.chg)), by = gy0 - 17;
+        g0.append(sv('line', { x1: xx, x2: xx, y1: by + 10, y2: gy1 + 3, stroke: SCR.guide, 'stroke-width': 1, 'stroke-dasharray': '2 3' }));
+        g2.append(sv('circle', { cx: xx, cy: by, r: 9.5, fill: '#fff' }), sv('text', { x: xx, y: by + 4.2, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 500, fill: C.purpleT, ...jost, text: pt.i + 1 }));
+      });
+      // 목표선(막대의 바닥): 흰 1점 쇄선
+      g1.append(sv('line', { x1: gx0, x2: gx1, y1: yb, y2: yb, stroke: '#fff', 'stroke-width': 1, 'stroke-dasharray': '10 3 2 3' }));
+      // 막대
+      vals.forEach((v, i) => {
+        const ok = passes(k, v, tgt), ye = y(d[i]), r = sv('rect', { x: x(i) - bw / 2, y: Math.min(yb, ye), width: bw, height: Math.max(1.5, Math.abs(ye - yb)), fill: ok ? SCR.ok : SCR.bad });
+        if (anim) { r.setAttribute('class', 'growy'); r.style.transformOrigin = d[i] >= 0 ? 'center bottom' : 'center top'; r.style.animationDelay = (p * 120 + i * 35) + 'ms'; }
+        g1.append(r);
+      });
+      // 차이: 빌드 37과 부품을 바꾼 빌드, 막대 끝에(다른 글자나 막대와 겹치면 뺀다)
+      const taken = vals.map((v, i) => { const ye = y(d[i]); return { x0: x(i) - bw / 2, x1: x(i) + bw / 2, y0: Math.min(yb, ye), y1: Math.max(yb, ye) }; });
+      [...chgIx, I37].filter((i, j, a) => a.indexOf(i) === j && i !== IX).forEach(i => {
+        const txt = dfmt(k, d[i]), w = textW(txt, 12, 500) + 4, up = d[i] >= 0, ty = up ? y(d[i]) - 5 : y(d[i]) + 14;
+        const r = { x0: x(i) - w / 2, x1: x(i) + w / 2, y0: ty - 11, y1: ty + 2 };
+        if (r.y0 < gy0 - 2 || r.y1 > gy1 + 4 || r.x0 < gx0 - 6 || r.x1 > gx1 + 6 || taken.some(q => r.x0 < q.x1 && q.x0 < r.x1 && r.y0 < q.y1 && q.y0 < r.y1)) return;
+        taken.push(r);
+        g2.append(sv('rect', { x: r.x0, y: r.y0, width: w, height: 14, fill: SCR.bg }),
+          sv('text', { x: x(i), y: ty, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 500, fill: passes(k, vals[i], tgt) ? '#fff' : SCR.bad, text: txt }));
+      });
+      // 빌드 번호: 검토(37)와 지금(41)은 흰색
+      B.forEach((b, i) => {
+        if (slot < 26 && i % 2 === 0 && i !== I37) return;
+        const key = i === IX || i === I37;
+        g2.append(sv('text', { x: x(i), y: y0 + sh - 11, 'text-anchor': 'middle', 'font-size': 11.5, 'font-weight': key ? 500 : 400, fill: key ? '#fff' : SCR.sub, ...jost, text: b }));
+      });
+      return { k, y0 };
+    });
+    plot.replaceChildren(svg);
+    plot.setAttribute('aria-label', t.sr);
+    const chgAt = i => F.parts.filter(p => p.chg === B[i]);
+    const tipFor = i => {
+      const rows = F3K.map(k => { const v = S[k][i], ok = passes(k, v, F.t[k]); return { value: glue(f3Fmt[k](v)), label: `${t.panels[k]} · ${dfmt(k, v - F.t[k])}` + (ok ? '' : ' · ' + t.keys.miss), tone: ok ? null : 'bad' }; });
+      chgAt(i).forEach(p => rows.push({ value: '', label: `${p.i + 1} ${L().f1.parts[p.i]} · ${t.keys.chg}`, tone: 'chg' }));
+      return tipNodes([`${L().t1.build(B[i])}`], rows, weekRange(B[i]) + (i === I37 ? ` · ${t.review}` : ''));
+    };
+    f3Cur.say = i => `${L().t1.build(B[i])}: ` + F3K.map(k => `${t.panels[k]} ${f3Fmt[k](S[k][i])}`).join(', ');
+    const sel = i => {
+      gsel.replaceChildren();
+      if (i == null || i < 0) return;
+      scr.forEach(q => gsel.append(sv('rect', { x: x(i) - slot / 2, y: q.y0 + 44, width: slot, height: sh - 50, fill: '#fff', opacity: .14 })));
+    };
+    wireItems(host, plot, n, f3Cur, xx => Math.max(0, Math.min(n - 1, Math.floor((xx - gx0) / slot))),
+      i => { sel(i); const o = offsetIn(host, plot); placeTip(host, tipFor(i), o.x + x(i), o.y, o.y + H); }, () => sel(-1));
+    $('#f3Table').replaceChildren(srTable(t.sr, t.srHead, B.map((b, i) => [L().t1.build(b), NF(1).format(S.edge[i]), mmss(S.eco[i]), kg(S.weight[i]), chgAt(i).map(p => `${p.i + 1} ${L().f1.parts[p.i]}`).join(', ') || '—'])));
+  }
+
+  /* ================= 표 1: 빌드 비교 =================
+     dyson.com 비교 표처럼 왼쪽 라벨 열, 묶음 머리, 머리카락 선. 목표 열, 빌드 37(검토)부터 41(지금)까지.
+     목표에 못 미친 값은 빨강과 ✗. 아래에 바꾼 부품(그림 1의 번호)과 목표 달성 수. */
+  const T1G = [['run', ['auto', 'boost']], ['clean', ['suction', 'carpet']], ['size', ['noise', 'bin']]];   // 가장자리 집진 · Eco · 무게는 그림 3이 맡는다
+  const T1B = [37, 38, 39, 40, 41];
+  const T1HIDE = { 38: 'hide-m', 39: 'hide-m', 40: 'hide-s' };
+  const t1Cur = { i: 0 };
+  function t1Target(k, F) { const v = F.t[k]; return v == null ? null : `${limWord(k)} ${FMT[k](v)}`; }
+  function t1Delta(k, d) {
+    const s = d < 0 ? '−' : '+', a = Math.abs(d), t = L().t1;
+    if (k === 'eco' || k === 'auto' || k === 'boost') return s + mmss(a);
+    if (k === 'weight') return `${s}${gr(a)} g`;
+    if (k === 'edge') return `${s}${NF(1).format(a)} ${t.pts}`;
+    if (k === 'noise') return `${s}${NF(1).format(a)} dB`;
+    return `${s}${NF(0).format(a)} AW`;
+  }
+  function renderT1(animate) {
+    const F = facts(), t = L().t1, host = $('#t1'), S = F.S;
+    $('#t1T').textContent = glue(t.title[F.m](F));
+    const cls = (b, base) => [base, T1HIDE[b], b === DATA.now ? 'cur' : null].filter(Boolean).join(' ');
+    const head = h('tr', null, h('th', { scope: 'col' }, h('span', { class: 'sr-only', text: t.measure })), h('th', { scope: 'col', text: t.target }),
+      T1B.map(b => h('th', { scope: 'col', class: cls(b, 'r') }, t.build(b), b === DATA.review ? h('small', { text: t.review }) : b === DATA.now ? h('small', { text: t.now }) : null)));
+    const dataRows = [];
+    const body = [];
+    T1G.forEach(([g, keys]) => {
+      body.push(h('tr', { class: 'grp' }, h('th', { colspan: 2, scope: 'colgroup', text: t.groups[g] }), T1B.map(b => h('td', { class: cls(b, 'r'), 'aria-hidden': 'true' }))));
+      keys.forEach(k => {
+        const tg = t1Target(k, F), u = t.units[k];
+        const row = h('tr', { class: 'dr', 'data-k': k, 'data-say': glue(`${t.rows[k]}${u ? ' (' + u + ')' : ''}: ${T1B.map(b => `${t.build(b)} ${FMT[k](S[k][bIx(b)])}`).join(', ')}${tg ? ', ' + t.target + ' ' + tg : ''}`) },
+          h('th', { scope: 'row' }, t.rows[k], u ? h('span', { class: 'u', text: u }) : null),
+          h('td', { class: 'tgt' }, tg || h('span', { class: 'dash', text: '—' })),
+          T1B.map(b => {
+            const v = S[k][bIx(b)], bad = F.t[k] != null && !passes(k, v, F.t[k]);
+            return h('td', { class: cls(b, 'r') + (bad ? ' bad' : '') }, h('span', { class: 'num' + (bad ? ' bad' : '') }, FMT[k](v), bad ? h('span', { class: 'x', 'aria-hidden': 'true', text: '✗' }) : null));
+          }));
+        dataRows.push(k);
+        body.push(row);
+      });
+    });
+    // 바꾼 부품과 목표 달성 수
+    body.push(h('tr', { class: 'grp' }, h('th', { colspan: 2, scope: 'colgroup', text: KO() ? '빌드' : 'BUILD' }), T1B.map(b => h('td', { class: cls(b, 'r'), 'aria-hidden': 'true' }))));
+    body.push(h('tr', { class: 'chg-row' }, h('th', { scope: 'row', text: t.changed }), h('td', { class: 'tgt' }),
+      T1B.map(b => { const ps = F.parts.filter(p => p.chg === b); return h('td', { class: cls(b, 'r') }, ps.length ? h('span', { class: 'chg' }, ps.map(p => h('span', { class: 'bal p', title: L().f1.parts[p.i], text: p.i + 1 })), h('span', { class: 'sr-only', text: ps.map(p => L().f1.parts[p.i]).join(', ') })) : h('span', { class: 'dash', text: '—' })); })));
+    body.push(h('tr', { class: 'met-row' }, h('th', { scope: 'row', text: t.met }), h('td', { class: 'tgt', text: '7' }),
+      T1B.map(b => { const m = F.X.met[bIx(b)]; return h('td', { class: cls(b, 'r') }, h('span', { class: 'num' + (m === 7 ? ' ok' : '') }, String(m), h('span', { class: 'u', text: '/ 7' }))); })));
+    const tb = h('table', { class: 'tb t1' }, h('thead', null, head), h('tbody', { class: animOK(animate) ? 'fade' : null, tabindex: 0, 'aria-label': glue(t.title[F.m](F)).replace(/⁠/g, '') }, body));
+    $('#t1Wrap').replaceChildren(tb);
+    wireRows(host, $('tbody', tb), 'tr.dr', t1Cur, (i, row) => {
+      const k = dataRows[i], v = S[k][IX], v37 = S[k][I37], tg = F.t[k], u = t.units[k], unit = x => glue(u ? (u === '%' ? `${FMT[k](x)}%` : `${FMT[k](x)} ${u}`) : FMT[k](x));
+      const ok = tg == null || passes(k, v, tg), o = offsetIn(host, row);
+      placeTip(host, tipNodes(headOf(t.rows[k]), [
+        { value: unit(v), label: t.build(DATA.now), tone: ok ? null : 'bad' },
+        tg != null ? { value: glue(t1Target(k, F) + (u && u !== '%' ? ' ' + u : u === '%' ? '%' : '')), label: t.target } : { value: '', label: t.none },
+        tg != null ? { value: t1Delta(k, v - tg), label: t.vs, tone: ok ? 'good' : 'bad' } : null,
+        { value: unit(v37), label: t.build(DATA.review) }
+      ]), o.x + Math.min(o.w * .6, 360), o.y, o.y + o.h);
+    });
+  }
+
+  /* ================= 그림 4: 내구 시험 =================
+     시험마다 시작부터 끝나는 날까지 한 줄. 한 양은 진한 막대, 남은 양은 니켈, 설계 확정 뒤로 넘친 만큼은 빨강.
+     부품을 바꿔 다시 시작한 시험은 그 부품의 번호 풍선(보라). 오늘은 실선, 설계 확정은 1점 쇄선. 늦게 끝나는 것부터.
+     그림 3과 같은 검은 화면 위에: 한 양은 흰 막대, 남은 양은 회색, 설계 확정 뒤는 빨강. */
+  const f4Cur = { i: 0 };
+  const D0 = '2026-10-01', D1 = '2026-12-21';
+  const dayN = s => Math.round((dt(s) - dt(D0)) / 864e5);
+  function renderF4(animate) {
+    const F = facts(), t = L().f4, plot = $('#f4Plot'), host = $('#f4'), anim = animOK(animate), R = F.tests, n = R.length;
+    $('#f4T').textContent = glue(t.title[F.m](F));
+    const box = (fill, stroke) => sv('svg', { width: 14, height: 10 }, sv('rect', { x: .5, y: .5, width: 13, height: 9, rx: 1, fill, stroke: stroke || fill }));
+    const kbox = fill => sv('svg', { width: 16, height: 12 }, sv('rect', { width: 16, height: 12, fill: SCR.bg }), sv('rect', { x: 3, y: 3.5, width: 10, height: 5, fill }));
+    $('#f4K').replaceChildren(h('li', null, kbox(SCR.ok), t.keys.done), h('li', null, kbox(SCR.togo), t.keys.togo), h('li', null, kbox(SCR.bad), t.keys.after),
+      h('li', null, sv('svg', { width: 14, height: 14 }, sv('circle', { cx: 7, cy: 7, r: 6.3, fill: '#fff', stroke: C.purpleT })), t.keys.restart));
+    const [W0, H0] = plotSize(plot, 260, 300), P = W0 < 520 ? 14 : 18, W = W0 - 2 * P, H = H0 - 2 * P;
+    const unit = q => t.units[DATA.units[q.id]], sub = q => q.complete ? t.whole(NF(0).format(q.target), unit(q)) : t.of(NF(0).format(q.done), NF(0).format(q.target), unit(q));
+    const endTxt = q => q.complete ? t.done(DAY[state.lang](q.end)) : DAY[state.lang](q.end);
+    const nameW = Math.min(Math.round(W * .36), Math.ceil(Math.max(...R.map(q => Math.max(textW(t.tests[q.id], 13.5, 500), textW(sub(q), 12.5))))) + 18);
+    const endW = Math.ceil(Math.max(...R.map(q => Math.max(textW(endTxt(q), 13, 500), q.late ? textW(t.late(q.late), 12.5, 500) : 0)))) + 12;
+    const top = 30, axisH = 26, rowH = (H - top - axisH) / n, barH = Math.max(10, Math.min(20, rowH * .38));
+    const span = dayN(D1), x = s => nameW + dayN(s) / span * (W - nameW - endW);
+    const svg = sv('svg', { width: W0, height: H0, viewBox: `0 0 ${W0} ${H0}`, 'aria-hidden': 'true' }), gin = sv('g', { transform: `translate(${P} ${P})` }), g0 = sv('g'), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
+    svg.append(sv('rect', { width: W0, height: H0, rx: 8, fill: SCR.bg }), gin); gin.append(g0, gsel, g1, g2);
+    const bottom = top + n * rowH;
+    // 달: 1일의 어두운 세로선과 아래 이름
+    ['2026-10-01', '2026-11-01', '2026-12-01'].forEach(s => {
+      const xx = x(s), d = dt(s);
+      g0.append(sv('line', { x1: xx, x2: xx, y1: top - 4, y2: bottom, stroke: '#333', 'stroke-width': 1 }),
+        sv('text', { x: xx + 4, y: bottom + 17, 'font-size': 12, fill: SCR.sub, text: KO() ? `${d.getUTCMonth() + 1}월` : MON[d.getUTCMonth()] }));
+    });
+    // 오늘(시험 기준일)과 설계 확정
+    const xt = x(DATA.asof), xf = x(DATA.freeze);
+    g0.append(sv('line', { x1: xt, x2: xt, y1: top - 14, y2: bottom, stroke: '#fff', 'stroke-width': 1 }),
+      sv('text', { x: xt - 5, y: top - 6, 'text-anchor': 'end', 'font-size': 11.5, 'font-weight': 500, fill: '#fff', 'letter-spacing': KO() ? 0 : '.06em', text: t.today }),
+      sv('line', { x1: xf, x2: xf, y1: top - 14, y2: bottom, stroke: '#fff', 'stroke-width': 1.5, 'stroke-dasharray': '10 3 2 3' }));
+    // 설계 확정 이름: 선 오른쪽에, 자리가 모자라면 짧게, 그래도 모자라면 그림 끝에 맞춘다
+    const fw = s => textW(s, 11.5, 500) * (KO() ? 1 : 1.08);
+    const fz = xf + 5 + fw(t.freeze) <= W ? t.freeze : t.freezeS;
+    g0.append(sv('text', { x: Math.min(xf + 5, W - fw(fz)), y: top - 6, 'font-size': 11.5, 'font-weight': 500, fill: '#fff', 'letter-spacing': KO() ? 0 : '.06em', text: fz }));
+    const haloAt = px => ({ stroke: SCR.bg, 'stroke-width': 4, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
+    const geo = R.map((q, i) => {
+      const yc = top + i * rowH + rowH / 2, y0 = yc - barH / 2, xs = x(q.start), xe = x(q.end), xn = q.complete ? xe : Math.min(xt, xe);
+      g1.append(sv('text', { x: 0, y: yc - 2, 'font-size': 13.5, 'font-weight': 500, fill: '#fff', text: fitText(t.tests[q.id], 13.5, 500, nameW - 14) }),
+        sv('text', { x: 0, y: yc + 14, 'font-size': 12.5, fill: SCR.sub, text: fitText(sub(q), 12.5, 400, nameW - 14) }));
+      const gb = sv('g', anim ? { class: 'growx', style: { animationDelay: (i * 70) + 'ms' } } : null);
+      gb.append(sv('rect', { x: xs, y: y0, width: Math.max(1, xn - xs), height: barH, fill: SCR.ok }));
+      if (!q.complete) {
+        const xa = Math.min(xe, xf);
+        if (xa > xn) gb.append(sv('rect', { x: xn, y: y0, width: xa - xn, height: barH, fill: SCR.togo }));
+        if (xe > xf) gb.append(sv('rect', { x: xf, y: y0, width: xe - xf, height: barH, fill: SCR.bad }));
+      }
+      g1.append(gb);
+      if (q.restart != null) {
+        const bx = xs - 13;
+        g2.append(sv('circle', { cx: bx, cy: yc, r: 9.5, fill: '#fff' }),
+          sv('text', { x: bx, y: yc + 4, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 500, fill: C.purpleT, 'font-family': 'Jost, sans-serif', text: q.restart + 1 }));
+      }
+      const ex = xe + 8;
+      if (q.late) g2.append(sv('text', { x: ex, y: yc - 2, 'font-size': 13, 'font-weight': 500, fill: '#fff', ...haloAt(ex), text: endTxt(q) }),
+        sv('text', { x: ex, y: yc + 13, 'font-size': 12.5, 'font-weight': 500, fill: SCR.bad, ...haloAt(ex), text: t.late(q.late) }));
+      else g2.append(sv('text', { x: ex, y: yc + 4.5, 'font-size': 13, 'font-weight': q.complete ? 400 : 500, fill: q.complete ? SCR.sub : '#fff', ...haloAt(ex), text: endTxt(q) }));
+      return { y0: top + i * rowH, y1: top + (i + 1) * rowH, yc, xs, xe };
+    });
+    plot.replaceChildren(svg);
+    plot.setAttribute('aria-label', t.sr);
+    const tipFor = i => {
+      const q = R[i], u = unit(q);
+      return tipNodes(headOf(t.tests[q.id]), [
+        { key: C.ink, value: glue(t.of(NF(0).format(q.done), NF(0).format(q.target), u)), label: t.keys.done },
+        { value: glue(t.tRate(NF(0).format(q.rate) + (KO() ? (u === 'km' ? ' km' : u) : ' ' + u))), label: '' },
+        { value: DAY[state.lang](q.start), label: q.restart != null ? `${t.tRestart} · ${L().f1.parts[q.restart]}` : t.tStart, tone: q.restart != null ? 'chg' : null },
+        { value: DAY[state.lang](q.end), label: q.complete ? t.tEnded : t.tEnds },
+        q.late ? { key: C.red, value: t.late(q.late), label: t.tLate, tone: 'bad' } : null
+      ]);
+    };
+    f4Cur.say = i => { const q = R[i]; return glue(`${t.tests[q.id]}: ${sub(q)}, ${q.complete ? t.tEnded : t.tEnds} ${DAY[state.lang](q.end)}${q.late ? ', ' + t.late(q.late) : ''}`); };
+    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const g = geo[i]; gsel.append(sv('rect', { x: -P + 4, y: g.y0 + 1, width: W0 - 8, height: g.y1 - g.y0 - 2, fill: '#fff', opacity: .12 })); };
+    wireItems(host, plot, n, f4Cur, (xx, yy) => Math.max(0, Math.min(n - 1, Math.floor((yy - P - top) / rowH))),
+      i => { sel(i); const o = offsetIn(host, plot), g = geo[i]; placeTip(host, tipFor(i), o.x + P + Math.min(g.xe, W - 40), o.y + P + g.y0, o.y + P + g.y1); }, () => sel(-1));
+    $('#f4Table').replaceChildren(srTable(t.sr, t.srHead, R.map(q => [t.tests[q.id], NF(0).format(q.done), `${NF(0).format(q.target)} ${unit(q)}`, DAY[state.lang](q.end), String(q.late)])));
+  }
+
+  /* ================= 표 2: 설계 확정까지 남은 것 =================
+     부품은 그림 1의 번호 풍선과 이름, 문제의 핵심 숫자는 굵게(나쁘면 빨강), 수정의 효과는 굵게. 줄마다 툴팁에 자세한 값. */
+  const t2Cur = { i: 0 };
+  function fixOf(q, F) {
+    const fx = L().t2.fix;
+    for (const k of [`${F.m}:${q.kind}:${q.part}`, `${F.m}:${q.kind}`, `${q.kind}:${q.test}`]) if (fx[k]) return typeof fx[k] === 'function' ? fx[k](q, F) : fx[k];
+    return ['', ''];
+  }
+  function renderT2(animate) {
+    const F = facts(), t = L().t2, host = $('#t2'), tip = t.tip;
+    $('#t2T').textContent = glue(t.title[F.m](F));
+    const Q = F.issues;
+    const head = h('tr', null, h('th', { scope: 'col', text: t.head[0] }), h('th', { scope: 'col', class: 'is', text: t.head[1] }), h('th', { scope: 'col', class: 'fx', text: t.head[2] }), h('th', { scope: 'col', class: 'hide-m', text: t.head[3] }), h('th', { scope: 'col', class: 'hide-s', text: t.head[4] }));
+    const partCell = q => q.part != null
+      ? h('span', { class: 'pt' }, bal(q.part, !!F.parts[q.part].chg), h('span', { text: L().f1.parts[q.part] }))
+      : h('span', { class: 'pt' }, h('span', { text: q.kind === 'budget' ? t.budget : t.test }));
+    const rows = Q.map(q => {
+      const [a, b, c, tone] = t.issue[q.kind](q, F), [fa, fb] = fixOf(q, F), dueK = q.due || 'test', due = typeof t.due[dueK] === 'function' ? t.due[dueK](q) : t.due[dueK];
+      const owner = t.owner[q.owner || 'lab'];
+      return h('tr', { 'data-say': glue(`${q.part != null ? L().f1.parts[q.part] : q.kind === 'budget' ? t.budget : t.test}: ${a}${b}${c}. ${fa}${fb}. ${owner}, ${due.join(' ')}`) },
+        h('td', null, partCell(q)),
+        h('td', { class: 'is' }, glue(a), b ? h('b', { class: tone === 'bad' ? null : 'ok', text: glue(b) }) : null, glue(c)),
+        h('td', { class: 'fx' }, glue(fa), fb ? h('b', { text: glue(fb) }) : null, h('small', { class: 'show-s', 'aria-hidden': 'true', text: glue(due.join(' · ')) })),
+        h('td', { class: 'ow hide-m', text: owner }),
+        h('td', { class: 'du hide-s' }, due[0], due[1] ? h('small', { text: due[1] }) : null));
+    });
+    const tb = h('table', { class: 'tb t2' }, h('thead', null, head), h('tbody', { class: animOK(animate) ? 'fade' : null, tabindex: 0, 'aria-label': glue(t.title[F.m](F)).replace(/⁠/g, '') }, rows));
+    $('#t2Wrap').replaceChildren(tb);
+    const g = x => glue(`${gr(x)} g`);
+    const detail = q => {
+      if (q.kind === 'weight') { const p = F.parts[q.part]; return [{ value: g(p.w), label: tip.now, tone: 'bad' }, { value: g(p.b), label: tip.budget }, { value: glue(`−${-q.fix_g} g`), label: tip.fix, tone: 'good' }, { value: g(p.w + q.fix_g), label: tip.after }]; }
+      if (q.kind === 'eco') { const m = F.modes[0]; return [{ value: mmss(m.v), label: tip.now, tone: 'bad' }, { value: `${tip.min} ${mmss(m.min)}`, label: '' }, { value: '+' + mmss(q.fix_s), label: tip.fix, tone: 'good' }, { value: mmss(m.v + q.fix_s), label: tip.after }]; }
+      if (q.kind === 'late' || q.kind === 'test') {
+        const T = F.tests.find(x => x.id === q.test), u = L().f4.units[DATA.units[q.test]];
+        return [{ value: glue(L().f4.of(NF(0).format(T.done), NF(0).format(T.target), u)), label: tip.done }, { value: glue(tip.rate(NF(0).format(T.rate))), label: '' },
+          { value: DAY[state.lang](T.end), label: tip.ends, tone: T.late ? 'bad' : null }, T.endTwoRigs ? { value: DAY[state.lang](T.endTwoRigs), label: tip.two, tone: T.late ? 'good' : null } : null];
+      }
+      if (q.kind === 'budget') return [{ value: g(F.total), label: tip.now, tone: 'bad' }, { value: g(F.budget), label: tip.max }, { value: glue(`−${F.fixSave} g`), label: tip.fix, tone: 'good' }, { value: g(F.total - F.fixSave), label: tip.afterAll, tone: 'bad' }];
+      const due = t.due[q.due || 'test'];
+      return [{ value: t.owner[q.owner || 'lab'], label: tip.owner }, { value: (typeof due === 'function' ? due(q) : due).join(' · '), label: tip.due }];
+    };
+    wireRows(host, $('tbody', tb), 'tr', t2Cur, (i, row) => {
+      const q = Q[i], o = offsetIn(host, row);
+      const name = q.part != null ? L().f1.parts[q.part] : q.kind === 'budget' ? t.budget : `${t.test} · ${L().f4.tests[q.test]}`;
+      placeTip(host, tipNodes(headOf(name, q.part != null ? q.part : null, q.part != null && !!F.parts[q.part].chg), detail(q)), o.x + Math.min(o.w * .45, 320), o.y, o.y + o.h);
+    });
+  }
+
+  /* ================= 숫자를 세는 법 ================= */
+  function renderTerms() {
+    const t = L();
+    $('#terms').replaceChildren(...t.notes.items.map(([k, v]) => h('p', null, h('b', null, k, ': '), v)), h('p', { class: 'src', text: t.notes.src }));
+  }
+
+  /* ================= 만드는 법: 그림 1(분해도)을 다시 그리는 작업대 ================= */
+  function drawBench() {
+    const F = facts(), plot = $('#wbPlot'), without = state.mode === 'without';
+    const W = Math.max(240, Math.round(plot.clientWidth)), Hh = Math.max(320, Math.round(plot.clientHeight));
+    plot._w = Math.round(plot.clientWidth); plot._h = Math.round(plot.clientHeight);
+    let svg;
+    if (!without) {
+      svg = exSvg(F, W, Hh, { layers: true, asm: true }).svg;
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', glue(L().f1.title[F.m](F)).replace(/⁠/g, ''));
+    } else {
+      // 명세 없이: 부품마다 무게와 예산을 나란히 놓은 기본 묶음 막대. 기본 색, Arial, 격자, 비스듬한 이름. 예산 초과도 바꾼 부품도 보이지 않는다
+      const P = F.parts, font = { 'font-family': 'Arial, sans-serif' };
+      const padL = 44, padR = 8, padT = 30, padB = 70, PW = W - padL - padR, PH = Hh - padT - padB;
+      const hi = Math.ceil(Math.max(...P.map(p => Math.max(p.w, p.b))) * 1.1 / 200) * 200, y = v => padT + (hi - v) / hi * PH;
+      const gw = PW / P.length, bw = Math.max(4, Math.min(18, (gw - 8) / 2));
+      svg = sv('svg', { width: W, height: Hh, viewBox: `0 0 ${W} ${Hh}`, role: 'img', 'aria-label': L().build.generic });
+      const g1 = sv('g', { class: 'layer', 'data-step': 1 }), g2 = sv('g', { class: 'layer', 'data-step': 2 }), g4 = sv('g', { class: 'layer', 'data-step': 4 });
+      for (let v = 0; v <= hi; v += 200) g1.append(sv('line', { x1: padL, x2: W - padR, y1: y(v), y2: y(v), stroke: v ? '#d0d0d0' : '#888' }), sv('text', { x: padL - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, fill: '#666', ...font, text: v }));
+      [['weight_g', 0], ['budget_g', 1]].forEach(([s, k]) => g1.append(sv('rect', { x: padL + k * 86, y: 6, width: 9, height: 9, fill: C.generic[k] }), sv('text', { x: padL + 13 + k * 86, y: 14, 'font-size': 11, fill: '#333', ...font, text: s })));
+      P.forEach((p, i) => {
+        const x0 = padL + i * gw + (gw - bw * 2 - 2) / 2;
+        g2.append(sv('rect', { x: x0, y: y(p.w), width: bw, height: padT + PH - y(p.w), fill: C.generic[0] }), sv('rect', { x: x0 + bw + 2, y: y(p.b), width: bw, height: padT + PH - y(p.b), fill: C.generic[1] }));
+        g4.append(sv('text', { x: x0 + bw / 2, y: y(p.w) - 4, 'text-anchor': 'middle', 'font-size': 9.5, fill: '#333', ...font, text: p.w }));
+        const lx = padL + i * gw + gw / 2, ly = padT + PH + 12;
+        g1.append(sv('text', { x: lx, y: ly, 'text-anchor': 'end', transform: `rotate(-40 ${lx} ${ly})`, 'font-size': 10.5, fill: '#666', ...font, text: L().f1.parts[i] }));
+      });
+      svg.append(g1, g2, g4);
+    }
+    plot.replaceChildren(svg);
+    const win = $('#win');
+    if (win.classList.contains('building')) $$('.layer', svg).forEach(el => { if ($$(`.layer[data-step="${el.dataset.step}"].on`, win).some(o => !svg.contains(o))) el.classList.add('on'); });
+    else $$('.layer', svg).forEach(el => el.classList.add('on'));
+  }
+
+  const CODE_TABS = [['prompt', null], ['plan', 'plan.md'], ['js', 'figure-1.js'], ['tab', 'Tableau'], ['pbi', 'Power BI']];
+  function codeLines(kind) {
+    const ko = KO(), F = facts(), t1 = L().f1, ttl = glue(t1.title[F.m](F)).replace(/[⁠ ]/g, m => m === ' ' ? ' ' : ''), sub = t1.sub, q = s => JSON.stringify(s), kv = (k, v) => k.padEnd(16) + v;
+    const c = ko ? {
+      head: '그림 1 · DASHBOARD.md를 읽은 에이전트가 그림', filter: '위의 모델 필터',
+      s1: '1 · 틀: 바닥에서 손까지 1점 쇄선 축 하나에',
+      s2: '2 · 같은 간격으로 벌리고, 예산은 반대쪽 괄호',
+      s3: '3 · 예산 초과는 빨강, 검토 이후 바꾼 부품은 보라',
+      s4: '4 · 부품마다 번호 풍선과 지시선',
+      s5: '5 · 결과를 제목으로, 조립한 무게는 MAX까지', once: '처음 한 번: dyson.tps를 내 Tableau 리포지토리의 Preferences.tps에 넣기'
+    } : {
+      head: 'Figure 1 · drawn by an agent from DASHBOARD.md', filter: 'the model filter above',
+      s1: '1 · frame: floor to hand on one dash-dot axis',
+      s2: '2 · pulled apart; the budget as a bracket opposite',
+      s3: '3 · over budget in red, changed since review in purple',
+      s4: '4 · a numbered balloon and leader for each part',
+      s5: '5 · the result as the title, the assembled bar to MAX', once: 'once: add dyson.tps to Preferences.tps in My Tableau Repository'
+    };
+    const J = {
+      prompt: ko ? [[0, 'DASHBOARD.md를 읽고 그대로 따라 줘.'], [0, '무선청소기 플랫폼의 빌드 41 시제품 시험 보고를 만들어 줘. 첫 화면에는 Eco·Auto·Boost 런타임을 최소 기준만큼 채운 배터리가 든 둥근 화면 셋으로, 흡입력·소음·가장자리 집진·무게를 사양 줄로, 그림 1은 부품별 무게를 예산과 견준 분해도로, 그림 2는 벽을 따라 한 번 지나간 뒤 남은 먼지를 빌드 37과 41의 레이저 바닥으로 보여 줘. 그 아래에 빌드별 가장자리 집진·Eco·무게를 목표와의 차이 막대로 그린 검은 그래프 화면 셋(그림 3), 빌드 37~41을 목표와 견준 표 1, 설계 확정까지의 내구 시험(그림 4), 설계 확정까지 남은 문제(표 2).'], [0, '데이터는 부품 무게와 예산, 빌드별 시험 결과, 바닥 시험, 시험대 기록이야. 모델 필터는 모든 카드에 적용하고, 결과를 제목으로 써 줘.']]
+        : [[0, 'Read DASHBOARD.md and follow it exactly.'], [0, 'Build the prototype review of our cordless vacuum platform, build 41. First screen: run time in Eco, Auto and Boost as three round screens, each with a battery filled against the minimum; suction, noise, edge pick-up and weight as spec rows; Figure 1, the weight of each part as an exploded view against its budget; Figure 2, the dust left after one pass along a wall, as a laser floor for builds 37 and 41. Below: Figure 3, edge pick-up, Eco and weight by build as gap-to-target bars on three black graph screens; Table 1, builds 37 to 41 against the targets; Figure 4, the durability tests against design freeze; Table 2, what is left before freeze.'], [0, 'The data is part weights and budgets, test results by build, the floor test and the test rigs. Apply the model filter to every card and write each result as the title.']],
+      plan: ko ? [[0, '# plan.md · DASHBOARD.md의 “질문으로 차트 고르기”로 세운 계획'], [0, ''], [0, '# 머리 · dyson.com의 검정 머리, 회사와 보고서, EN/KO'], [0, kv('머리 띠', '#000000, 글자 흰색 300·500')], [0, kv('모델 필터', '메뉴 줄처럼 흰 16px, 고른 칸은 500과 밑줄')], [0, ''],
+        [0, '# 첫 화면 · 설계를 확정해도 되나, 아니면 왜'], [0, kv('KPI 줄', '둥근 화면: 모드, 런타임, MIN 대비 배터리')], [0, kv('사양 줄', '라벨과 한계 → 가는 25px 수치, 작은 단위 → 선')], [0, kv('그림 1', '분해도: 부품 무게, 예산 괄호, 번호 풍선')], [0, kv('그림 2', '레이저 바닥: 검은 띠에 남은 먼지 초록 점')], [0, ''],
+        [0, '# 빌드별 · 설계 검토 이후'], [0, kv('그림 3', '검은 그래프 화면 셋: 빌드별 목표와의 차이 막대')], [0, kv('표 1', '빌드 37~41과 목표, 미달은 빨강')], [0, ''],
+        [0, '# 시험과 남은 일 · 설계 확정까지'], [0, kv('그림 4', '내구 시험, 설계 확정 뒤는 빨강')], [0, kv('표 2', '문제, 수정, 담당, 기한, 큰 것부터')]]
+        : [[0, '# plan.md · drawn up with “choose by the question” in DASHBOARD.md'], [0, ''], [0, '# Header · the dyson.com black header, company and report, EN/KO'], [0, kv('Header band', '#000000, white text at 300 and 500')], [0, kv('Model filter', 'like the menu row: white 16px, selected 500 underlined')], [0, ''],
+        [0, '# First screen · is the build ready for freeze, and if not, why'], [0, kv('KPI row', 'round screens: mode, run time, battery against the MIN')], [0, kv('Spec rows', 'label and limit → light 25px value, small unit → rule')], [0, kv('Figure 1', 'exploded view: part weights, budget brackets, balloons')], [0, kv('Figure 2', 'laser floor: dust left as green dots on black')], [0, ''],
+        [0, '# By build · since the design review'], [0, kv('Figure 3', 'three black graph screens: gap-to-target bars by build')], [0, kv('Table 1', 'builds 37–41 against the targets, misses in red')], [0, ''],
+        [0, '# Tests and what is left · before design freeze'], [0, kv('Figure 4', 'durability tests, after freeze in red')], [0, kv('Table 2', 'issue, fix, owner, due, biggest first')]],
+      js: [
+        [0, `// ${c.head}`], [0, 'import { tokens, plot, load } from "./dashboard.js";'],
+        [0, `const model = ${q(F.m)};${' '.repeat(16)}// ${c.filter}`], [0, 'const parts = await load("parts.csv", { model, build: 41 });'], [0, ''],
+        [1, `// ${c.s1}`], [1, 'const fig = plot("#figure-1", { axis: "vertical",'], [1, '  dash: [14, 4, 2, 4], stroke: tokens.colors.edge }); // #7d8083'],
+        [1, 'fig.parts(parts, { order: "no", length: "weight_g",'], [1, '  fill: tokens.colors.nickel });         // #d9dbdd'], [1, ''],
+        [2, `// ${c.s2}`], [2, `fig.explode({ gap: 9, ms: 900 });       // ${ko ? '모였다가 벌어진다' : 'assembled, then apart'}`], [2, 'fig.bracket(parts, { length: "budget_g",'], [2, '  stroke: tokens.colors.mute });         // #555555'], [2, ''],
+        [3, `// ${c.s3}`], [3, 'fig.cap(parts, { length: "over_budget_g",'], [3, '  fill: tokens.data.over });             // #d0273b'], [3, 'fig.fill(parts, { where: d => d.changed_in_build > 37,'], [3, '  fill: tokens.data.changed });          // #6b46c1'], [3, ''],
+        [4, `// ${c.s4}`], [4, 'fig.balloons(parts, { number: "no", name: "part",'], [4, '  value: "weight_g", unit: "g", note: "over_budget_g" });'], [4, ''],
+        [5, `// ${c.s5}`], [5, `fig.assembled({ value: "weight_g", max: ${F.budget} });`], [5, `fig.title(${q(ttl)});`], [5, `fig.subtitle(${q(sub)});`]
+      ],
+      tab: ko ? [
+        [0, '# Tableau · 그림 1 · Dyson 스타일'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('데이터', 'parts.csv, 부품마다 한 줄, 필터 [model]')], [1, kv('행', '[시작] = RUNNING_SUM(SUM([weight_g])) - SUM([weight_g])')], [1, kv('', '       + (INDEX() - 1) * [간격]   (매개 변수 80 g)')], [1, kv('마크', '간트 막대, 크기 SUM([weight_g]), #d9dbdd, 테두리 #7d8083')], [1, kv('축', '격자선 없음, 가운데 1점 쇄선 #7d8083')], [1, ''],
+        [2, `# ${c.s2}`], [2, kv('예산', '같은 축에 마크 하나 더: 간트 막대, 크기 SUM([budget_g])')], [2, kv('', '채움 없음, 테두리 #555555, 반대쪽으로 옮김')], [2, ''],
+        [3, `# ${c.s3}`], [3, kv('예산 초과', '[시작] + SUM([budget_g])에서 SUM([over_budget_g]), #d0273b')], [3, kv('바꾼 부품', '[changed_in_build] > 37이면 #6b46c1 (팔레트 "Dyson parts")')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('레이블', '원 모양에 [no], [part], SUM([weight_g]) g, 초과는 #b0122f')], [4, kv('', 'INDEX() % 2로 좌우를 번갈아')], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('제목', q(ttl))], [5, kv('부제', q(sub))], [5, kv('조립한 무게', `[no]별 누적 막대 하나와 참조선 ${F.budget} g`)]
+      ] : [
+        [0, '# Tableau · Figure 1 · Dyson style'], [0, `# ${c.once}`], [0, ''],
+        [1, `# ${c.s1}`], [1, kv('Data', 'parts.csv, one row a part, filter [model]')], [1, kv('Rows', '[Start] = RUNNING_SUM(SUM([weight_g])) - SUM([weight_g])')], [1, kv('', '        + (INDEX() - 1) * [Gap]   (parameter, 80 g)')], [1, kv('Mark type', 'Gantt bar, size SUM([weight_g]), #d9dbdd, border #7d8083')], [1, kv('Axis', 'no grid lines, one dash-dot line in the middle, #7d8083')], [1, ''],
+        [2, `# ${c.s2}`], [2, kv('Budget', 'one more mark on the same axis: Gantt bar, SUM([budget_g])')], [2, kv('', 'no fill, border #555555, moved to the opposite side')], [2, ''],
+        [3, `# ${c.s3}`], [3, kv('Over budget', 'SUM([over_budget_g]) from [Start] + SUM([budget_g]), #d0273b')], [3, kv('Changed', '[changed_in_build] > 37 → #6b46c1 (palette "Dyson parts")')], [3, ''],
+        [4, `# ${c.s4}`], [4, kv('Labels', '[no] in a circle, [part], SUM([weight_g]) g, over in #b0122f')], [4, kv('', 'alternate sides with INDEX() % 2')], [4, ''],
+        [5, `# ${c.s5}`], [5, kv('Title', q(ttl))], [5, kv('Subtitle', q(sub))], [5, kv('Assembled', `one stacked bar by [no], reference line ${F.budget} g`)]
+      ],
+      pbi: [
+        [0, ko ? '// Power BI · 그림 1 · Dyson 스타일' : '// Power BI · Figure 1 · Dyson style'], [0, ko ? '// 처음 한 번: 보기 → 테마 → powerbi-theme.json' : '// once: View → Themes → powerbi-theme.json'], [0, ''],
+        [1, `// ${c.s1}`], [1, ko ? '누적 세로 막대형 · 범례 = no · Y = weight_g, 부품 사이에 80 g 빈칸(DAX 표), 투명' : 'Stacked column chart · Legend = no · Y = weight_g, an 80 g spacer between parts (DAX table), transparent'], [1, '"dataColors": ["#d9dbdd"], "border": "#7d8083", "gridlineShow": false'], [1, ''],
+        [2, `// ${c.s2}`], [2, ko ? '옆 열: 같은 빈칸으로 쌓은 budget_g, 채움 없음, 테두리 #555555' : 'A second column: budget_g with the same spacers, no fill, border #555555'], [2, ''],
+        [3, `// ${c.s3}`], [3, ko ? '조건부 서식 → over_budget_g > 0인 부분 #d0273b' : 'Conditional formatting → the over_budget_g segment #d0273b'], [3, ko ? 'changed_in_build > 37이면 #6b46c1' : 'changed_in_build > 37 → #6b46c1'], [3, ''],
+        [4, `// ${c.s4}`], [4, ko ? '데이터 레이블 → 사용자 지정: no · part · weight_g g · over_budget_g' : 'Data labels → custom: no · part · weight_g g · over_budget_g'], [4, ''],
+        [5, `// ${c.s5}`], [5, `${ko ? '제목' : 'Title'} → ${q(ttl)}`], [5, `${ko ? '부제' : 'Subtitle'} → ${q(sub)}`], [5, ko ? `조립한 무게: 누적 가로 막대 하나, 상수 선 ${F.budget}, #333333` : `Assembled: one stacked bar, constant line ${F.budget}, #333333`]
+      ]
+    };
+    return J[kind];
+  }
+  const KW = { js: 'import|from|const|let|await|async|return|new|true|false' };
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const hexify = s => s.replace(/#[0-9a-fA-F]{6}\b/g, m => `<span class="tk-hex" style="--sw:${m}">${m}</span>`);
+  function commentAt(text, kind) {
+    let qq = null;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (qq) { if (ch === '\\') { i++; continue; } if (ch === qq) qq = null; continue; }
+      if (ch === '"' || ch === "'" || ch === '`') { qq = ch; continue; }
+      if ((kind === 'js' || kind === 'pbi') && ch === '/' && text[i + 1] === '/') return i;
+      if ((kind === 'tab' || kind === 'plan') && ch === '#' && (text[i + 1] === ' ' || i === text.length - 1)) return i;
+    }
+    return -1;
+  }
+  function highlight(text, kind) {
+    if (kind === 'prompt') return esc(text).replace(/"([^"]*)"/g, '<span class="tk-s">"$1"</span>');
+    if (kind === 'tab' || kind === 'plan') { const m = /^([^#\s].*?|)\s{2,}(\S.*)$/.exec(text); if (m && !/^#/.test(text)) return `<span class="kv">${esc(m[1])}</span>${kind === 'plan' ? hexify(esc(m[2])) : highlightCode(m[2], kind)}`; }
+    return highlightCode(text, kind);
+  }
+  function highlightCode(text, kind) {
+    const ci = commentAt(text, kind), code = ci < 0 ? text : text.slice(0, ci), comment = ci < 0 ? '' : text.slice(ci), kw = KW[kind];
+    const re = new RegExp('("(?:[^"\\\\]|\\\\.)*"|\'(?:[^\'\\\\]|\\\\.)*\')|(#[0-9a-fA-F]{6}\\b)|(\\b\\d+(?:[._]\\d+)?\\b)' + (kw ? `|\\b(${kw})\\b` : '|(?!x)x()') + '|([A-Za-z_][\\w.]*)(?=\\s*\\()|(\\b[A-Za-z_]\\w*)(?=\\s*:(?!:))', 'g');
+    let out = '', last = 0, m;
+    while ((m = re.exec(code))) {
+      out += esc(code.slice(last, m.index));
+      const [all, str, hex, num, k, fn, prop] = m;
+      if (str) out += /^\s*:/.test(code.slice(m.index + all.length)) ? `<span class="tk-p">${esc(str)}</span>` : `<span class="tk-s">${hexify(esc(str))}</span>`;
+      else if (hex) out += hexify(hex);
+      else if (num) out += `<span class="tk-n">${num}</span>`;
+      else if (k) out += `<span class="tk-k">${k}</span>`;
+      else if (fn) out += `<span class="tk-f">${esc(fn)}</span>`;
+      else if (prop && (kind === 'js' || kind === 'pbi')) out += `<span class="tk-p">${esc(prop)}</span>`;
+      else out += esc(all);
+      last = m.index + all.length;
+    }
+    out += esc(code.slice(last));
+    if (comment) out += `<span class="tk-c">${hexify(esc(comment))}</span>`;
+    return out;
+  }
+  function renderBuildStatic() {
+    const t = L();
+    $('#steps').replaceChildren(...t.build.steps.map(([b, p], i) => h('li', null, h('span', { class: 'bn', 'aria-hidden': 'true', text: i + 1 }), h('b', { text: b }), h('p', { text: p }))));
+    const item = (name, href, opt = {}) => {
+      const inner = [h('div', null, h('b', { text: name }), t.build.files[name] ? h('span', { text: t.build.files[name] }) : null)];
+      const el = href ? h('a', { href, target: opt.dl ? null : '_blank', rel: opt.dl ? null : 'noopener', download: opt.dl ? name : null }, inner) : h('div', { class: 'fi' }, inner);
+      return h('li', { class: [opt.cls, opt.root ? 'root' : null].filter(Boolean).join(' ') || null }, el);
+    };
+    $('#tree').replaceChildren(
+      item('your-project/', null, { root: 1 }),
+      item('DASHBOARD.md', 'DASHBOARD.html', { cls: 'in' }),
+      item('.claude/skills/', null, { cls: 'in' }), item('dashboard-style/', null, { cls: 'in2' }),
+      item('SKILL.md', 'skill/SKILL.html', { cls: 'in3' }), item('tokens.css', 'tokens.css', { cls: 'in3' }),
+      item('dyson.tps', 'dyson.tps', { cls: 'in3', dl: 1 }), item('powerbi-theme.json', 'powerbi-theme.json', { cls: 'in3', dl: 1 }),
+      item('prompt.md', 'prompt.html', { cls: 'in3' }));
+    $('#modeSeg').replaceChildren(...t.build.modes.map((x, i) => {
+      const k = i ? 'with' : 'without';
+      const b = h('button', { type: 'button', role: 'tab', 'aria-selected': state.mode === k ? 'true' : 'false', tabindex: state.mode === k ? 0 : -1, text: x });
+      b.addEventListener('click', () => setMode(k));
+      return b;
+    }));
+    $('#modeSeg').setAttribute('aria-label', KO() ? '비교' : 'Compare');
+  }
+  const BENCH = { built: true, playing: false, token: 0 };
+  function setMode(k) { if (state.mode === k) return; if (BENCH.playing) finishBench(); state.mode = k; renderBuildStatic(); renderBench(); }
+  function setCode(k) { if (state.code === k) return; if (BENCH.playing) finishBench(); state.code = k; renderCodeTabs(); renderCode(); }
+  function renderCodeTabs() {
+    $('#ctabs').replaceChildren(...CODE_TABS.map(([k, label]) => {
+      const b = h('button', { type: 'button', class: 'ctab', role: 'tab', 'aria-selected': state.code === k ? 'true' : 'false', tabindex: state.code === k ? 0 : -1, text: label || (KO() ? '프롬프트' : 'Prompt') });
+      b.addEventListener('click', () => setCode(k));
+      return b;
+    }));
+  }
+  function renderCode() {
+    const lines = codeLines(state.code), pre = $('#code');
+    pre.classList.toggle('wrap', state.code === 'prompt');
+    pre.replaceChildren(...lines.map(([step, text]) => {
+      const ln = h('span', { class: 'ln' + (BENCH.built ? ' shown' : ''), 'data-step': step, html: highlight(text, state.code) || ' ' });
+      if (step) { ln.addEventListener('mouseenter', () => focusStep(step)); ln.addEventListener('mouseleave', () => focusStep(0)); }
+      return ln;
+    }));
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), BENCH.built ? L().build.built : L().build.drawing);
+    $('#cstatR').textContent = L().build.lines(lines.length);
+  }
+  function focusStep(step) {
+    const win = $('#win'), on = step > 0 && BENCH.built && state.mode === 'with';
+    $$('.code .ln', win).forEach(ln => ln.classList.toggle('hl', step > 0 && Number(ln.dataset.step) === step));
+    win.classList.toggle('focus-step', on);
+    $$('.layer', win).forEach(el => el.classList.toggle('focus', Number(el.dataset.step) === step));
+  }
+  function renderBench() {
+    const t = L(), without = state.mode === 'without', F = facts();
+    $('#wbScope').textContent = `model = ${F.m}`;
+    $('#wbTitle').textContent = glue(without ? t.build.generic : t.f1.title[F.m](F));
+    $('#wbSub').textContent = without ? t.build.genericSub : t.f1.sub;
+    $('#wbNote').textContent = without ? t.build.generated : t.build.wbNote;
+    const ok = $('#checksOk'); ok.textContent = without ? t.build.checksBad : t.build.checksOk; ok.classList.toggle('bad', without);
+    const ic = () => sv('svg', { viewBox: '0 0 14 14', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' },
+      sv('circle', { cx: 7, cy: 7, r: 6.2, 'stroke-width': 1.2 }), sv('path', { d: without ? 'M4.8 4.8l4.4 4.4M9.2 4.8l-4.4 4.4' : 'M4.3 7.2 6.2 9l3.5-3.8' }));
+    $('#checks').replaceChildren(...t.build.checks.map(([step, txt]) => h('li', { class: 'layer' + (without ? ' no' : '') + (BENCH.built ? ' on' : ''), 'data-step': step }, ic(),
+      h('span', null, txt.split(/(#[0-9a-f]{6})/).map(part => /^#[0-9a-f]{6}$/.test(part) ? h('code', { class: 'tk-hex', style: { '--sw': part }, text: part }) : part)))));
+    $('#win').classList.toggle('without', without);
+    renderCodeTabs(); renderCode();
+    drawBench();
+    if (BENCH.built) $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+    if (BENCH.playing) playBench();
+  }
+  function flashScope() {
+    const lines = $$('.code .ln').filter(ln => ln.dataset.step === '0' && /const model/.test(ln.textContent));
+    lines.forEach(ln => ln.classList.add('hl'));
+    setTimeout(() => lines.forEach(ln => ln.classList.remove('hl')), 1400);
+  }
+  const sleep = ms => new Promise(res => setTimeout(res, ms));
+  async function playBench() {
+    const win = $('#win'), pre = $('#code'), token = ++BENCH.token;
+    if (REDUCE) { finishBench(); return; }
+    if (state.mode !== 'with') { state.mode = 'with'; renderBuildStatic(); }
+    BENCH.built = false; BENCH.playing = false;
+    win.classList.add('building');
+    renderBench();
+    BENCH.playing = true;
+    pre.scrollTop = 0;
+    $$('.layer', win).forEach(el => el.classList.remove('on'));
+    const lines = $$('.code .ln', win);
+    let prevStep = 0;
+    for (const ln of lines) {
+      if (token !== BENCH.token) return;
+      const step = Number(ln.dataset.step);
+      if (step !== prevStep && prevStep > 0) { revealStep(prevStep); await sleep(380); if (token !== BENCH.token) return; }
+      prevStep = step;
+      lines.forEach(x => x.classList.remove('caret'));
+      ln.classList.add('shown', 'caret');
+      const bottom = ln.offsetTop + ln.offsetHeight + 12;
+      if (bottom > pre.scrollTop + pre.clientHeight) pre.scrollTop = bottom - pre.clientHeight;
+      await sleep(ln.textContent.trim() ? 55 : 20);
+    }
+    if (token !== BENCH.token) return;
+    revealStep(prevStep);
+    await sleep(500);
+    if (token !== BENCH.token) return;
+    lines.forEach(x => x.classList.remove('caret'));
+    BENCH.built = true; BENCH.playing = false;
+    win.classList.remove('building');
+    $('#cstatL').replaceChildren(h('span', { class: 'dot' }), L().build.built);
+  }
+  function finishBench() {
+    BENCH.token++; BENCH.playing = false; BENCH.built = true;
+    $('#win').classList.remove('building');
+    renderCode();
+    $$('.layer', $('#win')).forEach(el => el.classList.add('on'));
+  }
+  function revealStep(step) { $$(`.layer[data-step="${step}"]`, $('#win')).forEach(el => el.classList.add('on')); }
+  $('#btnRun').addEventListener('click', () => playBench());
+  async function copyText(txt) {
+    try { await navigator.clipboard.writeText(txt); } catch (e) { const ta = h('textarea', { class: 'sr-only', text: txt }); document.body.append(ta); ta.select(); try { document.execCommand('copy'); } catch (_) {} ta.remove(); }
+  }
+  let toastTimer = null;
+  function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('on'), 2200); }
+  const ICONS = {
+    copy: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 5.5v-2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/></svg>',
+    play: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 3.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5z"/></svg>'
+  };
+  $$('[data-icon]').forEach(b => b.insertAdjacentHTML('afterbegin', ICONS[b.dataset.icon]));
+  $$('.btnCmd').forEach(b => b.addEventListener('click', async () => { await copyText(b.previousElementSibling.textContent); toast(L().build.cmdCopied); }));
+  const cmdFade = () => $$('.cmd code').forEach(c => {
+    const ov = c.scrollWidth > c.clientWidth + 1;
+    c.classList.toggle('more-r', ov && c.scrollLeft + c.clientWidth < c.scrollWidth - 2);
+    if (ov) c.setAttribute('tabindex', '0'); else c.removeAttribute('tabindex');
+  });
+  $$('.cmd code').forEach(c => c.addEventListener('scroll', cmdFade, { passive: true }));
+  addEventListener('resize', cmdFade);
+  if (document.fonts) document.fonts.ready.then(cmdFade);
+  cmdFade();
+  $('#btnCopyCode').addEventListener('click', async () => { await copyText(codeLines(state.code).map(l => l[1]).join('\n').replace(/⁠/g, '')); toast(L().build.copied); });
+
+  /* ================= 필터: 모델. dyson.com 메뉴 줄처럼 흰 글자, 고른 칸은 500과 밑줄 ================= */
+  const segEl = $('#modelSeg');
+  for (const m of MODELS) { const b = h('button', { type: 'button', id: 'tab-' + m, role: 'tab', 'aria-controls': 'panel', 'data-k': m }); b.addEventListener('click', () => select(m)); segEl.append(b); }
+  const arrowNav = (el, keysList, cur, go) => el.addEventListener('keydown', e => {
+    const idx = keysList.indexOf(cur()), next = { ArrowRight: idx + 1, ArrowLeft: idx - 1, Home: 0, End: keysList.length - 1 }[e.key];
+    if (next == null) return;
+    e.preventDefault(); go(keysList[(next + keysList.length) % keysList.length]);
+  });
+  arrowNav(segEl, MODELS, () => state.model, k => { select(k); $('#tab-' + k).focus(); });
+  arrowNav($('#ctabs'), CODE_TABS.map(x => x[0]), () => state.code, k => { setCode(k); $$('.ctab')[CODE_TABS.findIndex(x => x[0] === k)].focus(); });
+  arrowNav($('#modeSeg'), ['without', 'with'], () => state.mode, k => { setMode(k); $$('#modeSeg button')[k === 'with' ? 1 : 0].focus(); });
+  function syncTabs() {
+    for (const b of $$('button', segEl)) {
+      const v = b.dataset.k, on = v === state.model;
+      b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1;
+      b.textContent = L().models[v];
+    }
+    $('#panel').setAttribute('aria-labelledby', 'tab-' + state.model);
+  }
+
+  /* ================= 언어와 그리기 ================= */
+  function applyLang() {
+    const t = L();
+    document.documentElement.lang = state.lang;
+    document.title = t.docTitle;
+    for (const el of $$('[data-i18n]')) { const val = pick(t, el.dataset.i18n); if (typeof val === 'string') el.textContent = val; }
+    segEl.setAttribute('aria-label', t.modelLabel);
+    for (const b of $$('#langSeg button')) b.setAttribute('aria-pressed', b.dataset.lang === state.lang ? 'true' : 'false');
+    $('#ctaLink').href = BLOG[state.lang] + 'contact-us/';
+    const cc = $('#btnCopyCode'); cc.setAttribute('aria-label', KO() ? '코드 복사' : 'Copy code'); cc.title = cc.getAttribute('aria-label');
+    $$('.btnCmd').forEach(cm => { cm.setAttribute('aria-label', KO() ? '설치 명령 복사' : 'Copy install command'); cm.title = cm.getAttribute('aria-label'); });
+    $('.foot .ser').href = 'https://styles.vizney.com/?lang=' + state.lang;
+    $('.foot .cat a[data-i18n="catName"]').href = 'https://styles.vizney.com/dyson/DASHBOARD.html';
+    const back = $('#backLink');
+    back.textContent = FROM_BLOG ? t.back.post : t.back.catalog;
+    back.href = FROM_BLOG ? BLOG[state.lang] + 'style-' + SLUG + '/' : 'https://styles.vizney.com/?lang=' + state.lang;
+    syncTabs(); renderBuildStatic(); renderTerms();
+  }
+  function renderAll(animate) {
+    renderHead(); renderKpi(animate); renderF1(animate); renderF2(animate); renderF3(animate); renderT1(animate); renderF4(animate); renderT2(animate); renderBench();
+  }
+  function keepInUrl() {
+    try {
+      const u = new URL(location.href);
+      u.searchParams.set('lang', state.lang);
+      if (state.model === 'C60') u.searchParams.delete('model'); else u.searchParams.set('model', state.model.toLowerCase());
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* 주소를 못 바꾸는 환경에서는 화면만 바뀐다 */ }
+  }
+  function select(m) {
+    if (m === state.model) return;
+    state.model = m;
+    syncTabs(); renderAll(true); keepInUrl();
+    if (BENCH.built) flashScope();
+  }
+  for (const b of $$('#langSeg button')) b.addEventListener('click', () => { if (b.dataset.lang === state.lang) return; state.lang = b.dataset.lang; applyLang(); renderAll(false); keepInUrl(); });
+
+  applyLang();
+  renderAll(true);
+  if (!REDUCE && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); playBench(); } }, { threshold: .35 });
+    io.observe($('#win'));
+  }
+  // 처음 1.2초 안에 다시 그리면(서체가 늦게 오거나 칸 크기가 자리 잡을 때) 움직임을 다시 보인다. 그 뒤로는 바로 그린다
+  const T0 = performance.now(), early = () => performance.now() - T0 < 1200;
+  const redraws = [['#f1Plot', () => renderF1(early())], ['#f2Floor', () => redrawDots(early())], ['#f3Plot', () => renderF3(early())], ['#f4Plot', () => renderF4(early())], ['#wbPlot', drawBench]];
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(entries => {
+      for (const en of entries) {
+        const r = redraws.find(x => $(x[0]) === en.target);
+        if (!r) continue;
+        const el = en.target;
+        if (Math.round(el.clientWidth) !== el._w || (el._h != null && Math.round(el.clientHeight) !== el._h)) { el._w = Math.round(el.clientWidth); el._h = Math.round(el.clientHeight); r[1](); }
+      }
+    });
+    redraws.forEach(([sel]) => ro.observe($(sel)));
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => redraws.forEach(r => r[1]()));
+})();
+</script>
+</body>
+</html>

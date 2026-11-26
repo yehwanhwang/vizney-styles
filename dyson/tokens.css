@@ -1,0 +1,96 @@
+/* Dyson style — Technical, Exploded View, Clean · VIZNEY STYLES · 10
+   Generated from tokens.json by tools/package.py; edit the JSON, not this file. */
+:root{
+  --canvas:#ffffff; /* the page */
+  --panel:#f7f7f7; /* the one panel: Figure 1, the build 41 column band, row hover, code */
+  --header:#000000; /* the two-line header */
+  --header-text:#ffffff; /* header text and the selected tab's underline */
+  --header-sub:#b9b9b9; /* header secondary text */
+  --screen:#000000; /* round screens, laser floor strips and graph screens */
+  --screen-text:#ffffff; /* values and names on a screen */
+  --screen-sub:#b9b9b9; /* secondary text on a screen */
+  --ink:#333333; /* titles, values, balloons, the rule under a table head */
+  --body:#404040; /* body text and part names */
+  --muted:#555555; /* labels, subtitles, keys, captions, limits */
+  --faint:#919191; /* large section numbers and dashes only */
+  --hair:#dadada; /* table rules and the hairline under a spec value */
+  --line:#dcdcdc; /* card and window borders */
+  --soft:#ebebeb; /* quiet fills such as the code highlight */
+  --nickel:#d9dbdd; /* a part's fill */
+  --nickel-edge:#7d8083; /* a part's edge and the exploded-view axis */
+  --link:#0066cc; /* links */
+  --accent:#79b928; /* the one primary button */
+  --accent-text:#000000; /* text on the accent button */
+  --focus:#0066cc; /* the 2px focus ring */
+  --text-2:#555555; /* secondary text (the same as muted) */
+  --cat-1:#6b46c1; /* purple (the subject: the part, model or series the title is about) */
+  --cat-1-text:#5a3fb0; /* purple (the subject: the part, model or series the title is about) for labels and text */
+  --cat-2:#1a8a6e; /* green */
+  --cat-2-text:#176f59; /* green for labels and text */
+  --cat-3:#c26a12; /* copper */
+  --cat-3-text:#9a520c; /* copper for labels and text */
+  --cat-other:#d9dbdd;
+  --comparison:#555555;
+  --mark-part:#d9dbdd;
+  --mark-part-edge:#7d8083;
+  --mark-axis:#7d8083 dash-dot 14 4 2 4;
+  --mark-changed:#6b46c1;
+  --mark-changed-text:#5a3fb0;
+  --mark-over:#d0273b;
+  --mark-over-text:#b0122f;
+  --mark-budget:#555555 bracket, 1px;
+  --mark-laser-floor:#000000;
+  --mark-laser-dust:#5fe04a;
+  --mark-select:#333333 1.5px ring;
+  --mark-row-hover:#f7f7f7;
+  --mark-graph-screen:#000000, 8px corners, every chart in sections 01 and 02 sits on one (Figure 3 has three, at most 184px tall, spaced to fill the column), like the graph screen on the product. White, gray and one red only; the mode colours stay on the round screens. Name 14px/500 #ffffff with its limit in #b9b9b9; build numbers 11.5px #b9b9b9, review and now in #ffffff;
+  --mark-graph-bar:a square-ended bar from the target line to the value: #ffffff when the target is met, #f0403a when missed; the gap printed in 12px/500 on build 37 and the changed builds;
+  --mark-graph-target:1px #ffffff dash-dot 10 3 2 3 across the bars;
+  --mark-graph-value:build 41 at the right of the screen in 40px/300 #ffffff with a small unit (26px when the screen is under 520px), its gap to the target below in the bar's colour with ✓ or ✗;
+  --mark-graph-gantt:Figure 4 on the same screen: done #ffffff, to go #5c5c5c, after design freeze #f0403a, bars up to 20px; TODAY a solid #ffffff line, DESIGN FREEZE a #ffffff dash-dot line, month lines #333333; names #ffffff, amounts and finished dates #b9b9b9;
+  --mark-graph-change:a #ffffff balloon with the part number in #5a3fb0 above the build that changed it, a dotted #6b6b6b line down through the bars;
+  --mark-table-now:#f7f7f7 column band;
+  --mark-table-miss:#b0122f value and ✗ on the plain cell;
+  --mark-comparison:#555555 dotted 2 3 for limits on white (the MAX on the assembled bar), #ffffff dash-dot 10 3 2 3 for the target line on a black graph screen;
+  --seq-1:#b3a0e9;
+  --seq-2:#977cdb;
+  --seq-3:#7d5fcf;
+  --seq-4:#6b46c1;
+  --seq-5:#4b2d91;
+  --div-1:#2a64b0;
+  --div-2:#5b8bd4;
+  --div-3:#8fb0e4;
+  --div-4:#e3e3e3;
+  --div-5:#ec9aa1;
+  --div-6:#d9555f;
+  --div-7:#a8142c;
+  --font-sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-display:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius-screen:50%;
+  --radius-part:5px;
+  --radius-balloon:50%;
+  --radius-bar:0;
+  --radius-button:4px;
+  --radius-tooltip:4px;
+  --radius-window:8px;
+  --radius-panel:0;
+  --space-page:32px;
+  --space-gap:32px;
+  --space-section:76px;
+  --space-panel:20px 24px 18px;
+  --space-cell:8px 10px;
+  --space-footer:24px 0 40px;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --code-background:#f7f7f7;
+  --code-comment:#555555;
+  --code-string:#1d7a43;
+  --code-number:#9a4510;
+  --code-keyword:#5a3fb0;
+  --code-function:#b0122f;
+  --code-property:#0066cc;
+  --code-line-number:#919191;
+  --code-highlight:#ececec;
+  --code-caret:#333333;
+}
+html[lang="ko"]{--font-sans:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--font-display:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
