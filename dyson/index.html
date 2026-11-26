@@ -23,7 +23,7 @@
   :root{
     --page:#ffffff; --panel:#f7f7f7; --ink:#333333; --body:#404040; --mute:#555555; --mute2:#919191;
     --hair:#dadada; --line:#dcdcdc; --soft:#ebebeb; --black:#000000;
-    --nickel:#d9dbdd; --nickel-e:#7d8083; --purple:#6b46c1; --purple-t:#5a3fb0; --red:#d0273b; --red-t:#b0122f; --good-t:#1d7a43; --good-bg:#e6f2e9; --bad-bg:#fbe9eb;
+    --nickel:#d9dbdd; --nickel-e:#7d8083; --purple:#6b46c1; --purple-t:#5a3fb0; --red:#d0273b; --red-t:#b0122f; --good-t:#1d7a43;
     --eco:#3fd24a; --auto:#2aa3ef; --boost:#f0403a; --laser:#5fe04a; --scr-sub:#b9b9b9;
     --blue:#0066cc; --green:#79b928; --green-h:#6ea924;
     --font:'Jost',Arial,sans-serif;
@@ -199,10 +199,9 @@
   .t1 .chg{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--purple-t);white-space:nowrap}
   .t1 .dash{color:var(--mute2)}
   .t1 .num.ok{color:var(--good-t);font-weight:500}
-  /* 표 1: 지금(빌드 41) 열은 판 회색 띠, 목표에 못 미친 칸은 옅은 빨강 */
+  /* 표 1: 지금(빌드 41) 열은 판 회색 띠 */
   .t1 .cur{background:var(--panel);padding-right:10px!important}
   .t1 th.cur{padding-left:10px}
-  .t1 td.bad{background:var(--bad-bg)}
   .t1 .grp td{border-bottom:1px solid var(--hair)}
   .t1 .chg .bal{cursor:default}
   /* 표 2: 열린 문제 */
@@ -218,11 +217,6 @@
   .t2 .du{white-space:nowrap;color:var(--ink);font-variant-numeric:tabular-nums}
   .t2 .du small{display:block;font-size:12.5px;color:var(--mute)}
   .t2 .fx small{display:block;margin-top:2px;font-size:12.5px;color:var(--mute)}
-  /* 표 2: 문제 칸은 옅은 빨강(목표 밖), 수정 칸은 옅은 초록(목표 안으로) */
-  .t2 td.is{background:var(--bad-bg)}
-  .t2 td.fx{background:var(--good-bg)}
-  .t2 .is,.t2 .fx{padding-left:12px;padding-right:12px}
-  .t2 .fx b{color:var(--good-t)}
   .show-s{display:none!important}
 
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 18px;border:1px solid transparent;border-radius:4px;font-size:16px;font-weight:500;line-height:1;white-space:nowrap;cursor:pointer;text-decoration:none;transition:background-color .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease)}
@@ -653,7 +647,6 @@
     ink: '#333333', body: '#404040', mute: '#555555', mute2: '#919191', hair: '#dadada', line: '#dcdcdc', panel: '#f7f7f7', white: '#ffffff', black: '#000000',
     nickel: '#d9dbdd', nickelE: '#7d8083', purple: '#6b46c1', purpleT: '#5a3fb0', red: '#d0273b', redT: '#b0122f', goodT: '#1d7a43',
     mode: ['#3fd24a', '#2aa3ef', '#f0403a'], laser: '#5fe04a', sub: '#b9b9b9', other: '#9e9e9e',
-    goodBg: '#e6f2e9', badBg: '#fbe9eb',   // 목표 안 · 밖의 바탕
     generic: ['#4e79a7', '#f28e2b', '#e15759', '#76b7b2']
   };
 
@@ -762,7 +755,7 @@
         keys: { others: 'other models', inside: 'inside both targets', miss: 'misses a target', chg: 'part changed' },
         ax: { x: 'Eco run time against the MIN', y: 'Weight against the MAX' },
         inside: 'INSIDE BOTH TARGETS', min: 'MIN', max: 'MAX', g: 'g',
-        zone: { inside: 'INSIDE BOTH TARGETS', outside: 'OUTSIDE BOTH', over: 'OVER THE MAX', short: 'SHORT OF THE MIN' },
+        zone: { inside: 'INSIDE BOTH TARGETS' },
         note: 'Each dot is one build, joined in order. Right of the MIN line the machine runs longer than its target; below the MAX line it is lighter than its limit.',
         tEco: 'Eco run time', tW: 'Weight', short: 'short', spare: 'to spare', over: 'over', under: 'under',
         sr: 'Eco run time and weight against their targets, by model and build', srHead: ['Model', 'Build', 'Eco run time', 'Against the MIN', 'Weight (g)', 'Against the MAX (g)']
@@ -778,7 +771,6 @@
         keys: { chg: 'part changed', over: 'over the MAX', under: 'under the MAX', fix: 'planned fix' },
         review: 'review', now: 'now', planned: 'planned', planHead: 'PLANNED FOR BUILD 42', noFix: 'no weight fix planned',
         over: g => `${gr(g)} g over`, under: g => `${gr(g)} g under`, on: 'on the MAX', max: 'MAX',
-        zone: { under: 'UNDER THE MAX', over: 'OVER THE MAX', underS: 'UNDER', overS: 'OVER' },
         note: 'Each bar starts where the one above it ends. Planned fixes are estimates until build 42 is weighed.',
         tWas: 'build 37', tNow: 'build 41', tChange: 'change', tFix: 'planned fix', tTotal: 'weight', tOwner: 'owner',
         sr: 'Weight against the MAX from build 37 to the fixes planned for build 42', srHead: ['Step', 'Change (g)', 'Against the MAX (g)']
@@ -792,7 +784,7 @@
         },
         sub: 'Builds 32 to 41, one a week. Each bar is the gap to the target',
         panels: { edge: 'Edge pick-up', eco: 'Eco run time', weight: 'Weight' },
-        keys: { meet: 'meets the target', miss: 'misses', zone: 'inside · outside the target', chg: 'part changed' }, pts: 'pts',
+        keys: { meet: 'meets the target', miss: 'misses', chg: 'part changed' }, pts: 'pts',
         axis: 'Build', review: 'review',
         note: 'Build 37 was the last design review. A part changed in a build is marked by its number from Figure 1.',
         sr: 'Edge pick-up, Eco run time and weight by build', srHead: ['Build', 'Edge pick-up (%)', 'Eco run time', 'Weight (kg)', 'Part changed']
@@ -967,7 +959,7 @@
         keys: { others: '다른 모델', inside: '두 목표 안', miss: '목표 미달', chg: '부품 교체' },
         ax: { x: 'Eco 런타임, 최소 대비', y: '무게, 최대 대비' },
         inside: '두 목표 안', min: '최소', max: '최대', g: 'g',
-        zone: { inside: '두 목표 안', outside: '두 목표 밖', over: '최대 초과', short: '최소 미달' },
+        zone: { inside: '두 목표 안' },
         note: '점 하나가 빌드 하나이고 순서대로 이었습니다. 최소 선 오른쪽이면 목표보다 오래 가고, 최대 선 아래면 한도보다 가볍습니다.',
         tEco: 'Eco 런타임', tW: '무게', short: '부족', spare: '여유', over: '초과', under: '여유',
         sr: '모델과 빌드별 Eco 런타임과 무게, 목표 대비', srHead: ['모델', '빌드', 'Eco 런타임', '최소 대비', '무게(g)', '최대 대비(g)']
@@ -983,7 +975,6 @@
         keys: { chg: '바꾼 부품', over: '최대 초과', under: '최대 이하', fix: '넣을 수정' },
         review: '검토', now: '지금', planned: '계획', planHead: '빌드 42에 넣을 수정', noFix: '무게 수정 없음',
         over: g => `${gr(g)} g 초과`, under: g => `${gr(g)} g 여유`, on: '최대와 같음', max: '최대',
-        zone: { under: '최대 이하', over: '최대 초과', underS: '이하', overS: '초과' },
         note: '막대마다 위 막대가 끝난 자리에서 시작합니다. 넣을 수정은 빌드 42의 무게를 재기 전까지 추정입니다.',
         tWas: '빌드 37', tNow: '빌드 41', tChange: '변화', tFix: '넣을 수정', tTotal: '무게', tOwner: '담당',
         sr: '빌드 37부터 빌드 42에 넣을 수정까지 최대 대비 무게', srHead: ['단계', '변화(g)', '최대 대비(g)']
@@ -997,7 +988,7 @@
         },
         sub: '빌드 32~41, 한 주에 하나. 막대는 목표와의 차이',
         panels: { edge: '가장자리 집진', eco: 'Eco 런타임', weight: '무게' },
-        keys: { meet: '목표 달성', miss: '목표 미달', zone: '목표 안 · 밖', chg: '부품 교체' }, pts: '%p',
+        keys: { meet: '목표 달성', miss: '목표 미달', chg: '부품 교체' }, pts: '%p',
         axis: '빌드', review: '검토',
         note: '빌드 37이 마지막 설계 검토입니다. 빌드에서 바꾼 부품은 그림 1의 번호로 적었습니다.',
         sr: '빌드별 가장자리 집진, Eco 런타임, 무게', srHead: ['빌드', '가장자리 집진(%)', 'Eco 런타임', '무게(kg)', '바꾼 부품']
@@ -1527,7 +1518,7 @@
 
   /* ================= 그림 3: 목표와의 거리 =================
      모델 셋의 빌드를 점 하나씩. 가로는 Eco 런타임 − 최소(오른쪽이 오래 감), 세로는 무게 − 최대(위가 무거움).
-     바탕은 네 칸: 두 목표 안(최소 선 오른쪽, 최대 선 아래)은 옅은 초록, 두 목표 밖은 옅은 빨강, 하나만 벗어난 두 칸은 판 회색.
+     바탕은 판 회색 하나, 두 목표 안(최소 선 오른쪽, 최대 선 아래)만 흰 칸으로 비운다. 색은 점과 선에만.
      고른 모델은 잉크 선, 다른 둘은 회색.
      목표를 벗어난 빌드는 빨간 점, 부품을 바꾼 빌드로 가는 길에는 그림 1의 보라 번호 풍선. */
   const fqCur = { i: 0 };
@@ -1550,22 +1541,25 @@
     const X = v => padL + (v - x0) / (x1 - x0) * (W - padL - padR), Y = v => padT + (y1 - v) / (y1 - y0) * (H - padT - padB);
     const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g0 = sv('g'), g1 = sv('g'), g2 = sv('g'), g3 = sv('g'), gsel = sv('g');
     svg.append(g0, g1, g2, g3, gsel);
-    // 바탕 네 칸: 두 목표 안은 옅은 초록, 두 목표 밖은 옅은 빨강, 하나만 벗어난 칸은 판 회색
+    // 바탕: 판 회색 하나, 두 목표 안만 흰 칸(판의 테두리 선 안쪽)
     const PX0 = padL, PX1 = W - padR, PY0 = padT, PY1 = H - padB, X0 = X(0), Y0 = Y(0);
     g0.append(sv('rect', { x: PX0, y: PY0, width: PX1 - PX0, height: PY1 - PY0, fill: C.panel }),
-      sv('rect', { x: X0, y: Y0, width: PX1 - X0, height: PY1 - Y0, fill: C.goodBg }),
-      sv('rect', { x: PX0, y: PY0, width: X0 - PX0, height: Y0 - PY0, fill: C.badBg }));
-    const zoneAt = (px, py) => px < PX0 || px > PX1 || py < PY0 || py > PY1 ? '#fff' : px >= X0 && py >= Y0 ? C.goodBg : px < X0 && py < Y0 ? C.badBg : C.panel;
+      sv('rect', { x: X0, y: Y0, width: PX1 - X0, height: PY1 - Y0, fill: '#fff' }),
+      sv('rect', { x: PX0 + .5, y: PY0 + .5, width: PX1 - PX0 - 1, height: PY1 - PY0 - 1, fill: 'none', stroke: '#e6e6e6', 'stroke-width': 1 }));
+    const inWin = (px, py) => px >= X0 && py >= Y0;
+    const zoneAt = (px, py) => px < PX0 || px > PX1 || py < PY0 || py > PY1 || inWin(px, py) ? '#fff' : C.panel;
     const halo = (px, py) => ({ stroke: zoneAt(px, py), 'stroke-width': 4, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
     // 눈금: 가로 1분, 세로 50 g(바탕 위 흰 선)
     const every = X(60) - X(0) < 46 ? 120 : 60;   // 좁으면 2분마다 숫자
     for (let v = x0; v <= x1; v += 60) {
-      if (v) g0.append(sv('line', { x1: X(v), x2: X(v), y1: padT, y2: H - padB, stroke: '#fff', 'stroke-width': 1 }));
+      if (v) g0.append(sv('line', { x1: X(v), x2: X(v), y1: padT, y2: v > 0 ? Y0 : H - padB, stroke: '#fff', 'stroke-width': 1 }));
+      if (v > 0) g0.append(sv('line', { x1: X(v), x2: X(v), y1: Y0, y2: H - padB, stroke: C.panel, 'stroke-width': 1 }));   // 흰 칸 안은 회색 선
       if (v % every) continue;
       g0.append(sv('text', { x: X(v), y: H - padB + 17, 'text-anchor': 'middle', 'font-size': 12, fill: v ? C.mute : C.ink, 'font-weight': v ? 400 : 500, text: v ? sgnT(v) : t.min }));
     }
     for (let v = y0; v <= y1; v += 50) {
-      if (v) g0.append(sv('line', { x1: padL, x2: W - padR, y1: Y(v), y2: Y(v), stroke: '#fff', 'stroke-width': 1 }));
+      if (v) g0.append(sv('line', { x1: padL, x2: v < 0 ? X0 : W - padR, y1: Y(v), y2: Y(v), stroke: '#fff', 'stroke-width': 1 }));
+      if (v < 0) g0.append(sv('line', { x1: X0, x2: W - padR, y1: Y(v), y2: Y(v), stroke: C.panel, 'stroke-width': 1 }));
       g0.append(sv('text', { x: padL - 8, y: Y(v) + 4, 'text-anchor': 'end', 'font-size': 12, fill: v ? C.mute : C.ink, 'font-weight': v ? 400 : 500, text: v ? sgnG(v) : t.max }));
     }
     // 최소 선과 최대 선: 1점 쇄선
@@ -1593,12 +1587,9 @@
       taken.push({ x0: cx - 10, x1: cx + 10, y0: cy - 10, y1: cy + 10 });
       return { p, cx, cy };
     });
-    // 칸 이름: 그 칸의 모서리 가운데 점(모든 모델)과 겹치지 않는 곳, 없으면 생략
+    // 흰 칸의 이름: 모서리 가운데 점(모든 모델)과 겹치지 않는 곳, 없으면 생략
     const dots = all.map(p => [X(p.x), Y(p.y)]), ls = KO() ? 0 : .06, zw = s => textW(s, 11.5, 500) * (1 + ls * 1.4) + 2;
-    [[t.zone.inside, C.goodT, X0, PX1, Y0, PY1, [['e', 'b'], ['e', 't'], ['s', 'b']]],
-     [t.zone.outside, C.redT, PX0, X0, PY0, Y0, [['s', 't'], ['e', 't'], ['s', 'b']]],
-     [t.zone.over, C.mute, X0, PX1, PY0, Y0, [['e', 't'], ['s', 't'], ['e', 'b']]],
-     [t.zone.short, C.mute, PX0, X0, Y0, PY1, [['s', 'b'], ['e', 'b'], ['s', 't']]]].forEach(([txt, col, qx0, qx1, qy0, qy1, spots]) => {
+    [[t.zone.inside, C.mute, X0, PX1, Y0, PY1, [['e', 'b'], ['e', 't'], ['s', 'b']]]].forEach(([txt, col, qx0, qx1, qy0, qy1, spots]) => {
       const w = zw(txt);
       if (qx1 - qx0 < w + 16 || qy1 - qy0 < 22) return;
       for (const [hz, vt] of spots) {
@@ -1675,7 +1666,7 @@
   /* ================= 그림 4: 무게 다리 =================
      최대 대비 무게를 빌드 37에서 시작해 바꾼 부품(보라)을 하나씩 얹고 빌드 41, 이어서 빌드 42에 넣을 수정(점선)과 계획.
      합계 막대는 최대 선(1점 쇄선)에서 시작해 넘으면 빨강. 막대마다 위 막대가 끝난 자리에서 시작한다.
-     바탕은 최대 선 왼쪽(최대 이하) 옅은 초록, 오른쪽(최대 초과) 옅은 빨강, 아래 띠에 두 칸 이름. */
+     바탕은 판 회색 하나. 색은 막대에만. */
   const fbCur = { i: 0 };
   function renderFB(animate) {
     const F = facts(), t = L().fb, plot = $('#fbPlot'), host = $('#fb'), anim = animOK(animate), st = F.bridge.steps, n = st.length;
@@ -1686,7 +1677,7 @@
       h('li', null, sv('svg', { width: 14, height: 10 }, sv('rect', { x: .5, y: .5, width: 13, height: 9, fill: C.nickel, stroke: C.nickelE })), t.keys.under),
       h('li', null, sv('svg', { width: 14, height: 10 }, sv('rect', { x: .5, y: .5, width: 13, height: 9, fill: '#fff', stroke: C.ink, 'stroke-dasharray': '3 2' })), t.keys.fix));
     // 줄 수만큼 높이를 잡는다(줄마다 44px 이상): 줄이 많은 C90과 좁은 화면에서 이름과 설명이 겹치지 않게
-    const footH = 26;
+    const footH = 6;
     plot.style.minHeight = (26 + 26 + (n - 1) * 44 + 6 + footH) + 'px';
     const [W, H] = plotSize(plot, 260, 240);
     const name = s => s.k === 'total' ? L().t1.build(s.b) : s.k === 'plan' ? L().t1.build(s.b) : L().f1.parts[s.i];
@@ -1706,14 +1697,9 @@
     let y = top; const geo = [];
     st.forEach(s => { const hh = s.k === 'head' ? headH : rowH; geo.push({ y0: y, y1: y + hh, yc: y + hh / 2, s }); y += hh; });
     const bottom = y;
-    // 바탕: 최대 이하는 옅은 초록, 최대 초과는 옅은 빨강(값 글자 자리까지), 아래 띠에 이름
-    const zx0 = X(x0v), zm = X(0), zy0 = top - 8, zy1 = bottom + footH;
-    g0.append(sv('rect', { x: zx0, y: zy0, width: Math.max(0, zm - zx0), height: zy1 - zy0, fill: C.goodBg }),
-      sv('rect', { x: zm, y: zy0, width: W - zm, height: zy1 - zy0, fill: C.badBg }));
-    const zt = (full, short, room) => textW(full, 11.5, 500) * (KO() ? 1 : 1.1) + 12 <= room ? full : textW(short, 11.5, 500) * (KO() ? 1 : 1.1) + 12 <= room ? short : '';
-    const zl = zt(t.zone.under, t.zone.underS, zm - zx0), zr = zt(t.zone.over, t.zone.overS, W - zm);
-    if (zl) g0.append(sv('text', { x: zm - 8, y: zy1 - 9, 'text-anchor': 'end', 'font-size': 11.5, 'font-weight': 500, fill: C.goodT, 'letter-spacing': KO() ? 0 : '.06em', text: zl }));
-    if (zr) g0.append(sv('text', { x: zm + 8, y: zy1 - 9, 'font-size': 11.5, 'font-weight': 500, fill: C.redT, 'letter-spacing': KO() ? 0 : '.06em', text: zr }));
+    // 바탕: 판 회색 하나(값 글자 자리까지)
+    const zx0 = X(x0v) - 8, zy0 = top - 8, zy1 = bottom + footH;
+    g0.append(sv('rect', { x: zx0, y: zy0, width: W - zx0, height: zy1 - zy0, fill: C.panel }));
     // 최대 선
     g0.append(sv('line', { x1: X(0), x2: X(0), y1: top - 8, y2: zy1, stroke: C.ink, 'stroke-width': 1, 'stroke-dasharray': '10 3 2 3' }),
       sv('text', { x: X(0), y: 12, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 500, fill: C.ink, text: `${t.max} ${gr(F.budget)} g` }));
@@ -1750,7 +1736,7 @@
       if (nx) g0.append(sv('line', { x1: X(z), x2: X(z), y1: by + bh, y2: nx.yc - (nx.s.k === 'total' || nx.s.k === 'plan' ? 11 : 9), stroke: C.mute, 'stroke-width': 1, 'stroke-dasharray': '2 2' }));
       // 값
       const vt = valTxt(s), bad = tot && s.v > 0;
-      g2.append(sv('text', { x: Math.max(xz, X(0)) + 7, y: g.yc + 4.5, 'font-size': 13, 'font-weight': 500, fill: s.k === 'chg' ? C.purpleT : bad ? C.redT : C.ink, 'stroke': C.badBg, 'stroke-width': 4, 'paint-order': 'stroke', text: vt }));
+      g2.append(sv('text', { x: Math.max(xz, X(0)) + 7, y: g.yc + 4.5, 'font-size': 13, 'font-weight': 500, fill: s.k === 'chg' ? C.purpleT : bad ? C.redT : C.ink, 'stroke': C.panel, 'stroke-width': 4, 'paint-order': 'stroke', text: vt }));
     });
     plot.replaceChildren(svg);
     plot.setAttribute('aria-label', t.sr);
@@ -1774,7 +1760,7 @@
 
   /* ================= 그림 5: 빌드별 세 지표 =================
      가장자리 집진, Eco 런타임, 무게를 빌드 32~41의 작은 그림 셋으로. 막대는 목표와의 차이(목표선이 바닥).
-     목표 쪽 바탕은 옅은 초록, 반대쪽은 옅은 빨강. 목표를 채운 빌드는 잉크, 못 채운 빌드는 빨강.
+     바탕은 판 회색 하나. 목표를 채운 빌드는 잉크, 못 채운 빌드는 빨강.
      부품을 바꾼 빌드에는 그림 1의 번호 풍선(보라)과 세로 점선. 빌드 41의 값과 차이는 오른쪽에. */
   const F3K = ['edge', 'eco', 'weight'];
   const F3MIN = { edge: 2, eco: 240, weight: 120 };   // 작은 흔들림을 부풀리지 않는 최소 범위
@@ -1792,7 +1778,6 @@
     $('#f3K').replaceChildren(
       h('li', null, sv('svg', { width: 10, height: 12 }, sv('rect', { width: 10, height: 12, fill: C.ink })), t.keys.meet),
       h('li', null, sv('svg', { width: 10, height: 12 }, sv('rect', { width: 10, height: 12, fill: C.red })), t.keys.miss),
-      h('li', null, sv('svg', { width: 24, height: 12 }, sv('rect', { width: 12, height: 12, fill: C.goodBg }), sv('rect', { x: 12, width: 12, height: 12, fill: C.badBg })), t.keys.zone),
       h('li', null, sv('svg', { width: 14, height: 14 }, sv('circle', { cx: 7, cy: 7, r: 6.3, fill: '#fff', stroke: C.purpleT })), t.keys.chg));
     const [W, H] = plotSize(plot, 260, 300);
     const topS = 28, axisH = 36, head = 22, pg = 14, ph = (H - topS - axisH - 3 * head - 2 * pg) / 3;
@@ -1811,10 +1796,9 @@
       if (hi - lo < F3MIN[k]) { const c = (hi + lo) / 2; lo = c - F3MIN[k] / 2; hi = c + F3MIN[k] / 2; }
       const pad = (hi - lo) * .16; lo -= pad; hi += pad;
       const y = v => py0 + (hi - v) / (hi - lo) * (py1 - py0), yb = y(0);
-      // 바탕: 목표 쪽은 옅은 초록, 반대쪽은 옅은 빨강(무게는 위가 넘는 쪽)
-      const upGood = !LOWER[k], zUp = upGood ? C.goodBg : C.badBg, zDn = upGood ? C.badBg : C.goodBg;
-      g0.append(sv('rect', { x: padL, y: py0, width: W - padL - padR, height: yb - py0, fill: zUp }),
-        sv('rect', { x: padL, y: yb, width: W - padL - padR, height: py1 - yb, fill: zDn }));
+      // 바탕: 판 회색 하나
+      const zUp = C.panel, zDn = C.panel;
+      g0.append(sv('rect', { x: padL, y: py0, width: W - padL - padR, height: py1 - py0, fill: C.panel }));
       // 패널 이름과 목표
       const ht = sv('text', { x: 0, y: y0 + 13, 'font-size': 13.5, 'font-weight': 500, fill: C.ink });
       ht.append(sv('tspan', { text: t.panels[k] }), sv('tspan', { dx: 8, 'font-size': 12.5, 'font-weight': 400, fill: C.mute, text: `${limWord(k)} ${tgtTxt(k)}` }));
@@ -1940,7 +1924,7 @@
   /* ================= 그림 6: 내구 시험 =================
      시험마다 시작부터 끝나는 날까지 한 줄. 한 양은 진한 막대, 남은 양은 니켈, 설계 확정 뒤로 넘친 만큼은 빨강.
      부품을 바꿔 다시 시작한 시험은 그 부품의 번호 풍선(보라). 오늘은 실선, 설계 확정은 1점 쇄선. 늦게 끝나는 것부터.
-     바탕은 설계 확정까지 판 회색, 그 뒤는 옅은 빨강(끝나는 날 글자 자리까지). */
+     바탕은 판 회색 하나(끝나는 날 글자 자리까지). */
   const f4Cur = { i: 0 };
   const D0 = '2026-10-01', D1 = '2026-12-21';
   const dayN = s => Math.round((dt(s) - dt(D0)) / 864e5);
@@ -1960,10 +1944,8 @@
     const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g0 = sv('g'), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
     svg.append(g0, gsel, g1, g2);
     const bottom = top + n * rowH;
-    // 바탕: 설계 확정까지 판 회색, 그 뒤 옅은 빨강
-    const xf0 = x(DATA.freeze);
-    g0.append(sv('rect', { x: x(D0), y: top - 4, width: xf0 - x(D0), height: bottom - top + 4, fill: C.panel }),
-      sv('rect', { x: xf0, y: top - 4, width: W - xf0, height: bottom - top + 4, fill: C.badBg }));
+    // 바탕: 판 회색 하나
+    g0.append(sv('rect', { x: x(D0), y: top - 4, width: W - x(D0), height: bottom - top + 4, fill: C.panel }));
     // 달: 1일의 흰 세로선과 아래 이름
     ['2026-10-01', '2026-11-01', '2026-12-01'].forEach(s => {
       const xx = x(s), d = dt(s);
@@ -1979,7 +1961,7 @@
     const fw = s => textW(s, 11.5, 500) * (KO() ? 1 : 1.08);
     const fz = xf + 5 + fw(t.freeze) <= W ? t.freeze : t.freezeS;
     g0.append(sv('text', { x: Math.min(xf + 5, W - fw(fz)), y: top - 6, 'font-size': 11.5, 'font-weight': 500, fill: C.ink, 'letter-spacing': KO() ? 0 : '.06em', text: fz }));
-    const haloAt = px => ({ stroke: px >= xf ? C.badBg : C.panel, 'stroke-width': 4, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
+    const haloAt = px => ({ stroke: C.panel, 'stroke-width': 4, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
     const geo = R.map((q, i) => {
       const yc = top + i * rowH + rowH / 2, y0 = yc - barH / 2, xs = x(q.start), xe = x(q.end), xn = q.complete ? xe : Math.min(xt, xe);
       g1.append(sv('text', { x: 0, y: yc - 2, 'font-size': 13.5, 'font-weight': 500, fill: C.ink, text: fitText(t.tests[q.id], 13.5, 500, nameW - 14) }),
