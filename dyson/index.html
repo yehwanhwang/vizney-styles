@@ -1427,7 +1427,7 @@
 
   /* ================= 그림 3: 빌드별 세 지표, 검은 그래프 화면 =================
      제품의 그래프 화면처럼 가로로 긴 검은 화면 셋(가장자리 집진, Eco 런타임, 무게). 빌드 32~41을 막대로.
-     막대는 목표와의 차이(흰 1점 쇄선이 목표). 목표를 채운 빌드는 레이저 초록, 못 채운 빌드는 빨강.
+     막대는 목표와의 차이(흰 1점 쇄선이 목표). 목표를 채운 빌드는 흰색, 못 채운 빌드만 빨강.
      부품을 바꾼 빌드에는 그림 1의 번호 풍선과 세로 점선. 오른쪽에 빌드 41의 값(가는 큰 숫자)과 목표와의 차이. */
   const F3K = ['edge', 'eco', 'weight'];
   const F3MIN = { edge: 2, eco: 240, weight: 120 };   // 작은 흔들림을 부풀리지 않는 최소 범위
@@ -1435,7 +1435,7 @@
   const f3Big = { edge: v => [NF(1).format(v), '%'], eco: v => [mmss(v), ''], weight: v => [kg(v), 'kg'] };
   const limWord = k => LOWER[k] ? (KO() ? '최대' : 'MAX') : (KO() ? '최소' : 'MIN');
   const f3Cur = { i: IX };
-  const SCR = { bg: C.black, ok: C.laser, bad: C.mode[2], sub: '#b9b9b9', guide: '#6b6b6b' };
+  const SCR = { bg: C.black, ok: '#ffffff', bad: C.mode[2], sub: '#b9b9b9', guide: '#6b6b6b', togo: '#5c5c5c' };
   function weekRange(b) {
     const w = DATA.buildWeek[b], mon = new Date(Date.UTC(2025, 11, 29 + 7 * (w - 1))), sun = new Date(mon.getTime() + 6 * 864e5);
     const iso = d => d.toISOString().slice(0, 10);
@@ -1450,7 +1450,7 @@
       h('li', null, sv('svg', { width: 24, height: 12 }, sv('rect', { width: 24, height: 12, fill: SCR.bg }), sv('line', { x1: 2, x2: 22, y1: 6, y2: 6, stroke: '#fff', 'stroke-dasharray': '8 2 2 2' })), t.keys.target),
       h('li', null, sv('svg', { width: 14, height: 14 }, sv('circle', { cx: 7, cy: 7, r: 6.3, fill: '#fff', stroke: C.purpleT })), t.keys.chg));
     const [W, H] = plotSize(plot, 260, 300);
-    const gapS = 10, sh = (H - 2 * gapS) / 3, wide = W >= 520, pad = wide ? 18 : 14, rw = wide ? 158 : 0;
+    const sh = Math.min(184, (H - 20) / 3), gapS = (H - 3 * sh) / 2, wide = W >= 520, pad = wide ? 18 : 14, rw = wide ? 158 : 0;
     const dfmt = (k, d) => k === 'eco' ? (d < 0 ? '−' : '+') + mmss(Math.abs(d)) : k === 'edge' ? `${d < 0 ? '−' : '+'}${NF(1).format(Math.abs(d))} ${t.pts}` : `${d < 0 ? '−' : '+'}${gr(Math.abs(d))} g`;
     const gx0 = pad, gx1 = W - pad - rw, slot = (gx1 - gx0) / n, x = i => gx0 + slot * (i + .5), bw = Math.max(5, Math.min(26, slot * .5));
     const jost = { 'font-family': 'Jost, sans-serif' };
@@ -1589,7 +1589,7 @@
   /* ================= 그림 4: 내구 시험 =================
      시험마다 시작부터 끝나는 날까지 한 줄. 한 양은 진한 막대, 남은 양은 니켈, 설계 확정 뒤로 넘친 만큼은 빨강.
      부품을 바꿔 다시 시작한 시험은 그 부품의 번호 풍선(보라). 오늘은 실선, 설계 확정은 1점 쇄선. 늦게 끝나는 것부터.
-     바탕은 판 회색 하나(끝나는 날 글자 자리까지). */
+     그림 3과 같은 검은 화면 위에: 한 양은 흰 막대, 남은 양은 회색, 설계 확정 뒤는 빨강. */
   const f4Cur = { i: 0 };
   const D0 = '2026-10-01', D1 = '2026-12-21';
   const dayN = s => Math.round((dt(s) - dt(D0)) / 864e5);
@@ -1597,57 +1597,56 @@
     const F = facts(), t = L().f4, plot = $('#f4Plot'), host = $('#f4'), anim = animOK(animate), R = F.tests, n = R.length;
     $('#f4T').textContent = glue(t.title[F.m](F));
     const box = (fill, stroke) => sv('svg', { width: 14, height: 10 }, sv('rect', { x: .5, y: .5, width: 13, height: 9, rx: 1, fill, stroke: stroke || fill }));
-    $('#f4K').replaceChildren(h('li', null, box(C.ink), t.keys.done), h('li', null, box(C.nickel, C.nickelE), t.keys.togo), h('li', null, box(C.red), t.keys.after),
+    const kbox = fill => sv('svg', { width: 16, height: 12 }, sv('rect', { width: 16, height: 12, fill: SCR.bg }), sv('rect', { x: 3, y: 3.5, width: 10, height: 5, fill }));
+    $('#f4K').replaceChildren(h('li', null, kbox(SCR.ok), t.keys.done), h('li', null, kbox(SCR.togo), t.keys.togo), h('li', null, kbox(SCR.bad), t.keys.after),
       h('li', null, sv('svg', { width: 14, height: 14 }, sv('circle', { cx: 7, cy: 7, r: 6.3, fill: '#fff', stroke: C.purpleT })), t.keys.restart));
-    const [W, H] = plotSize(plot, 260, 300);
+    const [W0, H0] = plotSize(plot, 260, 300), P = W0 < 520 ? 14 : 18, W = W0 - 2 * P, H = H0 - 2 * P;
     const unit = q => t.units[DATA.units[q.id]], sub = q => q.complete ? t.whole(NF(0).format(q.target), unit(q)) : t.of(NF(0).format(q.done), NF(0).format(q.target), unit(q));
     const endTxt = q => q.complete ? t.done(DAY[state.lang](q.end)) : DAY[state.lang](q.end);
     const nameW = Math.min(Math.round(W * .36), Math.ceil(Math.max(...R.map(q => Math.max(textW(t.tests[q.id], 13.5, 500), textW(sub(q), 12.5))))) + 18);
     const endW = Math.ceil(Math.max(...R.map(q => Math.max(textW(endTxt(q), 13, 500), q.late ? textW(t.late(q.late), 12.5, 500) : 0)))) + 12;
     const top = 30, axisH = 26, rowH = (H - top - axisH) / n, barH = Math.max(10, Math.min(20, rowH * .38));
     const span = dayN(D1), x = s => nameW + dayN(s) / span * (W - nameW - endW);
-    const svg = sv('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }), g0 = sv('g'), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
-    svg.append(g0, gsel, g1, g2);
+    const svg = sv('svg', { width: W0, height: H0, viewBox: `0 0 ${W0} ${H0}`, 'aria-hidden': 'true' }), gin = sv('g', { transform: `translate(${P} ${P})` }), g0 = sv('g'), g1 = sv('g'), g2 = sv('g'), gsel = sv('g');
+    svg.append(sv('rect', { width: W0, height: H0, rx: 8, fill: SCR.bg }), gin); gin.append(g0, gsel, g1, g2);
     const bottom = top + n * rowH;
-    // 바탕: 판 회색 하나
-    g0.append(sv('rect', { x: x(D0), y: top - 4, width: W - x(D0), height: bottom - top + 4, fill: C.panel }));
-    // 달: 1일의 흰 세로선과 아래 이름
+    // 달: 1일의 어두운 세로선과 아래 이름
     ['2026-10-01', '2026-11-01', '2026-12-01'].forEach(s => {
       const xx = x(s), d = dt(s);
-      g0.append(sv('line', { x1: xx, x2: xx, y1: top - 4, y2: bottom, stroke: '#fff', 'stroke-width': 1.5 }),
-        sv('text', { x: xx + 4, y: bottom + 17, 'font-size': 12, fill: C.mute, text: KO() ? `${d.getUTCMonth() + 1}월` : MON[d.getUTCMonth()] }));
+      g0.append(sv('line', { x1: xx, x2: xx, y1: top - 4, y2: bottom, stroke: '#333', 'stroke-width': 1 }),
+        sv('text', { x: xx + 4, y: bottom + 17, 'font-size': 12, fill: SCR.sub, text: KO() ? `${d.getUTCMonth() + 1}월` : MON[d.getUTCMonth()] }));
     });
     // 오늘(시험 기준일)과 설계 확정
     const xt = x(DATA.asof), xf = x(DATA.freeze);
-    g0.append(sv('line', { x1: xt, x2: xt, y1: top - 14, y2: bottom, stroke: C.ink, 'stroke-width': 1 }),
-      sv('text', { x: xt - 5, y: top - 6, 'text-anchor': 'end', 'font-size': 11.5, 'font-weight': 500, fill: C.ink, 'letter-spacing': KO() ? 0 : '.06em', text: t.today }),
-      sv('line', { x1: xf, x2: xf, y1: top - 14, y2: bottom, stroke: C.ink, 'stroke-width': 1.5, 'stroke-dasharray': '10 3 2 3' }));
+    g0.append(sv('line', { x1: xt, x2: xt, y1: top - 14, y2: bottom, stroke: '#fff', 'stroke-width': 1 }),
+      sv('text', { x: xt - 5, y: top - 6, 'text-anchor': 'end', 'font-size': 11.5, 'font-weight': 500, fill: '#fff', 'letter-spacing': KO() ? 0 : '.06em', text: t.today }),
+      sv('line', { x1: xf, x2: xf, y1: top - 14, y2: bottom, stroke: '#fff', 'stroke-width': 1.5, 'stroke-dasharray': '10 3 2 3' }));
     // 설계 확정 이름: 선 오른쪽에, 자리가 모자라면 짧게, 그래도 모자라면 그림 끝에 맞춘다
     const fw = s => textW(s, 11.5, 500) * (KO() ? 1 : 1.08);
     const fz = xf + 5 + fw(t.freeze) <= W ? t.freeze : t.freezeS;
-    g0.append(sv('text', { x: Math.min(xf + 5, W - fw(fz)), y: top - 6, 'font-size': 11.5, 'font-weight': 500, fill: C.ink, 'letter-spacing': KO() ? 0 : '.06em', text: fz }));
-    const haloAt = px => ({ stroke: C.panel, 'stroke-width': 4, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
+    g0.append(sv('text', { x: Math.min(xf + 5, W - fw(fz)), y: top - 6, 'font-size': 11.5, 'font-weight': 500, fill: '#fff', 'letter-spacing': KO() ? 0 : '.06em', text: fz }));
+    const haloAt = px => ({ stroke: SCR.bg, 'stroke-width': 4, 'stroke-linejoin': 'round', 'paint-order': 'stroke' });
     const geo = R.map((q, i) => {
       const yc = top + i * rowH + rowH / 2, y0 = yc - barH / 2, xs = x(q.start), xe = x(q.end), xn = q.complete ? xe : Math.min(xt, xe);
-      g1.append(sv('text', { x: 0, y: yc - 2, 'font-size': 13.5, 'font-weight': 500, fill: C.ink, text: fitText(t.tests[q.id], 13.5, 500, nameW - 14) }),
-        sv('text', { x: 0, y: yc + 14, 'font-size': 12.5, fill: C.mute, text: fitText(sub(q), 12.5, 400, nameW - 14) }));
+      g1.append(sv('text', { x: 0, y: yc - 2, 'font-size': 13.5, 'font-weight': 500, fill: '#fff', text: fitText(t.tests[q.id], 13.5, 500, nameW - 14) }),
+        sv('text', { x: 0, y: yc + 14, 'font-size': 12.5, fill: SCR.sub, text: fitText(sub(q), 12.5, 400, nameW - 14) }));
       const gb = sv('g', anim ? { class: 'growx', style: { animationDelay: (i * 70) + 'ms' } } : null);
-      gb.append(sv('rect', { x: xs, y: y0, width: Math.max(1, xn - xs), height: barH, fill: C.ink }));
+      gb.append(sv('rect', { x: xs, y: y0, width: Math.max(1, xn - xs), height: barH, fill: SCR.ok }));
       if (!q.complete) {
         const xa = Math.min(xe, xf);
-        if (xa > xn) gb.append(sv('rect', { x: xn, y: y0 + .5, width: xa - xn, height: barH - 1, fill: C.nickel, stroke: C.nickelE, 'stroke-width': 1 }));
-        if (xe > xf) gb.append(sv('rect', { x: xf, y: y0, width: xe - xf, height: barH, fill: C.red }));
+        if (xa > xn) gb.append(sv('rect', { x: xn, y: y0, width: xa - xn, height: barH, fill: SCR.togo }));
+        if (xe > xf) gb.append(sv('rect', { x: xf, y: y0, width: xe - xf, height: barH, fill: SCR.bad }));
       }
       g1.append(gb);
       if (q.restart != null) {
         const bx = xs - 13;
-        g2.append(sv('circle', { cx: bx, cy: yc, r: 9.5, fill: '#fff', stroke: C.purpleT, 'stroke-width': 1 }),
+        g2.append(sv('circle', { cx: bx, cy: yc, r: 9.5, fill: '#fff' }),
           sv('text', { x: bx, y: yc + 4, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 500, fill: C.purpleT, 'font-family': 'Jost, sans-serif', text: q.restart + 1 }));
       }
       const ex = xe + 8;
-      if (q.late) g2.append(sv('text', { x: ex, y: yc - 2, 'font-size': 13, 'font-weight': 500, fill: C.ink, ...haloAt(ex), text: endTxt(q) }),
-        sv('text', { x: ex, y: yc + 13, 'font-size': 12.5, 'font-weight': 500, fill: C.redT, ...haloAt(ex), text: t.late(q.late) }));
-      else g2.append(sv('text', { x: ex, y: yc + 4.5, 'font-size': 13, 'font-weight': q.complete ? 400 : 500, fill: q.complete ? C.mute : C.ink, ...haloAt(ex), text: endTxt(q) }));
+      if (q.late) g2.append(sv('text', { x: ex, y: yc - 2, 'font-size': 13, 'font-weight': 500, fill: '#fff', ...haloAt(ex), text: endTxt(q) }),
+        sv('text', { x: ex, y: yc + 13, 'font-size': 12.5, 'font-weight': 500, fill: SCR.bad, ...haloAt(ex), text: t.late(q.late) }));
+      else g2.append(sv('text', { x: ex, y: yc + 4.5, 'font-size': 13, 'font-weight': q.complete ? 400 : 500, fill: q.complete ? SCR.sub : '#fff', ...haloAt(ex), text: endTxt(q) }));
       return { y0: top + i * rowH, y1: top + (i + 1) * rowH, yc, xs, xe };
     });
     plot.replaceChildren(svg);
@@ -1663,9 +1662,9 @@
       ]);
     };
     f4Cur.say = i => { const q = R[i]; return glue(`${t.tests[q.id]}: ${sub(q)}, ${q.complete ? t.tEnded : t.tEnds} ${DAY[state.lang](q.end)}${q.late ? ', ' + t.late(q.late) : ''}`); };
-    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const g = geo[i]; gsel.append(sv('rect', { x: 0, y: g.y0 + 1, width: W, height: g.y1 - g.y0 - 2, fill: 'rgba(0,0,0,.05)' })); };
-    wireItems(host, plot, n, f4Cur, (xx, yy) => Math.max(0, Math.min(n - 1, Math.floor((yy - top) / rowH))),
-      i => { sel(i); const o = offsetIn(host, plot), g = geo[i]; placeTip(host, tipFor(i), o.x + Math.min(g.xe, W - 40), o.y + g.y0, o.y + g.y1); }, () => sel(-1));
+    const sel = i => { gsel.replaceChildren(); if (i == null || i < 0) return; const g = geo[i]; gsel.append(sv('rect', { x: -P + 4, y: g.y0 + 1, width: W0 - 8, height: g.y1 - g.y0 - 2, fill: '#fff', opacity: .12 })); };
+    wireItems(host, plot, n, f4Cur, (xx, yy) => Math.max(0, Math.min(n - 1, Math.floor((yy - P - top) / rowH))),
+      i => { sel(i); const o = offsetIn(host, plot), g = geo[i]; placeTip(host, tipFor(i), o.x + P + Math.min(g.xe, W - 40), o.y + P + g.y0, o.y + P + g.y1); }, () => sel(-1));
     $('#f4Table').replaceChildren(srTable(t.sr, t.srHead, R.map(q => [t.tests[q.id], NF(0).format(q.done), `${NF(0).format(q.target)} ${unit(q)}`, DAY[state.lang](q.end), String(q.late)])));
   }
 
