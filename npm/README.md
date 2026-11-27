@@ -2,7 +2,7 @@
 
 Add a [Vizney Styles](https://styles.vizney.com) dashboard style to your project. Vizney Styles is a line of [Vizney](https://www.vizney.com).
 
-Each style is a `DASHBOARD.md` spec that coding agents, Tableau and Power BI can follow, and the `dashboard-style` agent skill that builds, restyles and reviews dashboards to it.
+Each style is a `DASHBOARD.md` spec that coding agents can follow, and the `dashboard-style` agent skill that builds, restyles and reviews dashboards to it.
 
 ```bash
 npx @vizney/styles@latest add anthropic

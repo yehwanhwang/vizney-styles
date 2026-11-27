@@ -852,12 +852,12 @@
       },
       s2: { t: 'How it’s built', k: 'One spec, the same dashboard in any tool' },
       build: {
-        p: 'Every view on this page follows one DASHBOARD.md. Put the package in your project folder and any agent that reads the folder builds to the same rules and checks its work against the same list. The Tableau and Power BI files carry the same colors and formats into those tools.',
+        p: 'Every view on this page follows one DASHBOARD.md. Put the package in your project folder and any agent that reads the folder builds to the same rules and checks its work against the same list.',
         spec: 'Read DASHBOARD.md', cta: 'Commission one for your company',
-        steps: [['Add the style to your project', 'One command, or one zip, puts DASHBOARD.md in your project and the dashboard-style skill in .claude/skills, with the Tableau and Power BI files.'], ['Ask for the dashboard', 'Coding agents load the skill, plan the views from the spec and draw them. BI agents that read the same folder follow the same spec.'], ['Check before you share', 'The skill runs the checklist in DASHBOARD.md and reports what passed and what to fix. You can also ask it for a review on its own.']],
+        steps: [['Add the style to your project', 'One command, or one zip, puts DASHBOARD.md in your project and the dashboard-style skill in .claude/skills.'], ['Ask for the dashboard', 'Coding agents load the skill, plan the views from the spec and draw them. BI agents that read the same folder follow the same spec.'], ['Check before you share', 'The skill runs the checklist in DASHBOARD.md and reports what passed and what to fix. You can also ask it for a review on its own.']],
         pkg: 'Package', pkgSub: 'files that go in your project',
         get: 'Install', getNote: 'Run either one in your project folder: the first needs Node 18+, the second is a shell script for macOS and Linux. No terminal? Unzip the zip there instead.', zip: 'Download .zip', cmdCopied: 'Install command copied',
-        files: { 'your-project/': '', 'DASHBOARD.md': 'the spec: tokens, rules, checks', '.claude/skills/': '', 'dashboard-style/': 'the agent skill', 'SKILL.md': 'build · restyle · review', 'tokens.css': 'colors, type, spacing', 'nasa.tps': 'Tableau palettes', 'powerbi-theme.json': 'Power BI theme', 'prompt.md': 'tested prompts' },
+        files: { 'your-project/': '', 'DASHBOARD.md': 'the spec: tokens, rules, checks', '.claude/skills/': '', 'dashboard-style/': 'the agent skill', 'SKILL.md': 'build · restyle · review', 'tokens.css': 'colors, type, spacing', 'prompt.md': 'tested prompts' },
         modes: ['Without a spec', 'With DASHBOARD.md'],
         checksT: 'Checks · DASHBOARD.md', checksOk: 'All 6 passed', checksBad: '0 of 6 passed',
         checks: [[1, 'Frame: positions as rows, NO-GO first, call signs in DM Mono, rules #2e2e32'], [2, 'Status is a word: GO in #4cd493, NO-GO on a #f2473f chip with black text'], [3, 'Open items: one #717173 bar per row with its number'], [4, 'Constraints in #ff9088 and the need-by date as L− and day'], [4, 'NO-GO rows carry a 3px #f2473f rule on the left'], [5, 'The title states the finding; text at 4.5:1 or more on #17171b']],
@@ -1028,12 +1028,12 @@
       },
       s2: { t: '만드는 법', k: '명세 하나로, 어떤 도구에서든 같은 대시보드' },
       build: {
-        p: '이 화면의 모든 그림은 DASHBOARD.md 하나를 따릅니다. 패키지를 프로젝트 폴더에 두면, 그 폴더를 읽는 에이전트는 같은 규칙으로 만들고 같은 목록으로 스스로 점검합니다. Tableau와 Power BI 파일은 같은 색과 서식을 그 도구로 옮깁니다.',
+        p: '이 화면의 모든 그림은 DASHBOARD.md 하나를 따릅니다. 패키지를 프로젝트 폴더에 두면, 그 폴더를 읽는 에이전트는 같은 규칙으로 만들고 같은 목록으로 스스로 점검합니다.',
         spec: 'DASHBOARD.md 읽기', cta: '우리 회사 것 의뢰하기',
-        steps: [['스타일을 프로젝트에 추가', '명령 한 줄이나 zip 하나로 프로젝트에 DASHBOARD.md가, .claude/skills에 dashboard-style 스킬이 Tableau·Power BI 파일과 함께 들어갑니다.'], ['대시보드를 요청', '코딩 에이전트는 스킬을 불러 명세대로 그림 계획을 세우고 그립니다. 같은 폴더를 읽는 BI 에이전트도 같은 명세를 따릅니다.'], ['공유 전에 점검', '스킬이 DASHBOARD.md의 점검 목록을 돌려 통과한 것과 고칠 것을 알려 줍니다. 언제든 검토만 따로 맡길 수도 있습니다.']],
+        steps: [['스타일을 프로젝트에 추가', '명령 한 줄이나 zip 하나로 프로젝트에 DASHBOARD.md가, .claude/skills에 dashboard-style 스킬이 들어갑니다.'], ['대시보드를 요청', '코딩 에이전트는 스킬을 불러 명세대로 그림 계획을 세우고 그립니다. 같은 폴더를 읽는 BI 에이전트도 같은 명세를 따릅니다.'], ['공유 전에 점검', '스킬이 DASHBOARD.md의 점검 목록을 돌려 통과한 것과 고칠 것을 알려 줍니다. 언제든 검토만 따로 맡길 수도 있습니다.']],
         pkg: '패키지', pkgSub: '프로젝트에 들어가는 파일',
         get: '설치', getNote: '프로젝트 폴더에서 둘 중 하나를 실행합니다. 위 줄은 Node 18 이상, 아래 줄은 macOS·Linux 셸용입니다. 터미널이 없으면 zip을 프로젝트 폴더에 풉니다.', zip: 'zip 내려받기', cmdCopied: '설치 명령을 복사했습니다',
-        files: { 'your-project/': '', 'DASHBOARD.md': '명세: 토큰, 규칙, 점검 목록', '.claude/skills/': '', 'dashboard-style/': '에이전트 스킬', 'SKILL.md': '만들기 · 고치기 · 검토', 'tokens.css': '색·서체·간격', 'nasa.tps': 'Tableau 팔레트', 'powerbi-theme.json': 'Power BI 테마', 'prompt.md': '검증한 프롬프트' },
+        files: { 'your-project/': '', 'DASHBOARD.md': '명세: 토큰, 규칙, 점검 목록', '.claude/skills/': '', 'dashboard-style/': '에이전트 스킬', 'SKILL.md': '만들기 · 고치기 · 검토', 'tokens.css': '색·서체·간격', 'prompt.md': '검증한 프롬프트' },
         modes: ['명세 없이', 'DASHBOARD.md로'],
         checksT: '점검 · DASHBOARD.md', checksOk: '6개 모두 통과', checksBad: '6개 중 0개 통과',
         checks: [[1, '틀: 자리마다 한 줄, NO-GO부터, 호출 부호는 DM Mono, 괘선 #2e2e32'], [2, '상태는 낱말로: GO는 #4cd493, NO-GO는 #f2473f 칩에 검은 글자'], [3, '미결 항목: 줄마다 #717173 막대 하나와 숫자'], [4, '제약 항목은 #ff9088, 필요일은 L−와 날짜로'], [4, 'NO-GO 줄은 왼쪽에 #f2473f 3px 선'], [5, '제목은 결과를 말하고, #17171b에서 글자 대비 4.5:1 이상']],
@@ -2089,7 +2089,6 @@
       item('DASHBOARD.md', 'DASHBOARD.html', { cls: 'in' }),
       item('.claude/skills/', null, { dir: 1, cls: 'in' }), item('dashboard-style/', null, { dir: 1, cls: 'in2' }),
       item('SKILL.md', 'skill/SKILL.html', { cls: 'in3' }), item('tokens.css', 'tokens.css', { cls: 'in3' }),
-      item('nasa.tps', 'nasa.tps', { cls: 'in3', dl: 1 }), item('powerbi-theme.json', 'powerbi-theme.json', { cls: 'in3', dl: 1 }),
       item('prompt.md', 'prompt.html', { cls: 'in3' }));
     $('#modeSeg').replaceChildren(...t.build.modes.map((x, i) => {
       const k = i ? 'with' : 'without';

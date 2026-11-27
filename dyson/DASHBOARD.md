@@ -55,7 +55,7 @@ files: {tokens: tokens.json, css: tokens.css, tableau: dyson.tps, powerbi: power
 
 **Technical, Exploded View, Clean** · 테크니컬, 분해도, 말끔함
 
-A dashboard design spec read from the way Dyson shows what is inside a machine: the round screen on its cordless vacuums (the power mode by name in its colour, the run time left, a battery), the exploded views it uses to explain its technology, the green light on the cleaner head that shows the dust a floor still holds, and the Specifications panel of dyson.com. It turns those parts into a prototype test review on white with black screens, with the values, rules and checks an AI coding agent, Tableau or Power BI needs to rebuild it.
+A dashboard design spec read from the way Dyson shows what is inside a machine: the round screen on its cordless vacuums (the power mode by name in its colour, the run time left, a battery), the exploded views it uses to explain its technology, the green light on the cleaner head that shows the dust a floor still holds, and the Specifications panel of dyson.com. It turns those parts into a prototype test review on white with black screens, with the values, rules and checks an AI coding agent needs to rebuild it.
 
 ```
 npx @vizney/styles@latest add dyson

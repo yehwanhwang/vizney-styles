@@ -50,7 +50,7 @@ files: {tokens: tokens.json, css: tokens.css, tableau: lego.tps, powerbi: powerb
 
 **Colorful, Stacked, Playful** · 알록달록, 쌓기, 즐거움
 
-A dashboard design spec read from the way LEGO® shows a number to a shopper and from the bricks themselves: results drawn as columns of stacked bricks, the yellow header band and the badges of lego.com, the red % OFF tag beside a struck-out price, the box line `18+ | set | pieces`, and the gifts with purchase that step up with the basket at Black Friday. It turns those parts into a bright, working event plan on a white page, with the values, rules and checks an AI coding agent, Tableau or Power BI needs to rebuild it.
+A dashboard design spec read from the way LEGO® shows a number to a shopper and from the bricks themselves: results drawn as columns of stacked bricks, the yellow header band and the badges of lego.com, the red % OFF tag beside a struck-out price, the box line `18+ | set | pieces`, and the gifts with purchase that step up with the basket at Black Friday. It turns those parts into a bright, working event plan on a white page, with the values, rules and checks an AI coding agent needs to rebuild it.
 
 ```
 npx @vizney/styles@latest add lego

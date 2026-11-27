@@ -1,6 +1,6 @@
 # Vizney Styles
 
-Dashboard design specs that AI coding agents, Tableau and Power BI can follow. Each entry in the catalog is a company's look, read from its public website and worked out for dashboards: `DASHBOARD.md`, a live sample screen with fictional data, validated data colors, and the tool files. The same package is made privately for your own company.
+Dashboard design specs that AI coding agents can follow. Each entry in the catalog is a company's look, read from its public website and worked out for dashboards: `DASHBOARD.md`, a live sample screen with fictional data, validated data colors, and an agent skill. The same package is made privately for your own company.
 
 Served at **https://styles.vizney.com** (GitHub Pages, `main` branch). Everything pushed to `main` is published immediately, so keep work in progress off `main`. Every page opens in English; add `?lang=ko` for Korean.
 
