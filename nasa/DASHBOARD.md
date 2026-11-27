@@ -58,7 +58,7 @@ files: {tokens: tokens.json, css: tokens.css, tableau: nasa.tps, powerbi: powerb
 
 **Space, Countdown, Calm** · 우주, 카운트다운, 침착함
 
-A dashboard design spec read from the way NASA shows a number on launch day: the L-minus countdown with its built-in holds, the launch director's GO/NO-GO poll, the front wall of mission control with its world map, station circles and row of clocks, and the white Earth Indicators charts of science.nasa.gov. It turns those parts into a calm launch readiness review on black and white sections, with the values, rules and checks an AI coding agent, Tableau or Power BI needs to rebuild it.
+A dashboard design spec read from the way NASA shows a number on launch day: the L-minus countdown with its built-in holds, the launch director's GO/NO-GO poll, the front wall of mission control with its world map, station circles and row of clocks, and the white Earth Indicators charts of science.nasa.gov. It turns those parts into a calm launch readiness review on black and white sections, with the values, rules and checks an AI coding agent needs to rebuild it.
 
 ```
 npx @vizney/styles@latest add nasa

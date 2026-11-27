@@ -22,7 +22,7 @@ from shots import ROOT, serve  # noqa: E402
 SIZE = (1200, 630)
 HEADLINE = ("<em>DASHBOARD.md</em> for your company's dashboards")
 LEDE = ("A company's look, worked out for dashboards: a spec your AI agents follow, "
-        "a live sample, and Tableau and Power BI files.")
+        "a live sample, and an agent skill.")
 
 PAGE = """<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face{font-family:'VZ Sans';font-weight:400;src:url(/assets/fonts/vz-sans-400.woff) format('woff')}

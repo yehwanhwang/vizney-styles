@@ -49,7 +49,7 @@ files: {tokens: tokens.json, css: tokens.css, tableau: f1.tps, powerbi: powerbi-
 
 **Racing, Telemetry, Precise** · 레이싱, 텔레메트리, 정밀함
 
-A dashboard design spec read from the way motor racing shows its numbers on television and on its results pages: the timing tower down the side of the picture, the purple, green and yellow of the sector times, the onboard display with its shift lights and gear readout, the circuit map coloured mini-sector by mini-sector, the speed trace with the running gap underneath, and the tyre graphic that splits a race into stints. It turns those parts into a working race debrief on a black page, with the values, rules and checks an AI coding agent, Tableau or Power BI needs to rebuild it.
+A dashboard design spec read from the way motor racing shows its numbers on television and on its results pages: the timing tower down the side of the picture, the purple, green and yellow of the sector times, the onboard display with its shift lights and gear readout, the circuit map coloured mini-sector by mini-sector, the speed trace with the running gap underneath, and the tyre graphic that splits a race into stints. It turns those parts into a working race debrief on a black page, with the values, rules and checks an AI coding agent needs to rebuild it.
 
 ```
 npx @vizney/styles@latest add f1
